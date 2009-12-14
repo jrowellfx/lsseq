@@ -32,13 +32,13 @@ def seqSplit(filename) :
     else :
 	return []
 
-def actualFilename(filename, path, padding, frame) :
+def actualFilename(filename, padding, frame) :
     fileComponents = filename.split(".")
     formatStr = "%0" + str(padding) + "d"
     fileComponents = fileComponents[:-1] + [formatStr % frame] + [fileComponents[-1]]
-    return path + ".".join(fileComponents)
+    return ".".join(fileComponents)
 
-def printSeq(filename, path, frameList, options) :
+def printSeq(filename, frameList, options) :
 
     fileComponents = filename.split(".")
     missingFrames = []
@@ -51,7 +51,7 @@ def printSeq(filename, path, frameList, options) :
 	else :
 	    if (options.showZero and
 		    os.path.getsize(
-		    actualFilename(filename, path, frameList[0], i)) == 0) :
+		    actualFilename(filename, frameList[0], i)) == 0) :
 		missingFrames.append(i)
 	    frameList[1].pop(0)
 	i = i + 1
@@ -62,7 +62,13 @@ def printSeq(filename, path, frameList, options) :
 	print missingFrames,
     print ""
 
-def listSeqDir(dirContents, path, listSubDirs, options):
+def listSeqDir(dirContents, path, listSubDirs, options) :
+
+    tmpCWD = ""
+    if (len(path) > 0) :
+	tmpCWD = os.path.abspath(".")
+	os.chdir(path)
+
     imageDictionary = {}
     otherFiles = []
     dirList = []
@@ -70,42 +76,48 @@ def listSeqDir(dirContents, path, listSubDirs, options):
 	fileParts = seqSplit(filename)
 	if len(fileParts) == 2 :
 	    if imageDictionary.has_key(fileParts[0]) :
+		# tack on new frame number.
 		imageDictionary[fileParts[0]][1].append(int(fileParts[1]))
+		# smallest length frame number determines padding.
 		if (len(fileParts[1]) < imageDictionary[fileParts[0]][0]) :
 		    imageDictionary[fileParts[0]][0] = len(fileParts[1])
 	    else :
+		# initialiaze dictionary entry.
 		imageDictionary[fileParts[0]] \
 		    = [len(fileParts[1]), [int(fileParts[1])]]
 	else :
 	    otherFiles.append(filename)
-	    if os.path.isdir(path + filename) :
+	    if os.path.isdir(filename) :
 		dirList.append(filename)
 
     otherFiles.sort()
     if len(otherFiles) > 0 :
 	lsCmd = ["ls", "-d"] + otherFiles
-	if (len(path) > 0) :
-	    tmpCWD = os.path.abspath(path)
-	    print tmpCWD
-	    os.chdir(path)
 	subprocess.call(lsCmd)
-	if (len(path) > 0) : os.chdir(tmpCWD)
 
     imKeys = imageDictionary.keys()
     imKeys.sort()
     for k in imKeys :
 	imageDictionary[k][1].sort()
-	# print k, "padding: ", imageDictionary[k][0], imageDictionary[k][1]
-	# print imageDictionary[k]
-	printSeq(k, path, imageDictionary[k], options)
+	printSeq(k, imageDictionary[k], options)
 
-    dirList.sort()
+    if (listSubDirs and options.listDirContents) :
+	dirList.sort()
+	for d in dirList :
+	    dir = d
+	    if d[-1] == '/' :
+		dir = d[:-1]
+	    print ""
+	    print dir + ":"
+	    listSeqDir(os.listdir(dir), dir, False, options)
+
+    if (len(path) > 0) : os.chdir(tmpCWD)
 
 def main():
 
     p = optparse.OptionParser(
 	description="List directory contents while compressing images sequences to one entry each.\nFilenames that are part of images sequences are assumed to be of the form\n<descriptiveName>.<frameNum>.<imgExtention>",
-	version="0.103",
+	version="0.104",
 	usage="%prog [OPTION]... [FILE]...")
     p.add_option("--directory", "-d", action="store_false",
 	dest="listDirContents", default=True,
@@ -153,12 +165,13 @@ def main():
 	else :
 	    listSeqDir(os.listdir("."), "", False, options)
     elif len(arguments) == 1 and os.path.isdir(arguments[0]) :
+	arg0 = arguments[0]
+	if arguments[0][-1] == '/' :
+	    arg0 = arguments[0][:-1]
 	if (not options.listDirContents) :
-	    print arguments[0]
+	    print arg0
 	else :
-	    # print os.listdir(arguments[0])
-	    # print arguments[0]
-	    listSeqDir(os.listdir(arguments[0]), arguments[0], False, options)
+	    listSeqDir(os.listdir(arg0), arg0, False, options)
     else:
 	listSeqDir(arguments, "", True, options)
 
