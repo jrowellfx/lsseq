@@ -46,7 +46,7 @@ def printSeq(filename, frameList, options) :
     maxFrame = frameList[1][-1]
     i = minFrame
     while i <= maxFrame:
-	if i != frameList[1][0] and options.showMissing:
+	if i != frameList[1][0] and options.showMissing :
 	    missingFrames.append(i)
 	else :
 	    if (options.showZero and
@@ -55,7 +55,12 @@ def printSeq(filename, frameList, options) :
 		missingFrames.append(i)
 	    frameList[1].pop(0)
 	i = i + 1
-    frameRange = "[" + str(minFrame) + "-" + str(maxFrame) + "]"
+    formatStr = "%0" + str(frameList[0]) + "d"
+    frameRange = "[" \
+	+ (formatStr % minFrame) \
+	+ "-" \
+	+ (formatStr % maxFrame) \
+	+ "]"
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
     print ".".join(fileComponents),
     if (len(missingFrames) > 0) :
@@ -86,8 +91,13 @@ def listSeqDir(dirContents, path, listSubDirs, options) :
 		imageDictionary[fileParts[0]] \
 		    = [len(fileParts[1]), [int(fileParts[1])]]
 	else :
-	    otherFiles.append(filename)
-	    if os.path.isdir(filename) :
+	    isFileDir = os.path.isdir(filename)
+	    if ((not isFileDir
+		    or not listSubDirs
+		    or not options.listDirContents)
+		    and not options.onlyImages):
+		otherFiles.append(filename)
+	    if isFileDir :
 		dirList.append(filename)
 
     otherFiles.sort()
@@ -101,7 +111,7 @@ def listSeqDir(dirContents, path, listSubDirs, options) :
 	imageDictionary[k][1].sort()
 	printSeq(k, imageDictionary[k], options)
 
-    if (listSubDirs and options.listDirContents) :
+    if ((listSubDirs or options.isRecursive) and options.listDirContents) :
 	dirList.sort()
 	for d in dirList :
 	    dir = d
@@ -117,7 +127,7 @@ def main():
 
     p = optparse.OptionParser(
 	description="List directory contents while compressing images sequences to one entry each.\nFilenames that are part of images sequences are assumed to be of the form\n<descriptiveName>.<frameNum>.<imgExtention>",
-	version="0.104",
+	version="0.105",
 	usage="%prog [OPTION]... [FILE]...")
     p.add_option("--directory", "-d", action="store_false",
 	dest="listDirContents", default=True,
@@ -150,7 +160,7 @@ def main():
     # p.add_option("--shakeFormat", "-s", action="store_true",
 	# dest="shakeFormat", default="False",
 	# help="list images sequences in format suitable for shake FileIn node")
-    p.add_option("--recursive", "-R", action="store_false",
+    p.add_option("--recursive", "-R", action="store_true",
 	dest="isRecursive", default=False,
 	help="list subdirectories recursively")
 
@@ -163,6 +173,8 @@ def main():
 	    if (not options.onlyImages) :
 		print "."
 	else :
+	    if options.isRecursive :
+		print ".:"
 	    listSeqDir(os.listdir("."), "", False, options)
     elif len(arguments) == 1 and os.path.isdir(arguments[0]) :
 	arg0 = arguments[0]
@@ -171,6 +183,8 @@ def main():
 	if (not options.listDirContents) :
 	    print arg0
 	else :
+	    if options.isRecursive:
+		print arg0 + ":"
 	    listSeqDir(os.listdir(arg0), arg0, False, options)
     else:
 	listSeqDir(arguments, "", True, options)
