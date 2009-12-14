@@ -1,0 +1,21 @@
+.bmp, .dib, .rle, .2bp
+.btf, .tiff, .tif
+.cin
+.exr
+.gif, .gfa, .giff
+.iff, .anim
+.img
+.jpg, .jpeg, .jpe
+.pdf, .epdf
+.pict, .pic, .pct, .pct1, .pct2
+.pix, .matte, .mask, .alpha, .als
+.png
+.psd, .psb, .pdb, .pdd
+.raw, .rw2
+.rgb
+.rgba
+.sgi, .rgb, .rgba, .bw, .int, .inta, .icon
+.tga, .tpic
+.tif
+.tiff, .tif
+.tif, .tiff

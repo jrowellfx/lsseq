@@ -1,0 +1,151 @@
+.3fr
+.bmp, .dib, .rle, .2bp
+.btf, .tiff, .tif
+.cel
+.cin
+.dir, .dcr, .dxr, .fgd
+.emf+
+.erf
+.eri
+.eva
+.exif
+.exr
+.fff
+.fh4, .fh5, .fh7, .fh8, .fhc, .fh
+.fif
+.fig
+.fit, .fits
+.fla
+.fli, .flc, .flx, .flh, .flt
+.flw
+.fpx
+.fxt
+.g3
+.gbr
+.gif, .gfa, .giff
+.gih
+.gra
+.gs
+.hg
+.ico, .cur
+.ics, .ids
+.iff, .anim
+.iff, .ilbm, .lbm
+.iiq
+.im4
+.ima
+.img
+.j6i
+.jbig, .bie, .jbg
+.jls
+.jng
+.jpg, .jpeg, .jpe
+.k25
+.kdc
+.kif, .kiff
+.koa, gg (compressed)
+.kqp
+.lsp
+.mag
+.mda, .ica, .mmr, .afp
+.mdc
+.mef
+.met
+.miff
+.mki
+.mng
+.mos
+.mpc
+.mrw
+.msa
+.msl
+.msp
+.mvg
+.myd
+.myv
+.nef
+.neo
+.oaz
+.odg
+.orf
+.p2
+.pam
+.pat
+.pbm
+.pcd
+.pcf
+.pcs
+.pcx, .pcc, .dcx
+.pdf, .epdf
+.pef
+.pgf
+.pgm
+.pi
+.pic
+.pict, .pic, .pct, .pct1, .pct2
+.pix, .matte, .mask, .alpha, .als
+.pld
+.pmp
+.png
+.pnm
+.pnt, .mac
+.ppm
+.prc
+.psd, .psb, .pdb, .pdd
+.psp, .tub, .pspimage
+.ptx
+.px
+.pxa
+.q0
+.q4
+.qtif, .qti, .qif
+.r3d
+.raf
+.raw, .rw2
+.rgb
+.rgba
+.sai
+.sct
+.sda
+.sdd
+.sfw
+.sgb
+.sgi, .rgb, .rgba, .bw, .int, .inta, .icon
+.shape
+.sk
+.skp, .skb
+.sml
+.spl
+.srf, .sr2
+.stx, .st4, .st5, .st6, .st7, .st8, .st9
+.sun, .ras, .rs, .im1, .im8, .im24, .im32
+.svg
+.svg, .svgz
+.svg, .svgz (compressed)
+.swf
+.sxd
+.tga, .tpic
+.tif
+.tiff, .tif
+.tif, .tiff
+.tim
+.tlg
+.tm2, .str
+.tny, .tn1, .tn2, .tn3, .tn4, .tn5, tn6
+.ufo
+.wbmp, .wbm, .wbp
+.wdp, .hdp
+.wfx, fxs, fxo
+.wpg
+.x3f
+.xaml
+.xar
+.xbm, .bm, .icon, .bitmap
+.xcf, .xcfbz2 (compressed), .xcfgz (compressed)
+.xml
+.xpm, .pm
+.xwd, .x11
+.ycbcr
+.ycbcra
+.yuv
+.zdt

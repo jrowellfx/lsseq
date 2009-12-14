@@ -221,7 +221,9 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 	if options.classify :
 	    extra_ls_options = ["-F"]
 	lsCmd = ["ls", "-d"] + extra_ls_options + otherFiles
+	sys.stdout.flush()
 	subprocess.call(lsCmd)
+	sys.stdout.flush()
 
     # Now actually print the sequences in this directory.
     #
@@ -256,7 +258,7 @@ def main():
     #
     old_excepthook = sys.excepthook
     def new_hook(type, value, traceback):
-	if type != KeyboardInterrupt:
+	if type != KeyboardInterrupt and type != IOError:
 	    old_excepthook(type, value, traceback)
 	else:
 	    pass
@@ -264,7 +266,7 @@ def main():
 
     p = optparse.OptionParser(
 	description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtention>",
-	version="1.110",
+	version="1.120",
 	usage="%prog [OPTION]... [FILE]...")
 
     p.add_option("--directory", "-d", action="store_false",
