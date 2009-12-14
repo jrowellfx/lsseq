@@ -61,11 +61,16 @@ def printSeq(filename, frameList, options) :
 	i = i + 1
 
     formatStr = "%0" + str(frameList[0]) + "d"
-    frameRange = "[" \
-	+ (formatStr % minFrame) \
-	+ "-" \
-	+ (formatStr % maxFrame) \
-	+ "]"
+    if minFrame != maxFrame :
+	frameRange = "[" \
+	    + (formatStr % minFrame) \
+	    + "-" \
+	    + (formatStr % maxFrame) \
+	    + "]"
+    else :
+	frameRange = "[" \
+	    + (formatStr % minFrame) \
+	    + "]"
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
     print ".".join(fileComponents),
     errFrames = missingFrames + zeroFrames
@@ -109,7 +114,10 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 
     otherFiles.sort()
     if len(otherFiles) > 0 :
-	lsCmd = ["ls", "-d"] + otherFiles
+	extra_ls_options = []
+	if options.classify :
+	    extra_ls_options = ["-F"]
+	lsCmd = ["ls", "-d"] + extra_ls_options + otherFiles
 	subprocess.call(lsCmd)
 
     imKeys = imageDictionary.keys()
@@ -138,23 +146,21 @@ def main():
 
     p = optparse.OptionParser(
 	description="List directory contents while compressing images sequences to one entry each.\nFilenames that are part of images sequences are assumed to be of the form\n<descriptiveName>.<frameNum>.<imgExtention>",
-	version="1.000",
+	version="1.010",
 	usage="%prog [OPTION]... [FILE]...")
+
     p.add_option("--directory", "-d", action="store_false",
 	dest="listDirContents", default=True,
 	help="list directory entries instead of contents, and do not dereference symbolic links")
+    p.add_option("--classify", "-F", action="store_true",
+	dest="classify", default=False,
+	help="append indicator (one of */=>@|) to entries")
     p.add_option("--showMissing", "-m", action="store_true",
 	dest="showMissing", default=True,
 	help="show list of missing frames [default]" )
     p.add_option("--skipMissing", "-M", action="store_false",
 	dest="showMissing",
 	help="do not show list of missing frames" )
-    p.add_option("--showZero", "-z", action="store_true",
-	dest="showZero", default=True,
-	help="show list of zero length images [default]" )
-    p.add_option("--skipZero", "-Z", action="store_false",
-	dest="showZero",
-	help="do not show list of zero length images" )
     p.add_option("--onlyImages", "-o", action="store_true",
 	dest="onlyImages", default=False,
 	help="only list image sequences")
@@ -174,6 +180,12 @@ def main():
     p.add_option("--recursive", "-R", action="store_true",
 	dest="isRecursive", default=False,
 	help="list subdirectories recursively")
+    p.add_option("--showZero", "-z", action="store_true",
+	dest="showZero", default=True,
+	help="show list of zero length images [default]" )
+    p.add_option("--skipZero", "-Z", action="store_false",
+	dest="showZero",
+	help="do not show list of zero length images" )
 
     (options, arguments) = p.parse_args()
 
