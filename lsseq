@@ -1,0 +1,53 @@
+#!/usr/bin/env python
+import optparse
+import os
+
+def main():
+
+    image_extensions = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
+	"dib", "epdf", "exr", "gfa", "gif", "giff", "icon", "iff", "img",
+	"int", "inta", "jpe", "jpeg", "jpg", "mask", "matte", "pct",
+	"pct1", "pct2", "pdb", "pdd", "pdf", "pic", "pict", "pix", "png",
+	"psb", "psd", "raw", "rgb", "rgba", "rle", "rw2", "sgi", "tga",
+	"tif", "tiff", "tpic"]
+
+    p = optparse.OptionParser(
+	description="list directory contents - compressing images sequences to one entry each",
+	version="0.101",
+	usage="%prog [OPTION]... [FILE]...")
+    p.add_option("--showMissing", "-m", action="store_true",
+	dest="showMissing", default=True,
+	help="show list of missing frames [default]" )
+    p.add_option("--skipMissing", "-M", action="store_false",
+	dest="showMissing",
+	help="do not show list of missing frames" )
+    p.add_option("--showZero", "-z", action="store_true",
+	dest="showZero", default=True,
+	help="show list of zero length images [default]" )
+    p.add_option("--skipZero", "-Z", action="store_false",
+	dest="showZero",
+	help="do not show list of zero length images" )
+    p.add_option("--onlyImages", "-o", action="store_false",
+	dest="onlyImages",
+	help="only list files that are images")
+    # p.add_option("--imageList", "-i", action="store", type="string",
+	# dest="imageList", metavar="FILE",
+	# help="file containing list of raster image extentions")
+    # p.add_option("--printImages", "-P", action="store_false",
+	# dest="printImages",
+	# help="print list of raster file image extensions and exit")
+    p.add_option("--recursive", "-R", action="store_false",
+	dest="isRecursive",
+	help="list subdirectories recursively")
+
+    (options, arguments) = p.parse_args()
+    if len(arguments) == 0:
+	path = "."
+	for filename in os.listdir(path):
+	    print filename
+    else:
+	while i < len(arguments):
+	    path = arguments[i]
+
+if __name__ == '__main__':
+    main()
