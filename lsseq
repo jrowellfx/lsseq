@@ -42,19 +42,24 @@ def printSeq(filename, frameList, options) :
 
     fileComponents = filename.split(".")
     missingFrames = []
+    zeroFrames = []
     minFrame = frameList[1][0]
     maxFrame = frameList[1][-1]
     i = minFrame
     while i <= maxFrame:
-	if i != frameList[1][0] and options.showMissing :
-	    missingFrames.append(i)
-	else :
-	    if (options.showZero and
-		    os.path.getsize(
-		    actualFilename(filename, frameList[0], i)) == 0) :
+	iMissing = False
+	if i != frameList[1][0] :
+	    iMissing = True
+	    if options.showMissing :
 		missingFrames.append(i)
+	else :
 	    frameList[1].pop(0)
+	if (not iMissing and options.showZero
+		and os.path.getsize(
+		actualFilename(filename, frameList[0], i)) == 0) :
+	    zeroFrames.append(i)
 	i = i + 1
+
     formatStr = "%0" + str(frameList[0]) + "d"
     frameRange = "[" \
 	+ (formatStr % minFrame) \
@@ -63,11 +68,13 @@ def printSeq(filename, frameList, options) :
 	+ "]"
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
     print ".".join(fileComponents),
-    if (len(missingFrames) > 0) :
-	print missingFrames,
+    errFrames = missingFrames + zeroFrames
+    errFrames.sort()
+    if (len(errFrames) > 0) :
+	print errFrames,
     print ""
 
-def listSeqDir(dirContents, path, listSubDirs, options) :
+def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 
     tmpCWD = ""
     if (len(path) > 0) :
@@ -118,8 +125,12 @@ def listSeqDir(dirContents, path, listSubDirs, options) :
 	    if d[-1] == '/' :
 		dir = d[:-1]
 	    print ""
-	    print dir + ":"
-	    listSeqDir(os.listdir(dir), dir, False, options)
+	    if options.isRecursive :
+		print traversedPath + dir + ":"
+	    else :
+		print dir + ":"
+	    listSeqDir(os.listdir(dir), dir, False, options,
+		traversedPath + dir + "/")
 
     if (len(path) > 0) : os.chdir(tmpCWD)
 
@@ -127,7 +138,7 @@ def main():
 
     p = optparse.OptionParser(
 	description="List directory contents while compressing images sequences to one entry each.\nFilenames that are part of images sequences are assumed to be of the form\n<descriptiveName>.<frameNum>.<imgExtention>",
-	version="0.105",
+	version="0.106",
 	usage="%prog [OPTION]... [FILE]...")
     p.add_option("--directory", "-d", action="store_false",
 	dest="listDirContents", default=True,
@@ -175,7 +186,9 @@ def main():
 	else :
 	    if options.isRecursive :
 		print ".:"
-	    listSeqDir(os.listdir("."), "", False, options)
+		listSeqDir(os.listdir("."), "", False, options, "./")
+	    else :
+		listSeqDir(os.listdir("."), "", False, options, "")
     elif len(arguments) == 1 and os.path.isdir(arguments[0]) :
 	arg0 = arguments[0]
 	if arguments[0][-1] == '/' :
@@ -185,9 +198,11 @@ def main():
 	else :
 	    if options.isRecursive:
 		print arg0 + ":"
-	    listSeqDir(os.listdir(arg0), arg0, False, options)
+		listSeqDir(os.listdir(arg0), arg0, False, options, arg0 + "/")
+	    else :
+		listSeqDir(os.listdir(arg0), arg0, False, options, "")
     else:
-	listSeqDir(arguments, "", True, options)
+	listSeqDir(arguments, "", True, options, "")
 
 if __name__ == '__main__':
     main()
