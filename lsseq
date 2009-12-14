@@ -138,7 +138,7 @@ def main():
 
     p = optparse.OptionParser(
 	description="List directory contents while compressing images sequences to one entry each.\nFilenames that are part of images sequences are assumed to be of the form\n<descriptiveName>.<frameNum>.<imgExtention>",
-	version="0.106",
+	version="1.000",
 	usage="%prog [OPTION]... [FILE]...")
     p.add_option("--directory", "-d", action="store_false",
 	dest="listDirContents", default=True,
