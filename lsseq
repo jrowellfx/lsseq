@@ -5,8 +5,8 @@
 # assumed to be of the form:
 #     <descriptiveName>.<frameNum>.<imgExtention>
 #
-# Copyright (c) 2008-2009, James Philip Rowell,
-# Orange Imagination and Concepts, Inc.
+# Copyright (c) 2008-2010, James Philip Rowell,
+# Orange Imagination & Concepts, Inc.
 # All rights reserved.
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -19,7 +19,7 @@
 #     notice, this list of conditions and the following disclaimer in
 #     the documentation and/or other materials provided with the
 #     distribution.
-#   - Neither the name "Orange Imagination and Concepts, Inc." nor the
+#   - Neither the name "Orange Imagination & Concepts, Inc." nor the
 #     names of its contributors may be used to endorse or promote
 #     products derived from this software without specific prior written
 #     permission.
@@ -42,7 +42,7 @@ import sys
 import subprocess
 
 imageExt = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
-    "dib", "epdf", "exr", "gfa", "gif", "giff", "icon", "iff", "img",
+    "dib", "dpx", "epdf", "exr", "gfa", "gif", "giff", "icon", "iff", "img",
     "int", "inta", "jpe", "jpeg", "jpg", "mask", "matte", "pct",
     "pct1", "pct2", "pdb", "pdd", "pdf", "pic", "pict", "pix", "png",
     "psb", "psd", "raw", "rgb", "rgba", "rle", "rw2", "sgi", "tga",
@@ -266,7 +266,7 @@ def main():
 
     p = optparse.OptionParser(
 	description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtention>",
-	version="1.120",
+	version="1.130",
 	usage="%prog [OPTION]... [FILE]...")
 
     p.add_option("--directory", "-d", action="store_false",
