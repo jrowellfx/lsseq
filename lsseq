@@ -86,6 +86,9 @@ def actualImageName(filename, padding, frame) :
 # (x through y), and ranges "on N's" (like on 2's, or 3's etc)
 # formatted thus: A-BxN (A through B on N's).
 #
+# note: "on n's" not yet implemented (showSkipFrames)
+# note: padding arg not yet used
+#
 def frameSequenceFormat(frameList, padding, showSkipFrames) :
     frameList.sort()
     frameSeq = []
@@ -102,13 +105,22 @@ def frameSequenceFormat(frameList, padding, showSkipFrames) :
     prevFrame = frameList[0]
     frameList.pop(0)
 
+    # Keep popping the first entry off the list of frames
+    # and check to see if it's part of an uninterrupted
+    # sequence, or if there's a break in the sequence.
+    #
     while len(frameList) > 0 :
-	if (frameList[0] - prevFrame) == 1 :
-	    if not isSequence :
+	if (frameList[0] - prevFrame) == 1 : # Means uninterrrupted seq.
+	    if not isSequence : # This was the second number in sequence.
+		#
+		# Append a dash to the first frame in the sequence
+		# in preperation for appending the last frame of the
+		# sequence when we eventually find it.
+		#
 		frameSeq[-1] += "-"
-	    isSequence = True
+		isSequence = True
 	else :
-	    if isSequence :
+	    if isSequence : # Record the last frame of the previous seq.
 		frameSeq[-1] += ("%d" % prevFrame)
 	    isSequence = False
 	    frameSeq.append("%d" % frameList[0])
@@ -116,7 +128,7 @@ def frameSequenceFormat(frameList, padding, showSkipFrames) :
 	prevFrame = frameList[0]
 	frameList.pop(0)
 
-    if isSequence :
+    if isSequence : # Close off the final sequence if need be.
 	frameSeq[-1] += ("%d" % prevFrame)
 
     return frameSeq
@@ -128,6 +140,7 @@ def printSeq(filename, frameList, options) :
     zeroFrames = []
     minFrame = frameList[1][0]
     maxFrame = frameList[1][-1]
+    padding = frameList[0]
     i = minFrame
     while i <= maxFrame:
 	iMissing = False
@@ -137,13 +150,17 @@ def printSeq(filename, frameList, options) :
 		missingFrames.append(i)
 	else :
 	    frameList[1].pop(0)
-	if (not iMissing and options.showZero
-		and os.path.getsize(
-		actualImageName(filename, frameList[0], i)) == 0) :
-	    zeroFrames.append(i)
+	if (not iMissing and options.showZero) :
+	    actualFilename = actualImageName(filename, padding, i)
+	    # Check to see if file exists - might be broken soft link.
+	    if not os.path.exists(actualFilename) :
+		zeroFrames.append(i)
+		print >> sys.stderr, os.path.basename(sys.argv[0]) + ": warning: " + actualFilename + " is a broken soft link."
+	    elif os.path.getsize(actualFilename) == 0 :
+		zeroFrames.append(i)
 	i = i + 1
 
-    formatStr = "%0" + str(frameList[0]) + "d"
+    formatStr = "%0" + str(padding) + "d"
     if minFrame != maxFrame :
 	frameRange = "[" \
 	    + (formatStr % minFrame) \
@@ -157,7 +174,7 @@ def printSeq(filename, frameList, options) :
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
     print ".".join(fileComponents),
     errFrames = missingFrames + zeroFrames
-    frameSeq = frameSequenceFormat(errFrames, 0, False)
+    frameSeq = frameSequenceFormat(errFrames, 1, False)
     if (len(frameSeq) > 0) :
 	sys.stdout.write(" [")
 	doPrintComma = False
@@ -266,7 +283,7 @@ def main():
 
     p = optparse.OptionParser(
 	description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtention>",
-	version="1.130",
+	version="1.140",
 	usage="%prog [OPTION]... [FILE]...")
 
     p.add_option("--directory", "-d", action="store_false",
