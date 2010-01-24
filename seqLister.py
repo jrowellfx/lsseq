@@ -144,14 +144,23 @@ def expandSeq(seqList) :
 
 def compressSeq(seqList) :
 
-    if len(seqList) == 0 :
+    if len(seqList) == 0 : # Take care of 1st trivial case
 	return []
-    if  len(seqList) == 1 :
+
+    seqList.sort()
+    tmpSeqList = seqList
+    seqList = []
+    for n in tmpSeqList : # removeDuplicates and turn all into integers
+	if seqList == [] :
+	    seqList.append(int(n))
+	if int(n) != seqList[-1] :
+	    seqList.append(int(n))
+
+    if  len(seqList) == 1 : # Take care of second trivial case.
 	return [str(seqList[0])]
 
     # At this point - guaranteed that len(seqList) > 1
 
-    seqList.sort()
     resultList = []
     gapList = []
     i = 1
@@ -163,6 +172,7 @@ def compressSeq(seqList) :
     # Count lengths of similar "gaps".
     i = 0 
     currentGap = 0 # Impossible - good starting point.
+    sameGapCount = 0
     gapRunStartIndex = []
     while i < len(gapList) :
 	if gapList[i] != currentGap :
@@ -174,11 +184,16 @@ def compressSeq(seqList) :
 	i = i + 1
 
     compressList = []
-    # print seqList[0]
-    # print seqList[-1]
+
+    # Third somewhat trivial case - means no breaks in the evenly spaced sequence.
     if sameGapCount == len(gapList) :
 	compressList.append(str(seqList[0]) + "-" + str(seqList[-1]))
 	if gapList[0] != 1 :
 	    compressList[0] = compressList[0] + "x" + str(gapList[0])
+
+    print ""
+    print "seqList = ", seqList
+    print "gapList =   ", gapList
+    print "gapRunStartIndex = ", gapRunStartIndex
 
     return compressList
