@@ -141,6 +141,27 @@ def expandSeq(seqList) :
 
     return resultList
 
+def cmpFunc(x, y) :
+    if x[1] == 0 :
+	return -1
+    elif y[1] == 0 :
+	return 1
+    if x[0] == y[0] :
+	if x[1] == y[1] :
+	    if x[2] == y[2] :
+		return 0
+	    elif x[2] < y[2] :
+		return 1
+	    else :
+		return -1
+	elif x[1] < y[1] :
+	    return 1
+	else :
+	    return -1
+    elif x[0] < y[0] :
+	return -1
+    else :
+	return 1
 
 def compressSeq(seqList) :
 
@@ -172,28 +193,74 @@ def compressSeq(seqList) :
     # Count lengths of similar "gaps".
     i = 0 
     currentGap = 0 # Impossible - good starting point.
-    sameGapCount = 0
     gapRunStartIndex = []
     while i < len(gapList) :
 	if gapList[i] != currentGap :
-	    gapRunStartIndex.append(i)
 	    currentGap = gapList[i]
-	    sameGapCount = 1
+	    gapRunStartIndex.append([1, i, currentGap, False])
 	else :
-	    sameGapCount = sameGapCount + 1
+	    gapRunStartIndex[-1][0] = gapRunStartIndex[-1][0] + 1
 	i = i + 1
+    gapRunStartIndex.append([1, i, 0, False]) # Add entry for last number in seqList
 
     compressList = []
-
-    # Third somewhat trivial case - means no breaks in the evenly spaced sequence.
-    if sameGapCount == len(gapList) :
-	compressList.append(str(seqList[0]) + "-" + str(seqList[-1]))
-	if gapList[0] != 1 :
-	    compressList[0] = compressList[0] + "x" + str(gapList[0])
+    lastFrameIndexList = []
 
     print ""
     print "seqList = ", seqList
     print "gapList =   ", gapList
-    print "gapRunStartIndex = ", gapRunStartIndex
+    print "old gapRunStartIndex = ", gapRunStartIndex
+
+    adjustingRunLength = True
+    while adjustingRunLength :
+	i = 0
+	gapRunSorted = []
+	for run in gapRunStartIndex :
+	    gapRunSorted.append([run[0], run[2], i])
+	    i = i + 1
+	tmp = gapRunSorted
+	tmp.sort(cmp=cmpFunc)
+	print "tmp = ", tmp
+	gapRunSorted.sort(cmp=cmpFunc, reverse=True)
+	print "gapRunSorted = ", gapRunSorted
+
+	adjustingRunLength = False
+	for x in gapRunSorted :
+	    runInd = x[2]
+
+	    # run[0] is the length of the uninterupted sequence.
+	    # run[1] is the index to the first num in the sequence
+	    # run[2] is the gap
+	    # run[3] is if the sequence length has been corrected yet
+	    #
+	    run = gapRunStartIndex[runInd]
+	    print "run = ", run
+
+	    # This test will skip us down to the next biggest
+	    # unprocessed sequence.  If gap is zero means end of
+	    # gapRunStartIndex
+	    #
+	    if run[3] or run[2] == 0 :
+		continue # Skip to next one.
+	    adjustingRunLength = True
+
+	    gapRunStartIndex[runInd][3] = True
+
+	    # Steal from next sequence if possible.
+	    nextRun = gapRunStartIndex[runInd+1]
+	    if nextRun[3] == False and nextRun[0] >= 1 :
+		gapRunStartIndex[runInd-1][0] = gapRunStartIndex[runInd-1][0] - 1
+		gapRunStartIndex[runInd][0] = gapRunStartIndex[runInd][0] + 1
+
+    # firstFrame = seqList[run[1]]
+    # lastFrame = seqList[run[1] + run[0]]
+    # gap = run[2]
+    # tmpCompressList = []
+    # if (run[0] == 1 and lastFrameIndexList.count(run[1]) == 0) or run[0] > 1 :
+	# tmpCompressList.append([run[1], str(firstFrame) + "-" + str(lastFrame)])
+	# if gap != 1 :
+	    # tmpCompressList[-1][1] = tmpCompressList[-1][1] + "x" + str(gap)
+
+    print "adj gapRunStartIndex = ", gapRunStartIndex
 
     return compressList
