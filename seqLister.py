@@ -211,46 +211,44 @@ def compressSeq(seqList) :
     print "gapList =   ", gapList
     print "old gapRunStartIndex = ", gapRunStartIndex
 
-    adjustingRunLength = True
-    while adjustingRunLength :
+    prossessing = True
+    while prossessing :
 	i = 0
 	gapRunSorted = []
 	for run in gapRunStartIndex :
 	    gapRunSorted.append([run[0], run[2], i])
 	    i = i + 1
-	tmp = gapRunSorted
-	tmp.sort(cmp=cmpFunc)
-	print "tmp = ", tmp
+	# tmp = gapRunSorted
+	# tmp.sort(cmp=cmpFunc)
+	# print "tmp = ", tmp
 	gapRunSorted.sort(cmp=cmpFunc, reverse=True)
-	print "gapRunSorted = ", gapRunSorted
+	# print "gapRunSorted = ", gapRunSorted
 
-	adjustingRunLength = False
-	for x in gapRunSorted :
-	    runInd = x[2]
+	# gapRunStartIndex[runInd][0] is the length of the uninterupted sequence.
+	# gapRunStartIndex[runInd][1] is the index to the first num in the sequence
+	# gapRunStartIndex[runInd][2] is the gap
+	# gapRunStartIndex[runInd][3] is True if the sequence length has been corrected
 
-	    # run[0] is the length of the uninterupted sequence.
-	    # run[1] is the index to the first num in the sequence
-	    # run[2] is the gap
-	    # run[3] is if the sequence length has been corrected yet
-	    #
-	    run = gapRunStartIndex[runInd]
-	    print "run = ", run
+	i = 0
+	while i < len(gapRunSorted) :
+	    runInd = gapRunSorted[i][2]
+	    if not gapRunStartIndex[runInd][3] :
+		break
+	    i = i + 1
 
-	    # This test will skip us down to the next biggest
-	    # unprocessed sequence.  If gap is zero means end of
-	    # gapRunStartIndex
-	    #
-	    if run[3] or run[2] == 0 :
-		continue # Skip to next one.
-	    adjustingRunLength = True
+	if gapRunStartIndex[runInd][2] == 0 :
+	    break
 
-	    gapRunStartIndex[runInd][3] = True
+	gapRunStartIndex[runInd][3] = True
 
-	    # Steal from next sequence if possible.
-	    nextRun = gapRunStartIndex[runInd+1]
-	    if nextRun[3] == False and nextRun[0] >= 1 :
-		gapRunStartIndex[runInd-1][0] = gapRunStartIndex[runInd-1][0] - 1
-		gapRunStartIndex[runInd][0] = gapRunStartIndex[runInd][0] + 1
+	# Steal from next sequence if possible.
+	run = gapRunStartIndex[runInd]
+	nextRun = gapRunStartIndex[runInd+1]
+	if nextRun[3] == False and nextRun[0] >= 1 and not (run[0] == 1 and run[2] > 1 ):
+	    gapRunStartIndex[runInd+1][0] = gapRunStartIndex[runInd+1][0] - 1
+	    gapRunStartIndex[runInd][0] = gapRunStartIndex[runInd][0] + 1
+	    if gapRunStartIndex[runInd+1][0] >= 1 :
+		gapRunStartIndex[runInd+1][1] = gapRunStartIndex[runInd+1][1] + 1
 
     # firstFrame = seqList[run[1]]
     # lastFrame = seqList[run[1] + run[0]]
