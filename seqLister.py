@@ -155,9 +155,30 @@ def compressSeq(seqList) :
     resultList = []
     gapList = []
     i = 1
-    while i < len(seqList) :
+    while i < len(seqList) : # Record gaps between frame #'s
 	gapList.append(seqList[i] - seqList[i-1])
 	resultList.append(str(seqList[i]))
 	i = i + 1
 
-    return gapList
+    # Count lengths of similar "gaps".
+    i = 0 
+    currentGap = 0 # Impossible - good starting point.
+    gapRunStartIndex = []
+    while i < len(gapList) :
+	if gapList[i] != currentGap :
+	    gapRunStartIndex.append(i)
+	    currentGap = gapList[i]
+	    sameGapCount = 1
+	else :
+	    sameGapCount = sameGapCount + 1
+	i = i + 1
+
+    compressList = []
+    # print seqList[0]
+    # print seqList[-1]
+    if sameGapCount == len(gapList) :
+	compressList.append(str(seqList[0]) + "-" + str(seqList[-1]))
+	if gapList[0] != 1 :
+	    compressList[0] = compressList[0] + "x" + str(gapList[0])
+
+    return compressList
