@@ -40,6 +40,7 @@ import optparse
 import os
 import sys
 import subprocess
+import seqLister
 
 imageExt = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
     "dib", "dpx", "epdf", "exr", "gfa", "gif", "giff", "icon", "iff", "img",
@@ -174,7 +175,7 @@ def printSeq(filename, frameList, options) :
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
     print ".".join(fileComponents),
     errFrames = missingFrames + zeroFrames
-    frameSeq = frameSequenceFormat(errFrames, 1, False)
+    frameSeq = seqLister.compressSeq(errFrames)
     if (len(frameSeq) > 0) :
 	sys.stdout.write(" [")
 	doPrintComma = False
