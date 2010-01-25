@@ -125,7 +125,15 @@ def printSeq(filename, frameList, options, traversedPath) :
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
     if options.prependPath :
 	sys.stdout.write(traversedPath)
+    if options.extremes :
+	fileComponents[-2] = formatStr % minFrame
     print ".".join(fileComponents),
+    if minFrame != maxFrame and options.extremes :
+	print ""
+	sys.stdout.write(traversedPath)
+	fileComponents[-2] = formatStr % maxFrame
+	print ".".join(fileComponents),
+
     errFrames = missingFrames + zeroFrames
     frameSeq = seqLister.compressSeq(errFrames)
     if (len(frameSeq) > 0) :
@@ -243,7 +251,7 @@ def main():
 
     p = optparse.OptionParser(
 	description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtension> - where imgExtension is drawn from a default list of image extensions (see option -i) or they can be set with the environment variable OIC_IMAGE_EXTENSION=exr:jpg:tif (for example)",
-	version="1.200",
+	version="1.250",
 	usage="%prog [OPTION]... [FILE]...")
 
     p.add_option("--directory", "-d", action="store_false",
@@ -252,6 +260,9 @@ def main():
     p.add_option("--single", "-1", action="store_true",
 	dest="singleColumn", default=False,
 	help="list one non-image file per line")
+    p.add_option("--extremes", "-e", action="store_true",
+	dest="extremes", default=False,
+	help="only list the first and last image on a separate line.  This option implies --prependPath, --onlyImages, --skipMissing and --skipZero.  The purpose of this option is to help in backing up image sequences - making it easy to get a list of only the first and last frame for each sequence.")
     p.add_option("--classify", "-F", action="store_true",
 	dest="classify", default=False,
 	help="append indicator (one of */=>@|) to entries")
@@ -269,7 +280,7 @@ def main():
 	help="only list image sequences")
     p.add_option("--prependPath", "-p", action="store_true",
 	dest="prependPath", default=False,
-	help="Prepend the abs path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
+	help="prepend the abs path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
     # ***Change the next two to be a list [default, shake, nuke]
     # p.add_option("--nukeFormat", "-n", action="store_true",
 	# dest="nukeFormat", default="False",
@@ -280,9 +291,6 @@ def main():
     p.add_option("--recursive", "-R", action="store_true",
 	dest="isRecursive", default=False,
 	help="list subdirectories recursively")
-    # p.add_option("--explicitList", "-x", action="store_true",
-	# dest="explicitList", default=False,
-	# help="Explicitly show each frame in the sequence list" )
     p.add_option("--showZero", "-z", action="store_true",
 	dest="showZero", default=True,
 	help="show list of zero length images [default]" )
@@ -299,6 +307,11 @@ def main():
     if options.printImgExtensions :
 	print imageExt
 	sys.exit(0)
+
+    if options.extremes :
+	options.prependPath = True
+	options.showMissing = False
+	options.showZero = False
 
     if options.prependPath :
 	options.onlyImages = True # Force this.
