@@ -3,7 +3,7 @@
 # lsseq - List directory contents while compressing images sequences to
 # one entry each.  Filenames that are part of images sequences are
 # assumed to be of the form:
-#     <descriptiveName>.<frameNum>.<imgExtention>
+#     <descriptiveName>.<frameNum>.<imgExtension>
 
 # Copyright (c) 2008-2010, James Philip Rowell,
 # Orange Imagination & Concepts, Inc.
@@ -49,6 +49,7 @@ imageExt = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
     "psb", "psd", "raw", "rgb", "rgba", "rle", "rw2", "sgi", "tga",
     "tif", "tiff", "tpic"]
 
+
 # Return two components if "filename" is formatted like a file in an
 # image sequence otherwise return an empty list.  The two returned
 # components are the full filename but missing the frame number,
@@ -57,6 +58,7 @@ imageExt = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
 #
 def seqSplit(filename) :
 
+    global imageExt
     fileComponents = filename.split(".")
 
     if (len(fileComponents) > 2
@@ -71,6 +73,7 @@ def seqSplit(filename) :
     else :
 	return []
 
+
 # Reconstruct the imagename with the frame number.
 #
 def actualImageName(filename, padding, frame) :
@@ -80,61 +83,8 @@ def actualImageName(filename, padding, frame) :
 	[formatStr % frame] + [fileComponents[-1]]
     return ".".join(fileComponents)
 
-# Frame sequence formats are the following
-# e.g., 1, 3-5, 8, 10-20, 22-44x2
-# Namely: sorted, comma-separated lists of individual frames,
-# possibly interspersed with sequential lists of frames x-y
-# (x through y), and stepped ranges "on N's" (like on 2's, or
-# 3's etc) formatted thus: A-BxN (A through B on N's).
-#
-# note: "on n's" not yet implemented (showStepFrames)
-# note: padding arg not yet used
-#
-def frameSequenceFormat(frameList, padding, showStepFrames) :
-    frameList.sort()
-    frameSeq = []
 
-    if len(frameList) == 0 :
-	return frameSeq
-
-    isSequence = False
-    frameSeq.append("%d" % frameList[0])
-
-    if len(frameList) == 1 :
-	return frameSeq
-
-    prevFrame = frameList[0]
-    frameList.pop(0)
-
-    # Keep popping the first entry off the list of frames
-    # and check to see if it's part of an uninterrupted
-    # sequence, or if there's a break in the sequence.
-    #
-    while len(frameList) > 0 :
-	if (frameList[0] - prevFrame) == 1 : # Means uninterrrupted seq.
-	    if not isSequence : # This was the second number in sequence.
-		#
-		# Append a dash to the first frame in the sequence
-		# in preperation for appending the last frame of the
-		# sequence when we eventually find it.
-		#
-		frameSeq[-1] += "-"
-		isSequence = True
-	else :
-	    if isSequence : # Record the last frame of the previous seq.
-		frameSeq[-1] += ("%d" % prevFrame)
-	    isSequence = False
-	    frameSeq.append("%d" % frameList[0])
-
-	prevFrame = frameList[0]
-	frameList.pop(0)
-
-    if isSequence : # Close off the final sequence if need be.
-	frameSeq[-1] += ("%d" % prevFrame)
-
-    return frameSeq
-
-def printSeq(filename, frameList, options) :
+def printSeq(filename, frameList, options, traversedPath) :
 
     fileComponents = filename.split(".")
     missingFrames = []
@@ -173,6 +123,8 @@ def printSeq(filename, frameList, options) :
 	    + (formatStr % minFrame) \
 	    + "]"
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
+    if options.prependPath :
+	sys.stdout.write(traversedPath)
     print ".".join(fileComponents),
     errFrames = missingFrames + zeroFrames
     frameSeq = seqLister.compressSeq(errFrames)
@@ -186,6 +138,7 @@ def printSeq(filename, frameList, options) :
 	    doPrintComma = True
 	sys.stdout.write("]")
     print ""
+
 
 def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 
@@ -237,7 +190,9 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
     if len(otherFiles) > 0 :
 	extra_ls_options = []
 	if options.classify :
-	    extra_ls_options = ["-F"]
+	    extra_ls_options.append("-F")
+	if options.singleColumn :
+	    extra_ls_options.append("-1")
 	lsCmd = ["ls", "-d"] + extra_ls_options + otherFiles
 	sys.stdout.flush()
 	subprocess.call(lsCmd)
@@ -249,7 +204,7 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
     imKeys.sort()
     for k in imKeys :
 	imageDictionary[k][1].sort()
-	printSeq(k, imageDictionary[k], options)
+	printSeq(k, imageDictionary[k], options, traversedPath)
 
     # lsseq - the contents of any subdirectories if need be.
     #
@@ -259,15 +214,17 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 	    dir = d
 	    if d[-1] == "/" :
 		dir = d[:-1]
-	    print ""
-	    if options.isRecursive :
-		print traversedPath + dir + ":"
-	    else :
-		print dir + ":"
+	    if not options.prependPath :
+		print ""
+		if options.isRecursive :
+		    print traversedPath + dir + ":"
+		else :
+		    print dir + ":"
 	    listSeqDir(os.listdir(dir), dir, False, options,
 		traversedPath + dir + "/")
 
     if (len(path) > 0) : os.chdir(tmpCWD)
+
 
 def main():
 
@@ -282,17 +239,25 @@ def main():
 	    pass
     sys.excepthook = new_hook
 
+    global imageExt
+
     p = optparse.OptionParser(
-	description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtention>",
-	version="1.141",
+	description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtension> - where imgExtension is drawn from a default list of image extensions (see option -i) or they can be set with the environment variable OIC_IMAGE_EXTENSION=exr:jpg:tif (for example)",
+	version="1.200",
 	usage="%prog [OPTION]... [FILE]...")
 
     p.add_option("--directory", "-d", action="store_false",
 	dest="listDirContents", default=True,
 	help="list directory entries instead of contents, and do not dereference symbolic links")
+    p.add_option("--single", "-1", action="store_true",
+	dest="singleColumn", default=False,
+	help="list one non-image file per line")
     p.add_option("--classify", "-F", action="store_true",
 	dest="classify", default=False,
 	help="append indicator (one of */=>@|) to entries")
+    p.add_option("--imgExt", "-i", action="store_true",
+	dest="printImgExtensions", default=False,
+	help="print list of raster file image extensions and exit")
     p.add_option("--showMissing", "-m", action="store_true",
 	dest="showMissing", default=True,
 	help="show list of missing frames [default]" )
@@ -302,12 +267,9 @@ def main():
     p.add_option("--onlyImages", "-o", action="store_true",
 	dest="onlyImages", default=False,
 	help="only list image sequences")
-    # p.add_option("--imageList", "-i", action="store", type="string",
-	# dest="imageList", metavar="FILE",
-	# help="file containing list of raster image extentions")
-    # p.add_option("--printImages", "-P", action="store_false",
-	# dest="printImages",
-	# help="print list of raster file image extensions and exit")
+    p.add_option("--prependPath", "-p", action="store_true",
+	dest="prependPath", default=False,
+	help="Prepend the abs path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
     # ***Change the next two to be a list [default, shake, nuke]
     # p.add_option("--nukeFormat", "-n", action="store_true",
 	# dest="nukeFormat", default="False",
@@ -330,6 +292,17 @@ def main():
 
     (options, arguments) = p.parse_args()
 
+    tmpExt = os.getenv("OIC_IMAGE_EXTENSION")
+    if tmpExt != None and tmpExt != "" :
+	imageExt = tmpExt.split(":")
+
+    if options.printImgExtensions :
+	print imageExt
+	sys.exit(0)
+
+    if options.prependPath :
+	options.onlyImages = True # Force this.
+
     # The following logic attempts to mimic the behaviour
     # of /bin/ls as well as possible.
 
@@ -341,10 +314,15 @@ def main():
 		print "."
 	else :
 	    if options.isRecursive :
-		print ".:"
-		listSeqDir(os.listdir("."), "", False, options, "./")
+		if not options.prependPath :
+		    print ".:"
+		passedPath = "./"
 	    else :
-		listSeqDir(os.listdir("."), "", False, options, "")
+		passedPath = ""
+	    if options.prependPath :
+		passedPath = os.getcwd() + "/"
+
+	    listSeqDir(os.listdir("."), "", False, options, passedPath)
 
     # We are being asked to list a specific directory, so we don't need 
     # to print the directory name before listing the contents (unless
@@ -361,17 +339,25 @@ def main():
 	    print arg0
 	else :
 	    if options.isRecursive:
-		print arg0 + ":"
-		listSeqDir(os.listdir(arg0), arg0, False, options, arg0 + "/")
+		if not options.prependPath :
+		    print arg0 + ":"
+		passedPath = arg0 + "/"
 	    else :
-		listSeqDir(os.listdir(arg0), arg0, False, options, "")
+		passedPath = ""
+	    if options.prependPath :
+		passedPath = os.getcwd() + "/"
+
+	    listSeqDir(os.listdir(arg0), arg0, False, options, passedPath)
 
     # List all the arguments on the command line and unless prevented by
     # the "-d" option, it will also list the contents of all the directories
     # entered on the command line as well.
     #
     else:
-	listSeqDir(arguments, "", True, options, "")
+	passedPath = ""
+	if options.prependPath :
+	    passedPath = os.getcwd() + "/"
+	listSeqDir(arguments, "", True, options, passedPath)
 
 if __name__ == '__main__':
     main()
