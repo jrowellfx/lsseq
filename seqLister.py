@@ -203,16 +203,12 @@ def compressSeq(seqList) :
 	i = i + 1
     gapRunStartIndex.append([1, i, 0, False]) # Add entry for last number in seqList
 
-    compressList = []
-    lastFrameIndexList = []
+    # print ""
+    # print "seqList = ", seqList
+    # print "gapList =   ", gapList
+    # print "old gapRunStartIndex = ", gapRunStartIndex
 
-    print ""
-    print "seqList = ", seqList
-    print "gapList =   ", gapList
-    print "old gapRunStartIndex = ", gapRunStartIndex
-
-    prossessing = True
-    while prossessing :
+    while True :
 	i = 0
 	gapRunSorted = []
 	for run in gapRunStartIndex :
@@ -244,21 +240,30 @@ def compressSeq(seqList) :
 	# Steal from next sequence if possible.
 	run = gapRunStartIndex[runInd]
 	nextRun = gapRunStartIndex[runInd+1]
-	if nextRun[3] == False and nextRun[0] >= 1 and not (run[0] == 1 and run[2] > 1 ):
+	# if nextRun[3] == False and nextRun[0] >= 1 and not (run[0] == 1 and run[2] > 1 ):
+	if nextRun[3] == False and not (run[0] == 1 and run[2] > 1 ):
 	    gapRunStartIndex[runInd+1][0] = gapRunStartIndex[runInd+1][0] - 1
 	    gapRunStartIndex[runInd][0] = gapRunStartIndex[runInd][0] + 1
 	    if gapRunStartIndex[runInd+1][0] >= 1 :
 		gapRunStartIndex[runInd+1][1] = gapRunStartIndex[runInd+1][1] + 1
 
-    # firstFrame = seqList[run[1]]
-    # lastFrame = seqList[run[1] + run[0]]
-    # gap = run[2]
-    # tmpCompressList = []
-    # if (run[0] == 1 and lastFrameIndexList.count(run[1]) == 0) or run[0] > 1 :
-	# tmpCompressList.append([run[1], str(firstFrame) + "-" + str(lastFrame)])
-	# if gap != 1 :
-	    # tmpCompressList[-1][1] = tmpCompressList[-1][1] + "x" + str(gap)
+    compressList = []
 
-    print "adj gapRunStartIndex = ", gapRunStartIndex
+    for run in gapRunStartIndex :
+	if run[0] == 0 :
+	    continue
+
+	if run[0] == 1 :
+	    compressList.append(str(seqList[run[1]]))
+	    continue
+
+	firstFrame = seqList[run[1]]
+	lastFrame = seqList[run[1] + run[0] - 1]
+	gap = run[2]
+	compressList.append(str(firstFrame) + "-" + str(lastFrame))
+	if gap > 1 :
+	    compressList[-1] = compressList[-1] + "x" + str(gap)
+
+    # print "adj gapRunStartIndex = ", gapRunStartIndex
 
     return compressList
