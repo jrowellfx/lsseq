@@ -1,7 +1,7 @@
 import seqLister
 print "Testing expandSeq()"
-print seqLister.expandSeq([1, "4", 10, 15])
-print seqLister.expandSeq(["1-4", "10-15"])
+print seqLister.expandSeq([1, "004", 10, 15])
+print seqLister.expandSeq(["1-4", "010-015"])
 print seqLister.expandSeq(["1-10x2", "20-60x10"])
 print seqLister.expandSeq(["5-1"])
 print seqLister.expandSeq(["0-16x8", "0-16x2"])
@@ -15,7 +15,7 @@ print ""
 print "Testing compressSeq()"
 print seqLister.compressSeq([])
 print seqLister.compressSeq([1])
-print seqLister.compressSeq(["2"])
+print seqLister.compressSeq(["2"], pad=4)
 print seqLister.compressSeq([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 print seqLister.compressSeq([2, 1, 3, 7, 8, 4, 5, 6, 9, 10])
 print seqLister.compressSeq([0, 8, 16, 2, 4, 6, 10, 12, 14])
@@ -32,6 +32,6 @@ print seqLister.compressSeq([1, 5, 13])
 print seqLister.compressSeq([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40])
 print seqLister.compressSeq([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 13, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40])
 print seqLister.compressSeq([0, 1, 2, 3, 4, 5, 6, 8, 10, 12, 14, 24, 34, 44, 54, 64])
-print seqLister.compressSeq([0, 64, 32, 16, 48, 8, 24, 40, 56, 4, 12, 20, 28, 36, 44, 52, 60, 2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46, 50, 54, 58, 62, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51])
-print seqLister.compressSeq([0, 64, 32, 16, 48, 8, 24, 40, 56, 4, 12, 20, 28, 36, 44, 52, 60, 2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46, 50, 54, 58, 62, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21])
-print seqLister.compressSeq([0, 64, 32, 16, 48, 8, 24, 40, 56, 4, 12, 20, 28, 36, 44, 52, 60, 2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42])
+print seqLister.compressSeq([0, 64, 32, 16, 48, 8, 24, 40, 56, 4, 12, 20, 28, 36, 44, 52, 60, 2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46, 50, 54, 58, 62, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51], pad=2)
+print seqLister.compressSeq([0, 64, 32, 16, 48, 8, 24, 40, 56, 4, 12, 20, 28, 36, 44, 52, 60, 2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46, 50, 54, 58, 62, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21], pad=4)
+print seqLister.compressSeq([0, 64, 32, 16, 48, 8, 24, 40, 56, 4, 12, 20, 28, 36, 44, 52, 60, 2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42], pad=4)

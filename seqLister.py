@@ -163,7 +163,7 @@ def cmpFunc(x, y) :
     else :
 	return 1
 
-def compressSeq(seqList) :
+def compressSeq(seqList, pad=1) :
 
     if len(seqList) == 0 : # Take care of 1st trivial case
 	return []
@@ -174,11 +174,13 @@ def compressSeq(seqList) :
     for n in tmpSeqList : # removeDuplicates and turn all into integers
 	if seqList == [] :
 	    seqList.append(int(n))
-	if int(n) != seqList[-1] :
+	elif int(n) != seqList[-1] :
 	    seqList.append(int(n))
 
-    if  len(seqList) == 1 : # Take care of second trivial case.
-	return [str(seqList[0])]
+    formatStr = "%0" + str(pad) + "d"
+
+    if len(seqList) == 1 : # Take care of second trivial case.
+	return [formatStr % seqList[0]]
 
     # At this point - guaranteed that len(seqList) > 1
 
@@ -203,22 +205,13 @@ def compressSeq(seqList) :
 	i = i + 1
     gapRunStartIndex.append([1, i, 0, False]) # Add entry for last number in seqList
 
-    # print ""
-    # print "seqList = ", seqList
-    # print "gapList =   ", gapList
-    # print "old gapRunStartIndex = ", gapRunStartIndex
-
     while True :
 	i = 0
 	gapRunSorted = []
 	for run in gapRunStartIndex :
 	    gapRunSorted.append([run[0], run[2], i])
 	    i = i + 1
-	# tmp = gapRunSorted
-	# tmp.sort(cmp=cmpFunc)
-	# print "tmp = ", tmp
 	gapRunSorted.sort(cmp=cmpFunc, reverse=True)
-	# print "gapRunSorted = ", gapRunSorted
 
 	# gapRunStartIndex[runInd][0] is the length of the uninterupted sequence.
 	# gapRunStartIndex[runInd][1] is the index to the first num in the sequence
@@ -254,16 +247,14 @@ def compressSeq(seqList) :
 	    continue
 
 	if run[0] == 1 :
-	    compressList.append(str(seqList[run[1]]))
+	    compressList.append(formatStr % seqList[run[1]])
 	    continue
 
 	firstFrame = seqList[run[1]]
 	lastFrame = seqList[run[1] + run[0] - 1]
 	gap = run[2]
-	compressList.append(str(firstFrame) + "-" + str(lastFrame))
+	compressList.append(formatStr % firstFrame +"-"+ formatStr % lastFrame)
 	if gap > 1 :
 	    compressList[-1] = compressList[-1] + "x" + str(gap)
-
-    # print "adj gapRunStartIndex = ", gapRunStartIndex
 
     return compressList
