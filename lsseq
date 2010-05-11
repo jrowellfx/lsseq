@@ -123,29 +123,37 @@ def printSeq(filename, frameList, options, traversedPath) :
 	    + (formatStr % minFrame) \
 	    + "]"
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
-    if options.prependPath :
-	sys.stdout.write(traversedPath)
-    if options.extremes :
-	fileComponents[-2] = formatStr % minFrame
-    print ".".join(fileComponents),
-    if minFrame != maxFrame and options.extremes :
-	print ""
-	sys.stdout.write(traversedPath)
-	fileComponents[-2] = formatStr % maxFrame
-	print ".".join(fileComponents),
 
-    errFrames = missingFrames + zeroFrames
-    frameSeq = seqLister.compressSeq(errFrames)
-    if (len(frameSeq) > 0) :
-	sys.stdout.write(" [")
-	doPrintComma = False
-	for f in frameSeq :
-	    if doPrintComma :
-		sys.stdout.write(",")
-	    sys.stdout.write(f)
-	    doPrintComma = True
-	sys.stdout.write("]")
-    print ""
+    if options.shakeCmd :
+	fileComponents[-2] = "#"
+	print "shake -t", str(minFrame) + "-" + str(maxFrame),
+	if options.prependPath :
+	    sys.stdout.write(traversedPath)
+	print ".".join(fileComponents)
+    else :
+	if options.prependPath :
+	    sys.stdout.write(traversedPath)
+	if options.extremes :
+	    fileComponents[-2] = formatStr % minFrame
+	print ".".join(fileComponents),
+	if minFrame != maxFrame and options.extremes :
+	    print ""
+	    sys.stdout.write(traversedPath)
+	    fileComponents[-2] = formatStr % maxFrame
+	    print ".".join(fileComponents),
+
+	errFrames = missingFrames + zeroFrames
+	frameSeq = seqLister.compressSeq(errFrames)
+	if (len(frameSeq) > 0) :
+	    sys.stdout.write(" [")
+	    doPrintComma = False
+	    for f in frameSeq :
+		if doPrintComma :
+		    sys.stdout.write(",")
+		sys.stdout.write(f)
+		doPrintComma = True
+	    sys.stdout.write("]")
+	print ""
 
 
 def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
@@ -251,7 +259,7 @@ def main():
 
     p = optparse.OptionParser(
 	description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtension> - where imgExtension is drawn from a default list of image extensions (see option -i) or they can be set with the environment variable OIC_IMAGE_EXTENSION=exr:jpg:tif (for example)",
-	version="1.250",
+	version="1.300",
 	usage="%prog [OPTION]... [FILE]...")
 
     p.add_option("--directory", "-d", action="store_false",
@@ -281,13 +289,14 @@ def main():
     p.add_option("--prependPath", "-p", action="store_true",
 	dest="prependPath", default=False,
 	help="prepend the abs path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
-    # ***Change the next two to be a list [default, shake, nuke]
     # p.add_option("--nukeFormat", "-n", action="store_true",
 	# dest="nukeFormat", default="False",
 	# help="list images sequences in format suitable for nuke FileIn node")
-    # p.add_option("--shakeFormat", "-s", action="store_true",
-	# dest="shakeFormat", default="False",
-	# help="list images sequences in format suitable for shake FileIn node")
+
+    p.add_option("--shake", "-s", action="store_true",
+	dest="shakeCmd", default=False,
+	help="list images sequences as shake viewer command lines")
+
     p.add_option("--recursive", "-R", action="store_true",
 	dest="isRecursive", default=False,
 	help="list subdirectories recursively")
@@ -312,6 +321,7 @@ def main():
 	options.prependPath = True
 	options.showMissing = False
 	options.showZero = False
+	options.shakeCmd = False
 
     if options.prependPath :
 	options.onlyImages = True # Force this.
