@@ -291,7 +291,7 @@ def main():
         help="do not show list of missing frames" )
     p.add_option("--nuke", "-n", action="store_true",
         dest="nukeCmd", default=False,
-        help="list images sequences as nuke viewer command lines (take precedence over --shake option)")
+        help="list images sequences as nuke viewer command lines (takes precedence over --shake option)")
     p.add_option("--onlyImages", "-o", action="store_true",
         dest="onlyImages", default=False,
         help="only list image sequences")
