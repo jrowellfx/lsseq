@@ -40,19 +40,19 @@ def expandSeq(seqList) :
     # following format, into a list of integers:
     # 
     # individual frame numbers: [1, "4", 10, 15]
-    #     -> yeilds [1, 4, 10, 15]
+    #     yeilds -> [1, 4, 10, 15]
     # sequences of successive frame numbers: ["1-4", "10-15"]
-    #     -> yeilds [1, 2, 3, 4, 10, 11, 12, 13, 14, 15]
+    #     yeilds -> [1, 2, 3, 4, 10, 11, 12, 13, 14, 15]
     # sequences of skipped frame numbers: ["1-10x2", "20-60x10"]
-    #     -> yeilds [1, 3, 5, 7, 9, 20, 30, 40, 50, 60]
+    #     yeilds -> [1, 3, 5, 7, 9, 20, 30, 40, 50, 60]
     # reverse sequences work too: ["5-1"]
-    #     -> yeilds [5, 4, 3, 2, 1]
+    #     yeilds -> [5, 4, 3, 2, 1]
     # 
     # These formats may be listed in any order, but if a number has
     # been listed once, it will not be listed again.
     # 
     # Eg. ["0-16x8", "0-16x2"]
-    #     -> yeilds [0, 8, 16, 2, 4, 6, 10, 12, 14]
+    #     yeilds -> [0, 8, 16, 2, 4, 6, 10, 12, 14]
     # 
     # Anything that is not of the above format is simply ingnored.
     #
