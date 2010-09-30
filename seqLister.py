@@ -76,6 +76,7 @@ def expandSeq(seqList) :
 	stepValue = 1
 	seqItem = seqItem.replace(" ", "") # Strip all whitespace.
 	seqItem = seqItem.replace("	", "")
+	seqItem = seqItem.replace("x-", "x") # No stepping by negative numbers - step back by reversing start/end
 	seqItemList = seqItem.split("-") # might be range or neg number.
 
 	if "x" in seqItemList[-1] :
@@ -124,9 +125,7 @@ def expandSeq(seqList) :
 	if seqItemList[0] == seqItemList[1] :
 	    if seqItemList[0] not in resultList :
 		resultList.append(seqItemList[0])
-	    continue
-
-	if seqItemList[0] < seqItemList[1] : # Counting up.
+	elif seqItemList[0] < seqItemList[1] : # Counting up.
 	    frameNum = seqItemList[0]
 	    while frameNum <= seqItemList[1] :
 		if frameNum not in resultList :
