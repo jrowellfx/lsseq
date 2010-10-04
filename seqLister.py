@@ -76,7 +76,10 @@ def expandSeq(seqList) :
 	stepValue = 1
 	seqItem = seqItem.replace(" ", "") # Strip all whitespace.
 	seqItem = seqItem.replace("	", "")
-	seqItem = seqItem.replace("x-", "x") # No stepping by negative numbers - step back by reversing start/end
+
+	# No stepping by negative numbers - step back by reversing start/end
+	seqItem = seqItem.replace("x-", "x")
+
 	seqItemList = seqItem.split("-") # might be range or neg number.
 
 	if "x" in seqItemList[-1] :
@@ -140,6 +143,13 @@ def expandSeq(seqList) :
 
     return resultList
 
+class gapRun :
+    def __init__(self, seqLen, startInd, gapSize, isCorrected=False) :
+        self.seqLen = seqLen
+        self.startInd = startInd
+        self.gapSize = gapSize
+        self.isCorrected = isCorrected
+
 def cmpFunc(x, y) :
     if x[1] == 0 :
 	return -1
@@ -164,17 +174,32 @@ def cmpFunc(x, y) :
 
 def compressSeq(seqList, pad=1) :
 
+    # Turn seqList into all integers and throw away invalid entries
+    #
+    tmpSeqList = seqList
+    seqList = []
+    for n in tmpSeqList :
+	if isinstance(n, int) :
+	    seqList.append(int(n))
+	if isinstance(n, str) :
+	    if n.isdigit() :
+		seqList.append(int(n))
+	    elif n[0] == "-" and n[1:].isdigit() :
+		seqList.append(-1 * int(n))
+
     if len(seqList) == 0 : # Take care of 1st trivial case
 	return []
 
+    # Remove duplicates
+    #
     seqList.sort()
     tmpSeqList = seqList
     seqList = []
-    for n in tmpSeqList : # removeDuplicates and turn all into integers
-	if seqList == [] :
-	    seqList.append(int(n))
-	elif int(n) != seqList[-1] :
-	    seqList.append(int(n))
+    seqList.append(tmpSeqList[0])
+    tmpSeqList.pop(0)
+    for n in tmpSeqList :
+	if n != seqList[-1] :
+	    seqList.append(n)
 
     formatStr = "%0" + str(pad) + "d"
 
@@ -183,75 +208,73 @@ def compressSeq(seqList, pad=1) :
 
     # At this point - guaranteed that len(seqList) > 1
 
-    resultList = []
     gapList = []
     i = 1
     while i < len(seqList) : # Record gaps between frame #'s
 	gapList.append(seqList[i] - seqList[i-1])
-	resultList.append(str(seqList[i]))
-	i = i + 1
+	i += 1
 
     # Count lengths of similar "gaps".
     i = 0 
     currentGap = 0 # Impossible - good starting point.
-    gapRunStartIndex = []
+    gapRunList = []
     while i < len(gapList) :
 	if gapList[i] != currentGap :
 	    currentGap = gapList[i]
-	    gapRunStartIndex.append([1, i, currentGap, False])
+	    gapRunList.append(gapRun(1, i, currentGap))
 	else :
-	    gapRunStartIndex[-1][0] = gapRunStartIndex[-1][0] + 1
-	i = i + 1
-    gapRunStartIndex.append([1, i, 0, False]) # Add entry for last number in seqList
+	    gapRunList[-1].seqLen += 1
+	i += 1
+    gapRunList.append(gapRun(1, i, 0)) # Add entry for last number in seqList (note zero gapSize)
 
+    # Sorts the runs of gaps into largest to smallest runs, and the larger runs try
+    # to steal from the next smaller runs end-frames if possible.  The gap run data is
+    # then adjusted accordingly.  That is, some number at a boundry of one run of gaps to
+    # another, preference is given to it becoming a member of the larger run.
+    #
     while True :
 	i = 0
 	gapRunSorted = []
-	for run in gapRunStartIndex :
-	    gapRunSorted.append([run[0], run[2], i])
-	    i = i + 1
+	for run in gapRunList :
+	    gapRunSorted.append([run.seqLen, run.gapSize, i])
+	    i += 1
 	gapRunSorted.sort(cmp=cmpFunc, reverse=True)
-
-	# gapRunStartIndex[runInd][0] is the length of the uninterupted sequence.
-	# gapRunStartIndex[runInd][1] is the index to the first num in the sequence
-	# gapRunStartIndex[runInd][2] is the gap
-	# gapRunStartIndex[runInd][3] is True if the sequence length has been corrected
 
 	i = 0
 	while i < len(gapRunSorted) :
 	    runInd = gapRunSorted[i][2]
-	    if not gapRunStartIndex[runInd][3] :
+	    if not gapRunList[runInd].isCorrected :
 		break
-	    i = i + 1
+	    i += 1
 
-	if gapRunStartIndex[runInd][2] == 0 :
+	if gapRunList[runInd].gapSize == 0 : # Means we've hit the end and we're done.
 	    break
 
-	gapRunStartIndex[runInd][3] = True
+	gapRunList[runInd].isCorrected = True
 
 	# Steal from next sequence if possible.
-	run = gapRunStartIndex[runInd]
-	nextRun = gapRunStartIndex[runInd+1]
-	# if nextRun[3] == False and nextRun[0] >= 1 and not (run[0] == 1 and run[2] > 1 ):
-	if nextRun[3] == False and not (run[0] == 1 and run[2] > 1 ):
-	    gapRunStartIndex[runInd+1][0] = gapRunStartIndex[runInd+1][0] - 1
-	    gapRunStartIndex[runInd][0] = gapRunStartIndex[runInd][0] + 1
-	    if gapRunStartIndex[runInd+1][0] >= 1 :
-		gapRunStartIndex[runInd+1][1] = gapRunStartIndex[runInd+1][1] + 1
+	run = gapRunList[runInd]
+	nextRun = gapRunList[runInd+1]
+	if not nextRun.isCorrected :
+	    if run.seqLen != 1 or run.gapSize == 1 :
+		gapRunList[runInd+1].seqLen -= 1
+		gapRunList[runInd].seqLen += 1
+		if gapRunList[runInd+1].seqLen >= 1 :
+		    gapRunList[runInd+1].startInd += 1
 
     compressList = []
 
-    for run in gapRunStartIndex :
-	if run[0] == 0 :
+    for run in gapRunList :
+	if run.seqLen == 0 :
 	    continue
 
-	if run[0] == 1 :
-	    compressList.append(formatStr % seqList[run[1]])
+	if run.seqLen == 1 :
+	    compressList.append(formatStr % seqList[run.startInd])
 	    continue
 
-	firstFrame = seqList[run[1]]
-	lastFrame = seqList[run[1] + run[0] - 1]
-	gap = run[2]
+	firstFrame = seqList[run.startInd]
+	lastFrame = seqList[run.startInd + run.seqLen - 1]
+	gap = run.gapSize
 	compressList.append(formatStr % firstFrame +"-"+ formatStr % lastFrame)
 	if gap > 1 :
 	    compressList[-1] = compressList[-1] + "x" + str(gap)
