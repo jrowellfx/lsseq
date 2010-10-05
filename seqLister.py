@@ -150,20 +150,23 @@ class gapRun :
         self.gapSize = gapSize
         self.isCorrected = isCorrected
 
+# [seqLen, gapSize, index])
 def cmpFunc(x, y) :
+    # There is only one entry with zero
+    # gap-length, it is always "smallest"
     if x[1] == 0 :
 	return -1
     elif y[1] == 0 :
 	return 1
     if x[0] == y[0] :
 	if x[1] == y[1] :
-	    if x[2] == y[2] :
+	    if x[2] == y[2] : # Impossible
 		return 0
-	    elif x[2] < y[2] :
+	    elif x[2] < y[2] : # Reverses based on index.
 		return 1
 	    else :
 		return -1
-	elif x[1] < y[1] :
+	elif x[1] < y[1] : # Reverses based on gapsize
 	    return 1
 	else :
 	    return -1
@@ -228,24 +231,17 @@ def compressSeq(seqList, pad=1) :
     gapRunList.append(gapRun(1, i, 0)) # Add entry for last number in seqList (note zero gapSize)
 
     # Sorts the runs of gaps into largest to smallest runs, and the larger runs try
-    # to steal from the next smaller runs end-frames if possible.  The gap run data is
-    # then adjusted accordingly.  That is, some number at a boundry of one run of gaps to
-    # another, preference is given to it becoming a member of the larger run.
+    # to steal from the next runs first-frame if possible.
     #
     while True :
 	i = 0
 	gapRunSorted = []
 	for run in gapRunList :
-	    gapRunSorted.append([run.seqLen, run.gapSize, i])
+	    if not run.isCorrected :
+		gapRunSorted.append([run.seqLen, run.gapSize, i])
 	    i += 1
 	gapRunSorted.sort(cmp=cmpFunc, reverse=True)
-
-	i = 0
-	while i < len(gapRunSorted) :
-	    runInd = gapRunSorted[i][2]
-	    if not gapRunList[runInd].isCorrected :
-		break
-	    i += 1
+	runInd = gapRunSorted[0][2] # This is the "largest" run currently.
 
 	if gapRunList[runInd].gapSize == 0 : # Means we've hit the end and we're done.
 	    break
@@ -255,12 +251,28 @@ def compressSeq(seqList, pad=1) :
 	# Steal from next sequence if possible.
 	run = gapRunList[runInd]
 	nextRun = gapRunList[runInd+1]
-	if not nextRun.isCorrected :
-	    if run.seqLen != 1 or run.gapSize == 1 :
-		gapRunList[runInd+1].seqLen -= 1
+	if not nextRun.isCorrected : # Means it was bigger than this one and we can't steal from it.
+	    # This next test just avoids the case of making random
+	    # sequences of numbers into little two entry lists with
+	    # large gaps.
+	    #
+	    if not (run.seqLen == 1 and run.gapSize > 1) :
 		gapRunList[runInd].seqLen += 1
-		if gapRunList[runInd+1].seqLen >= 1 :
-		    gapRunList[runInd+1].startInd += 1
+		gapRunList[runInd+1].seqLen -= 1
+		gapRunList[runInd+1].startInd += 1
+
+    # Now that we've gone through once, run through again, now for each run
+    # if the gapSize is smaller than the NEXT run, AND the seqLen is only one LESS than
+    # the seqLength of the next run, steal the first entry from the next run.
+    i = 0
+    while i < len(gapRunList)-1 :
+	if not (gapRunList[i].seqLen == 1 and gapRunList[i].gapSize > 1) \
+	    and (gapRunList[i].gapSize < gapRunList[i+1].gapSize) \
+	    and (gapRunList[i].seqLen == gapRunList[i+1].seqLen - 1) :
+	    gapRunList[i].seqLen += 1
+	    gapRunList[i+1].seqLen -= 1
+	    gapRunList[i+1].startInd += 1
+	i += 1
 
     compressList = []
 
@@ -270,6 +282,13 @@ def compressSeq(seqList, pad=1) :
 
 	if run.seqLen == 1 :
 	    compressList.append(formatStr % seqList[run.startInd])
+	    continue
+
+	# Don't print out this case as a range, but as two separate entries.
+	#
+	if run.seqLen == 2 and run.gapSize > 1:
+	    compressList.append(formatStr % seqList[run.startInd])
+	    compressList.append(formatStr % seqList[run.startInd+1])
 	    continue
 
 	firstFrame = seqList[run.startInd]
