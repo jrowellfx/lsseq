@@ -68,3 +68,21 @@ print seqLister.compressSeq([4, 5, 6, 8, 10, 12, 14, 24, 34, 44, 54, 64])
 print seqLister.compressSeq([0, 64, 32, 16, 48, 8, 24, 40, 56, 4, 12, 20, 28, 36, 44, 52, 60, 2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46, 50, 54, 58, 62, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41, 43, 45, 47, 49, 51], pad=2)
 print seqLister.compressSeq([0, 64, 32, 16, 48, 8, 24, 40, 56, 4, 12, 20, 28, 36, 44, 52, 60, 2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42, 46, 50, 54, 58, 62, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21], pad=4)
 print seqLister.compressSeq([0, 64, 32, 16, 48, 8, 24, 40, 56, 4, 12, 20, 28, 36, 44, 52, 60, 2, 6, 10, 14, 18, 22, 26, 30, 34, 38, 42], pad=4)
+
+tmpList = seqLister.expandSeq(["5-400x5", "7-400x7", "11-400x11", "13-400x13"])
+print seqLister.compressSeq(tmpList)
+
+tmpList = seqLister.expandSeq(["5-400x5", "7-400x7", "11-400x11", "13-400x13", "17-400x17", "19-400x19"])
+print seqLister.compressSeq(tmpList)
+
+tmpList = seqLister.expandSeq(["5-400x5", "7-400x7", "11-400x11", "13-400x13", "17-400x17", "19-400x19", "23-400x23", "29-400x29", "31-400x31"])
+print seqLister.compressSeq(tmpList)
+
+tmpList = seqLister.expandSeq(["3-400x3", "5-400x5", "7-400x7", "11-400x11", "13-400x13", "17-400x17", "19-400x19", "23-400x23", "29-400x29", "31-400x31"])
+print seqLister.compressSeq(tmpList)
+
+tmpList = seqLister.expandSeq(["2-400x2", "3-400x3", "5-400x5", "7-400x7", "11-400x11", "13-400x13", "17-400x17", "19-400x19", "23-400x23", "29-400x29", "31-400x31"])
+print seqLister.compressSeq(tmpList)
+
+tmpList = seqLister.expandSeq(["2-400x2", "3-400x3", "5-400x5", "7-400x7", "11-400x11", "13-400x13", "17-400x17", "19-400x19", "23-400x23", "29-400x29", "31-400x31", "120-301"])
+print seqLister.compressSeq(tmpList)
