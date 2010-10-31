@@ -162,6 +162,17 @@ def printSeq(filename, frameList, options, traversedPath) :
         print ""
 
 
+def stripDotFiles(dirContents, stripIt) :
+    if not stripIt:
+	return dirContents
+    else :
+	strippedDirContents = []
+	for f in dirContents :
+	    if f[0] != "." :
+		strippedDirContents.append(f)
+	return strippedDirContents
+
+
 def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 
     tmpCWD = ""
@@ -241,7 +252,7 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
                     print traversedPath + d + ":"
                 else :
                     print d + ":"
-            listSeqDir(os.listdir(d), d, False, options,
+            listSeqDir(stripDotFiles(os.listdir(d), options.ignoreDotFiles), d, False, options,
                 traversedPath + d + "/")
 
     if (len(path) > 0) :
@@ -265,15 +276,18 @@ def main():
 
     p = optparse.OptionParser(
         description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtension> - where imgExtension is drawn from a default list of image extensions (see option -i) or they can be set with the environment variable OIC_IMAGE_EXTENSION=exr:jpg:tif (for example)",
-        version="1.400",
+        version="1.410",
         usage="%prog [OPTION]... [FILE]...")
 
-    p.add_option("--directory", "-d", action="store_false",
-        dest="listDirContents", default=True,
-        help="list directory entries instead of contents, and do not dereference symbolic links")
     p.add_option("--single", "-1", action="store_true",
         dest="singleColumn", default=False,
         help="list one non-image file per line")
+    p.add_option("--all", "-a", action="store_false",
+        dest="ignoreDotFiles", default=True,
+        help="do not ignore entries starting with .")
+    p.add_option("--directory", "-d", action="store_false",
+        dest="listDirContents", default=True,
+        help="list directory entries instead of contents, and do not dereference symbolic links")
     p.add_option("--extremes", "-e", action="store_true",
         dest="extremes", default=False,
         help="only list the first and last image on a separate line.  This option implies --prependPath, --onlyImages, --skipMissing and --skipZero.  The purpose of this option is to help in backing up image sequences - making it easy to get a list of only the first and last frame for each sequence.")
@@ -355,7 +369,7 @@ def main():
             if options.prependPath :
                 passedPath = os.getcwd() + "/"
 
-            listSeqDir(os.listdir("."), "", False, options, passedPath)
+            listSeqDir(stripDotFiles(os.listdir("."), options.ignoreDotFiles), "", False, options, passedPath)
 
     # We are being asked to list a specific directory, so we don't need
     # to print the directory name before listing the contents (unless
@@ -380,7 +394,7 @@ def main():
             if options.prependPath :
                 passedPath = os.getcwd() + "/"
 
-            listSeqDir(os.listdir(arg0), arg0, False, options, passedPath)
+            listSeqDir(stripDotFiles(os.listdir(arg0), options.ignoreDotFiles), arg0, False, options, passedPath)
 
     # List all the arguments on the command line and unless prevented by
     # the "-d" option, it will also list the contents of all the directories
