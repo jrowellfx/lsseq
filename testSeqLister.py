@@ -20,6 +20,7 @@ print seqLister.expandSeq(["1-6xa"]) # invalid
 print seqLister.expandSeq(["1-6x2-"]) # invalid
 print seqLister.expandSeq(["a-b"]) # invalid
 print seqLister.expandSeq(["10--10x--2"]) # invalid
+print seqLister.expandSeq(["1-5", "8-a"]) # partially invalid
 print ""
 print "Testing compressSeq()"
 print seqLister.compressSeq([])

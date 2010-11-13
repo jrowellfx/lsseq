@@ -143,7 +143,7 @@ def expandSeq(seqList) :
 
     return resultList
 
-class gapRun :
+class _gapRun :
     def __init__(self, seqLen, startInd, gapSize, isCorrected=False) :
         self.seqLen = seqLen
         self.startInd = startInd
@@ -156,7 +156,9 @@ class gapRun :
 	    " gapSize = " + str(self.gapSize) + \
 	    " isCorrected = " + str(self.isCorrected) + "]"
 
-def debugPrintList(li) :
+# "__" at the start of function nane indicated private in module.
+#
+def __debugPrintList(li) :
     for l in li :
 	print "%02d" % l,
     print ""
@@ -211,11 +213,11 @@ def compressSeq(seqList, pad=1) :
     while i < len(gapList) :
 	if gapList[i] != currentGap :
 	    currentGap = gapList[i]
-	    gapRunList.append(gapRun(2, i, currentGap))
+	    gapRunList.append(_gapRun(2, i, currentGap))
 	else :
 	    gapRunList[-1].seqLen += 1
 	i += 1
-    gapRunList.append(gapRun(0, i, 0)) # Add entry for last number in seqList (note zero gapSize)
+    gapRunList.append(_gapRun(0, i, 0)) # Add entry for last number in seqList (note zero gapSize)
 
     # The largest runs steals from the prior and next runs last and first frame (respectively)
     # if possible, working our way to smaller and smaller runs.
