@@ -5,7 +5,7 @@
 # assumed to be of the form:
 #     <descriptiveName>.<frameNum>.<imgExtension>
 
-# Copyright (c) 2008-2010, James Philip Rowell,
+# Copyright (c) 2008-2012, James Philip Rowell,
 # Orange Imagination & Concepts, Inc.
 # All rights reserved.
 #
@@ -42,6 +42,7 @@ import sys
 import subprocess
 import seqLister
 
+MOV_EXT = ["avi", "mov", "mp4", "mpg", "wmv"]
 IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
     "dib", "dpx", "exr", "gfa", "gif", "giff", "icon", "iff", "img",
     "int", "inta", "jpe", "jpeg", "jpg", "mask", "matte", "pct",
@@ -71,6 +72,15 @@ def seqSplit(filename) :
         return [fileKey, fileFrameNum]
     else :
         return []
+
+
+# Return true if and only if filename is a movie file.
+#
+def isMovie(filename) :
+    global MOV_EXT
+    fileComponents = filename.split(".")
+
+    return len(fileComponents) > 1 and MOV_EXT.count(fileComponents[-1]) >= 1
 
 
 # Reconstruct the imagename with the frame number.
@@ -188,6 +198,7 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
     #     [ <framePadding>, [ list of frames ] ]
     #
     imageDictionary = {}
+    movFiles = []
     otherFiles = []
     dirList = []
 
@@ -207,6 +218,8 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
                 # initialiaze dictionary entry.
                 imageDictionary[fileParts[0]] \
                     = [len(fileParts[1]), [int(fileParts[1])]]
+	elif isMovie(filename) :
+	    movFiles.append(filename)
         else :
             isFileDir = os.path.isdir(filename)
             if ((not isFileDir
@@ -234,10 +247,15 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
     # Now actually print the sequences in this directory.
     #
     imKeys = imageDictionary.keys()
+    for m in movFiles :
+	imKeys.append(m)
     imKeys.sort()
     for k in imKeys :
-        imageDictionary[k][1].sort()
-        printSeq(k, imageDictionary[k], options, traversedPath)
+	if isMovie(k) :
+	    print k
+	else :
+	    imageDictionary[k][1].sort()
+	    printSeq(k, imageDictionary[k], options, traversedPath)
 
     # lsseq - the contents of any subdirectories if need be.
     #
@@ -273,9 +291,10 @@ def main():
     sys.excepthook = new_hook
 
     global IMAGE_EXT
+    global MOV_EXT
 
     p = optparse.OptionParser(
-        description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtension> - where imgExtension is drawn from a default list of image extensions (see option -i) or they can be set with the environment variable OIC_IMAGE_EXTENSION=exr:jpg:tif (for example)",
+        description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtension> - where imgExtension is drawn from a default list of image extensions (see option -i) or they can be set with the environment variable OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an OIC_MOV_EXTENSION environment variable for movie file extensions.",
         version="1.410",
         usage="%prog [OPTION]... [FILE]...")
 
@@ -296,7 +315,7 @@ def main():
         help="append indicator (one of */=>@|) to entries")
     p.add_option("--imgExt", "-i", action="store_true",
         dest="printImgExtensions", default=False,
-        help="print list of raster file image extensions and exit")
+        help="print list of raster and movie file extensions and exit")
     p.add_option("--showMissing", "-m", action="store_true",
         dest="showMissing", default=True,
         help="show list of missing frames [default]" )
@@ -333,8 +352,13 @@ def main():
     if tmpExt != None and tmpExt != "" :
         IMAGE_EXT = tmpExt.split(":")
 
+    tmpExt = os.getenv("OIC_MOV_EXTENSION")
+    if tmpExt != None and tmpExt != "" :
+        MOV_EXT = tmpExt.split(":")
+
     if options.printImgExtensions :
-        print IMAGE_EXT
+        print "Image extensions:", IMAGE_EXT
+        print "Movie extensions:", MOV_EXT
         sys.exit(0)
 
     if options.extremes :
