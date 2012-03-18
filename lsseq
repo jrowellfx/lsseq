@@ -125,15 +125,24 @@ def printSeq(filename, frameList, options, traversedPath) :
 
     formatStr = "%0" + str(padding) + "d"
     if minFrame != maxFrame :
-        frameRange = "[" \
-            + (formatStr % minFrame) \
-            + "-" \
-            + (formatStr % maxFrame) \
-            + "]"
+	if options.rvCmd :
+	    padStr = '@' * padding
+	    if padding == 4 :
+		padStr = '#'
+	    frameRange = str(minFrame) + "-" + str(maxFrame) + padStr
+	else :
+	    frameRange = "[" \
+		+ (formatStr % minFrame) \
+		+ "-" \
+		+ (formatStr % maxFrame) \
+		+ "]"
     else :
-        frameRange = "[" \
-            + (formatStr % minFrame) \
-            + "]"
+	if options.rvCmd :
+	    frameRange = (formatStr % minFrame)
+	else :
+	    frameRange = "[" \
+		+ (formatStr % minFrame) \
+		+ "]"
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
 
     if options.nukeCmd :
@@ -154,6 +163,7 @@ def printSeq(filename, frameList, options, traversedPath) :
             sys.stdout.write(traversedPath)
         if options.extremes :
             fileComponents[-2] = formatStr % minFrame
+
         print ".".join(fileComponents),
         if minFrame != maxFrame and options.extremes :
             print ""
@@ -331,18 +341,19 @@ def main():
         help="do not show list of missing frames" )
     p.add_option("--nuke", "-n", action="store_true",
         dest="nukeCmd", default=False,
-        help="list images sequences as nuke viewer command lines (takes precedence over --shake option)")
+        help="list image sequences as nuke viewer command lines (takes precedence over --shake option)")
     p.add_option("--onlyImages", "-o", action="store_true",
         dest="onlyImages", default=False,
         help="only list image sequences")
     p.add_option("--prependPath", "-p", action="store_true",
         dest="prependPath", default=False,
         help="prepend the abs path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
-
     p.add_option("--shake", "-s", action="store_true",
         dest="shakeCmd", default=False,
-        help="list images sequences as shake viewer command lines")
-
+        help="list image sequences as shake viewer command lines")
+    p.add_option("--rv", "-r", action="store_true",
+        dest="rvCmd", default=False,
+        help="list image sequences as arguments suitable for the rv viewer")
     p.add_option("--recursive", "-R", action="store_true",
         dest="isRecursive", default=False,
         help="list subdirectories recursively")
@@ -374,9 +385,14 @@ def main():
         options.showZero = False
         options.shakeCmd = False
         options.nukeCmd = False
+        options.rvCmd = False
 
     if options.nukeCmd :
         options.shakeCmd = False
+
+    if options.rvCmd :
+        options.shakeCmd = False
+        options.nukeCmd = False
 
     if options.prependPath :
         options.onlyImages = True # Force this.
