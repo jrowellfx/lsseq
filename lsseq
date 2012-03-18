@@ -312,7 +312,7 @@ def main():
 
     p = optparse.OptionParser(
         description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtension> - where imgExtension is drawn from a default list of image extensions (see option -i) or they can be set with the environment variable OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an OIC_MOV_EXTENSION environment variable for movie file extensions.",
-        version="1.410",
+        version="1.500",
         usage="%prog [OPTION]... [FILE]...")
 
     p.add_option("--single", "-1", action="store_true",
