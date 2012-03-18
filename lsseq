@@ -64,7 +64,10 @@ def seqSplit(filename) :
 
     if (len(fileComponents) > 2
             and IMAGE_EXT.count(fileComponents[-1]) >= 1
-            and fileComponents[-2].isdigit()) :
+            and (fileComponents[-2].isdigit()
+	         or (fileComponents[-2][0] == '-' and fileComponents[-2][1:].isdigit())
+		)
+	) :
 
         fileFrameNum = fileComponents[-2]
         fileComponents.remove(fileFrameNum)
@@ -87,9 +90,11 @@ def isMovie(filename) :
 #
 def actualImageName(filename, padding, frame) :
     fileComponents = filename.split(".")
-    formatStr = "%0" + str(padding) + "d"
+    if (frame < 0) :
+	padding += 1
+    formatStr = "{0:0=-" + str(padding) + "d}"
     fileComponents = fileComponents[:-1] + \
-        [formatStr % frame] + [fileComponents[-1]]
+	[formatStr.format(frame)] + [fileComponents[-1]]
     return ".".join(fileComponents)
 
 
@@ -120,21 +125,30 @@ def printSeq(filename, frameList, options, traversedPath) :
                 zeroFrames.append(i)
         i = i + 1
 
-    formatStr = "%0" + str(padding) + "d"
+    if minFrame < 0 :
+	minFormatStr = "%0" + str(padding + 1) + "d"
+    else :
+	minFormatStr = "%0" + str(padding) + "d"
+
+    if maxFrame < 0 :
+	maxFormatStr = "%0" + str(padding + 1) + "d"
+    else :
+	maxFormatStr = "%0" + str(padding) + "d"
+
     if minFrame != maxFrame :
         frameRange = "[" \
-            + (formatStr % minFrame) \
+            + (minFormatStr % minFrame) \
             + "-" \
-            + (formatStr % maxFrame) \
+            + (maxFormatStr % maxFrame) \
             + "]"
     else :
         frameRange = "[" \
-            + (formatStr % minFrame) \
+            + (minFormatStr % minFrame) \
             + "]"
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
 
     if options.nukeCmd :
-        fileComponents[-2] = formatStr
+        fileComponents[-2] = "#"
         print "nuke -v",
         if options.prependPath :
             sys.stdout.write(traversedPath)
@@ -208,16 +222,20 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
     for filename in dirContents:
         fileParts = seqSplit(filename)
         if len(fileParts) == 2 : # Means file is an image.
+	    newFrameNum = int(fileParts[1])
+	    newPaddingSize = len(fileParts[1])
+	    if newFrameNum < 0 :
+		newPaddingSize -= 1
             if imageDictionary.has_key(fileParts[0]) :
                 # tack on new frame number.
-                imageDictionary[fileParts[0]][1].append(int(fileParts[1]))
+                imageDictionary[fileParts[0]][1].append(newFrameNum)
                 # smallest length frame number determines padding.
-                if (len(fileParts[1]) < imageDictionary[fileParts[0]][0]) :
-                    imageDictionary[fileParts[0]][0] = len(fileParts[1])
+                if (newPaddingSize < imageDictionary[fileParts[0]][0]) :
+                    imageDictionary[fileParts[0]][0] = newPaddingSize
             else :
                 # initialiaze dictionary entry.
                 imageDictionary[fileParts[0]] \
-                    = [len(fileParts[1]), [int(fileParts[1])]]
+                    = [newPaddingSize, [newFrameNum]]
 	elif isMovie(filename) :
 	    movFiles.append(filename)
         else :
