@@ -90,8 +90,6 @@ def isMovie(filename) :
 #
 def actualImageName(filename, padding, frame) :
     fileComponents = filename.split(".")
-    if (frame < 0) :
-	padding += 1
     formatStr = "{0:0=-" + str(padding) + "d}"
     fileComponents = fileComponents[:-1] + \
 	[formatStr.format(frame)] + [fileComponents[-1]]
@@ -125,31 +123,22 @@ def printSeq(filename, frameList, options, traversedPath) :
                 zeroFrames.append(i)
         i = i + 1
 
-    if minFrame < 0 :
-	minFormatStr = "%0" + str(padding + 1) + "d"
-    else :
-	minFormatStr = "%0" + str(padding) + "d"
-
-    if maxFrame < 0 :
-	maxFormatStr = "%0" + str(padding + 1) + "d"
-    else :
-	maxFormatStr = "%0" + str(padding) + "d"
-
+    formatStr = "%0" + str(padding) + "d"
     if minFrame != maxFrame :
         frameRange = "[" \
-            + (minFormatStr % minFrame) \
+            + (formatStr % minFrame) \
             + "-" \
-            + (maxFormatStr % maxFrame) \
+            + (formatStr % maxFrame) \
             + "]"
     else :
         frameRange = "[" \
-            + (minFormatStr % minFrame) \
+            + (formatStr % minFrame) \
             + "]"
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
 
     if options.nukeCmd :
-        fileComponents[-2] = "#"
-        print "nuke -v",
+        fileComponents[-2] = "%0" + str(padding) + "d"
+        print "nukev",
         if options.prependPath :
             sys.stdout.write(traversedPath)
         print ".".join(fileComponents),
@@ -224,7 +213,7 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
         if len(fileParts) == 2 : # Means file is an image.
 	    newFrameNum = int(fileParts[1])
 	    newPaddingSize = len(fileParts[1])
-	    if newFrameNum < 0 :
+	    if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2:
 		newPaddingSize -= 1
             if imageDictionary.has_key(fileParts[0]) :
                 # tack on new frame number.
