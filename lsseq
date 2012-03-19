@@ -294,6 +294,8 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
             extra_ls_options.append("-F")
         if options.singleColumn :
             extra_ls_options.append("-1")
+        if options.sortByMTime :
+            extra_ls_options.append("-t")
         if options.reverseListing :
             extra_ls_options.append("-r")
         lsCmd = ["ls", "-d"] + extra_ls_options + otherFiles
@@ -392,19 +394,25 @@ def main():
         help="only list image sequences")
     p.add_option("--prependPath", "-p", action="store_true",
         dest="prependPath", default=False,
-        help="prepend the abs path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
-    p.add_option("--shake", "-s", action="store_true",
-        dest="shakeCmd", default=False,
-        help="list image sequences as shake viewer command lines")
+        help="prepend the absolute path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
     p.add_option("--rv", action="store_true",
         dest="rvCmd", default=False,
-        help="list image sequences as arguments suitable for the rv viewer. (takes precedence over --nuke and --shake option)")
+        help="list image sequences as arguments suitable for the rv viewer (this takes precedence over the --nuke and --shake options).")
     p.add_option("--reverse", "-r", action="store_true",
         dest="reverseListing", default=False,
         help="reverse order while sorting")
     p.add_option("--recursive", "-R", action="store_true",
         dest="isRecursive", default=False,
         help="list subdirectories recursively")
+    p.add_option("--shake", "-s", action="store_true",
+        dest="shakeCmd", default=False,
+        help="list image sequences as shake viewer command lines")
+    p.add_option("--time", action="store", type="string",
+        dest="timeCompare",
+       	help="Which frame in the sequence to use to compare times between sequences when sorting by time.  The possible values for 'FRAME_AGE' are 'oldest', 'median' and 'recent' (which is the default).", metavar="FRAME_AGE", default="recent" )
+    p.add_option("-t", action="store_true",
+        dest="sortByMTime", default=False,
+        help="sort by modification time, the default comparison time is between the most recently modified frames in each sequence. (see --time).")
     p.add_option("--showZero", "-z", action="store_true",
         dest="showZero", default=True,
         help="show list of zero length images [default]" )
