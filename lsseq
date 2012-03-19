@@ -238,7 +238,7 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
     #     [ <framePadding>, [ (frameNum, fileSize, mtime), ... ] ]
     #
     imageDictionary = {}
-    movFiles = []
+    moviesDictionary = {}
     otherFiles = []
     dirList = []
 
@@ -273,8 +273,15 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
                 # initialiaze dictionary entry.
                 imageDictionary[fileParts[0]] \
                     = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
+
 	elif isMovie(filename) :
-	    movFiles.append(filename)
+            # Check to see if file exists - might be broken soft link.
+            if not os.path.exists(filename) :
+		moviesDictionary[filename] = -1
+            else :
+		realFilename = os.path.realpath(filename)
+		moviesDictionary[filename] = os.path.getmtime(realFilename)
+
         else :
             isFileDir = os.path.isdir(filename)
             if ((not isFileDir
@@ -306,17 +313,48 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
     # Now actually print the sequences in this directory.
     #
     imKeys = imageDictionary.keys()
-    for m in movFiles :
+    movKeys = moviesDictionary.keys()
+    for m in movKeys :
 	imKeys.append(m)
-    imKeys.sort()
-    if options.reverseListing :
-	imKeys.reverse()
-    for k in imKeys :
-	if isMovie(k) :
-	    print k
-	else :
-	    imageDictionary[k][1].sort(key=itemgetter(0))
-	    printSeq(k, imageDictionary[k], options, traversedPath)
+    if options.sortByMTime :
+	timeList = []
+        for k in imKeys :
+            if isMovie(k) :
+                timeList.append((k, moviesDictionary[k]))
+            else :
+                validTimes = []
+		for im in imageDictionary[k][1] :
+		    if im[2] != -1 :
+			validTimes.append(im[2])
+		validTimes.sort()
+		if options.timeCompare == 'oldest' :
+		    time = validTimes[0]
+		elif options.timeCompare == 'median' :
+		    time = validTimes[len(validTimes)/2]
+		else : # recent
+		    time = validTimes[-1]
+		timeList.append((k, time))
+
+	timeList.sort(key=itemgetter(1))
+	# Note: ls -t prints newest first; ls -tr is newest last.
+	if not options.reverseListing :
+	    timeList.reverse()
+	for k in timeList :
+	    if isMovie(k[0]) :
+		print k[0]
+	    else :
+		imageDictionary[k[0]][1].sort(key=itemgetter(0))
+		printSeq(k[0], imageDictionary[k[0]], options, traversedPath)
+    else :
+	imKeys.sort()
+	if options.reverseListing :
+	    imKeys.reverse()
+	for k in imKeys :
+	    if isMovie(k) :
+		print k
+	    else :
+		imageDictionary[k][1].sort(key=itemgetter(0))
+		printSeq(k, imageDictionary[k], options, traversedPath)
 
     # lsseq - the contents of any subdirectories if need be.
     #
@@ -407,9 +445,9 @@ def main():
     p.add_option("--shake", "-s", action="store_true",
         dest="shakeCmd", default=False,
         help="list image sequences as shake viewer command lines")
-    p.add_option("--time", action="store", type="string",
+    p.add_option("--time", action="store", type="choice",
         dest="timeCompare",
-       	help="Which frame in the sequence to use to compare times between sequences when sorting by time.  The possible values for 'FRAME_AGE' are 'oldest', 'median' and 'recent' (which is the default).", metavar="FRAME_AGE", default="recent" )
+       	help="Which frame in the sequence to use to compare times between sequences when sorting by time.  The possible values for 'FRAME_AGE' are 'oldest', 'median' and 'recent' (which is the default).", metavar="FRAME_AGE", default="recent", choices=("oldest", "median", "recent"))
     p.add_option("-t", action="store_true",
         dest="sortByMTime", default=False,
         help="sort by modification time, the default comparison time is between the most recently modified frames in each sequence. (see --time).")
