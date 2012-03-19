@@ -1,3 +1,0 @@
-su -
-cp /nas/media/src/python/seqLister/seqLister.py /usr/lib64/python2.6/site-packages
-cp /nas/media/src/python/seqLister/seqLister.pyc /usr/lib64/python2.6/site-packages
