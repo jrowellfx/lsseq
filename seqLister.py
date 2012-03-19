@@ -1,5 +1,6 @@
-# Copyright (c) 2008-2010, James Philip Rowell,
+# Copyright (c) 2008-2012, James Philip Rowell,
 # Orange Imagination & Concepts, Inc.
+# www.orangeimagination.com
 # All rights reserved.
 # 
 # Redistribution and use in source and binary forms, with or without

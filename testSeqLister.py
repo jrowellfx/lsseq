@@ -14,6 +14,7 @@ print seqLister.expandSeq(["0-99x10"])
 print seqLister.expandSeq(["0-9", "20-40x2"])
 print seqLister.expandSeq(["0-6", "6-14x2", "14-70x10"])
 print seqLister.expandSeq(["0-64x64", "0-64x32", "0-64x16", "0-64x8", "0-64x4", "0-64x2", "0-64"])
+print seqLister.expandSeq(["-20--5"])
 print seqLister.expandSeq(["1-6-12"]) # invalid
 print seqLister.expandSeq(["1---6"]) # invalid
 print seqLister.expandSeq(["1-6xa"]) # invalid
