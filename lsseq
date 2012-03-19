@@ -41,6 +41,7 @@ import os
 import sys
 import subprocess
 import seqLister
+from operator import itemgetter
 
 MOV_EXT = ["avi", "mov", "mp4", "mpg", "wmv"]
 IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
@@ -101,25 +102,26 @@ def printSeq(filename, frameList, options, traversedPath) :
     fileComponents = filename.split(".")
     missingFrames = []
     zeroFrames = []
-    minFrame = frameList[1][0]
-    maxFrame = frameList[1][-1]
+    minFrame = frameList[1][0][0]
+    maxFrame = frameList[1][-1][0]
     padding = frameList[0]
     i = minFrame
     while i <= maxFrame:
         iMissing = False
-        if i != frameList[1][0] :
+	currFrameData = frameList[1][0]
+        if i != currFrameData[0] : # frame number
             iMissing = True
             if options.showMissing :
                 missingFrames.append(i)
         else :
             frameList[1].pop(0)
         if (not iMissing and options.showZero) :
-            actualFilename = actualImageName(filename, padding, i)
-            # Check to see if file exists - might be broken soft link.
-            if not os.path.exists(actualFilename) :
+            # if this file is a broken soft link '-1' was stashed as mtime
+            if currFrameData[2] == -1 : # mtime
                 zeroFrames.append(i)
+		actualFilename = actualImageName(filename, padding, i)
                 print >> sys.stderr, os.path.basename(sys.argv[0]) + ": warning: " + actualFilename + " is a broken soft link."
-            elif os.path.getsize(actualFilename) == 0 :
+            elif currFrameData[1] == 0 : # file size
                 zeroFrames.append(i)
         i = i + 1
 
@@ -171,18 +173,43 @@ def printSeq(filename, frameList, options, traversedPath) :
             fileComponents[-2] = formatStr % maxFrame
             print ".".join(fileComponents),
 
-        errFrames = missingFrames + zeroFrames
-        frameSeq = seqLister.compressSeq(errFrames)
-        if (len(frameSeq) > 0) :
-            sys.stdout.write(" [")
-            doPrintComma = False
-            for f in frameSeq :
-                if doPrintComma :
-                    sys.stdout.write(",")
-                sys.stdout.write(f)
-                doPrintComma = True
-            sys.stdout.write("]")
-        print ""
+	if options.combineErrorFrames :
+	    errFrames = missingFrames + zeroFrames
+	    frameSeq = seqLister.compressSeq(errFrames)
+	    if (len(frameSeq) > 0) :
+		sys.stdout.write(" [")
+		doPrintComma = False
+		for f in frameSeq :
+		    if doPrintComma :
+			sys.stdout.write(",")
+		    sys.stdout.write(f)
+		    doPrintComma = True
+		sys.stdout.write("]")
+	    print ""
+	else :
+	    missingFrameSeq = seqLister.compressSeq(missingFrames)
+	    if (len(missingFrameSeq) > 0) :
+		sys.stdout.write(" m:[")
+		doPrintComma = False
+		for f in missingFrameSeq :
+		    if doPrintComma :
+			sys.stdout.write(",")
+		    sys.stdout.write(f)
+		    doPrintComma = True
+		sys.stdout.write("]")
+	    zeroFrameSeq = seqLister.compressSeq(zeroFrames)
+	    if (len(zeroFrameSeq) > 0) :
+		if (len(missingFrameSeq) > 0) :
+		    sys.stdout.write(",")
+		sys.stdout.write(" z:[")
+		doPrintComma = False
+		for f in zeroFrameSeq :
+		    if doPrintComma :
+			sys.stdout.write(",")
+		    sys.stdout.write(f)
+		    doPrintComma = True
+		sys.stdout.write("]")
+	    print ""
 
 
 def stripDotFiles(dirContents, stripIt) :
@@ -207,8 +234,8 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 
     # The 'imageDictionary' has <imageName>.<ext> (no frame number) as
     # the key for each entry. Each entry is a two item list containing
-    # a number and a list, namely:
-    #     [ <framePadding>, [ list of frames ] ]
+    # a number and a list of three-tuples, namely:
+    #     [ <framePadding>, [ (frameNum, fileSize, mtime), ... ] ]
     #
     imageDictionary = {}
     movFiles = []
@@ -223,18 +250,29 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
         if len(fileParts) == 2 : # Means file is an image.
 	    newFrameNum = int(fileParts[1])
 	    newPaddingSize = len(fileParts[1])
+
+            # Check to see if file exists - might be broken soft link.
+            if not os.path.exists(filename) :
+		newFrameSize = 0
+		newFrameMTime = -1
+            else :
+		realFilename = os.path.realpath(filename)
+		newFrameSize = os.path.getsize(realFilename)
+		newFrameMTime = os.path.getmtime(realFilename)
+
 	    if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2:
 		newPaddingSize -= 1
+
             if imageDictionary.has_key(fileParts[0]) :
                 # tack on new frame number.
-                imageDictionary[fileParts[0]][1].append(newFrameNum)
+                imageDictionary[fileParts[0]][1].append((newFrameNum, newFrameSize, newFrameMTime))
                 # smallest length frame number determines padding.
                 if (newPaddingSize < imageDictionary[fileParts[0]][0]) :
                     imageDictionary[fileParts[0]][0] = newPaddingSize
             else :
                 # initialiaze dictionary entry.
                 imageDictionary[fileParts[0]] \
-                    = [newPaddingSize, [newFrameNum]]
+                    = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
 	elif isMovie(filename) :
 	    movFiles.append(filename)
         else :
@@ -267,11 +305,12 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
     for m in movFiles :
 	imKeys.append(m)
     imKeys.sort()
+    # JPR
     for k in imKeys :
 	if isMovie(k) :
 	    print k
 	else :
-	    imageDictionary[k][1].sort()
+	    imageDictionary[k][1].sort(key=itemgetter(0))
 	    printSeq(k, imageDictionary[k], options, traversedPath)
 
     # lsseq - the contents of any subdirectories if need be.
@@ -321,6 +360,9 @@ def main():
     p.add_option("--all", "-a", action="store_false",
         dest="ignoreDotFiles", default=True,
         help="do not ignore entries starting with .")
+    p.add_option("--combineLists", "-C", action="store_true",
+        dest="combineErrorFrames", default=False,
+        help="Combine the lists of zero, missing and bad frames into one list.")
     p.add_option("--directory", "-d", action="store_false",
         dest="listDirContents", default=True,
         help="list directory entries instead of contents, and do not dereference symbolic links")
@@ -351,9 +393,9 @@ def main():
     p.add_option("--shake", "-s", action="store_true",
         dest="shakeCmd", default=False,
         help="list image sequences as shake viewer command lines")
-    p.add_option("--rv", "-r", action="store_true",
+    p.add_option("--rv", action="store_true",
         dest="rvCmd", default=False,
-        help="list image sequences as arguments suitable for the rv viewer")
+        help="list image sequences as arguments suitable for the rv viewer. (takes precedence over --nuke and --shake option)")
     p.add_option("--recursive", "-R", action="store_true",
         dest="isRecursive", default=False,
         help="list subdirectories recursively")
