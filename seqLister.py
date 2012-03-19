@@ -35,30 +35,32 @@
 # frame numbers to/from a common format to describe such ranges.
 
 
+# Expands seqlist, which is a list of integers and or strings with the
+# following format, into a list of integers:
+# 
+# individual frame numbers: [1, "4", 10, 15]
+#     yeilds -> [1, 4, 10, 15]
+# sequences of successive frame numbers: ["1-4", "10-15"]
+#     yeilds -> [1, 2, 3, 4, 10, 11, 12, 13, 14, 15]
+# sequences of skipped frame numbers: ["1-10x2", "20-60x10"]
+#     yeilds -> [1, 3, 5, 7, 9, 20, 30, 40, 50, 60]
+# reverse sequences work too: ["5-1"]
+#     yeilds -> [5, 4, 3, 2, 1]
+# as do negative numbers: ["-10--3"]
+#     yeilds -> [-10, -9, -8, -7, -6, -5, -4, -3]
+# 
+# These formats may be listed in any order, but if a number has
+# been listed once, it will not be listed again.
+# 
+# Eg. ["0-16x8", "0-16x2"]
+#     yeilds -> [0, 8, 16, 2, 4, 6, 10, 12, 14]
+# 
+# Anything that is not of the above format is simply ingnored.
+#
+# If you want the list to be sorted, then sort the returned
+# list of numbers.
+#
 def expandSeq(seqList) :
-    #
-    # Expands seqlist, which is a list of integers and or strings with the
-    # following format, into a list of integers:
-    # 
-    # individual frame numbers: [1, "4", 10, 15]
-    #     yeilds -> [1, 4, 10, 15]
-    # sequences of successive frame numbers: ["1-4", "10-15"]
-    #     yeilds -> [1, 2, 3, 4, 10, 11, 12, 13, 14, 15]
-    # sequences of skipped frame numbers: ["1-10x2", "20-60x10"]
-    #     yeilds -> [1, 3, 5, 7, 9, 20, 30, 40, 50, 60]
-    # reverse sequences work too: ["5-1"]
-    #     yeilds -> [5, 4, 3, 2, 1]
-    # 
-    # These formats may be listed in any order, but if a number has
-    # been listed once, it will not be listed again.
-    # 
-    # Eg. ["0-16x8", "0-16x2"]
-    #     yeilds -> [0, 8, 16, 2, 4, 6, 10, 12, 14]
-    # 
-    # Anything that is not of the above format is simply ingnored.
-    #
-    # If you want the list to be sorted, then sort the returned
-    # list of numbers.
 
     if not isinstance(seqList, list) :
 	return []
@@ -165,6 +167,31 @@ def __debugPrintList(li) :
     print ""
 
 
+# Takes a list of numbers and compresses it into the most minimal
+# form using the notation described in 'expandSeq()' above.
+#
+# This [2, 1, 3, 7, 8, 4, 5, 6, 9, 10]
+#     yeilds -> ['1-10']
+# and this [0, 8, 16, 2, 4, 6, 10, 12, 14]
+#     yeilds -> ['0-16x2']
+#
+# and it tries to keep runs of compressed frames as
+# long as possible while also trying to keep random smatterings
+# of frame numbers, simply as numbers and not strange sequences.
+#
+# Eg. compressSeq(expandSeq(["0-100x2", 51]))
+#     yeilds -> ['0-50x2', '51', '52-100x2']
+# and [1, 5, 13]
+#     yeilds -> ['1', '5', '13']
+#
+# and other examples:
+# [1, 1, 1, 3, 3, 5, 5, 5] -> ['1-5x2']
+# [1, 2, 3, 4, 6, 8, 10] -> ['1-4', '6-10x2']
+# [1, 2, 3, 4, 6, 8] -> ['1-4', '6', '8']
+#
+# compressSeq(expandSeq(["2-50x2", "3-50x3", "5-50x5", "7-50x7", "11-50x11", "13-50x13", "17-50x17", "19-50x19", "23-50x23"]))
+#     yeilds -> ['2-28', '30', '32-36', '38-40', '42', '44-46', '48-50']
+#
 def compressSeq(seqList, pad=1) :
 
     # Turn seqList into all integers and throw away invalid entries

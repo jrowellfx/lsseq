@@ -15,6 +15,7 @@ print seqLister.expandSeq(["0-9", "20-40x2"])
 print seqLister.expandSeq(["0-6", "6-14x2", "14-70x10"])
 print seqLister.expandSeq(["0-64x64", "0-64x32", "0-64x16", "0-64x8", "0-64x4", "0-64x2", "0-64"])
 print seqLister.expandSeq(["-20--5"])
+print seqLister.expandSeq(["-10--3"])
 print seqLister.expandSeq(["1-6-12"]) # invalid
 print seqLister.expandSeq(["1---6"]) # invalid
 print seqLister.expandSeq(["1-6xa"]) # invalid
@@ -87,4 +88,7 @@ tmpList = seqLister.expandSeq(["2-400x2", "3-400x3", "5-400x5", "7-400x7", "11-4
 print seqLister.compressSeq(tmpList)
 
 tmpList = seqLister.expandSeq(["2-400x2", "3-400x3", "5-400x5", "7-400x7", "11-400x11", "13-400x13", "17-400x17", "19-400x19", "23-400x23", "29-400x29", "31-400x31", "120-301"])
+print seqLister.compressSeq(tmpList)
+
+tmpList = seqLister.expandSeq(["2-50x2", "3-50x3", "5-50x5", "7-50x7", "11-50x11", "13-50x13", "17-50x17", "19-50x19", "23-50x23"])
 print seqLister.compressSeq(tmpList)
