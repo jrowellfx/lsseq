@@ -153,18 +153,18 @@ def printSeq(filename, frameList, options, traversedPath) :
     if options.nukeCmd :
         fileComponents[-2] = "%0" + str(padding) + "d"
         print "nukev",
-        if options.prependPathAbs :
+        if options.prependPathAbs or options.prependPathRel :
             sys.stdout.write(traversedPath)
         print ".".join(fileComponents),
         print str(minFrame) + "," + str(maxFrame)
     elif options.shakeCmd :
         fileComponents[-2] = "#"
         print "shake -t", str(minFrame) + "-" + str(maxFrame),
-        if options.prependPathAbs :
+        if options.prependPathAbs or options.prependPathRel :
             sys.stdout.write(traversedPath)
         print ".".join(fileComponents)
     else :
-        if options.prependPathAbs :
+        if options.prependPathAbs or options.prependPathRel :
             sys.stdout.write(traversedPath)
         if options.extremes :
             fileComponents[-2] = formatStr % minFrame
@@ -344,7 +344,7 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 	    timeList.reverse()
 	for k in timeList :
 	    if isMovie(k[0]) :
-		if options.prependPathAbs :
+		if options.prependPathAbs or options.prependPathRel :
 		    sys.stdout.write(traversedPath)
 		print k[0]
 	    else :
@@ -356,7 +356,7 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 	    imKeys.reverse()
 	for k in imKeys :
 	    if isMovie(k) :
-		if options.prependPathAbs :
+		if options.prependPathAbs or options.prependPathRel :
 		    sys.stdout.write(traversedPath)
 		print k
 	    else :
@@ -370,7 +370,7 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
         for d in dirList :
             if d[-1] == "/" :
                 d = d[:-1]
-            if not options.prependPathAbs :
+            if not (options.prependPathAbs or options.prependPathRel) :
                 print ""
                 if options.isRecursive :
                     print traversedPath + d + ":"
@@ -401,7 +401,7 @@ def main():
 
     p = optparse.OptionParser(
         description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtension> - where imgExtension is drawn from a default list of image extensions (see option -i) or they can be set with the environment variable OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an OIC_MOV_EXTENSION environment variable for movie file extensions.",
-        version="1.500",
+        version="1.600",
         usage="%prog [OPTION]... [FILE]...")
 
     p.add_option("--single", "-1", action="store_true",
@@ -440,6 +440,9 @@ def main():
     p.add_option("--prependPathAbs", "-p", action="store_true",
         dest="prependPathAbs", default=False,
         help="prepend the absolute path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
+    p.add_option("--prependPathRel", "-P", action="store_true",
+        dest="prependPathRel", default=False,
+        help="prepend the relative path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
     p.add_option("--rv", action="store_true",
         dest="rvCmd", default=False,
         help="list image sequences as arguments suitable for the rv viewer (this takes precedence over the --nuke and --shake options).")
@@ -482,6 +485,7 @@ def main():
 
     if options.extremes :
         options.prependPathAbs = True
+        options.prependPathRel = False
         options.showMissing = False
         options.showZero = False
         options.shakeCmd = False
@@ -495,8 +499,12 @@ def main():
         options.shakeCmd = False
         options.nukeCmd = False
 
+    if options.prependPathRel :
+        options.onlyImages = True # Force this.
+
     if options.prependPathAbs :
         options.onlyImages = True # Force this.
+        options.prependPathRel = False
 
     # The following logic attempts to mimic the behavior
     # of /bin/ls as well as possible.
@@ -534,11 +542,13 @@ def main():
             print arg0
         else :
             if options.isRecursive:
-                if not options.prependPathAbs :
+                if not (options.prependPathAbs or options.prependPathRel) :
                     print arg0 + ":"
                 passedPath = arg0 + "/"
             else :
                 passedPath = ""
+            if options.prependPathRel :
+                passedPath = arg0 + "/"
             if options.prependPathAbs :
                 passedPath = os.getcwd() + "/"
 

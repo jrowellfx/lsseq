@@ -1,0 +1,2 @@
+# To create tarball
+python setup.py sdist
