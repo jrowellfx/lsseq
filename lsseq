@@ -153,18 +153,18 @@ def printSeq(filename, frameList, options, traversedPath) :
     if options.nukeCmd :
         fileComponents[-2] = "%0" + str(padding) + "d"
         print "nukev",
-        if options.prependPath :
+        if options.prependPathAbs :
             sys.stdout.write(traversedPath)
         print ".".join(fileComponents),
         print str(minFrame) + "," + str(maxFrame)
     elif options.shakeCmd :
         fileComponents[-2] = "#"
         print "shake -t", str(minFrame) + "-" + str(maxFrame),
-        if options.prependPath :
+        if options.prependPathAbs :
             sys.stdout.write(traversedPath)
         print ".".join(fileComponents)
     else :
-        if options.prependPath :
+        if options.prependPathAbs :
             sys.stdout.write(traversedPath)
         if options.extremes :
             fileComponents[-2] = formatStr % minFrame
@@ -344,6 +344,8 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 	    timeList.reverse()
 	for k in timeList :
 	    if isMovie(k[0]) :
+		if options.prependPathAbs :
+		    sys.stdout.write(traversedPath)
 		print k[0]
 	    else :
 		imageDictionary[k[0]][1].sort(key=itemgetter(0))
@@ -354,6 +356,8 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 	    imKeys.reverse()
 	for k in imKeys :
 	    if isMovie(k) :
+		if options.prependPathAbs :
+		    sys.stdout.write(traversedPath)
 		print k
 	    else :
 		imageDictionary[k][1].sort(key=itemgetter(0))
@@ -366,7 +370,7 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
         for d in dirList :
             if d[-1] == "/" :
                 d = d[:-1]
-            if not options.prependPath :
+            if not options.prependPathAbs :
                 print ""
                 if options.isRecursive :
                     print traversedPath + d + ":"
@@ -414,7 +418,7 @@ def main():
         help="list directory entries instead of contents, and do not dereference symbolic links")
     p.add_option("--extremes", "-e", action="store_true",
         dest="extremes", default=False,
-        help="only list the first and last image on a separate line.  This option implies --prependPath, --onlyImages, --skipMissing and --skipZero.  The purpose of this option is to help in backing up image sequences - making it easy to get a list of only the first and last frame for each sequence.")
+        help="only list the first and last image on a separate line.  This option implies --prependPathAbs, --onlyImages, --skipMissing and --skipZero.  The purpose of this option is to help in backing up image sequences - making it easy to get a list of only the first and last frame for each sequence.")
     p.add_option("--classify", "-F", action="store_true",
         dest="classify", default=False,
         help="append indicator (one of */=>@|) to entries")
@@ -433,8 +437,8 @@ def main():
     p.add_option("--onlyImages", "-o", action="store_true",
         dest="onlyImages", default=False,
         help="only list image sequences")
-    p.add_option("--prependPath", "-p", action="store_true",
-        dest="prependPath", default=False,
+    p.add_option("--prependPathAbs", "-p", action="store_true",
+        dest="prependPathAbs", default=False,
         help="prepend the absolute path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
     p.add_option("--rv", action="store_true",
         dest="rvCmd", default=False,
@@ -477,7 +481,7 @@ def main():
         sys.exit(0)
 
     if options.extremes :
-        options.prependPath = True
+        options.prependPathAbs = True
         options.showMissing = False
         options.showZero = False
         options.shakeCmd = False
@@ -491,7 +495,7 @@ def main():
         options.shakeCmd = False
         options.nukeCmd = False
 
-    if options.prependPath :
+    if options.prependPathAbs :
         options.onlyImages = True # Force this.
 
     # The following logic attempts to mimic the behavior
@@ -505,12 +509,12 @@ def main():
                 print "."
         else :
             if options.isRecursive :
-                if not options.prependPath :
+                if not options.prependPathAbs :
                     print ".:"
                 passedPath = "./"
             else :
                 passedPath = ""
-            if options.prependPath :
+            if options.prependPathAbs :
                 passedPath = os.getcwd() + "/"
 
             listSeqDir(stripDotFiles(os.listdir("."), options.ignoreDotFiles), "", False, options, passedPath)
@@ -530,12 +534,12 @@ def main():
             print arg0
         else :
             if options.isRecursive:
-                if not options.prependPath :
+                if not options.prependPathAbs :
                     print arg0 + ":"
                 passedPath = arg0 + "/"
             else :
                 passedPath = ""
-            if options.prependPath :
+            if options.prependPathAbs :
                 passedPath = os.getcwd() + "/"
 
             listSeqDir(stripDotFiles(os.listdir(arg0), options.ignoreDotFiles), arg0, False, options, passedPath)
@@ -546,7 +550,7 @@ def main():
     #
     else:
         passedPath = ""
-        if options.prependPath :
+        if options.prependPathAbs :
             passedPath = os.getcwd() + "/"
         listSeqDir(arguments, "", True, options, passedPath)
 
