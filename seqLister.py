@@ -33,7 +33,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
-# seqLister module - used for expanding and compressing ranges of
+# seqLister module - used for expanding and condensing ranges of
 # frame numbers to/from a common format to describe such ranges.
 
 
@@ -169,7 +169,7 @@ def __debugPrintList(li) :
     print ""
 
 
-# Takes a list of numbers and compresses it into the most minimal
+# Takes a list of numbers and condenses it into the most minimal
 # form using the notation described in 'expandSeq()' above.
 #
 # This [2, 1, 3, 7, 8, 4, 5, 6, 9, 10]
@@ -177,11 +177,11 @@ def __debugPrintList(li) :
 # and this [0, 8, 16, 2, 4, 6, 10, 12, 14]
 #     yeilds -> ['0-16x2']
 #
-# and it tries to keep runs of compressed frames as
+# and it tries to keep runs of condensed frame lists as
 # long as possible while also trying to keep random smatterings
 # of frame numbers, simply as numbers and not strange sequences.
 #
-# Eg. compressSeq(expandSeq(["0-100x2", 51]))
+# Eg. condenseSeq(expandSeq(["0-100x2", 51]))
 #     yeilds -> ['0-50x2', '51', '52-100x2']
 # and [1, 5, 13]
 #     yeilds -> ['1', '5', '13']
@@ -191,10 +191,10 @@ def __debugPrintList(li) :
 # [1, 2, 3, 4, 6, 8, 10] -> ['1-4', '6-10x2']
 # [1, 2, 3, 4, 6, 8] -> ['1-4', '6', '8']
 #
-# compressSeq(expandSeq(["2-50x2", "3-50x3", "5-50x5", "7-50x7", "11-50x11", "13-50x13", "17-50x17", "19-50x19", "23-50x23"]))
+# condenseSeq(expandSeq(["2-50x2", "3-50x3", "5-50x5", "7-50x7", "11-50x11", "13-50x13", "17-50x17", "19-50x19", "23-50x23"]))
 #     yeilds -> ['2-28', '30', '32-36', '38-40', '42', '44-46', '48-50']
 #
-def compressSeq(seqList, pad=1) :
+def condenseSeq(seqList, pad=1) :
 
     # Turn seqList into all integers and throw away invalid entries
     #
@@ -290,28 +290,28 @@ def compressSeq(seqList, pad=1) :
 		gapRunList[runInd+1].seqLen -= 1
 		gapRunList[runInd+1].startInd += 1
 
-    compressList = []
+    condensedList = []
 
     for run in gapRunList :
 	if run.seqLen <= 0 :
 	    continue
 
 	if run.seqLen == 1 :
-	    compressList.append(formatStr % seqList[run.startInd])
+	    condensedList.append(formatStr % seqList[run.startInd])
 	    continue
 
 	# Don't print out this case as a range, but as two separate entries.
 	#
 	if run.seqLen == 2 and run.gapSize > 1:
-	    compressList.append(formatStr % seqList[run.startInd])
-	    compressList.append(formatStr % seqList[run.startInd+1])
+	    condensedList.append(formatStr % seqList[run.startInd])
+	    condensedList.append(formatStr % seqList[run.startInd+1])
 	    continue
 
 	firstFrame = seqList[run.startInd]
 	lastFrame = seqList[run.startInd + run.seqLen - 1]
 	gap = run.gapSize
-	compressList.append(formatStr % firstFrame +"-"+ formatStr % lastFrame)
+	condensedList.append(formatStr % firstFrame +"-"+ formatStr % lastFrame)
 	if gap > 1 :
-	    compressList[-1] = compressList[-1] + "x" + str(gap)
+	    condensedList[-1] = condensedList[-1] + "x" + str(gap)
 
-    return compressList
+    return condensedList

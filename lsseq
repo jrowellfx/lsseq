@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# lsseq - List directory contents while compressing images sequences to
+# lsseq - List directory contents while condensing images sequences to
 # one entry each.  Filenames that are part of images sequences are
 # assumed to be of the form:
 #     <descriptiveName>.<frameNum>.<imgExtension>
@@ -178,7 +178,7 @@ def printSeq(filename, frameList, options, traversedPath) :
 
 	if options.combineErrorFrames :
 	    errFrames = missingFrames + zeroFrames
-	    frameSeq = seqLister.compressSeq(errFrames)
+	    frameSeq = seqLister.condenseSeq(errFrames)
 	    if (len(frameSeq) > 0) :
 		sys.stdout.write(" [")
 		doPrintComma = False
@@ -190,7 +190,7 @@ def printSeq(filename, frameList, options, traversedPath) :
 		sys.stdout.write("]")
 	    print ""
 	else :
-	    missingFrameSeq = seqLister.compressSeq(missingFrames)
+	    missingFrameSeq = seqLister.condenseSeq(missingFrames)
 	    if (len(missingFrameSeq) > 0) :
 		sys.stdout.write(" m:[")
 		doPrintComma = False
@@ -200,7 +200,7 @@ def printSeq(filename, frameList, options, traversedPath) :
 		    sys.stdout.write(f)
 		    doPrintComma = True
 		sys.stdout.write("]")
-	    zeroFrameSeq = seqLister.compressSeq(zeroFrames)
+	    zeroFrameSeq = seqLister.condenseSeq(zeroFrames)
 	    if (len(zeroFrameSeq) > 0) :
 		if (len(missingFrameSeq) > 0) :
 		    sys.stdout.write(",")
@@ -400,8 +400,8 @@ def main():
     global MOV_EXT
 
     p = optparse.OptionParser(
-        description="List directory contents while compressing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtension> - where imgExtension is drawn from a default list of image extensions (see option -i) or they can be set with the environment variable OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an OIC_MOV_EXTENSION environment variable for movie file extensions.",
-        version="1.600",
+        description="List directory contents while condensing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtension> - where imgExtension is drawn from a default list of image extensions (see option -i) or they can be set with the environment variable OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an OIC_MOV_EXTENSION environment variable for movie file extensions.",
+        version="1.601",
         usage="%prog [OPTION]... [FILE]...")
 
     p.add_option("--single", "-1", action="store_true",
