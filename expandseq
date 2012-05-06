@@ -93,55 +93,83 @@ def main():
 	print >> sys.stderr, os.path.basename(sys.argv[0]) + ": must be named either expandseq or condenseseq"
 	sys.exit(1)
 
-    p = argparse.ArgumentParser(
-	description="Expands a list of integers and integer sequences of the form 'A-B' or 'A-BxN' into a list of integers.  A-BxN means list every Nth integer starting at A ending at the highest integer less than or equal to B. Numbers will only be listed once each.  That is; '2-4 1-6' yeilds the list '2 3 4 1 5 6'.",
-	usage="%(prog)s [OPTION]... [INTEGER SEQUENCE]...")
 
-    # if EXPAND_MODE :
-	# p = argparse.ArgumentParser(
-	    # description="Expands a list of integers and all strings of the form 'A-BxN' into a list of integers.  Numbers will only be listed once each.",
-	    # usage="%prog [OPTION]... [INTEGERSEQUENCE]...")
-    # else :
-	# p = argparse.ArgumentParser(
-	    # description="tbd",
-	    # usage="%prog [OPTION]... [NUMBER SEQUENCE]...")
-    # p.add_argument("--onlyOnes", action="store_true",
-        # dest="limitToOnes", default=False,
-        # help="only condense sucessive frames, that is, do not list sequences on 2's, 3's, ... N's")
+    if EXPAND_MODE :
+	p = argparse.ArgumentParser(
+	    description="Expands a list of integers and integer sequences of the form 'A-B' or 'A-BxN' into a list of integers.  A-BxN means list every Nth integer starting at A ending at the highest integer less than or equal to B. Numbers will only be listed once each.  That is; '2-4 1-6' yeilds the list '2 3 4 1 5 6'.",
+	    usage="%(prog)s [OPTION]... [INTEGER SEQUENCE]...")
+    else :
+	p = argparse.ArgumentParser(
+	    description="tbd",
+	    usage="%(prog)s [OPTION]... [INTEGER SEQUENCE]...")
+
 
 
     p.add_argument("--version", action="version", version="%(prog)s " + VERSION)
-    p.add_argument("numSequences", metavar="INTEGER SEQUENCE", nargs="*",
-	help="is a single integer such as 'A', or a range of integers such as 'A-B', or a range on N's such as 'A-BxN'")
-    p.add_argument("--separator", "-s", action="store", type=str,
+
+    p.add_argument("--delimiter", "-d", action="store", type=str,
 	choices=("comma", "space", "newline"),
-        dest="seqSeparator",
-	metavar="SEPARATOR",
+        dest="seqDelimiter",
+	metavar="DELIMITER",
 	default="comma",
-       	help="List successive numbers separated by a 'comma' (default) or a 'space' or a 'newline'.")
+       	help="List successive numbers delimited by a 'comma' (default) or a 'space' or a 'newline'.")
+    if not EXPAND_MODE : # i.e.; condense
+	p.add_argument("--onlyOnes", action="store_true",
+	    dest="limitToOnes", default=False,
+	    help="only condense sucessive frames, that is, do not list sequences on 2's, 3's, ... N's")
+    p.add_argument("--reverse", "-r", action="store_true",
+	dest="reverseList", default=False,
+	help="reverse the order of the list")
+    if EXPAND_MODE :
+	p.add_argument("--sort", "-s", action="store_true",
+	    dest="sortList", default=False,
+	    help="sort the resulting list")
+
+    p.add_argument("numSequences", metavar="INTEGER SEQUENCE", nargs="*",
+	help="is a single integer such as 'A', or a range of integers such as 'A-B' (A or B can be negative, and A may be greater than B to count backwards), or a range on N's such as 'A-BxN' where N is a positive integer.")
+
 
     # Need to insert '--' before any negative number sequences so as to avoid
     # having sequences interpreted as options.
     #
     sysArgs = sys.argv[1:] # Copy the command line args (except prog name)
-    print sysArgs
     negInd = indexNegNumber(sysArgs) # Return index of any negative numbers.
-    print negInd
+    #
     # Insert '--' if negative number appears in arg list.
     #
     if negInd == 0 : # First one.
 	sysArgs = ['--'] + sysArgs
     elif negInd > 0 : # other than first.
 	sysArgs = sysArgs[:negInd-1] + ['--'] + sysArgs[negInd:]
-    print sysArgs
 
     # Go ahead and parse the args, it won't choke on negative sequences now.
     #
     args = p.parse_args(sysArgs)
 
-    print args.numSequences
-    print seqLister.expandSeq(args.numSequences)
+    if EXPAND_MODE :
+	result = seqLister.expandSeq(args.numSequences)
+	if args.sortList :
+	    result.sort()
+    else :
+	tmpList = seqLister.expandSeq(args.numSequences)
+	result = seqLister.condenseSeq(tmpList)
 
+    if args.reverseList :
+	result.reverse()
+
+    isFirst = True
+    for s in result :
+	if args.seqDelimiter == 'space' :
+	    print s,
+	elif args.seqDelimiter == 'comma' :
+	    if not isFirst :
+		sys.stdout.write(',')
+	    sys.stdout.write(str(s))
+	    isFirst = False
+	else : # newline
+	    print s
+    if args.seqDelimiter == 'comma' and not isFirst :
+	print ""
 
 if __name__ == '__main__':
     main()
