@@ -58,7 +58,7 @@ import seqLister
 from operator import itemgetter
 
 EXPAND_MODE = True
-VERSION     = "0.100"
+VERSION     = "1.000"
 
 def indexNegNumber(argList) :
     i = 0
