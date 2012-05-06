@@ -16,6 +16,11 @@
 # separators as well as sorting the lists, reversing order, and mixing and
 # matching expanded and condensed formats as arguments on the command line.
 
+# Copyright (c) 2008-2012, James Philip Rowell,
+# Orange Imagination & Concepts, Inc.
+# www.orangeimagination.com
+# All rights reserved.
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
 # met:
@@ -52,10 +57,14 @@ import subprocess
 import seqLister
 from operator import itemgetter
 
+EXPAND_MODE=true
+VERSION="0.100"
+
 def main():
 
     # Redefine the exception handling routine so that it does NOT
-    # do a trace dump if the user types ^C while seqlist is running.
+    # do a trace dump if the user types ^C while expandseq or
+    # condenseseq are running.
     #
     old_excepthook = sys.excepthook
     def new_hook(exceptionType, value, traceback):
@@ -65,173 +74,39 @@ def main():
             pass
     sys.excepthook = new_hook
 
-    global IMAGE_EXT
-    global MOV_EXT
+    global EXPAND_MODE
+    if os.path.basename(sys.argv[0]) == "expandseq" :
+	EXPAND_MODE=true
+    elseif os.path.basename(sys.argv[0]) == "condenseseq" :
+	EXPAND_MODE=false
+    else :
+	print >> sys.stderr, os.path.basename(sys.argv[0]) + ": must be named either expandseq or condenseseq"
+	sys.exit(1)
 
-    p = optparse.OptionParser(
-        description="tbd",
-        version="0.100",
-        usage="%prog [OPTION]... [NUMBER SEQUENCE]...")
+    if EXPAND_MODE :
+	p = optparse.OptionParser(
+	    description="Expands a list of integers and all strings of the form 'A-BxN' into a list of
+integers.  Numbers will only be listed once each.",
+	    version=VERSION,
+	    usage="%prog [OPTION]... [NUMBER SEQUENCE]...")
+    else :
+	p = optparse.OptionParser(
+	    description="tbd",
+	    version=VERSION,
+	    usage="%prog [OPTION]... [NUMBER SEQUENCE]...")
 
-    p.add_option("--single", "-1", action="store_true",
-        dest="singleColumn", default=False,
-        help="list one non-image file per line")
-    p.add_option("--all", "-a", action="store_false",
-        dest="ignoreDotFiles", default=True,
-        help="do not ignore entries starting with .")
-    p.add_option("--combineLists", "-C", action="store_true",
-        dest="combineErrorFrames", default=False,
-        help="Combine the lists of zero, missing and bad frames into one list.")
-    p.add_option("--directory", "-d", action="store_false",
-        dest="listDirContents", default=True,
-        help="list directory entries instead of contents, and do not dereference symbolic links")
-    p.add_option("--extremes", "-e", action="store_true",
-        dest="extremes", default=False,
-        help="only list the first and last image on a separate line.  This option implies --prependPathAbs, --onlyImages, --skipMissing and --skipZero.  The purpose of this option is to help in backing up image sequences - making it easy to get a list of only the first and last frame for each sequence.")
-    p.add_option("--classify", "-F", action="store_true",
-        dest="classify", default=False,
-        help="append indicator (one of */=>@|) to entries")
-    p.add_option("--imgExt", "-i", action="store_true",
-        dest="printImgExtensions", default=False,
-        help="print list of raster and movie file extensions and exit")
-    p.add_option("--showMissing", "-m", action="store_true",
-        dest="showMissing", default=True,
-        help="show list of missing frames [default]" )
-    p.add_option("--skipMissing", "-M", action="store_false",
-        dest="showMissing",
-        help="do not show list of missing frames" )
-    p.add_option("--nuke", "-n", action="store_true",
-        dest="nukeCmd", default=False,
-        help="list image sequences as nuke viewer command lines (takes precedence over --shake option)")
-    p.add_option("--onlyImages", "-o", action="store_true",
-        dest="onlyImages", default=False,
-        help="only list image sequences")
-    p.add_option("--prependPathAbs", "-p", action="store_true",
-        dest="prependPathAbs", default=False,
-        help="prepend the absolute path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
-    p.add_option("--prependPathRel", "-P", action="store_true",
-        dest="prependPathRel", default=False,
-        help="prepend the relative path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
-    p.add_option("--rv", action="store_true",
-        dest="rvCmd", default=False,
-        help="list image sequences as arguments suitable for the rv viewer (this takes precedence over the --nuke and --shake options).")
-    p.add_option("--reverse", "-r", action="store_true",
-        dest="reverseListing", default=False,
-        help="reverse order while sorting")
-    p.add_option("--recursive", "-R", action="store_true",
-        dest="isRecursive", default=False,
-        help="list subdirectories recursively")
-    p.add_option("--shake", "-s", action="store_true",
-        dest="shakeCmd", default=False,
-        help="list image sequences as shake viewer command lines")
-    p.add_option("--time", action="store", type="choice",
-        dest="timeCompare",
-       	help="Which frame in the sequence to use to compare times between sequences when sorting by time.  The possible values for 'FRAME_AGE' are 'oldest', 'median' and 'newest' (which is the default).", metavar="FRAME_AGE", default="newest", choices=("oldest", "median", "newest"))
-    p.add_option("-t", action="store_true",
-        dest="sortByMTime", default=False,
-        help="sort by modification time, the default comparison time is between the most recently modified (newest) frames in each sequence. (see --time).")
-    p.add_option("--showZero", "-z", action="store_true",
-        dest="showZero", default=True,
-        help="show list of zero length images [default]" )
-    p.add_option("--skipZero", "-Z", action="store_false",
-        dest="showZero",
-        help="do not show list of zero length images" )
+    p.add_option("--separator", "-s", action="store", type="choice",
+        dest="seqSeparator",
+       	help="List successive numbers separated by a 'comma' (default) or a 'space' or a 'newline'.", metavar="SEPARATOR", default="comma", choices=("comma", "space", "newline"))
+    p.add_option("--onlyOnes", "-1", action="store_true",
+        dest="limitToOnes", default=False,
+        help="only condense sucessive frames, that is, do not list sequences on 2's, 3's, ... N's")
 
     (options, arguments) = p.parse_args()
 
-    tmpExt = os.getenv("OIC_IMAGE_EXTENSION")
-    if tmpExt != None and tmpExt != "" :
-        IMAGE_EXT = tmpExt.split(":")
+    if options.seqSeparator :
+        print "Do something blah blah blah"
 
-    tmpExt = os.getenv("OIC_MOV_EXTENSION")
-    if tmpExt != None and tmpExt != "" :
-        MOV_EXT = tmpExt.split(":")
-
-    if options.printImgExtensions :
-        print "Image extensions:", IMAGE_EXT
-        print "Movie extensions:", MOV_EXT
-        sys.exit(0)
-
-    if options.extremes :
-        options.prependPathAbs = True
-        options.prependPathRel = False
-        options.showMissing = False
-        options.showZero = False
-        options.shakeCmd = False
-        options.nukeCmd = False
-        options.rvCmd = False
-
-    if options.nukeCmd :
-        options.shakeCmd = False
-
-    if options.rvCmd :
-        options.shakeCmd = False
-        options.nukeCmd = False
-
-    if options.prependPathRel :
-        options.onlyImages = True # Force this.
-
-    if options.prependPathAbs :
-        options.onlyImages = True # Force this.
-        options.prependPathRel = False
-
-    # The following logic attempts to mimic the behavior
-    # of /bin/ls as well as possible.
-
-    # No args means list the current directory.
-    #
-    if len(arguments) == 0:
-        if (not options.listDirContents) :
-            if (not options.onlyImages) :
-                print "."
-        else :
-            if options.isRecursive :
-                if not options.prependPathAbs :
-                    print ".:"
-                passedPath = "./"
-            else :
-                passedPath = ""
-            if options.prependPathAbs :
-                passedPath = os.getcwd() + "/"
-
-            listSeqDir(stripDotFiles(os.listdir("."), options.ignoreDotFiles), "", False, options, passedPath)
-
-    # We are being asked to list a specific directory, so we don't need
-    # to print the directory name before listing the contents (unless
-    # it is a recursive listing).  (/bin/ls behavior.)
-    #
-    elif len(arguments) == 1 and os.path.isdir(arguments[0]) :
-        arg0 = arguments[0]
-        # Strip out trailing "/" that may have been tacked on by
-        # file completion.  (/bin/ls does not do this - but it's
-        # cleaner looking.)
-        if arguments[0][-1] == "/" :
-            arg0 = arguments[0][:-1]
-        if (not options.listDirContents) :
-            print arg0
-        else :
-            if options.isRecursive:
-                if not (options.prependPathAbs or options.prependPathRel) :
-                    print arg0 + ":"
-                passedPath = arg0 + "/"
-            else :
-                passedPath = ""
-            if options.prependPathRel :
-                passedPath = arg0 + "/"
-            if options.prependPathAbs :
-                passedPath = os.getcwd() + "/"
-
-            listSeqDir(stripDotFiles(os.listdir(arg0), options.ignoreDotFiles), arg0, False, options, passedPath)
-
-    # List all the arguments on the command line and unless prevented by
-    # the "-d" option, it will also list the contents of all the directories
-    # entered on the command line as well.
-    #
-    else:
-        passedPath = ""
-        if options.prependPathAbs :
-            passedPath = os.getcwd() + "/"
-        listSeqDir(arguments, "", True, options, passedPath)
 
 if __name__ == '__main__':
     main()
