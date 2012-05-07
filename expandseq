@@ -96,11 +96,17 @@ def main():
 
     if EXPAND_MODE :
 	p = argparse.ArgumentParser(
-	    description="Expands a list of integers and integer sequences of the form 'A-B' or 'A-BxN' into a list of integers.  A-BxN means list every Nth integer starting at A ending at the highest integer less than or equal to B. Numbers will only be listed once each.  That is; '2-4 1-6' yeilds the list '2 3 4 1 5 6'.",
+	    description="Expands a list of integers and integer sequences \
+	    of the form 'A-B' or 'A-BxN' into a list of integers.  A-BxN means \
+	    list every Nth integer starting at A ending at the highest integer \
+	    less than or equal to B. Numbers will only be listed once each.\
+	    That is; '2-4 1-6' yeilds the list '2 3 4 1 5 6'.",
 	    usage="%(prog)s [OPTION]... [INTEGER SEQUENCE]...")
     else :
 	p = argparse.ArgumentParser(
-	    description="tbd",
+	    description="Condenses a list of integers and/or integer sequences \
+	    of the form 'A-B' or 'A-BxN' into the most minimal sequence format \
+	    possible to represent the full list of numbers.",
 	    usage="%(prog)s [OPTION]... [INTEGER SEQUENCE]...")
 
 
@@ -126,14 +132,15 @@ def main():
 	    help="sort the resulting list")
 
     p.add_argument("numSequences", metavar="INTEGER SEQUENCE", nargs="*",
-	help="is a single integer such as 'A', or a range of integers such as 'A-B' (A or B can be negative, and A may be greater than B to count backwards), or a range on N's such as 'A-BxN' where N is a positive integer.")
+	help="is a single integer such as 'A', or a range \
+	of integers such as 'A-B' (A or B can be negative,\
+	and A may be greater than B to count backwards), or \
+	a range on N's such as 'A-BxN' where N is a positive integer.")
 
 
     sysArgs = sys.argv[1:] # Copy the command line args (except prog name)
-    print sysArgs
     remainingArgs = []
     result = seqLister.expandSeq(sysArgs, remainingArgs)
-    print remainingArgs
     args = p.parse_args(remainingArgs)
 
     if EXPAND_MODE :
