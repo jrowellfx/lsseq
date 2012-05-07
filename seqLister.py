@@ -62,7 +62,11 @@
 # If you want the list to be sorted, then sort the returned
 # list of numbers.
 #
-def expandSeq(seqList) :
+def expandSeq(seqList, nonSeqList) :
+
+    # All the stuff passed in seqList that is NOT a properly formatted sequence.
+    #
+    nonSeqList = []
 
     if not isinstance(seqList, list) :
 	return []
@@ -71,6 +75,7 @@ def expandSeq(seqList) :
     for seqItem in seqList :
 	if not (isinstance(seqItem, int) or isinstance(seqItem, str)) :
 	    # Discard item and continue to next one
+	    nonSeqList.append(seqItem)
 	    continue
 
 	if isinstance(seqItem, int) :
@@ -90,8 +95,10 @@ def expandSeq(seqList) :
 	if "x" in seqItemList[-1] :
 	    lastItem = seqItemList[-1].split("x")
 	    if len(lastItem) != 2 :
+		nonSeqList.append(seqItem)
 		continue
 	    if not lastItem[1].isdigit() :
+		nonSeqList.append(seqItem)
 		continue
 	    stepValue = int(lastItem[1])
 	    seqItemList[-1] = lastItem[0] # Stick back in list minus "xN" part
@@ -99,13 +106,16 @@ def expandSeq(seqList) :
 	if seqItemList[0] == "" : # Means there was leading minus sign.
 	    seqItemList.pop(0)
 	    if len(seqItemList) == 0:
+		nonSeqList.append(seqItem)
 		continue
 	    if not seqItemList[0].isdigit() :
+		nonSeqList.append(seqItem)
 		continue
 	    seqItemList[0] = -1 * int(seqItemList[0]) # Repace first entry...
 	elif seqItemList[0].isdigit() :
 	    seqItemList[0] = int(seqItemList[0]) #...with an ingeter.
 	else :
+	    nonSeqList.append(seqItem)
 	    continue
 
 	if len(seqItemList) == 1 : # Was just string with one number in it.
@@ -116,17 +126,21 @@ def expandSeq(seqList) :
 	if seqItemList[1] == "" : # Same as above for next entry.
 	    seqItemList.pop(1)
 	    if len(seqItemList) == 1:
+		nonSeqList.append(seqItem)
 		continue
 	    if not seqItemList[1].isdigit() :
+		nonSeqList.append(seqItem)
 		continue
 	    seqItemList[1] = -1 * int(seqItemList[1])
 	elif seqItemList[1].isdigit() :
 	    seqItemList[1] = int(seqItemList[1])
 	else :
+	    nonSeqList.append(seqItem)
 	    continue
 
 	# Should only be exactly two entries at this point.
 	if len(seqItemList) != 2 : 
+	    nonSeqList.append(seqItem)
 	    continue
 
 	# Ummm - dumb but why not? list from n to n, i.e., one number.

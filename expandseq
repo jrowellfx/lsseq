@@ -58,7 +58,7 @@ import seqLister
 from operator import itemgetter
 
 EXPAND_MODE = True
-VERSION     = "1.000"
+VERSION     = "1.100"
 
 def indexNegNumber(argList) :
     i = 0
@@ -129,30 +129,18 @@ def main():
 	help="is a single integer such as 'A', or a range of integers such as 'A-B' (A or B can be negative, and A may be greater than B to count backwards), or a range on N's such as 'A-BxN' where N is a positive integer.")
 
 
-    # Need to insert '--' before any negative number sequences so as to avoid
-    # having sequences interpreted as options.
-    #
     sysArgs = sys.argv[1:] # Copy the command line args (except prog name)
-    negInd = indexNegNumber(sysArgs) # Return index of any negative numbers.
-    #
-    # Insert '--' if negative number appears in arg list.
-    #
-    if negInd == 0 : # First one.
-	sysArgs = ['--'] + sysArgs
-    elif negInd > 0 : # other than first.
-	sysArgs = sysArgs[:negInd-1] + ['--'] + sysArgs[negInd:]
-
-    # Go ahead and parse the args, it won't choke on negative sequences now.
-    #
-    args = p.parse_args(sysArgs)
+    print sysArgs
+    remainingArgs = []
+    result = seqLister.expandSeq(sysArgs, remainingArgs)
+    print remainingArgs
+    args = p.parse_args(remainingArgs)
 
     if EXPAND_MODE :
-	result = seqLister.expandSeq(args.numSequences)
 	if args.sortList :
 	    result.sort()
     else :
-	tmpList = seqLister.expandSeq(args.numSequences)
-	result = seqLister.condenseSeq(tmpList)
+	result = seqLister.condenseSeq(result)
 
     if args.reverseList :
 	result.reverse()
