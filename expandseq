@@ -100,13 +100,13 @@ def main():
 	    of the form 'A-B' or 'A-BxN' into a list of integers.  A-BxN means \
 	    list every Nth integer starting at A ending at the highest integer \
 	    less than or equal to B. Numbers will only be listed once each.\
-	    That is; '2-4 1-6' yeilds the list '2 3 4 1 5 6'.",
+	    That is; '2-4 1-6' yeilds the list '2 3 4 1 5 6'.  (Also see condenseseq).",
 	    usage="%(prog)s [OPTION]... [INTEGER SEQUENCE]...")
     else :
 	p = argparse.ArgumentParser(
 	    description="Condenses a list of integers and/or integer sequences \
 	    of the form 'A-B' or 'A-BxN' into the most minimal sequence format \
-	    possible to represent the full list of numbers.",
+	    possible to represent the full list of numbers. (Also see expandseq).",
 	    usage="%(prog)s [OPTION]... [INTEGER SEQUENCE]...")
 
 
