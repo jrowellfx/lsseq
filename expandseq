@@ -121,7 +121,7 @@ def main():
        	help="List successive numbers delimited by a 'comma' (default) or a 'space' or a 'newline'.")
     if not EXPAND_MODE : # i.e.; condense
 	p.add_argument("--onlyOnes", action="store_true",
-	    dest="limitToOnes", default=False,
+	    dest="onlyOnes", default=False,
 	    help="only condense sucessive frames, that is, do not list sequences on 2's, 3's, ... N's")
     p.add_argument("--reverse", "-r", action="store_true",
 	dest="reverseList", default=False,
@@ -147,7 +147,10 @@ def main():
 	if args.sortList :
 	    result.sort()
     else :
-	result = seqLister.condenseSeq(result)
+	if args.onlyOnes :
+	    result = seqLister.condenseSeqOnes(result)
+	else :
+	    result = seqLister.condenseSeq(result)
 
     if args.reverseList :
 	result.reverse()

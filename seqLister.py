@@ -326,3 +326,71 @@ def condenseSeq(seqList, pad=1) :
 	    condensedList[-1] = condensedList[-1] + "x" + str(gap)
 
     return condensedList
+
+# Takes a list of numbers and condenses it into the most minimal
+# form using with the restriction that sequences are compressed
+# to a range (A-B) if and only if the numbers are successive.
+#
+# This [2, 1, 3, 7, 8, 4, 5, 6, 9, 10]
+#     yeilds -> ['1-10']
+# and this [0, 8, 16, 2, 4, 6, 10, 12, 14]
+#     yeilds -> ['0-16x2']
+#
+def condenseSeqOnes(seqList, pad=1) :
+
+    # Turn seqList into all integers and throw away invalid entries
+    #
+    tmpSeqList = seqList
+    seqList = []
+    for n in tmpSeqList :
+	if isinstance(n, int) :
+	    seqList.append(int(n))
+	if isinstance(n, str) :
+	    if n.isdigit() :
+		seqList.append(int(n))
+	    elif n[0] == "-" and n[1:].isdigit() :
+		seqList.append(-1 * int(n))
+
+    if len(seqList) == 0 : # Take care of 1st trivial case
+	return []
+
+    # Remove duplicates
+    #
+    seqList.sort()
+    tmpSeqList = seqList
+    seqList = []
+    seqList.append(tmpSeqList[0])
+    tmpSeqList.pop(0)
+    for n in tmpSeqList :
+	if n != seqList[-1] :
+	    seqList.append(n)
+
+    formatStr = "%0" + str(pad) + "d"
+
+    if len(seqList) == 1 : # Take care of second trivial case.
+	return [formatStr % seqList[0]]
+
+    # At this point - guaranteed that len(seqList) > 1
+
+    condensedList = []
+
+    firstFrame = seqList[0]
+    lastFrame = seqList[0]
+    seqList.pop(0)
+    for f in seqList :
+	if f == lastFrame + 1 : # Sequence is on ones.
+	    lastFrame = f
+	else :
+	    if firstFrame == lastFrame : # Last one was a single entry.
+		condensedList.append(formatStr % firstFrame)
+	    else : # Had a range.
+		condensedList.append(formatStr % firstFrame +"-"+ formatStr % lastFrame)
+	    firstFrame = f
+	    lastFrame = f
+
+    if firstFrame == lastFrame :
+	condensedList.append(formatStr % firstFrame)
+    else :
+	condensedList.append(formatStr % firstFrame +"-"+ formatStr % lastFrame)
+
+    return condensedList
