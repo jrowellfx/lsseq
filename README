@@ -1,23 +1,48 @@
+How to install lsseq, expandseq and condenseseq on your computer.
+
+lsseq, expandseq and condenseseq are three command line utilities to
+help you deal with sequences of images from the command line.
+
+lsseq is designed to have the flavor and power of the unix/linux "ls"
+program as much as possible.  The idea is to make it easier on the
+user when switching back and forth between using "lsseq" and regular
+"ls" so that the look of the output as well as several command-line-
+arguments are the same (where possible and it makes sense).
+
+There are also two utilities that expand and condense lists of frame
+numbers into a fairly standard format used by many computer-graphics
+programs and CG-production studios.
+
+To install these commands locally follow these steps.
+
 First make sure you have python installed on your machine, you can do
 this simply by typing "python --version" at the command prompt.  If
 you are told "command not found", then you need to download and
 install python.  Vers 2.6 or 2.7 are probably best - this hasn't been
 tested on vers 3.0.
 
-Next, assuming you downloaded the lsseq-1.5.tar.gz file to your home
-directory then typed:
+1) Download the lsseq-*.tar.gz (replace * with the latest version
+   number). Let's assume for discussion that the latest version is
+   1.602.
 
-$ tar -xvf lsseq-1.5.tar.gz
+2) Uncompress the file like this
+   $ cd Downloads (or wherever you downloaded the file to).
+   $ tar -xvf lsseq-1.602.tar.gz
 
-Then to install 'lsseq' log in as root and run following commands:
+3) install the commands (a supporting python lib will also be
+   installed) by first logging in as root then running following
+   commands:
 
-$ su -
-# cd ~yourUserName/lsseq-1.5
-# python setup.py install
-# exit
+   $ su -
+   # cd ~yourUserName/Downloads/lsseq-1.602
+   # python setup.py install
+   # exit
 
-To test it properly cd into a directory containing frames from an
-image sequence then 'lsseq' the contents of the directory.
+4) ...that's it, you should be able to run the commands "lsseq",
+   "expandseq" and "condenseseq" now.
+
+To test lsseq properly cd into a directory containing frames from an
+image sequence then "lsseq" the contents of the directory.
 
 If you don't have one handy you can try this to test it.
 
@@ -30,7 +55,7 @@ aaa.[001-005].tif z:[1-5]
 
 Note the "z:[1-5]" which is telling you that the frames
 aaa.[001-005].tif have zero length, and if you had generated those
-with a renderer you'd likely need to rerender them.  Handy eh!?
+with a renderer I'm guessing you'd need to rerender them.  Handy eh!?
 
 Type:
 
@@ -40,3 +65,6 @@ for much more useful info.
 
 Please contact james@oic-inc.net with any bug reports, or with
 suggestions or oodles of praise as the case may be.
+
+Also, the repos for this project, and some test code etc. is on
+github, which you can get here: (TBD James)
