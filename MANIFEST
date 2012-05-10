@@ -2,3 +2,5 @@ lsseq
 seqLister.py
 setup.py
 README
+condenseseq
+expandseq
