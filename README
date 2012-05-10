@@ -67,4 +67,7 @@ Please contact james@oic-inc.net with any bug reports, or with
 suggestions or oodles of praise as the case may be.
 
 Also, the repos for this project, and some test code etc. is on
-github, which you can get here: (TBD James)
+github, which you can get here:
+$ cd ~
+$ git clone git@github.com:jrowellfx/lsseq.git
+
