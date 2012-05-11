@@ -1,0 +1,63 @@
+testdir:
+adir
+bdir
+cdir
+ddir
+nonEmpty
+testDirFile.[001-012].exr m:[3]
+testDirFile.mov
+testDirFile.wmv
+xxx.[000-016].exr m:[1-15x2]
+xxx.mov
+yyy.mov
+yyy.[0123].tif 
+
+testdir/adir:
+testFile00.jpg
+testFile01.jpg
+testFile02.jpg
+testFile03.jpg
+testFile04.jpg
+testFile05.jpg
+testFile06.jpg
+testFile07.jpg
+testFile08.jpg
+testFile09.jpg
+testFile10.jpg
+testFile11.jpg
+testFile12.jpg
+testFile13.jpg
+testFile14.jpg
+testFile15.jpg
+testFile16.jpg
+testFile17.jpg
+testFile18.jpg
+testFile19.jpg
+aaa.[001-120].exr z:[12,49]
+lrtm01_beauty02.[001-120].exr z:[11]
+
+testdir/bdir:
+b_subdir
+bbb.01.[001-120].exr z:[21]
+bbb.02.[001-120].tif 
+
+testdir/bdir/b_subdir:
+bbb.02.[008-095].tif 
+
+testdir/cdir:
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+
+testdir/cdir/c_subDir:
+ccc01.[001-120].exr m:[3], z:[52-55]
+
+testdir/ddir:
+dddA.[-010-0017].exr 
+dddB.[-10-17].exr 
+dddC.[-10--3].exr 

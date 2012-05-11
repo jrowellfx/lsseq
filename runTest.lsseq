@@ -1,0 +1,2 @@
+./lsseq -R testdir > test_lsseq.out.new
+diff test_lsseq.out test_lsseq.out.new
