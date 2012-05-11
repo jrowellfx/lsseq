@@ -9,7 +9,7 @@ to help you deal with sequences of images from
 the command line.
 
 lsseq is designed to have the flavor and some of the power of the
-unix/linux "ls" program.
+unix/linux/osx "ls" program.
 The idea is to make it easier on the user when
 switching back and forth between using "lsseq" and regular "ls" so
 that the look of the output as well as several
