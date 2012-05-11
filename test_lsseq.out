@@ -1,8 +1,9 @@
+------ Test 01 ------
 testdir:
-adir
-bdir
-cdir
-ddir
+adir/
+bdir/
+cdir/
+ddir/
 nonEmpty
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -37,7 +38,7 @@ aaa.[001-120].exr z:[12,49]
 lrtm01_beauty02.[001-120].exr z:[11]
 
 testdir/bdir:
-b_subdir
+b_subdir/
 bbb.01.[001-120].exr z:[21]
 bbb.02.[001-120].tif 
 
@@ -45,7 +46,7 @@ testdir/bdir/b_subdir:
 bbb.02.[008-095].tif 
 
 testdir/cdir:
-c_subDir
+c_subDir/
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
@@ -61,3 +62,230 @@ testdir/ddir:
 dddA.[-010-0017].exr 
 dddB.[-10-17].exr 
 dddC.[-10--3].exr 
+------ Test 02 ------
+adir
+bdir
+cdir
+ddir
+nonEmpty
+testDirFile.[001-012].exr m:[3]
+testDirFile.mov
+testDirFile.wmv
+xxx.[000-016].exr m:[1-15x2]
+xxx.mov
+yyy.mov
+yyy.[0123].tif 
+------ Test 03 ------
+nonEmpty
+testDirFile.[001-012].exr m:[3]
+testDirFile.mov
+testDirFile.wmv
+xxx.[000-016].exr m:[1-15x2]
+xxx.mov
+yyy.mov
+yyy.[0123].tif 
+
+adir:
+testFile00.jpg
+testFile01.jpg
+testFile02.jpg
+testFile03.jpg
+testFile04.jpg
+testFile05.jpg
+testFile06.jpg
+testFile07.jpg
+testFile08.jpg
+testFile09.jpg
+testFile10.jpg
+testFile11.jpg
+testFile12.jpg
+testFile13.jpg
+testFile14.jpg
+testFile15.jpg
+testFile16.jpg
+testFile17.jpg
+testFile18.jpg
+testFile19.jpg
+aaa.[001-120].exr z:[12,49]
+lrtm01_beauty02.[001-120].exr z:[11]
+
+bdir:
+b_subdir
+bbb.01.[001-120].exr z:[21]
+bbb.02.[001-120].tif 
+
+cdir:
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+
+ddir:
+dddA.[-010-0017].exr 
+dddB.[-10-17].exr 
+dddC.[-10--3].exr 
+------ Test 04 ------
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+------ Test 05 ------
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+------ Test 06 ------
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+
+c_subDir:
+ccc01.[001-120].exr m:[3], z:[52-55]
+------ Test 07 ------
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+------ Test 08 ------
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr [3,52-55]
+ccc02.[001-120].exr [51,119]
+ccc03.[80-140].tga 
+------ Test 09 ------
+/nas/media/src/python/lsseq/testdir/cdir/ccc01.001.exr 
+/nas/media/src/python/lsseq/testdir/cdir/ccc01.120.exr 
+/nas/media/src/python/lsseq/testdir/cdir/ccc02.001.exr 
+/nas/media/src/python/lsseq/testdir/cdir/ccc02.120.exr 
+/nas/media/src/python/lsseq/testdir/cdir/ccc03.80.tga 
+/nas/media/src/python/lsseq/testdir/cdir/ccc03.140.tga 
+------ Test 10 ------
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+------ Test 11 ------
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.%03d.exr 1,120
+ccc02.%03d.exr 1,120
+ccc03.%02d.tga 80,140
+------ Test 12 ------
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+shake -t 1-120 ccc01.#.exr
+shake -t 1-120 ccc02.#.exr
+shake -t 80-140 ccc03.#.tga
+------ Test 13 ------
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.1-120@@@.exr m:[3], z:[52-55]
+ccc02.1-120@@@.exr m:[51,119]
+ccc03.80-140@@.tga 
+------ Test 14 ------
+Image extensions: ['alpha', 'als', 'anim', 'bmp', 'btf', 'bw', 'cin', 'dib', 'dpx', 'exr', 'gfa', 'gif', 'giff', 'icon', 'iff', 'img', 'int', 'inta', 'jpe', 'jpeg', 'jpg', 'mask', 'matte', 'pct', 'pct1', 'pct2', 'pdb', 'pdd', 'pic', 'pict', 'pix', 'png', 'psb', 'psd', 'raw', 'rgb', 'rgba', 'rle', 'rw2', 'sgi', 'tga', 'tif', 'tiff', 'tpic']
+Movie extensions: ['avi', 'mov', 'mp4', 'mpg', 'wmv']
+------ Test 15 ------
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr z:[52-55]
+ccc02.[001-120].exr 
+ccc03.[80-140].tga 
+------ Test 16 ------
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+------ Test 17 ------
+/nas/media/src/python/lsseq/testdir/cdir/ccc01.[001-120].exr m:[3], z:[52-55]
+/nas/media/src/python/lsseq/testdir/cdir/ccc02.[001-120].exr m:[51,119]
+/nas/media/src/python/lsseq/testdir/cdir/ccc03.[80-140].tga 
+/nas/media/src/python/lsseq/testdir/cdir/c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
+------ Test 18 ------
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
+------ Test 19 ------
+shake02.01.shk
+shake01.03.shk
+shake01.02.shk
+shake01.01.shk
+c_subDir
+ccc03.[80-140].tga 
+ccc02.[001-120].exr m:[51,119]
+ccc01.[001-120].exr m:[3], z:[52-55]
+------ Test 20 ------
+c_subDir
+shake01.03.shk
+shake02.01.shk
+shake01.02.shk
+shake01.01.shk
+ccc03.[80-140].tga 
+ccc02.[001-120].exr m:[51,119]
+ccc01.[001-120].exr m:[3], z:[52-55]
+------ Test 20 ------
+c_subDir
+shake01.03.shk
+shake02.01.shk
+shake01.02.shk
+shake01.01.shk
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+ccc01.[001-120].exr m:[3], z:[52-55]
+------ Test 20 ------
+c_subDir
+shake01.03.shk
+shake02.01.shk
+shake01.02.shk
+shake01.01.shk
+ccc03.[80-140].tga 
+ccc02.[001-120].exr m:[51,119]
+ccc01.[001-120].exr m:[3], z:[52-55]
+------ Test 21 ------
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr m:[3]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 

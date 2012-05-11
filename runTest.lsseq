@@ -1,2 +1,75 @@
-./lsseq -R testdir > test_lsseq.out.new
+echo ------ Test 01 ------ > test_lsseq.out.new
+./lsseq -RF testdir >> test_lsseq.out.new
+
+cd testdir
+
+echo ------ Test 02 ------ >> ../test_lsseq.out.new
+../lsseq >> ../test_lsseq.out.new
+
+echo ------ Test 03 ------ >> ../test_lsseq.out.new
+../lsseq * >> ../test_lsseq.out.new
+
+cd cdir
+
+echo ------ Test 04 ------ >> ../../test_lsseq.out.new
+../../lsseq >> ../../test_lsseq.out.new
+
+echo ------ Test 05 ------ >> ../../test_lsseq.out.new
+../../lsseq . >> ../../test_lsseq.out.new
+
+echo ------ Test 06 ------ >> ../../test_lsseq.out.new
+../../lsseq * >> ../../test_lsseq.out.new
+
+echo ------ Test 07 ------ >> ../../test_lsseq.out.new
+../../lsseq -d * >> ../../test_lsseq.out.new
+
+echo ------ Test 08 ------ >> ../../test_lsseq.out.new
+../../lsseq -c >> ../../test_lsseq.out.new
+
+echo ------ Test 09 ------ >> ../../test_lsseq.out.new
+../../lsseq -e >> ../../test_lsseq.out.new
+
+echo ------ Test 10 ------ >> ../../test_lsseq.out.new
+../../lsseq -fnative >> ../../test_lsseq.out.new
+
+echo ------ Test 11 ------ >> ../../test_lsseq.out.new
+../../lsseq -fnuke >> ../../test_lsseq.out.new
+
+echo ------ Test 12 ------ >> ../../test_lsseq.out.new
+../../lsseq -fshake >> ../../test_lsseq.out.new
+
+echo ------ Test 13 ------ >> ../../test_lsseq.out.new
+../../lsseq -frv >> ../../test_lsseq.out.new
+
+echo ------ Test 14 ------ >> ../../test_lsseq.out.new
+../../lsseq -i >> ../../test_lsseq.out.new
+
+echo ------ Test 15 ------ >> ../../test_lsseq.out.new
+../../lsseq -M >> ../../test_lsseq.out.new
+
+echo ------ Test 16 ------ >> ../../test_lsseq.out.new
+../../lsseq -o >> ../../test_lsseq.out.new
+
+echo ------ Test 17 ------ >> ../../test_lsseq.out.new
+../../lsseq -p * >> ../../test_lsseq.out.new
+
+echo ------ Test 18 ------ >> ../../test_lsseq.out.new
+../../lsseq -P * >> ../../test_lsseq.out.new
+
+echo ------ Test 19 ------ >> ../../test_lsseq.out.new
+../../lsseq -r >> ../../test_lsseq.out.new
+
+echo ------ Test 20 ------ >> ../../test_lsseq.out.new
+../../lsseq -t >> ../../test_lsseq.out.new
+
+echo ------ Test 20 ------ >> ../../test_lsseq.out.new
+../../lsseq -t --time oldest >> ../../test_lsseq.out.new
+
+echo ------ Test 20 ------ >> ../../test_lsseq.out.new
+../../lsseq -t --time median >> ../../test_lsseq.out.new
+
+echo ------ Test 21 ------ >> ../../test_lsseq.out.new
+../../lsseq -Z >> ../../test_lsseq.out.new
+
+cd ../..
 diff test_lsseq.out test_lsseq.out.new
