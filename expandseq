@@ -111,7 +111,7 @@ def main():
 
 
 
-    p.add_argument("--version", action="version", version="%(prog)s " + VERSION)
+    p.add_argument("--version", action="version", version=VERSION)
 
     p.add_argument("--delimiter", "-d", action="store", type=str,
 	choices=("comma", "space", "newline"),

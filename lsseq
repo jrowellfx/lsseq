@@ -39,7 +39,7 @@
 # (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import optparse
+import argparse
 import os
 import sys
 import subprocess
@@ -69,7 +69,8 @@ def seqSplit(filename) :
     if (len(fileComponents) > 2
             and IMAGE_EXT.count(fileComponents[-1]) >= 1
             and (fileComponents[-2].isdigit()
-	         or (fileComponents[-2][0] == '-' and fileComponents[-2][1:].isdigit())
+	         or (fileComponents[-2][0] == '-'
+		 and fileComponents[-2][1:].isdigit())
 		)
 	) :
 
@@ -87,7 +88,8 @@ def isMovie(filename) :
     global MOV_EXT
     fileComponents = filename.split(".")
 
-    return len(fileComponents) > 1 and MOV_EXT.count(fileComponents[-1]) >= 1
+    return len(fileComponents) > 1 \
+	and MOV_EXT.count(fileComponents[-1]) >= 1
 
 
 # Reconstruct the imagename with the frame number.
@@ -100,7 +102,7 @@ def actualImageName(filename, padding, frame) :
     return ".".join(fileComponents)
 
 
-def printSeq(filename, frameList, options, traversedPath) :
+def printSeq(filename, frameList, args, traversedPath) :
 
     fileComponents = filename.split(".")
     missingFrames = []
@@ -114,23 +116,24 @@ def printSeq(filename, frameList, options, traversedPath) :
 	currFrameData = frameList[1][0]
         if i != currFrameData[0] : # frame number
             iMissing = True
-            if options.showMissing :
+            if args.showMissing :
                 missingFrames.append(i)
         else :
             frameList[1].pop(0)
-        if (not iMissing and options.showZero) :
+        if (not iMissing and args.showZero) :
             # if this file is a broken soft link '-1' was stashed as mtime
             if currFrameData[2] == -1 : # mtime
                 zeroFrames.append(i)
 		actualFilename = actualImageName(filename, padding, i)
-                print >> sys.stderr, os.path.basename(sys.argv[0]) + ": warning: " + actualFilename + " is a broken soft link."
+                print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+		    ": warning: " + actualFilename + " is a broken soft link."
             elif currFrameData[1] == 0 : # file size
                 zeroFrames.append(i)
         i = i + 1
 
     formatStr = "%0" + str(padding) + "d"
     if minFrame != maxFrame :
-	if options.rvCmd :
+	if args.rvCmd :
 	    padStr = '@' * padding
 	    if padding == 4 :
 		padStr = '#'
@@ -142,7 +145,7 @@ def printSeq(filename, frameList, options, traversedPath) :
 		+ (formatStr % maxFrame) \
 		+ "]"
     else :
-	if options.rvCmd :
+	if args.rvCmd :
 	    frameRange = (formatStr % minFrame)
 	else :
 	    frameRange = "[" \
@@ -150,33 +153,33 @@ def printSeq(filename, frameList, options, traversedPath) :
 		+ "]"
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
 
-    if options.nukeCmd :
+    if args.nukeCmd :
         fileComponents[-2] = "%0" + str(padding) + "d"
         print "nukev",
-        if options.prependPathAbs or options.prependPathRel :
+        if args.prependPathAbs or args.prependPathRel :
             sys.stdout.write(traversedPath)
         print ".".join(fileComponents),
         print str(minFrame) + "," + str(maxFrame)
-    elif options.shakeCmd :
+    elif args.shakeCmd :
         fileComponents[-2] = "#"
         print "shake -t", str(minFrame) + "-" + str(maxFrame),
-        if options.prependPathAbs or options.prependPathRel :
+        if args.prependPathAbs or args.prependPathRel :
             sys.stdout.write(traversedPath)
         print ".".join(fileComponents)
     else :
-        if options.prependPathAbs or options.prependPathRel :
+        if args.prependPathAbs or args.prependPathRel :
             sys.stdout.write(traversedPath)
-        if options.extremes :
+        if args.extremes :
             fileComponents[-2] = formatStr % minFrame
 
         print ".".join(fileComponents),
-        if minFrame != maxFrame and options.extremes :
+        if minFrame != maxFrame and args.extremes :
             print ""
             sys.stdout.write(traversedPath)
             fileComponents[-2] = formatStr % maxFrame
             print ".".join(fileComponents),
 
-	if options.combineErrorFrames :
+	if args.combineErrorFrames :
 	    errFrames = missingFrames + zeroFrames
 	    frameSeq = seqLister.condenseSeq(errFrames)
 	    if (len(frameSeq) > 0) :
@@ -226,7 +229,7 @@ def stripDotFiles(dirContents, stripIt) :
 	return strippedDirContents
 
 
-def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
+def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
     tmpCWD = ""
     # Stash the current working dir, to come back to and the end
@@ -268,7 +271,8 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 
             if imageDictionary.has_key(fileParts[0]) :
                 # tack on new frame number.
-                imageDictionary[fileParts[0]][1].append((newFrameNum, newFrameSize, newFrameMTime))
+                imageDictionary[fileParts[0]][1].append( \
+		    (newFrameNum, newFrameSize, newFrameMTime))
                 # smallest length frame number determines padding.
                 if (newPaddingSize < imageDictionary[fileParts[0]][0]) :
                     imageDictionary[fileParts[0]][0] = newPaddingSize
@@ -289,8 +293,8 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
             isFileDir = os.path.isdir(filename)
             if ((not isFileDir
                     or not listSubDirs
-                    or not options.listDirContents)
-                    and not options.onlyImages):
+                    or not args.listDirContents)
+                    and not args.onlyImages):
                 otherFiles.append(filename)
             if isFileDir :
                 dirList.append(filename)
@@ -300,13 +304,13 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
     otherFiles.sort()
     if len(otherFiles) > 0 :
         extra_ls_options = []
-        if options.classify :
+        if args.classify :
             extra_ls_options.append("-F")
-        if options.singleColumn :
+        if args.singleColumn :
             extra_ls_options.append("-1")
-        if options.sortByMTime :
+        if args.sortByMTime :
             extra_ls_options.append("-t")
-        if options.reverseListing :
+        if args.reverseListing :
             extra_ls_options.append("-r")
         lsCmd = ["ls", "-d"] + extra_ls_options + otherFiles
         sys.stdout.flush()
@@ -319,7 +323,7 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
     movKeys = moviesDictionary.keys()
     for m in movKeys :
 	imKeys.append(m)
-    if options.sortByMTime :
+    if args.sortByMTime :
 	timeList = []
         for k in imKeys :
             if isMovie(k) :
@@ -330,9 +334,9 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 		    if im[2] != -1 :
 			validTimes.append(im[2])
 		validTimes.sort()
-		if options.timeCompare == 'oldest' :
+		if args.timeCompare == 'oldest' :
 		    time = validTimes[0]
-		elif options.timeCompare == 'median' :
+		elif args.timeCompare == 'median' :
 		    time = validTimes[len(validTimes)/2]
 		else : # newest
 		    time = validTimes[-1]
@@ -340,44 +344,44 @@ def listSeqDir(dirContents, path, listSubDirs, options, traversedPath) :
 
 	timeList.sort(key=itemgetter(1))
 	# Note: ls -t prints newest first; ls -tr is newest last.
-	if not options.reverseListing :
+	if not args.reverseListing :
 	    timeList.reverse()
 	for k in timeList :
 	    if isMovie(k[0]) :
-		if options.prependPathAbs or options.prependPathRel :
+		if args.prependPathAbs or args.prependPathRel :
 		    sys.stdout.write(traversedPath)
 		print k[0]
 	    else :
 		imageDictionary[k[0]][1].sort(key=itemgetter(0))
-		printSeq(k[0], imageDictionary[k[0]], options, traversedPath)
+		printSeq(k[0], imageDictionary[k[0]], args, traversedPath)
     else :
 	imKeys.sort()
-	if options.reverseListing :
+	if args.reverseListing :
 	    imKeys.reverse()
 	for k in imKeys :
 	    if isMovie(k) :
-		if options.prependPathAbs or options.prependPathRel :
+		if args.prependPathAbs or args.prependPathRel :
 		    sys.stdout.write(traversedPath)
 		print k
 	    else :
 		imageDictionary[k][1].sort(key=itemgetter(0))
-		printSeq(k, imageDictionary[k], options, traversedPath)
+		printSeq(k, imageDictionary[k], args, traversedPath)
 
     # lsseq - the contents of any subdirectories if need be.
     #
-    if ((listSubDirs or options.isRecursive) and options.listDirContents) :
+    if ((listSubDirs or args.isRecursive) and args.listDirContents) :
         dirList.sort()
         for d in dirList :
             if d[-1] == "/" :
                 d = d[:-1]
-            if not (options.prependPathAbs or options.prependPathRel) :
+            if not (args.prependPathAbs or args.prependPathRel) :
                 print ""
-                if options.isRecursive :
+                if args.isRecursive :
                     print traversedPath + d + ":"
                 else :
                     print d + ":"
-            listSeqDir(stripDotFiles(os.listdir(d), options.ignoreDotFiles), d, False, options,
-                traversedPath + d + "/")
+            listSeqDir(stripDotFiles(os.listdir(d), args.ignoreDotFiles),
+		d, False, args, traversedPath + d + "/")
 
     if (len(path) > 0) :
         os.chdir(tmpCWD)
@@ -399,76 +403,81 @@ def main():
     global IMAGE_EXT
     global MOV_EXT
 
-    p = optparse.OptionParser(
-        description="List directory contents while condensing images sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtension> - where imgExtension is drawn from a default list of image extensions (see option -i) or they can be set with the environment variable OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an OIC_MOV_EXTENSION environment variable for movie file extensions.",
-        version="1.601",
-        usage="%prog [OPTION]... [FILE]...")
+    p = argparse.ArgumentParser(
+        description="List directory contents while condensing images \
+	sequences to one entry each. Filenames that are part of images sequences are assumed to be of the form <descriptiveName>.<frameNum>.<imgExtension> - where imgExtension is drawn from a default list of image extensions (see option -i) or they can be set with the environment variable OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an OIC_MOV_EXTENSION environment variable for movie file extensions.",
+        usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_option("--single", "-1", action="store_true",
+    p.add_argument("--version", action="version", version="1.700")
+
+    p.add_argument("--single", "-1", action="store_true",
         dest="singleColumn", default=False,
         help="list one non-image file per line")
-    p.add_option("--all", "-a", action="store_false",
+    p.add_argument("--all", "-a", action="store_false",
         dest="ignoreDotFiles", default=True,
         help="do not ignore entries starting with .")
-    p.add_option("--combineLists", "-C", action="store_true",
+    p.add_argument("--combineLists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
         help="Combine the lists of zero, missing and bad frames into one list.")
-    p.add_option("--directory", "-d", action="store_false",
+    p.add_argument("--directory", "-d", action="store_false",
         dest="listDirContents", default=True,
         help="list directory entries instead of contents, and do not dereference symbolic links")
-    p.add_option("--extremes", "-e", action="store_true",
+    p.add_argument("--extremes", "-e", action="store_true",
         dest="extremes", default=False,
         help="only list the first and last image on a separate line.  This option implies --prependPathAbs, --onlyImages, --skipMissing and --skipZero.  The purpose of this option is to help in backing up image sequences - making it easy to get a list of only the first and last frame for each sequence.")
-    p.add_option("--classify", "-F", action="store_true",
+    p.add_argument("--classify", "-F", action="store_true",
         dest="classify", default=False,
         help="append indicator (one of */=>@|) to entries")
-    p.add_option("--imgExt", "-i", action="store_true",
+    p.add_argument("--imgExt", "-i", action="store_true",
         dest="printImgExtensions", default=False,
         help="print list of raster and movie file extensions and exit")
-    p.add_option("--showMissing", "-m", action="store_true",
+    p.add_argument("--showMissing", "-m", action="store_true",
         dest="showMissing", default=True,
         help="show list of missing frames [default]" )
-    p.add_option("--skipMissing", "-M", action="store_false",
+    p.add_argument("--skipMissing", "-M", action="store_false",
         dest="showMissing",
         help="do not show list of missing frames" )
-    p.add_option("--nuke", "-n", action="store_true",
+    p.add_argument("--nuke", "-n", action="store_true",
         dest="nukeCmd", default=False,
         help="list image sequences as nuke viewer command lines (takes precedence over --shake option)")
-    p.add_option("--onlyImages", "-o", action="store_true",
+    p.add_argument("--onlyImages", "-o", action="store_true",
         dest="onlyImages", default=False,
         help="only list image sequences")
-    p.add_option("--prependPathAbs", "-p", action="store_true",
+    p.add_argument("--prependPathAbs", "-p", action="store_true",
         dest="prependPathAbs", default=False,
         help="prepend the absolute path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
-    p.add_option("--prependPathRel", "-P", action="store_true",
+    p.add_argument("--prependPathRel", "-P", action="store_true",
         dest="prependPathRel", default=False,
         help="prepend the relative path name to the image name. This option implies the option --onlyImages and will also suppress printing directory name headers when listing directory contents.")
-    p.add_option("--rv", action="store_true",
+    p.add_argument("--rv", action="store_true",
         dest="rvCmd", default=False,
         help="list image sequences as arguments suitable for the rv viewer (this takes precedence over the --nuke and --shake options).")
-    p.add_option("--reverse", "-r", action="store_true",
+    p.add_argument("--reverse", "-r", action="store_true",
         dest="reverseListing", default=False,
         help="reverse order while sorting")
-    p.add_option("--recursive", "-R", action="store_true",
+    p.add_argument("--recursive", "-R", action="store_true",
         dest="isRecursive", default=False,
         help="list subdirectories recursively")
-    p.add_option("--shake", "-s", action="store_true",
+    p.add_argument("--shake", "-s", action="store_true",
         dest="shakeCmd", default=False,
         help="list image sequences as shake viewer command lines")
-    p.add_option("--time", action="store", type="choice",
+    p.add_argument("--time", action="store", type=str,
         dest="timeCompare",
        	help="Which frame in the sequence to use to compare times between sequences when sorting by time.  The possible values for 'FRAME_AGE' are 'oldest', 'median' and 'newest' (which is the default).", metavar="FRAME_AGE", default="newest", choices=("oldest", "median", "newest"))
-    p.add_option("-t", action="store_true",
+    p.add_argument("-t", action="store_true",
         dest="sortByMTime", default=False,
         help="sort by modification time, the default comparison time is between the most recently modified (newest) frames in each sequence. (see --time).")
-    p.add_option("--showZero", "-z", action="store_true",
+    p.add_argument("--showZero", "-z", action="store_true",
         dest="showZero", default=True,
         help="show list of zero length images [default]" )
-    p.add_option("--skipZero", "-Z", action="store_false",
+    p.add_argument("--skipZero", "-Z", action="store_false",
         dest="showZero",
         help="do not show list of zero length images" )
 
-    (options, arguments) = p.parse_args()
+    p.add_argument("files", metavar="FILE", nargs="*",
+        help="file names")
+
+    args = p.parse_args()
 
     tmpExt = os.getenv("OIC_IMAGE_EXTENSION")
     if tmpExt != None and tmpExt != "" :
@@ -478,81 +487,81 @@ def main():
     if tmpExt != None and tmpExt != "" :
         MOV_EXT = tmpExt.split(":")
 
-    if options.printImgExtensions :
+    if args.printImgExtensions :
         print "Image extensions:", IMAGE_EXT
         print "Movie extensions:", MOV_EXT
         sys.exit(0)
 
-    if options.extremes :
-        options.prependPathAbs = True
-        options.prependPathRel = False
-        options.showMissing = False
-        options.showZero = False
-        options.shakeCmd = False
-        options.nukeCmd = False
-        options.rvCmd = False
+    if args.extremes :
+        args.prependPathAbs = True
+        args.prependPathRel = False
+        args.showMissing = False
+        args.showZero = False
+        args.shakeCmd = False
+        args.nukeCmd = False
+        args.rvCmd = False
 
-    if options.nukeCmd :
-        options.shakeCmd = False
+    if args.nukeCmd :
+        args.shakeCmd = False
 
-    if options.rvCmd :
-        options.shakeCmd = False
-        options.nukeCmd = False
+    if args.rvCmd :
+        args.shakeCmd = False
+        args.nukeCmd = False
 
-    if options.prependPathRel :
-        options.onlyImages = True # Force this.
+    if args.prependPathRel :
+        args.onlyImages = True # Force this.
 
-    if options.prependPathAbs :
-        options.onlyImages = True # Force this.
-        options.prependPathRel = False
+    if args.prependPathAbs :
+        args.onlyImages = True # Force this.
+        args.prependPathRel = False
 
     # The following logic attempts to mimic the behavior
     # of /bin/ls as well as possible.
 
     # No args means list the current directory.
     #
-    if len(arguments) == 0:
-        if (not options.listDirContents) :
-            if (not options.onlyImages) :
+    if len(args.files) == 0:
+        if (not args.listDirContents) :
+            if (not args.onlyImages) :
                 print "."
         else :
-            if options.isRecursive :
-                if not options.prependPathAbs :
+            if args.isRecursive :
+                if not args.prependPathAbs :
                     print ".:"
                 passedPath = "./"
             else :
                 passedPath = ""
-            if options.prependPathAbs :
+            if args.prependPathAbs :
                 passedPath = os.getcwd() + "/"
 
-            listSeqDir(stripDotFiles(os.listdir("."), options.ignoreDotFiles), "", False, options, passedPath)
+            listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), "", False, args, passedPath)
 
     # We are being asked to list a specific directory, so we don't need
     # to print the directory name before listing the contents (unless
     # it is a recursive listing).  (/bin/ls behavior.)
     #
-    elif len(arguments) == 1 and os.path.isdir(arguments[0]) :
-        arg0 = arguments[0]
+    elif len(args.files) == 1 and os.path.isdir(args.files[0]) :
+        arg0 = args.files[0]
         # Strip out trailing "/" that may have been tacked on by
         # file completion.  (/bin/ls does not do this - but it's
         # cleaner looking.)
-        if arguments[0][-1] == "/" :
-            arg0 = arguments[0][:-1]
-        if (not options.listDirContents) :
+        if args.files[0][-1] == "/" :
+            arg0 = args.files[0][:-1]
+        if (not args.listDirContents) :
             print arg0
         else :
-            if options.isRecursive:
-                if not (options.prependPathAbs or options.prependPathRel) :
+            if args.isRecursive:
+                if not (args.prependPathAbs or args.prependPathRel) :
                     print arg0 + ":"
                 passedPath = arg0 + "/"
             else :
                 passedPath = ""
-            if options.prependPathRel :
+            if args.prependPathRel :
                 passedPath = arg0 + "/"
-            if options.prependPathAbs :
+            if args.prependPathAbs :
                 passedPath = os.getcwd() + "/"
 
-            listSeqDir(stripDotFiles(os.listdir(arg0), options.ignoreDotFiles), arg0, False, options, passedPath)
+            listSeqDir(stripDotFiles(os.listdir(arg0), args.ignoreDotFiles), arg0, False, args, passedPath)
 
     # List all the arguments on the command line and unless prevented by
     # the "-d" option, it will also list the contents of all the directories
@@ -560,9 +569,9 @@ def main():
     #
     else:
         passedPath = ""
-        if options.prependPathAbs :
+        if args.prependPathAbs :
             passedPath = os.getcwd() + "/"
-        listSeqDir(arguments, "", True, options, passedPath)
+        listSeqDir(args, "", True, args, passedPath)
 
 if __name__ == '__main__':
     main()
