@@ -585,7 +585,7 @@ def main():
         passedPath = ""
         if args.prependPathAbs :
             passedPath = os.getcwd() + "/"
-        listSeqDir(args, "", True, args, passedPath)
+        listSeqDir(args.files, "", True, args, passedPath)
 
 if __name__ == '__main__':
     main()
