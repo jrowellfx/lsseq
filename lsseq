@@ -53,6 +53,8 @@ IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
     "pct1", "pct2", "pdb", "pdd", "pic", "pict", "pix", "png",
     "psb", "psd", "raw", "rgb", "rgba", "rle", "rw2", "sgi", "tga",
     "tif", "tiff", "tpic"]
+PATH_ABS = 1
+PATH_REL = 2
 
 
 # Return two components if "filename" is formatted like a file in an
@@ -155,18 +157,18 @@ def printSeq(filename, frameList, args, traversedPath) :
 
     if args.seqFormat == 'nuke' :
         fileComponents[-2] = "%0" + str(padding) + "d"
-        if args.prependPathAbs or args.prependPathRel :
+        if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
         print ".".join(fileComponents),
         print str(minFrame) + "," + str(maxFrame)
     elif args.seqFormat == 'shake' :
         fileComponents[-2] = "#"
         print "shake -t", str(minFrame) + "-" + str(maxFrame),
-        if args.prependPathAbs or args.prependPathRel :
+        if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
         print ".".join(fileComponents)
     else :
-        if args.prependPathAbs or args.prependPathRel :
+        if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
         if args.extremes :
             fileComponents[-2] = formatStr % minFrame
@@ -347,7 +349,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 	    timeList.reverse()
 	for k in timeList :
 	    if isMovie(k[0]) :
-		if args.prependPathAbs or args.prependPathRel :
+		if args.prependPath > 0 :
 		    sys.stdout.write(traversedPath)
 		print k[0]
 	    else :
@@ -359,7 +361,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 	    imKeys.reverse()
 	for k in imKeys :
 	    if isMovie(k) :
-		if args.prependPathAbs or args.prependPathRel :
+		if args.prependPath > 0 :
 		    sys.stdout.write(traversedPath)
 		print k
 	    else :
@@ -373,7 +375,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         for d in dirList :
             if d[-1] == "/" :
                 d = d[:-1]
-            if not (args.prependPathAbs or args.prependPathRel) :
+            if args.prependPath == 0 :
                 print ""
                 if args.isRecursive :
                     print traversedPath + d + ":"
@@ -401,6 +403,8 @@ def main():
 
     global IMAGE_EXT
     global MOV_EXT
+    global PATH_ABS
+    global PATH_REL
 
     p = argparse.ArgumentParser(
         description="List directory contents while condensing image \
@@ -414,7 +418,7 @@ def main():
 	for movie file extensions.",
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="1.700")
+    p.add_argument("--version", action="version", version="1.710")
 
     p.add_argument("--single", "-1", action="store_true",
         dest="singleColumn", default=False,
@@ -457,21 +461,28 @@ def main():
     p.add_argument("--skipMissing", "-M", action="store_false",
         dest="showMissing",
         help="do not show list of missing frames" )
+
     p.add_argument("--onlyImages", "-o", action="store_true",
         dest="onlyImages", default=False,
-        help="only list image sequences")
-    p.add_argument("--prependPathAbs", "-p", action="store_true",
-        dest="prependPathAbs", default=False,
+        help="only list image sequences/movies")
+    # JPR FIX THIS to be like prependPath w/ const
+    # p.add_argument("--strictlyOnlyImages", "-O", action="store_true",
+        # dest="strictlyOnlyImages", default=False,
+        # help="strictly only list image sequences.  (i.e.; no movies)")
+
+    p.add_argument("--prependPathAbs", "-p", action="store_const",
+        dest="prependPath", default=0, const=1,
         help="prepend the absolute path name to the image name. \
 	This option implies the option --onlyImages and will also \
 	suppress printing directory name headers when listing \
 	directory contents.")
-    p.add_argument("--prependPathRel", "-P", action="store_true",
-        dest="prependPathRel", default=False,
+    p.add_argument("--prependPathRel", "-P", action="store_const",
+        dest="prependPath", const=2,
         help="prepend the relative path name to the image name. \
 	This option implies the option --onlyImages and will also \
 	suppress printing directory name headers when listing \
 	directory contents.")
+
     p.add_argument("--reverse", "-r", action="store_true",
         dest="reverseListing", default=False,
         help="reverse order while sorting")
@@ -516,18 +527,18 @@ def main():
         sys.exit(0)
 
     if args.extremes :
-	if (not args.prependPathRel) :
-	    args.prependPathAbs = True
+	if args.prependPath == 0 :
+	    args.prependPath = PATH_ABS
         args.showMissing = False
         args.showZero = False
         args.seqFormat = 'native'
+        args.onlyImages = True # Force this. 
 
-    if args.prependPathRel :
+    if args.prependPath == PATH_REL :
         args.onlyImages = True # Force this.
 
-    if args.prependPathAbs :
+    if args.prependPath == PATH_ABS :
         args.onlyImages = True # Force this.
-        args.prependPathRel = False
 
     # The following logic attempts to mimic the behavior
     # of /bin/ls as well as possible.
@@ -540,12 +551,12 @@ def main():
                 print "."
         else :
             if args.isRecursive :
-                if not args.prependPathAbs :
+                if args.prependPath == 0 :
                     print ".:"
                 passedPath = "./"
             else :
                 passedPath = ""
-            if args.prependPathAbs :
+            if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
             listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), "", False, args, passedPath)
@@ -565,14 +576,14 @@ def main():
             print arg0
         else :
             if args.isRecursive:
-                if not (args.prependPathAbs or args.prependPathRel) :
+                if args.prependPath == 0 :
                     print arg0 + ":"
                 passedPath = arg0 + "/"
             else :
                 passedPath = ""
-            if args.prependPathRel :
+            if args.prependPath == PATH_REL :
                 passedPath = arg0 + "/"
-            if args.prependPathAbs :
+            if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
             listSeqDir(stripDotFiles(os.listdir(arg0), args.ignoreDotFiles), arg0, False, args, passedPath)
@@ -583,7 +594,7 @@ def main():
     #
     else:
         passedPath = ""
-        if args.prependPathAbs :
+        if args.prependPath == PATH_ABS :
             passedPath = os.getcwd() + "/"
         listSeqDir(args.files, "", True, args, passedPath)
 

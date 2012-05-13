@@ -175,13 +175,24 @@ shake02.01.shk
 ccc01.[001-120].exr [3,52-55]
 ccc02.[001-120].exr [51,119]
 ccc03.[80-140].tga 
------- Test 09 ------
+------ Test 09a ------
 /nas/media/src/python/lsseq/testdir/cdir/ccc01.001.exr 
 /nas/media/src/python/lsseq/testdir/cdir/ccc01.120.exr 
 /nas/media/src/python/lsseq/testdir/cdir/ccc02.001.exr 
 /nas/media/src/python/lsseq/testdir/cdir/ccc02.120.exr 
 /nas/media/src/python/lsseq/testdir/cdir/ccc03.80.tga 
 /nas/media/src/python/lsseq/testdir/cdir/ccc03.140.tga 
+/nas/media/src/python/lsseq/testdir/cdir/c_subDir/ccc01.001.exr 
+/nas/media/src/python/lsseq/testdir/cdir/c_subDir/ccc01.120.exr 
+------ Test 09b ------
+./ccc01.001.exr 
+./ccc01.120.exr 
+./ccc02.001.exr 
+./ccc02.120.exr 
+./ccc03.80.tga 
+./ccc03.140.tga 
+./c_subDir/ccc01.001.exr 
+./c_subDir/ccc01.120.exr 
 ------ Test 10 ------
 c_subDir
 shake01.01.shk

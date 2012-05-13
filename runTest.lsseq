@@ -26,8 +26,11 @@ echo ------ Test 07 ------ >> ../../test_lsseq.out.new
 echo ------ Test 08 ------ >> ../../test_lsseq.out.new
 ../../lsseq -c >> ../../test_lsseq.out.new
 
-echo ------ Test 09 ------ >> ../../test_lsseq.out.new
-../../lsseq -e >> ../../test_lsseq.out.new
+echo ------ Test 09a ------ >> ../../test_lsseq.out.new
+../../lsseq -e -R >> ../../test_lsseq.out.new
+
+echo ------ Test 09b ------ >> ../../test_lsseq.out.new
+../../lsseq -e -R -P >> ../../test_lsseq.out.new
 
 echo ------ Test 10 ------ >> ../../test_lsseq.out.new
 ../../lsseq -fnative >> ../../test_lsseq.out.new
