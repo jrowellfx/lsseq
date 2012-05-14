@@ -5,8 +5,7 @@
 How to install lsseq, expandseq and condenseseq on your computer.
 
 lsseq, expandseq and condenseseq are three command line utilities
-to help you deal with sequences of images from
-the command line.
+to help you deal with sequences of images.
 
 lsseq is designed to have the flavor and some of the power of the
 unix/linux/osx "ls" program.
@@ -99,7 +98,7 @@ $ lsseq -help
 
 for much more useful info.
 
-Please contact james@oic-inc.net with any bug reports, or with suggestions
+Please contact j a m e s <at> o i c - i n c . n e t with any bug reports, suggestions
 or oodles of praise as the case may be.
 
 Also, the repos for this project, and some test code etc. is on github, which

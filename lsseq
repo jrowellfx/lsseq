@@ -9,24 +9,24 @@
 # Orange Imagination & Concepts, Inc.
 # www.orangeimagination.com
 # All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are
 # met:
-# 
+#
 #   - Redistributions of source code must retain the above copyright
 #     notice, this list of conditions and the following disclaimer.
-# 
+#
 #   - Redistributions in binary form must reproduce the above copyright
 #     notice, this list of conditions and the following disclaimer in
 #     the documentation and/or other materials provided with the
 #     distribution.
-# 
+#
 #   - Neither the name of "Orange Imagination & Concepts, Inc."  nor the
 #     names of its contributors may be used to endorse or promote
 #     products derived from this software without specific prior written
 #     permission.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 # "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 # LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -44,6 +44,7 @@ import os
 import sys
 import subprocess
 import seqLister
+import textwrap
 from operator import itemgetter
 
 MOV_EXT = ["avi", "mov", "mp4", "mpg", "wmv"]
@@ -55,7 +56,7 @@ IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
     "tif", "tiff", "tpic"]
 PATH_ABS = 1
 PATH_REL = 2
-LIST_ALLFILES = 0 
+LIST_ALLFILES = 0
 LIST_ONLYSEQS = 1 # Images and movies.
 LIST_ONLYIMGS = 2 # Strictly images.
 
@@ -74,10 +75,10 @@ def seqSplit(filename) :
     if (len(fileComponents) > 2
             and IMAGE_EXT.count(fileComponents[-1]) >= 1
             and (fileComponents[-2].isdigit()
-	         or (fileComponents[-2][0] == '-'
-		 and fileComponents[-2][1:].isdigit())
-		)
-	) :
+                 or (fileComponents[-2][0] == '-'
+                 and fileComponents[-2][1:].isdigit())
+                )
+        ) :
 
         fileFrameNum = fileComponents[-2]
         fileComponents.remove(fileFrameNum)
@@ -94,7 +95,7 @@ def isMovie(filename) :
     fileComponents = filename.split(".")
 
     return len(fileComponents) > 1 \
-	and MOV_EXT.count(fileComponents[-1]) >= 1
+        and MOV_EXT.count(fileComponents[-1]) >= 1
 
 
 # Reconstruct the imagename with the frame number.
@@ -103,7 +104,7 @@ def actualImageName(filename, padding, frame) :
     fileComponents = filename.split(".")
     formatStr = "{0:0=-" + str(padding) + "d}"
     fileComponents = fileComponents[:-1] + \
-	[formatStr.format(frame)] + [fileComponents[-1]]
+        [formatStr.format(frame)] + [fileComponents[-1]]
     return ".".join(fileComponents)
 
 
@@ -118,7 +119,7 @@ def printSeq(filename, frameList, args, traversedPath) :
     i = minFrame
     while i <= maxFrame:
         iMissing = False
-	currFrameData = frameList[1][0]
+        currFrameData = frameList[1][0]
         if i != currFrameData[0] : # frame number
             iMissing = True
             if args.showMissing :
@@ -129,33 +130,33 @@ def printSeq(filename, frameList, args, traversedPath) :
             # if this file is a broken soft link '-1' was stashed as mtime
             if currFrameData[2] == -1 : # mtime
                 zeroFrames.append(i)
-		actualFilename = actualImageName(filename, padding, i)
+                actualFilename = actualImageName(filename, padding, i)
                 print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-		    ": warning: " + actualFilename + " is a broken soft link."
+                    ": warning: " + actualFilename + " is a broken soft link."
             elif currFrameData[1] == 0 : # file size
                 zeroFrames.append(i)
         i = i + 1
 
     formatStr = "%0" + str(padding) + "d"
     if minFrame != maxFrame :
-	if args.seqFormat == 'rv' :
-	    padStr = '@' * padding
-	    if padding == 4 :
-		padStr = '#'
-	    frameRange = str(minFrame) + "-" + str(maxFrame) + padStr
-	else :
-	    frameRange = "[" \
-		+ (formatStr % minFrame) \
-		+ "-" \
-		+ (formatStr % maxFrame) \
-		+ "]"
+        if args.seqFormat == 'rv' :
+            padStr = '@' * padding
+            if padding == 4 :
+                padStr = '#'
+            frameRange = str(minFrame) + "-" + str(maxFrame) + padStr
+        else :
+            frameRange = "[" \
+                + (formatStr % minFrame) \
+                + "-" \
+                + (formatStr % maxFrame) \
+                + "]"
     else :
-	if args.seqFormat == 'rv' :
-	    frameRange = (formatStr % minFrame)
-	else :
-	    frameRange = "[" \
-		+ (formatStr % minFrame) \
-		+ "]"
+        if args.seqFormat == 'rv' :
+            frameRange = (formatStr % minFrame)
+        else :
+            frameRange = "[" \
+                + (formatStr % minFrame) \
+                + "]"
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
 
     if args.seqFormat == 'nuke' :
@@ -183,54 +184,54 @@ def printSeq(filename, frameList, args, traversedPath) :
             fileComponents[-2] = formatStr % maxFrame
             print ".".join(fileComponents),
 
-	if args.combineErrorFrames :
-	    errFrames = missingFrames + zeroFrames
-	    frameSeq = seqLister.condenseSeq(errFrames)
-	    if (len(frameSeq) > 0) :
-		sys.stdout.write(" [")
-		doPrintComma = False
-		for f in frameSeq :
-		    if doPrintComma :
-			sys.stdout.write(",")
-		    sys.stdout.write(f)
-		    doPrintComma = True
-		sys.stdout.write("]")
-	    print ""
-	else :
-	    missingFrameSeq = seqLister.condenseSeq(missingFrames)
-	    if (len(missingFrameSeq) > 0) :
-		sys.stdout.write(" m:[")
-		doPrintComma = False
-		for f in missingFrameSeq :
-		    if doPrintComma :
-			sys.stdout.write(",")
-		    sys.stdout.write(f)
-		    doPrintComma = True
-		sys.stdout.write("]")
-	    zeroFrameSeq = seqLister.condenseSeq(zeroFrames)
-	    if (len(zeroFrameSeq) > 0) :
-		if (len(missingFrameSeq) > 0) :
-		    sys.stdout.write(",")
-		sys.stdout.write(" z:[")
-		doPrintComma = False
-		for f in zeroFrameSeq :
-		    if doPrintComma :
-			sys.stdout.write(",")
-		    sys.stdout.write(f)
-		    doPrintComma = True
-		sys.stdout.write("]")
-	    print ""
+        if args.combineErrorFrames :
+            errFrames = missingFrames + zeroFrames
+            frameSeq = seqLister.condenseSeq(errFrames)
+            if (len(frameSeq) > 0) :
+                sys.stdout.write(" [")
+                doPrintComma = False
+                for f in frameSeq :
+                    if doPrintComma :
+                        sys.stdout.write(",")
+                    sys.stdout.write(f)
+                    doPrintComma = True
+                sys.stdout.write("]")
+            print ""
+        else :
+            missingFrameSeq = seqLister.condenseSeq(missingFrames)
+            if (len(missingFrameSeq) > 0) :
+                sys.stdout.write(" m:[")
+                doPrintComma = False
+                for f in missingFrameSeq :
+                    if doPrintComma :
+                        sys.stdout.write(",")
+                    sys.stdout.write(f)
+                    doPrintComma = True
+                sys.stdout.write("]")
+            zeroFrameSeq = seqLister.condenseSeq(zeroFrames)
+            if (len(zeroFrameSeq) > 0) :
+                if (len(missingFrameSeq) > 0) :
+                    sys.stdout.write(",")
+                sys.stdout.write(" z:[")
+                doPrintComma = False
+                for f in zeroFrameSeq :
+                    if doPrintComma :
+                        sys.stdout.write(",")
+                    sys.stdout.write(f)
+                    doPrintComma = True
+                sys.stdout.write("]")
+            print ""
 
 
 def stripDotFiles(dirContents, stripIt) :
     if not stripIt:
-	return dirContents
+        return dirContents
     else :
-	strippedDirContents = []
-	for f in dirContents :
-	    if f[0] != "." :
-		strippedDirContents.append(f)
-	return strippedDirContents
+        strippedDirContents = []
+        for f in dirContents :
+            if f[0] != "." :
+                strippedDirContents.append(f)
+        return strippedDirContents
 
 
 def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
@@ -258,25 +259,25 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     for filename in dirContents:
         fileParts = seqSplit(filename)
         if len(fileParts) == 2 : # Means file is an image.
-	    newFrameNum = int(fileParts[1])
-	    newPaddingSize = len(fileParts[1])
+            newFrameNum = int(fileParts[1])
+            newPaddingSize = len(fileParts[1])
 
             # Check to see if file exists - might be broken soft link.
             if not os.path.exists(filename) :
-		newFrameSize = 0
-		newFrameMTime = -1
+                newFrameSize = 0
+                newFrameMTime = -1
             else :
-		realFilename = os.path.realpath(filename)
-		newFrameSize = os.path.getsize(realFilename)
-		newFrameMTime = os.path.getmtime(realFilename)
+                realFilename = os.path.realpath(filename)
+                newFrameSize = os.path.getsize(realFilename)
+                newFrameMTime = os.path.getmtime(realFilename)
 
-	    if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2:
-		newPaddingSize -= 1
+            if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2:
+                newPaddingSize -= 1
 
             if imageDictionary.has_key(fileParts[0]) :
                 # tack on new frame number.
                 imageDictionary[fileParts[0]][1].append( \
-		    (newFrameNum, newFrameSize, newFrameMTime))
+                    (newFrameNum, newFrameSize, newFrameMTime))
                 # smallest length frame number determines padding.
                 if (newPaddingSize < imageDictionary[fileParts[0]][0]) :
                     imageDictionary[fileParts[0]][0] = newPaddingSize
@@ -285,13 +286,13 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 imageDictionary[fileParts[0]] \
                     = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
 
-	elif isMovie(filename) :
+        elif isMovie(filename) :
             # Check to see if file exists - might be broken soft link.
             if not os.path.exists(filename) :
-		moviesDictionary[filename] = -1
+                moviesDictionary[filename] = -1
             else :
-		realFilename = os.path.realpath(filename)
-		moviesDictionary[filename] = os.path.getmtime(realFilename)
+                realFilename = os.path.realpath(filename)
+                moviesDictionary[filename] = os.path.getmtime(realFilename)
 
         else :
             isFileDir = os.path.isdir(filename)
@@ -326,51 +327,51 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     imKeys = imageDictionary.keys()
     movKeys = moviesDictionary.keys()
     if args.listWhichFiles != LIST_ONLYIMGS :
-	for m in movKeys :
-	    imKeys.append(m)
+        for m in movKeys :
+            imKeys.append(m)
     if args.sortByMTime :
-	timeList = []
+        timeList = []
         for k in imKeys :
             if isMovie(k) :
                 timeList.append((k, moviesDictionary[k]))
             else :
                 validTimes = []
-		for im in imageDictionary[k][1] :
-		    if im[2] != -1 :
-			validTimes.append(im[2])
-		validTimes.sort()
-		if args.timeCompare == 'oldest' :
-		    time = validTimes[0]
-		elif args.timeCompare == 'median' :
-		    time = validTimes[len(validTimes)/2]
-		else : # newest
-		    time = validTimes[-1]
-		timeList.append((k, time))
+                for im in imageDictionary[k][1] :
+                    if im[2] != -1 :
+                        validTimes.append(im[2])
+                validTimes.sort()
+                if args.timeCompare == 'oldest' :
+                    time = validTimes[0]
+                elif args.timeCompare == 'median' :
+                    time = validTimes[len(validTimes)/2]
+                else : # newest
+                    time = validTimes[-1]
+                timeList.append((k, time))
 
-	timeList.sort(key=itemgetter(1))
-	# Note: ls -t prints newest first; ls -tr is newest last.
-	if not args.reverseListing :
-	    timeList.reverse()
-	for k in timeList :
-	    if isMovie(k[0]) :
-		if args.prependPath > 0 :
-		    sys.stdout.write(traversedPath)
-		print k[0]
-	    else :
-		imageDictionary[k[0]][1].sort(key=itemgetter(0))
-		printSeq(k[0], imageDictionary[k[0]], args, traversedPath)
+        timeList.sort(key=itemgetter(1))
+        # Note: ls -t prints newest first; ls -tr is newest last.
+        if not args.reverseListing :
+            timeList.reverse()
+        for k in timeList :
+            if isMovie(k[0]) :
+                if args.prependPath > 0 :
+                    sys.stdout.write(traversedPath)
+                print k[0]
+            else :
+                imageDictionary[k[0]][1].sort(key=itemgetter(0))
+                printSeq(k[0], imageDictionary[k[0]], args, traversedPath)
     else :
-	imKeys.sort()
-	if args.reverseListing :
-	    imKeys.reverse()
-	for k in imKeys :
-	    if isMovie(k) :
-		if args.prependPath > 0 :
-		    sys.stdout.write(traversedPath)
-		print k
-	    else :
-		imageDictionary[k][1].sort(key=itemgetter(0))
-		printSeq(k, imageDictionary[k], args, traversedPath)
+        imKeys.sort()
+        if args.reverseListing :
+            imKeys.reverse()
+        for k in imKeys :
+            if isMovie(k) :
+                if args.prependPath > 0 :
+                    sys.stdout.write(traversedPath)
+                print k
+            else :
+                imageDictionary[k][1].sort(key=itemgetter(0))
+                printSeq(k, imageDictionary[k], args, traversedPath)
 
     # lsseq - the contents of any subdirectories if need be.
     #
@@ -386,7 +387,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 else :
                     print d + ":"
             listSeqDir(stripDotFiles(os.listdir(d), args.ignoreDotFiles),
-		d, False, args, traversedPath + d + "/")
+                d, False, args, traversedPath + d + "/")
 
     if (len(path) > 0) :
         os.chdir(tmpCWD)
@@ -414,15 +415,26 @@ def main():
     global LIST_ONLYIMGS
 
     p = argparse.ArgumentParser(
-        description="List directory contents while condensing image \
-	sequences to one entry each. Filenames that are part of image \
-	sequences are assumed to be of the form \
-	<descriptiveName>.<frameNum>.<imgExtension> - where imgExtension \
-	is drawn from a default list of image extensions (see option -i) \
-	or they can be set with the environment variable \
-	OIC_IMAGE_EXTENSION=exr:jpg:tif (for example). \
-	Similarly there is an OIC_MOV_EXTENSION environment variable \
-	for movie file extensions.",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description=textwrap.dedent('''\
+            List directory contents (akin to /bin/ls) while condensing image
+            sequences to one entry each. Filenames that are part of image
+            sequences are assumed to be of the form:
+
+                <descriptiveName>.<frameNum>.<imgExtension>
+
+            where <imgExtension> is drawn from a default list of image extensions
+            (see option -i) or they can be set with the environment variable
+            OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an
+            OIC_MOV_EXTENSION environment variable for movie file extensions.
+
+            %(prog)s will first list all non-image-sequence files followed by the
+            list of image sequences as such:
+
+                $ %(prog)s
+                [output of /bin/ls minus image sequences]
+                [list of images sequences]
+            '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
     p.add_argument("--version", action="version", version="1.710")
@@ -439,23 +451,23 @@ def main():
     p.add_argument("--directory", "-d", action="store_false",
         dest="listDirContents", default=True,
         help="list directory entries instead of contents, \
-	and do not dereference symbolic links (ls)")
+        and do not dereference symbolic links (ls)")
     p.add_argument("--extremes", "-e", action="store_true",
         dest="extremes", default=False,
         help="only list the first and last image on a separate line each. \
-	This option implies --prependPathAbs (unless --prependPathRel is \
-	explicitly specified) and --strictlyOnlyImages. \
-	The purpose of this option \
-	is to help in backing up image sequences - making it easy \
-	to get a list of only the first and last frame for each sequence.")
+        This option implies --prependPathAbs (unless --prependPathRel is \
+        explicitly specified) and --strictlyOnlyImages. \
+        The purpose of this option \
+        is to help in backing up image sequences - making it easy \
+        to get a list of only the first and last frame for each sequence.")
     p.add_argument("--format", "-f", action="store", type=str,
-	choices=("native", "nuke", "rv", "shake"),
-	dest="seqFormat",
-	metavar="FORMAT",
-	default="native",
-	help="list image sequences in various formats suitable for \
-	    different command line driven image viewers. \
-	The choices are 'native' (default), 'nuke', 'rv' and 'shake'.")
+        choices=("native", "nuke", "rv", "shake"),
+        dest="seqFormat",
+        metavar="FORMAT",
+        default="native",
+        help="list image sequences in various formats suitable for \
+            different command line driven image viewers. \
+        The choices are 'native' (default), 'nuke', 'rv' and 'shake'.")
     p.add_argument("--classify", "-F", action="store_true",
         dest="classify", default=False,
         help="append indicator (one of */=>@|) to entries (ls)")
@@ -479,15 +491,15 @@ def main():
     p.add_argument("--prependPathAbs", "-p", action="store_const",
         dest="prependPath", default=0, const=PATH_ABS,
         help="prepend the absolute path name to the image name. \
-	This option implies the option --onlyImages and will also \
-	suppress printing directory name headers when listing \
-	directory contents.")
+        This option implies the option --onlyImages and will also \
+        suppress printing directory name headers when listing \
+        directory contents.")
     p.add_argument("--prependPathRel", "-P", action="store_const",
         dest="prependPath", const=PATH_REL,
         help="prepend the relative path name to the image name. \
-	This option implies the option --onlyImages and will also \
-	suppress printing directory name headers when listing \
-	directory contents.")
+        This option implies the option --onlyImages and will also \
+        suppress printing directory name headers when listing \
+        directory contents.")
 
     p.add_argument("--reverse", "-r", action="store_true",
         dest="reverseListing", default=False,
@@ -497,16 +509,16 @@ def main():
         help="list subdirectories recursively")
     p.add_argument("--time", action="store", type=str,
         dest="timeCompare",
-       	help="which frame in the sequence to use to compare times \
-	between sequences when sorting by time.  The possible values \
-	for 'FRAME_AGE' are 'oldest', 'median' and 'newest' \
-	(default).", metavar="FRAME_AGE", default="newest",
-	choices=("oldest", "median", "newest"))
+        help="which frame in the sequence to use to compare times \
+        between sequences when sorting by time.  The possible values \
+        for 'FRAME_AGE' are 'oldest', 'median' and 'newest' \
+        (default).", metavar="FRAME_AGE", default="newest",
+        choices=("oldest", "median", "newest"))
     p.add_argument("-t", action="store_true",
         dest="sortByMTime", default=False,
         help="sort by modification time, the default comparison \
-	time is between the most recently modified (newest) frames \
-	in each sequence. (see --time). (ls)")
+        time is between the most recently modified (newest) frames \
+        in each sequence. (see --time). (ls)")
     p.add_argument("--showZero", "-z", action="store_true",
         dest="showZero", default=True,
         help="show list of zero length images [default]" )
@@ -533,21 +545,21 @@ def main():
         sys.exit(0)
 
     if args.prependPath == PATH_REL :
-	if args.listWhichFiles == LIST_ALLFILES :
-	    args.listWhichFiles = LIST_ONLYSEQS
+        if args.listWhichFiles == LIST_ALLFILES :
+            args.listWhichFiles = LIST_ONLYSEQS
 
     if args.prependPath == PATH_ABS :
-	if args.listWhichFiles == LIST_ALLFILES :
-	    args.listWhichFiles = LIST_ONLYSEQS
+        if args.listWhichFiles == LIST_ALLFILES :
+            args.listWhichFiles = LIST_ONLYSEQS
 
     if args.extremes :
-	if args.prependPath == 0 :
-	    args.prependPath = PATH_ABS
+        if args.prependPath == 0 :
+            args.prependPath = PATH_ABS
         args.showMissing = False
         args.showZero = False
         args.seqFormat = 'native'
-	if args.listWhichFiles == LIST_ALLFILES :
-	    args.listWhichFiles = LIST_ONLYIMGS # Strictly only images.
+        if args.listWhichFiles == LIST_ALLFILES :
+            args.listWhichFiles = LIST_ONLYIMGS # Strictly only images.
 
     # The following logic attempts to mimic the behavior
     # of /bin/ls as well as possible.
