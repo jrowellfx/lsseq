@@ -55,6 +55,9 @@ IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
     "tif", "tiff", "tpic"]
 PATH_ABS = 1
 PATH_REL = 2
+LIST_ALLFILES = 0 
+LIST_ONLYSEQS = 1 # Images and movies.
+LIST_ONLYIMGS = 2 # Strictly images.
 
 
 # Return two components if "filename" is formatted like a file in an
@@ -295,7 +298,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             if ((not isFileDir
                     or not listSubDirs
                     or not args.listDirContents)
-                    and not args.onlyImages):
+                    and args.listWhichFiles == LIST_ALLFILES):
                 otherFiles.append(filename)
             if isFileDir :
                 dirList.append(filename)
@@ -322,8 +325,9 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     #
     imKeys = imageDictionary.keys()
     movKeys = moviesDictionary.keys()
-    for m in movKeys :
-	imKeys.append(m)
+    if args.listWhichFiles != LIST_ONLYIMGS :
+	for m in movKeys :
+	    imKeys.append(m)
     if args.sortByMTime :
 	timeList = []
         for k in imKeys :
@@ -405,6 +409,9 @@ def main():
     global MOV_EXT
     global PATH_ABS
     global PATH_REL
+    global LIST_ALLFILES
+    global LIST_ONLYSEQS
+    global LIST_ONLYIMGS
 
     p = argparse.ArgumentParser(
         description="List directory contents while condensing image \
@@ -437,7 +444,7 @@ def main():
         dest="extremes", default=False,
         help="only list the first and last image on a separate line each. \
 	This option implies --prependPathAbs (unless --prependPathRel is \
-	explicitly specified) and -onlyImages. \
+	explicitly specified) and --strictlyOnlyImages. \
 	The purpose of this option \
 	is to help in backing up image sequences - making it easy \
 	to get a list of only the first and last frame for each sequence.")
@@ -462,22 +469,21 @@ def main():
         dest="showMissing",
         help="do not show list of missing frames" )
 
-    p.add_argument("--onlyImages", "-o", action="store_true",
-        dest="onlyImages", default=False,
-        help="only list image sequences/movies")
-    # JPR FIX THIS to be like prependPath w/ const
-    # p.add_argument("--strictlyOnlyImages", "-O", action="store_true",
-        # dest="strictlyOnlyImages", default=False,
-        # help="strictly only list image sequences.  (i.e.; no movies)")
+    p.add_argument("--onlyImages", "-o", action="store_const",
+        dest="listWhichFiles", default=LIST_ALLFILES, const=LIST_ONLYSEQS,
+        help="only list image sequences or movies")
+    p.add_argument("--strictlyOnlyImages", "-O", action="store_const",
+        dest="listWhichFiles", const=LIST_ONLYIMGS,
+        help="strictly only list image sequences (i.e.; no movies)")
 
     p.add_argument("--prependPathAbs", "-p", action="store_const",
-        dest="prependPath", default=0, const=1,
+        dest="prependPath", default=0, const=PATH_ABS,
         help="prepend the absolute path name to the image name. \
 	This option implies the option --onlyImages and will also \
 	suppress printing directory name headers when listing \
 	directory contents.")
     p.add_argument("--prependPathRel", "-P", action="store_const",
-        dest="prependPath", const=2,
+        dest="prependPath", const=PATH_REL,
         help="prepend the relative path name to the image name. \
 	This option implies the option --onlyImages and will also \
 	suppress printing directory name headers when listing \
@@ -526,19 +532,22 @@ def main():
         print "Movie extensions:", MOV_EXT
         sys.exit(0)
 
+    if args.prependPath == PATH_REL :
+	if args.listWhichFiles == LIST_ALLFILES :
+	    args.listWhichFiles = LIST_ONLYSEQS
+
+    if args.prependPath == PATH_ABS :
+	if args.listWhichFiles == LIST_ALLFILES :
+	    args.listWhichFiles = LIST_ONLYSEQS
+
     if args.extremes :
 	if args.prependPath == 0 :
 	    args.prependPath = PATH_ABS
         args.showMissing = False
         args.showZero = False
         args.seqFormat = 'native'
-        args.onlyImages = True # Force this. 
-
-    if args.prependPath == PATH_REL :
-        args.onlyImages = True # Force this.
-
-    if args.prependPath == PATH_ABS :
-        args.onlyImages = True # Force this.
+	if args.listWhichFiles == LIST_ALLFILES :
+	    args.listWhichFiles = LIST_ONLYIMGS # Strictly only images.
 
     # The following logic attempts to mimic the behavior
     # of /bin/ls as well as possible.
@@ -547,7 +556,7 @@ def main():
     #
     if len(args.files) == 0:
         if (not args.listDirContents) :
-            if (not args.onlyImages) :
+            if args.listWhichFiles == LIST_ALLFILES :
                 print "."
         else :
             if args.isRecursive :

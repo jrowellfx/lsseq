@@ -1,5 +1,16 @@
-echo ------ Test 01 ------ > test_lsseq.out.new
+echo ------ Begin Tests ------ > test_lsseq.out.new
+
+echo ------ Test 01a ------ >> test_lsseq.out.new
 ./lsseq -RF testdir >> test_lsseq.out.new
+
+echo ------ Test 01b ------ >> test_lsseq.out.new
+./lsseq -Re testdir >> test_lsseq.out.new
+
+echo ------ Test 01c ------ >> test_lsseq.out.new
+./lsseq -Reo testdir >> test_lsseq.out.new
+
+echo ------ Test 01d ------ >> test_lsseq.out.new
+./lsseq -ReP testdir >> test_lsseq.out.new
 
 cd testdir
 
