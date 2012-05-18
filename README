@@ -67,7 +67,9 @@ guessing you'd need to rerender them.  Handy eh!?
 
 Type:
 
-$ lsseq -help
+$ lsseq --help
+$ expandseq --help
+$ condenseseq --help
 
 for much more useful info.
 

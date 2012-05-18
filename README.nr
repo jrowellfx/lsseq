@@ -94,7 +94,11 @@ you'd need to rerender them.  Handy eh!?
 
 Type:
 
-$ lsseq -help
+.nf
+$ lsseq --help
+$ expandseq --help
+$ condenseseq --help
+.fi
 
 for much more useful info.
 
