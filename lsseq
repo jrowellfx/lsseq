@@ -160,18 +160,45 @@ def printSeq(filename, frameList, args, traversedPath) :
     fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
 
     if args.seqFormat == 'nuke' :
-        fileComponents[-2] = "%0" + str(padding) + "d"
+	if minFrame == maxFrame :
+	    fileComponents[-2] = (formatStr % minFrame)
+	else :
+	    fileComponents[-2] = "%0" + str(padding) + "d"
         if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
         print ".".join(fileComponents),
-        print str(minFrame) + "-" + str(maxFrame)
+	if minFrame == maxFrame :
+	    print ""
+	else :
+	    print str(minFrame) + "-" + str(maxFrame)
+
     elif args.seqFormat == 'shake' :
-        fileComponents[-2] = "#"
-        print "shake -t", str(minFrame) + "-" + str(maxFrame),
+	if minFrame == maxFrame :
+	    fileComponents[-2] = (formatStr % minFrame)
+	    print "shake ",
+	else :
+	    if padding == 4 :
+		fileComponents[-2] = "#"
+	    else :
+		fileComponents[-2] = "@"*padding
+	    print "shake -t", str(minFrame) + "-" + str(maxFrame) + " ",
         if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
         print ".".join(fileComponents)
-    else :
+
+    elif args.seqFormat == 'glob' :
+	if minFrame < 0 :
+	    fileComponents[-2] = "[\-0-9]"
+	else :
+	    fileComponents[-2] = "[0-9]"
+	if (padding > 1) :
+	    fileComponents[-2] = fileComponents[-2]  + "[0-9]"*(padding-1)
+
+        if args.prependPath > 0 :
+            sys.stdout.write(traversedPath)
+        print ".".join(fileComponents)
+
+    else : # native and rv
         if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
         if args.extremes :
@@ -437,7 +464,7 @@ def main():
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="1.711")
+    p.add_argument("--version", action="version", version="1.800")
 
     p.add_argument("--single", "-1", action="store_true",
         dest="singleColumn", default=False,
@@ -461,19 +488,28 @@ def main():
         is to help in backing up image sequences - making it easy \
         to get a list of only the first and last frame for each sequence.")
     p.add_argument("--format", "-f", action="store", type=str,
-        choices=("native", "nuke", "rv", "shake"),
+        choices=("native", "nuke", "rv", "shake", "glob"),
         dest="seqFormat",
         metavar="FORMAT",
         default="native",
-        help="list image sequences in various formats suitable for \
-            different command line driven image viewers. \
-        The choices are 'native' (default), 'nuke', 'rv' and 'shake'.")
+        help="list image sequences in various formats.\
+        The choices are 'native' (default), 'nuke', 'rv', 'shake' and 'glob'.\
+	Note that glob prints correct results if and only if the frame numbers are padded.")
     p.add_argument("--classify", "-F", action="store_true",
         dest="classify", default=False,
         help="append indicator (one of */=>@|) to entries (ls)")
     p.add_argument("--imgExt", "-i", action="store_true",
         dest="printImgExtensions", default=False,
         help="print list of raster and movie file extensions and exit")
+
+    p.add_argument("--looseNumSeparator", "-l", action="store_false",
+        dest="strictSeparator",
+        help="Allow the use of '_' (underscore), in addition to '.' (dot)\
+	    as a separator between the descriptiveName and frameNumber when\
+	    looking to interpret filenames as\
+	    image sequences. i.e.; <descriptiveName>_<frameNum>.<imgExtension>\
+	    (default; also see --strictNumSeparator)")
+
     p.add_argument("--showMissing", "-m", action="store_true",
         dest="showMissing", default=True,
         help="show list of missing frames [default]" )
@@ -507,6 +543,14 @@ def main():
     p.add_argument("--recursive", "-R", action="store_true",
         dest="isRecursive", default=False,
         help="list subdirectories recursively")
+
+    p.add_argument("--strictNumSeparator", "-s", action="store_true",
+        dest="strictSeparator", default=False,
+        help="Strictly enforce the use of '.' (dot) as a separator between the\
+	    descriptiveName and frameNumber when looking to interpret filenames as\
+	    image sequences. i.e.; <descriptiveName>.<frameNum>.<imgExtension>\
+	    (see also --looseNumSeparator)")
+
     p.add_argument("--time", action="store", type=str,
         dest="timeCompare",
         help="which frame in the sequence to use to compare times \
