@@ -146,7 +146,7 @@ def splitImageName(filename) :
 
     fileExt = fileComponents.pop(-1)
     fileRoot = ".".join(fileComponents) + numSep
-    return (fileRoot, "", fileExt)
+    return [fileRoot, "", fileExt]
 
 # Reconstruct the imagename with the frame number.
 #
@@ -233,6 +233,8 @@ def printSeq(filename, frameList, args, traversedPath) :
 	    print "shake -t", str(minFrame) + "-" + str(maxFrame) + " ",
         if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
+	else :
+            sys.stdout.write("")
         print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
 
     elif args.seqFormat == 'glob' :
