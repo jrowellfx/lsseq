@@ -60,32 +60,66 @@ LIST_ALLFILES = 0
 LIST_ONLYSEQS = 1 # Images and movies.
 LIST_ONLYIMGS = 2 # Strictly images.
 
+# Given that we are not allowing "no separator" between the
+# descriptive filename and the frame number, then the only
+# other character besides "." (dot) that makes sense to have as a 
+# separator is "_" (underscore).
+#
+# Clearly we should not allow alphanumeric characters as separators,
+# NOR unix/linux/windows shell special characters NOR minus ("-")
+# NOR space (" ").  That potentially leaves us with only "_", "+",
+# "^" and "~".  Tilde has associations with tmp/crufty files or user
+# home directories and his unlikely to ever be used as a separator
+# character.  "+" and "^" are potentially usable in as separators
+# but unlikely to be used so the effort to generalize the mechanism
+# to support the "loose" separator to a list is not worth the effort.
+# Thus "loose" is only defined as the use of "_" over and above the
+# far more desirable strict case of only allowing ".".
+#
+LOOSE_SEP = "_"
+
+def isFrameNum(f) :
+	return f.isdigit() or (f[0] == '-' and f[1:].isdigit())
 
 # Return two components if "filename" is formatted like a file in an
 # image sequence otherwise return an empty list.  The two returned
 # components are the full filename but missing the frame number,
 # and the frame number (with its existing padding if any).
-#     Eg.  "a.b.c.001.exr" -> ["a.b.c.exr", "001"]
+#     Eg.  "a.b.c.001.exr" -> ["a.b.c..exr", "001"]
+#          "a.b.c_001.exr" -> ["a.b.c_.exr", "001"]
 #
-def seqSplit(filename) :
+def seqSplit(filename, args) :
 
     global IMAGE_EXT
+    global LOOSE_SEP
     fileComponents = filename.split(".")
 
-    if (len(fileComponents) > 2
-            and IMAGE_EXT.count(fileComponents[-1]) >= 1
-            and (fileComponents[-2].isdigit()
-                 or (fileComponents[-2][0] == '-'
-                 and fileComponents[-2][1:].isdigit())
-                )
-        ) :
+    # Test if image.
+    #
+    if len(fileComponents) > 1 and (fileComponents[-1] in IMAGE_EXT) :
 
-        fileFrameNum = fileComponents[-2]
-        fileComponents.remove(fileFrameNum)
-        fileKey = ".".join(fileComponents)
-        return [fileKey, fileFrameNum]
-    else :
-        return []
+	if not args.strictSeparator :
+	    looseFileComponents = fileComponents[-2].split("_")
+	    if len(looseFileComponents) > 1 :
+		if isFrameNum(looseFileComponents[-1]) :
+
+		    fileFrameNum = looseFileComponents[-1]
+		    looseFileComponents.pop(-1)
+		    looseFileComponents[-1] = looseFileComponents[-1] + "_"
+		    looseFileKey = "_".join(looseFileComponents)
+		    fileComponents[-2] = looseFileKey
+		    fileKey = ".".join(fileComponents)
+		    return [fileKey, fileFrameNum]
+
+	if len(fileComponents) > 2 and isFrameNum(fileComponents[-2]) :
+
+	    fileFrameNum = fileComponents[-2]
+	    fileComponents.pop(-2)
+	    fileComponents[-2] = fileComponents[-2] + "."
+	    fileKey = ".".join(fileComponents)
+	    return [fileKey, fileFrameNum]
+
+    return []
 
 
 # Return true if and only if filename is a movie file.
@@ -98,19 +132,34 @@ def isMovie(filename) :
         and MOV_EXT.count(fileComponents[-1]) >= 1
 
 
+# Split the filename key into (<imagename>, "", <ext>)
+# (empty placeholder for framenum)
+#
+def splitImageName(filename) :
+    numSep = "."
+    fileComponents = filename.split(".")
+    if fileComponents[-2] == '' :
+	fileComponents.pop(-2)
+    else :
+	numSep = fileComponents[-2][-1] # i.e.; "_"
+	fileComponents[-2] = fileComponents[-2][:-1]
+
+    fileExt = fileComponents.pop(-1)
+    fileRoot = ".".join(fileComponents) + numSep
+    return (fileRoot, "", fileExt)
+
 # Reconstruct the imagename with the frame number.
 #
 def actualImageName(filename, padding, frame) :
-    fileComponents = filename.split(".")
+    fileParts = splitImageName(filename)
     formatStr = "{0:0=-" + str(padding) + "d}"
-    fileComponents = fileComponents[:-1] + \
-        [formatStr.format(frame)] + [fileComponents[-1]]
-    return ".".join(fileComponents)
+    return fileParts[0] + formatStr.format(frame) + "." + fileParts[2]
 
 
 def printSeq(filename, frameList, args, traversedPath) :
 
-    fileComponents = filename.split(".")
+    fileComponents = splitImageName(filename)
+
     missingFrames = []
     zeroFrames = []
     minFrame = frameList[1][0][0]
@@ -157,16 +206,16 @@ def printSeq(filename, frameList, args, traversedPath) :
             frameRange = "[" \
                 + (formatStr % minFrame) \
                 + "]"
-    fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
+    fileComponents[1] = frameRange
 
     if args.seqFormat == 'nuke' :
 	if minFrame == maxFrame :
-	    fileComponents[-2] = (formatStr % minFrame)
+	    fileComponents[1] = (formatStr % minFrame)
 	else :
-	    fileComponents[-2] = "%0" + str(padding) + "d"
+	    fileComponents[1] = "%0" + str(padding) + "d"
         if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
-        print ".".join(fileComponents),
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
 	if minFrame == maxFrame :
 	    print ""
 	else :
@@ -174,42 +223,42 @@ def printSeq(filename, frameList, args, traversedPath) :
 
     elif args.seqFormat == 'shake' :
 	if minFrame == maxFrame :
-	    fileComponents[-2] = (formatStr % minFrame)
+	    fileComponents[1] = (formatStr % minFrame)
 	    print "shake ",
 	else :
 	    if padding == 4 :
-		fileComponents[-2] = "#"
+		fileComponents[1] = "#"
 	    else :
-		fileComponents[-2] = "@"*padding
+		fileComponents[1] = "@"*padding
 	    print "shake -t", str(minFrame) + "-" + str(maxFrame) + " ",
         if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
-        print ".".join(fileComponents)
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
 
     elif args.seqFormat == 'glob' :
 	if minFrame < 0 :
-	    fileComponents[-2] = "[\-0-9]"
+	    fileComponents[1] = "[\-0-9]"
 	else :
-	    fileComponents[-2] = "[0-9]"
+	    fileComponents[1] = "[0-9]"
 	if (padding > 1) :
-	    fileComponents[-2] = fileComponents[-2]  + "[0-9]"*(padding-1)
+	    fileComponents[1] = fileComponents[1] + "[0-9]"*(padding-1)
 
         if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
-        print ".".join(fileComponents)
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
 
     else : # native and rv
         if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
         if args.extremes :
-            fileComponents[-2] = formatStr % minFrame
+            fileComponents[1] = formatStr % minFrame
 
-        print ".".join(fileComponents),
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
         if minFrame != maxFrame and args.extremes :
             print ""
             sys.stdout.write(traversedPath)
-            fileComponents[-2] = formatStr % maxFrame
-            print ".".join(fileComponents),
+            fileComponents[1] = formatStr % maxFrame
+	    print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
 
         if args.combineErrorFrames :
             errFrames = missingFrames + zeroFrames
@@ -270,9 +319,10 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         tmpCWD = os.path.abspath(".")
         os.chdir(path)
 
-    # The 'imageDictionary' has <imageName>.<ext> (no frame number) as
-    # the key for each entry. Each entry is a two item list containing
-    # a number and a list of three-tuples, namely:
+    # The 'imageDictionary' has <imageName>..<ext> (or <imageName>_.<ext>)
+    # (i.e.; name without the frame number) as the key for each entry.
+    # Each entry is a two item list containing a number and a list
+    # of three-tuples, namely:
     #     [ <framePadding>, [ (frameNum, fileSize, mtime), ... ] ]
     #
     imageDictionary = {}
@@ -284,7 +334,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     # collect the names into various lists for printing after this is done.
     #
     for filename in dirContents:
-        fileParts = seqSplit(filename)
+        fileParts = seqSplit(filename, args)
         if len(fileParts) == 2 : # Means file is an image.
             newFrameNum = int(fileParts[1])
             newPaddingSize = len(fileParts[1])
@@ -299,7 +349,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 newFrameMTime = os.path.getmtime(realFilename)
 
             if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2:
-                newPaddingSize -= 1
+                newPaddingSize = 1
 
             if imageDictionary.has_key(fileParts[0]) :
                 # tack on new frame number.
@@ -508,7 +558,7 @@ def main():
 	    as a separator between the descriptiveName and frameNumber when\
 	    looking to interpret filenames as\
 	    image sequences. i.e.; <descriptiveName>_<frameNum>.<imgExtension>\
-	    (default; also see --strictNumSeparator)")
+	    (also see --strictNumSeparator)")
 
     p.add_argument("--showMissing", "-m", action="store_true",
         dest="showMissing", default=True,
@@ -545,11 +595,11 @@ def main():
         help="list subdirectories recursively")
 
     p.add_argument("--strictNumSeparator", "-s", action="store_true",
-        dest="strictSeparator", default=False,
+        dest="strictSeparator", default=True,
         help="Strictly enforce the use of '.' (dot) as a separator between the\
 	    descriptiveName and frameNumber when looking to interpret filenames as\
 	    image sequences. i.e.; <descriptiveName>.<frameNum>.<imgExtension>\
-	    (see also --looseNumSeparator)")
+	    (this is the default; also see --looseNumSeparator)")
 
     p.add_argument("--time", action="store", type=str,
         dest="timeCompare",
