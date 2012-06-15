@@ -535,10 +535,7 @@ def main():
         dest="extremes", default=False,
         help="only list the first and last image on a separate line each. \
         This option implies --prependPathAbs (unless --prependPathRel is \
-        explicitly specified) and --strictlyOnlyImages. \
-        The purpose of this option \
-        is to help in backing up image sequences - making it easy \
-        to get a list of only the first and last frame for each sequence.")
+        explicitly specified) and --strictlyOnlyImages.")
     p.add_argument("--format", "-f", action="store", type=str,
         choices=("native", "nuke", "rv", "shake", "glob"),
         dest="seqFormat",
@@ -546,7 +543,8 @@ def main():
         default="native",
         help="list image sequences in various formats.\
         The choices are 'native' (default), 'nuke', 'rv', 'shake' and 'glob'.\
-	Note that glob prints correct results if and only if the frame numbers are padded.")
+	Note that glob prints correct results if and only if \
+	the frame numbers are padded.")
     p.add_argument("--classify", "-F", action="store_true",
         dest="classify", default=False,
         help="append indicator (one of */=>@|) to entries (ls)")
