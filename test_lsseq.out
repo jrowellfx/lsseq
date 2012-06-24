@@ -542,3 +542,128 @@ shake02.01.shk
 ccc01.[001-120].exr m:[3]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
+------ Test 22 ------
+
+/Users/jrowell/git/lsseq/testdir:
+adir
+bdir
+cdir
+ddir
+nonEmpty
+realImageDir
+testDirFile.[001-012].exr m:[3]
+testDirFile.mov
+testDirFile.wmv
+xxx.[000-016].exr m:[1-15x2]
+xxx.mov
+yyy.[0123].tif 
+yyy.mov
+
+/Users/jrowell/git/lsseq/testdir/adir:
+testFile00.jpg
+testFile01.jpg
+testFile02.jpg
+testFile03.jpg
+testFile04.jpg
+testFile05.jpg
+testFile06.jpg
+testFile07.jpg
+testFile08.jpg
+testFile09.jpg
+testFile10.jpg
+testFile11.jpg
+testFile12.jpg
+testFile13.jpg
+testFile14.jpg
+testFile15.jpg
+testFile16.jpg
+testFile17.jpg
+testFile18.jpg
+testFile19.jpg
+aaa.[001-120].exr z:[12,49]
+lrtm01_beauty02.[001-120].exr z:[11]
+
+/Users/jrowell/git/lsseq/testdir/bdir:
+b_subdir
+bbb.01.[001-120].exr z:[21]
+bbb.02.[001-120].tif 
+
+/Users/jrowell/git/lsseq/testdir/bdir/b_subdir:
+bbb.02.[008-095].tif 
+
+/Users/jrowell/git/lsseq/testdir/cdir:
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+
+/Users/jrowell/git/lsseq/testdir/cdir/c_subDir:
+ccc01.[001-120].exr m:[3], z:[52-55]
+
+/Users/jrowell/git/lsseq/testdir/ddir:
+dddA.[-010-0017].exr 
+dddB.[-10-17].exr 
+dddC.[-10--3].exr 
+
+/Users/jrowell/git/lsseq/testdir/realImageDir:
+mkFrames.v01.shk
+xxx_01989.png
+xxx_01990.png
+xxx_01991.png
+xxx_01992.png
+xxx_01993.png
+xxx_01994.png
+xxx_01995.png
+xxx_01996.png
+xxx_01997.png
+xxx_01998.png
+xxx_01999.png
+xxx_02000.png
+xxx_02001.png
+xxx_02002.png
+xxx_02003.png
+xxx_02004.png
+xxx_02005.png
+xxx_02006.png
+xxx_02007.png
+xxx_02008.png
+xxx_02009.png
+xxx_02010.png
+xxx_02011.png
+xxx_02012.png
+xxx_02013.png
+aaa.[-02-002].png 
+bbb.[-009-0010].jpg 
+ccc.[004].jpg 
+ddd.[-08].jpg 
+xxx.[01989-02013].png 
+
+/Users/jrowell/git/lsseq/testdir/cdir:
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+
+/Users/jrowell/git/lsseq/testdir/cdir/c_subDir:
+ccc01.[001-120].exr m:[3], z:[52-55]
+------ Test 23 ------
+/Users/jrowell/git/lsseq/testdir/cdir:
+c_subDir
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+
+/Users/jrowell/git/lsseq/testdir/cdir/c_subDir:
+ccc01.[001-120].exr m:[3], z:[52-55]

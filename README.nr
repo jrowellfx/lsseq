@@ -52,20 +52,20 @@ $ sudo python setup.py install
 .in -2
 
 .ti -3
-2) Download lsseq-1.700.tar.gz
-assuming that the latest version is 1.700 (if not
+2) Download lsseq-1.800.tar.gz
+assuming that the latest version is 1.800 (if not
 just grab the latest one).
 
 .ti -3
 3) Uncompress the file:
 .nf
-$ tar -xvf lsseq-1.700.tar.gz
+$ tar -xvf lsseq-1.800.tar.gz
 .fi
 
 .ti -3
 4) install the commands and supporting python module:
 .nf
-$ cd lsseq-1.700
+$ cd lsseq-1.800
 $ sudo python setup.py install
 .fi
 

@@ -91,5 +91,11 @@ echo ------ Test 20c ------ >> ../../test_lsseq.out.new
 echo ------ Test 21 ------ >> ../../test_lsseq.out.new
 ../../lsseq -Z >> ../../test_lsseq.out.new
 
+echo ------ Test 22 ------ >> ../../test_lsseq.out.new
+../../lsseq -R /Users/jrowell/git/lsseq/testdir/cdir/ /Users/jrowell/git/lsseq/testdir/ >> ../../test_lsseq.out.new
+
+echo ------ Test 23 ------ >> ../../test_lsseq.out.new
+../../lsseq -R /Users/jrowell/git/lsseq/testdir/cdir/ >> ../../test_lsseq.out.new
+
 cd ../..
 diff test_lsseq.out test_lsseq.out.new

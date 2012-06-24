@@ -36,14 +36,14 @@ simply by typing "python --version" at the command prompt.  If you are told
      $ cd argparse-1.2.1
      $ sudo python setup.py install
 
-2) Download lsseq-1.700.tar.gz assuming that the latest version is 1.700 (if
+2) Download lsseq-1.800.tar.gz assuming that the latest version is 1.800 (if
    not just grab the latest one).
 
 3) Uncompress the file:
-   $ tar -xvf lsseq-1.700.tar.gz
+   $ tar -xvf lsseq-1.800.tar.gz
 
 4) install the commands and supporting python module:
-   $ cd lsseq-1.700
+   $ cd lsseq-1.800
    $ sudo python setup.py install
 
 4) ...that's it! You should be able to run the commands "lsseq", "expandseq"

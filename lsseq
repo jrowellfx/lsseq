@@ -465,8 +465,14 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     print traversedPath + d + ":"
                 else :
                     print d + ":"
+
+	    if d[0] == "/" :
+                passedPath = d + "/"
+	    else :
+                passedPath = traversedPath + d + "/"
+
             listSeqDir(stripDotFiles(os.listdir(d), args.ignoreDotFiles),
-                d, False, args, traversedPath + d + "/")
+                d, False, args, passedPath)
 
     if (len(path) > 0) :
         os.chdir(tmpCWD)
@@ -516,21 +522,23 @@ def main():
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="1.800")
+    p.add_argument("--version", action="version", version="1.801")
 
     p.add_argument("--single", "-1", action="store_true",
         dest="singleColumn", default=False,
-        help="list one non-image file per line (ls)")
+        help="list one non-image file per line (see ls(1))")
     p.add_argument("--all", "-a", action="store_false",
         dest="ignoreDotFiles", default=True,
-        help="do not ignore entries starting with '.' (ls)")
+        help="do not ignore entries starting with '.' (see ls(1))")
+    # p.add_argument("--almost-all", "-A", action="store_false",
+        # dest="ignoreDotFiles", help="do not list implied '.' and '..' (see ls(1))")
     p.add_argument("--combineLists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
         help="Combine the lists of zero, missing and bad frames into one list.")
     p.add_argument("--directory", "-d", action="store_false",
         dest="listDirContents", default=True,
         help="list directory entries instead of contents, \
-        and do not dereference symbolic links (ls)")
+        and do not dereference symbolic links (see ls(1))")
     p.add_argument("--extremes", "-e", action="store_true",
         dest="extremes", default=False,
         help="only list the first and last image on a separate line each. \
@@ -547,7 +555,7 @@ def main():
 	the frame numbers are padded.")
     p.add_argument("--classify", "-F", action="store_true",
         dest="classify", default=False,
-        help="append indicator (one of */=>@|) to entries (ls)")
+        help="append indicator (one of */=>@|) to entries (see ls(1))")
     p.add_argument("--imgExt", "-i", action="store_true",
         dest="printImgExtensions", default=False,
         help="print list of raster and movie file extensions and exit")
@@ -612,7 +620,7 @@ def main():
         dest="sortByMTime", default=False,
         help="sort by modification time, the default comparison \
         time is between the most recently modified (newest) frames \
-        in each sequence. (see --time). (ls)")
+        in each sequence. (see --time). (see ls(1))")
     p.add_argument("--showZero", "-z", action="store_true",
         dest="showZero", default=True,
         help="show list of zero length images [default]" )
@@ -674,6 +682,7 @@ def main():
             if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
+            # listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), "", False, args, passedPath)
 
     # We are being asked to list a specific directory, so we don't need
@@ -687,20 +696,29 @@ def main():
         # cleaner looking.)
         if args.files[0][-1] == "/" :
             arg0 = args.files[0][:-1]
+
         if (not args.listDirContents) :
             print arg0
+
         else :
+
             if args.isRecursive:
                 if args.prependPath == 0 :
                     print arg0 + ":"
                 passedPath = arg0 + "/"
             else :
                 passedPath = ""
+
             if args.prependPath == PATH_REL :
                 passedPath = arg0 + "/"
+
             if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
+	    if arg0[0] == "/" :
+                passedPath = arg0 + "/"
+
+            # listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             listSeqDir(stripDotFiles(os.listdir(arg0), args.ignoreDotFiles), arg0, False, args, passedPath)
 
     # List all the arguments on the command line and unless prevented by
@@ -711,6 +729,7 @@ def main():
         passedPath = ""
         if args.prependPath == PATH_ABS :
             passedPath = os.getcwd() + "/"
+	# listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         listSeqDir(args.files, "", True, args, passedPath)
 
 if __name__ == '__main__':
