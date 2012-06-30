@@ -1,11 +1,9 @@
-- add  -A, --almost-all (ls)
-            do not list implied . and ..
-- add -B --ignore-backsup    do not list implied entries ending with ~ (ls)
-- add "-C" (cap-c) arg --byColumns - list entries by columns (ls)
 - add --file-type (ls)
               likewise (to -F), except do not append '*'
-- add -x     list entries by lines instead of by columns (ls)
 - add -X     sort alphabetically by entry extension (ls)
 - add --indicator-style=WORD (ls)
               append  indicator  with  style  WORD  to  entry  names:
-               none (default), slash, file-type (--file-type), classify (-F)
+              none (default), slash, file-type (--file-type), classify (-F)
+
+- add -badFrames
+	      use heuristics to guess if frame is bad given frame sizes.
