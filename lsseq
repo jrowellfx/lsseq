@@ -45,6 +45,7 @@ import sys
 import subprocess
 import seqLister
 import textwrap
+import math
 from operator import itemgetter
 
 MOV_EXT = ["avi", "mov", "mp4", "mpg", "wmv"]
@@ -431,12 +432,21 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     if im[2] != -1 :
                         validTimes.append(im[2])
                 validTimes.sort()
-                if args.timeCompare == 'oldest' :
+		time = 0
+		n = len(validTimes)
+		if n == 1 :
                     time = validTimes[0]
-                elif args.timeCompare == 'median' :
-                    time = validTimes[len(validTimes)/2]
-                else : # newest
-                    time = validTimes[-1]
+		elif n > 1 :
+		    if args.timeCompare == 'oldest' :
+			time = validTimes[0]
+		    elif args.timeCompare == 'median' :
+			midIndex = int(math.floor(n/2))
+			if n % 2 == 1 : # Odd number of items
+			    time = validTimes[midIndex]
+			else : # Even number of items.
+			    time = (validTimes[midIndex] + validTimes[midIndex-1])/2
+		    else : # newest
+			time = validTimes[-1]
                 timeList.append((k, time))
 
         timeList.sort(key=itemgetter(1))
@@ -534,7 +544,7 @@ def main():
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="1.900")
+    p.add_argument("--version", action="version", version="1.901")
 
     p.add_argument("--single", "-1", action="store_const",
         dest="by_what", default=BY_UNSPECIFIED, const=BY_SINGLE,
