@@ -405,8 +405,8 @@ shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
-ccc01.[001-120].exr [3,52-55]
-ccc02.[001-120].exr [51,119]
+ccc01.[001-120].exr e:[3,52-55]
+ccc02.[001-120].exr e:[51,119]
 ccc03.[80-140].tga 
 ------ Test 09a ------
 /Users/jrowell/git/lsseq/testdir/cdir/ccc01.001.exr 

@@ -90,6 +90,30 @@ LOOSE_SEP = "_"
 def isFrameNum(f) :
 	return f.isdigit() or (f[0] == '-' and f[1:].isdigit())
 
+
+def readByteShortForm(bytes) :
+    multiplier = 1
+    if bytes[-1] == 'K' or bytes[-1] == 'k' :
+	multiplier = 1<<10L
+	bytes = bytes[:-1]
+    elif bytes[-1] == 'M' or bytes[-1] == 'm' :
+	multiplier = 1<<20L
+	bytes = bytes[:-1]
+    elif bytes[-1] == 'G' or bytes[-1] == 'g' :
+	multiplier = 1<<30L
+	bytes = bytes[:-1]
+
+    try :
+	b = float(bytes)
+	if b <= 0 :
+	    return 512
+	else :
+	    return int(math.ceil(b*multiplier)) # Will always be at least 1.
+    except ValueError :
+	msg = "%r is not a valid byte size" % bytes
+	raise argparse.ArgumentTypeError(msg)
+
+
 # Return two components if "filename" is formatted like a file in an
 # image sequence otherwise return an empty list.  The two returned
 # components are the full filename but missing the frame number,
@@ -171,6 +195,7 @@ def printSeq(filename, frameList, args, traversedPath) :
 
     missingFrames = []
     zeroFrames = []
+    badFrames = []
     minFrame = frameList[1][0][0]
     maxFrame = frameList[1][-1][0]
     padding = frameList[0]
@@ -187,10 +212,15 @@ def printSeq(filename, frameList, args, traversedPath) :
         if (not iMissing and args.showZero) :
             # if this file is a broken soft link '-1' was stashed as mtime
             if currFrameData[2] == -1 : # mtime
-                zeroFrames.append(i)
+		if args.showBad :
+		    badFrames.append(i)
+		else :
+		    zeroFrames.append(i)
                 actualFilename = actualImageName(filename, padding, i)
                 print >> sys.stderr, os.path.basename(sys.argv[0]) + \
                     ": warning: " + actualFilename + " is a broken soft link."
+            elif args.showBad and currFrameData[1] < args.goodFrameMinSize : # file size
+                badFrames.append(i)
             elif currFrameData[1] == 0 : # file size
                 zeroFrames.append(i)
         i = i + 1
@@ -272,10 +302,10 @@ def printSeq(filename, frameList, args, traversedPath) :
 	    print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
 
         if args.combineErrorFrames :
-            errFrames = missingFrames + zeroFrames
+            errFrames = missingFrames + zeroFrames + badFrames
             frameSeq = seqLister.condenseSeq(errFrames)
             if (len(frameSeq) > 0) :
-                sys.stdout.write(" [")
+                sys.stdout.write(" e:[")
                 doPrintComma = False
                 for f in frameSeq :
                     if doPrintComma :
@@ -302,6 +332,18 @@ def printSeq(filename, frameList, args, traversedPath) :
                 sys.stdout.write(" z:[")
                 doPrintComma = False
                 for f in zeroFrameSeq :
+                    if doPrintComma :
+                        sys.stdout.write(",")
+                    sys.stdout.write(f)
+                    doPrintComma = True
+                sys.stdout.write("]")
+            badFrameSeq = seqLister.condenseSeq(badFrames)
+            if (len(badFrameSeq) > 0) :
+                if (len(missingFrameSeq) > 0) or (len(zeroFrameSeq) > 0) :
+                    sys.stdout.write(",")
+                sys.stdout.write(" b:[")
+                doPrintComma = False
+                for f in badFrameSeq :
                     if doPrintComma :
                         sys.stdout.write(",")
                     sys.stdout.write(f)
@@ -544,7 +586,7 @@ def main():
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="1.901")
+    p.add_argument("--version", action="version", version="1.902")
 
     p.add_argument("--single", "-1", action="store_const",
         dest="by_what", default=BY_UNSPECIFIED, const=BY_SINGLE,
@@ -553,12 +595,13 @@ def main():
         dest="ignoreDotFiles", default=True,
         help="do not ignore entries starting with '.' \
 	while omitting implied '.' and '..' directories (see ls(1) --almost-all)")
-    # p.add_argument("--showBadFrames", "-b", action="store_true",
-        # dest="showBad", default=False,
-        # help="show list of potentially bad frames based on file sizes" )
-    # p.add_argument("--skipBadFrames", "-B", action="store_false",
-        # dest="showBad",
-        # help="do not show list of potentially bad frames [default]" )
+    p.add_argument("--showBadFrames", "-b", action="store_true",
+        dest="showBad", default=False,
+        help="show list of potentially bad frames based on the \
+	minimum size of a good frame (see --goodFrameMinSize)" )
+    p.add_argument("--skipBadFrames", "-B", action="store_false",
+        dest="showBad",
+        help="do not show list of potentially bad frames [default]" )
     p.add_argument("--combineLists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
         help="Combine the lists of zero, missing and bad frames into one list.")
@@ -586,6 +629,12 @@ def main():
     p.add_argument("--classify", "-F", action="store_true",
         dest="classify", default=False,
         help="append indicator (one of */=>@|) to entries (see ls(1))")
+    p.add_argument("--goodFrameMinSize", action="store", type=readByteShortForm,
+	dest="goodFrameMinSize", default=512,
+        metavar="BYTES",
+	help="Any frame size less than this size is considered to be \
+	a bad frame.  Shortforms for byte sizes are accepted as \
+	in '1K' (i.e.; 1024) or '1.5K' for example.  The default is 512 bytes.")
     p.add_argument("--imgExt", "-i", action="store_true",
         dest="printImgExtensions", default=False,
         help="print list of raster and movie file extensions and exit")
