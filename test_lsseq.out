@@ -6,7 +6,7 @@ bdir/
 cdir/
 ddir/
 nonEmpty
-realImageDir/
+fdir/
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -65,7 +65,7 @@ dddA.[-010-0017].exr
 dddB.[-10-17].exr 
 dddC.[-10--3].exr 
 
-testdir/realImageDir:
+testdir/fdir:
 mkFrames.v01.shk
 aaa.[-02-002].png 
 bbb.[-009-0010].jpg 
@@ -103,16 +103,16 @@ xxx_[01989-02013].png
 /Users/jrowell/git/lsseq/ddir/dddB.17.exr 
 /Users/jrowell/git/lsseq/ddir/dddC.-10.exr 
 /Users/jrowell/git/lsseq/ddir/dddC.-3.exr 
-/Users/jrowell/git/lsseq/realImageDir/aaa.-02.png 
-/Users/jrowell/git/lsseq/realImageDir/aaa.002.png 
-/Users/jrowell/git/lsseq/realImageDir/bbb.-009.jpg 
-/Users/jrowell/git/lsseq/realImageDir/bbb.0010.jpg 
-/Users/jrowell/git/lsseq/realImageDir/ccc.004.jpg 
-/Users/jrowell/git/lsseq/realImageDir/ddd.-08.jpg 
-/Users/jrowell/git/lsseq/realImageDir/xxx.01989.png 
-/Users/jrowell/git/lsseq/realImageDir/xxx.02013.png 
-/Users/jrowell/git/lsseq/realImageDir/xxx_01989.png 
-/Users/jrowell/git/lsseq/realImageDir/xxx_02013.png 
+/Users/jrowell/git/lsseq/fdir/aaa.-02.png 
+/Users/jrowell/git/lsseq/fdir/aaa.002.png 
+/Users/jrowell/git/lsseq/fdir/bbb.-009.jpg 
+/Users/jrowell/git/lsseq/fdir/bbb.0010.jpg 
+/Users/jrowell/git/lsseq/fdir/ccc.004.jpg 
+/Users/jrowell/git/lsseq/fdir/ddd.-08.jpg 
+/Users/jrowell/git/lsseq/fdir/xxx.01989.png 
+/Users/jrowell/git/lsseq/fdir/xxx.02013.png 
+/Users/jrowell/git/lsseq/fdir/xxx_01989.png 
+/Users/jrowell/git/lsseq/fdir/xxx_02013.png 
 ------ Test 01c ------
 /Users/jrowell/git/lsseq/testDirFile.001.exr 
 /Users/jrowell/git/lsseq/testDirFile.012.exr 
@@ -147,16 +147,16 @@ xxx_[01989-02013].png
 /Users/jrowell/git/lsseq/ddir/dddB.17.exr 
 /Users/jrowell/git/lsseq/ddir/dddC.-10.exr 
 /Users/jrowell/git/lsseq/ddir/dddC.-3.exr 
-/Users/jrowell/git/lsseq/realImageDir/aaa.-02.png 
-/Users/jrowell/git/lsseq/realImageDir/aaa.002.png 
-/Users/jrowell/git/lsseq/realImageDir/bbb.-009.jpg 
-/Users/jrowell/git/lsseq/realImageDir/bbb.0010.jpg 
-/Users/jrowell/git/lsseq/realImageDir/ccc.004.jpg 
-/Users/jrowell/git/lsseq/realImageDir/ddd.-08.jpg 
-/Users/jrowell/git/lsseq/realImageDir/xxx.01989.png 
-/Users/jrowell/git/lsseq/realImageDir/xxx.02013.png 
-/Users/jrowell/git/lsseq/realImageDir/xxx_01989.png 
-/Users/jrowell/git/lsseq/realImageDir/xxx_02013.png 
+/Users/jrowell/git/lsseq/fdir/aaa.-02.png 
+/Users/jrowell/git/lsseq/fdir/aaa.002.png 
+/Users/jrowell/git/lsseq/fdir/bbb.-009.jpg 
+/Users/jrowell/git/lsseq/fdir/bbb.0010.jpg 
+/Users/jrowell/git/lsseq/fdir/ccc.004.jpg 
+/Users/jrowell/git/lsseq/fdir/ddd.-08.jpg 
+/Users/jrowell/git/lsseq/fdir/xxx.01989.png 
+/Users/jrowell/git/lsseq/fdir/xxx.02013.png 
+/Users/jrowell/git/lsseq/fdir/xxx_01989.png 
+/Users/jrowell/git/lsseq/fdir/xxx_02013.png 
 ------ Test 01d ------
 testdir/testDirFile.001.exr 
 testdir/testDirFile.012.exr 
@@ -191,21 +191,21 @@ testdir/ddir/dddB.-10.exr
 testdir/ddir/dddB.17.exr 
 testdir/ddir/dddC.-10.exr 
 testdir/ddir/dddC.-3.exr 
-testdir/realImageDir/aaa.-02.png 
-testdir/realImageDir/aaa.002.png 
-testdir/realImageDir/bbb.-009.jpg 
-testdir/realImageDir/bbb.0010.jpg 
-testdir/realImageDir/ccc.004.jpg 
-testdir/realImageDir/ddd.-08.jpg 
-testdir/realImageDir/xxx.01989.png 
-testdir/realImageDir/xxx.02013.png 
+testdir/fdir/aaa.-02.png 
+testdir/fdir/aaa.002.png 
+testdir/fdir/bbb.-009.jpg 
+testdir/fdir/bbb.0010.jpg 
+testdir/fdir/ccc.004.jpg 
+testdir/fdir/ddd.-08.jpg 
+testdir/fdir/xxx.01989.png 
+testdir/fdir/xxx.02013.png 
 ------ Test 02 ------
 adir
 bdir
 cdir
 ddir
 nonEmpty
-realImageDir
+fdir
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -267,7 +267,7 @@ dddA.[-010-0017].exr
 dddB.[-10-17].exr 
 dddC.[-10--3].exr 
 
-realImageDir:
+fdir:
 mkFrames.v01.shk
 xxx_01989.png
 xxx_01990.png
@@ -353,7 +353,7 @@ dddA.[-010-0017].exr
 dddB.[-10-17].exr 
 dddC.[-10--3].exr 
 
-realImageDir:
+fdir:
 mkFrames.v01.shk
 aaa.[-02-002].png 
 bbb.[-009-0010].jpg 
@@ -550,7 +550,7 @@ bdir
 cdir
 ddir
 nonEmpty
-realImageDir
+fdir
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -609,7 +609,7 @@ dddA.[-010-0017].exr
 dddB.[-10-17].exr 
 dddC.[-10--3].exr 
 
-/Users/jrowell/git/lsseq/testdir/realImageDir:
+/Users/jrowell/git/lsseq/testdir/fdir:
 mkFrames.v01.shk
 xxx_01989.png
 xxx_01990.png

@@ -11,8 +11,8 @@ SetUseProxy("1, 1");
 SetProxyFilter("default");
 SetPixelScale(1, 1);
 SetUseProxyOnMissing(1);
-SetDefaultWidth(192);
-SetDefaultHeight(108);
+SetDefaultWidth(960);
+SetDefaultHeight(540);
 SetDefaultBytes(1);
 SetDefaultAspect(1);
 SetDefaultViewerAspect(1);
@@ -27,20 +27,40 @@ SetAudio("100W@E0000qFdsuHW962Dl9BOW0mWa06w7mCJ000000000008");
 
 // Input nodes
 
-Checker1 = Checker(192, 108, 1, 32, xSize/GetDefaultAspect());
-Text1 = Text(192, 108, 1, "%f", "Utopia Regular", 80, xFontScale/GetDefaultAspect(), 
-    1, 96, 68, 0, 2, 2, 1, 1, 1, 1, 0, 0, 0, 45, 0, 1);
+Color1 = Color(960, 540, 1, 0, red, red, 1, 0);
+Color2 = Color(960, 540, 1, 0, red, red, 1, 0);
+Color3 = Color(960, 540, 1, 0, red, red, 1, 0);
 
 // Processing nodes
 
-Brightness1 = Brightness(Checker1, 0.2);
-Over1 = Over(Text1, Brightness1, 1, 0, 0);
-aaa = FileOut(Over1, "//Nervenet/Users/jrowell/git/lsseq/tmp/aaa.@@@.png", 
+HD_2_1 = FileOut(Color1, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_rle.exr", 
+    "Auto", "RLE");
+HD_2_10 = FileOut(Color3, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2.png", 
     "Auto");
-bbb = FileOut(Over1, "//Nervenet/Users/jrowell/git/lsseq/tmp/bbb.####.jpg", 
+HD_2_11 = FileOut(Color3, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_rle.tiff", 
+    "Tiff", "rgb", "Rle", "Native");
+HD_2_12 = FileOut(Color3, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_lzw.tiff", 
+    "Auto", "as-is", "Lzw", "Native");
+HD_2_13 = FileOut(Color3, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_040.dpx", 
+    "Dpx", "rgb", "Top to Bottom");
+HD_2_14 = FileOut(Color1, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_none.exr", 
+    "Auto", "None");
+HD_2_2 = FileOut(Color1, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_zipS.exr", 
+    "Auto", "Zip Scanline");
+HD_2_3 = FileOut(Color1, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_zipB.exr", 
+    "Auto", "Zip Block");
+HD_2_4 = FileOut(Color1, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_pxr24.exr", 
+    "Auto", "Pxr24");
+HD_2_5 = FileOut(Color1, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_piz.exr", 
+    "Auto", "Piz");
+HD_2_6 = FileOut(Color2, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_100.jpg", 
     "Auto", "rgb", 100);
-xxx = FileOut(Over1, "//Nervenet/Users/jrowell/git/lsseq/tmp/xxx.@@@@@.png", 
-    "Auto");
+HD_2_7 = FileOut(Color2, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_080.jpg", 
+    "Auto", "rgb", 80);
+HD_2_8 = FileOut(Color2, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_060.jpg", 
+    "Auto", "rgb", 60);
+HD_2_9 = FileOut(Color2, "//Nervenet/Users/jrowell/git/lsseq/testdir/blackFrames/HD_2_040.jpg", 
+    "Auto", "rgb", 40);
 
 
 // User Interface settings
@@ -55,7 +75,7 @@ SetKey(
     "globals.consoleLineLength", "120",
     "globals.displayThumbnails", "1",
     "globals.enhancedNodeView", "0",
-    "globals.fileBrowser.favorites", "/Users/jrowell/git/lsseq/tmp/;$HOME;/Users/jrowell//nreal/;/Applications/Shake/;/Applications/Shake/doc/pix/;",
+    "globals.fileBrowser.favorites", "/Users/jrowell/git/lsseq/testdir/;$HOME;/Users/jrowell//nreal/;/Applications/Shake/;/Applications/Shake/doc/pix/;/Users/jrowell/nreal/autosave/;",
     "globals.fileBrowserExactList", "0",
     "globals.fileBrowserFilterList", "1",
     "globals.fileBrowserFullList", "0",
@@ -72,7 +92,7 @@ SetKey(
     "globals.fileBrowserSC1", "211",
     "globals.fileBrowserSC2", "211",
     "globals.fileBrowserSC3", "211",
-    "globals.fileBrowserSeqList", "1",
+    "globals.fileBrowserSeqList", "0",
     "globals.fileBrowserShortList", "0",
     "globals.fileBrowserWIntSet", "1",
     "globals.fileBrowserWidth", "790",
@@ -194,10 +214,10 @@ SetKey(
     "globals.warpTargetNormalColorGreen", "0.2",
     "globals.warpTargetNormalColorRed", "0.2",
     "globals.webBrowserPath", "",
-    "mainQuad.bot", "0.545055",
+    "mainQuad.bot", "0.383359522",
     "mainQuad.left", "0.29",
-    "mainQuad.right", "0.35",
-    "mainQuad.top", "0.545055",
+    "mainQuad.right", "0.5067489",
+    "mainQuad.top", "0.383359522",
     "mainWin.height", "746",
     "mainWin.tabChild1", "0.Image",
     "mainWin.tabChild10", "0.Curve_Editor_2",
@@ -218,36 +238,69 @@ SetKey(
     "mainWin.width", "1274",
     "mainWin.xPos", "3",
     "mainWin.yPos", "7",
-    "nodeView.Brightness1.t", "0",
-    "nodeView.Brightness1.x", "337",
-    "nodeView.Brightness1.y", "181",
-    "nodeView.Checker1.t", "1",
-    "nodeView.Checker1.tnChannel", "0",
-    "nodeView.Checker1.tnTime", "1",
-    "nodeView.Checker1.tnVisible", "1",
-    "nodeView.Checker1.x", "327",
-    "nodeView.Checker1.y", "232",
-    "nodeView.Over1.t", "0",
-    "nodeView.Over1.x", "352",
-    "nodeView.Over1.y", "61",
-    "nodeView.Text1.t", "1",
-    "nodeView.Text1.tnChannel", "0",
-    "nodeView.Text1.tnTime", "1",
-    "nodeView.Text1.tnVisible", "1",
-    "nodeView.Text1.x", "22",
-    "nodeView.Text1.y", "215",
-    "nodeView.aaa.t", "0",
-    "nodeView.aaa.x", "248",
-    "nodeView.aaa.y", "-65",
-    "nodeView.bbb.t", "0",
-    "nodeView.bbb.x", "453",
-    "nodeView.bbb.y", "-53",
-    "nodeView.xPan", "-78.75",
-    "nodeView.xxx.t", "0",
-    "nodeView.xxx.x", "352.5",
-    "nodeView.xxx.y", "-108",
-    "nodeView.yPan", "138.75",
-    "nodeView.zoom", "0.8",
+    "nodeView.Color1.t", "1",
+    "nodeView.Color1.tnChannel", "0",
+    "nodeView.Color1.tnTime", "1",
+    "nodeView.Color1.tnVisible", "1",
+    "nodeView.Color1.x", "-688",
+    "nodeView.Color1.y", "231",
+    "nodeView.Color2.t", "1",
+    "nodeView.Color2.tnChannel", "0",
+    "nodeView.Color2.tnTime", "1",
+    "nodeView.Color2.tnVisible", "1",
+    "nodeView.Color2.x", "-1219",
+    "nodeView.Color2.y", "251",
+    "nodeView.Color3.t", "1",
+    "nodeView.Color3.tnChannel", "0",
+    "nodeView.Color3.tnTime", "1",
+    "nodeView.Color3.tnVisible", "1",
+    "nodeView.Color3.x", "-1817",
+    "nodeView.Color3.y", "259",
+    "nodeView.HD_2_1.t", "0",
+    "nodeView.HD_2_1.x", "-903",
+    "nodeView.HD_2_1.y", "155",
+    "nodeView.HD_2_10.t", "0",
+    "nodeView.HD_2_10.x", "-2032",
+    "nodeView.HD_2_10.y", "184",
+    "nodeView.HD_2_11.t", "0",
+    "nodeView.HD_2_11.x", "-1916",
+    "nodeView.HD_2_11.y", "135",
+    "nodeView.HD_2_12.t", "0",
+    "nodeView.HD_2_12.x", "-1806",
+    "nodeView.HD_2_12.y", "85",
+    "nodeView.HD_2_13.t", "0",
+    "nodeView.HD_2_13.x", "-1663",
+    "nodeView.HD_2_13.y", "43",
+    "nodeView.HD_2_14.t", "0",
+    "nodeView.HD_2_14.x", "-363",
+    "nodeView.HD_2_14.y", "121",
+    "nodeView.HD_2_2.t", "0",
+    "nodeView.HD_2_2.x", "-803",
+    "nodeView.HD_2_2.y", "99",
+    "nodeView.HD_2_3.t", "0",
+    "nodeView.HD_2_3.x", "-688",
+    "nodeView.HD_2_3.y", "46",
+    "nodeView.HD_2_4.t", "0",
+    "nodeView.HD_2_4.x", "-566",
+    "nodeView.HD_2_4.y", "2",
+    "nodeView.HD_2_5.t", "0",
+    "nodeView.HD_2_5.x", "-415",
+    "nodeView.HD_2_5.y", "-29",
+    "nodeView.HD_2_6.t", "0",
+    "nodeView.HD_2_6.x", "-1434",
+    "nodeView.HD_2_6.y", "175",
+    "nodeView.HD_2_7.t", "0",
+    "nodeView.HD_2_7.x", "-1318",
+    "nodeView.HD_2_7.y", "128",
+    "nodeView.HD_2_8.t", "0",
+    "nodeView.HD_2_8.x", "-1208",
+    "nodeView.HD_2_8.y", "77",
+    "nodeView.HD_2_9.t", "0",
+    "nodeView.HD_2_9.x", "-1065",
+    "nodeView.HD_2_9.y", "35",
+    "nodeView.xPan", "2032",
+    "nodeView.yPan", "197.958862",
+    "nodeView.zoom", "0.435366541",
     "pixelAnalyzer1.aStatToggleState", "0",
     "pixelAnalyzer1.accumulate", "0",
     "pixelAnalyzer1.bStatToggleState", "0",
@@ -270,9 +323,9 @@ SetKey(
     "timeBar.incr", "1",
     "timeBar.low", "-10",
     "timeView.ctrls.selGroup", "0",
-    "timeView.list.open.Checker1.cycle", "-2,-2,0",
-    "timeView.list.open.Over1.cycle", "-2,-2,0",
-    "timeView.list.open.Text1.cycle", "-2,-2,0",
+    "timeView.list.open.Color1.cycle", "-2,-2,0",
+    "timeView.list.open.Color2.cycle", "-2,-2,0",
+    "timeView.list.open.Color3.cycle", "-2,-2,0",
     "timeView.wSpace.constDisp", "0",
     "timeView.wSpace.dispInOut", "1",
     "timeView.wSpace.endTime", "10",
@@ -285,7 +338,7 @@ SetKey(
     "vDesk.0.compareTog.cycle", "-1,0,0,0,-1",
     "vDesk.0.displayModeA", "0",
     "vDesk.0.displayModeB", "0",
-    "vDesk.0.dodNodeSerial", "SetDOD(Select1, 0, 192, 0, 108);",
+    "vDesk.0.dodNodeSerial", "SetDOD(Select1, 0, 960, 0, 540);",
     "vDesk.0.dodToggle", "0",
     "vDesk.0.g", "1",
     "vDesk.0.h", "484",
@@ -297,7 +350,7 @@ SetKey(
     "vDesk.0.lookupNodeSerial1", "ViewerLookup1_(ViewerDodSelect, 1, 0, 2, 0, 0, 0, 95, rBlack, rBlack, 685, rWhite, rWhite, 0.6, rNGamma, rNGamma, 1.7, rDGamma, rDGamma, 0, rSoftClip, rSoftClip);",
     "vDesk.0.lookupTog.cycle", "1,0,0,0",
     "vDesk.0.lookupToggle", "0",
-    "vDesk.0.monitoredNodeA", "NRiScript1.xxx",
+    "vDesk.0.monitoredNodeA", "NRiScript1.HD_2_9",
     "vDesk.0.numViewerLookups", "2",
     "vDesk.0.numViewerScripts", "6",
     "vDesk.0.oscAutoKeyOnOff", "0",
@@ -317,12 +370,12 @@ SetKey(
     "vDesk.0.updateModeB", "1",
     "vDesk.0.updateTog.0.cycle", "-1,0,0,1",
     "vDesk.0.updateTog.1.cycle", "-1,0,0,1",
-    "vDesk.0.w", "688",
+    "vDesk.0.w", "482",
     "vDesk.0.x", "0",
-    "vDesk.0.xPan", "244",
+    "vDesk.0.xPan", "-242",
     "vDesk.0.xliderValue", "0",
     "vDesk.0.y", "0",
-    "vDesk.0.yPan", "161",
+    "vDesk.0.yPan", "-54",
     "vDesk.0.zoom", "1",
     "vDesk.viewers", "1"
 );
