@@ -74,89 +74,89 @@ ddd.[-08].jpg
 xxx.[01989-02013].png 
 xxx_[01989-02013].png 
 ------ Test 01b ------
-/Users/jrowell/git/lsseq/testDirFile.001.exr 
-/Users/jrowell/git/lsseq/testDirFile.012.exr 
-/Users/jrowell/git/lsseq/xxx.000.exr 
-/Users/jrowell/git/lsseq/xxx.016.exr 
-/Users/jrowell/git/lsseq/yyy.0123.tif 
-/Users/jrowell/git/lsseq/adir/aaa.001.exr 
-/Users/jrowell/git/lsseq/adir/aaa.120.exr 
-/Users/jrowell/git/lsseq/adir/lrtm01_beauty02.001.exr 
-/Users/jrowell/git/lsseq/adir/lrtm01_beauty02.120.exr 
-/Users/jrowell/git/lsseq/bdir/bbb.01.001.exr 
-/Users/jrowell/git/lsseq/bdir/bbb.01.120.exr 
-/Users/jrowell/git/lsseq/bdir/bbb.02.001.tif 
-/Users/jrowell/git/lsseq/bdir/bbb.02.120.tif 
-/Users/jrowell/git/lsseq/bdir/b_subdir/bbb.02.008.tif 
-/Users/jrowell/git/lsseq/bdir/b_subdir/bbb.02.095.tif 
-/Users/jrowell/git/lsseq/cdir/ccc01.001.exr 
-/Users/jrowell/git/lsseq/cdir/ccc01.120.exr 
-/Users/jrowell/git/lsseq/cdir/ccc02.001.exr 
-/Users/jrowell/git/lsseq/cdir/ccc02.120.exr 
-/Users/jrowell/git/lsseq/cdir/ccc03.80.tga 
-/Users/jrowell/git/lsseq/cdir/ccc03.140.tga 
-/Users/jrowell/git/lsseq/cdir/c_subDir/ccc01.001.exr 
-/Users/jrowell/git/lsseq/cdir/c_subDir/ccc01.120.exr 
-/Users/jrowell/git/lsseq/ddir/dddA.-010.exr 
-/Users/jrowell/git/lsseq/ddir/dddA.0017.exr 
-/Users/jrowell/git/lsseq/ddir/dddB.-10.exr 
-/Users/jrowell/git/lsseq/ddir/dddB.17.exr 
-/Users/jrowell/git/lsseq/ddir/dddC.-10.exr 
-/Users/jrowell/git/lsseq/ddir/dddC.-3.exr 
-/Users/jrowell/git/lsseq/fdir/aaa.-02.png 
-/Users/jrowell/git/lsseq/fdir/aaa.002.png 
-/Users/jrowell/git/lsseq/fdir/bbb.-009.jpg 
-/Users/jrowell/git/lsseq/fdir/bbb.0010.jpg 
-/Users/jrowell/git/lsseq/fdir/ccc.004.jpg 
-/Users/jrowell/git/lsseq/fdir/ddd.-08.jpg 
-/Users/jrowell/git/lsseq/fdir/xxx.01989.png 
-/Users/jrowell/git/lsseq/fdir/xxx.02013.png 
-/Users/jrowell/git/lsseq/fdir/xxx_01989.png 
-/Users/jrowell/git/lsseq/fdir/xxx_02013.png 
+/nas/media/src/python/lsseq/testDirFile.001.exr 
+/nas/media/src/python/lsseq/testDirFile.012.exr 
+/nas/media/src/python/lsseq/xxx.000.exr 
+/nas/media/src/python/lsseq/xxx.016.exr 
+/nas/media/src/python/lsseq/yyy.0123.tif 
+/nas/media/src/python/lsseq/adir/aaa.001.exr 
+/nas/media/src/python/lsseq/adir/aaa.120.exr 
+/nas/media/src/python/lsseq/adir/lrtm01_beauty02.001.exr 
+/nas/media/src/python/lsseq/adir/lrtm01_beauty02.120.exr 
+/nas/media/src/python/lsseq/bdir/bbb.01.001.exr 
+/nas/media/src/python/lsseq/bdir/bbb.01.120.exr 
+/nas/media/src/python/lsseq/bdir/bbb.02.001.tif 
+/nas/media/src/python/lsseq/bdir/bbb.02.120.tif 
+/nas/media/src/python/lsseq/bdir/b_subdir/bbb.02.008.tif 
+/nas/media/src/python/lsseq/bdir/b_subdir/bbb.02.095.tif 
+/nas/media/src/python/lsseq/cdir/ccc01.001.exr 
+/nas/media/src/python/lsseq/cdir/ccc01.120.exr 
+/nas/media/src/python/lsseq/cdir/ccc02.001.exr 
+/nas/media/src/python/lsseq/cdir/ccc02.120.exr 
+/nas/media/src/python/lsseq/cdir/ccc03.80.tga 
+/nas/media/src/python/lsseq/cdir/ccc03.140.tga 
+/nas/media/src/python/lsseq/cdir/c_subDir/ccc01.001.exr 
+/nas/media/src/python/lsseq/cdir/c_subDir/ccc01.120.exr 
+/nas/media/src/python/lsseq/ddir/dddA.-010.exr 
+/nas/media/src/python/lsseq/ddir/dddA.0017.exr 
+/nas/media/src/python/lsseq/ddir/dddB.-10.exr 
+/nas/media/src/python/lsseq/ddir/dddB.17.exr 
+/nas/media/src/python/lsseq/ddir/dddC.-10.exr 
+/nas/media/src/python/lsseq/ddir/dddC.-3.exr 
+/nas/media/src/python/lsseq/fdir/aaa.-02.png 
+/nas/media/src/python/lsseq/fdir/aaa.002.png 
+/nas/media/src/python/lsseq/fdir/bbb.-009.jpg 
+/nas/media/src/python/lsseq/fdir/bbb.0010.jpg 
+/nas/media/src/python/lsseq/fdir/ccc.004.jpg 
+/nas/media/src/python/lsseq/fdir/ddd.-08.jpg 
+/nas/media/src/python/lsseq/fdir/xxx.01989.png 
+/nas/media/src/python/lsseq/fdir/xxx.02013.png 
+/nas/media/src/python/lsseq/fdir/xxx_01989.png 
+/nas/media/src/python/lsseq/fdir/xxx_02013.png 
 ------ Test 01c ------
-/Users/jrowell/git/lsseq/testDirFile.001.exr 
-/Users/jrowell/git/lsseq/testDirFile.012.exr 
-/Users/jrowell/git/lsseq/testDirFile.mov
-/Users/jrowell/git/lsseq/testDirFile.wmv
-/Users/jrowell/git/lsseq/xxx.000.exr 
-/Users/jrowell/git/lsseq/xxx.016.exr 
-/Users/jrowell/git/lsseq/xxx.mov
-/Users/jrowell/git/lsseq/yyy.0123.tif 
-/Users/jrowell/git/lsseq/yyy.mov
-/Users/jrowell/git/lsseq/adir/aaa.001.exr 
-/Users/jrowell/git/lsseq/adir/aaa.120.exr 
-/Users/jrowell/git/lsseq/adir/lrtm01_beauty02.001.exr 
-/Users/jrowell/git/lsseq/adir/lrtm01_beauty02.120.exr 
-/Users/jrowell/git/lsseq/bdir/bbb.01.001.exr 
-/Users/jrowell/git/lsseq/bdir/bbb.01.120.exr 
-/Users/jrowell/git/lsseq/bdir/bbb.02.001.tif 
-/Users/jrowell/git/lsseq/bdir/bbb.02.120.tif 
-/Users/jrowell/git/lsseq/bdir/b_subdir/bbb.02.008.tif 
-/Users/jrowell/git/lsseq/bdir/b_subdir/bbb.02.095.tif 
-/Users/jrowell/git/lsseq/cdir/ccc01.001.exr 
-/Users/jrowell/git/lsseq/cdir/ccc01.120.exr 
-/Users/jrowell/git/lsseq/cdir/ccc02.001.exr 
-/Users/jrowell/git/lsseq/cdir/ccc02.120.exr 
-/Users/jrowell/git/lsseq/cdir/ccc03.80.tga 
-/Users/jrowell/git/lsseq/cdir/ccc03.140.tga 
-/Users/jrowell/git/lsseq/cdir/c_subDir/ccc01.001.exr 
-/Users/jrowell/git/lsseq/cdir/c_subDir/ccc01.120.exr 
-/Users/jrowell/git/lsseq/ddir/dddA.-010.exr 
-/Users/jrowell/git/lsseq/ddir/dddA.0017.exr 
-/Users/jrowell/git/lsseq/ddir/dddB.-10.exr 
-/Users/jrowell/git/lsseq/ddir/dddB.17.exr 
-/Users/jrowell/git/lsseq/ddir/dddC.-10.exr 
-/Users/jrowell/git/lsseq/ddir/dddC.-3.exr 
-/Users/jrowell/git/lsseq/fdir/aaa.-02.png 
-/Users/jrowell/git/lsseq/fdir/aaa.002.png 
-/Users/jrowell/git/lsseq/fdir/bbb.-009.jpg 
-/Users/jrowell/git/lsseq/fdir/bbb.0010.jpg 
-/Users/jrowell/git/lsseq/fdir/ccc.004.jpg 
-/Users/jrowell/git/lsseq/fdir/ddd.-08.jpg 
-/Users/jrowell/git/lsseq/fdir/xxx.01989.png 
-/Users/jrowell/git/lsseq/fdir/xxx.02013.png 
-/Users/jrowell/git/lsseq/fdir/xxx_01989.png 
-/Users/jrowell/git/lsseq/fdir/xxx_02013.png 
+/nas/media/src/python/lsseq/testDirFile.001.exr 
+/nas/media/src/python/lsseq/testDirFile.012.exr 
+/nas/media/src/python/lsseq/testDirFile.mov
+/nas/media/src/python/lsseq/testDirFile.wmv
+/nas/media/src/python/lsseq/xxx.000.exr 
+/nas/media/src/python/lsseq/xxx.016.exr 
+/nas/media/src/python/lsseq/xxx.mov
+/nas/media/src/python/lsseq/yyy.0123.tif 
+/nas/media/src/python/lsseq/yyy.mov
+/nas/media/src/python/lsseq/adir/aaa.001.exr 
+/nas/media/src/python/lsseq/adir/aaa.120.exr 
+/nas/media/src/python/lsseq/adir/lrtm01_beauty02.001.exr 
+/nas/media/src/python/lsseq/adir/lrtm01_beauty02.120.exr 
+/nas/media/src/python/lsseq/bdir/bbb.01.001.exr 
+/nas/media/src/python/lsseq/bdir/bbb.01.120.exr 
+/nas/media/src/python/lsseq/bdir/bbb.02.001.tif 
+/nas/media/src/python/lsseq/bdir/bbb.02.120.tif 
+/nas/media/src/python/lsseq/bdir/b_subdir/bbb.02.008.tif 
+/nas/media/src/python/lsseq/bdir/b_subdir/bbb.02.095.tif 
+/nas/media/src/python/lsseq/cdir/ccc01.001.exr 
+/nas/media/src/python/lsseq/cdir/ccc01.120.exr 
+/nas/media/src/python/lsseq/cdir/ccc02.001.exr 
+/nas/media/src/python/lsseq/cdir/ccc02.120.exr 
+/nas/media/src/python/lsseq/cdir/ccc03.80.tga 
+/nas/media/src/python/lsseq/cdir/ccc03.140.tga 
+/nas/media/src/python/lsseq/cdir/c_subDir/ccc01.001.exr 
+/nas/media/src/python/lsseq/cdir/c_subDir/ccc01.120.exr 
+/nas/media/src/python/lsseq/ddir/dddA.-010.exr 
+/nas/media/src/python/lsseq/ddir/dddA.0017.exr 
+/nas/media/src/python/lsseq/ddir/dddB.-10.exr 
+/nas/media/src/python/lsseq/ddir/dddB.17.exr 
+/nas/media/src/python/lsseq/ddir/dddC.-10.exr 
+/nas/media/src/python/lsseq/ddir/dddC.-3.exr 
+/nas/media/src/python/lsseq/fdir/aaa.-02.png 
+/nas/media/src/python/lsseq/fdir/aaa.002.png 
+/nas/media/src/python/lsseq/fdir/bbb.-009.jpg 
+/nas/media/src/python/lsseq/fdir/bbb.0010.jpg 
+/nas/media/src/python/lsseq/fdir/ccc.004.jpg 
+/nas/media/src/python/lsseq/fdir/ddd.-08.jpg 
+/nas/media/src/python/lsseq/fdir/xxx.01989.png 
+/nas/media/src/python/lsseq/fdir/xxx.02013.png 
+/nas/media/src/python/lsseq/fdir/xxx_01989.png 
+/nas/media/src/python/lsseq/fdir/xxx_02013.png 
 ------ Test 01d ------
 testdir/testDirFile.001.exr 
 testdir/testDirFile.012.exr 
@@ -409,14 +409,14 @@ ccc01.[001-120].exr e:[3,52-55]
 ccc02.[001-120].exr e:[51,119]
 ccc03.[80-140].tga 
 ------ Test 09a ------
-/Users/jrowell/git/lsseq/testdir/cdir/ccc01.001.exr 
-/Users/jrowell/git/lsseq/testdir/cdir/ccc01.120.exr 
-/Users/jrowell/git/lsseq/testdir/cdir/ccc02.001.exr 
-/Users/jrowell/git/lsseq/testdir/cdir/ccc02.120.exr 
-/Users/jrowell/git/lsseq/testdir/cdir/ccc03.80.tga 
-/Users/jrowell/git/lsseq/testdir/cdir/ccc03.140.tga 
-/Users/jrowell/git/lsseq/testdir/cdir/c_subDir/ccc01.001.exr 
-/Users/jrowell/git/lsseq/testdir/cdir/c_subDir/ccc01.120.exr 
+/nas/media/src/python/lsseq/testdir/cdir/ccc01.001.exr 
+/nas/media/src/python/lsseq/testdir/cdir/ccc01.120.exr 
+/nas/media/src/python/lsseq/testdir/cdir/ccc02.001.exr 
+/nas/media/src/python/lsseq/testdir/cdir/ccc02.120.exr 
+/nas/media/src/python/lsseq/testdir/cdir/ccc03.80.tga 
+/nas/media/src/python/lsseq/testdir/cdir/ccc03.140.tga 
+/nas/media/src/python/lsseq/testdir/cdir/c_subDir/ccc01.001.exr 
+/nas/media/src/python/lsseq/testdir/cdir/c_subDir/ccc01.120.exr 
 ------ Test 09b ------
 ./ccc01.001.exr 
 ./ccc01.120.exr 
@@ -488,10 +488,10 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 ------ Test 17 ------
-/Users/jrowell/git/lsseq/testdir/cdir/ccc01.[001-120].exr m:[3], z:[52-55]
-/Users/jrowell/git/lsseq/testdir/cdir/ccc02.[001-120].exr m:[51,119]
-/Users/jrowell/git/lsseq/testdir/cdir/ccc03.[80-140].tga 
-/Users/jrowell/git/lsseq/testdir/cdir/c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
+/nas/media/src/python/lsseq/testdir/cdir/ccc01.[001-120].exr m:[3], z:[52-55]
+/nas/media/src/python/lsseq/testdir/cdir/ccc02.[001-120].exr m:[51,119]
+/nas/media/src/python/lsseq/testdir/cdir/ccc03.[80-140].tga 
+/nas/media/src/python/lsseq/testdir/cdir/c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
 ------ Test 18 ------
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
@@ -544,7 +544,7 @@ ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 ------ Test 22 ------
 
-/Users/jrowell/git/lsseq/testdir:
+/nas/media/src/python/lsseq/testdir:
 adir
 bdir
 cdir
@@ -559,7 +559,7 @@ xxx.mov
 yyy.[0123].tif 
 yyy.mov
 
-/Users/jrowell/git/lsseq/testdir/adir:
+/nas/media/src/python/lsseq/testdir/adir:
 testFile00.jpg
 testFile01.jpg
 testFile02.jpg
@@ -583,15 +583,15 @@ testFile19.jpg
 aaa.[001-120].exr z:[12,49]
 lrtm01_beauty02.[001-120].exr z:[11]
 
-/Users/jrowell/git/lsseq/testdir/bdir:
+/nas/media/src/python/lsseq/testdir/bdir:
 b_subdir
 bbb.01.[001-120].exr z:[21]
 bbb.02.[001-120].tif 
 
-/Users/jrowell/git/lsseq/testdir/bdir/b_subdir:
+/nas/media/src/python/lsseq/testdir/bdir/b_subdir:
 bbb.02.[008-095].tif 
 
-/Users/jrowell/git/lsseq/testdir/cdir:
+/nas/media/src/python/lsseq/testdir/cdir:
 c_subDir
 shake01.01.shk
 shake01.02.shk
@@ -601,15 +601,15 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
-/Users/jrowell/git/lsseq/testdir/cdir/c_subDir:
+/nas/media/src/python/lsseq/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
-/Users/jrowell/git/lsseq/testdir/ddir:
+/nas/media/src/python/lsseq/testdir/ddir:
 dddA.[-010-0017].exr 
 dddB.[-10-17].exr 
 dddC.[-10--3].exr 
 
-/Users/jrowell/git/lsseq/testdir/fdir:
+/nas/media/src/python/lsseq/testdir/fdir:
 mkFrames.v01.shk
 xxx_01989.png
 xxx_01990.png
@@ -642,7 +642,7 @@ ccc.[004].jpg
 ddd.[-08].jpg 
 xxx.[01989-02013].png 
 
-/Users/jrowell/git/lsseq/testdir/cdir:
+/nas/media/src/python/lsseq/testdir/cdir:
 c_subDir
 shake01.01.shk
 shake01.02.shk
@@ -652,10 +652,10 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
-/Users/jrowell/git/lsseq/testdir/cdir/c_subDir:
+/nas/media/src/python/lsseq/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 ------ Test 23 ------
-/Users/jrowell/git/lsseq/testdir/cdir:
+/nas/media/src/python/lsseq/testdir/cdir:
 c_subDir
 shake01.01.shk
 shake01.02.shk
@@ -665,5 +665,5 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
-/Users/jrowell/git/lsseq/testdir/cdir/c_subDir:
+/nas/media/src/python/lsseq/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]

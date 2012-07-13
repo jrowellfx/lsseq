@@ -1,3 +1,5 @@
+set OIC_REPO_DIR = `pwd`
+echo $OIC_REPO_DIR
 echo ------ Begin Tests ------ > test_lsseq.out.new
 
 echo ------ Test 01a ------ >> test_lsseq.out.new
@@ -92,10 +94,13 @@ echo ------ Test 21 ------ >> ../../test_lsseq.out.new
 ../../lsseq -Z >> ../../test_lsseq.out.new
 
 echo ------ Test 22 ------ >> ../../test_lsseq.out.new
-../../lsseq -R /Users/jrowell/git/lsseq/testdir/cdir/ /Users/jrowell/git/lsseq/testdir/ >> ../../test_lsseq.out.new
+../../lsseq -R $OIC_REPO_DIR/testdir/cdir/ $OIC_REPO_DIR/testdir/ >> ../../test_lsseq.out.new
 
 echo ------ Test 23 ------ >> ../../test_lsseq.out.new
-../../lsseq -R /Users/jrowell/git/lsseq/testdir/cdir/ >> ../../test_lsseq.out.new
+../../lsseq -R $OIC_REPO_DIR/testdir/cdir/ >> ../../test_lsseq.out.new
 
 cd ../..
+
+sed -e "1,$ s-$OIC_REPO_DIR-/nas/media/src/python/lsseq-" < test_lsseq.out.new > /tmp/tmp$$
+/bin/mv /tmp/tmp$$ test_lsseq.out.new
 diff test_lsseq.out test_lsseq.out.new
