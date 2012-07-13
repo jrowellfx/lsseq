@@ -50,7 +50,7 @@ echo ------ Begin Tests ------ > $OIC_REPO_DIR/test_lsseq.out.new
 
 i=1
 while true; do
-    declare -a args=(`sed --silent -e "$i p" $tmpArgs`)
+    declare -a args=(`sed -n -e "$i p" $tmpArgs`)
     if [ ${#args[@]} -eq 0 ]; then
 	break;
     fi
