@@ -19,7 +19,7 @@ cat << EOF > $tmpArgs
 . -RePC testdir
 testdir
 testdir *
-testdir *
+testdir -l *
 testdir/cdir
 testdir/cdir .
 testdir/cdir *

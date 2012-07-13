@@ -332,7 +332,7 @@ ccc.[004].jpg
 ddd.[-08].jpg 
 xxx.[01989-02013].png 
 
------- Test 7 ------ lsseq adir bdir blackFrames cdir ddir fdir mkAnimFrames.v01.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
+------ Test 7 ------ lsseq -l adir bdir blackFrames cdir ddir fdir mkAnimFrames.v01.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
 mkAnimFrames.v01.shk
 mkBlackFrames_HD_10.v01.shk
 mkBlackFrames_HD_2.v01.shk
@@ -420,36 +420,12 @@ dddB.[-10-17].exr
 dddC.[-10--3].exr 
 
 fdir:
-xxx_01989.png
-xxx_01990.png
-xxx_01991.png
-xxx_01992.png
-xxx_01993.png
-xxx_01994.png
-xxx_01995.png
-xxx_01996.png
-xxx_01997.png
-xxx_01998.png
-xxx_01999.png
-xxx_02000.png
-xxx_02001.png
-xxx_02002.png
-xxx_02003.png
-xxx_02004.png
-xxx_02005.png
-xxx_02006.png
-xxx_02007.png
-xxx_02008.png
-xxx_02009.png
-xxx_02010.png
-xxx_02011.png
-xxx_02012.png
-xxx_02013.png
 aaa.[-02-002].png 
 bbb.[-009-0010].jpg 
 ccc.[004].jpg 
 ddd.[-08].jpg 
 xxx.[01989-02013].png 
+xxx_[01989-02013].png 
 
 ------ Test 8 ------ lsseq ------
 c_subDir
