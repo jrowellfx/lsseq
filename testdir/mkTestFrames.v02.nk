@@ -41,7 +41,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name /home/jrowell/git/lsseq/testdir/mkTestFrames.v01.nk
+ name /home/jrowell/git/lsseq/testdir/mkTestFrames.v02.nk
  frame 99
  format "192 108 0 0 192 108 1 HD_10"
  proxy_type scale
@@ -60,7 +60,7 @@ CheckerBoard2 {
  xpos -15
  ypos -342
 }
-set N5d6d290 [stack 0]
+set N6a5ef00 [stack 0]
 Grade {
  white {0 0.400000006 0.03270988539 0.400000006}
  maskChannelMask none
@@ -89,13 +89,13 @@ Text {
  xpos -281
  ypos -171
 }
-set N82d8340 [stack 0]
+set N76a3ca0 [stack 0]
 Dot {
  name Dot1
  xpos -247
  ypos 29
 }
-push $N82d8340
+push $N76a3ca0
 Transform {
  translate {3 -5}
  center {96 54}
@@ -149,7 +149,7 @@ Crop {
  xpos 654
  ypos -694
 }
-set N71b0b00 [stack 0]
+set N47dd570 [stack 0]
 Expression {
  temp_name0 h
  temp_expr0 atan2(cy,cx)/pi*3/2
@@ -163,7 +163,7 @@ Expression {
  xpos 809
  ypos -647
 }
-push $N71b0b00
+push $N47dd570
 Merge {
  inputs 2
  operation in
@@ -200,6 +200,12 @@ Blur {
  name Blur3
  xpos 618
  ypos -390
+}
+Mirror {
+ Vertical true
+ name Mirror1
+ xpos 618
+ ypos -348
 }
 Rectangle {
  inputs 0
@@ -240,29 +246,29 @@ Merge2 {
  xpos -15
  ypos 24
 }
-set N5b517e0 [stack 0]
+set N4947db0 [stack 0]
 Write {
  channels rgba
  file /home/jrowell/git/lsseq/testdir/testDirFile.%03d.exr
  file_type exr
  version 1
  name Write1
- xpos -843
- ypos 207
+ xpos -1351
+ ypos 435
  disable true
 }
-push $N5b517e0
+push $N4947db0
 Write {
  channels rgba
  file /home/jrowell/git/lsseq/testdir/xxx.%03d.exr
  file_type exr
  version 2
  name Write2
- xpos -703
- ypos 235
+ xpos -1211
+ ypos 463
  disable true
 }
-push $N5d6d290
+push $N6a5ef00
 Grade {
  white 0.4
  maskChannelMask none
@@ -270,7 +276,7 @@ Grade {
  xpos -15
  ypos -226
 }
-push $N5d6d290
+push $N6a5ef00
 Grade {
  white {0.400000006 0.001810288406 0 0.400000006}
  maskChannelMask none
@@ -305,7 +311,7 @@ Grade {
  ypos -246
  disable true
 }
-push $N5b517e0
+push $N4947db0
 Write {
  channels rgba
  file /home/jrowell/git/lsseq/testdir/yyy.%04d.tif
@@ -314,22 +320,11 @@ Write {
  checkHashOnRead false
  version 4
  name Write3
- xpos -558
- ypos 260
+ xpos -1066
+ ypos 488
  disable true
 }
-push $N5b517e0
-Write {
- channels {rgba.red rgba.green rgba.blue none}
- file /home/jrowell/git/lsseq/testdir/bdir/bbb.01.%03d.exr
- file_type exr
- version 2
- name Write4
- xpos -48
- ypos 284
- disable true
-}
-push $N5b517e0
+push $N4947db0
 Write {
  channels rgba
  file /home/jrowell/git/lsseq/testdir/bdir/b_subdir/bbb.02.%03d.tif
@@ -339,11 +334,11 @@ Write {
  checkHashOnRead false
  version 3
  name Write6
- xpos -337
- ypos 368
+ xpos -845
+ ypos 596
  disable true
 }
-push $N5b517e0
+push $N4947db0
 Write {
  channels rgba
  file /home/jrowell/git/lsseq/testdir/bdir/bbb.02.%03d.tif
@@ -353,30 +348,11 @@ Write {
  checkHashOnRead false
  version 2
  name Write5
- xpos -195
- ypos 358
+ xpos -703
+ ypos 586
  disable true
 }
-push $N5b517e0
-Write {
- channels rgba
- file /home/jrowell/git/lsseq/testdir/cdir/ccc01.%03d.exr
- colorspace sRGB
- file_type exr
- compression "Zip (16 scanlines)"
- version 3
- name Write7
- xpos 119
- ypos 380
- disable true
-}
-Viewer {
- input_process false
- name Viewer1
- xpos -132
- ypos 580
-}
-push $N5b517e0
+push $N4947db0
 Write {
  channels rgba
  file /home/jrowell/git/lsseq/testdir/cdir/ccc02.%03d.exr
@@ -385,11 +361,11 @@ Write {
  compression "Zip (16 scanlines)"
  version 3
  name Write8
- xpos 234
- ypos 381
+ xpos -274
+ ypos 609
  disable true
 }
-push $N5b517e0
+push $N4947db0
 Write {
  channels rgba
  file /home/jrowell/git/lsseq/testdir/cdir/ccc03.%02d.tga
@@ -398,7 +374,88 @@ Write {
  checkHashOnRead false
  version 3
  name Write9
- xpos 359
- ypos 386
+ xpos -150
+ ypos 614
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/cdir/ccc01.%03d.exr
+ colorspace sRGB
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 3
+ name Write7
+ xpos -389
+ ypos 608
+ disable true
+}
+Viewer {
+ input_process false
+ name Viewer1
+ xpos -144
+ ypos 1178
+}
+push $N4947db0
+Write {
+ file /home/jrowell/git/lsseq/testdir/bdir/bbb.01.%03d.exr
+ file_type exr
+ version 2
+ name Write4
+ xpos -560
+ ypos 604
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/cdir/c_subDir/ccc01.%03d.exr
+ colorspace sRGB
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 4
+ name Write10
+ xpos -15
+ ypos 615
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/ddir/dddA.%04d.exr
+ colorspace sRGB
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 5
+ name Write11
+ xpos 173
+ ypos 705
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/ddir/dddB.%01d.exr
+ colorspace sRGB
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 6
+ name Write12
+ xpos 325
+ ypos 705
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/ddir/dddC.%01d.exr
+ colorspace sRGB
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 7
+ name Write13
+ xpos 476
+ ypos 707
  disable true
 }
