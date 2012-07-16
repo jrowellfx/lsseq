@@ -2,6 +2,8 @@
 
 # For now execute this script in the git lsseq repo directory for this to work.
 
+export LC_ALL=POSIX
+
 tmpArgs=/tmp/tmpTEST_LSSEQ.$$
 OIC_REPO_DIR=`pwd`
 
@@ -72,5 +74,5 @@ while true; do
     i=$(expr $i + 1)
 done
 
-sed -e "1,$ s-$OIC_REPO_DIR-/nas/media/src/python/lsseq-" < $OIC_REPO_DIR/test_lsseq.out.new > /tmp/tmp$$
+sed -e "1,$ s-$OIC_REPO_DIR-/nas/media/src/python/lsseq-g" < $OIC_REPO_DIR/test_lsseq.out.new > /tmp/tmp$$
 /bin/mv /tmp/tmp$$ $OIC_REPO_DIR/test_lsseq.out.new

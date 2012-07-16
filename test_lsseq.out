@@ -1092,7 +1092,7 @@ ccc01.[001-120].exr m:[3]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
------- Test 30 ------ lsseq -R /nas/media/src/python/lsseq/testdir/cdir/ /Users/jrowell/git/lsseq/testdir/ ------
+------ Test 30 ------ lsseq -R /nas/media/src/python/lsseq/testdir/cdir/ /nas/media/src/python/lsseq/testdir/ ------
 
 /nas/media/src/python/lsseq/testdir:
 adir
