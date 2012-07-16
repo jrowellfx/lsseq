@@ -2,11 +2,12 @@
 
 ------ Test 1 ------ lsseq -lRFC testdir ------
 testdir:
-adir/				fdir/
-bdir/				mkAnimFrames.v01.shk
+adir/				mkAnimFrames.v01.shk
+bdir/				mkAnimFrames.v02.shk
 blackFrames/			mkBlackFrames_HD_10.v01.shk
 cdir/				mkBlackFrames_HD_2.v01.shk
 ddir/				mkTestFrames.v01.nk
+fdir/				mkTestFrames.v02.nk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -44,7 +45,12 @@ HD_by10_zipS.exr	HD_by2_pxr24.exr
 HD_by10x040.dpx		HD_by2_rle.exr
 
 testdir/cdir:
-c_subDir/	shake01.01.shk	shake01.02.shk	shake01.03.shk	shake02.01.shk
+aaaa		ffff		llll		rrrr		tttt
+bbbb		gggg		mmmm		shake01.01.shk	uuuu
+c_subDir/	hhhh		nnnn		shake01.02.shk	vvvv
+cccc		iiii		oooo		shake01.03.shk	xxxx
+dddd		jjjj		pppp		shake02.01.shk	yyyy
+eeee		kkkk		qqqq		ssss		zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
@@ -202,9 +208,11 @@ cdir
 ddir
 fdir
 mkAnimFrames.v01.shk
+mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
 mkBlackFrames_HD_2.v01.shk
 mkTestFrames.v01.nk
+mkTestFrames.v02.nk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -213,11 +221,13 @@ xxx.mov
 yyy.[0123].tif 
 yyy.mov
 
------- Test 6 ------ lsseq adir bdir blackFrames cdir ddir fdir mkAnimFrames.v01.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
+------ Test 6 ------ lsseq adir bdir blackFrames cdir ddir fdir mkAnimFrames.v01.shk mkAnimFrames.v02.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk mkTestFrames.v02.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
 mkAnimFrames.v01.shk
+mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
 mkBlackFrames_HD_2.v01.shk
 mkTestFrames.v01.nk
+mkTestFrames.v02.nk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -286,11 +296,36 @@ HD_by2x080.jpg
 HD_by2x100.jpg
 
 cdir:
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
@@ -332,11 +367,13 @@ ccc.[004].jpg
 ddd.[-08].jpg 
 xxx.[01989-02013].png 
 
------- Test 7 ------ lsseq -l adir bdir blackFrames cdir ddir fdir mkAnimFrames.v01.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
+------ Test 7 ------ lsseq -l adir bdir blackFrames cdir ddir fdir mkAnimFrames.v01.shk mkAnimFrames.v02.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk mkTestFrames.v02.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
 mkAnimFrames.v01.shk
+mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
 mkBlackFrames_HD_2.v01.shk
 mkTestFrames.v01.nk
+mkTestFrames.v02.nk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -405,11 +442,36 @@ HD_by2x080.jpg
 HD_by2x100.jpg
 
 cdir:
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
@@ -428,30 +490,105 @@ xxx.[01989-02013].png
 xxx_[01989-02013].png 
 
 ------ Test 8 ------ lsseq ------
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
 ------ Test 9 ------ lsseq . ------
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
------- Test 10 ------ lsseq c_subDir ccc01.001.exr ccc01.002.exr ccc01.004.exr ccc01.005.exr ccc01.006.exr ccc01.007.exr ccc01.008.exr ccc01.009.exr ccc01.010.exr ccc01.011.exr ccc01.012.exr ccc01.013.exr ccc01.014.exr ccc01.015.exr ccc01.016.exr ccc01.017.exr ccc01.018.exr ccc01.019.exr ccc01.020.exr ccc01.021.exr ccc01.022.exr ccc01.023.exr ccc01.024.exr ccc01.025.exr ccc01.026.exr ccc01.027.exr ccc01.028.exr ccc01.029.exr ccc01.030.exr ccc01.031.exr ccc01.032.exr ccc01.033.exr ccc01.034.exr ccc01.035.exr ccc01.036.exr ccc01.037.exr ccc01.038.exr ccc01.039.exr ccc01.040.exr ccc01.041.exr ccc01.042.exr ccc01.043.exr ccc01.044.exr ccc01.045.exr ccc01.046.exr ccc01.047.exr ccc01.048.exr ccc01.049.exr ccc01.050.exr ccc01.051.exr ccc01.052.exr ccc01.053.exr ccc01.054.exr ccc01.055.exr ccc01.056.exr ccc01.057.exr ccc01.058.exr ccc01.059.exr ccc01.060.exr ccc01.061.exr ccc01.062.exr ccc01.063.exr ccc01.064.exr ccc01.065.exr ccc01.066.exr ccc01.067.exr ccc01.068.exr ccc01.069.exr ccc01.070.exr ccc01.071.exr ccc01.072.exr ccc01.073.exr ccc01.074.exr ccc01.075.exr ccc01.076.exr ccc01.077.exr ccc01.078.exr ccc01.079.exr ccc01.080.exr ccc01.081.exr ccc01.082.exr ccc01.083.exr ccc01.084.exr ccc01.085.exr ccc01.086.exr ccc01.087.exr ccc01.088.exr ccc01.089.exr ccc01.090.exr ccc01.091.exr ccc01.092.exr ccc01.093.exr ccc01.094.exr ccc01.095.exr ccc01.096.exr ccc01.097.exr ccc01.098.exr ccc01.099.exr ccc01.100.exr ccc01.101.exr ccc01.102.exr ccc01.103.exr ccc01.104.exr ccc01.105.exr ccc01.106.exr ccc01.107.exr ccc01.108.exr ccc01.109.exr ccc01.110.exr ccc01.111.exr ccc01.112.exr ccc01.113.exr ccc01.114.exr ccc01.115.exr ccc01.116.exr ccc01.117.exr ccc01.118.exr ccc01.119.exr ccc01.120.exr ccc02.001.exr ccc02.002.exr ccc02.003.exr ccc02.004.exr ccc02.005.exr ccc02.006.exr ccc02.007.exr ccc02.008.exr ccc02.009.exr ccc02.010.exr ccc02.011.exr ccc02.012.exr ccc02.013.exr ccc02.014.exr ccc02.015.exr ccc02.016.exr ccc02.017.exr ccc02.018.exr ccc02.019.exr ccc02.020.exr ccc02.021.exr ccc02.022.exr ccc02.023.exr ccc02.024.exr ccc02.025.exr ccc02.026.exr ccc02.027.exr ccc02.028.exr ccc02.029.exr ccc02.030.exr ccc02.031.exr ccc02.032.exr ccc02.033.exr ccc02.034.exr ccc02.035.exr ccc02.036.exr ccc02.037.exr ccc02.038.exr ccc02.039.exr ccc02.040.exr ccc02.041.exr ccc02.042.exr ccc02.043.exr ccc02.044.exr ccc02.045.exr ccc02.046.exr ccc02.047.exr ccc02.048.exr ccc02.049.exr ccc02.050.exr ccc02.052.exr ccc02.053.exr ccc02.054.exr ccc02.055.exr ccc02.056.exr ccc02.057.exr ccc02.058.exr ccc02.059.exr ccc02.060.exr ccc02.061.exr ccc02.062.exr ccc02.063.exr ccc02.064.exr ccc02.065.exr ccc02.066.exr ccc02.067.exr ccc02.068.exr ccc02.069.exr ccc02.070.exr ccc02.071.exr ccc02.072.exr ccc02.073.exr ccc02.074.exr ccc02.075.exr ccc02.076.exr ccc02.077.exr ccc02.078.exr ccc02.079.exr ccc02.080.exr ccc02.081.exr ccc02.082.exr ccc02.083.exr ccc02.084.exr ccc02.085.exr ccc02.086.exr ccc02.087.exr ccc02.088.exr ccc02.089.exr ccc02.090.exr ccc02.091.exr ccc02.092.exr ccc02.093.exr ccc02.094.exr ccc02.095.exr ccc02.096.exr ccc02.097.exr ccc02.098.exr ccc02.099.exr ccc02.100.exr ccc02.101.exr ccc02.102.exr ccc02.103.exr ccc02.104.exr ccc02.105.exr ccc02.106.exr ccc02.107.exr ccc02.108.exr ccc02.109.exr ccc02.110.exr ccc02.111.exr ccc02.112.exr ccc02.113.exr ccc02.114.exr ccc02.115.exr ccc02.116.exr ccc02.117.exr ccc02.118.exr ccc02.120.exr ccc03.100.tga ccc03.101.tga ccc03.102.tga ccc03.103.tga ccc03.104.tga ccc03.105.tga ccc03.106.tga ccc03.107.tga ccc03.108.tga ccc03.109.tga ccc03.110.tga ccc03.111.tga ccc03.112.tga ccc03.113.tga ccc03.114.tga ccc03.115.tga ccc03.116.tga ccc03.117.tga ccc03.118.tga ccc03.119.tga ccc03.120.tga ccc03.121.tga ccc03.122.tga ccc03.123.tga ccc03.124.tga ccc03.125.tga ccc03.126.tga ccc03.127.tga ccc03.128.tga ccc03.129.tga ccc03.130.tga ccc03.131.tga ccc03.132.tga ccc03.133.tga ccc03.134.tga ccc03.135.tga ccc03.136.tga ccc03.137.tga ccc03.138.tga ccc03.139.tga ccc03.140.tga ccc03.80.tga ccc03.81.tga ccc03.82.tga ccc03.83.tga ccc03.84.tga ccc03.85.tga ccc03.86.tga ccc03.87.tga ccc03.88.tga ccc03.89.tga ccc03.90.tga ccc03.91.tga ccc03.92.tga ccc03.93.tga ccc03.94.tga ccc03.95.tga ccc03.96.tga ccc03.97.tga ccc03.98.tga ccc03.99.tga shake01.01.shk shake01.02.shk shake01.03.shk shake02.01.shk ------
+------ Test 10 ------ lsseq aaaa bbbb c_subDir ccc01.001.exr ccc01.002.exr ccc01.004.exr ccc01.005.exr ccc01.006.exr ccc01.007.exr ccc01.008.exr ccc01.009.exr ccc01.010.exr ccc01.011.exr ccc01.012.exr ccc01.013.exr ccc01.014.exr ccc01.015.exr ccc01.016.exr ccc01.017.exr ccc01.018.exr ccc01.019.exr ccc01.020.exr ccc01.021.exr ccc01.022.exr ccc01.023.exr ccc01.024.exr ccc01.025.exr ccc01.026.exr ccc01.027.exr ccc01.028.exr ccc01.029.exr ccc01.030.exr ccc01.031.exr ccc01.032.exr ccc01.033.exr ccc01.034.exr ccc01.035.exr ccc01.036.exr ccc01.037.exr ccc01.038.exr ccc01.039.exr ccc01.040.exr ccc01.041.exr ccc01.042.exr ccc01.043.exr ccc01.044.exr ccc01.045.exr ccc01.046.exr ccc01.047.exr ccc01.048.exr ccc01.049.exr ccc01.050.exr ccc01.051.exr ccc01.052.exr ccc01.053.exr ccc01.054.exr ccc01.055.exr ccc01.056.exr ccc01.057.exr ccc01.058.exr ccc01.059.exr ccc01.060.exr ccc01.061.exr ccc01.062.exr ccc01.063.exr ccc01.064.exr ccc01.065.exr ccc01.066.exr ccc01.067.exr ccc01.068.exr ccc01.069.exr ccc01.070.exr ccc01.071.exr ccc01.072.exr ccc01.073.exr ccc01.074.exr ccc01.075.exr ccc01.076.exr ccc01.077.exr ccc01.078.exr ccc01.079.exr ccc01.080.exr ccc01.081.exr ccc01.082.exr ccc01.083.exr ccc01.084.exr ccc01.085.exr ccc01.086.exr ccc01.087.exr ccc01.088.exr ccc01.089.exr ccc01.090.exr ccc01.091.exr ccc01.092.exr ccc01.093.exr ccc01.094.exr ccc01.095.exr ccc01.096.exr ccc01.097.exr ccc01.098.exr ccc01.099.exr ccc01.100.exr ccc01.101.exr ccc01.102.exr ccc01.103.exr ccc01.104.exr ccc01.105.exr ccc01.106.exr ccc01.107.exr ccc01.108.exr ccc01.109.exr ccc01.110.exr ccc01.111.exr ccc01.112.exr ccc01.113.exr ccc01.114.exr ccc01.115.exr ccc01.116.exr ccc01.117.exr ccc01.118.exr ccc01.119.exr ccc01.120.exr ccc02.001.exr ccc02.002.exr ccc02.003.exr ccc02.004.exr ccc02.005.exr ccc02.006.exr ccc02.007.exr ccc02.008.exr ccc02.009.exr ccc02.010.exr ccc02.011.exr ccc02.012.exr ccc02.013.exr ccc02.014.exr ccc02.015.exr ccc02.016.exr ccc02.017.exr ccc02.018.exr ccc02.019.exr ccc02.020.exr ccc02.021.exr ccc02.022.exr ccc02.023.exr ccc02.024.exr ccc02.025.exr ccc02.026.exr ccc02.027.exr ccc02.028.exr ccc02.029.exr ccc02.030.exr ccc02.031.exr ccc02.032.exr ccc02.033.exr ccc02.034.exr ccc02.035.exr ccc02.036.exr ccc02.037.exr ccc02.038.exr ccc02.039.exr ccc02.040.exr ccc02.041.exr ccc02.042.exr ccc02.043.exr ccc02.044.exr ccc02.045.exr ccc02.046.exr ccc02.047.exr ccc02.048.exr ccc02.049.exr ccc02.050.exr ccc02.052.exr ccc02.053.exr ccc02.054.exr ccc02.055.exr ccc02.056.exr ccc02.057.exr ccc02.058.exr ccc02.059.exr ccc02.060.exr ccc02.061.exr ccc02.062.exr ccc02.063.exr ccc02.064.exr ccc02.065.exr ccc02.066.exr ccc02.067.exr ccc02.068.exr ccc02.069.exr ccc02.070.exr ccc02.071.exr ccc02.072.exr ccc02.073.exr ccc02.074.exr ccc02.075.exr ccc02.076.exr ccc02.077.exr ccc02.078.exr ccc02.079.exr ccc02.080.exr ccc02.081.exr ccc02.082.exr ccc02.083.exr ccc02.084.exr ccc02.085.exr ccc02.086.exr ccc02.087.exr ccc02.088.exr ccc02.089.exr ccc02.090.exr ccc02.091.exr ccc02.092.exr ccc02.093.exr ccc02.094.exr ccc02.095.exr ccc02.096.exr ccc02.097.exr ccc02.098.exr ccc02.099.exr ccc02.100.exr ccc02.101.exr ccc02.102.exr ccc02.103.exr ccc02.104.exr ccc02.105.exr ccc02.106.exr ccc02.107.exr ccc02.108.exr ccc02.109.exr ccc02.110.exr ccc02.111.exr ccc02.112.exr ccc02.113.exr ccc02.114.exr ccc02.115.exr ccc02.116.exr ccc02.117.exr ccc02.118.exr ccc02.120.exr ccc03.100.tga ccc03.101.tga ccc03.102.tga ccc03.103.tga ccc03.104.tga ccc03.105.tga ccc03.106.tga ccc03.107.tga ccc03.108.tga ccc03.109.tga ccc03.110.tga ccc03.111.tga ccc03.112.tga ccc03.113.tga ccc03.114.tga ccc03.115.tga ccc03.116.tga ccc03.117.tga ccc03.118.tga ccc03.119.tga ccc03.120.tga ccc03.121.tga ccc03.122.tga ccc03.123.tga ccc03.124.tga ccc03.125.tga ccc03.126.tga ccc03.127.tga ccc03.128.tga ccc03.129.tga ccc03.130.tga ccc03.131.tga ccc03.132.tga ccc03.133.tga ccc03.134.tga ccc03.135.tga ccc03.136.tga ccc03.137.tga ccc03.138.tga ccc03.139.tga ccc03.140.tga ccc03.80.tga ccc03.81.tga ccc03.82.tga ccc03.83.tga ccc03.84.tga ccc03.85.tga ccc03.86.tga ccc03.87.tga ccc03.88.tga ccc03.89.tga ccc03.90.tga ccc03.91.tga ccc03.92.tga ccc03.93.tga ccc03.94.tga ccc03.95.tga ccc03.96.tga ccc03.97.tga ccc03.98.tga ccc03.99.tga cccc dddd eeee ffff gggg hhhh iiii jjjj kkkk llll mmmm nnnn oooo pppp qqqq rrrr shake01.01.shk shake01.02.shk shake01.03.shk shake02.01.shk ssss tttt uuuu vvvv xxxx yyyy zzzz ------
+aaaa
+bbbb
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
@@ -459,22 +596,72 @@ ccc03.[80-140].tga
 c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 11 ------ lsseq -d c_subDir ccc01.001.exr ccc01.002.exr ccc01.004.exr ccc01.005.exr ccc01.006.exr ccc01.007.exr ccc01.008.exr ccc01.009.exr ccc01.010.exr ccc01.011.exr ccc01.012.exr ccc01.013.exr ccc01.014.exr ccc01.015.exr ccc01.016.exr ccc01.017.exr ccc01.018.exr ccc01.019.exr ccc01.020.exr ccc01.021.exr ccc01.022.exr ccc01.023.exr ccc01.024.exr ccc01.025.exr ccc01.026.exr ccc01.027.exr ccc01.028.exr ccc01.029.exr ccc01.030.exr ccc01.031.exr ccc01.032.exr ccc01.033.exr ccc01.034.exr ccc01.035.exr ccc01.036.exr ccc01.037.exr ccc01.038.exr ccc01.039.exr ccc01.040.exr ccc01.041.exr ccc01.042.exr ccc01.043.exr ccc01.044.exr ccc01.045.exr ccc01.046.exr ccc01.047.exr ccc01.048.exr ccc01.049.exr ccc01.050.exr ccc01.051.exr ccc01.052.exr ccc01.053.exr ccc01.054.exr ccc01.055.exr ccc01.056.exr ccc01.057.exr ccc01.058.exr ccc01.059.exr ccc01.060.exr ccc01.061.exr ccc01.062.exr ccc01.063.exr ccc01.064.exr ccc01.065.exr ccc01.066.exr ccc01.067.exr ccc01.068.exr ccc01.069.exr ccc01.070.exr ccc01.071.exr ccc01.072.exr ccc01.073.exr ccc01.074.exr ccc01.075.exr ccc01.076.exr ccc01.077.exr ccc01.078.exr ccc01.079.exr ccc01.080.exr ccc01.081.exr ccc01.082.exr ccc01.083.exr ccc01.084.exr ccc01.085.exr ccc01.086.exr ccc01.087.exr ccc01.088.exr ccc01.089.exr ccc01.090.exr ccc01.091.exr ccc01.092.exr ccc01.093.exr ccc01.094.exr ccc01.095.exr ccc01.096.exr ccc01.097.exr ccc01.098.exr ccc01.099.exr ccc01.100.exr ccc01.101.exr ccc01.102.exr ccc01.103.exr ccc01.104.exr ccc01.105.exr ccc01.106.exr ccc01.107.exr ccc01.108.exr ccc01.109.exr ccc01.110.exr ccc01.111.exr ccc01.112.exr ccc01.113.exr ccc01.114.exr ccc01.115.exr ccc01.116.exr ccc01.117.exr ccc01.118.exr ccc01.119.exr ccc01.120.exr ccc02.001.exr ccc02.002.exr ccc02.003.exr ccc02.004.exr ccc02.005.exr ccc02.006.exr ccc02.007.exr ccc02.008.exr ccc02.009.exr ccc02.010.exr ccc02.011.exr ccc02.012.exr ccc02.013.exr ccc02.014.exr ccc02.015.exr ccc02.016.exr ccc02.017.exr ccc02.018.exr ccc02.019.exr ccc02.020.exr ccc02.021.exr ccc02.022.exr ccc02.023.exr ccc02.024.exr ccc02.025.exr ccc02.026.exr ccc02.027.exr ccc02.028.exr ccc02.029.exr ccc02.030.exr ccc02.031.exr ccc02.032.exr ccc02.033.exr ccc02.034.exr ccc02.035.exr ccc02.036.exr ccc02.037.exr ccc02.038.exr ccc02.039.exr ccc02.040.exr ccc02.041.exr ccc02.042.exr ccc02.043.exr ccc02.044.exr ccc02.045.exr ccc02.046.exr ccc02.047.exr ccc02.048.exr ccc02.049.exr ccc02.050.exr ccc02.052.exr ccc02.053.exr ccc02.054.exr ccc02.055.exr ccc02.056.exr ccc02.057.exr ccc02.058.exr ccc02.059.exr ccc02.060.exr ccc02.061.exr ccc02.062.exr ccc02.063.exr ccc02.064.exr ccc02.065.exr ccc02.066.exr ccc02.067.exr ccc02.068.exr ccc02.069.exr ccc02.070.exr ccc02.071.exr ccc02.072.exr ccc02.073.exr ccc02.074.exr ccc02.075.exr ccc02.076.exr ccc02.077.exr ccc02.078.exr ccc02.079.exr ccc02.080.exr ccc02.081.exr ccc02.082.exr ccc02.083.exr ccc02.084.exr ccc02.085.exr ccc02.086.exr ccc02.087.exr ccc02.088.exr ccc02.089.exr ccc02.090.exr ccc02.091.exr ccc02.092.exr ccc02.093.exr ccc02.094.exr ccc02.095.exr ccc02.096.exr ccc02.097.exr ccc02.098.exr ccc02.099.exr ccc02.100.exr ccc02.101.exr ccc02.102.exr ccc02.103.exr ccc02.104.exr ccc02.105.exr ccc02.106.exr ccc02.107.exr ccc02.108.exr ccc02.109.exr ccc02.110.exr ccc02.111.exr ccc02.112.exr ccc02.113.exr ccc02.114.exr ccc02.115.exr ccc02.116.exr ccc02.117.exr ccc02.118.exr ccc02.120.exr ccc03.100.tga ccc03.101.tga ccc03.102.tga ccc03.103.tga ccc03.104.tga ccc03.105.tga ccc03.106.tga ccc03.107.tga ccc03.108.tga ccc03.109.tga ccc03.110.tga ccc03.111.tga ccc03.112.tga ccc03.113.tga ccc03.114.tga ccc03.115.tga ccc03.116.tga ccc03.117.tga ccc03.118.tga ccc03.119.tga ccc03.120.tga ccc03.121.tga ccc03.122.tga ccc03.123.tga ccc03.124.tga ccc03.125.tga ccc03.126.tga ccc03.127.tga ccc03.128.tga ccc03.129.tga ccc03.130.tga ccc03.131.tga ccc03.132.tga ccc03.133.tga ccc03.134.tga ccc03.135.tga ccc03.136.tga ccc03.137.tga ccc03.138.tga ccc03.139.tga ccc03.140.tga ccc03.80.tga ccc03.81.tga ccc03.82.tga ccc03.83.tga ccc03.84.tga ccc03.85.tga ccc03.86.tga ccc03.87.tga ccc03.88.tga ccc03.89.tga ccc03.90.tga ccc03.91.tga ccc03.92.tga ccc03.93.tga ccc03.94.tga ccc03.95.tga ccc03.96.tga ccc03.97.tga ccc03.98.tga ccc03.99.tga shake01.01.shk shake01.02.shk shake01.03.shk shake02.01.shk ------
+------ Test 11 ------ lsseq -d aaaa bbbb c_subDir ccc01.001.exr ccc01.002.exr ccc01.004.exr ccc01.005.exr ccc01.006.exr ccc01.007.exr ccc01.008.exr ccc01.009.exr ccc01.010.exr ccc01.011.exr ccc01.012.exr ccc01.013.exr ccc01.014.exr ccc01.015.exr ccc01.016.exr ccc01.017.exr ccc01.018.exr ccc01.019.exr ccc01.020.exr ccc01.021.exr ccc01.022.exr ccc01.023.exr ccc01.024.exr ccc01.025.exr ccc01.026.exr ccc01.027.exr ccc01.028.exr ccc01.029.exr ccc01.030.exr ccc01.031.exr ccc01.032.exr ccc01.033.exr ccc01.034.exr ccc01.035.exr ccc01.036.exr ccc01.037.exr ccc01.038.exr ccc01.039.exr ccc01.040.exr ccc01.041.exr ccc01.042.exr ccc01.043.exr ccc01.044.exr ccc01.045.exr ccc01.046.exr ccc01.047.exr ccc01.048.exr ccc01.049.exr ccc01.050.exr ccc01.051.exr ccc01.052.exr ccc01.053.exr ccc01.054.exr ccc01.055.exr ccc01.056.exr ccc01.057.exr ccc01.058.exr ccc01.059.exr ccc01.060.exr ccc01.061.exr ccc01.062.exr ccc01.063.exr ccc01.064.exr ccc01.065.exr ccc01.066.exr ccc01.067.exr ccc01.068.exr ccc01.069.exr ccc01.070.exr ccc01.071.exr ccc01.072.exr ccc01.073.exr ccc01.074.exr ccc01.075.exr ccc01.076.exr ccc01.077.exr ccc01.078.exr ccc01.079.exr ccc01.080.exr ccc01.081.exr ccc01.082.exr ccc01.083.exr ccc01.084.exr ccc01.085.exr ccc01.086.exr ccc01.087.exr ccc01.088.exr ccc01.089.exr ccc01.090.exr ccc01.091.exr ccc01.092.exr ccc01.093.exr ccc01.094.exr ccc01.095.exr ccc01.096.exr ccc01.097.exr ccc01.098.exr ccc01.099.exr ccc01.100.exr ccc01.101.exr ccc01.102.exr ccc01.103.exr ccc01.104.exr ccc01.105.exr ccc01.106.exr ccc01.107.exr ccc01.108.exr ccc01.109.exr ccc01.110.exr ccc01.111.exr ccc01.112.exr ccc01.113.exr ccc01.114.exr ccc01.115.exr ccc01.116.exr ccc01.117.exr ccc01.118.exr ccc01.119.exr ccc01.120.exr ccc02.001.exr ccc02.002.exr ccc02.003.exr ccc02.004.exr ccc02.005.exr ccc02.006.exr ccc02.007.exr ccc02.008.exr ccc02.009.exr ccc02.010.exr ccc02.011.exr ccc02.012.exr ccc02.013.exr ccc02.014.exr ccc02.015.exr ccc02.016.exr ccc02.017.exr ccc02.018.exr ccc02.019.exr ccc02.020.exr ccc02.021.exr ccc02.022.exr ccc02.023.exr ccc02.024.exr ccc02.025.exr ccc02.026.exr ccc02.027.exr ccc02.028.exr ccc02.029.exr ccc02.030.exr ccc02.031.exr ccc02.032.exr ccc02.033.exr ccc02.034.exr ccc02.035.exr ccc02.036.exr ccc02.037.exr ccc02.038.exr ccc02.039.exr ccc02.040.exr ccc02.041.exr ccc02.042.exr ccc02.043.exr ccc02.044.exr ccc02.045.exr ccc02.046.exr ccc02.047.exr ccc02.048.exr ccc02.049.exr ccc02.050.exr ccc02.052.exr ccc02.053.exr ccc02.054.exr ccc02.055.exr ccc02.056.exr ccc02.057.exr ccc02.058.exr ccc02.059.exr ccc02.060.exr ccc02.061.exr ccc02.062.exr ccc02.063.exr ccc02.064.exr ccc02.065.exr ccc02.066.exr ccc02.067.exr ccc02.068.exr ccc02.069.exr ccc02.070.exr ccc02.071.exr ccc02.072.exr ccc02.073.exr ccc02.074.exr ccc02.075.exr ccc02.076.exr ccc02.077.exr ccc02.078.exr ccc02.079.exr ccc02.080.exr ccc02.081.exr ccc02.082.exr ccc02.083.exr ccc02.084.exr ccc02.085.exr ccc02.086.exr ccc02.087.exr ccc02.088.exr ccc02.089.exr ccc02.090.exr ccc02.091.exr ccc02.092.exr ccc02.093.exr ccc02.094.exr ccc02.095.exr ccc02.096.exr ccc02.097.exr ccc02.098.exr ccc02.099.exr ccc02.100.exr ccc02.101.exr ccc02.102.exr ccc02.103.exr ccc02.104.exr ccc02.105.exr ccc02.106.exr ccc02.107.exr ccc02.108.exr ccc02.109.exr ccc02.110.exr ccc02.111.exr ccc02.112.exr ccc02.113.exr ccc02.114.exr ccc02.115.exr ccc02.116.exr ccc02.117.exr ccc02.118.exr ccc02.120.exr ccc03.100.tga ccc03.101.tga ccc03.102.tga ccc03.103.tga ccc03.104.tga ccc03.105.tga ccc03.106.tga ccc03.107.tga ccc03.108.tga ccc03.109.tga ccc03.110.tga ccc03.111.tga ccc03.112.tga ccc03.113.tga ccc03.114.tga ccc03.115.tga ccc03.116.tga ccc03.117.tga ccc03.118.tga ccc03.119.tga ccc03.120.tga ccc03.121.tga ccc03.122.tga ccc03.123.tga ccc03.124.tga ccc03.125.tga ccc03.126.tga ccc03.127.tga ccc03.128.tga ccc03.129.tga ccc03.130.tga ccc03.131.tga ccc03.132.tga ccc03.133.tga ccc03.134.tga ccc03.135.tga ccc03.136.tga ccc03.137.tga ccc03.138.tga ccc03.139.tga ccc03.140.tga ccc03.80.tga ccc03.81.tga ccc03.82.tga ccc03.83.tga ccc03.84.tga ccc03.85.tga ccc03.86.tga ccc03.87.tga ccc03.88.tga ccc03.89.tga ccc03.90.tga ccc03.91.tga ccc03.92.tga ccc03.93.tga ccc03.94.tga ccc03.95.tga ccc03.96.tga ccc03.97.tga ccc03.98.tga ccc03.99.tga cccc dddd eeee ffff gggg hhhh iiii jjjj kkkk llll mmmm nnnn oooo pppp qqqq rrrr shake01.01.shk shake01.02.shk shake01.03.shk shake02.01.shk ssss tttt uuuu vvvv xxxx yyyy zzzz ------
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
 ------ Test 12 ------ lsseq -c ------
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr e:[3,52-55]
 ccc02.[001-120].exr e:[51,119]
 ccc03.[80-140].tga 
@@ -500,51 +687,176 @@ ccc03.[80-140].tga
 ./c_subDir/ccc01.120.exr 
 
 ------ Test 15 ------ lsseq -fnative ------
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
 ------ Test 16 ------ lsseq -fnuke ------
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.%03d.exr 1-120
 ccc02.%03d.exr 1-120
 ccc03.%02d.tga 80-140
 
 ------ Test 17 ------ lsseq -fshake ------
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 shake -t 1-120 ccc01.@@@.exr
 shake -t 1-120 ccc02.@@@.exr
 shake -t 80-140 ccc03.@@.tga
 
 ------ Test 18 ------ lsseq -frv ------
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.1-120@@@.exr m:[3], z:[52-55]
 ccc02.1-120@@@.exr m:[51,119]
 ccc03.80-140@@.tga 
 
 ------ Test 19 ------ lsseq -fglob ------
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[0-9][0-9][0-9].exr
 ccc02.[0-9][0-9][0-9].exr
 ccc03.[0-9][0-9].tga
@@ -554,11 +866,36 @@ Image extensions: ['alpha', 'als', 'anim', 'bmp', 'btf', 'bw', 'cin', 'dib', 'dp
 Movie extensions: ['avi', 'mov', 'mp4', 'mpg', 'wmv']
 
 ------ Test 21 ------ lsseq -M ------
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr z:[52-55]
 ccc02.[001-120].exr 
 ccc03.[80-140].tga 
@@ -568,64 +905,189 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
------- Test 23 ------ lsseq -p c_subDir ccc01.001.exr ccc01.002.exr ccc01.004.exr ccc01.005.exr ccc01.006.exr ccc01.007.exr ccc01.008.exr ccc01.009.exr ccc01.010.exr ccc01.011.exr ccc01.012.exr ccc01.013.exr ccc01.014.exr ccc01.015.exr ccc01.016.exr ccc01.017.exr ccc01.018.exr ccc01.019.exr ccc01.020.exr ccc01.021.exr ccc01.022.exr ccc01.023.exr ccc01.024.exr ccc01.025.exr ccc01.026.exr ccc01.027.exr ccc01.028.exr ccc01.029.exr ccc01.030.exr ccc01.031.exr ccc01.032.exr ccc01.033.exr ccc01.034.exr ccc01.035.exr ccc01.036.exr ccc01.037.exr ccc01.038.exr ccc01.039.exr ccc01.040.exr ccc01.041.exr ccc01.042.exr ccc01.043.exr ccc01.044.exr ccc01.045.exr ccc01.046.exr ccc01.047.exr ccc01.048.exr ccc01.049.exr ccc01.050.exr ccc01.051.exr ccc01.052.exr ccc01.053.exr ccc01.054.exr ccc01.055.exr ccc01.056.exr ccc01.057.exr ccc01.058.exr ccc01.059.exr ccc01.060.exr ccc01.061.exr ccc01.062.exr ccc01.063.exr ccc01.064.exr ccc01.065.exr ccc01.066.exr ccc01.067.exr ccc01.068.exr ccc01.069.exr ccc01.070.exr ccc01.071.exr ccc01.072.exr ccc01.073.exr ccc01.074.exr ccc01.075.exr ccc01.076.exr ccc01.077.exr ccc01.078.exr ccc01.079.exr ccc01.080.exr ccc01.081.exr ccc01.082.exr ccc01.083.exr ccc01.084.exr ccc01.085.exr ccc01.086.exr ccc01.087.exr ccc01.088.exr ccc01.089.exr ccc01.090.exr ccc01.091.exr ccc01.092.exr ccc01.093.exr ccc01.094.exr ccc01.095.exr ccc01.096.exr ccc01.097.exr ccc01.098.exr ccc01.099.exr ccc01.100.exr ccc01.101.exr ccc01.102.exr ccc01.103.exr ccc01.104.exr ccc01.105.exr ccc01.106.exr ccc01.107.exr ccc01.108.exr ccc01.109.exr ccc01.110.exr ccc01.111.exr ccc01.112.exr ccc01.113.exr ccc01.114.exr ccc01.115.exr ccc01.116.exr ccc01.117.exr ccc01.118.exr ccc01.119.exr ccc01.120.exr ccc02.001.exr ccc02.002.exr ccc02.003.exr ccc02.004.exr ccc02.005.exr ccc02.006.exr ccc02.007.exr ccc02.008.exr ccc02.009.exr ccc02.010.exr ccc02.011.exr ccc02.012.exr ccc02.013.exr ccc02.014.exr ccc02.015.exr ccc02.016.exr ccc02.017.exr ccc02.018.exr ccc02.019.exr ccc02.020.exr ccc02.021.exr ccc02.022.exr ccc02.023.exr ccc02.024.exr ccc02.025.exr ccc02.026.exr ccc02.027.exr ccc02.028.exr ccc02.029.exr ccc02.030.exr ccc02.031.exr ccc02.032.exr ccc02.033.exr ccc02.034.exr ccc02.035.exr ccc02.036.exr ccc02.037.exr ccc02.038.exr ccc02.039.exr ccc02.040.exr ccc02.041.exr ccc02.042.exr ccc02.043.exr ccc02.044.exr ccc02.045.exr ccc02.046.exr ccc02.047.exr ccc02.048.exr ccc02.049.exr ccc02.050.exr ccc02.052.exr ccc02.053.exr ccc02.054.exr ccc02.055.exr ccc02.056.exr ccc02.057.exr ccc02.058.exr ccc02.059.exr ccc02.060.exr ccc02.061.exr ccc02.062.exr ccc02.063.exr ccc02.064.exr ccc02.065.exr ccc02.066.exr ccc02.067.exr ccc02.068.exr ccc02.069.exr ccc02.070.exr ccc02.071.exr ccc02.072.exr ccc02.073.exr ccc02.074.exr ccc02.075.exr ccc02.076.exr ccc02.077.exr ccc02.078.exr ccc02.079.exr ccc02.080.exr ccc02.081.exr ccc02.082.exr ccc02.083.exr ccc02.084.exr ccc02.085.exr ccc02.086.exr ccc02.087.exr ccc02.088.exr ccc02.089.exr ccc02.090.exr ccc02.091.exr ccc02.092.exr ccc02.093.exr ccc02.094.exr ccc02.095.exr ccc02.096.exr ccc02.097.exr ccc02.098.exr ccc02.099.exr ccc02.100.exr ccc02.101.exr ccc02.102.exr ccc02.103.exr ccc02.104.exr ccc02.105.exr ccc02.106.exr ccc02.107.exr ccc02.108.exr ccc02.109.exr ccc02.110.exr ccc02.111.exr ccc02.112.exr ccc02.113.exr ccc02.114.exr ccc02.115.exr ccc02.116.exr ccc02.117.exr ccc02.118.exr ccc02.120.exr ccc03.100.tga ccc03.101.tga ccc03.102.tga ccc03.103.tga ccc03.104.tga ccc03.105.tga ccc03.106.tga ccc03.107.tga ccc03.108.tga ccc03.109.tga ccc03.110.tga ccc03.111.tga ccc03.112.tga ccc03.113.tga ccc03.114.tga ccc03.115.tga ccc03.116.tga ccc03.117.tga ccc03.118.tga ccc03.119.tga ccc03.120.tga ccc03.121.tga ccc03.122.tga ccc03.123.tga ccc03.124.tga ccc03.125.tga ccc03.126.tga ccc03.127.tga ccc03.128.tga ccc03.129.tga ccc03.130.tga ccc03.131.tga ccc03.132.tga ccc03.133.tga ccc03.134.tga ccc03.135.tga ccc03.136.tga ccc03.137.tga ccc03.138.tga ccc03.139.tga ccc03.140.tga ccc03.80.tga ccc03.81.tga ccc03.82.tga ccc03.83.tga ccc03.84.tga ccc03.85.tga ccc03.86.tga ccc03.87.tga ccc03.88.tga ccc03.89.tga ccc03.90.tga ccc03.91.tga ccc03.92.tga ccc03.93.tga ccc03.94.tga ccc03.95.tga ccc03.96.tga ccc03.97.tga ccc03.98.tga ccc03.99.tga shake01.01.shk shake01.02.shk shake01.03.shk shake02.01.shk ------
+------ Test 23 ------ lsseq -p aaaa bbbb c_subDir ccc01.001.exr ccc01.002.exr ccc01.004.exr ccc01.005.exr ccc01.006.exr ccc01.007.exr ccc01.008.exr ccc01.009.exr ccc01.010.exr ccc01.011.exr ccc01.012.exr ccc01.013.exr ccc01.014.exr ccc01.015.exr ccc01.016.exr ccc01.017.exr ccc01.018.exr ccc01.019.exr ccc01.020.exr ccc01.021.exr ccc01.022.exr ccc01.023.exr ccc01.024.exr ccc01.025.exr ccc01.026.exr ccc01.027.exr ccc01.028.exr ccc01.029.exr ccc01.030.exr ccc01.031.exr ccc01.032.exr ccc01.033.exr ccc01.034.exr ccc01.035.exr ccc01.036.exr ccc01.037.exr ccc01.038.exr ccc01.039.exr ccc01.040.exr ccc01.041.exr ccc01.042.exr ccc01.043.exr ccc01.044.exr ccc01.045.exr ccc01.046.exr ccc01.047.exr ccc01.048.exr ccc01.049.exr ccc01.050.exr ccc01.051.exr ccc01.052.exr ccc01.053.exr ccc01.054.exr ccc01.055.exr ccc01.056.exr ccc01.057.exr ccc01.058.exr ccc01.059.exr ccc01.060.exr ccc01.061.exr ccc01.062.exr ccc01.063.exr ccc01.064.exr ccc01.065.exr ccc01.066.exr ccc01.067.exr ccc01.068.exr ccc01.069.exr ccc01.070.exr ccc01.071.exr ccc01.072.exr ccc01.073.exr ccc01.074.exr ccc01.075.exr ccc01.076.exr ccc01.077.exr ccc01.078.exr ccc01.079.exr ccc01.080.exr ccc01.081.exr ccc01.082.exr ccc01.083.exr ccc01.084.exr ccc01.085.exr ccc01.086.exr ccc01.087.exr ccc01.088.exr ccc01.089.exr ccc01.090.exr ccc01.091.exr ccc01.092.exr ccc01.093.exr ccc01.094.exr ccc01.095.exr ccc01.096.exr ccc01.097.exr ccc01.098.exr ccc01.099.exr ccc01.100.exr ccc01.101.exr ccc01.102.exr ccc01.103.exr ccc01.104.exr ccc01.105.exr ccc01.106.exr ccc01.107.exr ccc01.108.exr ccc01.109.exr ccc01.110.exr ccc01.111.exr ccc01.112.exr ccc01.113.exr ccc01.114.exr ccc01.115.exr ccc01.116.exr ccc01.117.exr ccc01.118.exr ccc01.119.exr ccc01.120.exr ccc02.001.exr ccc02.002.exr ccc02.003.exr ccc02.004.exr ccc02.005.exr ccc02.006.exr ccc02.007.exr ccc02.008.exr ccc02.009.exr ccc02.010.exr ccc02.011.exr ccc02.012.exr ccc02.013.exr ccc02.014.exr ccc02.015.exr ccc02.016.exr ccc02.017.exr ccc02.018.exr ccc02.019.exr ccc02.020.exr ccc02.021.exr ccc02.022.exr ccc02.023.exr ccc02.024.exr ccc02.025.exr ccc02.026.exr ccc02.027.exr ccc02.028.exr ccc02.029.exr ccc02.030.exr ccc02.031.exr ccc02.032.exr ccc02.033.exr ccc02.034.exr ccc02.035.exr ccc02.036.exr ccc02.037.exr ccc02.038.exr ccc02.039.exr ccc02.040.exr ccc02.041.exr ccc02.042.exr ccc02.043.exr ccc02.044.exr ccc02.045.exr ccc02.046.exr ccc02.047.exr ccc02.048.exr ccc02.049.exr ccc02.050.exr ccc02.052.exr ccc02.053.exr ccc02.054.exr ccc02.055.exr ccc02.056.exr ccc02.057.exr ccc02.058.exr ccc02.059.exr ccc02.060.exr ccc02.061.exr ccc02.062.exr ccc02.063.exr ccc02.064.exr ccc02.065.exr ccc02.066.exr ccc02.067.exr ccc02.068.exr ccc02.069.exr ccc02.070.exr ccc02.071.exr ccc02.072.exr ccc02.073.exr ccc02.074.exr ccc02.075.exr ccc02.076.exr ccc02.077.exr ccc02.078.exr ccc02.079.exr ccc02.080.exr ccc02.081.exr ccc02.082.exr ccc02.083.exr ccc02.084.exr ccc02.085.exr ccc02.086.exr ccc02.087.exr ccc02.088.exr ccc02.089.exr ccc02.090.exr ccc02.091.exr ccc02.092.exr ccc02.093.exr ccc02.094.exr ccc02.095.exr ccc02.096.exr ccc02.097.exr ccc02.098.exr ccc02.099.exr ccc02.100.exr ccc02.101.exr ccc02.102.exr ccc02.103.exr ccc02.104.exr ccc02.105.exr ccc02.106.exr ccc02.107.exr ccc02.108.exr ccc02.109.exr ccc02.110.exr ccc02.111.exr ccc02.112.exr ccc02.113.exr ccc02.114.exr ccc02.115.exr ccc02.116.exr ccc02.117.exr ccc02.118.exr ccc02.120.exr ccc03.100.tga ccc03.101.tga ccc03.102.tga ccc03.103.tga ccc03.104.tga ccc03.105.tga ccc03.106.tga ccc03.107.tga ccc03.108.tga ccc03.109.tga ccc03.110.tga ccc03.111.tga ccc03.112.tga ccc03.113.tga ccc03.114.tga ccc03.115.tga ccc03.116.tga ccc03.117.tga ccc03.118.tga ccc03.119.tga ccc03.120.tga ccc03.121.tga ccc03.122.tga ccc03.123.tga ccc03.124.tga ccc03.125.tga ccc03.126.tga ccc03.127.tga ccc03.128.tga ccc03.129.tga ccc03.130.tga ccc03.131.tga ccc03.132.tga ccc03.133.tga ccc03.134.tga ccc03.135.tga ccc03.136.tga ccc03.137.tga ccc03.138.tga ccc03.139.tga ccc03.140.tga ccc03.80.tga ccc03.81.tga ccc03.82.tga ccc03.83.tga ccc03.84.tga ccc03.85.tga ccc03.86.tga ccc03.87.tga ccc03.88.tga ccc03.89.tga ccc03.90.tga ccc03.91.tga ccc03.92.tga ccc03.93.tga ccc03.94.tga ccc03.95.tga ccc03.96.tga ccc03.97.tga ccc03.98.tga ccc03.99.tga cccc dddd eeee ffff gggg hhhh iiii jjjj kkkk llll mmmm nnnn oooo pppp qqqq rrrr shake01.01.shk shake01.02.shk shake01.03.shk shake02.01.shk ssss tttt uuuu vvvv xxxx yyyy zzzz ------
 /nas/media/src/python/lsseq/testdir/cdir/ccc01.[001-120].exr m:[3], z:[52-55]
 /nas/media/src/python/lsseq/testdir/cdir/ccc02.[001-120].exr m:[51,119]
 /nas/media/src/python/lsseq/testdir/cdir/ccc03.[80-140].tga 
 /nas/media/src/python/lsseq/testdir/cdir/c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 24 ------ lsseq -P c_subDir ccc01.001.exr ccc01.002.exr ccc01.004.exr ccc01.005.exr ccc01.006.exr ccc01.007.exr ccc01.008.exr ccc01.009.exr ccc01.010.exr ccc01.011.exr ccc01.012.exr ccc01.013.exr ccc01.014.exr ccc01.015.exr ccc01.016.exr ccc01.017.exr ccc01.018.exr ccc01.019.exr ccc01.020.exr ccc01.021.exr ccc01.022.exr ccc01.023.exr ccc01.024.exr ccc01.025.exr ccc01.026.exr ccc01.027.exr ccc01.028.exr ccc01.029.exr ccc01.030.exr ccc01.031.exr ccc01.032.exr ccc01.033.exr ccc01.034.exr ccc01.035.exr ccc01.036.exr ccc01.037.exr ccc01.038.exr ccc01.039.exr ccc01.040.exr ccc01.041.exr ccc01.042.exr ccc01.043.exr ccc01.044.exr ccc01.045.exr ccc01.046.exr ccc01.047.exr ccc01.048.exr ccc01.049.exr ccc01.050.exr ccc01.051.exr ccc01.052.exr ccc01.053.exr ccc01.054.exr ccc01.055.exr ccc01.056.exr ccc01.057.exr ccc01.058.exr ccc01.059.exr ccc01.060.exr ccc01.061.exr ccc01.062.exr ccc01.063.exr ccc01.064.exr ccc01.065.exr ccc01.066.exr ccc01.067.exr ccc01.068.exr ccc01.069.exr ccc01.070.exr ccc01.071.exr ccc01.072.exr ccc01.073.exr ccc01.074.exr ccc01.075.exr ccc01.076.exr ccc01.077.exr ccc01.078.exr ccc01.079.exr ccc01.080.exr ccc01.081.exr ccc01.082.exr ccc01.083.exr ccc01.084.exr ccc01.085.exr ccc01.086.exr ccc01.087.exr ccc01.088.exr ccc01.089.exr ccc01.090.exr ccc01.091.exr ccc01.092.exr ccc01.093.exr ccc01.094.exr ccc01.095.exr ccc01.096.exr ccc01.097.exr ccc01.098.exr ccc01.099.exr ccc01.100.exr ccc01.101.exr ccc01.102.exr ccc01.103.exr ccc01.104.exr ccc01.105.exr ccc01.106.exr ccc01.107.exr ccc01.108.exr ccc01.109.exr ccc01.110.exr ccc01.111.exr ccc01.112.exr ccc01.113.exr ccc01.114.exr ccc01.115.exr ccc01.116.exr ccc01.117.exr ccc01.118.exr ccc01.119.exr ccc01.120.exr ccc02.001.exr ccc02.002.exr ccc02.003.exr ccc02.004.exr ccc02.005.exr ccc02.006.exr ccc02.007.exr ccc02.008.exr ccc02.009.exr ccc02.010.exr ccc02.011.exr ccc02.012.exr ccc02.013.exr ccc02.014.exr ccc02.015.exr ccc02.016.exr ccc02.017.exr ccc02.018.exr ccc02.019.exr ccc02.020.exr ccc02.021.exr ccc02.022.exr ccc02.023.exr ccc02.024.exr ccc02.025.exr ccc02.026.exr ccc02.027.exr ccc02.028.exr ccc02.029.exr ccc02.030.exr ccc02.031.exr ccc02.032.exr ccc02.033.exr ccc02.034.exr ccc02.035.exr ccc02.036.exr ccc02.037.exr ccc02.038.exr ccc02.039.exr ccc02.040.exr ccc02.041.exr ccc02.042.exr ccc02.043.exr ccc02.044.exr ccc02.045.exr ccc02.046.exr ccc02.047.exr ccc02.048.exr ccc02.049.exr ccc02.050.exr ccc02.052.exr ccc02.053.exr ccc02.054.exr ccc02.055.exr ccc02.056.exr ccc02.057.exr ccc02.058.exr ccc02.059.exr ccc02.060.exr ccc02.061.exr ccc02.062.exr ccc02.063.exr ccc02.064.exr ccc02.065.exr ccc02.066.exr ccc02.067.exr ccc02.068.exr ccc02.069.exr ccc02.070.exr ccc02.071.exr ccc02.072.exr ccc02.073.exr ccc02.074.exr ccc02.075.exr ccc02.076.exr ccc02.077.exr ccc02.078.exr ccc02.079.exr ccc02.080.exr ccc02.081.exr ccc02.082.exr ccc02.083.exr ccc02.084.exr ccc02.085.exr ccc02.086.exr ccc02.087.exr ccc02.088.exr ccc02.089.exr ccc02.090.exr ccc02.091.exr ccc02.092.exr ccc02.093.exr ccc02.094.exr ccc02.095.exr ccc02.096.exr ccc02.097.exr ccc02.098.exr ccc02.099.exr ccc02.100.exr ccc02.101.exr ccc02.102.exr ccc02.103.exr ccc02.104.exr ccc02.105.exr ccc02.106.exr ccc02.107.exr ccc02.108.exr ccc02.109.exr ccc02.110.exr ccc02.111.exr ccc02.112.exr ccc02.113.exr ccc02.114.exr ccc02.115.exr ccc02.116.exr ccc02.117.exr ccc02.118.exr ccc02.120.exr ccc03.100.tga ccc03.101.tga ccc03.102.tga ccc03.103.tga ccc03.104.tga ccc03.105.tga ccc03.106.tga ccc03.107.tga ccc03.108.tga ccc03.109.tga ccc03.110.tga ccc03.111.tga ccc03.112.tga ccc03.113.tga ccc03.114.tga ccc03.115.tga ccc03.116.tga ccc03.117.tga ccc03.118.tga ccc03.119.tga ccc03.120.tga ccc03.121.tga ccc03.122.tga ccc03.123.tga ccc03.124.tga ccc03.125.tga ccc03.126.tga ccc03.127.tga ccc03.128.tga ccc03.129.tga ccc03.130.tga ccc03.131.tga ccc03.132.tga ccc03.133.tga ccc03.134.tga ccc03.135.tga ccc03.136.tga ccc03.137.tga ccc03.138.tga ccc03.139.tga ccc03.140.tga ccc03.80.tga ccc03.81.tga ccc03.82.tga ccc03.83.tga ccc03.84.tga ccc03.85.tga ccc03.86.tga ccc03.87.tga ccc03.88.tga ccc03.89.tga ccc03.90.tga ccc03.91.tga ccc03.92.tga ccc03.93.tga ccc03.94.tga ccc03.95.tga ccc03.96.tga ccc03.97.tga ccc03.98.tga ccc03.99.tga shake01.01.shk shake01.02.shk shake01.03.shk shake02.01.shk ------
+------ Test 24 ------ lsseq -P aaaa bbbb c_subDir ccc01.001.exr ccc01.002.exr ccc01.004.exr ccc01.005.exr ccc01.006.exr ccc01.007.exr ccc01.008.exr ccc01.009.exr ccc01.010.exr ccc01.011.exr ccc01.012.exr ccc01.013.exr ccc01.014.exr ccc01.015.exr ccc01.016.exr ccc01.017.exr ccc01.018.exr ccc01.019.exr ccc01.020.exr ccc01.021.exr ccc01.022.exr ccc01.023.exr ccc01.024.exr ccc01.025.exr ccc01.026.exr ccc01.027.exr ccc01.028.exr ccc01.029.exr ccc01.030.exr ccc01.031.exr ccc01.032.exr ccc01.033.exr ccc01.034.exr ccc01.035.exr ccc01.036.exr ccc01.037.exr ccc01.038.exr ccc01.039.exr ccc01.040.exr ccc01.041.exr ccc01.042.exr ccc01.043.exr ccc01.044.exr ccc01.045.exr ccc01.046.exr ccc01.047.exr ccc01.048.exr ccc01.049.exr ccc01.050.exr ccc01.051.exr ccc01.052.exr ccc01.053.exr ccc01.054.exr ccc01.055.exr ccc01.056.exr ccc01.057.exr ccc01.058.exr ccc01.059.exr ccc01.060.exr ccc01.061.exr ccc01.062.exr ccc01.063.exr ccc01.064.exr ccc01.065.exr ccc01.066.exr ccc01.067.exr ccc01.068.exr ccc01.069.exr ccc01.070.exr ccc01.071.exr ccc01.072.exr ccc01.073.exr ccc01.074.exr ccc01.075.exr ccc01.076.exr ccc01.077.exr ccc01.078.exr ccc01.079.exr ccc01.080.exr ccc01.081.exr ccc01.082.exr ccc01.083.exr ccc01.084.exr ccc01.085.exr ccc01.086.exr ccc01.087.exr ccc01.088.exr ccc01.089.exr ccc01.090.exr ccc01.091.exr ccc01.092.exr ccc01.093.exr ccc01.094.exr ccc01.095.exr ccc01.096.exr ccc01.097.exr ccc01.098.exr ccc01.099.exr ccc01.100.exr ccc01.101.exr ccc01.102.exr ccc01.103.exr ccc01.104.exr ccc01.105.exr ccc01.106.exr ccc01.107.exr ccc01.108.exr ccc01.109.exr ccc01.110.exr ccc01.111.exr ccc01.112.exr ccc01.113.exr ccc01.114.exr ccc01.115.exr ccc01.116.exr ccc01.117.exr ccc01.118.exr ccc01.119.exr ccc01.120.exr ccc02.001.exr ccc02.002.exr ccc02.003.exr ccc02.004.exr ccc02.005.exr ccc02.006.exr ccc02.007.exr ccc02.008.exr ccc02.009.exr ccc02.010.exr ccc02.011.exr ccc02.012.exr ccc02.013.exr ccc02.014.exr ccc02.015.exr ccc02.016.exr ccc02.017.exr ccc02.018.exr ccc02.019.exr ccc02.020.exr ccc02.021.exr ccc02.022.exr ccc02.023.exr ccc02.024.exr ccc02.025.exr ccc02.026.exr ccc02.027.exr ccc02.028.exr ccc02.029.exr ccc02.030.exr ccc02.031.exr ccc02.032.exr ccc02.033.exr ccc02.034.exr ccc02.035.exr ccc02.036.exr ccc02.037.exr ccc02.038.exr ccc02.039.exr ccc02.040.exr ccc02.041.exr ccc02.042.exr ccc02.043.exr ccc02.044.exr ccc02.045.exr ccc02.046.exr ccc02.047.exr ccc02.048.exr ccc02.049.exr ccc02.050.exr ccc02.052.exr ccc02.053.exr ccc02.054.exr ccc02.055.exr ccc02.056.exr ccc02.057.exr ccc02.058.exr ccc02.059.exr ccc02.060.exr ccc02.061.exr ccc02.062.exr ccc02.063.exr ccc02.064.exr ccc02.065.exr ccc02.066.exr ccc02.067.exr ccc02.068.exr ccc02.069.exr ccc02.070.exr ccc02.071.exr ccc02.072.exr ccc02.073.exr ccc02.074.exr ccc02.075.exr ccc02.076.exr ccc02.077.exr ccc02.078.exr ccc02.079.exr ccc02.080.exr ccc02.081.exr ccc02.082.exr ccc02.083.exr ccc02.084.exr ccc02.085.exr ccc02.086.exr ccc02.087.exr ccc02.088.exr ccc02.089.exr ccc02.090.exr ccc02.091.exr ccc02.092.exr ccc02.093.exr ccc02.094.exr ccc02.095.exr ccc02.096.exr ccc02.097.exr ccc02.098.exr ccc02.099.exr ccc02.100.exr ccc02.101.exr ccc02.102.exr ccc02.103.exr ccc02.104.exr ccc02.105.exr ccc02.106.exr ccc02.107.exr ccc02.108.exr ccc02.109.exr ccc02.110.exr ccc02.111.exr ccc02.112.exr ccc02.113.exr ccc02.114.exr ccc02.115.exr ccc02.116.exr ccc02.117.exr ccc02.118.exr ccc02.120.exr ccc03.100.tga ccc03.101.tga ccc03.102.tga ccc03.103.tga ccc03.104.tga ccc03.105.tga ccc03.106.tga ccc03.107.tga ccc03.108.tga ccc03.109.tga ccc03.110.tga ccc03.111.tga ccc03.112.tga ccc03.113.tga ccc03.114.tga ccc03.115.tga ccc03.116.tga ccc03.117.tga ccc03.118.tga ccc03.119.tga ccc03.120.tga ccc03.121.tga ccc03.122.tga ccc03.123.tga ccc03.124.tga ccc03.125.tga ccc03.126.tga ccc03.127.tga ccc03.128.tga ccc03.129.tga ccc03.130.tga ccc03.131.tga ccc03.132.tga ccc03.133.tga ccc03.134.tga ccc03.135.tga ccc03.136.tga ccc03.137.tga ccc03.138.tga ccc03.139.tga ccc03.140.tga ccc03.80.tga ccc03.81.tga ccc03.82.tga ccc03.83.tga ccc03.84.tga ccc03.85.tga ccc03.86.tga ccc03.87.tga ccc03.88.tga ccc03.89.tga ccc03.90.tga ccc03.91.tga ccc03.92.tga ccc03.93.tga ccc03.94.tga ccc03.95.tga ccc03.96.tga ccc03.97.tga ccc03.98.tga ccc03.99.tga cccc dddd eeee ffff gggg hhhh iiii jjjj kkkk llll mmmm nnnn oooo pppp qqqq rrrr shake01.01.shk shake01.02.shk shake01.03.shk shake02.01.shk ssss tttt uuuu vvvv xxxx yyyy zzzz ------
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
 
 ------ Test 25 ------ lsseq -r ------
+zzzz
+yyyy
+xxxx
+vvvv
+uuuu
+tttt
+ssss
 shake02.01.shk
 shake01.03.shk
 shake01.02.shk
 shake01.01.shk
+rrrr
+qqqq
+pppp
+oooo
+nnnn
+mmmm
+llll
+kkkk
+jjjj
+iiii
+hhhh
+gggg
+ffff
+eeee
+dddd
+cccc
 c_subDir
+bbbb
+aaaa
 ccc03.[80-140].tga 
 ccc02.[001-120].exr m:[51,119]
 ccc01.[001-120].exr m:[3], z:[52-55]
 
 ------ Test 26 ------ lsseq -t ------
+c_subDir
+aaaa
+bbbb
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
-c_subDir
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc03.[80-140].tga 
 ccc02.[001-120].exr m:[51,119]
 
 ------ Test 27 ------ lsseq -t --time oldest ------
+c_subDir
+aaaa
+bbbb
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
-c_subDir
 ccc03.[80-140].tga 
 ccc02.[001-120].exr m:[51,119]
 ccc01.[001-120].exr m:[3], z:[52-55]
 
 ------ Test 28 ------ lsseq -t --time median ------
+c_subDir
+aaaa
+bbbb
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
-c_subDir
-ccc01.[001-120].exr m:[3], z:[52-55]
 ccc03.[80-140].tga 
 ccc02.[001-120].exr m:[51,119]
+ccc01.[001-120].exr m:[3], z:[52-55]
 
 ------ Test 29 ------ lsseq -Z ------
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr m:[3]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
@@ -640,9 +1102,11 @@ cdir
 ddir
 fdir
 mkAnimFrames.v01.shk
+mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
 mkBlackFrames_HD_2.v01.shk
 mkTestFrames.v01.nk
+mkTestFrames.v02.nk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -714,11 +1178,36 @@ HD_by2x080.jpg
 HD_by2x100.jpg
 
 /nas/media/src/python/lsseq/testdir/cdir:
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
@@ -764,11 +1253,36 @@ ddd.[-08].jpg
 xxx.[01989-02013].png 
 
 /nas/media/src/python/lsseq/testdir/cdir:
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
@@ -778,14 +1292,214 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 
 ------ Test 31 ------ lsseq -R /nas/media/src/python/lsseq/testdir/cdir/ ------
 /nas/media/src/python/lsseq/testdir/cdir:
+aaaa
+bbbb
 c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
 shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
 /nas/media/src/python/lsseq/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
+
+------ Test 32 ------ lsseq -Ra ------
+.:
+.aaa
+.bbb
+.ccc
+.ddd
+.eee
+.fff
+.ggg
+aaaa
+bbbb
+c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+
+./c_subDir:
+ccc01.[001-120].exr m:[3], z:[52-55]
+
+------ Test 33 ------ lsseq -R -b --goodFrameMinSize 1K ------
+.:
+aaaa
+bbbb
+c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
+ccc01.[001-120].exr m:[3], b:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+
+./c_subDir:
+ccc01.[001-120].exr m:[3], b:[52-55,95,102]
+
+------ Test 34 ------ lsseq -1Rb ------
+.:
+aaaa
+bbbb
+c_subDir
+cccc
+dddd
+eeee
+ffff
+gggg
+hhhh
+iiii
+jjjj
+kkkk
+llll
+mmmm
+nnnn
+oooo
+pppp
+qqqq
+rrrr
+shake01.01.shk
+shake01.02.shk
+shake01.03.shk
+shake02.01.shk
+ssss
+tttt
+uuuu
+vvvv
+xxxx
+yyyy
+zzzz
+ccc01.[001-120].exr m:[3], b:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+
+./c_subDir:
+ccc01.[001-120].exr m:[3], b:[52-55,95]
+
+------ Test 35 ------ lsseq -1RbC ------
+.:
+aaaa		ffff		llll		rrrr		tttt
+bbbb		gggg		mmmm		shake01.01.shk	uuuu
+c_subDir	hhhh		nnnn		shake01.02.shk	vvvv
+cccc		iiii		oooo		shake01.03.shk	xxxx
+dddd		jjjj		pppp		shake02.01.shk	yyyy
+eeee		kkkk		qqqq		ssss		zzzz
+ccc01.[001-120].exr m:[3], b:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+
+./c_subDir:
+ccc01.[001-120].exr m:[3], b:[52-55,95]
+
+------ Test 36 ------ lsseq -Rbx ------
+.:
+aaaa		bbbb		c_subDir	cccc		dddd
+eeee		ffff		gggg		hhhh		iiii
+jjjj		kkkk		llll		mmmm		nnnn
+oooo		pppp		qqqq		rrrr		shake01.01.shk
+shake01.02.shk	shake01.03.shk	shake02.01.shk	ssss		tttt
+uuuu		vvvv		xxxx		yyyy		zzzz
+ccc01.[001-120].exr m:[3], b:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+
+./c_subDir:
+ccc01.[001-120].exr m:[3], b:[52-55,95]
+
+------ Test 37 ------ lsseq -1CRbx ------
+.:
+aaaa		bbbb		c_subDir	cccc		dddd
+eeee		ffff		gggg		hhhh		iiii
+jjjj		kkkk		llll		mmmm		nnnn
+oooo		pppp		qqqq		rrrr		shake01.01.shk
+shake01.02.shk	shake01.03.shk	shake02.01.shk	ssss		tttt
+uuuu		vvvv		xxxx		yyyy		zzzz
+ccc01.[001-120].exr m:[3], b:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga 
+
+./c_subDir:
+ccc01.[001-120].exr m:[3], b:[52-55,95]
+
+------ Test 38 ------ lsseq -R -P -p -P -f rv -f glob -fnative -C -b ------
+./ccc01.[001-120].exr m:[3], b:[52-55]
+./ccc02.[001-120].exr m:[51,119]
+./ccc03.[80-140].tga 
+./c_subDir/ccc01.[001-120].exr m:[3], b:[52-55,95]

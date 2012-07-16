@@ -44,6 +44,13 @@ testdir/cdir -t --time median
 testdir/cdir -Z
 testdir/cdir -R $OIC_REPO_DIR/testdir/cdir/ $OIC_REPO_DIR/testdir/
 testdir/cdir -R $OIC_REPO_DIR/testdir/cdir/
+testdir/cdir -Ra
+testdir/cdir -R -b --goodFrameMinSize 1K
+testdir/cdir -1Rb
+testdir/cdir -1RbC
+testdir/cdir -Rbx
+testdir/cdir -1CRbx
+testdir/cdir -R -P -p -P -f rv -f glob -fnative -C -b
 EOF
 
 echo ------ Begin Tests ------ > $OIC_REPO_DIR/test_lsseq.out.new
