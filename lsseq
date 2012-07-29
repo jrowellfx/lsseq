@@ -212,14 +212,15 @@ def printSeq(filename, frameList, args, traversedPath) :
         if (not iMissing and args.showZero) :
             # if this file is a broken soft link '-1' was stashed as mtime
             if currFrameData[2] == -1 : # mtime
-		if args.showBad :
+		if args.showBad > 0 :
 		    badFrames.append(i)
 		else :
 		    zeroFrames.append(i)
                 actualFilename = actualImageName(filename, padding, i)
                 print >> sys.stderr, os.path.basename(sys.argv[0]) + \
                     ": warning: " + actualFilename + " is a broken soft link."
-            elif args.showBad and currFrameData[1] < args.goodFrameMinSize : # file size
+	    # file size
+            elif (args.showBad > 0) and currFrameData[1] < args.goodFrameMinSize :
                 badFrames.append(i)
             elif currFrameData[1] == 0 : # file size
                 zeroFrames.append(i)
@@ -595,13 +596,16 @@ def main():
         dest="ignoreDotFiles", default=True,
         help="do not ignore entries starting with '.' \
 	while omitting implied '.' and '..' directories (see ls(1) --almost-all)")
-    p.add_argument("--showBadFrames", "-b", action="store_true",
-        dest="showBad", default=False,
+
+    p.add_argument("--showBadFrames", "-b", action="count",
+        dest="showBad", default=0,
         help="show list of potentially bad frames based on the \
 	minimum size of a good frame (see --goodFrameMinSize)" )
-    p.add_argument("--skipBadFrames", "-B", action="store_false",
-        dest="showBad",
+
+    p.add_argument("--skipBadFrames", "-B", action="store_const",
+        dest="showBad", const=0,
         help="do not show list of potentially bad frames [default]" )
+
     p.add_argument("--combineLists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
         help="Combine the lists of zero, missing and bad frames into one list.")
