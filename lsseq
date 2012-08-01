@@ -196,6 +196,7 @@ def printSeq(filename, frameList, args, traversedPath) :
     missingFrames = []
     zeroFrames = []
     badFrames = []
+    frameSizes=[]
     minFrame = frameList[1][0][0]
     maxFrame = frameList[1][-1][0]
     padding = frameList[0]
@@ -205,10 +206,18 @@ def printSeq(filename, frameList, args, traversedPath) :
         currFrameData = frameList[1][0]
         if i != currFrameData[0] : # frame number
             iMissing = True
+	    if args.showBad > 1 :
+		frameSizes.append(0)
             if args.showMissing :
                 missingFrames.append(i)
         else :
             frameList[1].pop(0)
+	    if args.showBad > 1 :
+		# if this file is a broken soft link '-1' was stashed as mtime
+		if currFrameData[2] == -1 :
+		    frameSizes.append(0)
+		else :
+		    frameSizes.append(currFrameData[1])
         if (not iMissing and args.showZero) :
             # if this file is a broken soft link '-1' was stashed as mtime
             if currFrameData[2] == -1 : # mtime
@@ -220,11 +229,14 @@ def printSeq(filename, frameList, args, traversedPath) :
                 print >> sys.stderr, os.path.basename(sys.argv[0]) + \
                     ": warning: " + actualFilename + " is a broken soft link."
 	    # file size
-            elif (args.showBad > 0) and currFrameData[1] < args.goodFrameMinSize :
+            elif (args.showBad > 0) and (currFrameData[1] < args.goodFrameMinSize) :
                 badFrames.append(i)
             elif currFrameData[1] == 0 : # file size
                 zeroFrames.append(i)
         i = i + 1
+
+    # if args.showBad > 1 :
+	# print frameSizes # JPR
 
     formatStr = "%0" + str(padding) + "d"
     if minFrame != maxFrame :
@@ -596,16 +608,13 @@ def main():
         dest="ignoreDotFiles", default=True,
         help="do not ignore entries starting with '.' \
 	while omitting implied '.' and '..' directories (see ls(1) --almost-all)")
-
     p.add_argument("--showBadFrames", "-b", action="count",
         dest="showBad", default=0,
         help="show list of potentially bad frames based on the \
 	minimum size of a good frame (see --goodFrameMinSize)" )
-
     p.add_argument("--skipBadFrames", "-B", action="store_const",
         dest="showBad", const=0,
         help="do not show list of potentially bad frames [default]" )
-
     p.add_argument("--combineLists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
         help="Combine the lists of zero, missing and bad frames into one list.")
