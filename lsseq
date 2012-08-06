@@ -307,8 +307,18 @@ def printSeq(filename, frameList, args, traversedPath) :
         i = i + 1
 
     if args.showBad > 1 :
-	stdevList = rollingAvg(frameSizes) # JPR
-	print stdevList
+	stdevList = rollingAvg(frameSizes, 2) # JPR
+	i = 0
+	while i < len(frameSizes) :
+	    x = 0
+	    if stdevList[i][1] > 0 :
+		x = (frameSizes[i] - stdevList[i][0])/stdevList[i][1]
+	    print "%03d" % i \
+		+ ": %6d" % frameSizes[i] \
+		+ "; m: %9.2f" % stdevList[i][0] \
+		+ "; s: %9.2f" % stdevList[i][1] \
+		+ "; s(%): " + "% 1.4f" % x
+	    i += 1
 
     formatStr = "%0" + str(padding) + "d"
     if minFrame != maxFrame :
