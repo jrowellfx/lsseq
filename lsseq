@@ -91,7 +91,7 @@ LOOSE_SEP = "_"
 # stats util for helping determine "bad" frames based on file sizes
 # deviation from a rolling avg of frame sizes.
 #
-def rollingAvg(list, window) :
+def rollingAvg(list, window, errFrames) :
 
     # window must be a positive integer.
     assert window > 0
@@ -130,7 +130,8 @@ def rollingAvg(list, window) :
 	    runningSumSq += listSquared[i]
 	    i += 1
 	mean = float(runningSum) / winLen
-	stdev = math.sqrt((float(runningSumSq)/winLen) - (float(runningSum * runningSum)/winLenSq))
+	stdev = math.sqrt((float(runningSumSq)/winLen) \
+	    - (float(runningSum * runningSum)/winLenSq))
 	result.append([mean, stdev])
 
 	j = 1
@@ -267,7 +268,7 @@ def printSeq(filename, frameList, args, traversedPath) :
     missingFrames = []
     zeroFrames = []
     badFrames = []
-    frameSizes=[]
+    frameSizes = []
     minFrame = frameList[1][0][0]
     maxFrame = frameList[1][-1][0]
     padding = frameList[0]
@@ -292,32 +293,42 @@ def printSeq(filename, frameList, args, traversedPath) :
         if (not iMissing and args.showZero) :
             # if this file is a broken soft link '-1' was stashed as mtime
             if currFrameData[2] == -1 : # mtime
-		if args.showBad > 0 :
-		    badFrames.append(i)
-		else :
+		if args.showZero :
 		    zeroFrames.append(i)
+		elif args.showBad > 0 :
+		    badFrames.append(i)
                 actualFilename = actualImageName(filename, padding, i)
                 print >> sys.stderr, os.path.basename(sys.argv[0]) + \
                     ": warning: " + actualFilename + " is a broken soft link."
 	    # file size
+            elif args.showZero and currFrameData[1] == 0 :
+		zeroFrames.append(i)
             elif (args.showBad > 0) and (currFrameData[1] < args.goodFrameMinSize) :
                 badFrames.append(i)
-            elif currFrameData[1] == 0 : # file size
-                zeroFrames.append(i)
+            elif currFrameData[1] == 0 :
+		zeroFrames.append(i)
         i = i + 1
 
     if args.showBad > 1 :
-	stdevList = rollingAvg(frameSizes, 2) # JPR
+	errFrames = missingFrames + zeroFrames + badFrames
+	errFrames.sort()
+	stdevList = rollingAvg(frameSizes, 2, errFrames) # JPR
 	i = 0
 	while i < len(frameSizes) :
 	    x = 0
+	    y = 0
+	    xy = 0
 	    if stdevList[i][1] > 0 :
-		x = (frameSizes[i] - stdevList[i][0])/stdevList[i][1]
+		x = (stdevList[i][0] - frameSizes[i])/float(stdevList[i][1])
+		y = stdevList[i][1]/float(stdevList[i][0])
+		xy = float(x) * y
 	    print "%03d" % i \
-		+ ": %6d" % frameSizes[i] \
-		+ "; m: %9.2f" % stdevList[i][0] \
-		+ "; s: %9.2f" % stdevList[i][1] \
-		+ "; s(%): " + "% 1.4f" % x
+		+ ": %8d" % frameSizes[i] \
+		+ "; m: %10.2f" % stdevList[i][0] \
+		+ "; m(%): " + "%1.4f" % y \
+		+ "; s: %10.2f" % stdevList[i][1] \
+		+ "; s(%): " + "% 1.4f" % x \
+		+ "; xy: " + "% 1.4f" % xy
 	    i += 1
 
     formatStr = "%0" + str(padding) + "d"
@@ -397,8 +408,8 @@ def printSeq(filename, frameList, args, traversedPath) :
 	    print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
 
         if args.combineErrorFrames :
-            errFrames = missingFrames + zeroFrames + badFrames
-            frameSeq = seqLister.condenseSeq(errFrames)
+	    errFrames = missingFrames + zeroFrames + badFrames
+	    frameSeq = seqLister.condenseSeq(errFrames)
             if (len(frameSeq) > 0) :
                 sys.stdout.write(" e:[")
                 doPrintComma = False

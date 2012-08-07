@@ -1407,12 +1407,12 @@ vvvv
 xxxx
 yyyy
 zzzz
-ccc01.[001-120].exr m:[3], b:[52-55]
+ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
 ./c_subDir:
-ccc01.[001-120].exr m:[3], b:[52-55,95,102]
+ccc01.[001-120].exr m:[3], z:[52-55], b:[95,102]
 
 ------ Test 34 ------ lsseq -1Rb ------
 .:
@@ -1446,12 +1446,12 @@ vvvv
 xxxx
 yyyy
 zzzz
-ccc01.[001-120].exr m:[3], b:[52-55]
+ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
 ./c_subDir:
-ccc01.[001-120].exr m:[3], b:[52-55,95]
+ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 35 ------ lsseq -1RbC ------
 .:
@@ -1461,12 +1461,12 @@ c_subDir	hhhh		nnnn		shake01.02.shk	vvvv
 cccc		iiii		oooo		shake01.03.shk	xxxx
 dddd		jjjj		pppp		shake02.01.shk	yyyy
 eeee		kkkk		qqqq		ssss		zzzz
-ccc01.[001-120].exr m:[3], b:[52-55]
+ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
 ./c_subDir:
-ccc01.[001-120].exr m:[3], b:[52-55,95]
+ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 36 ------ lsseq -Rbx ------
 .:
@@ -1476,12 +1476,12 @@ jjjj		kkkk		llll		mmmm		nnnn
 oooo		pppp		qqqq		rrrr		shake01.01.shk
 shake01.02.shk	shake01.03.shk	shake02.01.shk	ssss		tttt
 uuuu		vvvv		xxxx		yyyy		zzzz
-ccc01.[001-120].exr m:[3], b:[52-55]
+ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
 ./c_subDir:
-ccc01.[001-120].exr m:[3], b:[52-55,95]
+ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 37 ------ lsseq -1CRbx ------
 .:
@@ -1491,15 +1491,15 @@ jjjj		kkkk		llll		mmmm		nnnn
 oooo		pppp		qqqq		rrrr		shake01.01.shk
 shake01.02.shk	shake01.03.shk	shake02.01.shk	ssss		tttt
 uuuu		vvvv		xxxx		yyyy		zzzz
-ccc01.[001-120].exr m:[3], b:[52-55]
+ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
 ./c_subDir:
-ccc01.[001-120].exr m:[3], b:[52-55,95]
+ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 38 ------ lsseq -R -P -p -P -f rv -f glob -fnative -C -b ------
-./ccc01.[001-120].exr m:[3], b:[52-55]
+./ccc01.[001-120].exr m:[3], z:[52-55]
 ./ccc02.[001-120].exr m:[51,119]
 ./ccc03.[80-140].tga 
-./c_subDir/ccc01.[001-120].exr m:[3], b:[52-55,95]
+./c_subDir/ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
