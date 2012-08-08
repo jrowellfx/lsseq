@@ -165,8 +165,11 @@ def rollingAvg(list, window, errFrames, minFrame) :
 		    winLen += 1
 
 	    winLenSq = winLen * winLen
-	    mean = float(runningSum) / winLen
-	    stdev = math.sqrt((runningSumSq/winLen) - ((runningSum * runningSum)/winLenSq))
+	    if winLen == 0 :
+		result.append([0, 1.0])
+	    else :
+		mean = float(runningSum) / winLen
+		stdev = math.sqrt((runningSumSq/winLen) - ((runningSum * runningSum)/winLenSq))
 	    result.append([mean, stdev])
 
 	    j += 1
@@ -328,7 +331,7 @@ def printSeq(filename, frameList, args, traversedPath) :
     if args.showBad > 1 :
 	errFrames = missingFrames + zeroFrames + badFrames
 	errFrames.sort()
-	stdevList = rollingAvg(frameSizes, 2, errFrames, minFrame) # JPR
+	stdevList = rollingAvg(frameSizes, args.badWindow, errFrames, minFrame) # JPR
 
 	i = 0
 	while i < len(frameSizes) :
@@ -339,7 +342,9 @@ def printSeq(filename, frameList, args, traversedPath) :
 		xy = float(x) * y
 
 		levels = args.showBad - 1
-		cutoff = 1.0 - (float(levels) * 0.05)
+		cutoff = 1.0 - (float(levels) * args.badThreshold)
+		if cutoff <= 0.0 :
+		    cutoff = 0.0001
 		if xy > cutoff :
 		    badFrames.append(i+minFrame)
 
@@ -722,7 +727,7 @@ def main():
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="1.902")
+    p.add_argument("--version", action="version", version="2.000")
 
     p.add_argument("--single", "-1", action="store_const",
         dest="by_what", default=BY_UNSPECIFIED, const=BY_SINGLE,
@@ -733,11 +738,32 @@ def main():
 	while omitting implied '.' and '..' directories (see ls(1) --almost-all)")
     p.add_argument("--showBadFrames", "-b", action="count",
         dest="showBad", default=0,
-        help="show list of potentially bad frames based on the \
-	minimum size of a good frame (see --goodFrameMinSize)" )
+        help="A single '-b' lists potentially bad frames based on the \
+	minimum size of a good frame (see --goodFrameMinSize).  Listing the argument \
+	more than once (eg. '-bb') expands the definion of a 'bad frame' to include \
+	frames whose sizes deviate significantly (lower) than a rolling average of frame sizes. \
+	Increasing the number of repetitions of the argument (eg. '-bbbb') loosens the \
+	threshold at which frame sizes are considered 'bad'." )
     p.add_argument("--skipBadFrames", "-B", action="store_const",
         dest="showBad", const=0,
         help="do not show list of potentially bad frames [default]" )
+
+    p.add_argument("--badWindow", action="store", type=int,
+	dest="badWindow", default=2,
+        metavar="WINDOW",
+	help="How many frames ahead, and back to use when calculating the rolling \
+	average of frame sizes for the 'bad frame' calculations.  The default is 2, \
+	in which case the rolling average would be calculated across 5 frames in total, \
+	that is, the current frame plus the two before and the two after.")
+    p.add_argument("--badThreshold", action="store", type=float,
+	dest="badThreshold", default=0.05,
+        metavar="THRESHOLD",
+	help="Sets the threshold value for flagging bad frames based on \
+	the rolling average of frames sizes.  The default is 0.05, and increasing \
+	the number of '-b' arguments multipicativly increases this threshold, eg. \
+	'-bbbb' has the effect of making the threshold be 0.15 for the 'bad frame' \
+	calulations.")
+
     p.add_argument("--combineLists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
         help="Combine the lists of zero, missing and bad frames into one list.")
@@ -843,6 +869,16 @@ def main():
         help="file names")
 
     args = p.parse_args()
+
+    if args.badWindow < 1 :
+	print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+	    ": error : the badWindow argument must be a positive integer."
+        sys.exit(1)
+
+    if args.badThreshold <= 0.0 or args.badThreshold >= 1.0 :
+	print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+	    ": error : the badThreshold argument must be a number greater than zero and less than one."
+        sys.exit(1)
 
     tmpExt = os.getenv("OIC_IMAGE_EXTENSION")
     if tmpExt != None and tmpExt != "" :
