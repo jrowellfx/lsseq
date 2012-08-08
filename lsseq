@@ -119,21 +119,38 @@ def rollingAvg(list, window, errFrames) :
 	    # List is so short that window extends beyond 
 	    # or touches the end already.
 	    end = list_len - 1
-	    touchEnd = True
 	winLen = end + 1
-	winLenSq = winLen * winLen
+
 	runningSum = 0
 	runningSumSq = 0
 	i = 0
+	if len(errFrames) > 0 :
+	    ignore = errFrames.pop(0)
+	else :
+	    ignore = -1
 	while i <= end :
-	    runningSum += list[i]
-	    runningSumSq += listSquared[i]
+	    if i == ignore :
+		if len(errFrames) > 0 :
+		    ignore = errFrames.pop(0)
+		else :
+		    ignore = -1
+		winLen -= 1
+	    else :
+		runningSum += list[i]
+		runningSumSq += listSquared[i]
 	    i += 1
-	mean = float(runningSum) / winLen
-	stdev = math.sqrt((float(runningSumSq)/winLen) \
-	    - (float(runningSum * runningSum)/winLenSq))
-	result.append([mean, stdev])
+	winLenSq = winLen * winLen
 
+	if winLen > 0 :
+	    result.append([0, 0])
+	else :
+	    mean = float(runningSum) / winLen
+	    stdev = math.sqrt((float(runningSumSq)/winLen) \
+		- (float(runningSum * runningSum)/winLenSq))
+	    result.append([mean, stdev])
+
+	# JPR - increment/decrement winLen - don't recalc.
+	# rewrite below to fix this...
 	j = 1
 	while j < list_len :
 	    start = j - window
