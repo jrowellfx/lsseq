@@ -91,7 +91,7 @@ LOOSE_SEP = "_"
 # stats util for helping determine "bad" frames based on file sizes
 # deviation from a rolling avg of frame sizes.
 #
-def rollingAvg(list, window, errFrames) :
+def rollingAvg(list, window, errFrames, minFrame) :
 
     # window must be a positive integer.
     assert window > 0
@@ -109,9 +109,13 @@ def rollingAvg(list, window, errFrames) :
     else :
 	i = 0
 	listSquared = []
+	ignore = []
 	while i < list_len :
 	    listSquared.append(list[i] * list[i])
+	    ignore.append(False)
 	    i += 1
+	for i in errFrames :
+	    ignore[i-minFrame] = True
 
 	start = 0
 	end = window
@@ -124,16 +128,8 @@ def rollingAvg(list, window, errFrames) :
 	runningSum = 0
 	runningSumSq = 0
 	i = 0
-	if len(errFrames) > 0 :
-	    ignore = errFrames.pop(0)
-	else :
-	    ignore = -1
 	while i <= end :
-	    if i == ignore :
-		if len(errFrames) > 0 :
-		    ignore = errFrames.pop(0)
-		else :
-		    ignore = -1
+	    if ignore[i] :
 		winLen -= 1
 	    else :
 		runningSum += list[i]
@@ -141,7 +137,7 @@ def rollingAvg(list, window, errFrames) :
 	    i += 1
 	winLenSq = winLen * winLen
 
-	if winLen > 0 :
+	if winLen == 0 :
 	    result.append([0, 0])
 	else :
 	    mean = float(runningSum) / winLen
@@ -149,23 +145,25 @@ def rollingAvg(list, window, errFrames) :
 		- (float(runningSum * runningSum)/winLenSq))
 	    result.append([mean, stdev])
 
-	# JPR - increment/decrement winLen - don't recalc.
-	# rewrite below to fix this...
 	j = 1
 	while j < list_len :
 	    start = j - window
 	    if start <= 0 :
 		start = 0
 	    else :
-		runningSum -= list[start-1]
-		runningSumSq -= listSquared[start-1]
+		if not ignore[start-1] :
+		    runningSum -= list[start-1]
+		    runningSumSq -= listSquared[start-1]
+		    winLen -= 1
 	    end = j + window
 	    if end >= list_len:
 		end = list_len -1
 	    else :
-		runningSum += list[end]
-		runningSumSq += listSquared[end]
-	    winLen = end - start + 1
+		if not ignore[end] :
+		    runningSum += list[end]
+		    runningSumSq += listSquared[end]
+		    winLen += 1
+
 	    winLenSq = winLen * winLen
 	    mean = float(runningSum) / winLen
 	    stdev = math.sqrt((runningSumSq/winLen) - ((runningSum * runningSum)/winLenSq))
@@ -326,26 +324,40 @@ def printSeq(filename, frameList, args, traversedPath) :
 		zeroFrames.append(i)
         i = i + 1
 
+    errFrames = []
     if args.showBad > 1 :
 	errFrames = missingFrames + zeroFrames + badFrames
 	errFrames.sort()
-	stdevList = rollingAvg(frameSizes, 2, errFrames) # JPR
+	stdevList = rollingAvg(frameSizes, 2, errFrames, minFrame) # JPR
+
 	i = 0
 	while i < len(frameSizes) :
-	    x = 0
-	    y = 0
-	    xy = 0
-	    if stdevList[i][1] > 0 :
+	    if frameSizes[i] >= args.goodFrameMinSize and frameSizes[i] < stdevList[i][0] :
+		assert(stdevList[i][1] > 0)
 		x = (stdevList[i][0] - frameSizes[i])/float(stdevList[i][1])
 		y = stdevList[i][1]/float(stdevList[i][0])
 		xy = float(x) * y
-	    print "%03d" % i \
-		+ ": %8d" % frameSizes[i] \
-		+ "; m: %10.2f" % stdevList[i][0] \
-		+ "; m(%): " + "%1.4f" % y \
-		+ "; s: %10.2f" % stdevList[i][1] \
-		+ "; s(%): " + "% 1.4f" % x \
-		+ "; xy: " + "% 1.4f" % xy
+
+		levels = args.showBad - 1
+		cutoff = 1.0 - (float(levels) * 0.05)
+		if xy > cutoff :
+		    badFrames.append(i+minFrame)
+
+	    if False : # Turn on for debugging stats info
+		x = 0
+		y = 0
+		xy = 0
+		if stdevList[i][1] > 0 :
+		    x = (stdevList[i][0] - frameSizes[i])/float(stdevList[i][1])
+		    y = stdevList[i][1]/float(stdevList[i][0])
+		    xy = float(x) * y
+		print "%03d" % i \
+		    + ": %8d" % frameSizes[i] \
+		    + "; m: %10.2f" % stdevList[i][0] \
+		    + "; m(%): " + "%1.4f" % y \
+		    + "; s: %10.2f" % stdevList[i][1] \
+		    + "; s(%): " + "% 1.4f" % x \
+		    + "; xy: " + "% 1.4f" % xy
 	    i += 1
 
     formatStr = "%0" + str(padding) + "d"
@@ -425,7 +437,8 @@ def printSeq(filename, frameList, args, traversedPath) :
 	    print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
 
         if args.combineErrorFrames :
-	    errFrames = missingFrames + zeroFrames + badFrames
+	    if not args.showBad > 1 : #  Save this step, already done.
+		errFrames = missingFrames + zeroFrames + badFrames
 	    frameSeq = seqLister.condenseSeq(errFrames)
             if (len(frameSeq) > 0) :
                 sys.stdout.write(" e:[")
