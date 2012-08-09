@@ -178,7 +178,7 @@ def rollingAvg(list, window, errFrames, minFrame) :
 
 
 def isFrameNum(f) :
-	return f.isdigit() or (f[0] == '-' and f[1:].isdigit())
+	return (f != '') and (f.isdigit() or (f[0] == '-' and f[1:].isdigit()))
 
 
 def readByteShortForm(bytes) :
@@ -331,7 +331,7 @@ def printSeq(filename, frameList, args, traversedPath) :
     if args.showBad > 1 :
 	errFrames = missingFrames + zeroFrames + badFrames
 	errFrames.sort()
-	stdevList = rollingAvg(frameSizes, args.badWindow, errFrames, minFrame) # JPR
+	stdevList = rollingAvg(frameSizes, args.badWindow, errFrames, minFrame)
 
 	i = 0
 	while i < len(frameSizes) :
@@ -348,7 +348,7 @@ def printSeq(filename, frameList, args, traversedPath) :
 		if xy > cutoff :
 		    badFrames.append(i+minFrame)
 
-	    if False : # Turn on for debugging stats info
+	    if False : # Turn on for debugging stats info JPR
 		x = 0
 		y = 0
 		xy = 0
@@ -356,7 +356,7 @@ def printSeq(filename, frameList, args, traversedPath) :
 		    x = (stdevList[i][0] - frameSizes[i])/float(stdevList[i][1])
 		    y = stdevList[i][1]/float(stdevList[i][0])
 		    xy = float(x) * y
-		print "%03d" % i \
+		print "%05d" % int(i+minFrame) \
 		    + ": %8d" % frameSizes[i] \
 		    + "; m: %10.2f" % stdevList[i][0] \
 		    + "; m(%): " + "%1.4f" % y \
