@@ -114,6 +114,7 @@ def rollingAvg(list, window, errFrames, minFrame) :
 	    listSquared.append(list[i] * list[i])
 	    ignore.append(False)
 	    i += 1
+
 	for i in errFrames :
 	    ignore[i-minFrame] = True
 
@@ -166,11 +167,11 @@ def rollingAvg(list, window, errFrames, minFrame) :
 
 	    winLenSq = winLen * winLen
 	    if winLen == 0 :
-		result.append([0, 1.0])
+		result.append([0, 0])
 	    else :
 		mean = float(runningSum) / winLen
 		stdev = math.sqrt((runningSumSq/winLen) - ((runningSum * runningSum)/winLenSq))
-	    result.append([mean, stdev])
+		result.append([mean, stdev])
 
 	    j += 1
 
@@ -336,10 +337,12 @@ def printSeq(filename, frameList, args, traversedPath) :
 	i = 0
 	while i < len(frameSizes) :
 	    if frameSizes[i] >= args.goodFrameMinSize and frameSizes[i] < stdevList[i][0] :
-		assert(stdevList[i][1] > 0)
-		x = (stdevList[i][0] - frameSizes[i])/float(stdevList[i][1])
-		y = stdevList[i][1]/float(stdevList[i][0])
-		xy = float(x) * y
+		if stdevList[i][1] != 0 and stdevList[i][0] != 0 :
+		    x = (stdevList[i][0] - frameSizes[i])/float(stdevList[i][1])
+		    y = stdevList[i][1]/float(stdevList[i][0])
+		    xy = float(x) * y
+		else :
+		    xy = 0.0
 
 		levels = args.showBad - 1
 		cutoff = 1.0 - (float(levels) * args.badThreshold)
@@ -352,7 +355,7 @@ def printSeq(filename, frameList, args, traversedPath) :
 		x = 0
 		y = 0
 		xy = 0
-		if stdevList[i][1] > 0 :
+		if stdevList[i][1] != 0 and stdevList[i][0] != 0 :
 		    x = (stdevList[i][0] - frameSizes[i])/float(stdevList[i][1])
 		    y = stdevList[i][1]/float(stdevList[i][0])
 		    xy = float(x) * y
