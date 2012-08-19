@@ -48,6 +48,13 @@ This is a simple task:
 $ tar -xvf argparse-1.2.1.tar.gz
 $ cd argparse-1.2.1
 $ sudo python setup.py install
+
+(Note may get error like: ImportError: No module named setuptools
+on CentOS05 - with python v 2.4.  So, need to install setuptools.
+download - setuptools-0.6c11-py2.4.egg 
+and then
+# sh setuptools-0.6c11-py2.4.egg
+...to install it
 .fi
 .in -2
 
