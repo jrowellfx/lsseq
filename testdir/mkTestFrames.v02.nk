@@ -1,0 +1,461 @@
+#! /usr/local/Nuke6.2v4/Nuke6.2 -nx
+version 6.2 v4
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-4" y="0" w="1928" h="1171" screen="0">
+        <splitter orientation="2">
+            <split size="58"></split>
+            <splitter orientation="1">
+                <split size="1920"></split>
+                <dock id="" activePageId="Toolbar_DAG_Legacy_Left.1">
+                    <page id="Toolbar_DAG_Legacy_Top.1"></page>
+                    <page id="Toolbar_DAG_Legacy_Left.1"></page>
+                </dock>
+            </splitter>
+            <split size="1052"></split>
+            <splitter orientation="1">
+                <split size="641"></split>
+                <splitter orientation="2">
+                    <split size="659"></split>
+                    <dock id="" activePageId="Viewer.1">
+                        <page id="Viewer.1"></page>
+                    </dock>
+                    <split size="389"></split>
+                    <dock id="" activePageId="Properties.1">
+                        <page id="Properties.1"></page>
+                    </dock>
+                </splitter>
+                <split size="1275"></split>
+                <splitter orientation="1">
+                    <split size="1253"></split>
+                    <dock id="" activePageId="DAG.1">
+                        <page id="DAG.1"></page>
+                    </dock>
+                    <split size="18"></split>
+                    <dock id="" hideTitles="1"></dock>
+                </splitter>
+            </splitter>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /home/jrowell/git/lsseq/testdir/mkTestFrames.v02.nk
+ frame 99
+ format "192 108 0 0 192 108 1 HD_10"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ monitorLut rec709
+ int8Lut Cineon
+ int16Lut Cineon
+ addUserKnob {20 RFX}
+ addUserKnob {1 script_type}
+ script_type misc
+}
+CheckerBoard2 {
+ inputs 0
+ boxsize 11
+ name CheckerBoard1
+ xpos -15
+ ypos -342
+}
+set N6a5ef00 [stack 0]
+Grade {
+ white {0 0.400000006 0.03270988539 0.400000006}
+ maskChannelMask none
+ name Grade4
+ xpos 187
+ ypos -228
+}
+Constant {
+ inputs 0
+ channels rgb
+ name Constant1
+ xpos -281
+ ypos -290
+}
+Text {
+ maskChannelMask none
+ message "\[frame]"
+ font /usr/share/X11/fonts/TTF/arial.ttf
+ size 80
+ xjustify center
+ yjustify center
+ Transform 1
+ box {0 0 192 108}
+ center {96 54}
+ name Text1
+ xpos -281
+ ypos -171
+}
+set N76a3ca0 [stack 0]
+Dot {
+ name Dot1
+ xpos -247
+ ypos 29
+}
+push $N76a3ca0
+Transform {
+ translate {3 -5}
+ center {96 54}
+ name Transform1
+ xpos -148
+ ypos -171
+}
+Erode {
+ size -3
+ maskChannelMask none
+ name Erode1
+ xpos -148
+ ypos -143
+}
+Shuffle {
+ red alpha
+ green alpha
+ blue alpha
+ name Shuffle1
+ xpos -148
+ ypos -101
+}
+Blur {
+ size 6
+ name Blur1
+ xpos -148
+ ypos -11
+}
+Constant {
+ inputs 0
+ channels rgb
+ format "2048 2048 0 0 2048 2048 1 square_2K"
+ name Constant2
+ xpos 556
+ ypos -911
+}
+Radial {
+ area {{2048 i x99 1450} {2048 i x99 1240} 0 0}
+ softness 0
+ name Radial1
+ tile_color 0xc0c0c000
+ xpos 556
+ ypos -788
+}
+Crop {
+ box {0 0 2048 2048}
+ reformat true
+ crop false
+ name Crop1
+ tile_color 0xa57aaa00
+ xpos 654
+ ypos -694
+}
+set N47dd570 [stack 0]
+Expression {
+ temp_name0 h
+ temp_expr0 atan2(cy,cx)/pi*3/2
+ temp_name1 S
+ temp_expr1 sqrt(sqrt(cx*cx+cy*cy))
+ expr0 lerp(1,clamp(min(h+1,1-h)),S)
+ expr1 lerp(1,clamp(max(min(h,2-h),-h-1)),S)
+ expr2 lerp(1,clamp(max(min(-h,2+h),h-1)),S)
+ name Expression1
+ label "that should be getting vectors\n\nhere is my problem of not knowing\nhow to get the x, y pos into a vector that nuke \nunderstands"
+ xpos 809
+ ypos -647
+}
+push $N47dd570
+Merge {
+ inputs 2
+ operation in
+ name Merge2
+ tile_color 0x4b5ec600
+ xpos 654
+ ypos -569
+}
+Transform {
+ translate {{root.width/2-center.x i} {root.height/2-center.y i}}
+ scale {{root.height/Radial1.area.y i}}
+ center {1024 1024}
+ name Transform2
+ tile_color 0xa57aaa00
+ xpos 618
+ ypos -507
+}
+Reformat {
+ resize none
+ center false
+ name Reformat1
+ xpos 618
+ ypos -467
+}
+Transform {
+ scale 1.7
+ center {96 54}
+ name Transform3
+ xpos 618
+ ypos -418
+}
+Blur {
+ size 11
+ name Blur3
+ xpos 618
+ ypos -390
+}
+Mirror {
+ Vertical true
+ name Mirror1
+ xpos 618
+ ypos -348
+}
+Rectangle {
+ inputs 0
+ area {{root.width i} {root.height i} 0 0}
+ color 0.5
+ name Rectangle1
+ tile_color 0xc0c0c000
+ xpos 493
+ ypos -549
+ hide_input true
+}
+Grade {
+ white 0.1
+ maskChannelMask none
+ name Grade5
+ xpos 493
+ ypos -521
+}
+Merge {
+ inputs 2
+ name Merge3
+ tile_color 0x4b5ec600
+ xpos 586
+ ypos -215
+}
+Grade {
+ inputs 1+1
+ white 0.1
+ maskChannelMask rgba.red
+ name Grade2
+ xpos -15
+ ypos -4
+}
+Merge2 {
+ inputs 2
+ maskChannelMask none
+ name Merge1
+ xpos -15
+ ypos 24
+}
+set N4947db0 [stack 0]
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/testDirFile.%03d.exr
+ file_type exr
+ version 1
+ name Write1
+ xpos -1351
+ ypos 435
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/xxx.%03d.exr
+ file_type exr
+ version 2
+ name Write2
+ xpos -1211
+ ypos 463
+ disable true
+}
+push $N6a5ef00
+Grade {
+ white 0.4
+ maskChannelMask none
+ name Grade1
+ xpos -15
+ ypos -226
+}
+push $N6a5ef00
+Grade {
+ white {0.400000006 0.001810288406 0 0.400000006}
+ maskChannelMask none
+ name Grade3
+ xpos 90
+ ypos -230
+}
+ColorBars {
+ inputs 0
+ name ColorBars1
+ xpos 324
+ ypos -410
+}
+Blur {
+ size 8
+ name Blur2
+ xpos 324
+ ypos -336
+}
+Invert {
+ maskChannelMask none
+ name Invert1
+ xpos 324
+ ypos -294
+ disable true
+}
+Grade {
+ white 0.2
+ maskChannelMask none
+ name Grade6
+ xpos 324
+ ypos -246
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/yyy.%04d.tif
+ file_type tiff
+ compression LZW
+ checkHashOnRead false
+ version 4
+ name Write3
+ xpos -1066
+ ypos 488
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/bdir/b_subdir/bbb.02.%03d.tif
+ colorspace sRGB
+ file_type tiff
+ compression LZW
+ checkHashOnRead false
+ version 3
+ name Write6
+ xpos -845
+ ypos 596
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/bdir/bbb.02.%03d.tif
+ colorspace sRGB
+ file_type tiff
+ compression LZW
+ checkHashOnRead false
+ version 2
+ name Write5
+ xpos -703
+ ypos 586
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/cdir/ccc02.%03d.exr
+ colorspace sRGB
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 3
+ name Write8
+ xpos -274
+ ypos 609
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/cdir/ccc03.%02d.tga
+ colorspace sRGB
+ file_type targa
+ checkHashOnRead false
+ version 3
+ name Write9
+ xpos -150
+ ypos 614
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/cdir/ccc01.%03d.exr
+ colorspace sRGB
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 3
+ name Write7
+ xpos -389
+ ypos 608
+ disable true
+}
+Viewer {
+ input_process false
+ name Viewer1
+ xpos -144
+ ypos 1178
+}
+push $N4947db0
+Write {
+ file /home/jrowell/git/lsseq/testdir/bdir/bbb.01.%03d.exr
+ file_type exr
+ version 2
+ name Write4
+ xpos -560
+ ypos 604
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/cdir/c_subDir/ccc01.%03d.exr
+ colorspace sRGB
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 4
+ name Write10
+ xpos -15
+ ypos 615
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/ddir/dddA.%04d.exr
+ colorspace sRGB
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 5
+ name Write11
+ xpos 173
+ ypos 705
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/ddir/dddB.%01d.exr
+ colorspace sRGB
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 6
+ name Write12
+ xpos 325
+ ypos 705
+ disable true
+}
+push $N4947db0
+Write {
+ channels rgba
+ file /home/jrowell/git/lsseq/testdir/ddir/dddC.%01d.exr
+ colorspace sRGB
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 7
+ name Write13
+ xpos 476
+ ypos 707
+ disable true
+}

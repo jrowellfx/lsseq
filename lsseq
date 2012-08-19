@@ -45,6 +45,7 @@ import sys
 import subprocess
 import seqLister
 import textwrap
+import math
 from operator import itemgetter
 
 MOV_EXT = ["avi", "mov", "mp4", "mpg", "wmv"]
@@ -54,38 +55,195 @@ IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
     "pct1", "pct2", "pdb", "pdd", "pic", "pict", "pix", "png",
     "psb", "psd", "raw", "rgb", "rgba", "rle", "rw2", "sgi", "tga",
     "tif", "tiff", "tpic"]
+
+PATH_UNSPECIFIED = 0
 PATH_ABS = 1
 PATH_REL = 2
+
 LIST_ALLFILES = 0
 LIST_ONLYSEQS = 1 # Images and movies.
 LIST_ONLYIMGS = 2 # Strictly images.
+
+BY_UNSPECIFIED = 0
+BY_SINGLE = 1
+BY_COLUMNS = 2
+BY_ROWS = 3
+
+# Given that we are not allowing "no separator" between the
+# descriptive filename and the frame number, then the only
+# other character besides "." (dot) that makes sense to have as a 
+# separator is "_" (underscore).
+#
+# Clearly we should not allow alphanumeric characters as separators,
+# NOR unix/linux/windows shell special characters NOR minus ("-")
+# NOR space (" ").  That potentially leaves us with only "_", "+",
+# "^" and "~".  Tilde has associations with tmp/crufty files or user
+# home directories and his unlikely to ever be used as a separator
+# character.  "+" and "^" are potentially usable in as separators
+# but unlikely to be used so the effort to generalize the mechanism
+# to support the "loose" separator to a list is not worth the effort.
+# Thus "loose" is only defined as the use of "_" over and above the
+# far more desirable strict case of only allowing ".".
+#
+LOOSE_SEP = "_"
+
+
+# stats util for helping determine "bad" frames based on file sizes
+# deviation from a rolling avg of frame sizes.
+#
+def rollingAvg(list, window, errFrames, minFrame) :
+
+    # window must be a positive integer.
+    assert window > 0
+
+    # The rolling avg is (list[i-window] + ... + list[i+window])/window
+    # i.e.; the actual window size is (2*window + 1) in length.
+
+    result = [] # List of [ [rollingAvg, stddev], ... ]
+    list_len = len(list)
+    if list_len == 0 :
+	return result
+    elif list_len == 1 :
+	result.append([list[0], 0])
+	return result
+    else :
+	i = 0
+	listSquared = []
+	ignore = []
+	while i < list_len :
+	    listSquared.append(list[i] * list[i])
+	    ignore.append(False)
+	    i += 1
+
+	for i in errFrames :
+	    ignore[i-minFrame] = True
+
+	start = 0
+	end = window
+	if end >= list_len - 1 :
+	    # List is so short that window extends beyond 
+	    # or touches the end already.
+	    end = list_len - 1
+	winLen = end + 1
+
+	runningSum = 0
+	runningSumSq = 0
+	i = 0
+	while i <= end :
+	    if ignore[i] :
+		winLen -= 1
+	    else :
+		runningSum += list[i]
+		runningSumSq += listSquared[i]
+	    i += 1
+	winLenSq = winLen * winLen
+
+	if winLen == 0 :
+	    result.append([0, 0])
+	else :
+	    mean = float(runningSum) / winLen
+	    stdev = math.sqrt((float(runningSumSq)/winLen) \
+		- (float(runningSum * runningSum)/winLenSq))
+	    result.append([mean, stdev])
+
+	j = 1
+	while j < list_len :
+	    start = j - window
+	    if start <= 0 :
+		start = 0
+	    else :
+		if not ignore[start-1] :
+		    runningSum -= list[start-1]
+		    runningSumSq -= listSquared[start-1]
+		    winLen -= 1
+	    end = j + window
+	    if end >= list_len:
+		end = list_len -1
+	    else :
+		if not ignore[end] :
+		    runningSum += list[end]
+		    runningSumSq += listSquared[end]
+		    winLen += 1
+
+	    winLenSq = winLen * winLen
+	    if winLen == 0 :
+		result.append([0, 0])
+	    else :
+		mean = float(runningSum) / winLen
+		stdev = math.sqrt((runningSumSq/winLen) - ((runningSum * runningSum)/winLenSq))
+		result.append([mean, stdev])
+
+	    j += 1
+
+	return result
+
+
+def isFrameNum(f) :
+	return (f != '') and (f.isdigit() or (f[0] == '-' and f[1:].isdigit()))
+
+
+def readByteShortForm(bytes) :
+    multiplier = 1
+    if bytes[-1] == 'K' or bytes[-1] == 'k' :
+	multiplier = 1<<10L
+	bytes = bytes[:-1]
+    elif bytes[-1] == 'M' or bytes[-1] == 'm' :
+	multiplier = 1<<20L
+	bytes = bytes[:-1]
+    elif bytes[-1] == 'G' or bytes[-1] == 'g' :
+	multiplier = 1<<30L
+	bytes = bytes[:-1]
+
+    try :
+	b = float(bytes)
+	if b <= 0 :
+	    return 512
+	else :
+	    return int(math.ceil(b*multiplier)) # Will always be at least 1.
+    except ValueError :
+	msg = "%r is not a valid byte size" % bytes
+	raise argparse.ArgumentTypeError(msg)
 
 
 # Return two components if "filename" is formatted like a file in an
 # image sequence otherwise return an empty list.  The two returned
 # components are the full filename but missing the frame number,
 # and the frame number (with its existing padding if any).
-#     Eg.  "a.b.c.001.exr" -> ["a.b.c.exr", "001"]
+#     Eg.  "a.b.c.001.exr" -> ["a.b.c..exr", "001"]
+#          "a.b.c_001.exr" -> ["a.b.c_.exr", "001"]
 #
-def seqSplit(filename) :
+def seqSplit(filename, args) :
 
     global IMAGE_EXT
+    global LOOSE_SEP
     fileComponents = filename.split(".")
 
-    if (len(fileComponents) > 2
-            and IMAGE_EXT.count(fileComponents[-1]) >= 1
-            and (fileComponents[-2].isdigit()
-                 or (fileComponents[-2][0] == '-'
-                 and fileComponents[-2][1:].isdigit())
-                )
-        ) :
+    # Test if image.
+    #
+    if len(fileComponents) > 1 and (fileComponents[-1] in IMAGE_EXT) :
 
-        fileFrameNum = fileComponents[-2]
-        fileComponents.remove(fileFrameNum)
-        fileKey = ".".join(fileComponents)
-        return [fileKey, fileFrameNum]
-    else :
-        return []
+	if not args.strictSeparator :
+	    looseFileComponents = fileComponents[-2].split("_")
+	    if len(looseFileComponents) > 1 :
+		if isFrameNum(looseFileComponents[-1]) :
+
+		    fileFrameNum = looseFileComponents[-1]
+		    looseFileComponents.pop(-1)
+		    looseFileComponents[-1] = looseFileComponents[-1] + "_"
+		    looseFileKey = "_".join(looseFileComponents)
+		    fileComponents[-2] = looseFileKey
+		    fileKey = ".".join(fileComponents)
+		    return [fileKey, fileFrameNum]
+
+	if len(fileComponents) > 2 and isFrameNum(fileComponents[-2]) :
+
+	    fileFrameNum = fileComponents[-2]
+	    fileComponents.pop(-2)
+	    fileComponents[-2] = fileComponents[-2] + "."
+	    fileKey = ".".join(fileComponents)
+	    return [fileKey, fileFrameNum]
+
+    return []
 
 
 # Return true if and only if filename is a movie file.
@@ -98,21 +256,38 @@ def isMovie(filename) :
         and MOV_EXT.count(fileComponents[-1]) >= 1
 
 
+# Split the filename key into (<imagename>, "", <ext>)
+# (empty placeholder for framenum)
+#
+def splitImageName(filename) :
+    numSep = "."
+    fileComponents = filename.split(".")
+    if fileComponents[-2] == '' :
+	fileComponents.pop(-2)
+    else :
+	numSep = fileComponents[-2][-1] # i.e.; "_"
+	fileComponents[-2] = fileComponents[-2][:-1]
+
+    fileExt = fileComponents.pop(-1)
+    fileRoot = ".".join(fileComponents) + numSep
+    return [fileRoot, "", fileExt]
+
 # Reconstruct the imagename with the frame number.
 #
 def actualImageName(filename, padding, frame) :
-    fileComponents = filename.split(".")
+    fileParts = splitImageName(filename)
     formatStr = "{0:0=-" + str(padding) + "d}"
-    fileComponents = fileComponents[:-1] + \
-        [formatStr.format(frame)] + [fileComponents[-1]]
-    return ".".join(fileComponents)
+    return fileParts[0] + formatStr.format(frame) + "." + fileParts[2]
 
 
 def printSeq(filename, frameList, args, traversedPath) :
 
-    fileComponents = filename.split(".")
+    fileComponents = splitImageName(filename)
+
     missingFrames = []
     zeroFrames = []
+    badFrames = []
+    frameSizes = []
     minFrame = frameList[1][0][0]
     maxFrame = frameList[1][-1][0]
     padding = frameList[0]
@@ -122,20 +297,76 @@ def printSeq(filename, frameList, args, traversedPath) :
         currFrameData = frameList[1][0]
         if i != currFrameData[0] : # frame number
             iMissing = True
+	    if args.showBad > 1 :
+		frameSizes.append(0)
             if args.showMissing :
                 missingFrames.append(i)
         else :
             frameList[1].pop(0)
+	    if args.showBad > 1 :
+		# if this file is a broken soft link '-1' was stashed as mtime
+		if currFrameData[2] == -1 :
+		    frameSizes.append(0)
+		else :
+		    frameSizes.append(currFrameData[1])
         if (not iMissing and args.showZero) :
             # if this file is a broken soft link '-1' was stashed as mtime
             if currFrameData[2] == -1 : # mtime
-                zeroFrames.append(i)
+		if args.showZero :
+		    zeroFrames.append(i)
+		elif args.showBad > 0 :
+		    badFrames.append(i)
                 actualFilename = actualImageName(filename, padding, i)
                 print >> sys.stderr, os.path.basename(sys.argv[0]) + \
                     ": warning: " + actualFilename + " is a broken soft link."
-            elif currFrameData[1] == 0 : # file size
-                zeroFrames.append(i)
+	    # file size
+            elif args.showZero and currFrameData[1] == 0 :
+		zeroFrames.append(i)
+            elif (args.showBad > 0) and (currFrameData[1] < args.goodFrameMinSize) :
+                badFrames.append(i)
+            elif currFrameData[1] == 0 :
+		zeroFrames.append(i)
         i = i + 1
+
+    errFrames = []
+    if args.showBad > 1 :
+	errFrames = missingFrames + zeroFrames + badFrames
+	errFrames.sort()
+	stdevList = rollingAvg(frameSizes, args.badWindow, errFrames, minFrame)
+
+	i = 0
+	while i < len(frameSizes) :
+	    if frameSizes[i] >= args.goodFrameMinSize and frameSizes[i] < stdevList[i][0] :
+		if stdevList[i][1] != 0 and stdevList[i][0] != 0 :
+		    x = (stdevList[i][0] - frameSizes[i])/float(stdevList[i][1])
+		    y = stdevList[i][1]/float(stdevList[i][0])
+		    xy = float(x) * y
+		else :
+		    xy = 0.0
+
+		levels = args.showBad - 1
+		cutoff = 1.0 - (float(levels) * args.badThreshold)
+		if cutoff <= 0.0 :
+		    cutoff = 0.0001
+		if xy > cutoff :
+		    badFrames.append(i+minFrame)
+
+	    if False : # Turn on for debugging stats info JPR
+		x = 0
+		y = 0
+		xy = 0
+		if stdevList[i][1] != 0 and stdevList[i][0] != 0 :
+		    x = (stdevList[i][0] - frameSizes[i])/float(stdevList[i][1])
+		    y = stdevList[i][1]/float(stdevList[i][0])
+		    xy = float(x) * y
+		print "%05d" % int(i+minFrame) \
+		    + ": %8d" % frameSizes[i] \
+		    + "; m: %10.2f" % stdevList[i][0] \
+		    + "; m(%): " + "%1.4f" % y \
+		    + "; s: %10.2f" % stdevList[i][1] \
+		    + "; s(%): " + "% 1.4f" % x \
+		    + "; xy: " + "% 1.4f" % xy
+	    i += 1
 
     formatStr = "%0" + str(padding) + "d"
     if minFrame != maxFrame :
@@ -157,38 +388,68 @@ def printSeq(filename, frameList, args, traversedPath) :
             frameRange = "[" \
                 + (formatStr % minFrame) \
                 + "]"
-    fileComponents = fileComponents[:-1] + [frameRange] + [fileComponents[-1]]
+    fileComponents[1] = frameRange
 
     if args.seqFormat == 'nuke' :
-        fileComponents[-2] = "%0" + str(padding) + "d"
+	if minFrame == maxFrame :
+	    fileComponents[1] = (formatStr % minFrame)
+	else :
+	    fileComponents[1] = "%0" + str(padding) + "d"
         if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
-        print ".".join(fileComponents),
-        print str(minFrame) + "-" + str(maxFrame)
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
+	if minFrame == maxFrame :
+	    print ""
+	else :
+	    print str(minFrame) + "-" + str(maxFrame)
+
     elif args.seqFormat == 'shake' :
-        fileComponents[-2] = "#"
-        print "shake -t", str(minFrame) + "-" + str(maxFrame),
+	if minFrame == maxFrame :
+	    fileComponents[1] = (formatStr % minFrame)
+	    print "shake ",
+	else :
+	    if padding == 4 :
+		fileComponents[1] = "#"
+	    else :
+		fileComponents[1] = "@"*padding
+	    print "shake -t", str(minFrame) + "-" + str(maxFrame) + " ",
         if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
-        print ".".join(fileComponents)
-    else :
+	else :
+            sys.stdout.write("")
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
+
+    elif args.seqFormat == 'glob' :
+	if minFrame < 0 :
+	    fileComponents[1] = "[\-0-9]"
+	else :
+	    fileComponents[1] = "[0-9]"
+	if (padding > 1) :
+	    fileComponents[1] = fileComponents[1] + "[0-9]"*(padding-1)
+
+        if args.prependPath > 0 :
+            sys.stdout.write(traversedPath)
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
+
+    else : # native and rv
         if args.prependPath > 0 :
             sys.stdout.write(traversedPath)
         if args.extremes :
-            fileComponents[-2] = formatStr % minFrame
+            fileComponents[1] = formatStr % minFrame
 
-        print ".".join(fileComponents),
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
         if minFrame != maxFrame and args.extremes :
             print ""
             sys.stdout.write(traversedPath)
-            fileComponents[-2] = formatStr % maxFrame
-            print ".".join(fileComponents),
+            fileComponents[1] = formatStr % maxFrame
+	    print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
 
         if args.combineErrorFrames :
-            errFrames = missingFrames + zeroFrames
-            frameSeq = seqLister.condenseSeq(errFrames)
+	    if not args.showBad > 1 : #  Save this step, already done.
+		errFrames = missingFrames + zeroFrames + badFrames
+	    frameSeq = seqLister.condenseSeq(errFrames)
             if (len(frameSeq) > 0) :
-                sys.stdout.write(" [")
+                sys.stdout.write(" e:[")
                 doPrintComma = False
                 for f in frameSeq :
                     if doPrintComma :
@@ -220,6 +481,18 @@ def printSeq(filename, frameList, args, traversedPath) :
                     sys.stdout.write(f)
                     doPrintComma = True
                 sys.stdout.write("]")
+            badFrameSeq = seqLister.condenseSeq(badFrames)
+            if (len(badFrameSeq) > 0) :
+                if (len(missingFrameSeq) > 0) or (len(zeroFrameSeq) > 0) :
+                    sys.stdout.write(",")
+                sys.stdout.write(" b:[")
+                doPrintComma = False
+                for f in badFrameSeq :
+                    if doPrintComma :
+                        sys.stdout.write(",")
+                    sys.stdout.write(f)
+                    doPrintComma = True
+                sys.stdout.write("]")
             print ""
 
 
@@ -243,9 +516,10 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         tmpCWD = os.path.abspath(".")
         os.chdir(path)
 
-    # The 'imageDictionary' has <imageName>.<ext> (no frame number) as
-    # the key for each entry. Each entry is a two item list containing
-    # a number and a list of three-tuples, namely:
+    # The 'imageDictionary' has <imageName>..<ext> (or <imageName>_.<ext>)
+    # (i.e.; name without the frame number) as the key for each entry.
+    # Each entry is a two item list containing a number and a list
+    # of three-tuples, namely:
     #     [ <framePadding>, [ (frameNum, fileSize, mtime), ... ] ]
     #
     imageDictionary = {}
@@ -257,7 +531,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     # collect the names into various lists for printing after this is done.
     #
     for filename in dirContents:
-        fileParts = seqSplit(filename)
+        fileParts = seqSplit(filename, args)
         if len(fileParts) == 2 : # Means file is an image.
             newFrameNum = int(fileParts[1])
             newPaddingSize = len(fileParts[1])
@@ -272,7 +546,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 newFrameMTime = os.path.getmtime(realFilename)
 
             if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2:
-                newPaddingSize -= 1
+                newPaddingSize = 1
 
             if imageDictionary.has_key(fileParts[0]) :
                 # tack on new frame number.
@@ -311,8 +585,12 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         extra_ls_options = []
         if args.classify :
             extra_ls_options.append("-F")
-        if args.singleColumn :
+        if args.by_what == BY_SINGLE :
             extra_ls_options.append("-1")
+        if args.by_what == BY_COLUMNS :
+            extra_ls_options.append("-C")
+        if args.by_what == BY_ROWS :
+            extra_ls_options.append("-x")
         if args.sortByMTime :
             extra_ls_options.append("-t")
         if args.reverseListing :
@@ -340,12 +618,21 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     if im[2] != -1 :
                         validTimes.append(im[2])
                 validTimes.sort()
-                if args.timeCompare == 'oldest' :
+		time = 0
+		n = len(validTimes)
+		if n == 1 :
                     time = validTimes[0]
-                elif args.timeCompare == 'median' :
-                    time = validTimes[len(validTimes)/2]
-                else : # newest
-                    time = validTimes[-1]
+		elif n > 1 :
+		    if args.timeCompare == 'oldest' :
+			time = validTimes[0]
+		    elif args.timeCompare == 'median' :
+			midIndex = int(math.floor(n/2))
+			if n % 2 == 1 : # Odd number of items
+			    time = validTimes[midIndex]
+			else : # Even number of items.
+			    time = (validTimes[midIndex] + validTimes[midIndex-1])/2
+		    else : # newest
+			time = validTimes[-1]
                 timeList.append((k, time))
 
         timeList.sort(key=itemgetter(1))
@@ -386,8 +673,14 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     print traversedPath + d + ":"
                 else :
                     print d + ":"
+
+	    if d[0] == "/" :
+                passedPath = d + "/"
+	    else :
+                passedPath = traversedPath + d + "/"
+
             listSeqDir(stripDotFiles(os.listdir(d), args.ignoreDotFiles),
-                d, False, args, traversedPath + d + "/")
+                d, False, args, passedPath)
 
     if (len(path) > 0) :
         os.chdir(tmpCWD)
@@ -437,59 +730,100 @@ def main():
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="1.711")
+    p.add_argument("--version", action="version", version="2.000")
 
-    p.add_argument("--single", "-1", action="store_true",
-        dest="singleColumn", default=False,
-        help="list one non-image file per line (ls)")
+    p.add_argument("--single", "-1", action="store_const",
+        dest="by_what", default=BY_UNSPECIFIED, const=BY_SINGLE,
+        help="list one non-sequence entry per line (see ls(1))")
     p.add_argument("--all", "-a", action="store_false",
         dest="ignoreDotFiles", default=True,
-        help="do not ignore entries starting with '.' (ls)")
+        help="do not ignore entries starting with '.' \
+	while omitting implied '.' and '..' directories (see ls(1) --almost-all)")
+    p.add_argument("--showBadFrames", "-b", action="count",
+        dest="showBad", default=0,
+        help="A single '-b' lists potentially bad frames based on the \
+	minimum size of a good frame (see --goodFrameMinSize).  Listing the argument \
+	more than once (eg. '-bb') expands the definion of a 'bad frame' to include \
+	frames whose sizes deviate significantly (lower) than a rolling average of frame sizes. \
+	Increasing the number of repetitions of the argument (eg. '-bbbb') loosens the \
+	threshold at which frame sizes are considered 'bad'." )
+    p.add_argument("--skipBadFrames", "-B", action="store_const",
+        dest="showBad", const=0,
+        help="do not show list of potentially bad frames [default]" )
+
+    p.add_argument("--badWindow", action="store", type=int,
+	dest="badWindow", default=2,
+        metavar="WINDOW",
+	help="How many frames ahead, and back to use when calculating the rolling \
+	average of frame sizes for the 'bad frame' calculations.  The default is 2, \
+	in which case the rolling average would be calculated across 5 frames in total, \
+	that is, the current frame plus the two before and the two after.")
+    p.add_argument("--badThreshold", action="store", type=float,
+	dest="badThreshold", default=0.05,
+        metavar="THRESHOLD",
+	help="Sets the threshold value for flagging bad frames based on \
+	the rolling average of frames sizes.  The default is 0.05, and increasing \
+	the number of '-b' arguments multipicativly increases this threshold, eg. \
+	'-bbbb' has the effect of making the threshold be 0.15 for the 'bad frame' \
+	calulations.")
+
     p.add_argument("--combineLists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
         help="Combine the lists of zero, missing and bad frames into one list.")
+    p.add_argument("--byColumns", "-C", action="store_const",
+        dest="by_what", const=BY_COLUMNS,
+        help="list non-sequence entries by columns (see ls(1))")
     p.add_argument("--directory", "-d", action="store_false",
         dest="listDirContents", default=True,
         help="list directory entries instead of contents, \
-        and do not dereference symbolic links (ls)")
+        and do not dereference symbolic links (see ls(1))")
     p.add_argument("--extremes", "-e", action="store_true",
         dest="extremes", default=False,
         help="only list the first and last image on a separate line each. \
         This option implies --prependPathAbs (unless --prependPathRel is \
-        explicitly specified) and --strictlyOnlyImages. \
-        The purpose of this option \
-        is to help in backing up image sequences - making it easy \
-        to get a list of only the first and last frame for each sequence.")
+        explicitly specified) and --strictlyOnlyImages.")
     p.add_argument("--format", "-f", action="store", type=str,
-        choices=("native", "nuke", "rv", "shake"),
+        choices=("native", "nuke", "rv", "shake", "glob"),
         dest="seqFormat",
         metavar="FORMAT",
         default="native",
-        help="list image sequences in various formats suitable for \
-            different command line driven image viewers. \
-        The choices are 'native' (default), 'nuke', 'rv' and 'shake'.")
+        help="list image sequences in various formats.\
+        The choices are 'native' (default), 'nuke', 'rv', 'shake' and 'glob'.\
+	Note that glob prints correct results if and only if \
+	the frame numbers are padded.")
     p.add_argument("--classify", "-F", action="store_true",
         dest="classify", default=False,
-        help="append indicator (one of */=>@|) to entries (ls)")
+        help="append indicator (one of */=>@|) to entries (see ls(1))")
+    p.add_argument("--goodFrameMinSize", action="store", type=readByteShortForm,
+	dest="goodFrameMinSize", default=512,
+        metavar="BYTES",
+	help="Any frame size less than this size is considered to be \
+	a bad frame.  Shortforms for byte sizes are accepted as \
+	in '1K' (i.e.; 1024) or '1.5K' for example.  The default is 512 bytes.")
     p.add_argument("--imgExt", "-i", action="store_true",
         dest="printImgExtensions", default=False,
         help="print list of raster and movie file extensions and exit")
+    p.add_argument("--looseNumSeparator", "-l", action="store_false",
+        dest="strictSeparator",
+        help="Allow the use of '_' (underscore), in addition to '.' (dot)\
+	    as a separator between the descriptiveName and frameNumber when\
+	    looking to interpret filenames as\
+	    image sequences. i.e.; <descriptiveName>_<frameNum>.<imgExtension>\
+	    (also see --strictNumSeparator)")
     p.add_argument("--showMissing", "-m", action="store_true",
         dest="showMissing", default=True,
         help="show list of missing frames [default]" )
     p.add_argument("--skipMissing", "-M", action="store_false",
         dest="showMissing",
         help="do not show list of missing frames" )
-
     p.add_argument("--onlyImages", "-o", action="store_const",
         dest="listWhichFiles", default=LIST_ALLFILES, const=LIST_ONLYSEQS,
         help="only list image sequences or movies")
     p.add_argument("--strictlyOnlyImages", "-O", action="store_const",
         dest="listWhichFiles", const=LIST_ONLYIMGS,
         help="strictly only list image sequences (i.e.; no movies)")
-
     p.add_argument("--prependPathAbs", "-p", action="store_const",
-        dest="prependPath", default=0, const=PATH_ABS,
+        dest="prependPath", default=PATH_UNSPECIFIED, const=PATH_ABS,
         help="prepend the absolute path name to the image name. \
         This option implies the option --onlyImages and will also \
         suppress printing directory name headers when listing \
@@ -500,13 +834,18 @@ def main():
         This option implies the option --onlyImages and will also \
         suppress printing directory name headers when listing \
         directory contents.")
-
     p.add_argument("--reverse", "-r", action="store_true",
         dest="reverseListing", default=False,
         help="reverse order while sorting")
     p.add_argument("--recursive", "-R", action="store_true",
         dest="isRecursive", default=False,
         help="list subdirectories recursively")
+    p.add_argument("--strictNumSeparator", "-s", action="store_true",
+        dest="strictSeparator", default=True,
+        help="Strictly enforce the use of '.' (dot) as a separator between the\
+	    descriptiveName and frameNumber when looking to interpret filenames as\
+	    image sequences. i.e.; <descriptiveName>.<frameNum>.<imgExtension>\
+	    (this is the default; also see --looseNumSeparator)")
     p.add_argument("--time", action="store", type=str,
         dest="timeCompare",
         help="which frame in the sequence to use to compare times \
@@ -518,7 +857,10 @@ def main():
         dest="sortByMTime", default=False,
         help="sort by modification time, the default comparison \
         time is between the most recently modified (newest) frames \
-        in each sequence. (see --time). (ls)")
+        in each sequence. (see --time). (see ls(1))")
+    p.add_argument("--byRows", "-x", action="store_const",
+        dest="by_what", const=BY_ROWS,
+        help="list non-sequence entries by lines instead of by columns (see ls(1))")
     p.add_argument("--showZero", "-z", action="store_true",
         dest="showZero", default=True,
         help="show list of zero length images [default]" )
@@ -530,6 +872,16 @@ def main():
         help="file names")
 
     args = p.parse_args()
+
+    if args.badWindow < 1 :
+	print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+	    ": error : the badWindow argument must be a positive integer."
+        sys.exit(1)
+
+    if args.badThreshold <= 0.0 or args.badThreshold >= 1.0 :
+	print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+	    ": error : the badThreshold argument must be a number greater than zero and less than one."
+        sys.exit(1)
 
     tmpExt = os.getenv("OIC_IMAGE_EXTENSION")
     if tmpExt != None and tmpExt != "" :
@@ -580,6 +932,7 @@ def main():
             if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
+            # listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), "", False, args, passedPath)
 
     # We are being asked to list a specific directory, so we don't need
@@ -593,20 +946,29 @@ def main():
         # cleaner looking.)
         if args.files[0][-1] == "/" :
             arg0 = args.files[0][:-1]
+
         if (not args.listDirContents) :
             print arg0
+
         else :
+
             if args.isRecursive:
                 if args.prependPath == 0 :
                     print arg0 + ":"
                 passedPath = arg0 + "/"
             else :
                 passedPath = ""
+
             if args.prependPath == PATH_REL :
                 passedPath = arg0 + "/"
+
             if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
+	    if arg0[0] == "/" :
+                passedPath = arg0 + "/"
+
+            # listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             listSeqDir(stripDotFiles(os.listdir(arg0), args.ignoreDotFiles), arg0, False, args, passedPath)
 
     # List all the arguments on the command line and unless prevented by
@@ -617,6 +979,7 @@ def main():
         passedPath = ""
         if args.prependPath == PATH_ABS :
             passedPath = os.getcwd() + "/"
+	# listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         listSeqDir(args.files, "", True, args, passedPath)
 
 if __name__ == '__main__':

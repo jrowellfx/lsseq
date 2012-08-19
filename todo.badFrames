@@ -1,0 +1,30 @@
+How to test for bad frames - IDEAS
+
+Calculate a moving average of size 'n' for frame sizes.
+
+Call the current frame number 'f'.
+Possibly three moving averages.
+[f-n, f] 
+[f-(n/2), f+(n/2)]
+[f, f+n]
+
+Then if f is outside one standard dev on all three, AND
+it is smaller than the running average, then it's bad.
+THrow it out for all calculations of running averages.
+Add it to a bad list and calculate that running average.
+
+A frame can never be bad if it's larger and outside sigma.
+
+If a frame is outside sigma and smaller and falls within sigma
+of the running average of all the other bad frames, then it's 
+likely to be bad.
+
+Check for a lower bound size frame - automatically considered bad.
+
+--showBadFrames
+--skipBadFrames
+--goodFrameMinSize
+--goodFrameTolerance (multiple of standard-deviation from moving average)
+--badFrameMovingAvgSize
+--badFrameSMA (Simple Moving Average)
+--badFrameWMA (Weighted Moving Average)
