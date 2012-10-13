@@ -58,7 +58,7 @@ import seqLister
 from operator import itemgetter
 
 EXPAND_MODE = True
-VERSION     = "1.200"
+VERSION     = "1.210"
 
 def indexNegNumber(argList) :
     i = 0
@@ -138,7 +138,13 @@ def main():
 	a range on N's such as 'A-BxN' where N is a positive integer.")
 
 
-    sysArgs = sys.argv[1:] # Copy the command line args (except prog name)
+    # Copy the command line args (except prog name) and convert
+    # commas into spaces thus making more args.
+    #
+    sysArgs = []
+    for a in sys.argv[1:] :
+	for b in a.split(',') :
+	    sysArgs.append(b)
     remainingArgs = []
     result = seqLister.expandSeq(sysArgs, remainingArgs)
     args = p.parse_args(remainingArgs)
