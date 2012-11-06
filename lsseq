@@ -69,6 +69,27 @@ BY_SINGLE = 1
 BY_COLUMNS = 2
 BY_ROWS = 3
 
+# Array indices for the contents of the image dictionary.
+#
+IMDICT_PADDING = 0
+IMDICT_DATALIST = 1
+
+# Array indices for the data list within the image dictionary.
+#
+FRAME_NUM = 0
+FRAME_SIZE = 1
+FRAME_MTIME = 2
+
+# Array indices for results of the "seqSplit()" function.
+#
+SEQKEY = 0
+FRAMENUM = 1
+
+# Array indices for the items in the rolling average calculation.
+#
+AVERAGE = 0
+STDDEV = 1
+
 # Given that we are not allowing "no separator" between the
 # descriptive filename and the frame number, then the only
 # other character besides "." (dot) that makes sense to have as a 
@@ -288,30 +309,30 @@ def printSeq(filename, frameList, args, traversedPath) :
     zeroFrames = []
     badFrames = []
     frameSizes = []
-    minFrame = frameList[1][0][0]
-    maxFrame = frameList[1][-1][0]
-    padding = frameList[0]
+    minFrame = frameList[IMDICT_DATALIST][0][FRAME_NUM]
+    maxFrame = frameList[IMDICT_DATALIST][-1][FRAME_NUM]
+    padding = frameList[IMDICT_PADDING]
     i = minFrame
     while i <= maxFrame:
         iMissing = False
-        currFrameData = frameList[1][0]
-        if i != currFrameData[0] : # frame number
+        currFrameData = frameList[IMDICT_DATALIST][0]
+        if i != currFrameData[FRAME_NUM] : # frame number
             iMissing = True
 	    if args.showBad > 1 :
 		frameSizes.append(0)
             if args.showMissing :
                 missingFrames.append(i)
         else :
-            frameList[1].pop(0)
+            frameList[IMDICT_DATALIST].pop(0)
 	    if args.showBad > 1 :
 		# if this file is a broken soft link '-1' was stashed as mtime
-		if currFrameData[2] == -1 :
+		if currFrameData[FRAME_MTIME] == -1 :
 		    frameSizes.append(0)
 		else :
-		    frameSizes.append(currFrameData[1])
+		    frameSizes.append(currFrameData[FRAME_SIZE])
         if (not iMissing and args.showZero) :
             # if this file is a broken soft link '-1' was stashed as mtime
-            if currFrameData[2] == -1 : # mtime
+            if currFrameData[FRAME_MTIME] == -1 : # mtime
 		if args.showZero :
 		    zeroFrames.append(i)
 		elif args.showBad > 0 :
@@ -320,11 +341,11 @@ def printSeq(filename, frameList, args, traversedPath) :
                 print >> sys.stderr, os.path.basename(sys.argv[0]) + \
                     ": warning: " + actualFilename + " is a broken soft link."
 	    # file size
-            elif args.showZero and currFrameData[1] == 0 :
+            elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
 		zeroFrames.append(i)
-            elif (args.showBad > 0) and (currFrameData[1] < args.goodFrameMinSize) :
+            elif (args.showBad > 0) and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
                 badFrames.append(i)
-            elif currFrameData[1] == 0 :
+            elif currFrameData[FRAME_SIZE] == 0 :
 		zeroFrames.append(i)
         i = i + 1
 
@@ -336,10 +357,10 @@ def printSeq(filename, frameList, args, traversedPath) :
 
 	i = 0
 	while i < len(frameSizes) :
-	    if frameSizes[i] >= args.goodFrameMinSize and frameSizes[i] < stdevList[i][0] :
-		if stdevList[i][1] != 0 and stdevList[i][0] != 0 :
-		    x = (stdevList[i][0] - frameSizes[i])/float(stdevList[i][1])
-		    y = stdevList[i][1]/float(stdevList[i][0])
+	    if frameSizes[i] >= args.goodFrameMinSize and frameSizes[i] < stdevList[i][AVERAGE] :
+		if stdevList[i][STDDEV] != 0 and stdevList[i][AVERAGE] != 0 :
+		    x = (stdevList[i][AVERAGE] - frameSizes[i])/float(stdevList[i][STDDEV])
+		    y = stdevList[i][STDDEV]/float(stdevList[i][AVERAGE])
 		    xy = float(x) * y
 		else :
 		    xy = 0.0
@@ -355,15 +376,15 @@ def printSeq(filename, frameList, args, traversedPath) :
 		x = 0
 		y = 0
 		xy = 0
-		if stdevList[i][1] != 0 and stdevList[i][0] != 0 :
-		    x = (stdevList[i][0] - frameSizes[i])/float(stdevList[i][1])
-		    y = stdevList[i][1]/float(stdevList[i][0])
+		if stdevList[i][STDDEV] != 0 and stdevList[i][AVERAGE] != 0 :
+		    x = (stdevList[i][AVERAGE] - frameSizes[i])/float(stdevList[i][STDDEV])
+		    y = stdevList[i][STDDEV]/float(stdevList[i][AVERAGE])
 		    xy = float(x) * y
 		print "%05d" % int(i+minFrame) \
 		    + ": %8d" % frameSizes[i] \
-		    + "; m: %10.2f" % stdevList[i][0] \
+		    + "; m: %10.2f" % stdevList[i][AVERAGE] \
 		    + "; m(%): " + "%1.4f" % y \
-		    + "; s: %10.2f" % stdevList[i][1] \
+		    + "; s: %10.2f" % stdevList[i][STDDEV] \
 		    + "; s(%): " + "% 1.4f" % x \
 		    + "; xy: " + "% 1.4f" % xy
 	    i += 1
@@ -533,8 +554,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     for filename in dirContents:
         fileParts = seqSplit(filename, args)
         if len(fileParts) == 2 : # Means file is an image.
-            newFrameNum = int(fileParts[1])
-            newPaddingSize = len(fileParts[1])
+            newFrameNum = int(fileParts[FRAMENUM])
+            newPaddingSize = len(fileParts[FRAMENUM])
 
             # Check to see if file exists - might be broken soft link.
             if not os.path.exists(filename) :
@@ -548,18 +569,22 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2:
                 newPaddingSize = 1
 
-            if imageDictionary.has_key(fileParts[0]) :
+            if imageDictionary.has_key(fileParts[SEQKEY]) :
                 # tack on new frame number.
-                imageDictionary[fileParts[0]][1].append( \
+                imageDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
                     (newFrameNum, newFrameSize, newFrameMTime))
                 # smallest length frame number determines padding.
-                if (newPaddingSize < imageDictionary[fileParts[0]][0]) :
-                    imageDictionary[fileParts[0]][0] = newPaddingSize
+                if (newPaddingSize < imageDictionary[fileParts[SEQKEY]][IMDICT_PADDING]) :
+                    imageDictionary[fileParts[SEQKEY]][IMDICT_PADDING] = newPaddingSize
             else :
                 # initialiaze dictionary entry.
-                imageDictionary[fileParts[0]] \
+                imageDictionary[fileParts[SEQKEY]] \
                     = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
 
+	# The 'moviesDictionary' has the movie file name as the key, and the
+	# file size as the data stored.  It stores -1 for the file size if the
+	# file is invalid.
+	#
         elif isMovie(filename) :
             # Check to see if file exists - might be broken soft link.
             if not os.path.exists(filename) :
@@ -614,9 +639,9 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 timeList.append((k, moviesDictionary[k]))
             else :
                 validTimes = []
-                for im in imageDictionary[k][1] :
-                    if im[2] != -1 :
-                        validTimes.append(im[2])
+                for im in imageDictionary[k][IMDICT_DATALIST] :
+                    if im[FRAME_MTIME] != -1 :
+                        validTimes.append(im[FRAME_MTIME])
                 validTimes.sort()
 		time = 0
 		n = len(validTimes)
@@ -645,7 +670,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     sys.stdout.write(traversedPath)
                 print k[0]
             else :
-                imageDictionary[k[0]][1].sort(key=itemgetter(0))
+                imageDictionary[k[0]][IMDICT_DATALIST].sort(key=itemgetter(0))
                 printSeq(k[0], imageDictionary[k[0]], args, traversedPath)
     else :
         imKeys.sort()
@@ -657,7 +682,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     sys.stdout.write(traversedPath)
                 print k
             else :
-                imageDictionary[k][1].sort(key=itemgetter(0))
+                imageDictionary[k][IMDICT_DATALIST].sort(key=itemgetter(0))
                 printSeq(k, imageDictionary[k], args, traversedPath)
 
     # lsseq - the contents of any subdirectories if need be.
