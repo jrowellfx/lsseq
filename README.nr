@@ -77,7 +77,7 @@ $ sudo python setup.py install
 .fi
 
 .ti -3
-4) ...that's it! You should be able to run the commands "lsseq", "expandseq"
+5) ...that's it! You should be able to run the commands "lsseq", "expandseq"
 and "condenseseq" now.
 .in -3
 
