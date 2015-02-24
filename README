@@ -46,7 +46,7 @@ simply by typing "python --version" at the command prompt.  If you are told
    $ cd lsseq-1.800
    $ sudo python setup.py install
 
-4) ...that's it! You should be able to run the commands "lsseq", "expandseq"
+5) ...that's it! You should be able to run the commands "lsseq", "expandseq"
    and "condenseseq" now.
 
 To test lsseq properly cd into a directory containing frames from an image
