@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2.7
 
 # lsseq - List directory contents while condensing images sequences to
 # one entry each.  Filenames that are part of images sequences are

@@ -22,62 +22,31 @@ CG-production studios.
 To install these commands on your system follow these steps (you need 
 root privileges).
 
-First make sure you have python installed on your machine, you 
-can do this simply by typing "python --version" at the command prompt.
-If you are told "command not found",
-then you need to download and install python.  Version 2.6
-or 2.7 are probably best - this hasn't been tested on vers 3.0.
+First make sure you have python 2.7 installed on your machine, you 
+can do this simply by typing "python2.7" at the command prompt.
+If you are told "command not found", then you need to download and install python 2.7.
 
 .in +3
 .ti -3
-1) If you are running python version 2.7+ then skip to step 2.
-
-You need to install the python module argparse (if not already installed)
-since it is becoming a standard part of python starting in 2.7,
-but it works well in 2.3+, you just have to install it manually.
-
-This is a simple task:
-.in +2
-.ti -2
-- Go to http://pypi.python.org/pypi/argparse
-.ti -2
-- Scroll down and find the "Download URL" link (it will be a *.tar.gz file).
-.ti -2
-- Download the file then type (for example):
-.nf
-$ tar -xvf argparse-1.2.1.tar.gz
-$ cd argparse-1.2.1
-$ sudo python setup.py install
-
-(Note may get error like: ImportError: No module named setuptools
-on CentOS05 - with python v 2.4.  So, need to install setuptools.
-download - setuptools-0.6c11-py2.4.egg 
-and then
-# sh setuptools-0.6c11-py2.4.egg
-...to install it
-.fi
-.in -2
-
-.ti -3
-2) Download lsseq-1.800.tar.gz
-assuming that the latest version is 1.800 (if not
+1) Download lsseq-2.000.tar.gz
+assuming that the latest version is 2.000 (if not
 just grab the latest one).
 
 .ti -3
-3) Uncompress the file:
+2) Uncompress the file:
 .nf
-$ tar -xvf lsseq-1.800.tar.gz
+$ tar -xvf lsseq-2.000.tar.gz
 .fi
 
 .ti -3
-4) install the commands and supporting python module:
+3) install the commands and supporting python module:
 .nf
-$ cd lsseq-1.800
+$ cd lsseq-2.000
 $ sudo python setup.py install
 .fi
 
 .ti -3
-5) ...that's it! You should be able to run the commands "lsseq", "expandseq"
+4) ...that's it! You should be able to run the commands "lsseq", "expandseq"
 and "condenseseq" now.
 .in -3
 
@@ -97,7 +66,7 @@ aaa.[001-005].tif z:[1-5]
 
 Note the "z:[1-5]" which is telling you that the frames aaa.[001-005].tif
 have zero length, and if you had generated those with a renderer I'm guessing
-you'd need to rerender them.  Handy eh!?
+you'd need to rerender them.
 
 Type:
 

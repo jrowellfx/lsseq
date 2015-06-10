@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python2.7
 
 # Copyright (c) 2008-2012, James Philip Rowell,
 # Orange Imagination & Concepts, Inc.
