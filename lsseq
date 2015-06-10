@@ -787,10 +787,11 @@ def main():
 	dest="badThreshold", default=0.05,
         metavar="THRESHOLD",
 	help="Sets the threshold value for flagging bad frames based on \
-	the rolling average of frames sizes.  The default is 0.05 means 5 percent of the \
+	the rolling average of frames sizes.  The default is 0.05 (corresponds to -bb) \
+        means 5 percent of the \
         avg frame size. Increasing \
 	the number of '-b' arguments additively increases this threshold, eg. \
-	'-bbbb' has the effect of making the threshold be 0.2 for the 'bad frame' \
+	'-bbbb' has the effect of making the threshold be 0.15 for the 'bad frame' \
 	calulations.")
 
     p.add_argument("--combineLists", "-c", action="store_true",

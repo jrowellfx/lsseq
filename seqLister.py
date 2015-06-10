@@ -57,7 +57,7 @@
 # Eg. ["0-16x8", "0-16x2"]
 #     yeilds -> [0, 8, 16, 2, 4, 6, 10, 12, 14]
 # 
-# Anything that is not of the above format is simply ingnored.
+# Anything that is not of the above format is simply ignored.
 #
 # If you want the list to be sorted, then sort the returned
 # list of numbers.
@@ -334,7 +334,7 @@ def condenseSeq(seqList, pad=1) :
 # This [2, 1, 3, 7, 8, 4, 5, 6, 9, 10]
 #     yeilds -> ['1-10']
 # and this [0, 8, 16, 2, 4, 6, 10, 12, 14]
-#     yeilds -> ['0-16x2']
+#     yeilds -> [0, 2, 4, 6, 8, 10, 12, 14, 16]
 #
 def condenseSeqOnes(seqList, pad=1) :
 
