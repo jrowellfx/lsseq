@@ -3,7 +3,25 @@
 # For now execute this script in the git lsseq repo directory for this to work.
 
 export LC_ALL=POSIX
+unset OIC_IMAGE_EXTENSION
 
+# When testing code locally, make sure you are getting the dev version of lsseq.
+# tcsh: setenv PATH "~/code/lsseq:${PATH}"
+# tcsh: setenv PATH `eval /etc/cleanpath $PATH`
+
+# NOTE: To make sure the modification times of the testdir/cdir images are
+# set properly for testing we need to force specific times on to the files
+# as we can't rely on git to set these properly for us.
+#
+# How the timestamps were created:
+# cd testdir/cdir
+# ls ccc*.*.* > list.images
+# vi list.images - then ordered it to be ccc01* ccc03* and ccc02* in the correct frame order
+# initial.image.mtimes < list.images > custom.touch.images
+# vi custom.touch.images - edit the times to make for different "oldest" and "newest" vs "median".
+# source custom.touch.images
+
+unalias lsseq
 tmpArgs=/tmp/tmpTEST_LSSEQ.$$
 OIC_REPO_DIR=`pwd`
 
@@ -14,7 +32,12 @@ cleanup() {
 
 trap cleanup INT
 
+cd testdir/cdir
+source custom.touch.images
+cd ../..
+
 cat << EOF > $tmpArgs
+. --version
 . -lRFC testdir
 . -lReC testdir
 . -lReoC testdir
@@ -62,7 +85,7 @@ while true; do
     # declare -a args=(`sed --silent -e "$i p" $tmpArgs`)
     declare -a args=(`sed -n -e "$i p" $tmpArgs`)
     if [ ${#args[@]} -eq 0 ]; then
-	break;
+        break;
     fi
     workingDir=${args[0]}
     args=(${args[@]:1})
@@ -70,9 +93,9 @@ while true; do
     echo ------ Test $i ------
     echo ------ Test $i ------ lsseq ${args[@]} ------ >> $OIC_REPO_DIR/test_lsseq.out.new
     cd $OIC_REPO_DIR/$workingDir
-    $OIC_REPO_DIR/lsseq ${args[@]} >> $OIC_REPO_DIR/test_lsseq.out.new
+    $OIC_REPO_DIR/lsseq ${args[@]} >> $OIC_REPO_DIR/test_lsseq.out.new 2>&1
     i=$(expr $i + 1)
 done
 
-sed -e "1,$ s-$OIC_REPO_DIR-/nas/media/src/python/lsseq-g" < $OIC_REPO_DIR/test_lsseq.out.new > /tmp/tmp$$
+sed -e "1,$ s-$OIC_REPO_DIR-/...absPathToRepo.../lsseq-g" < $OIC_REPO_DIR/test_lsseq.out.new > /tmp/tmp$$
 /bin/mv /tmp/tmp$$ $OIC_REPO_DIR/test_lsseq.out.new

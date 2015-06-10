@@ -1,0 +1,23 @@
+#!/bin/bash
+
+i=0
+year=2010
+month=6
+day=15
+hour=12
+min=0
+
+while read line
+do
+    echo touch -a -m -t $year`printf '%02d' $month``printf '%02d' $day``printf '%02d' $hour``printf '%02d' $min` $line
+
+    min=$(expr $min + 1)
+    if [ $min -ge 60 ]; then
+        min=0
+        hour=$(expr $hour + 1)
+        if [ $hour -ge 24 ]; then
+            hour=0
+            day=$(expr $day + 1)
+        fi
+    fi
+done

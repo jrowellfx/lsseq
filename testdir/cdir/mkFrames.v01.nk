@@ -1,0 +1,356 @@
+#! /usr/local/Nuke9.0v5/libnuke-9.0.5.so -nx
+version 9.0 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1920" h="1163" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1257" stretch="1"/>
+            <splitter orientation="2">
+                <split size="1120"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="615"/>
+            <splitter orientation="2">
+                <split size="788"/>
+                <dock id="" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                </dock>
+                <split size="328"/>
+                <dock id="" activePageId="Curve Editor.1">
+                    <page id="Curve Editor.1"/>
+                </dock>
+            </splitter>
+        </splitter>
+    </window>
+    <window x="1920" y="0" w="1920" h="1190" screen="1">
+        <splitter orientation="2">
+            <split size="1163"/>
+            <dock id="" activePageId="Viewer.1">
+                <page id="Viewer.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /home/jrowell/code/lsseq/testdir/cdir/mkFrames.v01.nk
+ frame 110
+ last_frame 120
+ format "640 480 0 0 640 480 1 PC_Video"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+}
+Text2 {
+ inputs 0
+ font_size_toolbar 100
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "\[frame]"
+ old_message {{49 50 48}
+   }
+ old_expression_markers {{0 2}
+   }
+ box {0 0 640 480}
+ xjustify center
+ yjustify center
+ transforms {{0 2}
+   }
+ font {{ Utopia : Bold : UtopiaBold.pfa : 0 }}
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{0 480}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 320 240 0 0 1 1 0 0 0 0}
+   }
+ name Text1
+ xpos 154
+ ypos -69
+}
+set N53bd8b0 [stack 0]
+Dot {
+ name Dot1
+ xpos 188
+ ypos 50
+}
+push $N53bd8b0
+Transform {
+ translate {5 -5}
+ center {320 240}
+ name Transform1
+ xpos 83
+ ypos -22
+}
+Blur {
+ size 3
+ name Blur2
+ xpos 83
+ ypos 4
+}
+ColorWheel {
+ inputs 0
+ gamma 0.45
+ name ColorWheel1
+ xpos -32
+ ypos -176
+}
+Blur {
+ size 200
+ name Blur1
+ xpos -32
+ ypos -104
+}
+Grade {
+ inputs 1+1
+ white 0.2
+ name Grade1
+ xpos -32
+ ypos 38
+}
+Merge2 {
+ inputs 2
+ name Merge1
+ xpos -32
+ ypos 112
+}
+Write {
+ file /home/jrowell/code/lsseq/testdir/cdir/ccc02.###.exr
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 2
+ name Write1
+ xpos -32
+ ypos 209
+ addUserKnob {20 user l User}
+ addUserKnob {6 ignore l "ignore versioning" -STARTLINE}
+ addUserKnob {1 frame_range l "Frame Range"}
+ frame_range 1-100
+ addUserKnob {1 farm_priority l Priority}
+ farm_priority 3000
+ addUserKnob {1 max_cpus l "Max CPUS"}
+ max_cpus 20
+ addUserKnob {1 farm_cluster l Cluster}
+ farm_cluster /nuke
+ addUserKnob {1 farm_chunk l "Chunk Size"}
+ farm_chunk 5
+ addUserKnob {1 farm_procs l Processors}
+ farm_procs 2
+}
+Text2 {
+ inputs 0
+ font_size_toolbar 100
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "\[frame]"
+ old_message {{49 52 48}
+   }
+ old_expression_markers {{0 2}
+   }
+ box {0 0 640 480}
+ xjustify center
+ yjustify center
+ transforms {{0 2}
+   }
+ font {{ Utopia : Bold : UtopiaBold.pfa : 0 }}
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{0 480}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 320 240 0 0 1 1 0 0 0 0}
+   }
+ name Text2
+ xpos 650
+ ypos -68
+}
+set N64bce20 [stack 0]
+Dot {
+ name Dot2
+ xpos 684
+ ypos 51
+}
+push $N64bce20
+Transform {
+ translate {5 -5}
+ center {320 240}
+ name Transform2
+ xpos 579
+ ypos -21
+}
+Blur {
+ size 3
+ name Blur3
+ xpos 579
+ ypos 5
+}
+CheckerBoard2 {
+ inputs 0
+ name CheckerBoard1
+ xpos 464
+ ypos -210
+}
+Blur {
+ size 10
+ name Blur4
+ xpos 464
+ ypos -104
+}
+Grade {
+ inputs 1+1
+ white 0.2
+ name Grade2
+ xpos 464
+ ypos 39
+}
+Merge2 {
+ inputs 2
+ name Merge2
+ xpos 464
+ ypos 113
+}
+Write {
+ file /home/jrowell/code/lsseq/testdir/cdir/ccc03.#.tga
+ file_type targa
+ first 80
+ last 140
+ use_limit true
+ checkHashOnRead false
+ version 3
+ name Write2
+ xpos 464
+ ypos 209
+ addUserKnob {20 user l User}
+ addUserKnob {6 ignore l "ignore versioning" -STARTLINE}
+ addUserKnob {1 frame_range l "Frame Range"}
+ frame_range 1-100
+ addUserKnob {1 farm_priority l Priority}
+ farm_priority 3000
+ addUserKnob {1 max_cpus l "Max CPUS"}
+ max_cpus 20
+ addUserKnob {1 farm_cluster l Cluster}
+ farm_cluster /nuke
+ addUserKnob {1 farm_chunk l "Chunk Size"}
+ farm_chunk 5
+ addUserKnob {1 farm_procs l Processors}
+ farm_procs 2
+}
+Viewer {
+ inputs 2
+ frame_range 1-120
+ name Viewer1
+ xpos 150
+ ypos 492
+}
+Text2 {
+ inputs 0
+ font_size_toolbar 100
+ font_width_toolbar 100
+ font_height_toolbar 100
+ message "\[frame]"
+ old_message {{49 50 48}
+   }
+ old_expression_markers {{0 2}
+   }
+ box {0 0 640 480}
+ xjustify center
+ yjustify center
+ transforms {{0 2}
+   }
+ font {{ Utopia : Bold : UtopiaBold.pfa : 0 }}
+ scale {1 1}
+ cursor_initialised true
+ autofit_bbox false
+ initial_cursor_position {{0 480}
+   }
+ group_animations {{0} imported: 0 selected: items: "root transform/"}
+ animation_layers {{1 11 320 240 0 0 1 1 0 0 0 0}
+   }
+ name Text3
+ xpos -752
+ ypos -55
+}
+set N5da7e20 [stack 0]
+Dot {
+ name Dot3
+ xpos -718
+ ypos 64
+}
+push $N5da7e20
+Transform {
+ translate {5 -5}
+ center {320 240}
+ name Transform3
+ xpos -823
+ ypos -8
+}
+Blur {
+ size 3
+ name Blur5
+ xpos -823
+ ypos 18
+}
+ColorWheel {
+ inputs 0
+ gamma 0.45
+ name ColorWheel3
+ xpos -938
+ ypos -215
+}
+Invert {
+ name Invert2
+ xpos -938
+ ypos -143
+}
+Blur {
+ size 200
+ name Blur6
+ xpos -938
+ ypos -90
+}
+Grade {
+ inputs 1+1
+ white 0.2
+ name Grade3
+ xpos -938
+ ypos 52
+}
+Merge2 {
+ inputs 2
+ name Merge3
+ xpos -938
+ ypos 126
+}
+Write {
+ file /home/jrowell/code/lsseq/testdir/cdir/ccc01.###.exr
+ file_type exr
+ compression "Zip (16 scanlines)"
+ version 3
+ name Write3
+ selected true
+ xpos -938
+ ypos 226
+ addUserKnob {20 user l User}
+ addUserKnob {6 ignore l "ignore versioning" -STARTLINE}
+ addUserKnob {1 frame_range l "Frame Range"}
+ frame_range 1-100
+ addUserKnob {1 farm_priority l Priority}
+ farm_priority 3000
+ addUserKnob {1 max_cpus l "Max CPUS"}
+ max_cpus 20
+ addUserKnob {1 farm_cluster l Cluster}
+ farm_cluster /nuke
+ addUserKnob {1 farm_chunk l "Chunk Size"}
+ farm_chunk 5
+ addUserKnob {1 farm_procs l Processors}
+ farm_procs 2
+}
