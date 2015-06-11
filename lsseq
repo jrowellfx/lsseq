@@ -932,7 +932,7 @@ def main():
             args.listWhichFiles = LIST_ONLYSEQS
 
     if args.extremes :
-        if args.prependPath == 0 :
+        if args.prependPath == PATH_UNSPECIFIED :
             args.prependPath = PATH_ABS
         args.showMissing = False
         args.showZero = False
@@ -941,7 +941,7 @@ def main():
             args.listWhichFiles = LIST_ONLYIMGS # Strictly only images.
 
     # The following logic attempts to mimic the behavior
-    # of /bin/ls as well as possible.
+    # of /bin/ls as closely as possible.
 
     # No args means list the current directory.
     #
