@@ -774,9 +774,9 @@ def main():
         while omitting implied '.' and '..' directories (see ls(1) --almost-all)")
     p.add_argument("--showBadFrames", "-b", action="count",
         dest="showBad", default=0,
-        help="Lists potentially bad frames based on the \
-        minimum size of a good frame (see --goodFrameMinSize).")
-#        help="A single '-b' lists potentially bad frames based on the \
+        help="lists potentially bad frames based on the \
+        minimum size of a good frame (see --goodFrameMinSize)")
+#        help="a single '-b' lists potentially bad frames based on the \
 #        minimum size of a good frame (see --goodFrameMinSize).  Listing the argument \
 #        more than once (eg. '-bb') expands the definion of a 'bad frame' to include \
 #        frames whose sizes deviate significantly (lower) than a rolling average of frame sizes. \
@@ -789,14 +789,14 @@ def main():
 #    p.add_argument("--badWindow", action="store", type=int,
 #        dest="badWindow", default=2,
 #        metavar="WINDOW",
-#        help="How many frames ahead, and back to use when calculating the rolling \
+#        help="how many frames ahead, and back to use when calculating the rolling \
 #        average of frame sizes for the 'bad frame' calculations.  The default is 2, \
 #        in which case the rolling average would be calculated across 5 frames in total, \
 #        that is, the current frame plus the two before and the two after.")
 #    p.add_argument("--badThreshold", action="store", type=float,
 #        dest="badThreshold", default=0.05,
 #        metavar="THRESHOLD",
-#        help="Sets the threshold value for flagging bad frames based on \
+#        help="sets the threshold value for flagging bad frames based on \
 #        the rolling average of frames sizes.  The default is 0.05 (corresponds to -bb) \
 #        means 5 percent of the \
 #        avg frame size. Increasing \
@@ -806,7 +806,7 @@ def main():
 
     p.add_argument("--combineLists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
-        help="Combine the lists of zero, missing and bad frames into one list.")
+        help="combine the lists of zero, missing and bad frames into one list")
     p.add_argument("--byColumns", "-C", action="store_const",
         dest="by_what", const=BY_COLUMNS,
         help="list non-sequence entries by columns (see ls(1))")
@@ -818,7 +818,7 @@ def main():
         dest="extremes", default=False,
         help="only list the first and last image on a separate line each. \
         This option implies --prependPathAbs (unless --prependPathRel is \
-        explicitly specified) and --strictlyOnlyImages.")
+        explicitly specified) and --strictlyOnlyImages")
     p.add_argument("--format", "-f", action="store", type=str,
         choices=("native", "nuke", "rv", "shake", "glob"),
         dest="seqFormat",
@@ -827,22 +827,22 @@ def main():
         help="list image sequences in various formats.\
         The choices are 'native' (default), 'nuke', 'rv', 'shake' and 'glob'.\
         Note that glob prints correct results only if \
-        the frame numbers are padded.")
+        the frame numbers are padded")
     p.add_argument("--classify", "-F", action="store_true",
         dest="classify", default=False,
         help="append indicator (one of */=>@|) to entries (see ls(1))")
     p.add_argument("--goodFrameMinSize", action="store", type=readByteShortForm,
         dest="goodFrameMinSize", default=512,
         metavar="BYTES",
-        help="Any frame size less than this size is considered to be \
+        help="any frame size less than this size is considered to be \
         a bad frame.  Shortforms for byte sizes are accepted as \
-        in '1K' (i.e.; 1024) or '1.5K' for example.  The default is 512 bytes.")
+        in '1K' (i.e.; 1024) or '1.5K' for example.  [default: 512]")
     p.add_argument("--imgExt", "-i", action="store_true",
         dest="printImgExtensions", default=False,
         help="print list of raster and movie file extensions and exit")
     p.add_argument("--looseNumSeparator", "-l", action="store_false",
         dest="strictSeparator",
-        help="Allow the use of '_' (underscore), in addition to '.' (dot)\
+        help="allow the use of '_' (underscore), in addition to '.' (dot)\
             as a separator between the descriptiveName and frameNumber when\
             looking to interpret filenames as\
             image sequences. i.e.; <descriptiveName>_<frameNum>.<imgExtension>\
@@ -864,13 +864,13 @@ def main():
         help="prepend the absolute path name to the image name. \
         This option implies the option --onlyImages and will also \
         suppress printing directory name headers when listing \
-        directory contents.")
+        directory contents")
     p.add_argument("--prependPathRel", "-P", action="store_const",
         dest="prependPath", const=PATH_REL,
         help="prepend the relative path name to the image name. \
         This option implies the option --onlyImages and will also \
         suppress printing directory name headers when listing \
-        directory contents.")
+        directory contents")
     p.add_argument("--reverse", "-r", action="store_true",
         dest="reverseListing", default=False,
         help="reverse order while sorting")
@@ -879,7 +879,7 @@ def main():
         help="list subdirectories recursively")
     p.add_argument("--strictNumSeparator", "-s", action="store_true",
         dest="strictSeparator", default=True,
-        help="Strictly enforce the use of '.' (dot) as a separator between the\
+        help="strictly enforce the use of '.' (dot) as a separator between the\
             descriptiveName and frameNumber when looking to interpret filenames as\
             image sequences. i.e.; <descriptiveName>.<frameNum>.<imgExtension>\
             (this is the default; also see --looseNumSeparator)")
@@ -888,13 +888,13 @@ def main():
         help="which frame in the sequence to use to compare times \
         between sequences when sorting by time.  The possible values \
         for 'FRAME_AGE' are 'oldest', 'median' and 'newest' \
-        (default).", metavar="FRAME_AGE", default="newest",
+        [default: 'newest']", metavar="FRAME_AGE", default="newest",
         choices=("oldest", "median", "newest"))
     p.add_argument("-t", action="store_true",
         dest="sortByMTime", default=False,
         help="sort by modification time, the default comparison \
         time is between the most recently modified (newest) frames \
-        in each sequence. (see --time). (see ls(1))")
+        in each sequence. (see --time) (see ls(1))")
     p.add_argument("--byRows", "-x", action="store_const",
         dest="by_what", const=BY_ROWS,
         help="list non-sequence entries by lines instead of by columns (see ls(1))")
