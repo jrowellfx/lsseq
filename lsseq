@@ -530,6 +530,11 @@ def stripDotFiles(dirContents, stripIt) :
 
 def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
+    # Array indices for "timeList" used below.
+    #
+    DICTKEY = 0
+    MTIME = 1
+
     tmpCWD = ""
     # Stash the current working dir, to come back to and the end
     # of this function.
@@ -542,6 +547,10 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     # Each entry is a two item list containing a number and a list
     # of three-tuples, namely:
     #     [ <framePadding>, [ (frameNum, fileSize, mtime), ... ] ]
+    #
+    # The 'moviesDictionary' has the movie file name as the key, and the
+    # file size as the data stored.  It stores -1 for the file size if the
+    # file is invalid.
     #
     imageDictionary = {}
     moviesDictionary = {}
@@ -566,6 +575,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 newFrameSize = os.path.getsize(realFilename)
                 newFrameMTime = os.path.getmtime(realFilename)
 
+            # Take care of a special case - fix padding for single digit neg number.
+            #
             if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2:
                 newPaddingSize = 1
 
@@ -581,10 +592,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 imageDictionary[fileParts[SEQKEY]] \
                     = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
 
-	# The 'moviesDictionary' has the movie file name as the key, and the
-	# file size as the data stored.  It stores -1 for the file size if the
-	# file is invalid.
-	#
         elif isMovie(filename) :
             # Check to see if file exists - might be broken soft link.
             if not os.path.exists(filename) :
@@ -636,6 +643,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         timeList = []
         for k in imKeys :
             if isMovie(k) :
+                # Note: only thing stored in "moviesDictionary" is the file size.
                 timeList.append((k, moviesDictionary[k]))
             else :
                 validTimes = []
@@ -660,18 +668,18 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 			time = validTimes[-1]
                 timeList.append((k, time))
 
-        timeList.sort(key=itemgetter(1))
+        timeList.sort(key=itemgetter(MTIME))
         # Note: ls -t prints newest first; ls -tr is newest last.
         if not args.reverseListing :
             timeList.reverse()
-        for k in timeList :
-            if isMovie(k[0]) :
+        for seq in timeList :
+            if isMovie(seq[DICTKEY]) :
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
-                print k[0]
+                print seq[DICTKEY]
             else :
-                imageDictionary[k[0]][IMDICT_DATALIST].sort(key=itemgetter(0))
-                printSeq(k[0], imageDictionary[k[0]], args, traversedPath)
+                imageDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
     else :
         imKeys.sort()
         if args.reverseListing :
@@ -682,7 +690,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     sys.stdout.write(traversedPath)
                 print k
             else :
-                imageDictionary[k][IMDICT_DATALIST].sort(key=itemgetter(0))
+                imageDictionary[k][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
                 printSeq(k, imageDictionary[k], args, traversedPath)
 
     # lsseq - the contents of any subdirectories if need be.
