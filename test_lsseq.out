@@ -1613,3 +1613,8 @@ ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 ./ccc02.[001-120].exr m:[51,119]
 ./ccc03.[80-140].tga 
 ./c_subDir/ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
+
+------ Test 40 ------ lsseq -i ------
+lsseq: warning : dots are not allowed in file name extensions so ass.gz is being ignored.
+Image extensions: ['ass', 'bmp', 'cin', 'dpx', 'exr', 'gif', 'iff', 'img', 'jpeg', 'jpg', 'pic', 'pict', 'pix', 'png', 'psb', 'psd', 'raw', 'rgb', 'rgba', 'rle', 'sgi', 'tga', 'tif', 'tiff']
+Movie extensions: ['avi', 'mov', 'mp4', 'mpg', 'wmv']

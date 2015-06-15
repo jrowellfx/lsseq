@@ -826,7 +826,7 @@ def main():
         default="native",
         help="list image sequences in various formats.\
         The choices are 'native' (default), 'nuke', 'rv', 'shake' and 'glob'.\
-        Note that glob prints correct results if and only if \
+        Note that glob prints correct results only if \
         the frame numbers are padded.")
     p.add_argument("--classify", "-F", action="store_true",
         dest="classify", default=False,
@@ -922,11 +922,31 @@ def main():
 
     tmpExt = os.getenv("OIC_IMAGE_EXTENSION")
     if tmpExt != None and tmpExt != "" :
-        IMAGE_EXT = tmpExt.split(":")
+        tmpExtList = tmpExt.split(":")
+    else :
+        tmpExtList = IMAGE_EXT
+    tmpExtList.sort();
+    IMAGE_EXT = [];
+    for e in tmpExtList :
+        if '.' in e :
+            print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+                ": warning : dots are not allowed in file name extensions so " + e + " is being ignored."
+        else :
+            IMAGE_EXT.append(e);
 
     tmpExt = os.getenv("OIC_MOV_EXTENSION")
     if tmpExt != None and tmpExt != "" :
-        MOV_EXT = tmpExt.split(":")
+        tmpExtList = tmpExt.split(":")
+    else : 
+        tmpExtList = MOV_EXT
+    tmpExtList.sort();
+    MOV_EXT = []
+    for e in tmpExtList :
+        if '.' in e :
+            print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+                ": warning : dots are not allowed in file name extensions so " + e + " is being ignored."
+        else :
+            MOV_EXT.append(e);
 
     if args.printImgExtensions :
         print "Image extensions:", IMAGE_EXT
@@ -969,7 +989,6 @@ def main():
             if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
-            # listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), "", False, args, passedPath)
 
     # We are being asked to list a specific directory, so we don't need
@@ -1005,7 +1024,6 @@ def main():
             if arg0[0] == "/" :
                 passedPath = arg0 + "/"
 
-            # listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             listSeqDir(stripDotFiles(os.listdir(arg0), args.ignoreDotFiles), arg0, False, args, passedPath)
 
     # List all the arguments on the command line and unless prevented by
@@ -1016,7 +1034,6 @@ def main():
         passedPath = ""
         if args.prependPath == PATH_ABS :
             passedPath = os.getcwd() + "/"
-        # listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         listSeqDir(args.files, "", True, args, passedPath)
 
 if __name__ == '__main__':

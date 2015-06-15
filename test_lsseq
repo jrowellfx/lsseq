@@ -82,7 +82,6 @@ echo ------ Begin Tests ------ > $OIC_REPO_DIR/test_lsseq.out.new
 
 i=1
 while true; do
-    # declare -a args=(`sed --silent -e "$i p" $tmpArgs`)
     declare -a args=(`sed -n -e "$i p" $tmpArgs`)
     if [ ${#args[@]} -eq 0 ]; then
         break;
@@ -95,6 +94,29 @@ while true; do
     cd $OIC_REPO_DIR/$workingDir
     $OIC_REPO_DIR/lsseq ${args[@]} >> $OIC_REPO_DIR/test_lsseq.out.new 2>&1
     i=$(expr $i + 1)
+done
+
+export OIC_IMAGE_EXTENSION=bmp:cin:dpx:exr:gif:iff:img:jpeg:jpg:pic:pict:pix:png:psb:psd:raw:rgb:rgba:rle:sgi:tga:tif:tiff:ass:ass.gz
+
+cat << EOF2 > $tmpArgs
+. -i
+EOF2
+
+j=1
+while true; do
+    declare -a args=(`sed -n -e "$j p" $tmpArgs`)
+    if [ ${#args[@]} -eq 0 ]; then
+        break;
+    fi
+    workingDir=${args[0]}
+    args=(${args[@]:1})
+    echo "" >> $OIC_REPO_DIR/test_lsseq.out.new
+    echo ------ Test $i ------
+    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $OIC_REPO_DIR/test_lsseq.out.new
+    cd $OIC_REPO_DIR/$workingDir
+    $OIC_REPO_DIR/lsseq ${args[@]} >> $OIC_REPO_DIR/test_lsseq.out.new 2>&1
+    i=$(expr $i + 1)
+    j=$(expr $j + 1)
 done
 
 sed -e "1,$ s-$OIC_REPO_DIR-/...absPathToRepo.../lsseq-g" < $OIC_REPO_DIR/test_lsseq.out.new > /tmp/tmp$$
