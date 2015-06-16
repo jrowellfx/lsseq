@@ -840,7 +840,7 @@ def main():
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="2.010")
+    p.add_argument("--version", action="version", version="2.011")
 
     p.add_argument("--single", "-1", action="store_const",
         dest="by_what", default=BY_UNSPECIFIED, const=BY_SINGLE,
@@ -947,13 +947,13 @@ def main():
     p.add_argument("--prependPathAbs", "-p", action="store_const",
         dest="prependPath", default=PATH_UNSPECIFIED, const=PATH_ABS,
         help="prepend the absolute path name to the image name. \
-        This option implies the option --onlyImages and will also \
+        This option implies the option --onlySequences and will also \
         suppress printing directory name headers when listing \
         directory contents")
     p.add_argument("--prependPathRel", "-P", action="store_const",
         dest="prependPath", const=PATH_REL,
         help="prepend the relative path name to the image name. \
-        This option implies the option --onlyImages and will also \
+        This option implies the option --onlySequences and will also \
         suppress printing directory name headers when listing \
         directory contents")
     p.add_argument("--reverse", "-r", action="store_true",
