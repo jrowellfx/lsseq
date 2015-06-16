@@ -895,7 +895,7 @@ def main():
         dest="extremes", default=False,
         help="only list the first and last image on a separate line each. \
         This option implies --prependPathAbs (unless --prependPathRel is \
-        explicitly specified) and --strictlyOnlyImages")
+        explicitly specified) and --onlySequences")
     p.add_argument("--format", "-f", action="store", type=str,
         choices=("native", "nuke", "rv", "shake", "glob"),
         dest="seqFormat",
