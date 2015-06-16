@@ -48,6 +48,7 @@ import textwrap
 import math
 from operator import itemgetter
 
+CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf"]
 MOV_EXT = ["avi", "mov", "mp4", "mpg", "wmv"]
 IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
     "dib", "dpx", "exr", "gfa", "gif", "giff", "icon", "iff", "img",
@@ -60,9 +61,11 @@ PATH_UNSPECIFIED = 0
 PATH_ABS = 1
 PATH_REL = 2
 
-LIST_ALLFILES = 0
-LIST_ONLYSEQS = 1 # Images and movies.
-LIST_ONLYIMGS = 2 # Strictly images.
+LIST_ALLFILES   = 0
+LIST_ONLYSEQS   = 1 # Images, movies and caches.
+LIST_ONLYIMGS   = 2 # Strictly images.
+LIST_ONLYMOVS   = 3 # Strictly movies.
+LIST_ONLYCACHES = 4 # Strictly caches.
 
 BY_UNSPECIFIED = 0
 BY_SINGLE = 1
@@ -225,8 +228,8 @@ def readByteShortForm(bytes) :
         raise argparse.ArgumentTypeError(msg)
 
 
-# Return two components if "filename" is formatted like a file in an
-# image sequence otherwise return an empty list.  The two returned
+# Return two components if "filename" is formatted like a file in a
+# sequence otherwise return an empty list.  The two returned
 # components are the full filename but missing the frame number,
 # and the frame number (with its existing padding if any).
 #     Eg.  "a.b.c.001.exr" -> ["a.b.c..exr", "001"]
@@ -235,12 +238,18 @@ def readByteShortForm(bytes) :
 def seqSplit(filename, args) :
 
     global IMAGE_EXT
+    global CACHE_EXT
     global LOOSE_SEP
     fileComponents = filename.split(".")
 
-    # Test if image.
+    # A file with no extension.
     #
-    if len(fileComponents) > 1 and (fileComponents[-1] in IMAGE_EXT) :
+    if len(fileComponents) <= 1 :
+        return []
+
+    # Test if image or cache sequence.
+    #
+    if (fileComponents[-1] in IMAGE_EXT) or (fileComponents[-1] in CACHE_EXT) :
 
         if not args.strictSeparator :
             looseFileComponents = fileComponents[-2].split("_")
@@ -291,6 +300,13 @@ def splitImageName(filename) :
     fileExt = fileComponents.pop(-1)
     fileRoot = ".".join(fileComponents) + numSep
     return [fileRoot, "", fileExt]
+
+# Return true if and only if keyName (eg. "a.b.c..ass" - from splitSeq())
+# is a cache sequence (as opposed to an images sequence).
+#
+def isCache(keyName) :
+    splitName = splitImageName(keyName)
+    return splitName[-1] in CACHE_EXT
 
 # Reconstruct the imagename with the frame number.
 #
@@ -542,10 +558,11 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         tmpCWD = os.path.abspath(".")
         os.chdir(path)
 
-    # The 'imageDictionary' has <imageName>..<ext> (or <imageName>_.<ext>)
-    # (i.e.; name without the frame number) as the key for each entry.
-    # Each entry is a two item list containing a number and a list
-    # of three-tuples, namely:
+    # The 'imageDictionary' (and 'cacheDictionary') has <imageName>..<ext>
+    # (or <imageName>_.<ext>), i.e.; name without the frame number, as the
+    # key for each entry.  Each entry is a two item list containing a number
+    # and a list of three-tuples, namely:
+    #
     #     [ <framePadding>, [ (frameNum, fileSize, mtime), ... ] ]
     #
     # The 'moviesDictionary' has the movie file name as the key, and the
@@ -553,6 +570,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     # file is invalid.
     #
     imageDictionary = {}
+    cacheDictionary = {}
     moviesDictionary = {}
     otherFiles = []
     dirList = []
@@ -561,8 +579,9 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     # collect the names into various lists for printing after this is done.
     #
     for filename in dirContents:
+
         fileParts = seqSplit(filename, args)
-        if len(fileParts) == 2 : # Means file is an image.
+        if len(fileParts) == 2 : # Means file is an image or cache.
             newFrameNum = int(fileParts[FRAMENUM])
             newPaddingSize = len(fileParts[FRAMENUM])
 
@@ -580,17 +599,30 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2:
                 newPaddingSize = 1
 
-            if imageDictionary.has_key(fileParts[SEQKEY]) :
-                # tack on new frame number.
-                imageDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
-                    (newFrameNum, newFrameSize, newFrameMTime))
-                # smallest length frame number determines padding.
-                if (newPaddingSize < imageDictionary[fileParts[SEQKEY]][IMDICT_PADDING]) :
-                    imageDictionary[fileParts[SEQKEY]][IMDICT_PADDING] = newPaddingSize
+            if isCache(fileParts[SEQKEY]) :
+                if cacheDictionary.has_key(fileParts[SEQKEY]) :
+                    # tack on new frame number.
+                    cacheDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
+                        (newFrameNum, newFrameSize, newFrameMTime))
+                    # smallest length frame number determines padding.
+                    if (newPaddingSize < cacheDictionary[fileParts[SEQKEY]][IMDICT_PADDING]) :
+                        cacheDictionary[fileParts[SEQKEY]][IMDICT_PADDING] = newPaddingSize
+                else :
+                    # initialiaze dictionary entry.
+                    cacheDictionary[fileParts[SEQKEY]] \
+                        = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
             else :
-                # initialiaze dictionary entry.
-                imageDictionary[fileParts[SEQKEY]] \
-                    = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
+                if imageDictionary.has_key(fileParts[SEQKEY]) :
+                    # tack on new frame number.
+                    imageDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
+                        (newFrameNum, newFrameSize, newFrameMTime))
+                    # smallest length frame number determines padding.
+                    if (newPaddingSize < imageDictionary[fileParts[SEQKEY]][IMDICT_PADDING]) :
+                        imageDictionary[fileParts[SEQKEY]][IMDICT_PADDING] = newPaddingSize
+                else :
+                    # initialiaze dictionary entry.
+                    imageDictionary[fileParts[SEQKEY]] \
+                        = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
 
         elif isMovie(filename) :
             # Check to see if file exists - might be broken soft link.
@@ -634,18 +666,53 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
     # Now actually print the sequences in this directory.
     #
-    imKeys = imageDictionary.keys()
-    movKeys = moviesDictionary.keys()
-    if args.listWhichFiles != LIST_ONLYIMGS :
-        for m in movKeys :
-            imKeys.append(m)
+    if args.listWhichFiles == LIST_ONLYIMGS :
+        seqKeys = imageDictionary.keys()
+    elif args.listWhichFiles == LIST_ONLYMOVS :
+        seqKeys = moviesDictionary.keys()
+    elif args.listWhichFiles == LIST_ONLYCACHES :
+        seqKeys = cacheDictionary.keys()
+    else :
+        seqKeys = imageDictionary.keys()
+        movKeys = moviesDictionary.keys()
+        cacheKeys = cacheDictionary.keys()
+        for k in movKeys :
+            seqKeys.append(k)
+        for k in cacheKeys :
+            seqKeys.append(k)
+
     if args.sortByMTime :
         timeList = []
-        for k in imKeys :
+        for k in seqKeys :
+
             if isMovie(k) :
                 # Note: only thing stored in "moviesDictionary" is the file size.
                 timeList.append((k, moviesDictionary[k]))
-            else :
+
+            elif isCache(k) :
+                validTimes = []
+                for im in cacheDictionary[k][IMDICT_DATALIST] :
+                    if im[FRAME_MTIME] != -1 :
+                        validTimes.append(im[FRAME_MTIME])
+                validTimes.sort()
+                time = 0
+                n = len(validTimes)
+                if n == 1 :
+                    time = validTimes[0]
+                elif n > 1 :
+                    if args.timeCompare == 'oldest' :
+                        time = validTimes[0]
+                    elif args.timeCompare == 'median' :
+                        midIndex = int(math.floor(n/2))
+                        if n % 2 == 1 : # Odd number of items
+                            time = validTimes[midIndex]
+                        else : # Even number of items.
+                            time = (validTimes[midIndex] + validTimes[midIndex-1])/2
+                    else : # newest
+                        time = validTimes[-1]
+                timeList.append((k, time))
+
+            else : # key is an image.
                 validTimes = []
                 for im in imageDictionary[k][IMDICT_DATALIST] :
                     if im[FRAME_MTIME] != -1 :
@@ -677,18 +744,24 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
                 print seq[DICTKEY]
+            elif isCache(seq[DICTKEY]) :
+                cacheDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
             else :
                 imageDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
                 printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
     else :
-        imKeys.sort()
+        seqKeys.sort()
         if args.reverseListing :
-            imKeys.reverse()
-        for k in imKeys :
+            seqKeys.reverse()
+        for k in seqKeys :
             if isMovie(k) :
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
                 print k
+            elif isCache(k) :
+                cacheDictionary[k][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                printSeq(k, cacheDictionary[k], args, traversedPath)
             else :
                 imageDictionary[k][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
                 printSeq(k, imageDictionary[k], args, traversedPath)
@@ -734,11 +807,14 @@ def main():
 
     global IMAGE_EXT
     global MOV_EXT
+    global CACHE_EXT
     global PATH_ABS
     global PATH_REL
     global LIST_ALLFILES
     global LIST_ONLYSEQS
     global LIST_ONLYIMGS
+    global LIST_ONLYMOVS
+    global LIST_ONLYCACHES
 
     p = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -752,7 +828,8 @@ def main():
             where <imgExtension> is drawn from a default list of image extensions
             (see option -i) or they can be set with the environment variable
             OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an
-            OIC_MOV_EXTENSION environment variable for movie file extensions.
+            OIC_MOV_EXTENSION environment variable for movie file extensions and
+            OIC_CACHE_EXTENSION for caches and other miscellaneous sequences.
 
             %(prog)s will first list all non-image-sequence files followed by the
             list of image sequences as such:
@@ -763,7 +840,7 @@ def main():
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="2.000")
+    p.add_argument("--version", action="version", version="2.010")
 
     p.add_argument("--single", "-1", action="store_const",
         dest="by_what", default=BY_UNSPECIFIED, const=BY_SINGLE,
@@ -839,7 +916,7 @@ def main():
         in '1K' (i.e.; 1024) or '1.5K' for example.  [default: 512]")
     p.add_argument("--imgExt", "-i", action="store_true",
         dest="printImgExtensions", default=False,
-        help="print list of raster and movie file extensions and exit")
+        help="print list of image, cache and movie file extensions and exit")
     p.add_argument("--looseNumSeparator", "-l", action="store_false",
         dest="strictSeparator",
         help="allow the use of '_' (underscore), in addition to '.' (dot)\
@@ -853,12 +930,20 @@ def main():
     p.add_argument("--skipMissing", "-M", action="store_false",
         dest="showMissing",
         help="do not show list of missing frames" )
-    p.add_argument("--onlyImages", "-o", action="store_const",
+    p.add_argument("--onlySequences", "-o", action="store_const",
         dest="listWhichFiles", default=LIST_ALLFILES, const=LIST_ONLYSEQS,
-        help="only list image sequences or movies")
-    p.add_argument("--strictlyOnlyImages", "-O", action="store_const",
+        help="only list image sequences, cache sequences and movies")
+
+    p.add_argument("--onlyImages", "-O", action="store_const",
         dest="listWhichFiles", const=LIST_ONLYIMGS,
-        help="strictly only list image sequences (i.e.; no movies)")
+        help="strictly list only image sequences (i.e.; no movies or caches)")
+    p.add_argument("--onlyMovies", action="store_const",
+        dest="listWhichFiles", const=LIST_ONLYMOVS,
+        help="strictly list only movies (i.e.; no images or caches)")
+    p.add_argument("--onlyCaches", action="store_const",
+        dest="listWhichFiles", const=LIST_ONLYCACHES,
+        help="strictly list only cache sequences (i.e.; no images or movies)")
+
     p.add_argument("--prependPathAbs", "-p", action="store_const",
         dest="prependPath", default=PATH_UNSPECIFIED, const=PATH_ABS,
         help="prepend the absolute path name to the image name. \
@@ -930,7 +1015,7 @@ def main():
     for e in tmpExtList :
         if '.' in e :
             print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                ": warning : dots are not allowed in file name extensions so " + e + " is being ignored."
+                ": warning : dots are not currently supported in file name extensions so " + e + " is being ignored."
         else :
             IMAGE_EXT.append(e);
 
@@ -944,13 +1029,31 @@ def main():
     for e in tmpExtList :
         if '.' in e :
             print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                ": warning : dots are not allowed in file name extensions so " + e + " is being ignored."
+                ": warning : dots are not currently supported in file name extensions so " + e + " is being ignored."
         else :
             MOV_EXT.append(e);
 
+    tmpExt = os.getenv("OIC_CACHE_EXTENSION")
+    if tmpExt != None and tmpExt != "" :
+        tmpExtList = tmpExt.split(":")
+    else : 
+        tmpExtList = CACHE_EXT
+    tmpExtList.sort();
+    CACHE_EXT = []
+    for e in tmpExtList :
+        if '.' in e :
+            print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+                ": warning : dots are not currently supported in file name extensions so " + e + " is being ignored."
+        else :
+            CACHE_EXT.append(e);
+
     if args.printImgExtensions :
-        print "Image extensions:", IMAGE_EXT
-        print "Movie extensions:", MOV_EXT
+        extList = ":".join(IMAGE_EXT)
+        print "Image extensions:", extList
+        extList = ":".join(MOV_EXT)
+        print "Movie extensions:", extList
+        extList = ":".join(CACHE_EXT)
+        print "Cache extensions:", extList
         sys.exit(0)
 
     if args.prependPath == PATH_REL :

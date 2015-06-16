@@ -1,14 +1,15 @@
 ------ Begin Tests ------
 
 ------ Test 1 ------ lsseq --version ------
-2.000
+2.010
 
 ------ Test 2 ------ lsseq -lRFC testdir ------
 testdir:
-adir/	      ddir/		    mkBlackFrames_HD_10.v01.shk  www..exr
-bdir/	      fdir/		    mkBlackFrames_HD_2.v01.shk
-blackFrames/  mkAnimFrames.v01.shk  mkTestFrames.v01.nk
-cdir/	      mkAnimFrames.v02.shk  mkTestFrames.v02.nk
+adir/	      fdir/			   mkBlackFrames_HD_2.v01.shk
+bdir/	      gdir/			   mkTestFrames.v01.nk
+blackFrames/  mkAnimFrames.v01.shk	   mkTestFrames.v02.nk
+cdir/	      mkAnimFrames.v02.shk	   www..exr
+ddir/	      mkBlackFrames_HD_10.v01.shk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -71,6 +72,13 @@ ccc.[004].jpg
 ddd.[-08].jpg 
 xxx.[01989-02013].png 
 xxx_[01989-02013].png 
+
+testdir/gdir:
+ccc01.[001-120].ass m:[3]
+ccc02.[001-120].ass m:[51,119]
+ccc03.[80-140].fur 
+xxx01.mov
+xxx02.mov
 
 ------ Test 3 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../lsseq/testDirFile.001.exr 
@@ -157,6 +165,14 @@ xxx_[01989-02013].png
 /...absPathToRepo.../lsseq/fdir/xxx.02013.png 
 /...absPathToRepo.../lsseq/fdir/xxx_01989.png 
 /...absPathToRepo.../lsseq/fdir/xxx_02013.png 
+/...absPathToRepo.../lsseq/gdir/ccc01.001.ass 
+/...absPathToRepo.../lsseq/gdir/ccc01.120.ass 
+/...absPathToRepo.../lsseq/gdir/ccc02.001.ass 
+/...absPathToRepo.../lsseq/gdir/ccc02.120.ass 
+/...absPathToRepo.../lsseq/gdir/ccc03.80.fur 
+/...absPathToRepo.../lsseq/gdir/ccc03.140.fur 
+/...absPathToRepo.../lsseq/gdir/xxx01.mov
+/...absPathToRepo.../lsseq/gdir/xxx02.mov
 
 ------ Test 5 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr 
@@ -200,6 +216,14 @@ testdir/fdir/ccc.004.jpg
 testdir/fdir/ddd.-08.jpg 
 testdir/fdir/xxx.01989.png 
 testdir/fdir/xxx.02013.png 
+testdir/gdir/ccc01.001.ass 
+testdir/gdir/ccc01.120.ass 
+testdir/gdir/ccc02.001.ass 
+testdir/gdir/ccc02.120.ass 
+testdir/gdir/ccc03.80.fur 
+testdir/gdir/ccc03.140.fur 
+testdir/gdir/xxx01.mov
+testdir/gdir/xxx02.mov
 
 ------ Test 6 ------ lsseq ------
 adir
@@ -208,6 +232,7 @@ blackFrames
 cdir
 ddir
 fdir
+gdir
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -223,7 +248,7 @@ xxx.mov
 yyy.[0123].tif 
 yyy.mov
 
------- Test 7 ------ lsseq adir bdir blackFrames cdir ddir fdir mkAnimFrames.v01.shk mkAnimFrames.v02.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk mkTestFrames.v02.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv www..exr xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
+------ Test 7 ------ lsseq adir bdir blackFrames cdir ddir fdir gdir mkAnimFrames.v01.shk mkAnimFrames.v02.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk mkTestFrames.v02.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv www..exr xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -374,7 +399,14 @@ ccc.[004].jpg
 ddd.[-08].jpg 
 xxx.[01989-02013].png 
 
------- Test 8 ------ lsseq -l adir bdir blackFrames cdir ddir fdir mkAnimFrames.v01.shk mkAnimFrames.v02.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk mkTestFrames.v02.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv www..exr xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
+gdir:
+ccc01.[001-120].ass m:[3]
+ccc02.[001-120].ass m:[51,119]
+ccc03.[80-140].fur 
+xxx01.mov
+xxx02.mov
+
+------ Test 8 ------ lsseq -l adir bdir blackFrames cdir ddir fdir gdir mkAnimFrames.v01.shk mkAnimFrames.v02.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk mkTestFrames.v02.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv www..exr xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -500,6 +532,13 @@ ccc.[004].jpg
 ddd.[-08].jpg 
 xxx.[01989-02013].png 
 xxx_[01989-02013].png 
+
+gdir:
+ccc01.[001-120].ass m:[3]
+ccc02.[001-120].ass m:[51,119]
+ccc03.[80-140].fur 
+xxx01.mov
+xxx02.mov
 
 ------ Test 9 ------ lsseq ------
 aaaa
@@ -914,8 +953,9 @@ ccc02.[0-9][0-9][0-9].exr
 ccc03.[0-9][0-9].tga
 
 ------ Test 21 ------ lsseq -i ------
-Image extensions: ['alpha', 'als', 'anim', 'bmp', 'btf', 'bw', 'cin', 'dib', 'dpx', 'exr', 'gfa', 'gif', 'giff', 'icon', 'iff', 'img', 'int', 'inta', 'jpe', 'jpeg', 'jpg', 'mask', 'matte', 'pct', 'pct1', 'pct2', 'pdb', 'pdd', 'pic', 'pict', 'pix', 'png', 'psb', 'psd', 'raw', 'rgb', 'rgba', 'rle', 'rw2', 'sgi', 'tga', 'tif', 'tiff', 'tpic']
-Movie extensions: ['avi', 'mov', 'mp4', 'mpg', 'wmv']
+Image extensions: alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:pct:pct1:pct2:pdb:pdd:pic:pict:pix:png:psb:psd:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
+Movie extensions: avi:mov:mp4:mpg:wmv
+Cache extensions: ass:dshd:fur:obj:srf
 
 ------ Test 22 ------ lsseq -M ------
 aaaa
@@ -1177,6 +1217,7 @@ blackFrames
 cdir
 ddir
 fdir
+gdir
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -1332,6 +1373,13 @@ bbb.[-009-0010].jpg
 ccc.[004].jpg 
 ddd.[-08].jpg 
 xxx.[01989-02013].png 
+
+/...absPathToRepo.../lsseq/testdir/gdir:
+ccc01.[001-120].ass m:[3]
+ccc02.[001-120].ass m:[51,119]
+ccc03.[80-140].fur 
+xxx01.mov
+xxx02.mov
 
 /...absPathToRepo.../lsseq/testdir/cdir:
 aaaa
@@ -1615,6 +1663,21 @@ ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 ./c_subDir/ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 40 ------ lsseq -i ------
-lsseq: warning : dots are not allowed in file name extensions so ass.gz is being ignored.
-Image extensions: ['ass', 'bmp', 'cin', 'dpx', 'exr', 'gif', 'iff', 'img', 'jpeg', 'jpg', 'pic', 'pict', 'pix', 'png', 'psb', 'psd', 'raw', 'rgb', 'rgba', 'rle', 'sgi', 'tga', 'tif', 'tiff']
-Movie extensions: ['avi', 'mov', 'mp4', 'mpg', 'wmv']
+lsseq: warning : dots are not currently supported in file name extensions so ass.gz is being ignored.
+Image extensions: alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:pct:pct1:pct2:pdb:pdd:pic:pict:pix:png:psb:psd:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
+Movie extensions: avi:mov:mp4:mpg:wmv
+Cache extensions: ass:dshd:fur:obj:srf
+
+------ Test 41 ------ lsseq --onlyImages ------
+lsseq: warning : dots are not currently supported in file name extensions so ass.gz is being ignored.
+
+------ Test 42 ------ lsseq --onlyMovies ------
+lsseq: warning : dots are not currently supported in file name extensions so ass.gz is being ignored.
+xxx01.mov
+xxx02.mov
+
+------ Test 43 ------ lsseq --onlyCaches ------
+lsseq: warning : dots are not currently supported in file name extensions so ass.gz is being ignored.
+ccc01.[001-120].ass m:[3]
+ccc02.[001-120].ass m:[51,119]
+ccc03.[80-140].fur 

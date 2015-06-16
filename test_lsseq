@@ -96,10 +96,13 @@ while true; do
     i=$(expr $i + 1)
 done
 
-export OIC_IMAGE_EXTENSION=bmp:cin:dpx:exr:gif:iff:img:jpeg:jpg:pic:pict:pix:png:psb:psd:raw:rgb:rgba:rle:sgi:tga:tif:tiff:ass:ass.gz
+export OIC_CACHE_EXTENSION=ass:dshd:fur:obj:srf:ass.gz
 
 cat << EOF2 > $tmpArgs
 . -i
+testdir/gdir --onlyImages
+testdir/gdir --onlyMovies
+testdir/gdir --onlyCaches
 EOF2
 
 j=1
