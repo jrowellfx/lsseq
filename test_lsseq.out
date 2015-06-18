@@ -953,9 +953,9 @@ ccc02.[0-9][0-9][0-9].exr
 ccc03.[0-9][0-9].tga
 
 ------ Test 21 ------ lsseq -i ------
-Image extensions: alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:pct:pct1:pct2:pdb:pdd:pic:pict:pix:png:psb:psd:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
-Movie extensions: avi:mov:mp4:mpg:wmv
-Cache extensions: ass:dshd:fur:obj:srf
+OIC_IMAGE_EXTENSION: alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:pct:pct1:pct2:pdb:pdd:pic:pict:pix:png:psb:psd:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
+OIC_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
+OIC_CACHE_EXTENSION: ass:dshd:fur:obj:srf
 
 ------ Test 22 ------ lsseq -M ------
 aaaa
@@ -1663,21 +1663,21 @@ ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 ./c_subDir/ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 40 ------ lsseq -i ------
-lsseq: warning : dots are not currently supported in file name extensions so ass.gz is being ignored.
-Image extensions: alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:pct:pct1:pct2:pdb:pdd:pic:pict:pix:png:psb:psd:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
-Movie extensions: avi:mov:mp4:mpg:wmv
-Cache extensions: ass:dshd:fur:obj:srf
+lsseq: warning: dots are not currently supported in file name extensions so ass.gz is being ignored.
+OIC_IMAGE_EXTENSION: alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:pct:pct1:pct2:pdb:pdd:pic:pict:pix:png:psb:psd:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
+OIC_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
+OIC_CACHE_EXTENSION: ass:dshd:fur:obj:srf
 
 ------ Test 41 ------ lsseq --onlyImages ------
-lsseq: warning : dots are not currently supported in file name extensions so ass.gz is being ignored.
+lsseq: warning: dots are not currently supported in file name extensions so ass.gz is being ignored.
 
 ------ Test 42 ------ lsseq --onlyMovies ------
-lsseq: warning : dots are not currently supported in file name extensions so ass.gz is being ignored.
+lsseq: warning: dots are not currently supported in file name extensions so ass.gz is being ignored.
 xxx01.mov
 xxx02.mov
 
 ------ Test 43 ------ lsseq --onlyCaches ------
-lsseq: warning : dots are not currently supported in file name extensions so ass.gz is being ignored.
+lsseq: warning: dots are not currently supported in file name extensions so ass.gz is being ignored.
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur 

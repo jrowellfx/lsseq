@@ -1015,7 +1015,7 @@ def main():
     for e in tmpExtList :
         if '.' in e :
             print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                ": warning : dots are not currently supported in file name extensions so " + e + " is being ignored."
+                ": warning: dots are not currently supported in file name extensions so " + e + " is being ignored."
         else :
             IMAGE_EXT.append(e);
 
@@ -1029,7 +1029,7 @@ def main():
     for e in tmpExtList :
         if '.' in e :
             print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                ": warning : dots are not currently supported in file name extensions so " + e + " is being ignored."
+                ": warning: dots are not currently supported in file name extensions so " + e + " is being ignored."
         else :
             MOV_EXT.append(e);
 
@@ -1043,17 +1043,17 @@ def main():
     for e in tmpExtList :
         if '.' in e :
             print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                ": warning : dots are not currently supported in file name extensions so " + e + " is being ignored."
+                ": warning: dots are not currently supported in file name extensions so " + e + " is being ignored."
         else :
             CACHE_EXT.append(e);
 
     if args.printImgExtensions :
         extList = ":".join(IMAGE_EXT)
-        print "Image extensions:", extList
+        print "OIC_IMAGE_EXTENSION:", extList
         extList = ":".join(MOV_EXT)
-        print "Movie extensions:", extList
+        print "OIC_MOV_EXTENSION:", extList
         extList = ":".join(CACHE_EXT)
-        print "Cache extensions:", extList
+        print "OIC_CACHE_EXTENSION:", extList
         sys.exit(0)
 
     if args.prependPath == PATH_REL :
