@@ -1,0 +1,265 @@
+#! /usr/local/Nuke6.3v4/Nuke6.3 -nx
+version 6.3 v4
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="1272" y="25" w="2568" h="1550" screen="0">
+        <splitter orientation="1">
+            <split size="1152"/>
+            <splitter orientation="1">
+                <split size="64"/>
+                <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                    <page id="Toolbar.1"/>
+                </dock>
+                <split size="1084"/>
+                <splitter orientation="2">
+                    <split size="746"/>
+                    <dock id="" activePageId="Viewer.1">
+                        <page id="Viewer.1"/>
+                    </dock>
+                    <split size="745"/>
+                    <dock id="" activePageId="Properties.1">
+                        <page id="Properties.1"/>
+                        <page id="Curve Editor.1"/>
+                        <page id="DopeSheet.1"/>
+                    </dock>
+                </splitter>
+            </splitter>
+            <split size="1408"/>
+            <dock id="" activePageId="DAG.1">
+                <page id="DAG.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name /nas/media/src/python/lsseq/testdir/mk_hdir_Frames.v01.nk
+ frame 13
+ last_frame 40
+ format "64 64 0 0 64 64 1 verySmSq"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+}
+Text {
+ inputs 0
+ message "\[frame]"
+ font /usr/share/fonts/truetype/Vera.ttf
+ size 25
+ xjustify center
+ yjustify center
+ Transform 1
+ box {0 0 64 64}
+ center {32 32}
+ name Text4
+ xpos -140
+ ypos -88
+}
+set N5a21350 [stack 0]
+Dot {
+ name Dot4
+ xpos -106
+ ypos 40
+}
+push $N5a21350
+Transform {
+ translate {2 -2}
+ center {320 240}
+ name Transform4
+ xpos -211
+ ypos -32
+}
+Blur {
+ size 2
+ name Blur1
+ xpos -211
+ ypos -6
+}
+ColorWheel {
+ inputs 0
+ gamma 0.45
+ name ColorWheel1
+ xpos -352
+ ypos -193
+}
+Blur {
+ size 26
+ name Blur7
+ xpos -352
+ ypos -121
+}
+Grade {
+ inputs 1+1
+ white 0.2
+ name Grade1
+ xpos -352
+ ypos 21
+}
+Merge2 {
+ inputs 2
+ name Merge1
+ xpos -352
+ ypos 95
+}
+Write {
+ file /nas/media/src/python/lsseq/testdir/hdir/v001/hhh02.%04d.jpg
+ file_type jpeg
+ checkHashOnRead false
+ version 2
+ name Write1
+ xpos -352
+ ypos 247
+}
+Text {
+ inputs 0
+ message "\[frame]"
+ font /usr/share/fonts/truetype/Vera.ttf
+ size 25
+ xjustify center
+ yjustify center
+ Transform 1
+ box {0 0 64 64}
+ center {32 32}
+ name Text1
+ xpos 740
+ ypos -124
+}
+set N56572e0 [stack 0]
+Dot {
+ name Dot1
+ xpos 774
+ ypos 4
+}
+push $N56572e0
+Transform {
+ translate {2 -2}
+ center {320 240}
+ name Transform1
+ xpos 669
+ ypos -68
+}
+Blur {
+ size 2
+ name Blur2
+ xpos 669
+ ypos -42
+}
+CheckerBoard2 {
+ inputs 0
+ boxsize 3
+ centerlinewidth 1
+ name CheckerBoard1
+ xpos 464
+ ypos -210
+}
+Blur {
+ size 2
+ name Blur4
+ xpos 464
+ ypos -104
+}
+Grade {
+ inputs 1+1
+ white 0.2
+ name Grade2
+ xpos 464
+ ypos 39
+}
+Merge2 {
+ inputs 2
+ name Merge2
+ xpos 464
+ ypos 113
+}
+Write {
+ file /nas/media/src/python/lsseq/testdir/hdir/v001/hhh03.%04d.jpg
+ file_type jpeg
+ checkHashOnRead false
+ version 2
+ name Write2
+ xpos 464
+ ypos 268
+}
+Viewer {
+ inputs 2
+ frame 13
+ frame_range 1-120
+ input_process false
+ name Viewer1
+ xpos -207
+ ypos 910
+}
+Text {
+ inputs 0
+ message "\[frame]"
+ font /usr/share/fonts/truetype/Vera.ttf
+ size 25
+ xjustify center
+ yjustify center
+ Transform 1
+ box {0 0 64 64}
+ center {32 32}
+ name Text3
+ xpos -752
+ ypos -64
+}
+set N4c9fa00 [stack 0]
+Dot {
+ name Dot3
+ xpos -718
+ ypos 64
+}
+push $N4c9fa00
+Transform {
+ translate {2 -2}
+ center {320 240}
+ name Transform3
+ xpos -823
+ ypos -8
+}
+Blur {
+ size 2
+ name Blur5
+ xpos -823
+ ypos 18
+}
+ColorWheel {
+ inputs 0
+ gamma 0.45
+ name ColorWheel3
+ xpos -938
+ ypos -260
+}
+Invert {
+ name Invert2
+ xpos -938
+ ypos -144
+}
+Blur {
+ size 26
+ name Blur6
+ xpos -938
+ ypos -93
+}
+Grade {
+ inputs 1+1
+ white 0.2
+ name Grade3
+ xpos -938
+ ypos 52
+}
+Merge2 {
+ inputs 2
+ name Merge3
+ xpos -938
+ ypos 126
+}
+Write {
+ file /nas/media/src/python/lsseq/testdir/hdir/v001/hhh01.%04d.jpg
+ file_type jpeg
+ checkHashOnRead false
+ version 2
+ name Write3
+ xpos -938
+ ypos 239
+}

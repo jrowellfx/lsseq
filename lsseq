@@ -558,6 +558,10 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         tmpCWD = os.path.abspath(".")
         os.chdir(path)
 
+    # Following flag set iff something got printed here before reaching
+    # printing of subdirs.
+    somethingWasPrinted = False
+
     # The 'imageDictionary' (and 'cacheDictionary') has <imageName>..<ext>
     # (or <imageName>_.<ext>), i.e.; name without the frame number, as the
     # key for each entry.  Each entry is a two item list containing a number
@@ -663,6 +667,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         sys.stdout.flush()
         subprocess.call(lsCmd)
         sys.stdout.flush()
+        somethingWasPrinted = True
 
     # Now actually print the sequences in this directory.
     #
@@ -744,12 +749,15 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
                 print seq[DICTKEY]
+                somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
                 cacheDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
                 printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
+                somethingWasPrinted = True
             else :
                 imageDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
                 printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
+                somethingWasPrinted = True
     else :
         seqKeys.sort()
         if args.reverseListing :
@@ -759,22 +767,28 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
                 print k
+                somethingWasPrinted = True
             elif isCache(k) :
                 cacheDictionary[k][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
                 printSeq(k, cacheDictionary[k], args, traversedPath)
+                somethingWasPrinted = True
             else :
                 imageDictionary[k][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
                 printSeq(k, imageDictionary[k], args, traversedPath)
+                somethingWasPrinted = True
 
     # lsseq - the contents of any subdirectories if need be.
     #
+    firstDir = True
     if ((listSubDirs or args.isRecursive) and args.listDirContents) :
         dirList.sort()
         for d in dirList :
             if d[-1] == "/" :
                 d = d[:-1]
             if args.prependPath == 0 :
-                print ""
+                if somethingWasPrinted or not firstDir :
+                    print ""
+                firstDir = False
                 if args.isRecursive :
                     print traversedPath + d + ":"
                 else :
@@ -1022,7 +1036,7 @@ def main():
     tmpExt = os.getenv("OIC_MOV_EXTENSION")
     if tmpExt != None and tmpExt != "" :
         tmpExtList = tmpExt.split(":")
-    else : 
+    else :
         tmpExtList = MOV_EXT
     tmpExtList.sort();
     MOV_EXT = []
@@ -1036,7 +1050,7 @@ def main():
     tmpExt = os.getenv("OIC_CACHE_EXTENSION")
     if tmpExt != None and tmpExt != "" :
         tmpExtList = tmpExt.split(":")
-    else : 
+    else :
         tmpExtList = CACHE_EXT
     tmpExtList.sort();
     CACHE_EXT = []
