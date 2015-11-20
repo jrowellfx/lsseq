@@ -45,6 +45,7 @@ cat << EOF > $tmpArgs
 . -lReC testdir
 . -lReoC testdir
 . -RePC testdir
+testdir -p
 testdir
 testdir *
 testdir -l *
@@ -79,6 +80,10 @@ testdir/cdir -1RbC
 testdir/cdir -Rbx
 testdir/cdir -1CRbx
 testdir/cdir -R -P -p -P -f rv -f glob -fnative -C -b
+testdir/idir
+testdir/idir -R
+testdir/idir -P *
+testdir/idir -p *
 EOF
 
 echo ------ Begin Tests ------ > $OIC_REPO_DIR/test_lsseq.out.new
@@ -127,3 +132,6 @@ done
 
 sed -e "1,$ s-$OIC_REPO_DIR-/...absPathToRepo.../lsseq-g" < $OIC_REPO_DIR/test_lsseq.out.new > /tmp/tmp$$
 /bin/mv /tmp/tmp$$ $OIC_REPO_DIR/test_lsseq.out.new
+
+cleanup
+

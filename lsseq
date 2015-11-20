@@ -854,7 +854,7 @@ def main():
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="2.011")
+    p.add_argument("--version", action="version", version="2.012")
 
     p.add_argument("--single", "-1", action="store_const",
         dest="by_what", default=BY_UNSPECIFIED, const=BY_SINGLE,
@@ -1112,7 +1112,7 @@ def main():
     # to print the directory name before listing the contents (unless
     # it is a recursive listing).  (/bin/ls behavior.)
     #
-    elif len(args.files) == 1 and os.path.isdir(args.files[0]) :
+    elif len(args.files) == 1 and os.path.isdir(args.files[0]) and args.prependPath != PATH_ABS :
         arg0 = args.files[0]
         # Strip out trailing "/" that may have been tacked on by
         # file completion.  (/bin/ls does not do this - but it's
