@@ -5,11 +5,12 @@
 
 ------ Test 2 ------ lsseq -lRFC testdir ------
 testdir:
-adir/	      fdir/			   mkBlackFrames_HD_2.v01.shk
-bdir/	      gdir/			   mkTestFrames.v01.nk
-blackFrames/  mkAnimFrames.v01.shk	   mkTestFrames.v02.nk
-cdir/	      mkAnimFrames.v02.shk	   www..exr
-ddir/	      mkBlackFrames_HD_10.v01.shk
+adir/	      gdir/			   mkBlackFrames_HD_2.v01.shk
+bdir/	      hdir/			   mkTestFrames.v01.nk
+blackFrames/  idir/			   mkTestFrames.v02.nk
+cdir/	      mkAnimFrames.v01.shk	   mk_hdir_Frames.v01.nk
+ddir/	      mkAnimFrames.v02.shk	   www..exr
+fdir/	      mkBlackFrames_HD_10.v01.shk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -80,6 +81,44 @@ ccc03.[80-140].fur
 xxx01.mov
 xxx02.mov
 
+testdir/hdir:
+foo/  v001/  v002/  v003/
+
+testdir/hdir/foo:
+v001/  v002/  v003/
+
+testdir/hdir/foo/v001:
+hhh01.[0001-0040].jpg 
+hhh02.[0001-0040].jpg 
+hhh03.[0001-0040].jpg 
+
+testdir/hdir/foo/v002:
+hhh01.[0001-0040].jpg 
+hhh02.[0001-0040].jpg 
+hhh03.[0001-0040].jpg 
+
+testdir/hdir/foo/v003:
+hhh01.[0001-0040].jpg 
+hhh02.[0001-0040].jpg 
+hhh03.[0001-0040].jpg 
+
+testdir/hdir/v001:
+hhh01.[0001-0040].jpg 
+hhh02.[0001-0040].jpg 
+hhh03.[0001-0040].jpg 
+
+testdir/hdir/v002:
+hhh01.[0001-0040].jpg 
+hhh02.[0001-0040].jpg 
+hhh03.[0001-0040].jpg 
+
+testdir/hdir/v003:
+hhh01.[0001-0040].jpg 
+hhh02.[0001-0040].jpg 
+hhh03.[0001-0040].jpg 
+
+testdir/idir:
+
 ------ Test 3 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../lsseq/testDirFile.001.exr 
 /...absPathToRepo.../lsseq/testDirFile.012.exr 
@@ -120,6 +159,42 @@ xxx02.mov
 /...absPathToRepo.../lsseq/fdir/xxx.02013.png 
 /...absPathToRepo.../lsseq/fdir/xxx_01989.png 
 /...absPathToRepo.../lsseq/fdir/xxx_02013.png 
+/...absPathToRepo.../lsseq/hdir/foo/v001/hhh01.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v001/hhh01.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v001/hhh02.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v001/hhh02.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v001/hhh03.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v001/hhh03.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v002/hhh01.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v002/hhh01.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v002/hhh02.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v002/hhh02.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v002/hhh03.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v002/hhh03.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v003/hhh01.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v003/hhh01.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v003/hhh02.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v003/hhh02.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v003/hhh03.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v003/hhh03.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v001/hhh01.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v001/hhh01.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v001/hhh02.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v001/hhh02.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v001/hhh03.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v001/hhh03.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v002/hhh01.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v002/hhh01.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v002/hhh02.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v002/hhh02.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v002/hhh03.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v002/hhh03.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v003/hhh01.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v003/hhh01.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v003/hhh02.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v003/hhh02.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v003/hhh03.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v003/hhh03.0040.jpg 
 
 ------ Test 4 ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../lsseq/testDirFile.001.exr 
@@ -173,6 +248,42 @@ xxx02.mov
 /...absPathToRepo.../lsseq/gdir/ccc03.140.fur 
 /...absPathToRepo.../lsseq/gdir/xxx01.mov
 /...absPathToRepo.../lsseq/gdir/xxx02.mov
+/...absPathToRepo.../lsseq/hdir/foo/v001/hhh01.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v001/hhh01.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v001/hhh02.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v001/hhh02.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v001/hhh03.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v001/hhh03.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v002/hhh01.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v002/hhh01.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v002/hhh02.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v002/hhh02.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v002/hhh03.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v002/hhh03.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v003/hhh01.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v003/hhh01.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v003/hhh02.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v003/hhh02.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v003/hhh03.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/foo/v003/hhh03.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v001/hhh01.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v001/hhh01.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v001/hhh02.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v001/hhh02.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v001/hhh03.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v001/hhh03.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v002/hhh01.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v002/hhh01.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v002/hhh02.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v002/hhh02.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v002/hhh03.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v002/hhh03.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v003/hhh01.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v003/hhh01.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v003/hhh02.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v003/hhh02.0040.jpg 
+/...absPathToRepo.../lsseq/hdir/v003/hhh03.0001.jpg 
+/...absPathToRepo.../lsseq/hdir/v003/hhh03.0040.jpg 
 
 ------ Test 5 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr 
@@ -224,6 +335,42 @@ testdir/gdir/ccc03.80.fur
 testdir/gdir/ccc03.140.fur 
 testdir/gdir/xxx01.mov
 testdir/gdir/xxx02.mov
+testdir/hdir/foo/v001/hhh01.0001.jpg 
+testdir/hdir/foo/v001/hhh01.0040.jpg 
+testdir/hdir/foo/v001/hhh02.0001.jpg 
+testdir/hdir/foo/v001/hhh02.0040.jpg 
+testdir/hdir/foo/v001/hhh03.0001.jpg 
+testdir/hdir/foo/v001/hhh03.0040.jpg 
+testdir/hdir/foo/v002/hhh01.0001.jpg 
+testdir/hdir/foo/v002/hhh01.0040.jpg 
+testdir/hdir/foo/v002/hhh02.0001.jpg 
+testdir/hdir/foo/v002/hhh02.0040.jpg 
+testdir/hdir/foo/v002/hhh03.0001.jpg 
+testdir/hdir/foo/v002/hhh03.0040.jpg 
+testdir/hdir/foo/v003/hhh01.0001.jpg 
+testdir/hdir/foo/v003/hhh01.0040.jpg 
+testdir/hdir/foo/v003/hhh02.0001.jpg 
+testdir/hdir/foo/v003/hhh02.0040.jpg 
+testdir/hdir/foo/v003/hhh03.0001.jpg 
+testdir/hdir/foo/v003/hhh03.0040.jpg 
+testdir/hdir/v001/hhh01.0001.jpg 
+testdir/hdir/v001/hhh01.0040.jpg 
+testdir/hdir/v001/hhh02.0001.jpg 
+testdir/hdir/v001/hhh02.0040.jpg 
+testdir/hdir/v001/hhh03.0001.jpg 
+testdir/hdir/v001/hhh03.0040.jpg 
+testdir/hdir/v002/hhh01.0001.jpg 
+testdir/hdir/v002/hhh01.0040.jpg 
+testdir/hdir/v002/hhh02.0001.jpg 
+testdir/hdir/v002/hhh02.0040.jpg 
+testdir/hdir/v002/hhh03.0001.jpg 
+testdir/hdir/v002/hhh03.0040.jpg 
+testdir/hdir/v003/hhh01.0001.jpg 
+testdir/hdir/v003/hhh01.0040.jpg 
+testdir/hdir/v003/hhh02.0001.jpg 
+testdir/hdir/v003/hhh02.0040.jpg 
+testdir/hdir/v003/hhh03.0001.jpg 
+testdir/hdir/v003/hhh03.0040.jpg 
 
 ------ Test 6 ------ lsseq ------
 adir
@@ -233,12 +380,15 @@ cdir
 ddir
 fdir
 gdir
+hdir
+idir
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
 mkBlackFrames_HD_2.v01.shk
 mkTestFrames.v01.nk
 mkTestFrames.v02.nk
+mk_hdir_Frames.v01.nk
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -248,13 +398,14 @@ xxx.mov
 yyy.[0123].tif 
 yyy.mov
 
------- Test 7 ------ lsseq adir bdir blackFrames cdir ddir fdir gdir mkAnimFrames.v01.shk mkAnimFrames.v02.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk mkTestFrames.v02.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv www..exr xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
+------ Test 7 ------ lsseq adir bdir blackFrames cdir ddir fdir gdir hdir idir mkAnimFrames.v01.shk mkAnimFrames.v02.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk mkTestFrames.v02.nk mk_hdir_Frames.v01.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv www..exr xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
 mkBlackFrames_HD_2.v01.shk
 mkTestFrames.v01.nk
 mkTestFrames.v02.nk
+mk_hdir_Frames.v01.nk
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -406,13 +557,22 @@ ccc03.[80-140].fur
 xxx01.mov
 xxx02.mov
 
------- Test 8 ------ lsseq -l adir bdir blackFrames cdir ddir fdir gdir mkAnimFrames.v01.shk mkAnimFrames.v02.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk mkTestFrames.v02.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv www..exr xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
+hdir:
+foo
+v001
+v002
+v003
+
+idir:
+
+------ Test 8 ------ lsseq -l adir bdir blackFrames cdir ddir fdir gdir hdir idir mkAnimFrames.v01.shk mkAnimFrames.v02.shk mkBlackFrames_HD_10.v01.shk mkBlackFrames_HD_2.v01.shk mkTestFrames.v01.nk mkTestFrames.v02.nk mk_hdir_Frames.v01.nk testDirFile.001.exr testDirFile.002.exr testDirFile.004.exr testDirFile.005.exr testDirFile.006.exr testDirFile.007.exr testDirFile.008.exr testDirFile.009.exr testDirFile.010.exr testDirFile.011.exr testDirFile.012.exr testDirFile.mov testDirFile.wmv www..exr xxx.000.exr xxx.002.exr xxx.004.exr xxx.006.exr xxx.008.exr xxx.010.exr xxx.012.exr xxx.014.exr xxx.016.exr xxx.mov yyy.0123.tif yyy.mov ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
 mkBlackFrames_HD_2.v01.shk
 mkTestFrames.v01.nk
 mkTestFrames.v02.nk
+mk_hdir_Frames.v01.nk
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -539,6 +699,14 @@ ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur 
 xxx01.mov
 xxx02.mov
+
+hdir:
+foo
+v001
+v002
+v003
+
+idir:
 
 ------ Test 9 ------ lsseq ------
 aaaa
@@ -1209,7 +1377,6 @@ ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga 
 
 ------ Test 31 ------ lsseq -R /...absPathToRepo.../lsseq/testdir/cdir/ /...absPathToRepo.../lsseq/testdir/ ------
-
 /...absPathToRepo.../lsseq/testdir:
 adir
 bdir
@@ -1218,12 +1385,15 @@ cdir
 ddir
 fdir
 gdir
+hdir
+idir
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
 mkBlackFrames_HD_2.v01.shk
 mkTestFrames.v01.nk
 mkTestFrames.v02.nk
+mk_hdir_Frames.v01.nk
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -1380,6 +1550,49 @@ ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur 
 xxx01.mov
 xxx02.mov
+
+/...absPathToRepo.../lsseq/testdir/hdir:
+foo
+v001
+v002
+v003
+
+/...absPathToRepo.../lsseq/testdir/hdir/foo:
+v001
+v002
+v003
+
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001:
+hhh01.[0001-0040].jpg 
+hhh02.[0001-0040].jpg 
+hhh03.[0001-0040].jpg 
+
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002:
+hhh01.[0001-0040].jpg 
+hhh02.[0001-0040].jpg 
+hhh03.[0001-0040].jpg 
+
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003:
+hhh01.[0001-0040].jpg 
+hhh02.[0001-0040].jpg 
+hhh03.[0001-0040].jpg 
+
+/...absPathToRepo.../lsseq/testdir/hdir/v001:
+hhh01.[0001-0040].jpg 
+hhh02.[0001-0040].jpg 
+hhh03.[0001-0040].jpg 
+
+/...absPathToRepo.../lsseq/testdir/hdir/v002:
+hhh01.[0001-0040].jpg 
+hhh02.[0001-0040].jpg 
+hhh03.[0001-0040].jpg 
+
+/...absPathToRepo.../lsseq/testdir/hdir/v003:
+hhh01.[0001-0040].jpg 
+hhh02.[0001-0040].jpg 
+hhh03.[0001-0040].jpg 
+
+/...absPathToRepo.../lsseq/testdir/idir:
 
 /...absPathToRepo.../lsseq/testdir/cdir:
 aaaa
