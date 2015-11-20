@@ -6,8 +6,11 @@ export LC_ALL=POSIX
 unset OIC_IMAGE_EXTENSION
 
 # When testing code locally, make sure you are getting the dev version of lsseq.
+# Eg. assuming the lsseq git repo lives in ~/code/lsseq :
 # tcsh: setenv PATH "~/code/lsseq:${PATH}"
 # tcsh: setenv PATH `eval /etc/cleanpath $PATH`
+#    ...or...
+# bash: export PATH=~/code/lsseq/:$PATH
 
 # NOTE: To make sure the modification times of the testdir/cdir images are
 # set properly for testing we need to force specific times on to the files
@@ -21,7 +24,7 @@ unset OIC_IMAGE_EXTENSION
 # vi custom.touch.images - edit the times to make for different "oldest" and "newest" vs "median".
 # source custom.touch.images
 
-unalias lsseq
+unalias lsseq > /dev/null 2>&1
 tmpArgs=/tmp/tmpTEST_LSSEQ.$$
 OIC_REPO_DIR=`pwd`
 
