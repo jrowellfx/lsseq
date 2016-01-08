@@ -5,7 +5,7 @@
 # assumed to be of the form:
 #     <descriptiveName>.<frameNum>.<imgExtension>
 
-# Copyright (c) 2008-2012, James Philip Rowell,
+# Copyright (c) 2008-2016, James Philip Rowell,
 # Orange Imagination & Concepts, Inc.
 # www.orangeimagination.com
 # All rights reserved.
@@ -653,11 +653,11 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         extra_ls_options = []
         if args.classify :
             extra_ls_options.append("-F")
-        if args.by_what == BY_SINGLE :
+        if args.byWhat == BY_SINGLE :
             extra_ls_options.append("-1")
-        if args.by_what == BY_COLUMNS :
+        if args.byWhat == BY_COLUMNS :
             extra_ls_options.append("-C")
-        if args.by_what == BY_ROWS :
+        if args.byWhat == BY_ROWS :
             extra_ls_options.append("-x")
         if args.sortByMTime :
             extra_ls_options.append("-t")
@@ -746,15 +746,18 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             timeList.reverse()
         for seq in timeList :
             if isMovie(seq[DICTKEY]) :
+                ### This is where to put test for --since/--before/etc. cutoff JPR
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
                 print seq[DICTKEY]
                 somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
+                ### This is where to put test for --since/--before/etc. cutoff JPR
                 cacheDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
                 printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
             else :
+                ### This is where to put test for --since/--before/etc. cutoff JPR
                 imageDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
                 printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
@@ -857,7 +860,7 @@ def main():
     p.add_argument("--version", action="version", version="2.012")
 
     p.add_argument("--single", "-1", action="store_const",
-        dest="by_what", default=BY_UNSPECIFIED, const=BY_SINGLE,
+        dest="byWhat", default=BY_UNSPECIFIED, const=BY_SINGLE,
         help="list one non-sequence entry per line (see ls(1))")
     p.add_argument("--all", "-a", action="store_false",
         dest="ignoreDotFiles", default=True,
@@ -899,7 +902,7 @@ def main():
         dest="combineErrorFrames", default=False,
         help="combine the lists of zero, missing and bad frames into one list")
     p.add_argument("--byColumns", "-C", action="store_const",
-        dest="by_what", const=BY_COLUMNS,
+        dest="byWhat", const=BY_COLUMNS,
         help="list non-sequence entries by columns (see ls(1))")
     p.add_argument("--directory", "-d", action="store_false",
         dest="listDirContents", default=True,
@@ -995,7 +998,7 @@ def main():
         time is between the most recently modified (newest) frames \
         in each sequence. (see --time) (see ls(1))")
     p.add_argument("--byRows", "-x", action="store_const",
-        dest="by_what", const=BY_ROWS,
+        dest="byWhat", const=BY_ROWS,
         help="list non-sequence entries by lines instead of by columns (see ls(1))")
     p.add_argument("--showZero", "-z", action="store_true",
         dest="showZero", default=True,
