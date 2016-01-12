@@ -857,15 +857,8 @@ def main():
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="2.012")
+    p.add_argument("--version", action="version", version="2.013")
 
-    p.add_argument("--single", "-1", action="store_const",
-        dest="byWhat", default=BY_UNSPECIFIED, const=BY_SINGLE,
-        help="list one non-sequence entry per line (see ls(1))")
-    p.add_argument("--all", "-a", action="store_false",
-        dest="ignoreDotFiles", default=True,
-        help="do not ignore entries starting with '.' \
-        while omitting implied '.' and '..' directories (see ls(1) --almost-all)")
     p.add_argument("--showBadFrames", "-b", action="count",
         dest="showBad", default=0,
         help="lists potentially bad frames based on the \
@@ -879,6 +872,18 @@ def main():
     p.add_argument("--skipBadFrames", "-B", action="store_const",
         dest="showBad", const=0,
         help="do not show list of potentially bad frames [default]" )
+    p.add_argument("--showMissing", "-m", action="store_true",
+        dest="showMissing", default=True,
+        help="show list of missing frames [default]" )
+    p.add_argument("--skipMissing", "-M", action="store_false",
+        dest="showMissing",
+        help="do not show list of missing frames" )
+    p.add_argument("--showZero", "-z", action="store_true",
+        dest="showZero", default=True,
+        help="show list of zero length images [default]" )
+    p.add_argument("--skipZero", "-Z", action="store_false",
+        dest="showZero",
+        help="do not show list of zero length images" )
 
 #    p.add_argument("--badWindow", action="store", type=int,
 #        dest="badWindow", default=2,
@@ -901,13 +906,6 @@ def main():
     p.add_argument("--combineLists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
         help="combine the lists of zero, missing and bad frames into one list")
-    p.add_argument("--byColumns", "-C", action="store_const",
-        dest="byWhat", const=BY_COLUMNS,
-        help="list non-sequence entries by columns (see ls(1))")
-    p.add_argument("--directory", "-d", action="store_false",
-        dest="listDirContents", default=True,
-        help="list directory entries instead of contents, \
-        and do not dereference symbolic links (see ls(1))")
     p.add_argument("--extremes", "-e", action="store_true",
         dest="extremes", default=False,
         help="only list the first and last image on a separate line each. \
@@ -922,9 +920,6 @@ def main():
         The choices are 'native' (default), 'nuke', 'rv', 'shake' and 'glob'.\
         Note that glob prints correct results only if \
         the frame numbers are padded")
-    p.add_argument("--classify", "-F", action="store_true",
-        dest="classify", default=False,
-        help="append indicator (one of */=>@|) to entries (see ls(1))")
     p.add_argument("--goodFrameMinSize", action="store", type=readByteShortForm,
         dest="goodFrameMinSize", default=512,
         metavar="BYTES",
@@ -941,12 +936,6 @@ def main():
             looking to interpret filenames as\
             image sequences. i.e.; <descriptiveName>_<frameNum>.<imgExtension>\
             (also see --strictNumSeparator)")
-    p.add_argument("--showMissing", "-m", action="store_true",
-        dest="showMissing", default=True,
-        help="show list of missing frames [default]" )
-    p.add_argument("--skipMissing", "-M", action="store_false",
-        dest="showMissing",
-        help="do not show list of missing frames" )
     p.add_argument("--onlySequences", "-o", action="store_const",
         dest="listWhichFiles", default=LIST_ALLFILES, const=LIST_ONLYSEQS,
         help="only list image sequences, cache sequences and movies")
@@ -973,18 +962,38 @@ def main():
         This option implies the option --onlySequences and will also \
         suppress printing directory name headers when listing \
         directory contents")
-    p.add_argument("--reverse", "-r", action="store_true",
-        dest="reverseListing", default=False,
-        help="reverse order while sorting")
-    p.add_argument("--recursive", "-R", action="store_true",
-        dest="isRecursive", default=False,
-        help="list subdirectories recursively")
     p.add_argument("--strictNumSeparator", "-s", action="store_true",
         dest="strictSeparator", default=True,
         help="strictly enforce the use of '.' (dot) as a separator between the\
             descriptiveName and frameNumber when looking to interpret filenames as\
             image sequences. i.e.; <descriptiveName>.<frameNum>.<imgExtension>\
             (this is the default; also see --looseNumSeparator)")
+    p.add_argument("--single", "-1", action="store_const",
+        dest="byWhat", default=BY_UNSPECIFIED, const=BY_SINGLE,
+        help="list one non-sequence entry per line (see ls(1))")
+    p.add_argument("--all", "-a", action="store_false",
+        dest="ignoreDotFiles", default=True,
+        help="do not ignore entries starting with '.' \
+        while omitting implied '.' and '..' directories (see ls(1) --almost-all)")
+    p.add_argument("--byColumns", "-C", action="store_const",
+        dest="byWhat", const=BY_COLUMNS,
+        help="list non-sequence entries by columns (see ls(1))")
+    p.add_argument("--byRows", "-x", action="store_const",
+        dest="byWhat", const=BY_ROWS,
+        help="list non-sequence entries by lines instead of by columns (see ls(1))")
+    p.add_argument("--directory", "-d", action="store_false",
+        dest="listDirContents", default=True,
+        help="list directory entries instead of contents, \
+        and do not dereference symbolic links (see ls(1))")
+    p.add_argument("--classify", "-F", action="store_true",
+        dest="classify", default=False,
+        help="append indicator (one of */=>@|) to entries (see ls(1))")
+    p.add_argument("--reverse", "-r", action="store_true",
+        dest="reverseListing", default=False,
+        help="reverse order while sorting")
+    p.add_argument("--recursive", "-R", action="store_true",
+        dest="isRecursive", default=False,
+        help="list subdirectories recursively")
     p.add_argument("--time", action="store", type=str,
         dest="timeCompare",
         help="which frame in the sequence to use to compare times \
@@ -997,20 +1006,20 @@ def main():
         help="sort by modification time, the default comparison \
         time is between the most recently modified (newest) frames \
         in each sequence. (see --time) (see ls(1))")
-    p.add_argument("--byRows", "-x", action="store_const",
-        dest="byWhat", const=BY_ROWS,
-        help="list non-sequence entries by lines instead of by columns (see ls(1))")
-    p.add_argument("--showZero", "-z", action="store_true",
-        dest="showZero", default=True,
-        help="show list of zero length images [default]" )
-    p.add_argument("--skipZero", "-Z", action="store_false",
-        dest="showZero",
-        help="do not show list of zero length images" )
+    p.add_argument("--onlyShow", action="store", type=str, nargs=2,
+        dest="cutoffTime",
+        help="where TENSE is either 'before' or 'since'; only list sequences\
+        up to or after the time specified.  The --time argument \
+        specifies which frame to use for the cutoff comparison",
+        metavar=("TENSE", "[[CC]YY]MMDDhhmm.ss"))
 
     p.add_argument("files", metavar="FILE", nargs="*",
         help="file names")
 
     args = p.parse_args()
+
+    # print args.cutoffTime
+    # exit(1)
 
 #    if args.badWindow < 1 :
 #        print >> sys.stderr, os.path.basename(sys.argv[0]) + \
@@ -1089,6 +1098,12 @@ def main():
         args.seqFormat = 'native'
         if args.listWhichFiles == LIST_ALLFILES :
             args.listWhichFiles = LIST_ONLYIMGS # Strictly only images.
+
+    if args.cutoffTime != None :
+        if ( args.cutoffTime[0] == 'before' ) :
+        elif ( args.cutoffTime[0] == 'since' ) :
+        else
+            exit(1)
 
     # The following logic attempts to mimic the behavior
     # of /bin/ls as closely as possible.
