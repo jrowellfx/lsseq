@@ -39,6 +39,10 @@ cd testdir/cdir
 source custom.touch.images
 cd ../..
 
+cd testdir/hdir
+source touch.files
+cd ../..
+
 cat << EOF > $tmpArgs
 . --version
 . -lRFC testdir
@@ -84,12 +88,16 @@ testdir/idir
 testdir/idir -R
 testdir/idir -P *
 testdir/idir -p *
+testdir/hdir -t -r -P foo/*/* v001/* v002/* v003/*
+testdir/hdir --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/* v003/*
+testdir/hdir --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/*
 EOF
 
 echo ------ Begin Tests ------ > $OIC_REPO_DIR/test_lsseq.out.new
 
 i=1
 while true; do
+    set -f # Turn off globbing
     declare -a args=(`sed -n -e "$i p" $tmpArgs`)
     if [ ${#args[@]} -eq 0 ]; then
         break;
@@ -100,6 +108,7 @@ while true; do
     echo ------ Test $i ------
     echo ------ Test $i ------ lsseq ${args[@]} ------ >> $OIC_REPO_DIR/test_lsseq.out.new
     cd $OIC_REPO_DIR/$workingDir
+    set +f # Turn globbing back on
     $OIC_REPO_DIR/lsseq ${args[@]} >> $OIC_REPO_DIR/test_lsseq.out.new 2>&1
     i=$(expr $i + 1)
 done
@@ -115,6 +124,7 @@ EOF2
 
 j=1
 while true; do
+    set -f
     declare -a args=(`sed -n -e "$j p" $tmpArgs`)
     if [ ${#args[@]} -eq 0 ]; then
         break;
@@ -125,6 +135,7 @@ while true; do
     echo ------ Test $i ------
     echo ------ Test $i ------ lsseq ${args[@]} ------ >> $OIC_REPO_DIR/test_lsseq.out.new
     cd $OIC_REPO_DIR/$workingDir
+    set +f
     $OIC_REPO_DIR/lsseq ${args[@]} >> $OIC_REPO_DIR/test_lsseq.out.new 2>&1
     i=$(expr $i + 1)
     j=$(expr $j + 1)
