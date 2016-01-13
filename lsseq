@@ -46,6 +46,7 @@ import subprocess
 import seqLister
 import textwrap
 import math
+import time
 from operator import itemgetter
 
 CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf"]
@@ -686,12 +687,14 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         for k in cacheKeys :
             seqKeys.append(k)
 
-    if args.sortByMTime :
-        timeList = []
+    # Gather file mod times if needed.
+    #
+    timeList = []
+    if args.sortByMTime or args.cutoffTime != None : # non-null cutoffTime means need time compare
         for k in seqKeys :
 
             if isMovie(k) :
-                # Note: only thing stored in "moviesDictionary" is the file size.
+                # Note: only thing stored in "moviesDictionary" is the mod-time of the file.
                 timeList.append((k, moviesDictionary[k]))
 
             elif isCache(k) :
@@ -740,24 +743,56 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                         time = validTimes[-1]
                 timeList.append((k, time))
 
+    if args.sortByMTime :
         timeList.sort(key=itemgetter(MTIME))
         # Note: ls -t prints newest first; ls -tr is newest last.
         if not args.reverseListing :
             timeList.reverse()
         for seq in timeList :
+            if args.cutoffTime != None :
+                ### print "Sequences epoch mtime: " + str(seq[MTIME])
+                if args.cutoffTime[0] == 'before' :
+                    if seq[MTIME] >= args.cutoffTime[1] :
+                        continue
+                else : # Guaranteed to be 'since'
+                    if seq[MTIME] <= args.cutoffTime[1] :
+                        continue
             if isMovie(seq[DICTKEY]) :
-                ### This is where to put test for --since/--before/etc. cutoff JPR
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
                 print seq[DICTKEY]
                 somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
-                ### This is where to put test for --since/--before/etc. cutoff JPR
                 cacheDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
                 printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
             else :
-                ### This is where to put test for --since/--before/etc. cutoff JPR
+                imageDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
+                somethingWasPrinted = True
+    elif args.cutoffTime != None :
+        timeList.sort(key=itemgetter(DICTKEY))
+        # Note: ls -t prints newest first; ls -tr is newest last.
+        if not args.reverseListing :
+            timeList.reverse()
+        for seq in timeList :
+            ### print "Sequences epoch mtime: " + str(seq[MTIME])
+            if args.cutoffTime[0] == 'before' :
+                if seq[MTIME] >= args.cutoffTime[1] :
+                    continue
+            else : # Guaranteed to be 'since'
+                if seq[MTIME] <= args.cutoffTime[1] :
+                    continue
+            if isMovie(seq[DICTKEY]) :
+                if args.prependPath > 0 :
+                    sys.stdout.write(traversedPath)
+                print seq[DICTKEY]
+                somethingWasPrinted = True
+            elif isCache(seq[DICTKEY]) :
+                cacheDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
+                somethingWasPrinted = True
+            else :
                 imageDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
                 printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
@@ -1011,7 +1046,7 @@ def main():
         help="where TENSE is either 'before' or 'since'; only list sequences\
         up to or after the time specified.  The --time argument \
         specifies which frame to use for the cutoff comparison",
-        metavar=("TENSE", "[[CC]YY]MMDDhhmm.ss"))
+        metavar=("TENSE", "[[CC]YY]MMDDhhmm[.ss]"))
 
     p.add_argument("files", metavar="FILE", nargs="*",
         help="file names")
@@ -1023,12 +1058,12 @@ def main():
 
 #    if args.badWindow < 1 :
 #        print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-#            ": error : the badWindow argument must be a positive integer."
+#            ": error: the badWindow argument must be a positive integer."
 #        sys.exit(1)
 #
 #    if args.badThreshold <= 0.0 or args.badThreshold >= 1.0 :
 #        print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-#            ": error : the badThreshold argument must be a number greater than zero and less than one."
+#            ": error: the badThreshold argument must be a number greater than zero and less than one."
 #        sys.exit(1)
 
     tmpExt = os.getenv("OIC_IMAGE_EXTENSION")
@@ -1100,10 +1135,36 @@ def main():
             args.listWhichFiles = LIST_ONLYIMGS # Strictly only images.
 
     if args.cutoffTime != None :
-        if ( args.cutoffTime[0] == 'before' ) :
-        elif ( args.cutoffTime[0] == 'since' ) :
-        else
-            exit(1)
+        args.cutoffTime[0] = args.cutoffTime[0].lower()
+        if (args.cutoffTime[0] != 'before') and (args.cutoffTime[0] != 'since') :
+            print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+                ": error: argument --onlyShow: TENSE must be 'since' or 'before'."
+            sys.exit(1)
+        timeSpec = args.cutoffTime[1].split('.')
+        if len(timeSpec) <= 2 :
+            if   len(timeSpec[0]) == 12 :
+                timeFormat = "%Y%m%d%H%M"
+            elif len(timeSpec[0]) == 10 :
+                timeFormat = "%y%m%d%H%M"
+            elif len(timeSpec[0]) == 8 :
+                timeFormat = "%m%d%H%M"
+            else :
+                print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+                    ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]"
+                sys.exit(1)
+        if len(timeSpec) == 2 :
+            timeFormat += ".%S"
+
+        try :
+            timeData=time.strptime(args.cutoffTime[1], timeFormat)
+        except ValueError :
+            print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+                ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]"
+            sys.exit(1)
+        
+        args.cutoffTime[1] = int(time.mktime(timeData)) # Epoch time
+        ### print "Epoch time specified: " + str(args.cutoffTime[1])
+
 
     # The following logic attempts to mimic the behavior
     # of /bin/ls as closely as possible.
