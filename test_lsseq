@@ -4,6 +4,8 @@
 
 export LC_ALL=POSIX
 unset OIC_IMAGE_EXTENSION
+unset OIC_MOV_EXTENSION
+unset OIC_CACHE_EXTENSION
 
 # When testing code locally, make sure you are getting the dev version of lsseq.
 # Eg. assuming the lsseq git repo lives in ~/code/lsseq :
