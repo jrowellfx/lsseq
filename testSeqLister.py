@@ -3,15 +3,21 @@ import seqLister
 nonSeqList = []
 
 print "Testing expandSeq()"
+print seqLister.expandSeq(1, nonSeqList)
+print seqLister.expandSeq(1)
 print seqLister.expandSeq([1, "004", 10, 15], nonSeqList)
 print seqLister.expandSeq(["1-4", "010-015"], nonSeqList)
-print seqLister.expandSeq(["1-10x2", "20-60x10"], nonSeqList)
+print seqLister.expandSeq(["1-10x2", "20-60x10"])
 print seqLister.expandSeq(["5-1"], nonSeqList)
+print seqLister.expandSeq("5-1")
 print seqLister.expandSeq(["5--2"], nonSeqList)
+print seqLister.expandSeq("5--2")
 print seqLister.expandSeq(["10--10x2"], nonSeqList)
 print seqLister.expandSeq(["10--10x-2"], nonSeqList)
 print seqLister.expandSeq(["0-16x8", "0-16x2"], nonSeqList)
+print seqLister.expandSeq(["0-16x8", "0-16x2"])
 print seqLister.expandSeq(["0-99x9"], nonSeqList)
+print seqLister.expandSeq("0-99x9")
 print seqLister.expandSeq(["1-0100x9"], nonSeqList)
 print seqLister.expandSeq(["0-99x10"], nonSeqList)
 print seqLister.expandSeq(["0-9", "20-40x2"], nonSeqList)
@@ -19,13 +25,30 @@ print seqLister.expandSeq(["0-6", "6-14x2", "14-70x10"], nonSeqList)
 print seqLister.expandSeq(["0-64x64", "0-64x32", "0-64x16", "0-64x8", "0-64x4", "0-64x2", "0-64"], nonSeqList)
 print seqLister.expandSeq(["-20--5"], nonSeqList)
 print seqLister.expandSeq(["-10--3"], nonSeqList)
+print nonSeqList
+nonSeqList = []
 print seqLister.expandSeq(["1-6-12"], nonSeqList) # invalid
+print nonSeqList
+nonSeqList = []
 print seqLister.expandSeq(["1---6"], nonSeqList) # invalid
+print nonSeqList
+nonSeqList = []
 print seqLister.expandSeq(["1-6xa"], nonSeqList) # invalid
+print nonSeqList
+nonSeqList = []
 print seqLister.expandSeq(["1-6x2-"], nonSeqList) # invalid
+print nonSeqList
+nonSeqList = []
 print seqLister.expandSeq(["a-b"], nonSeqList) # invalid
+print nonSeqList
+nonSeqList = []
 print seqLister.expandSeq(["10--10x--2"], nonSeqList) # invalid
+print nonSeqList
+nonSeqList = []
 print seqLister.expandSeq(["1-5", "8-a"], nonSeqList) # partially invalid
+print nonSeqList
+nonSeqList = []
+
 print ""
 print "Testing condenseSeq()"
 print seqLister.condenseSeq([])

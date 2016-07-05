@@ -1,4 +1,4 @@
-# Copyright (c) 2008-2012, James Philip Rowell,
+# Copyright (c) 2008-2016, James Philip Rowell,
 # Orange Imagination & Concepts, Inc.
 # www.orangeimagination.com
 # All rights reserved.
@@ -37,8 +37,10 @@
 # frame numbers to/from a common format to describe such ranges.
 
 
-# Expands seqlist, which is a list of integers and or strings with the
-# following format, into a list of integers:
+# Expands the argument 'seqList' into a list of integers.
+# 'seqList' may be a single string with the following format
+# (see description below), or a list of integers and/or
+# strings of the following format:
 # 
 # individual frame numbers: [1, "4", 10, 15]
 #     yeilds -> [1, 4, 10, 15]
@@ -57,15 +59,17 @@
 # Eg. ["0-16x8", "0-16x2"]
 #     yeilds -> [0, 8, 16, 2, 4, 6, 10, 12, 14]
 # 
-# Anything that is not of the above format is simply ignored.
+# Anything that is not of the above format is ignored for
+# the purposes of building the list of integers and the ignored
+# item is appended to the optional argument "nonSeqList".
 #
-# If you want the list to be sorted, then sort the returned
-# list of numbers.
+# The returned list of integers is NOT sorted.
 #
-def expandSeq(seqList, nonSeqList) :
+def expandSeq(seqList, nonSeqList=[]) :
 
     if not isinstance(seqList, list) :
-	return []
+        tmp=seqList
+        seqList = [tmp]
 
     resultList = []
     for seqItem in seqList :
