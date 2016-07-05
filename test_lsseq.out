@@ -1,7 +1,7 @@
 ------ Begin Tests ------
 
 ------ Test 1 ------ lsseq --version ------
-2.013
+2.020
 
 ------ Test 2 ------ lsseq -lRFC testdir ------
 testdir:
