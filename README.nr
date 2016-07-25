@@ -7,17 +7,18 @@ About lsseq
 -----------
 
 lsseq lists directory contents (akin to /bin/ls) while condensing image
-sequences (or cache sequences) to one entry each and printing the sequence in a helpful way.
+sequences (or cache sequences) to one entry each and listing the sequence in a helpful way.
 Filenames that are part of sequences are assumed to be of the form:
 
 .ti 4
 <descriptiveName>.<frameNum>.<imgExtension>
 
 where <imgExtension> is drawn from a default list of image extensions
-or the list of extensions can be set with an environment variable (see lsseq --help).
+or an environment variable that can be set to override the default list.
+(see lsseq --help).
 Note that lsseq
-can also handle the case that the dot-separator between the descriptiveName and
-the frameNum is an underscore ('_' see lsseq --help).
+can also handle the case that the dot-separator between the <descriptiveName> and
+the <frameNum> is an underscore (i.e.; '_' see lsseq --help).
 
 lsseq can print the image sequence in a variety of formats useful for nuke, shake or rv
 and can also print a glob pattern for use in the shell.  It also has it's own
@@ -49,7 +50,7 @@ it makes sense).
 Furthermore it was written to be as robust as possible.  For example, it
 handles negative frames properly and 
 has been extensively tested and used at several production studios. There is a
-regression test program included with the source here on github to help test any changes, additions
+regression test program included with the source here on github to help test any changes, additions,
 bug fixes etc.
 
 Lastly some useful options have been added beyond what /bin/ls does that extend lsseq's
@@ -98,7 +99,7 @@ bbb/bby.[0197-0203].tif
 /user/jrowell/test/bbb/bby.197-203#.tif 
 .fi
 
-The first thing to note above is how close lsseq is to mimicking /bin/ls in labeling directories
+The first thing to note above is how close lsseq is to mimicking /bin/ls in labelling directories
 and listing directory contents etc. (compare the output of command 2 to 3).
 One difference being that lsseq
 first lists all non-sequence
