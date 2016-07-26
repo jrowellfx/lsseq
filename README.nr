@@ -127,31 +127,32 @@ How to install lsseq, expandseq and condenseseq on your computer
 To install these commands on your system follow these steps (you need 
 root privileges).
 
-First make sure you have python 2.7 installed on your machine, you 
+.in +3
+.ti -3
+1) First make sure you have python 2.7 installed on your machine, you 
 can do this simply by typing "python2.7" at the command prompt.
 If you are told "command not found", then you need to download and install python 2.7.
 
-.in +3
 .ti -3
-1) Download lsseq-2.000.tar.gz
+2) Download lsseq-2.000.tar.gz
 assuming that the latest version is 2.000 (if not
 just grab the latest one).
 
 .ti -3
-2) Uncompress the file:
+3) Uncompress the file:
 .nf
 $ tar -xvf lsseq-2.000.tar.gz
 .fi
 
 .ti -3
-3) install the commands and supporting python module:
+4) install the commands and supporting python module:
 .nf
 $ cd lsseq-2.000
 $ sudo python setup.py install
 .fi
 
 .ti -3
-4) ...that's it! You should be able to run the commands "lsseq", "expandseq"
+5) ...that's it! You should be able to run the commands "lsseq", "expandseq"
 and "condenseseq" now.
 .in -3
 
