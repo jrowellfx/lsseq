@@ -1053,9 +1053,6 @@ def main():
 
     args = p.parse_args()
 
-    # print args.cutoffTime
-    # exit(1)
-
 #    if args.badWindow < 1 :
 #        print >> sys.stderr, os.path.basename(sys.argv[0]) + \
 #            ": error: the badWindow argument must be a positive integer."
