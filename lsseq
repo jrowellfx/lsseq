@@ -433,7 +433,7 @@ def printSeq(filename, frameList, args, traversedPath) :
             fileComponents[1] = (formatStr % minFrame)
         else :
             fileComponents[1] = "%0" + str(padding) + "d"
-        if args.prependPath > 0 :
+        if args.prependPath > 0 and fileComponents[0][0] != '/':
             sys.stdout.write(traversedPath)
         print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
         if minFrame == maxFrame :
@@ -451,7 +451,7 @@ def printSeq(filename, frameList, args, traversedPath) :
             else :
                 fileComponents[1] = "@"*padding
             print "shake -t", str(minFrame) + "-" + str(maxFrame) + " ",
-        if args.prependPath > 0 :
+        if args.prependPath > 0 and fileComponents[0][0] != '/':
             sys.stdout.write(traversedPath)
         else :
             sys.stdout.write("")
@@ -465,12 +465,12 @@ def printSeq(filename, frameList, args, traversedPath) :
         if (padding > 1) :
             fileComponents[1] = fileComponents[1] + "[0-9]"*(padding-1)
 
-        if args.prependPath > 0 :
+        if args.prependPath > 0 and fileComponents[0][0] != '/':
             sys.stdout.write(traversedPath)
         print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
 
     else : # native and rv
-        if args.prependPath > 0 :
+        if args.prependPath > 0 and fileComponents[0][0] != '/':
             sys.stdout.write(traversedPath)
         if args.extremes :
             fileComponents[1] = formatStr % minFrame
@@ -478,7 +478,8 @@ def printSeq(filename, frameList, args, traversedPath) :
         print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
         if minFrame != maxFrame and args.extremes :
             print ""
-            sys.stdout.write(traversedPath)
+            if fileComponents[0][0] != '/':
+                sys.stdout.write(traversedPath)
             fileComponents[1] = formatStr % maxFrame
             print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
 
