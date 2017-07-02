@@ -473,7 +473,9 @@ def printSeq(filename, frameList, args, traversedPath) :
         if minFrame == maxFrame :
             fileComponents[1] = (formatStr % minFrame)
         else :
-            fileComponents[1] = "\$F" + str(padding)
+            fileComponents[1] = "\$F"
+            if padding >= 2:
+                fileComponents[1] += str(padding)
         if args.prependPath > 0 and fileComponents[0][0] != '/':
             sys.stdout.write(traversedPath)
         print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
