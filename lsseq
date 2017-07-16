@@ -49,7 +49,8 @@ import math
 import time
 from operator import itemgetter
 
-CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd"]
+CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
+    "bgeo.sc", "bgeo.gz", "ifd.sc", "ifd.gz", "vdb.sc", "vdb.gz"]
 MOV_EXT = ["avi", "mov", "mp4", "mpg", "wmv"]
 IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
     "dib", "dpx", "exr", "gfa", "gif", "giff", "icon", "iff", "img",
@@ -228,6 +229,20 @@ def readByteShortForm(bytes) :
         msg = "%r is not a valid byte size" % bytes
         raise argparse.ArgumentTypeError(msg)
 
+def splitFileComponents(filename) :
+    global IMAGE_EXT
+    global CACHE_EXT
+
+    fileComponents = filename.split(".")
+
+    # Check for extensions with dot (for example, blosc compressed bgeos)
+    #
+    if (".".join(fileComponents[-2:]) in IMAGE_EXT) or (".".join(fileComponents[-2:]) in CACHE_EXT) :
+
+        fileComponents[-2] = ".".join(fileComponents[-2:])
+        del fileComponents[-1]
+
+    return fileComponents
 
 # Return two components if "filename" is formatted like a file in a
 # sequence otherwise return an empty list.  The two returned
@@ -241,7 +256,7 @@ def seqSplit(filename, args) :
     global IMAGE_EXT
     global CACHE_EXT
     global LOOSE_SEP
-    fileComponents = filename.split(".")
+    fileComponents = splitFileComponents(filename)
 
     # A file with no extension.
     #
@@ -291,7 +306,7 @@ def isMovie(filename) :
 #
 def splitImageName(filename) :
     numSep = "."
-    fileComponents = filename.split(".")
+    fileComponents = splitFileComponents(filename)
     if fileComponents[-2] == '' :
         fileComponents.pop(-2)
     else :
@@ -469,11 +484,13 @@ def printSeq(filename, frameList, args, traversedPath) :
             sys.stdout.write(traversedPath)
         print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
         
-    elif args.seqFormat == 'houdini' :
+    elif args.seqFormat == 'houdini' or args.seqFormat == 'mplay':
         if minFrame == maxFrame :
             fileComponents[1] = (formatStr % minFrame)
         else :
-            fileComponents[1] = "\$F"
+            fileComponents[1] = "$F"
+            if args.seqFormat == 'mplay':
+                fileComponents[1] = "\$F"
             if padding >= 2:
                 fileComponents[1] += str(padding)
         if args.prependPath > 0 and fileComponents[0][0] != '/':
@@ -959,12 +976,13 @@ def main():
         This option implies --prependPathAbs (unless --prependPathRel is \
         explicitly specified) and --onlySequences")
     p.add_argument("--format", "-f", action="store", type=str,
-        choices=("native", "nuke", "rv", "shake", "glob", "houdini"),
+        choices=("native", "nuke", "rv", "shake", "glob", "mplay", "houdini"),
         dest="seqFormat",
         metavar="FORMAT",
         default="native",
         help="list image sequences in various formats.\
-        The choices are 'native' (default), 'nuke', 'rv', 'shake', 'glob', and 'houdini'.\
+        The choices are 'native' (default), 'nuke', 'rv', 'shake', 'glob', \
+        'mplay', and 'houdini'.\
         Note that glob prints correct results only if \
         the frame numbers are padded")
     p.add_argument("--goodFrameMinSize", action="store", type=readByteShortForm,
@@ -1083,11 +1101,12 @@ def main():
     tmpExtList.sort();
     IMAGE_EXT = [];
     for e in tmpExtList :
-        if '.' in e :
-            print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                ": warning: dots are not currently supported in file name extensions so " + e + " is being ignored."
-        else :
-            IMAGE_EXT.append(e);
+        # if '.' in e :
+        #     print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+        #         ": warning: dots are not currently supported in file name extensions so " + e + " is being ignored."
+        # else :
+        #     IMAGE_EXT.append(e);
+        IMAGE_EXT.append(e);
 
     tmpExt = os.getenv("OIC_MOV_EXTENSION")
     if tmpExt != None and tmpExt != "" :
@@ -1111,11 +1130,12 @@ def main():
     tmpExtList.sort();
     CACHE_EXT = []
     for e in tmpExtList :
-        if '.' in e :
-            print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                ": warning: dots are not currently supported in file name extensions so " + e + " is being ignored."
-        else :
-            CACHE_EXT.append(e);
+        # if '.' in e :
+        #     print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+        #         ": warning: dots are not currently supported in file name extensions so " + e + " is being ignored."
+        # else :
+        #     CACHE_EXT.append(e);
+        CACHE_EXT.append(e)
 
     if args.printImgExtensions :
         extList = ":".join(IMAGE_EXT)
