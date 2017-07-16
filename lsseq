@@ -1116,11 +1116,12 @@ def main():
     tmpExtList.sort();
     MOV_EXT = []
     for e in tmpExtList :
-        if '.' in e :
-            print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                ": warning: dots are not currently supported in file name extensions so " + e + " is being ignored."
-        else :
-            MOV_EXT.append(e);
+        # if '.' in e :
+        #     print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+        #         ": warning: dots are not currently supported in movie file name extensions so " + e + " is being ignored."
+        # else :
+        #     MOV_EXT.append(e);
+        MOV_EXT.append(e)
 
     tmpExt = os.getenv("OIC_CACHE_EXTENSION")
     if tmpExt != None and tmpExt != "" :
