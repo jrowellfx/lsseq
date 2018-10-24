@@ -1674,11 +1674,6 @@ e_9998.jpg
 e_9999.jpg
 
 /...absPathToRepo.../lsseq/testdir/edir/e03:
-e_09995.jpg
-e_09996.jpg
-e_09997.jpg
-e_09998.jpg
-e_09999.jpg
 e_10.jpg
 e_100.jpg
 e_1000.jpg
@@ -1718,6 +1713,11 @@ e_996.jpg
 e_997.jpg
 e_998.jpg
 e_999.jpg
+e_9995.jpg
+e_9996.jpg
+e_9997.jpg
+e_9998.jpg
+e_9999.jpg
 
 /...absPathToRepo.../lsseq/testdir/fdir:
 xxx_01989.png
