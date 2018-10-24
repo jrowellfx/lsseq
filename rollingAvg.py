@@ -1,8 +1,8 @@
 #!/usr/bin/python2.7
 
-# Copyright (c) 2008-2012, James Philip Rowell,
-# Orange Imagination & Concepts, Inc.
-# www.orangeimagination.com
+# Copyright (c) 2008-2018, James Philip Rowell,
+# Alpha Eleven Incorporated
+# www.alpha-eleven.com
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
