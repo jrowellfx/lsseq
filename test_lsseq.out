@@ -1,16 +1,15 @@
 ------ Begin Tests ------
 
 ------ Test 1 ------ lsseq --version ------
-2.021
+2.023
 
 ------ Test 2 ------ lsseq -lRFC testdir ------
 testdir:
-adir/	      gdir/			   mkBlackFrames_HD_2.v01.shk
-bdir/	      hdir/			   mkTestFrames.v01.nk
-blackFrames/  idir/			   mkTestFrames.v02.nk
-cdir/	      mkAnimFrames.v01.shk	   mk_hdir_Frames.v01.nk
-ddir/	      mkAnimFrames.v02.shk	   www..exr
-fdir/	      mkBlackFrames_HD_10.v01.shk
+adir/	      edir/  mkAnimFrames.v01.shk	  mkTestFrames.v02.nk
+bdir/	      fdir/  mkAnimFrames.v02.shk	  mk_hdir_Frames.v01.nk
+blackFrames/  gdir/  mkBlackFrames_HD_10.v01.shk  www..exr
+cdir/	      hdir/  mkBlackFrames_HD_2.v01.shk
+ddir/	      idir/  mkTestFrames.v01.nk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -65,6 +64,18 @@ testdir/ddir:
 dddA.[-010-0017].exr 
 dddB.[-10-17].exr 
 dddC.[-10--3].exr 
+
+testdir/edir:
+e01/  e02/  e03/
+
+testdir/edir/e01:
+e_[5-9999].jpg m:[16-94,106-994,1006-9994], z:[5-15,95-105,995-1005,9995-9999]
+
+testdir/edir/e02:
+e_[5-9999].jpg m:[16-94,106-994,1006-9994], z:[5-15,95-105,995-1005,9995-9999]
+
+testdir/edir/e03:
+e_[5-10005].jpg m:[16-94,106-994,1006-9994], z:[5-15,95-105,995-1005,9995-10005]
 
 testdir/fdir:
 aaa.[-02-002].png 
@@ -155,6 +166,12 @@ hhh03.[0001-0040].jpg
 /...absPathToRepo.../lsseq/testdir/ddir/dddB.17.exr 
 /...absPathToRepo.../lsseq/testdir/ddir/dddC.-10.exr 
 /...absPathToRepo.../lsseq/testdir/ddir/dddC.-3.exr 
+/...absPathToRepo.../lsseq/testdir/edir/e01/e_5.jpg 
+/...absPathToRepo.../lsseq/testdir/edir/e01/e_9999.jpg 
+/...absPathToRepo.../lsseq/testdir/edir/e02/e_5.jpg 
+/...absPathToRepo.../lsseq/testdir/edir/e02/e_9999.jpg 
+/...absPathToRepo.../lsseq/testdir/edir/e03/e_5.jpg 
+/...absPathToRepo.../lsseq/testdir/edir/e03/e_10005.jpg 
 /...absPathToRepo.../lsseq/testdir/fdir/aaa.-02.png 
 /...absPathToRepo.../lsseq/testdir/fdir/aaa.002.png 
 /...absPathToRepo.../lsseq/testdir/fdir/bbb.-009.jpg 
@@ -242,6 +259,12 @@ hhh03.[0001-0040].jpg
 /...absPathToRepo.../lsseq/testdir/ddir/dddB.17.exr 
 /...absPathToRepo.../lsseq/testdir/ddir/dddC.-10.exr 
 /...absPathToRepo.../lsseq/testdir/ddir/dddC.-3.exr 
+/...absPathToRepo.../lsseq/testdir/edir/e01/e_5.jpg 
+/...absPathToRepo.../lsseq/testdir/edir/e01/e_9999.jpg 
+/...absPathToRepo.../lsseq/testdir/edir/e02/e_5.jpg 
+/...absPathToRepo.../lsseq/testdir/edir/e02/e_9999.jpg 
+/...absPathToRepo.../lsseq/testdir/edir/e03/e_5.jpg 
+/...absPathToRepo.../lsseq/testdir/edir/e03/e_10005.jpg 
 /...absPathToRepo.../lsseq/testdir/fdir/aaa.-02.png 
 /...absPathToRepo.../lsseq/testdir/fdir/aaa.002.png 
 /...absPathToRepo.../lsseq/testdir/fdir/bbb.-009.jpg 
@@ -411,6 +434,7 @@ bdir
 blackFrames
 cdir
 ddir
+edir
 fdir
 gdir
 hdir
@@ -550,6 +574,11 @@ ddir:
 dddA.[-010-0017].exr 
 dddB.[-10-17].exr 
 dddC.[-10--3].exr 
+
+edir:
+e01
+e02
+e03
 
 fdir:
 xxx_01989.png
@@ -721,6 +750,11 @@ ddir:
 dddA.[-010-0017].exr 
 dddB.[-10-17].exr 
 dddC.[-10--3].exr 
+
+edir:
+e01
+e02
+e03
 
 fdir:
 aaa.[-02-002].png 
@@ -1424,6 +1458,7 @@ bdir
 blackFrames
 cdir
 ddir
+edir
 fdir
 gdir
 hdir
@@ -1552,6 +1587,137 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 dddA.[-010-0017].exr 
 dddB.[-10-17].exr 
 dddC.[-10--3].exr 
+
+/...absPathToRepo.../lsseq/testdir/edir:
+e01
+e02
+e03
+
+/...absPathToRepo.../lsseq/testdir/edir/e01:
+e_09995.jpg
+e_09996.jpg
+e_09997.jpg
+e_09998.jpg
+e_09999.jpg
+e_10.jpg
+e_100.jpg
+e_1000.jpg
+e_1001.jpg
+e_1002.jpg
+e_1003.jpg
+e_1004.jpg
+e_1005.jpg
+e_101.jpg
+e_102.jpg
+e_103.jpg
+e_104.jpg
+e_105.jpg
+e_11.jpg
+e_12.jpg
+e_13.jpg
+e_14.jpg
+e_15.jpg
+e_5.jpg
+e_6.jpg
+e_7.jpg
+e_8.jpg
+e_9.jpg
+e_95.jpg
+e_96.jpg
+e_97.jpg
+e_98.jpg
+e_99.jpg
+e_995.jpg
+e_996.jpg
+e_997.jpg
+e_998.jpg
+e_999.jpg
+
+/...absPathToRepo.../lsseq/testdir/edir/e02:
+e_09995.jpg
+e_09996.jpg
+e_09997.jpg
+e_09998.jpg
+e_09999.jpg
+e_10.jpg
+e_100.jpg
+e_1000.jpg
+e_1001.jpg
+e_1002.jpg
+e_1003.jpg
+e_1004.jpg
+e_1005.jpg
+e_101.jpg
+e_102.jpg
+e_103.jpg
+e_104.jpg
+e_105.jpg
+e_11.jpg
+e_12.jpg
+e_13.jpg
+e_14.jpg
+e_15.jpg
+e_5.jpg
+e_6.jpg
+e_7.jpg
+e_8.jpg
+e_9.jpg
+e_95.jpg
+e_96.jpg
+e_97.jpg
+e_98.jpg
+e_99.jpg
+e_995.jpg
+e_996.jpg
+e_997.jpg
+e_998.jpg
+e_999.jpg
+
+/...absPathToRepo.../lsseq/testdir/edir/e03:
+e_09995.jpg
+e_09996.jpg
+e_09997.jpg
+e_09998.jpg
+e_09999.jpg
+e_10.jpg
+e_100.jpg
+e_1000.jpg
+e_10000.jpg
+e_10001.jpg
+e_10002.jpg
+e_10003.jpg
+e_10004.jpg
+e_10005.jpg
+e_1001.jpg
+e_1002.jpg
+e_1003.jpg
+e_1004.jpg
+e_1005.jpg
+e_101.jpg
+e_102.jpg
+e_103.jpg
+e_104.jpg
+e_105.jpg
+e_11.jpg
+e_12.jpg
+e_13.jpg
+e_14.jpg
+e_15.jpg
+e_5.jpg
+e_6.jpg
+e_7.jpg
+e_8.jpg
+e_9.jpg
+e_95.jpg
+e_96.jpg
+e_97.jpg
+e_98.jpg
+e_99.jpg
+e_995.jpg
+e_996.jpg
+e_997.jpg
+e_998.jpg
+e_999.jpg
 
 /...absPathToRepo.../lsseq/testdir/fdir:
 xxx_01989.png
