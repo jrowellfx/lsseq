@@ -16,6 +16,8 @@
 # separators as well as sorting the lists, reversing order, and mixing and
 # matching expanded and condensed formats as arguments on the command line.
 
+# BSD 3-Clause License
+# 
 # Copyright (c) 2008-2018, James Philip Rowell,
 # Alpha Eleven Incorporated
 # www.alpha-eleven.com

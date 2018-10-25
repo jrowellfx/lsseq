@@ -1,5 +1,7 @@
 #!/usr/bin/python2.7
 
+# BSD 3-Clause License
+# 
 # Copyright (c) 2008-2018, James Philip Rowell,
 # Alpha Eleven Incorporated
 # www.alpha-eleven.com
