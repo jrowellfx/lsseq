@@ -113,7 +113,6 @@ def main():
 
 
     p.add_argument("--version", action="version", version=VERSION)
-
     p.add_argument("--delimiter", "-d", action="store", type=str,
 	choices=("comma", "space", "newline"),
         dest="seqDelimiter",
@@ -124,6 +123,10 @@ def main():
 	p.add_argument("--onlyOnes", action="store_true",
 	    dest="onlyOnes", default=False,
 	    help="only condense sucessive frames, that is, do not list sequences on 2's, 3's, ... N's")
+    p.add_argument("--pad", action="store", type=int,
+       dest="pad", default=1,
+       metavar="PAD",
+       help="set the padding of the frame numbers to be <PAD> digits. [default: 1]")
     p.add_argument("--reverse", "-r", action="store_true",
 	dest="reverseList", default=False,
 	help="reverse the order of the list")
@@ -131,7 +134,6 @@ def main():
 	p.add_argument("--sort", "-s", action="store_true",
 	    dest="sortList", default=False,
 	    help="sort the resulting list")
-
     p.add_argument("numSequences", metavar="INTEGER SEQUENCE", nargs="*",
 	help="is a single integer such as 'A', or a range \
 	of integers such as 'A-B' (A or B can be negative,\
@@ -153,11 +155,24 @@ def main():
     if EXPAND_MODE :
 	if args.sortList :
 	    result.sort()
+	# Pad list of integers and turn them into strings before printing.
+	#
+	### jpr debug ### formatStr = "{0:0=-" + str(4) + "d}"
+	formatStr = "{0:0=-" + str(args.pad) + "d}"
+	paddedFrames = []
+	for frame in result:
+	    # print frame
+	    # print type(frame)
+	    # print formatStr
+	    # print formatStr.format(1)
+	    # print formatStr.format(frame)
+	    paddedFrames.append(formatStr.format(frame))
+	result = paddedFrames
     else :
 	if args.onlyOnes :
-	    result = seqLister.condenseSeqOnes(result)
+	    result = seqLister.condenseSeqOnes(result, args.pad)
 	else :
-	    result = seqLister.condenseSeq(result)
+	    result = seqLister.condenseSeq(result, args.pad)
 
     if args.reverseList :
 	result.reverse()
