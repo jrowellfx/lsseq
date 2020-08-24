@@ -1,7 +1,7 @@
 ------ Begin Tests ------
 
 ------ Test 1 ------ lsseq --version ------
-2.023
+2.024
 
 ------ Test 2 ------ lsseq -lRFC testdir ------
 testdir:
@@ -19,10 +19,12 @@ yyy.[0123].tif
 yyy.mov
 
 testdir/adir:
-testFile00.jpg	testFile04.jpg	testFile08.jpg	testFile12.jpg	testFile16.jpg
-testFile01.jpg	testFile05.jpg	testFile09.jpg	testFile13.jpg	testFile17.jpg
-testFile02.jpg	testFile06.jpg	testFile10.jpg	testFile14.jpg	testFile18.jpg
-testFile03.jpg	testFile07.jpg	testFile11.jpg	testFile15.jpg	testFile19.jpg
+-987654321.tmp	    testFile04.jpg  testFile10.jpg  testFile16.jpg
+-minusSignFileName  testFile05.jpg  testFile11.jpg  testFile17.jpg
+testFile00.jpg	    testFile06.jpg  testFile12.jpg  testFile18.jpg
+testFile01.jpg	    testFile07.jpg  testFile13.jpg  testFile19.jpg
+testFile02.jpg	    testFile08.jpg  testFile14.jpg
+testFile03.jpg	    testFile09.jpg  testFile15.jpg
 aaa.[001-120].exr z:[12,49]
 lrtm01_beauty02.[001-120].exr z:[11]
 
@@ -473,6 +475,8 @@ yyy.[0123].tif
 yyy.mov
 
 adir:
+-987654321.tmp
+-minusSignFileName
 testFile00.jpg
 testFile01.jpg
 testFile02.jpg
@@ -649,6 +653,8 @@ yyy.[0123].tif
 yyy.mov
 
 adir:
+-987654321.tmp
+-minusSignFileName
 testFile00.jpg
 testFile01.jpg
 testFile02.jpg
@@ -1480,6 +1486,8 @@ yyy.[0123].tif
 yyy.mov
 
 /...absPathToRepo.../lsseq/testdir/adir:
+-987654321.tmp
+-minusSignFileName
 testFile00.jpg
 testFile01.jpg
 testFile02.jpg
