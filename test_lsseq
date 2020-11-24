@@ -45,6 +45,8 @@ cd testdir/hdir
 source touch.files
 cd ../..
 
+export COLUMNS=100
+
 cat << EOF > $tmpArgs
 . --version
 . -lRFC testdir
@@ -144,7 +146,7 @@ while true; do
 done
 
 sed -e "1,$ s-$OIC_REPO_DIR-/...absPathToRepo.../lsseq-g" < $OIC_REPO_DIR/test_lsseq.out.new > /tmp/tmp$$
-/bin/mv /tmp/tmp$$ $OIC_REPO_DIR/test_lsseq.out.new
+expand < /tmp/tmp$$ | sed -e '1,$ s/ *$//' > $OIC_REPO_DIR/test_lsseq.out.new
 
 cleanup
 

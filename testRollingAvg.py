@@ -12,8 +12,8 @@ i = 0
 while i < len(tmpList) :
     x = math.fabs(result[i][0] - tmpList[i])/result[i][1]
     print "%03d" % i \
-	+ ": %6d" % tmpList[i] \
-	+ "; m: %9.2f" % result[i][0] \
-	+ "; s: %9.2f" % result[i][1] \
-	+ "; s(%): " + "%1.4f" % x
+        + ": %6d" % tmpList[i] \
+        + "; m: %9.2f" % result[i][0] \
+        + "; s: %9.2f" % result[i][1] \
+        + "; s(%): " + "%1.4f" % x
     i += 1

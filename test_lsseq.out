@@ -1,74 +1,75 @@
 ------ Begin Tests ------
 
 ------ Test 1 ------ lsseq --version ------
-2.024
+2.030
 
 ------ Test 2 ------ lsseq -lRFC testdir ------
 testdir:
-adir/	      edir/  mkAnimFrames.v01.shk	  mkTestFrames.v02.nk
-bdir/	      fdir/  mkAnimFrames.v02.shk	  mk_hdir_Frames.v01.nk
-blackFrames/  gdir/  mkBlackFrames_HD_10.v01.shk  www..exr
-cdir/	      hdir/  mkBlackFrames_HD_2.v01.shk
-ddir/	      idir/  mkTestFrames.v01.nk
+adir/                           fdir/                           mkBlackFrames_HD_10.v01.shk
+bdir/                           gdir/                           mkBlackFrames_HD_2.v01.shk
+blackFrames/                    hdir/                           mkTestFrames.v01.nk
+cdir/                           idir/                           mkTestFrames.v02.nk
+ddir/                           mkAnimFrames.v01.shk            mk_hdir_Frames.v01.nk
+edir/                           mkAnimFrames.v02.shk            www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
 xxx.[000-016].exr m:[1-15x2]
 xxx.mov
-yyy.[0123].tif 
+yyy.[0123].tif
 yyy.mov
 
 testdir/adir:
--987654321.tmp	    testFile04.jpg  testFile10.jpg  testFile16.jpg
--minusSignFileName  testFile05.jpg  testFile11.jpg  testFile17.jpg
-testFile00.jpg	    testFile06.jpg  testFile12.jpg  testFile18.jpg
-testFile01.jpg	    testFile07.jpg  testFile13.jpg  testFile19.jpg
-testFile02.jpg	    testFile08.jpg  testFile14.jpg
-testFile03.jpg	    testFile09.jpg  testFile15.jpg
+-987654321.tmp          testFile04.jpg          testFile10.jpg          testFile16.jpg
+-minusSignFileName      testFile05.jpg          testFile11.jpg          testFile17.jpg
+testFile00.jpg          testFile06.jpg          testFile12.jpg          testFile18.jpg
+testFile01.jpg          testFile07.jpg          testFile13.jpg          testFile19.jpg
+testFile02.jpg          testFile08.jpg          testFile14.jpg
+testFile03.jpg          testFile09.jpg          testFile15.jpg
 aaa.[001-120].exr z:[12,49]
 lrtm01_beauty02.[001-120].exr z:[11]
 
 testdir/bdir:
 b_subdir/
 bbb.01.[001-120].exr z:[21]
-bbb.02.[001-120].tif 
+bbb.02.[001-120].tif
 
 testdir/bdir/b_subdir:
-bbb.02.[008-095].tif 
+bbb.02.[008-095].tif
 
 testdir/blackFrames:
-HD_by10.png	   HD_by10_zipB.exr  HD_by2.png        HD_by2_zipB.exr
-HD_by10_lzw.tiff   HD_by10_zipS.exr  HD_by2_lzw.tiff   HD_by2_zipS.exr
-HD_by10_none.exr   HD_by10x040.dpx   HD_by2_none.exr   HD_by2x040.dpx
-HD_by10_piz.exr    HD_by10x040.jpg   HD_by2_piz.exr    HD_by2x040.jpg
-HD_by10_pxr24.exr  HD_by10x060.jpg   HD_by2_pxr24.exr  HD_by2x060.jpg
-HD_by10_rle.exr    HD_by10x080.jpg   HD_by2_rle.exr    HD_by2x080.jpg
-HD_by10_rle.tiff   HD_by10x100.jpg   HD_by2_rle.tiff   HD_by2x100.jpg
+HD_by10.png             HD_by10_zipB.exr        HD_by2.png              HD_by2_zipB.exr
+HD_by10_lzw.tiff        HD_by10_zipS.exr        HD_by2_lzw.tiff         HD_by2_zipS.exr
+HD_by10_none.exr        HD_by10x040.dpx         HD_by2_none.exr         HD_by2x040.dpx
+HD_by10_piz.exr         HD_by10x040.jpg         HD_by2_piz.exr          HD_by2x040.jpg
+HD_by10_pxr24.exr       HD_by10x060.jpg         HD_by2_pxr24.exr        HD_by2x060.jpg
+HD_by10_rle.exr         HD_by10x080.jpg         HD_by2_rle.exr          HD_by2x080.jpg
+HD_by10_rle.tiff        HD_by10x100.jpg         HD_by2_rle.tiff         HD_by2x100.jpg
 
 testdir/cdir:
-aaaa		     hhhh		    nnnn	    ssss
-bbbb		     iiii		    oooo	    tttt
-c_subDir/	     initial.image.mtimes*  pppp	    uuuu
-cccc		     jjjj		    qqqq	    vvvv
-custom.touch.images  kkkk		    rrrr	    xxxx
-dddd		     list.images	    shake01.01.shk  yyyy
-eeee		     llll		    shake01.02.shk  zzzz
-ffff		     mkFrames.v01.nk	    shake01.03.shk
-gggg		     mmmm		    shake02.01.shk
+aaaa                    hhhh                    nnnn                    ssss
+bbbb                    iiii                    oooo                    tttt
+c_subDir/               initial.image.mtimes*   pppp                    uuuu
+cccc                    jjjj                    qqqq                    vvvv
+custom.touch.images     kkkk                    rrrr                    xxxx
+dddd                    list.images             shake01.01.shk          yyyy
+eeee                    llll                    shake01.02.shk          zzzz
+ffff                    mkFrames.v01.nk         shake01.03.shk
+gggg                    mmmm                    shake02.01.shk
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
 testdir/ddir:
-dddA.[-010-0017].exr 
-dddB.[-10-17].exr 
-dddC.[-10--3].exr 
+dddA.[-010-0017].exr
+dddB.[-10-17].exr
+dddC.[-10--3].exr
 
 testdir/edir:
-e01/  e02/  e03/
+e01/    e02/    e03/
 
 testdir/edir/e01:
 e_[5-9999].jpg m:[16-94,106-994,1006-9994], z:[5-15,95-105,995-1005,9995-9999]
@@ -80,346 +81,352 @@ testdir/edir/e03:
 e_[5-10005].jpg m:[16-94,106-994,1006-9994], z:[5-15,95-105,995-1005,9995-10005]
 
 testdir/fdir:
-aaa.[-02-002].png 
-bbb.[-009-0010].jpg 
-ccc.[004].jpg 
-ddd.[-08].jpg 
-xxx.[01989-02013].png 
-xxx_[01989-02013].png 
+aaa.[-02-002].png
+bbb.[-009-0010].jpg
+ccc.[004].jpg
+ddd.[-08].jpg
+xxx.[01989-02013].png
+xxx_[01989-02013].png
 
 testdir/gdir:
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
-ccc03.[80-140].fur 
+ccc03.[80-140].fur
+ggg01.[090-105].bgeo.sc z:[90-105]
 xxx01.mov
 xxx02.mov
 
 testdir/hdir:
-all.files*  foo/  initial.image.mtimes*  touch.files*  v001/  v002/  v003/
+all.files*              initial.image.mtimes*   v001/                   v003/
+foo/                    touch.files*            v002/
 
 testdir/hdir/foo:
-v001/  v002/  v003/
+v001/   v002/   v003/
 
 testdir/hdir/foo/v001:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 testdir/hdir/foo/v002:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 testdir/hdir/foo/v003:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 testdir/hdir/v001:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 testdir/hdir/v002:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 testdir/hdir/v003:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 testdir/idir:
 v001/
 
 testdir/idir/v001:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 ------ Test 3 ------ lsseq -lReC testdir ------
-/...absPathToRepo.../lsseq/testdir/testDirFile.001.exr 
-/...absPathToRepo.../lsseq/testdir/testDirFile.012.exr 
-/...absPathToRepo.../lsseq/testdir/xxx.000.exr 
-/...absPathToRepo.../lsseq/testdir/xxx.016.exr 
-/...absPathToRepo.../lsseq/testdir/yyy.0123.tif 
-/...absPathToRepo.../lsseq/testdir/adir/aaa.001.exr 
-/...absPathToRepo.../lsseq/testdir/adir/aaa.120.exr 
-/...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.001.exr 
-/...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.120.exr 
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.01.001.exr 
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.01.120.exr 
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.02.001.tif 
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.02.120.tif 
-/...absPathToRepo.../lsseq/testdir/bdir/b_subdir/bbb.02.008.tif 
-/...absPathToRepo.../lsseq/testdir/bdir/b_subdir/bbb.02.095.tif 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.001.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.120.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.001.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.120.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.80.tga 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.140.tga 
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.001.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.120.exr 
-/...absPathToRepo.../lsseq/testdir/ddir/dddA.-010.exr 
-/...absPathToRepo.../lsseq/testdir/ddir/dddA.0017.exr 
-/...absPathToRepo.../lsseq/testdir/ddir/dddB.-10.exr 
-/...absPathToRepo.../lsseq/testdir/ddir/dddB.17.exr 
-/...absPathToRepo.../lsseq/testdir/ddir/dddC.-10.exr 
-/...absPathToRepo.../lsseq/testdir/ddir/dddC.-3.exr 
-/...absPathToRepo.../lsseq/testdir/edir/e01/e_5.jpg 
-/...absPathToRepo.../lsseq/testdir/edir/e01/e_9999.jpg 
-/...absPathToRepo.../lsseq/testdir/edir/e02/e_5.jpg 
-/...absPathToRepo.../lsseq/testdir/edir/e02/e_9999.jpg 
-/...absPathToRepo.../lsseq/testdir/edir/e03/e_5.jpg 
-/...absPathToRepo.../lsseq/testdir/edir/e03/e_10005.jpg 
-/...absPathToRepo.../lsseq/testdir/fdir/aaa.-02.png 
-/...absPathToRepo.../lsseq/testdir/fdir/aaa.002.png 
-/...absPathToRepo.../lsseq/testdir/fdir/bbb.-009.jpg 
-/...absPathToRepo.../lsseq/testdir/fdir/bbb.0010.jpg 
-/...absPathToRepo.../lsseq/testdir/fdir/ccc.004.jpg 
-/...absPathToRepo.../lsseq/testdir/fdir/ddd.-08.jpg 
-/...absPathToRepo.../lsseq/testdir/fdir/xxx.01989.png 
-/...absPathToRepo.../lsseq/testdir/fdir/xxx.02013.png 
-/...absPathToRepo.../lsseq/testdir/fdir/xxx_01989.png 
-/...absPathToRepo.../lsseq/testdir/fdir/xxx_02013.png 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh03.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh03.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh03.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh03.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh03.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh03.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0040.jpg 
+/...absPathToRepo.../lsseq/testdir/testDirFile.001.exr
+/...absPathToRepo.../lsseq/testdir/testDirFile.012.exr
+/...absPathToRepo.../lsseq/testdir/xxx.000.exr
+/...absPathToRepo.../lsseq/testdir/xxx.016.exr
+/...absPathToRepo.../lsseq/testdir/yyy.0123.tif
+/...absPathToRepo.../lsseq/testdir/adir/aaa.001.exr
+/...absPathToRepo.../lsseq/testdir/adir/aaa.120.exr
+/...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.001.exr
+/...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.120.exr
+/...absPathToRepo.../lsseq/testdir/bdir/bbb.01.001.exr
+/...absPathToRepo.../lsseq/testdir/bdir/bbb.01.120.exr
+/...absPathToRepo.../lsseq/testdir/bdir/bbb.02.001.tif
+/...absPathToRepo.../lsseq/testdir/bdir/bbb.02.120.tif
+/...absPathToRepo.../lsseq/testdir/bdir/b_subdir/bbb.02.008.tif
+/...absPathToRepo.../lsseq/testdir/bdir/b_subdir/bbb.02.095.tif
+/...absPathToRepo.../lsseq/testdir/cdir/ccc01.001.exr
+/...absPathToRepo.../lsseq/testdir/cdir/ccc01.120.exr
+/...absPathToRepo.../lsseq/testdir/cdir/ccc02.001.exr
+/...absPathToRepo.../lsseq/testdir/cdir/ccc02.120.exr
+/...absPathToRepo.../lsseq/testdir/cdir/ccc03.80.tga
+/...absPathToRepo.../lsseq/testdir/cdir/ccc03.140.tga
+/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.001.exr
+/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.120.exr
+/...absPathToRepo.../lsseq/testdir/ddir/dddA.-010.exr
+/...absPathToRepo.../lsseq/testdir/ddir/dddA.0017.exr
+/...absPathToRepo.../lsseq/testdir/ddir/dddB.-10.exr
+/...absPathToRepo.../lsseq/testdir/ddir/dddB.17.exr
+/...absPathToRepo.../lsseq/testdir/ddir/dddC.-10.exr
+/...absPathToRepo.../lsseq/testdir/ddir/dddC.-3.exr
+/...absPathToRepo.../lsseq/testdir/edir/e01/e_5.jpg
+/...absPathToRepo.../lsseq/testdir/edir/e01/e_9999.jpg
+/...absPathToRepo.../lsseq/testdir/edir/e02/e_5.jpg
+/...absPathToRepo.../lsseq/testdir/edir/e02/e_9999.jpg
+/...absPathToRepo.../lsseq/testdir/edir/e03/e_5.jpg
+/...absPathToRepo.../lsseq/testdir/edir/e03/e_10005.jpg
+/...absPathToRepo.../lsseq/testdir/fdir/aaa.-02.png
+/...absPathToRepo.../lsseq/testdir/fdir/aaa.002.png
+/...absPathToRepo.../lsseq/testdir/fdir/bbb.-009.jpg
+/...absPathToRepo.../lsseq/testdir/fdir/bbb.0010.jpg
+/...absPathToRepo.../lsseq/testdir/fdir/ccc.004.jpg
+/...absPathToRepo.../lsseq/testdir/fdir/ddd.-08.jpg
+/...absPathToRepo.../lsseq/testdir/fdir/xxx.01989.png
+/...absPathToRepo.../lsseq/testdir/fdir/xxx.02013.png
+/...absPathToRepo.../lsseq/testdir/fdir/xxx_01989.png
+/...absPathToRepo.../lsseq/testdir/fdir/xxx_02013.png
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0040.jpg
 
 ------ Test 4 ------ lsseq -lReoC testdir ------
-/...absPathToRepo.../lsseq/testdir/testDirFile.001.exr 
-/...absPathToRepo.../lsseq/testdir/testDirFile.012.exr 
+/...absPathToRepo.../lsseq/testdir/testDirFile.001.exr
+/...absPathToRepo.../lsseq/testdir/testDirFile.012.exr
 /...absPathToRepo.../lsseq/testdir/testDirFile.mov
 /...absPathToRepo.../lsseq/testdir/testDirFile.wmv
-/...absPathToRepo.../lsseq/testdir/xxx.000.exr 
-/...absPathToRepo.../lsseq/testdir/xxx.016.exr 
+/...absPathToRepo.../lsseq/testdir/xxx.000.exr
+/...absPathToRepo.../lsseq/testdir/xxx.016.exr
 /...absPathToRepo.../lsseq/testdir/xxx.mov
-/...absPathToRepo.../lsseq/testdir/yyy.0123.tif 
+/...absPathToRepo.../lsseq/testdir/yyy.0123.tif
 /...absPathToRepo.../lsseq/testdir/yyy.mov
-/...absPathToRepo.../lsseq/testdir/adir/aaa.001.exr 
-/...absPathToRepo.../lsseq/testdir/adir/aaa.120.exr 
-/...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.001.exr 
-/...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.120.exr 
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.01.001.exr 
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.01.120.exr 
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.02.001.tif 
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.02.120.tif 
-/...absPathToRepo.../lsseq/testdir/bdir/b_subdir/bbb.02.008.tif 
-/...absPathToRepo.../lsseq/testdir/bdir/b_subdir/bbb.02.095.tif 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.001.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.120.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.001.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.120.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.80.tga 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.140.tga 
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.001.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.120.exr 
-/...absPathToRepo.../lsseq/testdir/ddir/dddA.-010.exr 
-/...absPathToRepo.../lsseq/testdir/ddir/dddA.0017.exr 
-/...absPathToRepo.../lsseq/testdir/ddir/dddB.-10.exr 
-/...absPathToRepo.../lsseq/testdir/ddir/dddB.17.exr 
-/...absPathToRepo.../lsseq/testdir/ddir/dddC.-10.exr 
-/...absPathToRepo.../lsseq/testdir/ddir/dddC.-3.exr 
-/...absPathToRepo.../lsseq/testdir/edir/e01/e_5.jpg 
-/...absPathToRepo.../lsseq/testdir/edir/e01/e_9999.jpg 
-/...absPathToRepo.../lsseq/testdir/edir/e02/e_5.jpg 
-/...absPathToRepo.../lsseq/testdir/edir/e02/e_9999.jpg 
-/...absPathToRepo.../lsseq/testdir/edir/e03/e_5.jpg 
-/...absPathToRepo.../lsseq/testdir/edir/e03/e_10005.jpg 
-/...absPathToRepo.../lsseq/testdir/fdir/aaa.-02.png 
-/...absPathToRepo.../lsseq/testdir/fdir/aaa.002.png 
-/...absPathToRepo.../lsseq/testdir/fdir/bbb.-009.jpg 
-/...absPathToRepo.../lsseq/testdir/fdir/bbb.0010.jpg 
-/...absPathToRepo.../lsseq/testdir/fdir/ccc.004.jpg 
-/...absPathToRepo.../lsseq/testdir/fdir/ddd.-08.jpg 
-/...absPathToRepo.../lsseq/testdir/fdir/xxx.01989.png 
-/...absPathToRepo.../lsseq/testdir/fdir/xxx.02013.png 
-/...absPathToRepo.../lsseq/testdir/fdir/xxx_01989.png 
-/...absPathToRepo.../lsseq/testdir/fdir/xxx_02013.png 
-/...absPathToRepo.../lsseq/testdir/gdir/ccc01.001.ass 
-/...absPathToRepo.../lsseq/testdir/gdir/ccc01.120.ass 
-/...absPathToRepo.../lsseq/testdir/gdir/ccc02.001.ass 
-/...absPathToRepo.../lsseq/testdir/gdir/ccc02.120.ass 
-/...absPathToRepo.../lsseq/testdir/gdir/ccc03.80.fur 
-/...absPathToRepo.../lsseq/testdir/gdir/ccc03.140.fur 
+/...absPathToRepo.../lsseq/testdir/adir/aaa.001.exr
+/...absPathToRepo.../lsseq/testdir/adir/aaa.120.exr
+/...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.001.exr
+/...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.120.exr
+/...absPathToRepo.../lsseq/testdir/bdir/bbb.01.001.exr
+/...absPathToRepo.../lsseq/testdir/bdir/bbb.01.120.exr
+/...absPathToRepo.../lsseq/testdir/bdir/bbb.02.001.tif
+/...absPathToRepo.../lsseq/testdir/bdir/bbb.02.120.tif
+/...absPathToRepo.../lsseq/testdir/bdir/b_subdir/bbb.02.008.tif
+/...absPathToRepo.../lsseq/testdir/bdir/b_subdir/bbb.02.095.tif
+/...absPathToRepo.../lsseq/testdir/cdir/ccc01.001.exr
+/...absPathToRepo.../lsseq/testdir/cdir/ccc01.120.exr
+/...absPathToRepo.../lsseq/testdir/cdir/ccc02.001.exr
+/...absPathToRepo.../lsseq/testdir/cdir/ccc02.120.exr
+/...absPathToRepo.../lsseq/testdir/cdir/ccc03.80.tga
+/...absPathToRepo.../lsseq/testdir/cdir/ccc03.140.tga
+/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.001.exr
+/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.120.exr
+/...absPathToRepo.../lsseq/testdir/ddir/dddA.-010.exr
+/...absPathToRepo.../lsseq/testdir/ddir/dddA.0017.exr
+/...absPathToRepo.../lsseq/testdir/ddir/dddB.-10.exr
+/...absPathToRepo.../lsseq/testdir/ddir/dddB.17.exr
+/...absPathToRepo.../lsseq/testdir/ddir/dddC.-10.exr
+/...absPathToRepo.../lsseq/testdir/ddir/dddC.-3.exr
+/...absPathToRepo.../lsseq/testdir/edir/e01/e_5.jpg
+/...absPathToRepo.../lsseq/testdir/edir/e01/e_9999.jpg
+/...absPathToRepo.../lsseq/testdir/edir/e02/e_5.jpg
+/...absPathToRepo.../lsseq/testdir/edir/e02/e_9999.jpg
+/...absPathToRepo.../lsseq/testdir/edir/e03/e_5.jpg
+/...absPathToRepo.../lsseq/testdir/edir/e03/e_10005.jpg
+/...absPathToRepo.../lsseq/testdir/fdir/aaa.-02.png
+/...absPathToRepo.../lsseq/testdir/fdir/aaa.002.png
+/...absPathToRepo.../lsseq/testdir/fdir/bbb.-009.jpg
+/...absPathToRepo.../lsseq/testdir/fdir/bbb.0010.jpg
+/...absPathToRepo.../lsseq/testdir/fdir/ccc.004.jpg
+/...absPathToRepo.../lsseq/testdir/fdir/ddd.-08.jpg
+/...absPathToRepo.../lsseq/testdir/fdir/xxx.01989.png
+/...absPathToRepo.../lsseq/testdir/fdir/xxx.02013.png
+/...absPathToRepo.../lsseq/testdir/fdir/xxx_01989.png
+/...absPathToRepo.../lsseq/testdir/fdir/xxx_02013.png
+/...absPathToRepo.../lsseq/testdir/gdir/ccc01.001.ass
+/...absPathToRepo.../lsseq/testdir/gdir/ccc01.120.ass
+/...absPathToRepo.../lsseq/testdir/gdir/ccc02.001.ass
+/...absPathToRepo.../lsseq/testdir/gdir/ccc02.120.ass
+/...absPathToRepo.../lsseq/testdir/gdir/ccc03.80.fur
+/...absPathToRepo.../lsseq/testdir/gdir/ccc03.140.fur
+/...absPathToRepo.../lsseq/testdir/gdir/ggg01.090.bgeo.sc
+/...absPathToRepo.../lsseq/testdir/gdir/ggg01.105.bgeo.sc
 /...absPathToRepo.../lsseq/testdir/gdir/xxx01.mov
 /...absPathToRepo.../lsseq/testdir/gdir/xxx02.mov
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh03.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh03.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh03.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh03.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh03.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh03.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0040.jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0001.jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0040.jpg 
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.0001.jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.0040.jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0001.jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0040.jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0001.jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0040.jpg
 
 ------ Test 5 ------ lsseq -RePC testdir ------
-testdir/testDirFile.001.exr 
-testdir/testDirFile.012.exr 
+testdir/testDirFile.001.exr
+testdir/testDirFile.012.exr
 testdir/testDirFile.mov
 testdir/testDirFile.wmv
-testdir/xxx.000.exr 
-testdir/xxx.016.exr 
+testdir/xxx.000.exr
+testdir/xxx.016.exr
 testdir/xxx.mov
-testdir/yyy.0123.tif 
+testdir/yyy.0123.tif
 testdir/yyy.mov
-testdir/adir/aaa.001.exr 
-testdir/adir/aaa.120.exr 
-testdir/adir/lrtm01_beauty02.001.exr 
-testdir/adir/lrtm01_beauty02.120.exr 
-testdir/bdir/bbb.01.001.exr 
-testdir/bdir/bbb.01.120.exr 
-testdir/bdir/bbb.02.001.tif 
-testdir/bdir/bbb.02.120.tif 
-testdir/bdir/b_subdir/bbb.02.008.tif 
-testdir/bdir/b_subdir/bbb.02.095.tif 
-testdir/cdir/ccc01.001.exr 
-testdir/cdir/ccc01.120.exr 
-testdir/cdir/ccc02.001.exr 
-testdir/cdir/ccc02.120.exr 
-testdir/cdir/ccc03.80.tga 
-testdir/cdir/ccc03.140.tga 
-testdir/cdir/c_subDir/ccc01.001.exr 
-testdir/cdir/c_subDir/ccc01.120.exr 
-testdir/ddir/dddA.-010.exr 
-testdir/ddir/dddA.0017.exr 
-testdir/ddir/dddB.-10.exr 
-testdir/ddir/dddB.17.exr 
-testdir/ddir/dddC.-10.exr 
-testdir/ddir/dddC.-3.exr 
-testdir/fdir/aaa.-02.png 
-testdir/fdir/aaa.002.png 
-testdir/fdir/bbb.-009.jpg 
-testdir/fdir/bbb.0010.jpg 
-testdir/fdir/ccc.004.jpg 
-testdir/fdir/ddd.-08.jpg 
-testdir/fdir/xxx.01989.png 
-testdir/fdir/xxx.02013.png 
-testdir/gdir/ccc01.001.ass 
-testdir/gdir/ccc01.120.ass 
-testdir/gdir/ccc02.001.ass 
-testdir/gdir/ccc02.120.ass 
-testdir/gdir/ccc03.80.fur 
-testdir/gdir/ccc03.140.fur 
+testdir/adir/aaa.001.exr
+testdir/adir/aaa.120.exr
+testdir/adir/lrtm01_beauty02.001.exr
+testdir/adir/lrtm01_beauty02.120.exr
+testdir/bdir/bbb.01.001.exr
+testdir/bdir/bbb.01.120.exr
+testdir/bdir/bbb.02.001.tif
+testdir/bdir/bbb.02.120.tif
+testdir/bdir/b_subdir/bbb.02.008.tif
+testdir/bdir/b_subdir/bbb.02.095.tif
+testdir/cdir/ccc01.001.exr
+testdir/cdir/ccc01.120.exr
+testdir/cdir/ccc02.001.exr
+testdir/cdir/ccc02.120.exr
+testdir/cdir/ccc03.80.tga
+testdir/cdir/ccc03.140.tga
+testdir/cdir/c_subDir/ccc01.001.exr
+testdir/cdir/c_subDir/ccc01.120.exr
+testdir/ddir/dddA.-010.exr
+testdir/ddir/dddA.0017.exr
+testdir/ddir/dddB.-10.exr
+testdir/ddir/dddB.17.exr
+testdir/ddir/dddC.-10.exr
+testdir/ddir/dddC.-3.exr
+testdir/fdir/aaa.-02.png
+testdir/fdir/aaa.002.png
+testdir/fdir/bbb.-009.jpg
+testdir/fdir/bbb.0010.jpg
+testdir/fdir/ccc.004.jpg
+testdir/fdir/ddd.-08.jpg
+testdir/fdir/xxx.01989.png
+testdir/fdir/xxx.02013.png
+testdir/gdir/ccc01.001.ass
+testdir/gdir/ccc01.120.ass
+testdir/gdir/ccc02.001.ass
+testdir/gdir/ccc02.120.ass
+testdir/gdir/ccc03.80.fur
+testdir/gdir/ccc03.140.fur
+testdir/gdir/ggg01.090.bgeo.sc
+testdir/gdir/ggg01.105.bgeo.sc
 testdir/gdir/xxx01.mov
 testdir/gdir/xxx02.mov
-testdir/hdir/foo/v001/hhh01.0001.jpg 
-testdir/hdir/foo/v001/hhh01.0040.jpg 
-testdir/hdir/foo/v001/hhh02.0001.jpg 
-testdir/hdir/foo/v001/hhh02.0040.jpg 
-testdir/hdir/foo/v001/hhh03.0001.jpg 
-testdir/hdir/foo/v001/hhh03.0040.jpg 
-testdir/hdir/foo/v002/hhh01.0001.jpg 
-testdir/hdir/foo/v002/hhh01.0040.jpg 
-testdir/hdir/foo/v002/hhh02.0001.jpg 
-testdir/hdir/foo/v002/hhh02.0040.jpg 
-testdir/hdir/foo/v002/hhh03.0001.jpg 
-testdir/hdir/foo/v002/hhh03.0040.jpg 
-testdir/hdir/foo/v003/hhh01.0001.jpg 
-testdir/hdir/foo/v003/hhh01.0040.jpg 
-testdir/hdir/foo/v003/hhh02.0001.jpg 
-testdir/hdir/foo/v003/hhh02.0040.jpg 
-testdir/hdir/foo/v003/hhh03.0001.jpg 
-testdir/hdir/foo/v003/hhh03.0040.jpg 
-testdir/hdir/v001/hhh01.0001.jpg 
-testdir/hdir/v001/hhh01.0040.jpg 
-testdir/hdir/v001/hhh02.0001.jpg 
-testdir/hdir/v001/hhh02.0040.jpg 
-testdir/hdir/v001/hhh03.0001.jpg 
-testdir/hdir/v001/hhh03.0040.jpg 
-testdir/hdir/v002/hhh01.0001.jpg 
-testdir/hdir/v002/hhh01.0040.jpg 
-testdir/hdir/v002/hhh02.0001.jpg 
-testdir/hdir/v002/hhh02.0040.jpg 
-testdir/hdir/v002/hhh03.0001.jpg 
-testdir/hdir/v002/hhh03.0040.jpg 
-testdir/hdir/v003/hhh01.0001.jpg 
-testdir/hdir/v003/hhh01.0040.jpg 
-testdir/hdir/v003/hhh02.0001.jpg 
-testdir/hdir/v003/hhh02.0040.jpg 
-testdir/hdir/v003/hhh03.0001.jpg 
-testdir/hdir/v003/hhh03.0040.jpg 
-testdir/idir/v001/hhh01.0001.jpg 
-testdir/idir/v001/hhh01.0040.jpg 
-testdir/idir/v001/hhh02.0001.jpg 
-testdir/idir/v001/hhh02.0040.jpg 
-testdir/idir/v001/hhh03.0001.jpg 
-testdir/idir/v001/hhh03.0040.jpg 
+testdir/hdir/foo/v001/hhh01.0001.jpg
+testdir/hdir/foo/v001/hhh01.0040.jpg
+testdir/hdir/foo/v001/hhh02.0001.jpg
+testdir/hdir/foo/v001/hhh02.0040.jpg
+testdir/hdir/foo/v001/hhh03.0001.jpg
+testdir/hdir/foo/v001/hhh03.0040.jpg
+testdir/hdir/foo/v002/hhh01.0001.jpg
+testdir/hdir/foo/v002/hhh01.0040.jpg
+testdir/hdir/foo/v002/hhh02.0001.jpg
+testdir/hdir/foo/v002/hhh02.0040.jpg
+testdir/hdir/foo/v002/hhh03.0001.jpg
+testdir/hdir/foo/v002/hhh03.0040.jpg
+testdir/hdir/foo/v003/hhh01.0001.jpg
+testdir/hdir/foo/v003/hhh01.0040.jpg
+testdir/hdir/foo/v003/hhh02.0001.jpg
+testdir/hdir/foo/v003/hhh02.0040.jpg
+testdir/hdir/foo/v003/hhh03.0001.jpg
+testdir/hdir/foo/v003/hhh03.0040.jpg
+testdir/hdir/v001/hhh01.0001.jpg
+testdir/hdir/v001/hhh01.0040.jpg
+testdir/hdir/v001/hhh02.0001.jpg
+testdir/hdir/v001/hhh02.0040.jpg
+testdir/hdir/v001/hhh03.0001.jpg
+testdir/hdir/v001/hhh03.0040.jpg
+testdir/hdir/v002/hhh01.0001.jpg
+testdir/hdir/v002/hhh01.0040.jpg
+testdir/hdir/v002/hhh02.0001.jpg
+testdir/hdir/v002/hhh02.0040.jpg
+testdir/hdir/v002/hhh03.0001.jpg
+testdir/hdir/v002/hhh03.0040.jpg
+testdir/hdir/v003/hhh01.0001.jpg
+testdir/hdir/v003/hhh01.0040.jpg
+testdir/hdir/v003/hhh02.0001.jpg
+testdir/hdir/v003/hhh02.0040.jpg
+testdir/hdir/v003/hhh03.0001.jpg
+testdir/hdir/v003/hhh03.0040.jpg
+testdir/idir/v001/hhh01.0001.jpg
+testdir/idir/v001/hhh01.0040.jpg
+testdir/idir/v001/hhh02.0001.jpg
+testdir/idir/v001/hhh02.0040.jpg
+testdir/idir/v001/hhh03.0001.jpg
+testdir/idir/v001/hhh03.0040.jpg
 
 ------ Test 6 ------ lsseq -p ------
 /...absPathToRepo.../lsseq/testdir/testDirFile.[001-012].exr m:[3]
@@ -427,7 +434,7 @@ testdir/idir/v001/hhh03.0040.jpg
 /...absPathToRepo.../lsseq/testdir/testDirFile.wmv
 /...absPathToRepo.../lsseq/testdir/xxx.[000-016].exr m:[1-15x2]
 /...absPathToRepo.../lsseq/testdir/xxx.mov
-/...absPathToRepo.../lsseq/testdir/yyy.[0123].tif 
+/...absPathToRepo.../lsseq/testdir/yyy.[0123].tif
 /...absPathToRepo.../lsseq/testdir/yyy.mov
 
 ------ Test 7 ------ lsseq ------
@@ -454,7 +461,7 @@ testDirFile.mov
 testDirFile.wmv
 xxx.[000-016].exr m:[1-15x2]
 xxx.mov
-yyy.[0123].tif 
+yyy.[0123].tif
 yyy.mov
 
 ------ Test 8 ------ lsseq * ------
@@ -471,7 +478,7 @@ testDirFile.mov
 testDirFile.wmv
 xxx.[000-016].exr m:[1-15x2]
 xxx.mov
-yyy.[0123].tif 
+yyy.[0123].tif
 yyy.mov
 
 adir:
@@ -503,7 +510,7 @@ lrtm01_beauty02.[001-120].exr z:[11]
 bdir:
 b_subdir
 bbb.01.[001-120].exr z:[21]
-bbb.02.[001-120].tif 
+bbb.02.[001-120].tif
 
 blackFrames:
 HD_by10.png
@@ -572,12 +579,12 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ddir:
-dddA.[-010-0017].exr 
-dddB.[-10-17].exr 
-dddC.[-10--3].exr 
+dddA.[-010-0017].exr
+dddB.[-10-17].exr
+dddC.[-10--3].exr
 
 edir:
 e01
@@ -610,16 +617,17 @@ xxx_02010.png
 xxx_02011.png
 xxx_02012.png
 xxx_02013.png
-aaa.[-02-002].png 
-bbb.[-009-0010].jpg 
-ccc.[004].jpg 
-ddd.[-08].jpg 
-xxx.[01989-02013].png 
+aaa.[-02-002].png
+bbb.[-009-0010].jpg
+ccc.[004].jpg
+ddd.[-08].jpg
+xxx.[01989-02013].png
 
 gdir:
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
-ccc03.[80-140].fur 
+ccc03.[80-140].fur
+ggg01.[090-105].bgeo.sc z:[90-105]
 xxx01.mov
 xxx02.mov
 
@@ -649,7 +657,7 @@ testDirFile.mov
 testDirFile.wmv
 xxx.[000-016].exr m:[1-15x2]
 xxx.mov
-yyy.[0123].tif 
+yyy.[0123].tif
 yyy.mov
 
 adir:
@@ -681,7 +689,7 @@ lrtm01_beauty02.[001-120].exr z:[11]
 bdir:
 b_subdir
 bbb.01.[001-120].exr z:[21]
-bbb.02.[001-120].tif 
+bbb.02.[001-120].tif
 
 blackFrames:
 HD_by10.png
@@ -750,12 +758,12 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ddir:
-dddA.[-010-0017].exr 
-dddB.[-10-17].exr 
-dddC.[-10--3].exr 
+dddA.[-010-0017].exr
+dddB.[-10-17].exr
+dddC.[-10--3].exr
 
 edir:
 e01
@@ -763,17 +771,18 @@ e02
 e03
 
 fdir:
-aaa.[-02-002].png 
-bbb.[-009-0010].jpg 
-ccc.[004].jpg 
-ddd.[-08].jpg 
-xxx.[01989-02013].png 
-xxx_[01989-02013].png 
+aaa.[-02-002].png
+bbb.[-009-0010].jpg
+ccc.[004].jpg
+ddd.[-08].jpg
+xxx.[01989-02013].png
+xxx_[01989-02013].png
 
 gdir:
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
-ccc03.[80-140].fur 
+ccc03.[80-140].fur
+ggg01.[090-105].bgeo.sc z:[90-105]
 xxx01.mov
 xxx02.mov
 
@@ -826,7 +835,7 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ------ Test 11 ------ lsseq . ------
 aaaa
@@ -865,7 +874,7 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ------ Test 12 ------ lsseq * ------
 aaaa
@@ -903,7 +912,7 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
@@ -945,7 +954,7 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ------ Test 14 ------ lsseq -c ------
 aaaa
@@ -984,27 +993,27 @@ yyyy
 zzzz
 ccc01.[001-120].exr e:[3,52-55]
 ccc02.[001-120].exr e:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ------ Test 15 ------ lsseq -e -R ------
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.001.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.120.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.001.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.120.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.80.tga 
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.140.tga 
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.001.exr 
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.120.exr 
+/...absPathToRepo.../lsseq/testdir/cdir/ccc01.001.exr
+/...absPathToRepo.../lsseq/testdir/cdir/ccc01.120.exr
+/...absPathToRepo.../lsseq/testdir/cdir/ccc02.001.exr
+/...absPathToRepo.../lsseq/testdir/cdir/ccc02.120.exr
+/...absPathToRepo.../lsseq/testdir/cdir/ccc03.80.tga
+/...absPathToRepo.../lsseq/testdir/cdir/ccc03.140.tga
+/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.001.exr
+/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.120.exr
 
 ------ Test 16 ------ lsseq -e -R -P ------
-./ccc01.001.exr 
-./ccc01.120.exr 
-./ccc02.001.exr 
-./ccc02.120.exr 
-./ccc03.80.tga 
-./ccc03.140.tga 
-./c_subDir/ccc01.001.exr 
-./c_subDir/ccc01.120.exr 
+./ccc01.001.exr
+./ccc01.120.exr
+./ccc02.001.exr
+./ccc02.120.exr
+./ccc03.80.tga
+./ccc03.140.tga
+./c_subDir/ccc01.001.exr
+./c_subDir/ccc01.120.exr
 
 ------ Test 17 ------ lsseq -fnative ------
 aaaa
@@ -1043,7 +1052,7 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ------ Test 18 ------ lsseq -fnuke ------
 aaaa
@@ -1160,7 +1169,7 @@ yyyy
 zzzz
 ccc01.1-120@@@.exr m:[3], z:[52-55]
 ccc02.1-120@@@.exr m:[51,119]
-ccc03.80-140@@.tga 
+ccc03.80-140@@.tga
 
 ------ Test 21 ------ lsseq -fglob ------
 aaaa
@@ -1202,9 +1211,9 @@ ccc02.[0-9][0-9][0-9].exr
 ccc03.[0-9][0-9].tga
 
 ------ Test 22 ------ lsseq -i ------
-OIC_IMAGE_EXTENSION: alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:pct:pct1:pct2:pdb:pdd:pic:pict:pix:png:psb:psd:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
+OIC_IMAGE_EXTENSION: JPEG:JPG:NEF:alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
 OIC_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
-OIC_CACHE_EXTENSION: ass:dshd:fur:obj:srf
+OIC_CACHE_EXTENSION: ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:vdb:vdb.gz:vdb.sc
 
 ------ Test 23 ------ lsseq -M ------
 aaaa
@@ -1242,24 +1251,24 @@ xxxx
 yyyy
 zzzz
 ccc01.[001-120].exr z:[52-55]
-ccc02.[001-120].exr 
-ccc03.[80-140].tga 
+ccc02.[001-120].exr
+ccc03.[80-140].tga
 
 ------ Test 24 ------ lsseq -o ------
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ------ Test 25 ------ lsseq -p * ------
 /...absPathToRepo.../lsseq/testdir/cdir/ccc01.[001-120].exr m:[3], z:[52-55]
 /...absPathToRepo.../lsseq/testdir/cdir/ccc02.[001-120].exr m:[51,119]
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.[80-140].tga 
+/...absPathToRepo.../lsseq/testdir/cdir/ccc03.[80-140].tga
 /...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
 
 ------ Test 26 ------ lsseq -P * ------
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
 
 ------ Test 27 ------ lsseq -r ------
@@ -1297,7 +1306,7 @@ cccc
 c_subDir
 bbbb
 aaaa
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 ccc02.[001-120].exr m:[51,119]
 ccc01.[001-120].exr m:[3], z:[52-55]
 
@@ -1336,7 +1345,7 @@ shake01.01.shk
 shake01.02.shk
 shake01.03.shk
 shake02.01.shk
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 ccc02.[001-120].exr m:[51,119]
 ccc01.[001-120].exr m:[3], z:[52-55]
 
@@ -1376,7 +1385,7 @@ shake01.02.shk
 shake01.03.shk
 shake02.01.shk
 ccc01.[001-120].exr m:[3], z:[52-55]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 ccc02.[001-120].exr m:[51,119]
 
 ------ Test 30 ------ lsseq -t --time median ------
@@ -1415,7 +1424,7 @@ shake01.02.shk
 shake01.03.shk
 shake02.01.shk
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 ccc01.[001-120].exr m:[3], z:[52-55]
 
 ------ Test 31 ------ lsseq -Z ------
@@ -1455,7 +1464,7 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ------ Test 32 ------ lsseq -R /...absPathToRepo.../lsseq/testdir/cdir/ /...absPathToRepo.../lsseq/testdir/ ------
 /...absPathToRepo.../lsseq/testdir:
@@ -1482,7 +1491,7 @@ testDirFile.mov
 testDirFile.wmv
 xxx.[000-016].exr m:[1-15x2]
 xxx.mov
-yyy.[0123].tif 
+yyy.[0123].tif
 yyy.mov
 
 /...absPathToRepo.../lsseq/testdir/adir:
@@ -1514,10 +1523,10 @@ lrtm01_beauty02.[001-120].exr z:[11]
 /...absPathToRepo.../lsseq/testdir/bdir:
 b_subdir
 bbb.01.[001-120].exr z:[21]
-bbb.02.[001-120].tif 
+bbb.02.[001-120].tif
 
 /...absPathToRepo.../lsseq/testdir/bdir/b_subdir:
-bbb.02.[008-095].tif 
+bbb.02.[008-095].tif
 
 /...absPathToRepo.../lsseq/testdir/blackFrames:
 HD_by10.png
@@ -1586,15 +1595,15 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 /...absPathToRepo.../lsseq/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
 /...absPathToRepo.../lsseq/testdir/ddir:
-dddA.[-010-0017].exr 
-dddB.[-10-17].exr 
-dddC.[-10--3].exr 
+dddA.[-010-0017].exr
+dddB.[-10-17].exr
+dddC.[-10--3].exr
 
 /...absPathToRepo.../lsseq/testdir/edir:
 e01
@@ -1753,16 +1762,17 @@ xxx_02010.png
 xxx_02011.png
 xxx_02012.png
 xxx_02013.png
-aaa.[-02-002].png 
-bbb.[-009-0010].jpg 
-ccc.[004].jpg 
-ddd.[-08].jpg 
-xxx.[01989-02013].png 
+aaa.[-02-002].png
+bbb.[-009-0010].jpg
+ccc.[004].jpg
+ddd.[-08].jpg
+xxx.[01989-02013].png
 
 /...absPathToRepo.../lsseq/testdir/gdir:
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
-ccc03.[80-140].fur 
+ccc03.[80-140].fur
+ggg01.[090-105].bgeo.sc z:[90-105]
 xxx01.mov
 xxx02.mov
 
@@ -1781,42 +1791,42 @@ v002
 v003
 
 /...absPathToRepo.../lsseq/testdir/hdir/foo/v001:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 /...absPathToRepo.../lsseq/testdir/hdir/foo/v002:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 /...absPathToRepo.../lsseq/testdir/hdir/foo/v003:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 /...absPathToRepo.../lsseq/testdir/hdir/v001:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 /...absPathToRepo.../lsseq/testdir/hdir/v002:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 /...absPathToRepo.../lsseq/testdir/hdir/v003:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 /...absPathToRepo.../lsseq/testdir/idir:
 v001
 
 /...absPathToRepo.../lsseq/testdir/idir/v001:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 /...absPathToRepo.../lsseq/testdir/cdir:
 aaaa
@@ -1855,7 +1865,7 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 /...absPathToRepo.../lsseq/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
@@ -1898,7 +1908,7 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 /...absPathToRepo.../lsseq/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
@@ -1948,7 +1958,7 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
@@ -1991,7 +2001,7 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95,102]
@@ -2034,61 +2044,61 @@ yyyy
 zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 37 ------ lsseq -1RbC ------
 .:
-aaaa		     hhhh		   nnnn		   ssss
-bbbb		     iiii		   oooo		   tttt
-c_subDir	     initial.image.mtimes  pppp		   uuuu
-cccc		     jjjj		   qqqq		   vvvv
-custom.touch.images  kkkk		   rrrr		   xxxx
-dddd		     list.images	   shake01.01.shk  yyyy
-eeee		     llll		   shake01.02.shk  zzzz
-ffff		     mkFrames.v01.nk	   shake01.03.shk
-gggg		     mmmm		   shake02.01.shk
+aaaa                    hhhh                    nnnn                    ssss
+bbbb                    iiii                    oooo                    tttt
+c_subDir                initial.image.mtimes    pppp                    uuuu
+cccc                    jjjj                    qqqq                    vvvv
+custom.touch.images     kkkk                    rrrr                    xxxx
+dddd                    list.images             shake01.01.shk          yyyy
+eeee                    llll                    shake01.02.shk          zzzz
+ffff                    mkFrames.v01.nk         shake01.03.shk
+gggg                    mmmm                    shake02.01.shk
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 38 ------ lsseq -Rbx ------
 .:
-aaaa		     bbbb	     c_subDir	     cccc
-custom.touch.images  dddd	     eeee	     ffff
-gggg		     hhhh	     iiii	     initial.image.mtimes
-jjjj		     kkkk	     list.images     llll
-mkFrames.v01.nk      mmmm	     nnnn	     oooo
-pppp		     qqqq	     rrrr	     shake01.01.shk
-shake01.02.shk	     shake01.03.shk  shake02.01.shk  ssss
-tttt		     uuuu	     vvvv	     xxxx
-yyyy		     zzzz
+aaaa                    bbbb                    c_subDir                cccc
+custom.touch.images     dddd                    eeee                    ffff
+gggg                    hhhh                    iiii                    initial.image.mtimes
+jjjj                    kkkk                    list.images             llll
+mkFrames.v01.nk         mmmm                    nnnn                    oooo
+pppp                    qqqq                    rrrr                    shake01.01.shk
+shake01.02.shk          shake01.03.shk          shake02.01.shk          ssss
+tttt                    uuuu                    vvvv                    xxxx
+yyyy                    zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 39 ------ lsseq -1CRbx ------
 .:
-aaaa		     bbbb	     c_subDir	     cccc
-custom.touch.images  dddd	     eeee	     ffff
-gggg		     hhhh	     iiii	     initial.image.mtimes
-jjjj		     kkkk	     list.images     llll
-mkFrames.v01.nk      mmmm	     nnnn	     oooo
-pppp		     qqqq	     rrrr	     shake01.01.shk
-shake01.02.shk	     shake01.03.shk  shake02.01.shk  ssss
-tttt		     uuuu	     vvvv	     xxxx
-yyyy		     zzzz
+aaaa                    bbbb                    c_subDir                cccc
+custom.touch.images     dddd                    eeee                    ffff
+gggg                    hhhh                    iiii                    initial.image.mtimes
+jjjj                    kkkk                    list.images             llll
+mkFrames.v01.nk         mmmm                    nnnn                    oooo
+pppp                    qqqq                    rrrr                    shake01.01.shk
+shake01.02.shk          shake01.03.shk          shake02.01.shk          ssss
+tttt                    uuuu                    vvvv                    xxxx
+yyyy                    zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
-ccc03.[80-140].tga 
+ccc03.[80-140].tga
 
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
@@ -2096,7 +2106,7 @@ ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 ------ Test 40 ------ lsseq -R -P -p -P -f rv -f glob -fnative -C -b ------
 ./ccc01.[001-120].exr m:[3], z:[52-55]
 ./ccc02.[001-120].exr m:[51,119]
-./ccc03.[80-140].tga 
+./ccc03.[80-140].tga
 ./c_subDir/ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 41 ------ lsseq ------
@@ -2107,87 +2117,83 @@ v001
 v001
 
 ./v001:
-hhh01.[0001-0040].jpg 
-hhh02.[0001-0040].jpg 
-hhh03.[0001-0040].jpg 
+hhh01.[0001-0040].jpg
+hhh02.[0001-0040].jpg
+hhh03.[0001-0040].jpg
 
 ------ Test 43 ------ lsseq -P * ------
-v001/hhh01.[0001-0040].jpg 
-v001/hhh02.[0001-0040].jpg 
-v001/hhh03.[0001-0040].jpg 
+v001/hhh01.[0001-0040].jpg
+v001/hhh02.[0001-0040].jpg
+v001/hhh03.[0001-0040].jpg
 
 ------ Test 44 ------ lsseq -p * ------
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.[0001-0040].jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.[0001-0040].jpg 
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.[0001-0040].jpg 
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.[0001-0040].jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.[0001-0040].jpg
+/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.[0001-0040].jpg
 
 ------ Test 45 ------ lsseq -t -r -P foo/*/* v001/* v002/* v003/* ------
-foo/v001/hhh01.[0001-0040].jpg 
-foo/v001/hhh02.[0001-0040].jpg 
-foo/v001/hhh03.[0001-0040].jpg 
-foo/v002/hhh01.[0001-0040].jpg 
-foo/v002/hhh02.[0001-0040].jpg 
-foo/v002/hhh03.[0001-0040].jpg 
-foo/v003/hhh01.[0001-0040].jpg 
-foo/v003/hhh02.[0001-0040].jpg 
-foo/v003/hhh03.[0001-0040].jpg 
-v001/hhh01.[0001-0040].jpg 
-v001/hhh02.[0001-0040].jpg 
-v001/hhh03.[0001-0040].jpg 
-v002/hhh01.[0001-0040].jpg 
-v002/hhh02.[0001-0040].jpg 
-v002/hhh03.[0001-0040].jpg 
-v003/hhh01.[0001-0040].jpg 
-v003/hhh02.[0001-0040].jpg 
-v003/hhh03.[0001-0040].jpg 
+foo/v001/hhh01.[0001-0040].jpg
+foo/v001/hhh02.[0001-0040].jpg
+foo/v001/hhh03.[0001-0040].jpg
+foo/v002/hhh01.[0001-0040].jpg
+foo/v002/hhh02.[0001-0040].jpg
+foo/v002/hhh03.[0001-0040].jpg
+foo/v003/hhh01.[0001-0040].jpg
+foo/v003/hhh02.[0001-0040].jpg
+foo/v003/hhh03.[0001-0040].jpg
+v001/hhh01.[0001-0040].jpg
+v001/hhh02.[0001-0040].jpg
+v001/hhh03.[0001-0040].jpg
+v002/hhh01.[0001-0040].jpg
+v002/hhh02.[0001-0040].jpg
+v002/hhh03.[0001-0040].jpg
+v003/hhh01.[0001-0040].jpg
+v003/hhh02.[0001-0040].jpg
+v003/hhh03.[0001-0040].jpg
 
 ------ Test 46 ------ lsseq --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/* v003/* ------
-foo/v001/hhh01.[0001-0040].jpg 
-foo/v001/hhh02.[0001-0040].jpg 
-foo/v001/hhh03.[0001-0040].jpg 
-foo/v002/hhh01.[0001-0040].jpg 
-foo/v002/hhh02.[0001-0040].jpg 
-foo/v002/hhh03.[0001-0040].jpg 
-foo/v003/hhh01.[0001-0040].jpg 
-foo/v003/hhh02.[0001-0040].jpg 
-foo/v003/hhh03.[0001-0040].jpg 
-v001/hhh01.[0001-0040].jpg 
-v001/hhh02.[0001-0040].jpg 
-v001/hhh03.[0001-0040].jpg 
-v002/hhh01.[0001-0040].jpg 
+foo/v001/hhh01.[0001-0040].jpg
+foo/v001/hhh02.[0001-0040].jpg
+foo/v001/hhh03.[0001-0040].jpg
+foo/v002/hhh01.[0001-0040].jpg
+foo/v002/hhh02.[0001-0040].jpg
+foo/v002/hhh03.[0001-0040].jpg
+foo/v003/hhh01.[0001-0040].jpg
+foo/v003/hhh02.[0001-0040].jpg
+foo/v003/hhh03.[0001-0040].jpg
+v001/hhh01.[0001-0040].jpg
+v001/hhh02.[0001-0040].jpg
+v001/hhh03.[0001-0040].jpg
+v002/hhh01.[0001-0040].jpg
 
 ------ Test 47 ------ lsseq --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/* ------
-foo/v001/hhh01.[0001-0040].jpg 
-foo/v001/hhh02.[0001-0040].jpg 
-foo/v001/hhh03.[0001-0040].jpg 
-foo/v002/hhh01.[0001-0040].jpg 
-foo/v002/hhh02.[0001-0040].jpg 
-foo/v002/hhh03.[0001-0040].jpg 
-foo/v003/hhh01.[0001-0040].jpg 
-foo/v003/hhh02.[0001-0040].jpg 
-foo/v003/hhh03.[0001-0040].jpg 
-v001/hhh01.[0001-0040].jpg 
-v001/hhh02.[0001-0040].jpg 
-v001/hhh03.[0001-0040].jpg 
-v002/hhh01.[0001-0040].jpg 
-v002/hhh02.[0001-0040].jpg 
+foo/v001/hhh01.[0001-0040].jpg
+foo/v001/hhh02.[0001-0040].jpg
+foo/v001/hhh03.[0001-0040].jpg
+foo/v002/hhh01.[0001-0040].jpg
+foo/v002/hhh02.[0001-0040].jpg
+foo/v002/hhh03.[0001-0040].jpg
+foo/v003/hhh01.[0001-0040].jpg
+foo/v003/hhh02.[0001-0040].jpg
+foo/v003/hhh03.[0001-0040].jpg
+v001/hhh01.[0001-0040].jpg
+v001/hhh02.[0001-0040].jpg
+v001/hhh03.[0001-0040].jpg
+v002/hhh01.[0001-0040].jpg
+v002/hhh02.[0001-0040].jpg
 
 ------ Test 48 ------ lsseq -i ------
-lsseq: warning: dots are not currently supported in file name extensions so ass.gz is being ignored.
-OIC_IMAGE_EXTENSION: alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:pct:pct1:pct2:pdb:pdd:pic:pict:pix:png:psb:psd:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
+OIC_IMAGE_EXTENSION: JPEG:JPG:NEF:alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
 OIC_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
-OIC_CACHE_EXTENSION: ass:dshd:fur:obj:srf
+OIC_CACHE_EXTENSION: ass:ass.gz:dshd:fur:obj:srf
 
 ------ Test 49 ------ lsseq --onlyImages ------
-lsseq: warning: dots are not currently supported in file name extensions so ass.gz is being ignored.
 
 ------ Test 50 ------ lsseq --onlyMovies ------
-lsseq: warning: dots are not currently supported in file name extensions so ass.gz is being ignored.
 xxx01.mov
 xxx02.mov
 
 ------ Test 51 ------ lsseq --onlyCaches ------
-lsseq: warning: dots are not currently supported in file name extensions so ass.gz is being ignored.
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
-ccc03.[80-140].fur 
+ccc03.[80-140].fur

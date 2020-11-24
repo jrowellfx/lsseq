@@ -6,7 +6,7 @@
 #     <descriptiveName>.<frameNum>.<imgExtension>
 
 # BSD 3-Clause License
-# 
+#
 # Copyright (c) 2008-2020, James Philip Rowell,
 # Alpha Eleven Incorporated
 # www.alpha-eleven.com
@@ -55,10 +55,11 @@ CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
 MOV_EXT = ["avi", "mov", "mp4", "mpg", "wmv"]
 IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
     "dib", "dpx", "exr", "gfa", "gif", "giff", "icon", "iff", "img",
-    "int", "inta", "jpe", "jpeg", "jpg", "mask", "matte", "pct",
-    "pct1", "pct2", "pdb", "pdd", "pic", "piclc", "picnc", "pict", 
-    "pix", "png", "psb", "psd", "rat", "raw", "rgb", "rgba", "rle", 
-    "rw2", "sgi", "tga", "tif", "tiff", "tpic"]
+    "int", "inta", "jpe", "jpeg", "jpg", "JPEG", "JPG", "mask",
+    "matte", "nef", "NEF", "pct", "pct1", "pct2", "pdb", "pdd",
+    "pic", "piclc", "picnc", "pict", "pix", "png", "psb", "psd",
+    "rat", "raw", "rgb", "rgba", "rle", "rw2", "sgi", "tga", "tif",
+    "tiff", "tpic"]
 
 PATH_UNSPECIFIED = 0
 PATH_ABS = 1
@@ -472,7 +473,7 @@ def printSeq(filename, frameList, args, traversedPath) :
         else :
             sys.stdout.write("")
         print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
-        
+
     elif args.seqFormat == 'glob' :
         if minFrame < 0 :
             fileComponents[1] = "[\-0-9]"
@@ -484,7 +485,7 @@ def printSeq(filename, frameList, args, traversedPath) :
         if args.prependPath > 0 and fileComponents[0][0] != '/':
             sys.stdout.write(traversedPath)
         print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
-        
+
     elif args.seqFormat == 'houdini' or args.seqFormat == 'mplay':
         if minFrame == maxFrame :
             fileComponents[1] = (formatStr % minFrame)
@@ -694,7 +695,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             extra_ls_options.append("-t")
         if args.reverseListing :
             extra_ls_options.append("-r")
-	extra_ls_options.append("--")
+        extra_ls_options.append("--")
         lsCmd = ["ls", "-d"] + extra_ls_options + otherFiles
         sys.stdout.flush()
         subprocess.call(lsCmd)
@@ -923,7 +924,7 @@ def main():
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="2.024")
+    p.add_argument("--version", action="version", version="2.030")
 
     p.add_argument("--showBadFrames", "-b", action="count",
         dest="showBad", default=0,
@@ -1133,11 +1134,6 @@ def main():
     tmpExtList.sort();
     CACHE_EXT = []
     for e in tmpExtList :
-        # if '.' in e :
-        #     print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-        #         ": warning: dots are not currently supported in file name extensions so " + e + " is being ignored."
-        # else :
-        #     CACHE_EXT.append(e);
         CACHE_EXT.append(e)
 
     if args.printImgExtensions :
@@ -1193,7 +1189,7 @@ def main():
             print >> sys.stderr, os.path.basename(sys.argv[0]) + \
                 ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]"
             sys.exit(1)
-        
+
         args.cutoffTime[1] = int(time.mktime(timeData)) # Epoch time
         ### print "Epoch time specified: " + str(args.cutoffTime[1])
 
