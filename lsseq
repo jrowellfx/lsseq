@@ -206,7 +206,7 @@ def rollingAvg(list, window, errFrames, minFrame) :
 
 
 def isFrameNum(f) :
-        return (f != '') and (f.isdigit() or (f[0] == '-' and f[1:].isdigit()))
+    return (f != '') and (f.isdigit() or (f[0] == '-' and f[1:].isdigit()))
 
 
 def readByteShortForm(bytes) :
@@ -239,7 +239,8 @@ def splitFileComponents(filename) :
 
     # Check for extensions with dot (for example, blosc compressed bgeos)
     #
-    if (".".join(fileComponents[-2:]) in IMAGE_EXT) or (".".join(fileComponents[-2:]) in CACHE_EXT) :
+    if (".".join(fileComponents[-2:]) in IMAGE_EXT) \
+	    or (".".join(fileComponents[-2:]) in CACHE_EXT) :
 
         fileComponents[-2] = ".".join(fileComponents[-2:])
         del fileComponents[-1]
@@ -948,7 +949,7 @@ def main():
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="2.030")
+    p.add_argument("--version", action="version", version="2.100")
 
     p.add_argument("--showBadFrames", "-b", action="count",
         dest="showBad", default=0,

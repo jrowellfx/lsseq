@@ -129,26 +129,26 @@ root privileges).
 
 .in +3
 .ti -3
-1) First make sure you have python 2.7 installed on your machine, you 
-can do this simply by typing "python2.7" at the command prompt.
-If you are told "command not found", then you need to download and install python 2.7.
+1) First make sure you have python 3.6 installed on your machine, you 
+can do this simply by typing "python3.6" at the command prompt.
+If you are told "command not found", then you need to download and install python 3.6.
 
 .ti -3
-2) Download lsseq-2.000.tar.gz
-assuming that the latest version is 2.000 (if not
+2) Download lsseq-2.100.tar.gz
+assuming that the latest version is 2.100 (if not
 just grab the latest one).
 
 .ti -3
 3) Uncompress the file:
 .nf
-$ tar -xvf lsseq-2.000.tar.gz
+$ tar -xvf lsseq-2.100.tar.gz
 .fi
 
 .ti -3
 4) install the commands and supporting python module:
 .nf
-$ cd lsseq-2.000
-$ sudo python setup.py install
+$ cd lsseq-2.100
+$ sudo python3 setup.py install
 .fi
 
 .ti -3

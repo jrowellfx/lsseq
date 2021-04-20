@@ -14,6 +14,8 @@ unset OIC_CACHE_EXTENSION
 #    ...or...
 # bash: export PATH=~/code/lsseq/:$PATH
 
+export PATH=`pwd`:$PATH
+
 # NOTE: To make sure the modification times of the testdir/cdir images are
 # set properly for testing we need to force specific times on to the files
 # as we can't rely on git to set these properly for us.
@@ -25,6 +27,7 @@ unset OIC_CACHE_EXTENSION
 # initial.image.mtimes < list.images > custom.touch.images
 # vi custom.touch.images - edit the times to make for different "oldest" and "newest" vs "median".
 # source custom.touch.images
+
 
 unalias lsseq > /dev/null 2>&1
 tmpArgs=/tmp/tmpTEST_LSSEQ.$$

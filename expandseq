@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3.6
 
 # expandseq/condenseseq - two command line utilities that expose the basic
 # functionality of the python-module "seqLister.py" functions "expandSeq()"
@@ -91,7 +91,8 @@ def main():
     elif os.path.basename(sys.argv[0]) == "condenseseq" :
         EXPAND_MODE = False
     else :
-        print >> sys.stderr, os.path.basename(sys.argv[0]) + ": must be named either expandseq or condenseseq"
+        # print >> sys.stderr, os.path.basename(sys.argv[0]) + ": must be named either expandseq or condenseseq"
+        print(os.path.basename(sys.argv[0]), ": must be named either expandseq or condenseseq", sep='', file=sys.stderr)
         sys.exit(1)
 
 
@@ -188,16 +189,19 @@ def main():
     isFirst = True
     for s in result :
         if args.seqDelimiter == 'space' :
-            print s,
+            # print s,
+            print(s, end='')
         elif args.seqDelimiter == 'comma' :
             if not isFirst :
                 sys.stdout.write(',')
             sys.stdout.write(str(s))
             isFirst = False
         else : # newline
-            print s
+            # print s
+            print(s)
     if args.seqDelimiter == 'comma' and not isFirst :
-        print ""
+        # print ""
+        print()
 
 if __name__ == '__main__':
     main()

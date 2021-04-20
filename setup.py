@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3.6
 
 from distutils.core import setup
 import os
@@ -10,7 +10,7 @@ if not os.path.exists('condenseseq') :
     createdCondenseseq = True
 
 setup(name='lsseq',
-      version='2.030',
+      version='2.100',
       description='ls-like command for image frame sequences',
       long_description='lsseq is built to behave very much like ls, but lists image sequences in a condensed manner.  A supporting module is included and two other useful command line utilities: expandseq and condenseseq.',
       author='James Philip Rowell',
