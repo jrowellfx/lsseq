@@ -181,8 +181,10 @@ class _gapRun :
 #
 def __debugPrintList(li) :
     for l in li :
-        print "%02d" % l,
-    print ""
+        # print "%02d" % l,
+        print("%02d" % l, end='')
+    # print ""
+    print()
 
 
 # Takes a list of numbers and condenses it into the most minimal

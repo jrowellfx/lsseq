@@ -1,4 +1,4 @@
-#!/usr/bin/python2.7
+#!/usr/bin/python3.6
 
 # lsseq - List directory contents while condensing images sequences to
 # one entry each.  Filenames that are part of images sequences are
@@ -212,13 +212,13 @@ def isFrameNum(f) :
 def readByteShortForm(bytes) :
     multiplier = 1
     if bytes[-1] == 'K' or bytes[-1] == 'k' :
-        multiplier = 1<<10L
+        multiplier = 1<<10
         bytes = bytes[:-1]
     elif bytes[-1] == 'M' or bytes[-1] == 'm' :
-        multiplier = 1<<20L
+        multiplier = 1<<20
         bytes = bytes[:-1]
     elif bytes[-1] == 'G' or bytes[-1] == 'g' :
-        multiplier = 1<<30L
+        multiplier = 1<<30
         bytes = bytes[:-1]
 
     try :
@@ -371,8 +371,10 @@ def printSeq(filename, frameList, args, traversedPath) :
                 elif args.showBad > 0 :
                     badFrames.append(i)
                 actualFilename = actualImageName(filename, padding, i)
-                print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                    ": warning: " + actualFilename + " is a broken soft link."
+                # print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+                #     ": warning: " + actualFilename + " is a broken soft link."
+                print( os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
+                    " is a broken soft link.", sep='', file=sys.stderr)
             # file size
             elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
                 zeroFrames.append(i)
@@ -414,13 +416,14 @@ def printSeq(filename, frameList, args, traversedPath) :
                     x = (stdevList[i][AVERAGE] - frameSizes[i])/float(stdevList[i][STDDEV])
                     y = stdevList[i][STDDEV]/float(stdevList[i][AVERAGE])
                     xy = float(x) * y
-                print "%05d" % int(i+minFrame) \
-                    + ": %8d" % frameSizes[i] \
-                    + "; m: %10.2f" % stdevList[i][AVERAGE] \
-                    + "; m(%): " + "%1.4f" % y \
-                    + "; s: %10.2f" % stdevList[i][STDDEV] \
-                    + "; s(%): " + "% 1.4f" % x \
-                    + "; xy: " + "% 1.4f" % xy
+                print("%05d" % int(i+minFrame), \
+                    ": %8d" % frameSizes[i], \
+                    "; m: %10.2f" % stdevList[i][AVERAGE], \
+                    "; m(%): " + "%1.4f" % y, \
+                    "; s: %10.2f" % stdevList[i][STDDEV], \
+                    "; s(%): " + "% 1.4f" % x, \
+                    "; xy: " + "% 1.4f" % xy, \
+                    sep='')
             i += 1
 
     formatStr = "%0" + str(padding) + "d"
@@ -452,27 +455,33 @@ def printSeq(filename, frameList, args, traversedPath) :
             fileComponents[1] = "%0" + str(padding) + "d"
         if args.prependPath > 0 and fileComponents[0][0] != '/':
             sys.stdout.write(traversedPath)
-        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
+        # print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
+        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
         if minFrame == maxFrame :
-            print ""
+            # print ""
+            print()
         else :
-            print str(minFrame) + "-" + str(maxFrame)
+            # print str(minFrame) + "-" + str(maxFrame)
+            print(" ", str(minFrame), "-", str(maxFrame), sep='')
 
     elif args.seqFormat == 'shake' :
         if minFrame == maxFrame :
             fileComponents[1] = (formatStr % minFrame)
-            print "shake ",
+            # print "shake ",
+            print("shake ", sep='', end='')
         else :
             if padding == 4 :
                 fileComponents[1] = "#"
             else :
                 fileComponents[1] = "@"*padding
-            print "shake -t", str(minFrame) + "-" + str(maxFrame) + " ",
+            # print "shake -t", str(minFrame) + "-" + str(maxFrame) + " ",
+            print("shake -t ", str(minFrame), "-", str(maxFrame), " ", sep='', end='')
         if args.prependPath > 0 and fileComponents[0][0] != '/':
             sys.stdout.write(traversedPath)
         else :
             sys.stdout.write("")
-        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
+        # print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
+        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     elif args.seqFormat == 'glob' :
         if minFrame < 0 :
@@ -484,7 +493,8 @@ def printSeq(filename, frameList, args, traversedPath) :
 
         if args.prependPath > 0 and fileComponents[0][0] != '/':
             sys.stdout.write(traversedPath)
-        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
+        # print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
+        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     elif args.seqFormat == 'houdini' or args.seqFormat == 'mplay':
         if minFrame == maxFrame :
@@ -497,7 +507,8 @@ def printSeq(filename, frameList, args, traversedPath) :
                 fileComponents[1] += str(padding)
         if args.prependPath > 0 and fileComponents[0][0] != '/':
             sys.stdout.write(traversedPath)
-        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
+        # print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
+        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     else : # native and rv
         if args.prependPath > 0 and fileComponents[0][0] != '/':
@@ -505,13 +516,16 @@ def printSeq(filename, frameList, args, traversedPath) :
         if args.extremes :
             fileComponents[1] = formatStr % minFrame
 
-        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
+        # print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
+        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
         if minFrame != maxFrame and args.extremes :
-            print ""
+            # print ""
+            print()
             if fileComponents[0][0] != '/':
                 sys.stdout.write(traversedPath)
             fileComponents[1] = formatStr % maxFrame
-            print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
+            # print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
+            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
 
         if args.combineErrorFrames :
             if not args.showBad > 1 : #  Save this step, already done.
@@ -526,7 +540,8 @@ def printSeq(filename, frameList, args, traversedPath) :
                     sys.stdout.write(f)
                     doPrintComma = True
                 sys.stdout.write("]")
-            print ""
+            # print ""
+            print()
         else :
             missingFrameSeq = seqLister.condenseSeq(missingFrames)
             if (len(missingFrameSeq) > 0) :
@@ -562,7 +577,8 @@ def printSeq(filename, frameList, args, traversedPath) :
                     sys.stdout.write(f)
                     doPrintComma = True
                 sys.stdout.write("]")
-            print ""
+            # print ""
+            print()
 
 
 def stripDotFiles(dirContents, stripIt) :
@@ -636,7 +652,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 newPaddingSize = 1
 
             if isCache(fileParts[SEQKEY]) :
-                if cacheDictionary.has_key(fileParts[SEQKEY]) :
+                # if cacheDictionary.has_key(fileParts[SEQKEY]) :
+                if fileParts[SEQKEY] in cacheDictionary :
                     # tack on new frame number.
                     cacheDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
                         (newFrameNum, newFrameSize, newFrameMTime))
@@ -648,7 +665,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     cacheDictionary[fileParts[SEQKEY]] \
                         = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
             else :
-                if imageDictionary.has_key(fileParts[SEQKEY]) :
+                # if imageDictionary.has_key(fileParts[SEQKEY]) :
+                if fileParts[SEQKEY] in imageDictionary :
                     # tack on new frame number.
                     imageDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
                         (newFrameNum, newFrameSize, newFrameMTime))
@@ -705,15 +723,15 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     # Now actually print the sequences in this directory.
     #
     if args.listWhichFiles == LIST_ONLYIMGS :
-        seqKeys = imageDictionary.keys()
+        seqKeys = list(imageDictionary.keys())
     elif args.listWhichFiles == LIST_ONLYMOVS :
-        seqKeys = moviesDictionary.keys()
+        seqKeys = list(moviesDictionary.keys())
     elif args.listWhichFiles == LIST_ONLYCACHES :
-        seqKeys = cacheDictionary.keys()
+        seqKeys = list(cacheDictionary.keys())
     else :
-        seqKeys = imageDictionary.keys()
-        movKeys = moviesDictionary.keys()
-        cacheKeys = cacheDictionary.keys()
+        seqKeys = list(imageDictionary.keys())
+        movKeys = list(moviesDictionary.keys())
+        cacheKeys = list(cacheDictionary.keys())
         for k in movKeys :
             seqKeys.append(k)
         for k in cacheKeys :
@@ -792,7 +810,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             if isMovie(seq[DICTKEY]) :
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
-                print seq[DICTKEY]
+                # print seq[DICTKEY]
+                print(seq[DICTKEY])
                 somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
                 cacheDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
@@ -818,7 +837,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             if isMovie(seq[DICTKEY]) :
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
-                print seq[DICTKEY]
+                # print seq[DICTKEY]
+                print(seq[DICTKEY])
                 somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
                 cacheDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
@@ -836,7 +856,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             if isMovie(k) :
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
-                print k
+                # print k
+                print(k)
                 somethingWasPrinted = True
             elif isCache(k) :
                 cacheDictionary[k][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
@@ -857,12 +878,15 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 d = d[:-1]
             if args.prependPath == 0 :
                 if somethingWasPrinted or not firstDir :
-                    print ""
+                    # print ""
+                    print()
                 firstDir = False
                 if args.isRecursive :
-                    print traversedPath + d + ":"
+                    # print traversedPath + d + ":"
+                    print(traversedPath, d, ":", sep='')
                 else :
-                    print d + ":"
+                    # print d + ":"
+                    print(d, ":", sep='')
 
             if d[0] == "/" :
                 passedPath = d + "/"
@@ -1138,11 +1162,14 @@ def main():
 
     if args.printImgExtensions :
         extList = ":".join(IMAGE_EXT)
-        print "OIC_IMAGE_EXTENSION:", extList
+        # print "OIC_IMAGE_EXTENSION:", extList
+        print("OIC_IMAGE_EXTENSION:", extList)
         extList = ":".join(MOV_EXT)
-        print "OIC_MOV_EXTENSION:", extList
+        # print "OIC_MOV_EXTENSION:", extList
+        print("OIC_MOV_EXTENSION:", extList)
         extList = ":".join(CACHE_EXT)
-        print "OIC_CACHE_EXTENSION:", extList
+        # print "OIC_CACHE_EXTENSION:", extList
+        print("OIC_CACHE_EXTENSION:", extList)
         sys.exit(0)
 
     if args.prependPath == PATH_REL :
@@ -1165,8 +1192,11 @@ def main():
     if args.cutoffTime != None :
         args.cutoffTime[0] = args.cutoffTime[0].lower()
         if (args.cutoffTime[0] != 'before') and (args.cutoffTime[0] != 'since') :
-            print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                ": error: argument --onlyShow: TENSE must be 'since' or 'before'."
+            # print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+            #     ": error: argument --onlyShow: TENSE must be 'since' or 'before'."
+            print(os.path.basename(sys.argv[0]), \
+                ": error: argument --onlyShow: TENSE must be 'since' or 'before'.", \
+                file=sys.stderr, sep='')
             sys.exit(1)
         timeSpec = args.cutoffTime[1].split('.')
         if len(timeSpec) <= 2 :
@@ -1177,8 +1207,11 @@ def main():
             elif len(timeSpec[0]) == 8 :
                 timeFormat = "%m%d%H%M"
             else :
-                print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                    ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]"
+                # print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+                #     ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]"
+                print(os.path.basename(sys.argv[0]), \
+                    ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]", \
+                    file=sys.stderr, sep='')
                 sys.exit(1)
         if len(timeSpec) == 2 :
             timeFormat += ".%S"
@@ -1186,8 +1219,11 @@ def main():
         try :
             timeData=time.strptime(args.cutoffTime[1], timeFormat)
         except ValueError :
-            print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]"
+            # print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+            #     ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]"
+            print(os.path.basename(sys.argv[0]), \
+                ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]", \
+                file=sys.stderr, sep='')
             sys.exit(1)
 
         args.cutoffTime[1] = int(time.mktime(timeData)) # Epoch time
@@ -1202,11 +1238,13 @@ def main():
     if len(args.files) == 0:
         if (not args.listDirContents) :
             if args.listWhichFiles == LIST_ALLFILES :
-                print "."
+                # print "."
+                print(".")
         else :
             if args.isRecursive :
                 if args.prependPath == 0 :
-                    print ".:"
+                    # print ".:"
+                    print(".:")
                 passedPath = "./"
             else :
                 passedPath = ""
@@ -1228,13 +1266,15 @@ def main():
             arg0 = args.files[0][:-1]
 
         if (not args.listDirContents) :
-            print arg0
+            # print arg0
+            print(arg0)
 
         else :
 
             if args.isRecursive:
                 if args.prependPath == 0 :
-                    print arg0 + ":"
+                    # print arg0 + ":"
+                    print(arg0, ":", sep='')
                 passedPath = arg0 + "/"
             else :
                 passedPath = ""
