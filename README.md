@@ -4,11 +4,9 @@
 sequences (or cache sequences) to one entry each and listing the sequence in
 a helpful way. Filenames that are part of sequences are assumed to be of
 the form:
-
 ```
     <descriptiveName>.<frameNum>.<imgExtension>
 ```
-
 where `<imgExtension>` is drawn from a default list of image extensions or an
 environment variable that can be set to override the default list. (see
 `lsseq --help` and in particular `--imgExt`).
@@ -21,14 +19,12 @@ between the `<descriptiveName>` and the `<frameNum>` is an underscore
 has it's own native output which is nice to read.
 
 #### For example:
-
 ```
 $ ls
 aaa.097.tif  aaa.098.tif  aaa.100.tif  aaa.101.tif  aaa.102.tif  aaa.103.tif
 $ lsseq
 aaa.[097-103].tif m:[99]
 ```
-
 What `lsseq` tells us here is that there is a sequence of tif files named
 `aaa` with frames 97 through 103 (three padded) and frame 99 is missing.
 
@@ -51,7 +47,6 @@ Lastly some useful options have been added beyond what `/bin/ls` does that
 extend `lsseq's` capability.
 
 #### For example:
-
 ```
 1$ ls -F
 aaa/  bbb/  ccc.0101.exr  nonImage.file
@@ -92,7 +87,6 @@ bbb/bby.[0197-0203].tif
 /user/jrowellfx/test/bbb/bbx.97-103#.tif
 /user/jrowellfx/test/bbb/bby.197-203#.tif
 ```
-
 The first thing to note above is how close `lsseq` is to mimicking `/bin/ls` in
 labelling directories and listing directory contents etc. (compare the
 output of command 2 to 3). One difference being that `lsseq` first lists all
