@@ -791,7 +791,7 @@ def main() :
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="2.100")
+    p.add_argument("--version", action="version", version="2.1.0")
 
     p.add_argument("--showBadFrames", "-b", action="count",
         dest="showBad", default=0,
