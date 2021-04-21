@@ -277,8 +277,6 @@ def printSeq(filename, frameList, args, traversedPath) :
                 elif args.showBad > 0 :
                     badFrames.append(i)
                 actualFilename = actualImageName(filename, padding, i)
-                # print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                #     ": warning: " + actualFilename + " is a broken soft link."
                 print( os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
                     " is a broken soft link.", sep='', file=sys.stderr)
             # file size
@@ -321,32 +319,26 @@ def printSeq(filename, frameList, args, traversedPath) :
             fileComponents[1] = "%0" + str(padding) + "d"
         if args.prependPath > 0 and fileComponents[0][0] != '/' :
             sys.stdout.write(traversedPath)
-        # print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
         if minFrame == maxFrame :
-            # print ""
             print()
         else :
-            # print str(minFrame) + "-" + str(maxFrame)
             print(" ", str(minFrame), "-", str(maxFrame), sep='')
 
     elif args.seqFormat == 'shake' :
         if minFrame == maxFrame :
             fileComponents[1] = (formatStr % minFrame)
-            # print "shake ",
             print("shake ", sep='', end='')
         else :
             if padding == 4 :
                 fileComponents[1] = "#"
             else :
                 fileComponents[1] = "@"*padding
-            # print "shake -t", str(minFrame) + "-" + str(maxFrame) + " ",
             print("shake -t ", str(minFrame), "-", str(maxFrame), " ", sep='', end='')
         if args.prependPath > 0 and fileComponents[0][0] != '/' :
             sys.stdout.write(traversedPath)
         else :
             sys.stdout.write("")
-        # print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     elif args.seqFormat == 'glob' :
@@ -359,7 +351,6 @@ def printSeq(filename, frameList, args, traversedPath) :
 
         if args.prependPath > 0 and fileComponents[0][0] != '/' :
             sys.stdout.write(traversedPath)
-        # print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     elif args.seqFormat == 'houdini' or args.seqFormat == 'mplay' :
@@ -373,7 +364,6 @@ def printSeq(filename, frameList, args, traversedPath) :
                 fileComponents[1] += str(padding)
         if args.prependPath > 0 and fileComponents[0][0] != '/' :
             sys.stdout.write(traversedPath)
-        # print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     else : # native and rv
@@ -382,15 +372,12 @@ def printSeq(filename, frameList, args, traversedPath) :
         if args.extremes :
             fileComponents[1] = formatStr % minFrame
 
-        # print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
         if minFrame != maxFrame and args.extremes :
-            # print ""
             print()
             if fileComponents[0][0] != '/' :
                 sys.stdout.write(traversedPath)
             fileComponents[1] = formatStr % maxFrame
-            # print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
             print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
 
         if args.combineErrorFrames :
@@ -406,7 +393,6 @@ def printSeq(filename, frameList, args, traversedPath) :
                     sys.stdout.write(f)
                     doPrintComma = True
                 sys.stdout.write("]")
-            # print ""
             print()
         else :
             missingFrameSeq = seqLister.condenseSeq(missingFrames)
@@ -443,7 +429,6 @@ def printSeq(filename, frameList, args, traversedPath) :
                     sys.stdout.write(f)
                     doPrintComma = True
                 sys.stdout.write("]")
-            # print ""
             print()
 
 
@@ -466,14 +451,17 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     MTIME = 1
 
     tmpCWD = ""
+    #
     # Stash the current working dir, to come back to and the end
     # of this function.
+    #
     if len(path) > 0 :
         tmpCWD = os.path.abspath(".")
         os.chdir(path)
 
     # Following flag set iff something got printed here before reaching
     # printing of subdirs.
+    #
     somethingWasPrinted = False
 
     # The 'imageDictionary' (and 'cacheDictionary') has <imageName>..<ext>
@@ -518,7 +506,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 newPaddingSize = 1
 
             if isCache(fileParts[SEQKEY]) :
-                # if cacheDictionary.has_key(fileParts[SEQKEY]) :
                 if fileParts[SEQKEY] in cacheDictionary :
                     # tack on new frame number.
                     cacheDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
@@ -531,7 +518,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     cacheDictionary[fileParts[SEQKEY]] \
                         = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
             else :
-                # if imageDictionary.has_key(fileParts[SEQKEY]) :
                 if fileParts[SEQKEY] in imageDictionary :
                     # tack on new frame number.
                     imageDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
@@ -673,7 +659,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             if isMovie(seq[DICTKEY]) :
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
-                # print seq[DICTKEY]
                 print(seq[DICTKEY])
                 somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
@@ -699,7 +684,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             if isMovie(seq[DICTKEY]) :
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
-                # print seq[DICTKEY]
                 print(seq[DICTKEY])
                 somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
@@ -718,7 +702,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             if isMovie(k) :
                 if args.prependPath > 0 :
                     sys.stdout.write(traversedPath)
-                # print k
                 print(k)
                 somethingWasPrinted = True
             elif isCache(k) :
@@ -740,14 +723,11 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 d = d[:-1]
             if args.prependPath == 0 :
                 if somethingWasPrinted or not firstDir :
-                    # print ""
                     print()
                 firstDir = False
                 if args.isRecursive :
-                    # print traversedPath + d + ":"
                     print(traversedPath, d, ":", sep='')
                 else :
-                    # print d + ":"
                     print(d, ":", sep='')
 
             if d[0] == "/" :
@@ -979,13 +959,10 @@ def main() :
 
     if args.printImgExtensions :
         extList = ":".join(IMAGE_EXT)
-        # print "OIC_IMAGE_EXTENSION:", extList
         print("OIC_IMAGE_EXTENSION:", extList)
         extList = ":".join(MOV_EXT)
-        # print "OIC_MOV_EXTENSION:", extList
         print("OIC_MOV_EXTENSION:", extList)
         extList = ":".join(CACHE_EXT)
-        # print "OIC_CACHE_EXTENSION:", extList
         print("OIC_CACHE_EXTENSION:", extList)
         sys.exit(0)
 
@@ -1009,8 +986,6 @@ def main() :
     if args.cutoffTime != None :
         args.cutoffTime[0] = args.cutoffTime[0].lower()
         if (args.cutoffTime[0] != 'before') and (args.cutoffTime[0] != 'since') :
-            # print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-            #     ": error: argument --onlyShow: TENSE must be 'since' or 'before'."
             print(os.path.basename(sys.argv[0]), \
                 ": error: argument --onlyShow: TENSE must be 'since' or 'before'.", \
                 file=sys.stderr, sep='')
@@ -1024,8 +999,6 @@ def main() :
             elif len(timeSpec[0]) == 8 :
                 timeFormat = "%m%d%H%M"
             else :
-                # print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-                #     ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]"
                 print(os.path.basename(sys.argv[0]), \
                     ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]", \
                     file=sys.stderr, sep='')
@@ -1036,8 +1009,6 @@ def main() :
         try :
             timeData=time.strptime(args.cutoffTime[1], timeFormat)
         except ValueError :
-            # print >> sys.stderr, os.path.basename(sys.argv[0]) + \
-            #     ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]"
             print(os.path.basename(sys.argv[0]), \
                 ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]", \
                 file=sys.stderr, sep='')
@@ -1054,12 +1025,10 @@ def main() :
     if len(args.files) == 0 :
         if not args.listDirContents :
             if args.listWhichFiles == LIST_ALLFILES :
-                # print "."
                 print(".")
         else :
             if args.isRecursive :
                 if args.prependPath == 0 :
-                    # print ".:"
                     print(".:")
                 passedPath = "./"
             else :
@@ -1082,14 +1051,12 @@ def main() :
             arg0 = args.files[0][:-1]
 
         if not args.listDirContents :
-            # print arg0
             print(arg0)
 
         else :
 
             if args.isRecursive :
                 if args.prependPath == 0 :
-                    # print arg0 + ":"
                     print(arg0, ":", sep='')
                 passedPath = arg0 + "/"
             else :
