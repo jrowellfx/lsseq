@@ -1,4 +1,4 @@
-### About lsseq
+# About lsseq
 
 `lsseq` lists directory contents (akin to `/bin/ls`) while condensing image
 sequences (or cache sequences) to one entry each and listing the sequence in
@@ -14,28 +14,30 @@ environment variable that can be set to override the default list. (see
 `lsseq --help` and in particular `--imgExt`).
 Note that `lsseq` can also handle the case that the dot-separator
 between the `<descriptiveName>` and the `<frameNum>` is an underscore
-(i.e.; '`_`' see `lsseq --help` and `--looseNumSeparator, -l`).
+(see `lsseq --help` for `--looseNumSeparator, -l`).
 
-lsseq can print the image sequence in a variety of formats useful for nuke,
-shake or rv and can also print a glob pattern for use in the shell. It also
+`lsseq` can print the image sequence in a variety of formats useful for `nuke`,
+`shake` or `rv` and can also print a glob pattern for use in the shell. It also
 has it's own native output which is nice to read.
 
-For example:
+#### For example:
 
+```
 $ ls
 aaa.097.tif  aaa.098.tif  aaa.100.tif  aaa.101.tif  aaa.102.tif  aaa.103.tif
 $ lsseq
 aaa.[097-103].tif m:[99]
+```
 
-What lsseq tells us here is that there is a sequence of tif files named
-'aaa' with frames 97 through 103 (three padded) and frame 99 is missing.
+What `lsseq` tells us here is that there is a sequence of tif files named
+`aaa` with frames 97 through 103 (three padded) and frame 99 is missing.
 
-lsseq was written and designed in a way that hopefully makes it unnecessary
+`lsseq` was written and designed in a way that hopefully makes it unnecessary
 for anyone to feel they have to write such a utility ever again.
 
-To that end lsseq is designed to have the flavor of the unix/linux/osx "ls"
-program as much as possible. The idea is to make it easier on the user when
-switching back and forth between using "lsseq" and regular "ls" so that the
+To that end `lsseq` is designed to have the flavor of the unix/linux/osx `ls`
+command as much as possible. The idea is to make it easier on the user when
+switching back and forth between using `lsseq` and regular `ls` so that the
 look of the output as well as several command-line-arguments are the same
 (where possible and it makes sense).
 
@@ -45,11 +47,12 @@ several production studios. There is a regression test program included with
 the source here on github to help test any changes, additions, bug fixes
 etc.
 
-Lastly some useful options have been added beyond what /bin/ls does that
-extend lsseq's capability.
+Lastly some useful options have been added beyond what `/bin/ls` does that
+extend `lsseq's` capability.
 
-For example:
+#### For example:
 
+```
 1$ ls -F
 aaa/  bbb/  ccc.0101.exr  nonImage.file
 
@@ -88,6 +91,7 @@ bbb/bby.[0197-0203].tif
 /user/jrowell/test/aaa/aaa.97-103@@@.tif
 /user/jrowell/test/bbb/bbx.97-103#.tif
 /user/jrowell/test/bbb/bby.197-203#.tif
+```
 
 The first thing to note above is how close lsseq is to mimicking /bin/ls in
 labelling directories and listing directory contents etc. (compare the
