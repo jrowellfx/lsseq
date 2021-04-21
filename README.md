@@ -91,7 +91,7 @@ bbb/bby.[0197-0203].tif
 The first thing to note above is how close `lsseq` is to mimicking `/bin/ls` in
 labelling directories and listing directory contents etc. (compare the
 output of command 2 to 3). One difference being that `lsseq` first lists all
-non-sequence images in a directory exactly as ls would list them (minus the
+non-sequence images in a directory exactly as `ls` would list them (minus the
 sequences) then lists all the sequences in their condensed form.
 
 Secondly note the two useful options in commands 4 and 5 above,
@@ -114,15 +114,15 @@ privileges).
 1)  First make sure you have `python 3.6` installed on your machine, you can do
     this simply by typing `python3.6` at the command prompt. If you are told
     `"command not found"`, then you need to download and install it, there are
-    many helpful websites to get this going. Not the least of which is [Python.org](https://www.python.org/).
+    many helpful websites to get this going, not the least of which is [Python.org](https://www.python.org/).
 
 2)  Download `lsseq-2.100.tar.gz` assuming that the latest version is `2.100` (if
-    not just grab the latest one), you can find it in the `dist` directory of this
+    not just grab the latest one), you can find all versions in the `dist` directory of this
     repo: [jrowellfx/lsseq/dist](dist)
 
 3)  Uncompress the file:
     ```
-    $ tar -xvf lsseq-2.100.tar.gz
+    $ tar -xvzf lsseq-2.100.tar.gz
     ```
 4)  install the commands and supporting python module:
     ```
@@ -161,7 +161,7 @@ Please contact `j a m e s <at> a l p h a - e l e v e n . c o m` with any bug
 reports, suggestions or oodles of praise as the case may be.
 
 If you want everthing in the `lsseq` repo:
-``
+```
 $ git clone git@github.com:jrowellfx/lsseq.git
 ```
 
