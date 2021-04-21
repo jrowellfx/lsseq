@@ -17,7 +17,7 @@ between the `<descriptiveName>` and the `<frameNum>` is an underscore
 (see `lsseq --help` for `--looseNumSeparator, -l`).
 
 `lsseq` can print the image sequence in a variety of formats useful for `nuke`,
-`shake` or `rv` and can also print a glob pattern for use in the shell. It also
+`shake` or `rv` and can also print a `glob` pattern for use in the shell. It also
 has it's own native output which is nice to read.
 
 #### For example:
@@ -87,10 +87,10 @@ bbb/bbx.[0097-0103].tif
 bbb/bby.[0197-0203].tif
 
 5$ lsseq --prependPathAbs --skipMissing --format rv *
-/user/jrowell/test/ccc.0101.exr
-/user/jrowell/test/aaa/aaa.97-103@@@.tif
-/user/jrowell/test/bbb/bbx.97-103#.tif
-/user/jrowell/test/bbb/bby.197-203#.tif
+/user/jrowellfx/test/ccc.0101.exr
+/user/jrowellfx/test/aaa/aaa.97-103@@@.tif
+/user/jrowellfx/test/bbb/bbx.97-103#.tif
+/user/jrowellfx/test/bbb/bby.197-203#.tif
 ```
 
 The first thing to note above is how close `lsseq` is to mimicking `/bin/ls` in
@@ -107,7 +107,7 @@ It's recommended to review the capabilities of lsseq in how it can sort
 sequences, especially with respect to how it handles sorting by time. See
 `lsseq --help` for `--time, -t and --onlyShow` options.
 
-This package also includes two command-line utilities (`expandseq` and `condenseseq`) that
+This package also includes two helpful command-line utilities (`expandseq` and `condenseseq`) that
 expand and condense lists of frame numbers into a fairly standard format
 used by many computer-graphics programs and CG-production studios.
 
@@ -123,7 +123,7 @@ privileges).
 
 2) Download `lsseq-2.100.tar.gz` assuming that the latest version is 2.100 (if
    not just grab the latest one), you can find it in the `dist` directory of this
-   repo: [jrowellfx/lsseq/dist](dist/lsseq-2.100.tar.gz)
+   repo: [jrowellfx/lsseq/dist](dist)
 
 3) Uncompress the file:
    $ tar -xvf lsseq-2.100.tar.gz
