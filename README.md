@@ -116,58 +116,57 @@ used by many computer-graphics programs and CG-production studios.
 To install these commands on your system follow these steps (you need root
 privileges).
 
-1) First make sure you have `python 3.6` installed on your machine, you can do
-   this simply by typing `python3.6` at the command prompt. If you are told
-   `"command not found"`, then you need to download and install it, there are
-   many helpful websites to get this going. Not the least of which is [Python.org](https://www.python.org/).
+1)  First make sure you have `python 3.6` installed on your machine, you can do
+    this simply by typing `python3.6` at the command prompt. If you are told
+    `"command not found"`, then you need to download and install it, there are
+    many helpful websites to get this going. Not the least of which is [Python.org](https://www.python.org/).
 
-2) Download `lsseq-2.100.tar.gz` assuming that the latest version is `2.100` (if
-   not just grab the latest one), you can find it in the `dist` directory of this
-   repo: [jrowellfx/lsseq/dist](dist)
+2)  Download `lsseq-2.100.tar.gz` assuming that the latest version is `2.100` (if
+    not just grab the latest one), you can find it in the `dist` directory of this
+    repo: [jrowellfx/lsseq/dist](dist)
 
-3) Uncompress the file:
-```
-$ tar -xvf lsseq-2.100.tar.gz
-```
-4) install the commands and supporting python module:
-```
-$ cd lsseq-2.100
-$ sudo python3 setup.py install
-```
+3)  Uncompress the file:
+    ```
+    $ tar -xvf lsseq-2.100.tar.gz
+    ```
+4)  install the commands and supporting python module:
+    ```
+    $ cd lsseq-2.100
+    $ sudo python3 setup.py install
+    ```
 
-5) ...that's it! You should be able to run the commands "lsseq", "expandseq"
-   and "condenseseq" now.
+5)  ...that's it! You should be able to run the commands `lsseq`, `expandseq`
+    and `condenseseq` now.
 
-To test lsseq properly cd into a directory containing frames from an image
-sequence then "lsseq" the contents of the directory.
+To test `lsseq` properly `cd` into a directory containing frames from an image
+sequence then `lsseq` the contents of the directory.
 
 If you don't have one handy you can try this to test it.
-
+```
 $ cd ~
 $ mkdir tmp
 $ cd tmp
 $ touch aaa.001.tif aaa.002.tif aaa.003.tif aaa.004.tif aaa.005.tif
 $ lsseq
 aaa.[001-005].tif z:[1-5]
-
-Note the "z:[1-5]" which is telling you that the frames aaa.[001-005].tif
+```
+Note the `z:[1-5]` which is telling you that the frames `aaa.[001-005].tif`
 have zero length, and if you had generated those with a renderer I'm
 guessing you'd need to rerender them.
 
 Type:
-
+```
 $ lsseq --help
 $ expandseq --help
 $ condenseseq --help
-
+```
 for much more useful info.
 
-Please contact j a m e s <at> a l p h a - e l e v e n . c o m with any bug
+Please contact `j a m e s <at> a l p h a - e l e v e n . c o m` with any bug
 reports, suggestions or oodles of praise as the case may be.
 
-Also, the repos for this project, and some test code etc. is on github,
-which you can get here:
-$ cd ~
+If you want everthing in the `lsseq` repo:
+``
 $ git clone git@github.com:jrowellfx/lsseq.git
-
+```
 
