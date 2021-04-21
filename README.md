@@ -1,15 +1,17 @@
-## About lsseq
+### About lsseq
 
 lsseq lists directory contents (akin to /bin/ls) while condensing image
 sequences (or cache sequences) to one entry each and listing the sequence in
 a helpful way.  Filenames that are part of sequences are assumed to be of
 the form:
 
+```
     <descriptiveName>.<frameNum>.<imgExtension>
+```
 
-where <imgExtension> is drawn from a default list of image extensions or an
+where `<imgExtension>` is drawn from a default list of image extensions or an
 environment variable that can be set to override the default list.  (see
-lsseq --help).  Note that lsseq can also handle the case that the dot-
+`lsseq --help`).  Note that lsseq can also handle the case that the dot-
 separator between the <descriptiveName> and the <frameNum> is an underscore
 (i.e.; '_' see lsseq --help).
 
