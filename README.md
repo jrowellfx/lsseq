@@ -93,36 +93,37 @@ bbb/bby.[0197-0203].tif
 /user/jrowell/test/bbb/bby.197-203#.tif
 ```
 
-The first thing to note above is how close lsseq is to mimicking /bin/ls in
+The first thing to note above is how close `lsseq` is to mimicking `/bin/ls` in
 labelling directories and listing directory contents etc. (compare the
-output of command 2 to 3). One difference being that lsseq first lists all
+output of command 2 to 3). One difference being that `lsseq` first lists all
 non-sequence images in a directory exactly as ls would list them (minus the
 sequences) then lists all the sequences in their condensed form.
 
 Secondly note the two useful options in commands 4 and 5 above,
---prependPathRel and --prependPathAbs which can be very useful when creating
+`--prependPathRel` and `--prependPathAbs` which can be very useful when creating
 lists of sequences to pipe into other scripts.
 
 It's recommended to review the capabilities of lsseq in how it can sort
 sequences, especially with respect to how it handles sorting by time. See
-'lsseq --help'.
+`lsseq --help` for `--time, -t and --onlyShow` options.
 
-This package also includes two utilities (expandseq and condenseseq) that
+This package also includes two command-line utilities (`expandseq` and `condenseseq`) that
 expand and condense lists of frame numbers into a fairly standard format
 used by many computer-graphics programs and CG-production studios.
 
-How to install lsseq, expandseq and condenseseq on your computer
-----------------------------------------------------------------
+## How to install lsseq, expandseq and condenseseq on your computer
 
 To install these commands on your system follow these steps (you need root
 privileges).
 
-1) First make sure you have python 3.6 installed on your machine, you can do
-   this simply by typing "python3.6" at the command prompt. If you are told
-   "command not found", then you need to download and install python 3.6.
+1) First make sure you have `python 3.6` installed on your machine, you can do
+   this simply by typing `python3.6` at the command prompt. If you are told
+   `"command not found"`, then you need to download and install it, there are
+   many helpful websites to get this going. Not the least of which is [Python.org](https://www.python.org/).
 
-2) Download lsseq-2.100.tar.gz assuming that the latest version is 2.100 (if
-   not just grab the latest one).
+2) Download `lsseq-2.100.tar.gz` assuming that the latest version is 2.100 (if
+   not just grab the latest one), you can find it in the `dist` directory of this
+   repo: [jrowellfx/lsseq/dist](dist/lsseq-2.100.tar.gz)
 
 3) Uncompress the file:
    $ tar -xvf lsseq-2.100.tar.gz
