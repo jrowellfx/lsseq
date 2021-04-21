@@ -1,6 +1,36 @@
-- add --file-type (ls)
++ add --file-type (ls)
               likewise (to -F), except do not append '*'
-- add -X     sort alphabetically by entry extension (ls)
-- add --indicator-style=WORD (ls)
++ add -X     sort alphabetically by entry extension (ls)
++ add --indicator-style=WORD (ls)
               append  indicator  with  style  WORD  to  entry  names:
               none (default), slash, file-type (--file-type), classify (-F)
+
++ add support for sequences that DO NOT have a "descriptiveName", i.e.; 
+for files that are just ####.ext. Non trivial to make this change, but possible.
+Request from Fabrizio - who works in a film archive site and apparently old Kodak
+Cineon sequences frequenly use this kind of convention. (I.e. no file name,
+just frame numbers.)
+
++ add flag to ignore case in file extensions. Useful for jpg vs JPG etc.
+
++ add better support for quirky and unlikely named sequences (for example),
+  a.01.jpg, a.02.jpg, a.03.jpg, ..., a.0100.jpg, a.0101.jpg, a.0102.jpg
+  So, what is that? Two padded, four padded, no padding? Anyway, I need to
+  fix this because my util "renum" makes use of lsseq output format, and if
+  lsseq doesn't handle this properly then it's hard to use renum to fix crazily
+  nanmed/numbered sequences like this. (I did come come across this once!)
+
++ check - Did I ever fix this bug? (Example follows)
+
+    % cd /data/commercial/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp
+    % ls
+    2000_0110_comp_v002
+    % lsseq -P *
+    2000_0110_comp_v002/2000_0110_comp_v002_l.[0095-0136].exr
+    % lsseq -p *
+    /data/commercial/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002_l.[0095-0136].exr
+
+    NOTE! It's missing the directory  2000_0110_comp_v002
+    Also check lsseq'ing abs paths mixed with relative path names.
+    Also, boundry contidions like only one directory in the current dir etc. (as above).
+

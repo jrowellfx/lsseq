@@ -1044,7 +1044,6 @@ def main() :
             sys.exit(1)
 
         args.cutoffTime[1] = int(time.mktime(timeData)) # Epoch time
-        ### print "Epoch time specified: " + str(args.cutoffTime[1])
 
 
     # The following logic attempts to mimic the behavior

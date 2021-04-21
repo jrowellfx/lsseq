@@ -1,0 +1,16 @@
+# After doing an update to lsseq, you might find
+# that the OLD version is still active. Here's how to fix it.
+
+$ type lsseq
+lsseq is hashed (/usr/local/bin/lsseq)
+
+# To clear the entire cache.
+$ hash -r
+
+# Or just one entry.
+$ hash -d lsseq
+
+$ type lsseq
+lsseq is /usr/local/bin/lsseq
+
+# This should fix it.
