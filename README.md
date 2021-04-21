@@ -1,5 +1,4 @@
 ## About lsseq
-## -----------
 
 lsseq lists directory contents (akin to /bin/ls) while condensing image
 sequences (or cache sequences) to one entry each and listing the sequence in

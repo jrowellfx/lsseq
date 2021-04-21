@@ -7,7 +7,8 @@ About lsseq
 -----------
 
 lsseq lists directory contents (akin to /bin/ls) while condensing image
-sequences (or cache sequences) to one entry each and listing the sequence in a helpful way.
+sequences (or cache sequences) to one entry each
+and listing the sequence in a helpful way.
 Filenames that are part of sequences are assumed to be of the form:
 
 .ti 4
@@ -20,9 +21,9 @@ Note that lsseq
 can also handle the case that the dot-separator between the <descriptiveName> and
 the <frameNum> is an underscore (i.e.; '_' see lsseq --help).
 
-lsseq can print the image sequence in a variety of formats useful for nuke, shake or rv
-and can also print a glob pattern for use in the shell.  It also has it's own
-native output which is nice to read.
+lsseq can print the image sequence in a variety of formats useful for nuke,
+shake or rv and can also print a glob pattern for use in the shell.
+It also has it's own native output which is nice to read.
 
 For example:
 
@@ -125,7 +126,8 @@ How to install lsseq, expandseq and condenseseq on your computer
 ----------------------------------------------------------------
 
 To install these commands on your system follow these steps (you need 
-root privileges).
+root privileges). This should work on both linux and mac. I've had
+limited success on windows, but it at least needs a unix-like environment to work.
 
 .in +3
 .ti -3
