@@ -1,6 +1,6 @@
 ### About lsseq
 
-lsseq lists directory contents (akin to /bin/ls) while condensing image
+`lsseq` lists directory contents (akin to `/bin/ls`) while condensing image
 sequences (or cache sequences) to one entry each and listing the sequence in
 a helpful way.  Filenames that are part of sequences are assumed to be of
 the form:
@@ -11,9 +11,9 @@ the form:
 
 where `<imgExtension>` is drawn from a default list of image extensions or an
 environment variable that can be set to override the default list.  (see
-`lsseq --help`).  Note that lsseq can also handle the case that the dot-
-separator between the <descriptiveName> and the <frameNum> is an underscore
-(i.e.; '_' see lsseq --help).
+`lsseq --help`).  Note that `lsseq` can also handle the case that the dot-
+separator between the `<descriptiveName>` and the `<frameNum>` is an underscore
+(i.e.; '\_' see `lsseq --help`).
 
 lsseq can print the image sequence in a variety of formats useful for nuke,
 shake or rv and can also print a glob pattern for use in the shell.  It also
