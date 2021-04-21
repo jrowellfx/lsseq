@@ -490,6 +490,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         if len(fileParts) == 2 : # Means file is an image or cache.
             newFrameNum = int(fileParts[FRAMENUM])
             newPaddingSize = len(fileParts[FRAMENUM])
+	    ### JPR - Somewhere here need to keep track of padding per file - for renum bug fix ###
 
             # Check to see if file exists - might be broken soft link.
             if not os.path.exists(filename) :
