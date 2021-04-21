@@ -13,7 +13,7 @@ where `<imgExtension>` is drawn from a default list of image extensions or an
 environment variable that can be set to override the default list.  (see
 `lsseq --help`).  Note that `lsseq` can also handle the case that the dot-separator
 between the `<descriptiveName>` and the `<frameNum>` is an underscore
-(i.e.; '`\_`' see `lsseq --help`).
+(i.e.; '`_`' see `lsseq --help`).
 
 lsseq can print the image sequence in a variety of formats useful for nuke,
 shake or rv and can also print a glob pattern for use in the shell.  It also
