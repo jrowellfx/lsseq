@@ -2,7 +2,7 @@
 
 `lsseq` lists directory contents (akin to `/bin/ls`) while condensing image
 sequences (or cache sequences) to one entry each and listing the sequence in
-a helpful way.  Filenames that are part of sequences are assumed to be of
+a helpful way. Filenames that are part of sequences are assumed to be of
 the form:
 
 ```
@@ -10,14 +10,14 @@ the form:
 ```
 
 where `<imgExtension>` is drawn from a default list of image extensions or an
-environment variable that can be set to override the default list.  (see
-`lsseq --help` and in particular ``).
+environment variable that can be set to override the default list. (see
+`lsseq --help` and in particular `--imgExt`).
 Note that `lsseq` can also handle the case that the dot-separator
 between the `<descriptiveName>` and the `<frameNum>` is an underscore
 (i.e.; '`_`' see `lsseq --help` and `--looseNumSeparator, -l`).
 
 lsseq can print the image sequence in a variety of formats useful for nuke,
-shake or rv and can also print a glob pattern for use in the shell.  It also
+shake or rv and can also print a glob pattern for use in the shell. It also
 has it's own native output which is nice to read.
 
 For example:
@@ -34,12 +34,12 @@ lsseq was written and designed in a way that hopefully makes it unnecessary
 for anyone to feel they have to write such a utility ever again.
 
 To that end lsseq is designed to have the flavor of the unix/linux/osx "ls"
-program as much as possible.  The idea is to make it easier on the user when
+program as much as possible. The idea is to make it easier on the user when
 switching back and forth between using "lsseq" and regular "ls" so that the
 look of the output as well as several command-line-arguments are the same
 (where possible and it makes sense).
 
-Furthermore it was written to be as robust as possible.  For example, it
+Furthermore it was written to be as robust as possible. For example, it
 handles negative frames properly and has been extensively tested and used at
 several production studios. There is a regression test program included with
 the source here on github to help test any changes, additions, bug fixes
@@ -91,7 +91,7 @@ bbb/bby.[0197-0203].tif
 
 The first thing to note above is how close lsseq is to mimicking /bin/ls in
 labelling directories and listing directory contents etc. (compare the
-output of command 2 to 3).  One difference being that lsseq first lists all
+output of command 2 to 3). One difference being that lsseq first lists all
 non-sequence images in a directory exactly as ls would list them (minus the
 sequences) then lists all the sequences in their condensed form.
 
@@ -100,7 +100,7 @@ Secondly note the two useful options in commands 4 and 5 above,
 lists of sequences to pipe into other scripts.
 
 It's recommended to review the capabilities of lsseq in how it can sort
-sequences, especially with respect to how it handles sorting by time.  See
+sequences, especially with respect to how it handles sorting by time. See
 'lsseq --help'.
 
 This package also includes two utilities (expandseq and condenseseq) that
@@ -114,7 +114,7 @@ To install these commands on your system follow these steps (you need root
 privileges).
 
 1) First make sure you have python 3.6 installed on your machine, you can do
-   this simply by typing "python3.6" at the command prompt.  If you are told
+   this simply by typing "python3.6" at the command prompt. If you are told
    "command not found", then you need to download and install python 3.6.
 
 2) Download lsseq-2.100.tar.gz assuming that the latest version is 2.100 (if
