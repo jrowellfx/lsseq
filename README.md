@@ -121,16 +121,19 @@ privileges).
    `"command not found"`, then you need to download and install it, there are
    many helpful websites to get this going. Not the least of which is [Python.org](https://www.python.org/).
 
-2) Download `lsseq-2.100.tar.gz` assuming that the latest version is 2.100 (if
+2) Download `lsseq-2.100.tar.gz` assuming that the latest version is `2.100` (if
    not just grab the latest one), you can find it in the `dist` directory of this
    repo: [jrowellfx/lsseq/dist](dist)
 
 3) Uncompress the file:
-   $ tar -xvf lsseq-2.100.tar.gz
-
+```
+$ tar -xvf lsseq-2.100.tar.gz
+```
 4) install the commands and supporting python module:
-   $ cd lsseq-2.100
-   $ sudo python3 setup.py install
+```
+$ cd lsseq-2.100
+$ sudo python3 setup.py install
+```
 
 5) ...that's it! You should be able to run the commands "lsseq", "expandseq"
    and "condenseseq" now.
