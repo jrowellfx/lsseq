@@ -1,6 +1,6 @@
 # About lsseq
 
-`lsseq` is a unix command-line utility that
+`lsseq` is a unix/linux command-line utility that
 lists directory contents (akin to `/bin/ls`) while condensing image
 sequences (or cache sequences) to one entry each and listing the sequence in
 a helpful way. Filenames that are part of sequences are assumed to be of
