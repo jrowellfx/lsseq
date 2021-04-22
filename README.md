@@ -16,7 +16,7 @@ between the `<descriptiveName>` and the `<frameNum>` is an underscore
 (see `lsseq --help` for `--looseNumSeparator, -l`).
 
 `lsseq` can print the image sequence in a variety of formats useful for `nuke`,
-`shake` or `rv` and can also print a `glob` pattern for use in the shell. It also
+`houdini` or `rv` and can also print a `glob` pattern for use in the shell. It also
 has it's own native output which is nice to read.
 
 #### For example:
