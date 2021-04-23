@@ -125,7 +125,6 @@ LOOSE_SEP = "_"
 def isFrameNum(f) :
     return (f != '') and (f.isdigit() or (f[0] == '-' and f[1:].isdigit()))
 
-
 def readByteShortForm(numBytes) :
     multiplier = 1
     if numBytes[-1] == 'K' or numBytes[-1] == 'k' :
@@ -148,17 +147,23 @@ def readByteShortForm(numBytes) :
         msg = "%r is not a valid byte size" % numBytes
         raise argparse.ArgumentTypeError(msg)
 
+# Splits up a filename by the dots in the name.
+#
 def splitFileComponents(filename) :
     global IMAGE_EXT
     global CACHE_EXT
 
     fileComponents = filename.split(".")
 
-    # Check for extensions with dot (for example, blosc compressed bgeos)
+    # Check for extensions with dot (for example, bgeo.sc, bgeo.g, or vdb.gz)
+    # and join them before returning result.
     #
     if (".".join(fileComponents[-2:]) in IMAGE_EXT) \
 	    or (".".join(fileComponents[-2:]) in CACHE_EXT) :
 
+        # If we found a match, join the last two items,
+        # into the second last slot, then and delete the last one.
+        #
         fileComponents[-2] = ".".join(fileComponents[-2:])
         del fileComponents[-1]
 
@@ -210,7 +215,6 @@ def seqSplit(filename, args) :
 
     return []
 
-
 # Return true if and only if filename is a movie file.
 #
 def isMovie(filename) :
@@ -252,6 +256,8 @@ def actualImageName(filename, padding, frame) :
     return fileParts[0] + formatStr.format(frame) + "." + fileParts[2]
 
 
+# Prints an individual sequence with appropriate prefix based on cmd-line-args
+#
 def printSeq(filename, frameList, args, traversedPath) :
 
     fileComponents = splitImageName(filename)
@@ -431,7 +437,6 @@ def printSeq(filename, frameList, args, traversedPath) :
                 sys.stdout.write("]")
             print()
 
-
 def stripDotFiles(dirContents, stripIt) :
     if not stripIt :
         return dirContents
@@ -442,29 +447,30 @@ def stripDotFiles(dirContents, stripIt) :
                 strippedDirContents.append(f)
         return strippedDirContents
 
-
-# This function is recursive and lists the contents of a directory.
+# This function is recursive and lists the contents of a directory,
+# this is the workhorse of lsseq.
 #
 # It assumes that if the directory "title" is needed before printing the contents
 # (i.e.; dirContents) of a given directory, for example:
 #
 # dirName:
 #
-# then that title is printed BEFORE the call to this function.
+# ...then that title is printed BEFORE the call to this function.
 #
 # The argument list is as follows:
 # 
 #   dirContents - Since this might be a list from the command line,
 #                 OR generated from a recursive descent into a directory
 #                 then was needs to be listed is passed in here.
-#          path - 
+#          path - The directory we need to descend into, and pop out of.
+#                 (Might be trivially "." if called from main())
 #   listSubDirs - Boolean. ONLY ever True if called from main() 
 #                 to allow us to get ONE LEVEL of recursion only.
 #                 unless args.isRecursive is also True in which
 #                 case we may descend further if need be.
 #          args - The all the args set on the command line.
 # traversedPath - The path descended so far to get to this level
-#                 used to print the directory "titles.
+#                 used to print the directory "titles".
 # 
 def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
@@ -473,14 +479,21 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     DICTKEY = 0
     MTIME = 1
 
-    tmpCWD = ""
+    ### tmpCWD = ""
     #
     # Stash the current working dir, to come back to and the end
-    # of this function.
+    # of this function. I.e.; we need to push and pop the current
+    # working directory ourselves since it's a global condition in
+    # python.
     #
-    if len(path) > 0 :
-        tmpCWD = os.path.abspath(".")
-        os.chdir(path)
+    # Note that if path is empty, it means...
+    #
+    ### if len(path) > 0 :
+    ###     tmpCWD = os.path.abspath(".")
+    ###     os.chdir(path)
+    #
+    tmpCWD = os.path.abspath(".")
+    os.chdir(path) # Note: path might be "." if coming from main() 
 
     # Following flag set iff something got printed here before reaching
     # printing of subdirs.
@@ -762,8 +775,10 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             listSeqDir(stripDotFiles(os.listdir(d), args.ignoreDotFiles),
                 d, False, args, passedPath)
 
-    if len(path) > 0 :
-        os.chdir(tmpCWD)
+    ### if len(path) > 0 :
+    ###     os.chdir(tmpCWD)
+    #
+    os.chdir(tmpCWD) # Pop the stack of directories.
 
 def main() :
 
@@ -1059,7 +1074,7 @@ def main() :
             if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
-            listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), "", False, args, passedPath)
+            listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), ".", False, args, passedPath)
 
     # We are being asked to list a specific directory, so we don't need
     # to print the directory name before listing the contents (unless
@@ -1079,7 +1094,7 @@ def main() :
 
         else :
 
-            if args.isRecursive :
+            if args.isRecursive : # The case where we do need to print the dir "title".
                 if args.prependPath == PATH_NOPREFIX :
                     print(arg0, ":", sep='')
                 passedPath = arg0 + "/"
@@ -1092,6 +1107,10 @@ def main() :
             if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
+            # Here's a case where we're being asked to list a directory that we might
+            # not even be in, i.e.; it's an absolute path to another directory than
+            # the current working directory.
+            #
             if arg0[0] == "/" :
                 passedPath = arg0 + "/"
 
@@ -1100,12 +1119,14 @@ def main() :
     # List all the arguments on the command line and unless prevented by
     # the "-d" option, it will also list the contents of all the directories
     # entered on the command line. (Facilitated by the 3rd arg 'True' below.)
+    # This 3rd boolean argument is a way of getting only one level of descent.
+    # This is the ONLY place that True is passed listSeqDir().
     #
     else :
         passedPath = ""
         if args.prependPath == PATH_ABS :
             passedPath = os.getcwd() + "/"
-        listSeqDir(args.files, "", True, args, passedPath)
+        listSeqDir(args.files, ".", True, args, passedPath)
 
 if __name__ == '__main__' :
     main()
