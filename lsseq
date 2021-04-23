@@ -73,7 +73,7 @@ IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
     "rat", "raw", "rgb", "rgba", "rle", "rw2", "sgi", "tga", "tif",
     "tiff", "tpic"]
 
-PATH_UNSPECIFIED = 0
+PATH_NOPREFIX = 0
 PATH_ABS = 1
 PATH_REL = 2
 
@@ -318,7 +318,7 @@ def printSeq(filename, frameList, args, traversedPath) :
             fileComponents[1] = (formatStr % minFrame)
         else :
             fileComponents[1] = "%0" + str(padding) + "d"
-        if args.prependPath > 0 and fileComponents[0][0] != '/' :
+        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
             sys.stdout.write(traversedPath)
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
         if minFrame == maxFrame :
@@ -336,7 +336,7 @@ def printSeq(filename, frameList, args, traversedPath) :
             else :
                 fileComponents[1] = "@"*padding
             print("shake -t ", str(minFrame), "-", str(maxFrame), " ", sep='', end='')
-        if args.prependPath > 0 and fileComponents[0][0] != '/' :
+        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
             sys.stdout.write(traversedPath)
         else :
             sys.stdout.write("")
@@ -350,7 +350,7 @@ def printSeq(filename, frameList, args, traversedPath) :
         if padding > 1 :
             fileComponents[1] = fileComponents[1] + "[0-9]"*(padding-1)
 
-        if args.prependPath > 0 and fileComponents[0][0] != '/' :
+        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
             sys.stdout.write(traversedPath)
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
@@ -363,12 +363,12 @@ def printSeq(filename, frameList, args, traversedPath) :
                 fileComponents[1] = "\$F"
             if padding >= 2 :
                 fileComponents[1] += str(padding)
-        if args.prependPath > 0 and fileComponents[0][0] != '/' :
+        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
             sys.stdout.write(traversedPath)
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     else : # native and rv
-        if args.prependPath > 0 and fileComponents[0][0] != '/' :
+        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
             sys.stdout.write(traversedPath)
         if args.extremes :
             fileComponents[1] = formatStr % minFrame
@@ -443,6 +443,29 @@ def stripDotFiles(dirContents, stripIt) :
         return strippedDirContents
 
 
+# This function is recursive and lists the contents of a directory.
+#
+# It assumes that if the directory "title" is needed before printing the contents
+# (i.e.; dirContents) of a given directory, for example:
+#
+# dirName:
+#
+# then that title is printed BEFORE the call to this function.
+#
+# The argument list is as follows:
+# 
+#   dirContents - Since this might be a list from the command line,
+#                 OR generated from a recursive descent into a directory
+#                 then was needs to be listed is passed in here.
+#          path - 
+#   listSubDirs - Boolean. ONLY ever True if called from main() 
+#                 to allow us to get ONE LEVEL of recursion only.
+#                 unless args.isRecursive is also True in which
+#                 case we may descend further if need be.
+#          args - The all the args set on the command line.
+# traversedPath - The path descended so far to get to this level
+#                 used to print the directory "titles.
+# 
 def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
     # Array indices for "timeList" used below.
@@ -658,7 +681,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     if seq[MTIME] <= args.cutoffTime[1] :
                         continue
             if isMovie(seq[DICTKEY]) :
-                if args.prependPath > 0 :
+                if args.prependPath != PATH_NOPREFIX :
                     sys.stdout.write(traversedPath)
                 print(seq[DICTKEY])
                 somethingWasPrinted = True
@@ -683,7 +706,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 if seq[MTIME] <= args.cutoffTime[1] :
                     continue
             if isMovie(seq[DICTKEY]) :
-                if args.prependPath > 0 :
+                if args.prependPath != PATH_NOPREFIX :
                     sys.stdout.write(traversedPath)
                 print(seq[DICTKEY])
                 somethingWasPrinted = True
@@ -701,7 +724,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             seqKeys.reverse()
         for k in seqKeys :
             if isMovie(k) :
-                if args.prependPath > 0 :
+                if args.prependPath != PATH_NOPREFIX :
                     sys.stdout.write(traversedPath)
                 print(k)
                 somethingWasPrinted = True
@@ -722,7 +745,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         for d in dirList :
             if d[-1] == "/" :
                 d = d[:-1]
-            if args.prependPath == 0 :
+            if args.prependPath == PATH_NOPREFIX :
                 if somethingWasPrinted or not firstDir :
                     print()
                 firstDir = False
@@ -860,7 +883,7 @@ def main() :
         help="strictly list only cache sequences (i.e.; no images or movies)")
 
     p.add_argument("--prependPathAbs", "-p", action="store_const",
-        dest="prependPath", default=PATH_UNSPECIFIED, const=PATH_ABS,
+        dest="prependPath", default=PATH_NOPREFIX, const=PATH_ABS,
         help="prepend the absolute path name to the image name. \
         This option implies the option --onlySequences and will also \
         suppress printing directory name headers when listing \
@@ -975,7 +998,7 @@ def main() :
             args.listWhichFiles = LIST_ONLYSEQS
 
     if args.extremes :
-        if args.prependPath == PATH_UNSPECIFIED :
+        if args.prependPath == PATH_NOPREFIX :
             args.prependPath = PATH_ABS
         args.showMissing = False
         args.showZero = False
@@ -1025,10 +1048,10 @@ def main() :
     if len(args.files) == 0 :
         if not args.listDirContents :
             if args.listWhichFiles == LIST_ALLFILES :
-                print(".")
+                print(".") # Yup, we're done!
         else :
             if args.isRecursive :
-                if args.prependPath == 0 :
+                if args.prependPath == PATH_NOPREFIX :
                     print(".:")
                 passedPath = "./"
             else :
@@ -1047,16 +1070,17 @@ def main() :
         # Strip out trailing "/" that may have been tacked on by
         # file completion.  (/bin/ls does not do this - but it's
         # cleaner looking.)
+        #
         if args.files[0][-1] == "/" :
             arg0 = args.files[0][:-1]
 
         if not args.listDirContents :
-            print(arg0)
+            print(arg0) # Yes, we're done here too.
 
         else :
 
             if args.isRecursive :
-                if args.prependPath == 0 :
+                if args.prependPath == PATH_NOPREFIX :
                     print(arg0, ":", sep='')
                 passedPath = arg0 + "/"
             else :
@@ -1075,7 +1099,7 @@ def main() :
 
     # List all the arguments on the command line and unless prevented by
     # the "-d" option, it will also list the contents of all the directories
-    # entered on the command line as well.
+    # entered on the command line. (Facilitated by the 3rd arg 'True' below.)
     #
     else :
         passedPath = ""
