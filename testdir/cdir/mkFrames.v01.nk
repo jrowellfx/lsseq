@@ -41,7 +41,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name /home/jrowell/code/lsseq/testdir/cdir/mkFrames.v01.nk
+ name /fileserver/media/src/lsseq/testdir/cdir/mkFrames.v01.nk
  frame 110
  last_frame 120
  format "640 480 0 0 640 480 1 PC_Video"
@@ -123,7 +123,7 @@ Merge2 {
  ypos 112
 }
 Write {
- file /home/jrowell/code/lsseq/testdir/cdir/ccc02.###.exr
+ file /fileserver/media/src/lsseq/testdir/cdir/ccc02.###.exr
  file_type exr
  compression "Zip (16 scanlines)"
  version 2
@@ -219,7 +219,7 @@ Merge2 {
  ypos 113
 }
 Write {
- file /home/jrowell/code/lsseq/testdir/cdir/ccc03.#.tga
+ file /fileserver/media/src/lsseq/testdir/cdir/ccc03.#.tga
  file_type targa
  first 80
  last 140
@@ -331,7 +331,7 @@ Merge2 {
  ypos 126
 }
 Write {
- file /home/jrowell/code/lsseq/testdir/cdir/ccc01.###.exr
+ file /fileserver/media/src/lsseq/testdir/cdir/ccc01.###.exr
  file_type exr
  compression "Zip (16 scanlines)"
  version 3

@@ -34,7 +34,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name /nas/media/src/python/lsseq/testdir/mk_hdir_Frames.v01.nk
+ name /fileserver/media/src/lsseq/testdir/mk_hdir_Frames.v01.nk
  frame 13
  last_frame 40
  format "64 64 0 0 64 64 1 verySmSq"
@@ -102,7 +102,7 @@ Merge2 {
  ypos 95
 }
 Write {
- file /nas/media/src/python/lsseq/testdir/hdir/v001/hhh02.%04d.jpg
+ file /fileserver/media/src/lsseq/testdir/hdir/v001/hhh02.%04d.jpg
  file_type jpeg
  checkHashOnRead false
  version 2
@@ -172,7 +172,7 @@ Merge2 {
  ypos 113
 }
 Write {
- file /nas/media/src/python/lsseq/testdir/hdir/v001/hhh03.%04d.jpg
+ file /fileserver/media/src/lsseq/testdir/hdir/v001/hhh03.%04d.jpg
  file_type jpeg
  checkHashOnRead false
  version 2
@@ -255,7 +255,7 @@ Merge2 {
  ypos 126
 }
 Write {
- file /nas/media/src/python/lsseq/testdir/hdir/v001/hhh01.%04d.jpg
+ file /fileserver/media/src/lsseq/testdir/hdir/v001/hhh01.%04d.jpg
  file_type jpeg
  checkHashOnRead false
  version 2

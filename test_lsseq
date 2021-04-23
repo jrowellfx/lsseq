@@ -1,20 +1,14 @@
 #!/bin/bash
 
-# For now execute this script in the git lsseq repo directory for this to work.
-
 export LC_ALL=POSIX
 unset OIC_IMAGE_EXTENSION
 unset OIC_MOV_EXTENSION
 unset OIC_CACHE_EXTENSION
 
-# When testing code locally, make sure you are getting the dev version of lsseq.
-# Eg. assuming the lsseq git repo lives in ~/code/lsseq :
-# tcsh: setenv PATH "~/code/lsseq:${PATH}"
-# tcsh: setenv PATH `eval /etc/cleanpath $PATH`
-#    ...or...
-# bash: export PATH=~/code/lsseq/:$PATH
-
-export PATH=`pwd`:$PATH
+# !!! This script MUST be run from the root of the lsseq git repo for this to work.
+#
+REPO_DIR=`pwd`
+export PATH=$REPO_DIR:$PATH
 
 # NOTE: To make sure the modification times of the testdir/cdir images are
 # set properly for testing we need to force specific times on to the files
@@ -28,10 +22,8 @@ export PATH=`pwd`:$PATH
 # vi custom.touch.images - edit the times to make for different "oldest" and "newest" vs "median".
 # source custom.touch.images
 
-
 unalias lsseq > /dev/null 2>&1
 tmpArgs=/tmp/tmpTEST_LSSEQ.$$
-OIC_REPO_DIR=`pwd`
 
 cleanup() {
     /bin/rm $tmpArgs  > /dev/null 2>&1
@@ -42,14 +34,18 @@ trap cleanup INT
 
 cd testdir/cdir
 source custom.touch.images
-cd ../..
+cd $REPO_DIR
 
 cd testdir/hdir
 source touch.files
-cd ../..
+cd $REPO_DIR
 
 export COLUMNS=100
 
+# The following are test arguments. One test per line.
+# The first item on a line is the working directory for the test to place in.
+# The rest are args to lsseq.
+#
 cat << EOF > $tmpArgs
 . --version
 . -lRFC testdir
@@ -82,8 +78,8 @@ testdir/cdir -t
 testdir/cdir -t --time oldest
 testdir/cdir -t --time median
 testdir/cdir -Z
-testdir/cdir -R $OIC_REPO_DIR/testdir/cdir/ $OIC_REPO_DIR/testdir/
-testdir/cdir -R $OIC_REPO_DIR/testdir/cdir/
+testdir/cdir -R $REPO_DIR/testdir/cdir/ $REPO_DIR/testdir/
+testdir/cdir -R $REPO_DIR/testdir/cdir/
 testdir/cdir -Ra
 testdir/cdir -R -b --goodFrameMinSize 1K
 testdir/cdir -1Rb
@@ -100,7 +96,7 @@ testdir/hdir --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/* v003/
 testdir/hdir --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/*
 EOF
 
-echo ------ Begin Tests ------ > $OIC_REPO_DIR/test_lsseq.out.new
+echo ------ Begin Tests ------ > $REPO_DIR/test_lsseq.out.new
 
 i=1
 while true; do
@@ -111,12 +107,12 @@ while true; do
     fi
     workingDir=${args[0]}
     args=(${args[@]:1})
-    echo "" >> $OIC_REPO_DIR/test_lsseq.out.new
+    echo "" >> $REPO_DIR/test_lsseq.out.new
     echo ------ Test $i ------
-    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $OIC_REPO_DIR/test_lsseq.out.new
-    cd $OIC_REPO_DIR/$workingDir
+    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $REPO_DIR/test_lsseq.out.new
+    cd $REPO_DIR/$workingDir
     set +f # Turn globbing back on
-    $OIC_REPO_DIR/lsseq ${args[@]} >> $OIC_REPO_DIR/test_lsseq.out.new 2>&1
+    $REPO_DIR/lsseq ${args[@]} >> $REPO_DIR/test_lsseq.out.new 2>&1
     i=$(expr $i + 1)
 done
 
@@ -138,18 +134,18 @@ while true; do
     fi
     workingDir=${args[0]}
     args=(${args[@]:1})
-    echo "" >> $OIC_REPO_DIR/test_lsseq.out.new
+    echo "" >> $REPO_DIR/test_lsseq.out.new
     echo ------ Test $i ------
-    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $OIC_REPO_DIR/test_lsseq.out.new
-    cd $OIC_REPO_DIR/$workingDir
+    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $REPO_DIR/test_lsseq.out.new
+    cd $REPO_DIR/$workingDir
     set +f
-    $OIC_REPO_DIR/lsseq ${args[@]} >> $OIC_REPO_DIR/test_lsseq.out.new 2>&1
+    $REPO_DIR/lsseq ${args[@]} >> $REPO_DIR/test_lsseq.out.new 2>&1
     i=$(expr $i + 1)
     j=$(expr $j + 1)
 done
 
-sed -e "1,$ s-$OIC_REPO_DIR-/...absPathToRepo.../lsseq-g" < $OIC_REPO_DIR/test_lsseq.out.new > /tmp/tmp$$
-expand < /tmp/tmp$$ | sed -e '1,$ s/ *$//' > $OIC_REPO_DIR/test_lsseq.out.new
+sed -e "1,$ s-$REPO_DIR-/...absPathToRepo.../lsseq-g" < $REPO_DIR/test_lsseq.out.new > /tmp/tmp$$
+expand < /tmp/tmp$$ | sed -e '1,$ s/ *$//' > $REPO_DIR/test_lsseq.out.new
 
 cleanup
 

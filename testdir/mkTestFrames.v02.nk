@@ -41,7 +41,7 @@ define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
 }
 Root {
  inputs 0
- name /home/jrowell/git/lsseq/testdir/mkTestFrames.v02.nk
+ name /fileserver/media/src/lsseq/testdir/mkTestFrames.v02.nk
  frame 99
  format "192 108 0 0 192 108 1 HD_10"
  proxy_type scale
@@ -249,7 +249,7 @@ Merge2 {
 set N4947db0 [stack 0]
 Write {
  channels rgba
- file /home/jrowell/git/lsseq/testdir/testDirFile.%03d.exr
+ file /fileserver/media/src/lsseq/testdir/testDirFile.%03d.exr
  file_type exr
  version 1
  name Write1
@@ -260,7 +260,7 @@ Write {
 push $N4947db0
 Write {
  channels rgba
- file /home/jrowell/git/lsseq/testdir/xxx.%03d.exr
+ file /fileserver/media/src/lsseq/testdir/xxx.%03d.exr
  file_type exr
  version 2
  name Write2
@@ -314,7 +314,7 @@ Grade {
 push $N4947db0
 Write {
  channels rgba
- file /home/jrowell/git/lsseq/testdir/yyy.%04d.tif
+ file /fileserver/media/src/lsseq/testdir/yyy.%04d.tif
  file_type tiff
  compression LZW
  checkHashOnRead false
@@ -327,7 +327,7 @@ Write {
 push $N4947db0
 Write {
  channels rgba
- file /home/jrowell/git/lsseq/testdir/bdir/b_subdir/bbb.02.%03d.tif
+ file /fileserver/media/src/lsseq/testdir/bdir/b_subdir/bbb.02.%03d.tif
  colorspace sRGB
  file_type tiff
  compression LZW
@@ -341,7 +341,7 @@ Write {
 push $N4947db0
 Write {
  channels rgba
- file /home/jrowell/git/lsseq/testdir/bdir/bbb.02.%03d.tif
+ file /fileserver/media/src/lsseq/testdir/bdir/bbb.02.%03d.tif
  colorspace sRGB
  file_type tiff
  compression LZW
@@ -355,7 +355,7 @@ Write {
 push $N4947db0
 Write {
  channels rgba
- file /home/jrowell/git/lsseq/testdir/cdir/ccc02.%03d.exr
+ file /fileserver/media/src/lsseq/testdir/cdir/ccc02.%03d.exr
  colorspace sRGB
  file_type exr
  compression "Zip (16 scanlines)"
@@ -368,7 +368,7 @@ Write {
 push $N4947db0
 Write {
  channels rgba
- file /home/jrowell/git/lsseq/testdir/cdir/ccc03.%02d.tga
+ file /fileserver/media/src/lsseq/testdir/cdir/ccc03.%02d.tga
  colorspace sRGB
  file_type targa
  checkHashOnRead false
@@ -381,7 +381,7 @@ Write {
 push $N4947db0
 Write {
  channels rgba
- file /home/jrowell/git/lsseq/testdir/cdir/ccc01.%03d.exr
+ file /fileserver/media/src/lsseq/testdir/cdir/ccc01.%03d.exr
  colorspace sRGB
  file_type exr
  compression "Zip (16 scanlines)"
@@ -399,7 +399,7 @@ Viewer {
 }
 push $N4947db0
 Write {
- file /home/jrowell/git/lsseq/testdir/bdir/bbb.01.%03d.exr
+ file /fileserver/media/src/lsseq/testdir/bdir/bbb.01.%03d.exr
  file_type exr
  version 2
  name Write4
@@ -410,7 +410,7 @@ Write {
 push $N4947db0
 Write {
  channels rgba
- file /home/jrowell/git/lsseq/testdir/cdir/c_subDir/ccc01.%03d.exr
+ file /fileserver/media/src/lsseq/testdir/cdir/c_subDir/ccc01.%03d.exr
  colorspace sRGB
  file_type exr
  compression "Zip (16 scanlines)"
@@ -423,7 +423,7 @@ Write {
 push $N4947db0
 Write {
  channels rgba
- file /home/jrowell/git/lsseq/testdir/ddir/dddA.%04d.exr
+ file /fileserver/media/src/lsseq/testdir/ddir/dddA.%04d.exr
  colorspace sRGB
  file_type exr
  compression "Zip (16 scanlines)"
@@ -436,7 +436,7 @@ Write {
 push $N4947db0
 Write {
  channels rgba
- file /home/jrowell/git/lsseq/testdir/ddir/dddB.%01d.exr
+ file /fileserver/media/src/lsseq/testdir/ddir/dddB.%01d.exr
  colorspace sRGB
  file_type exr
  compression "Zip (16 scanlines)"
@@ -449,7 +449,7 @@ Write {
 push $N4947db0
 Write {
  channels rgba
- file /home/jrowell/git/lsseq/testdir/ddir/dddC.%01d.exr
+ file /fileserver/media/src/lsseq/testdir/ddir/dddC.%01d.exr
  colorspace sRGB
  file_type exr
  compression "Zip (16 scanlines)"
