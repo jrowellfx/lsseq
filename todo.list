@@ -28,6 +28,9 @@ x possibly add better support for quirky and unlikely named sequences (for examp
     in the few cases that this might crop up. Just make sure that renum handles such
     cases better.
 
++ WRT above ^^^ - possibly check for any sequences that have BAD PADDING and report them
+    as they are discovered? Except if silent mode?
+
 + check - Did I ever fix this bug? (Example follows)
 
     % cd /data/commercial/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp

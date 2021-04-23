@@ -247,7 +247,6 @@ def printSeq(filename, frameList, args, traversedPath) :
     missingFrames = []
     zeroFrames = []
     badFrames = []
-    frameSizes = []
     minFrame = frameList[IMDICT_DATALIST][0][FRAME_NUM]
     maxFrame = frameList[IMDICT_DATALIST][-1][FRAME_NUM]
     padding = frameList[IMDICT_PADDING]
@@ -257,24 +256,16 @@ def printSeq(filename, frameList, args, traversedPath) :
         currFrameData = frameList[IMDICT_DATALIST][0]
         if i != currFrameData[FRAME_NUM] :
             iMissing = True
-            if args.showBad > 1 :
-                frameSizes.append(0)
             if args.showMissing :
                 missingFrames.append(i)
         else :
             frameList[IMDICT_DATALIST].pop(0)
-            if args.showBad > 1 :
-                # if this file is a broken soft link '-1' was stashed as mtime
-                if currFrameData[FRAME_MTIME] == -1 :
-                    frameSizes.append(0)
-                else :
-                    frameSizes.append(currFrameData[FRAME_SIZE])
-        if not iMissing and args.showZero :
+        if not iMissing and (args.showZero or args.showBad):
             # if this file is a broken soft link '-1' was stashed as mtime
             if currFrameData[FRAME_MTIME] == -1 : # mtime
                 if args.showZero :
                     zeroFrames.append(i)
-                elif args.showBad > 0 :
+                elif args.showBad :
                     badFrames.append(i)
                 actualFilename = actualImageName(filename, padding, i)
                 print( os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
@@ -282,10 +273,8 @@ def printSeq(filename, frameList, args, traversedPath) :
             # file size
             elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
                 zeroFrames.append(i)
-            elif (args.showBad > 0) and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
+            elif args.showBad and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
                 badFrames.append(i)
-            elif currFrameData[FRAME_SIZE] == 0 :
-                zeroFrames.append(i)
         i = i + 1
 
     errFrames = []
@@ -381,8 +370,7 @@ def printSeq(filename, frameList, args, traversedPath) :
             print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
 
         if args.combineErrorFrames :
-            if not args.showBad > 1 : #  Save this step, already done.
-                errFrames = missingFrames + zeroFrames + badFrames
+            errFrames = missingFrames + zeroFrames + badFrames
             frameSeq = seqLister.condenseSeq(errFrames)
             if len(frameSeq) > 0 :
                 sys.stdout.write(" e:[")
@@ -793,12 +781,12 @@ def main() :
 
     p.add_argument("--version", action="version", version="2.1.0")
 
-    p.add_argument("--showBadFrames", "-b", action="count",
-        dest="showBad", default=0,
+    p.add_argument("--showBadFrames", "-b", action="store_true",
+        dest="showBad", default=False,
         help="lists potentially bad frames based on the \
         minimum size of a good frame (see --goodFrameMinSize)")
-    p.add_argument("--skipBadFrames", "-B", action="store_const",
-        dest="showBad", const=0,
+    p.add_argument("--skipBadFrames", "-B", action="store_false",
+        dest="showBad",
         help="do not show list of potentially bad frames [default]" )
     p.add_argument("--showMissing", "-m", action="store_true",
         dest="showMissing", default=True,
