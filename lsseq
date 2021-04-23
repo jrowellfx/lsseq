@@ -447,25 +447,28 @@ def stripDotFiles(dirContents, stripIt) :
                 strippedDirContents.append(f)
         return strippedDirContents
 
-# This function is recursive and lists the contents of a directory,
-# this is the workhorse of lsseq.
+# This function is recursive and lists the contents passed to it
+# via the first argument. Those contents MAY or MAY-NOT be
+# all contained in the current working directory. That list will likely
+# ONLY be the contents of a single directory if this has been
+# called recursively with "-R" to lsseq, and we're more than one level deep.
 #
-# It assumes that if the directory "title" is needed before printing the contents
-# (i.e.; dirContents) of a given directory, for example:
+# This fucntiuon assumes that if a directory "title" is needed
+# (i.e.; dirContents), for example:
 #
 # dirName:
+# aaa bbb ccc etc
 #
 # ...then that title is printed BEFORE the call to this function.
 #
-# The argument list is as follows:
+# The function arguments are as follows:
 # 
-#   dirContents - Since this might be a list from the command line,
-#                 OR generated from a recursive descent into a directory
-#                 then was needs to be listed is passed in here.
+#   dirContents - This might be a list from the command line,
+#                 OR generated from a recursive descent into a directory.
 #          path - The directory we need to descend into, and pop out of.
 #                 (Might be trivially "." if called from main())
-#   listSubDirs - Boolean. ONLY ever True if called from main() 
-#                 to allow us to get ONE LEVEL of recursion only.
+#   listSubDirs - Boolean. ONLY ever True if called from main() .
+#                 This arg allows us to get ONE LEVEL of recursion only.
 #                 unless args.isRecursive is also True in which
 #                 case we may descend further if need be.
 #          args - The all the args set on the command line.
@@ -538,6 +541,9 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 newFrameMTime = os.path.getmtime(realFilename)
 
             # Take care of a special case - fix padding for single digit neg number.
+            #
+            # JPR - Test two digit and three digit negative numbers. Can't recall
+            #       why single digit is a special case.
             #
             if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2 :
                 newPaddingSize = 1
