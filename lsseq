@@ -230,15 +230,15 @@ def isMovie(filename) :
 def splitImageName(filenameKey) :
     numSep = "."
     fileComponents = splitFileComponents(filenameKey)
-    if fileComponents[-2] == '' :
+    if fileComponents[-2] == '' : # because ".." left a blank.
         fileComponents.pop(-2)
-    else :
-        numSep = fileComponents[-2][-1] # i.e., "_"
-        fileComponents[-2] = fileComponents[-2][:-1]
+    else : # uses "_" separator.
+        numSep = '_'
+        fileComponents[-2] = fileComponents[-2][:-1] # Strips off the '_'
 
-    fileExt = fileComponents.pop(-1)
-    fileRoot = ".".join(fileComponents) + numSep
-    return [fileRoot, "", fileExt]
+    fileExt = fileComponents.pop(-1) # (No dot included in string.)
+    fileRoot = ".".join(fileComponents) + numSep # Rejoints & tacks back the correct separator.
+    return [fileRoot, "", fileExt] # NOTE: fileRoot has the separator attached.
 
 # Return true if and only if keyName (eg. "a.b.c..ass" - from seqSplit())
 # is a cache sequence (as opposed to an images sequence).
