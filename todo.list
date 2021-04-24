@@ -12,36 +12,3 @@
     just frame numbers.)
 
 + add flag to ignore case in file extensions. Useful for jpg vs JPG etc.
-
-x possibly add better support for quirky and unlikely named sequences (for example),
-    a.01.jpg, a.02.jpg, a.03.jpg, ..., a.0100.jpg, a.0101.jpg, a.0102.jpg
-    So, what is that? Two padded, four padded, no padding? Anyway, I may need to
-    fix this because my util "renum" makes use of lsseq output format, and if
-    lsseq doesn't handle this properly then it's hard to use renum to fix crazily
-    nanmed/numbered sequences like this. (I did come come across this once!)
-
-    Update: No. This can only happen as a result of some other program creating 
-    buggy output. Taking care of this also implies taking care of endless other
-    special cases which will almost never happen. So, not fixing this.
-
-    WRT the issue with renum - hand edit the command line to add appropriate padding
-    in the few cases that this might crop up. Just make sure that renum handles such
-    cases better.
-
-+ WRT above ^^^ - possibly check for any sequences that have BAD PADDING and report them
-    as they are discovered? Except if silent mode?
-
-+ check - Did I ever fix this bug? (Example follows)
-
-    % cd /data/commercial/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp
-    % ls
-    2000_0110_comp_v002
-    % lsseq -P *
-    2000_0110_comp_v002/2000_0110_comp_v002_l.[0095-0136].exr
-    % lsseq -p *
-    /data/commercial/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002_l.[0095-0136].exr
-
-    NOTE! It's missing the directory  2000_0110_comp_v002
-    Also check lsseq'ing abs paths mixed with relative path names.
-    Also, boundry contidions like only one directory in the current dir etc. (as above).
-

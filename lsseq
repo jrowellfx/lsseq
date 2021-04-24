@@ -546,18 +546,10 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     DICTKEY = 0
     MTIME = 1
 
-    ### tmpCWD = ""
-    #
     # Stash the current working dir, to come back to and the end
     # of this function. I.e.; we need to push and pop the current
-    # working directory ourselves since it's a global condition in
+    # working directory ourselves since it has global scope in
     # python.
-    #
-    # Note that if path is empty, it means...
-    #
-    ### if len(path) > 0 :
-    ###     tmpCWD = os.path.abspath(".")
-    ###     os.chdir(path)
     #
     tmpCWD = os.path.abspath(".")
     os.chdir(path) # Note: path might be "." if coming from main() 
@@ -831,9 +823,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             listSeqDir(stripDotFiles(os.listdir(d), args.ignoreDotFiles),
                 d, False, args, passedPath)
 
-    ### if len(path) > 0 :
-    ###     os.chdir(tmpCWD)
-    #
     os.chdir(tmpCWD) # Pop the stack of directories.
 
 def main() :

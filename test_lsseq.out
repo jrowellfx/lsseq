@@ -102,10 +102,10 @@ optional arguments:
 
 ------ Test 3 ------ lsseq -lRFC testdir ------
 testdir:
-adir/         ddir/  hdir/                 mkAnimFrames.v02.shk         mkTestFrames.v02.nk
-bdir/         edir/  idir/                 mkBlackFrames_HD_10.v01.shk  mk_hdir_Frames.v01.nk
-blackFrames/  fdir/  jdir/                 mkBlackFrames_HD_2.v01.shk   www..exr
-cdir/         gdir/  mkAnimFrames.v01.shk  mkTestFrames.v01.nk
+20592_chevrolet_cruze_reveal/  cdir/  gdir/  mkAnimFrames.v01.shk         mkTestFrames.v01.nk
+adir/                          ddir/  hdir/  mkAnimFrames.v02.shk         mkTestFrames.v02.nk
+bdir/                          edir/  idir/  mkBlackFrames_HD_10.v01.shk  mk_hdir_Frames.v01.nk
+blackFrames/                   fdir/  jdir/  mkBlackFrames_HD_2.v01.shk   www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -113,6 +113,30 @@ xxx.[000-016].exr m:[1-15x2]
 xxx.mov
 yyy.[0123].tif
 yyy.mov
+
+testdir/20592_chevrolet_cruze_reveal:
+cg/
+
+testdir/20592_chevrolet_cruze_reveal/cg:
+sequences/
+
+testdir/20592_chevrolet_cruze_reveal/cg/sequences:
+sq2000/
+
+testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000:
+sh0110/
+
+testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110:
+images/
+
+testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images:
+comp/
+
+testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp:
+2000_0110_comp_v002/
+
+testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002:
+2000_0110_comp_v002_l.[0095-0136].exr z:[95-136]
 
 testdir/adir:
 -987654321.tmp      testFile02.jpg  testFile06.jpg  testFile10.jpg  testFile14.jpg  testFile18.jpg
@@ -249,6 +273,8 @@ filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,9
 /...absPathToRepo.../lsseq/testdir/xxx.000.exr
 /...absPathToRepo.../lsseq/testdir/xxx.016.exr
 /...absPathToRepo.../lsseq/testdir/yyy.0123.tif
+/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0095.exr
+/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0136.exr
 /...absPathToRepo.../lsseq/testdir/adir/aaa.001.exr
 /...absPathToRepo.../lsseq/testdir/adir/aaa.120.exr
 /...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.001.exr
@@ -346,6 +372,8 @@ filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,9
 /...absPathToRepo.../lsseq/testdir/xxx.mov
 /...absPathToRepo.../lsseq/testdir/yyy.0123.tif
 /...absPathToRepo.../lsseq/testdir/yyy.mov
+/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0095.exr
+/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0136.exr
 /...absPathToRepo.../lsseq/testdir/adir/aaa.001.exr
 /...absPathToRepo.../lsseq/testdir/adir/aaa.120.exr
 /...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.001.exr
@@ -453,6 +481,8 @@ testdir/xxx.016.exr
 testdir/xxx.mov
 testdir/yyy.0123.tif
 testdir/yyy.mov
+testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0095.exr
+testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0136.exr
 testdir/adir/aaa.001.exr
 testdir/adir/aaa.120.exr
 testdir/adir/lrtm01_beauty02.001.exr
@@ -552,6 +582,7 @@ testdir/jdir/beauty/v002/filename.1002.jpg
 /...absPathToRepo.../lsseq/testdir/yyy.mov
 
 ------ Test 8 ------ lsseq ------
+20592_chevrolet_cruze_reveal
 adir
 bdir
 blackFrames
@@ -595,6 +626,9 @@ xxx.[000-016].exr m:[1-15x2]
 xxx.mov
 yyy.[0123].tif
 yyy.mov
+
+20592_chevrolet_cruze_reveal:
+cg
 
 adir:
 -987654321.tmp
@@ -777,6 +811,9 @@ xxx.[000-016].exr m:[1-15x2]
 xxx.mov
 yyy.[0123].tif
 yyy.mov
+
+20592_chevrolet_cruze_reveal:
+cg
 
 adir:
 -987654321.tmp
@@ -1589,6 +1626,7 @@ ccc03.[80-140].tga
 
 ------ Test 33 ------ lsseq -R /...absPathToRepo.../lsseq/testdir/cdir/ /...absPathToRepo.../lsseq/testdir/ ------
 /...absPathToRepo.../lsseq/testdir:
+20592_chevrolet_cruze_reveal
 adir
 bdir
 blackFrames
@@ -1615,6 +1653,30 @@ xxx.[000-016].exr m:[1-15x2]
 xxx.mov
 yyy.[0123].tif
 yyy.mov
+
+/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal:
+cg
+
+/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg:
+sequences
+
+/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences:
+sq2000
+
+/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000:
+sh0110
+
+/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110:
+images
+
+/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images:
+comp
+
+/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp:
+2000_0110_comp_v002
+
+/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002:
+2000_0110_comp_v002_l.[0095-0136].exr z:[95-136]
 
 /...absPathToRepo.../lsseq/testdir/adir:
 -987654321.tmp
