@@ -92,7 +92,6 @@ def main():
     elif os.path.basename(sys.argv[0]) == "condenseseq" :
         EXPAND_MODE = False
     else :
-        # print >> sys.stderr, os.path.basename(sys.argv[0]) + ": must be named either expandseq or condenseseq"
         print(os.path.basename(sys.argv[0]), ": must be named either expandseq or condenseseq", sep='', file=sys.stderr)
         sys.exit(1)
 
@@ -171,14 +170,6 @@ def main():
     # Copy the command line args (except prog name) and convert
     # commas into spaces thus making more args.
     #
-    # sysArgs = []
-    # for a in sys.argv[1:] :
-    #     for b in a.split(',') :
-    #         sysArgs.append(b)
-    # remainingArgs = []
-    # result = seqLister.expandSeq(sysArgs, remainingArgs)
-    # args = p.parse_args(remainingArgs)
-
     args = p.parse_args()
 
     separateArgs = []
@@ -197,11 +188,6 @@ def main():
         formatStr = "{0:0=-" + str(args.pad) + "d}"
         paddedFrames = []
         for frame in result:
-            # print frame
-            # print type(frame)
-            # print formatStr
-            # print formatStr.format(1)
-            # print formatStr.format(frame)
             paddedFrames.append(formatStr.format(frame))
         result = paddedFrames
     else :
@@ -216,7 +202,6 @@ def main():
     isFirst = True
     for s in result :
         if args.seqDelimiter == 'space' :
-            # print s,
             print(s, end='')
         elif args.seqDelimiter == 'comma' :
             if not isFirst :
@@ -224,10 +209,8 @@ def main():
             sys.stdout.write(str(s))
             isFirst = False
         else : # newline
-            # print s
             print(s)
     if args.seqDelimiter == 'comma' and not isFirst :
-        # print ""
         print()
 
 if __name__ == '__main__':

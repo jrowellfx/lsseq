@@ -98,6 +98,7 @@ IMDICT_DATALIST = 1
 FRAME_NUM = 0
 FRAME_SIZE = 1
 FRAME_MTIME = 2
+FRAME_PADDING = 3 # To catch BAD PADDING.
 
 # Array indices for results of the "seqSplit()" function.
 #
@@ -265,6 +266,7 @@ def printSeq(filename, frameList, args, traversedPath) :
     missingFrames = []
     zeroFrames = []
     badFrames = []
+    badPadFrames = []
     minFrame = frameList[IMDICT_DATALIST][0][FRAME_NUM]
     maxFrame = frameList[IMDICT_DATALIST][-1][FRAME_NUM]
     padding = frameList[IMDICT_PADDING]
@@ -529,7 +531,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         if len(fileParts) == 2 : # Means file is an image or cache.
             newFrameNum = int(fileParts[FRAMENUM])
             newPaddingSize = len(fileParts[FRAMENUM])
-	    ### JPR - Somewhere here need to keep track of padding per file - for renum bug fix ###
 
             # Check to see if file exists - might be broken soft link.
             if not os.path.exists(filename) :
@@ -552,26 +553,26 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 if fileParts[SEQKEY] in cacheDictionary :
                     # tack on new frame number.
                     cacheDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
-                        (newFrameNum, newFrameSize, newFrameMTime))
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
                     # smallest length frame number determines padding.
                     if newPaddingSize < cacheDictionary[fileParts[SEQKEY]][IMDICT_PADDING] :
                         cacheDictionary[fileParts[SEQKEY]][IMDICT_PADDING] = newPaddingSize
                 else :
                     # initialiaze dictionary entry.
                     cacheDictionary[fileParts[SEQKEY]] \
-                        = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
+                        = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]]
             else :
                 if fileParts[SEQKEY] in imageDictionary :
                     # tack on new frame number.
                     imageDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
-                        (newFrameNum, newFrameSize, newFrameMTime))
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
                     # smallest length frame number determines padding.
                     if newPaddingSize < imageDictionary[fileParts[SEQKEY]][IMDICT_PADDING] :
                         imageDictionary[fileParts[SEQKEY]][IMDICT_PADDING] = newPaddingSize
                 else :
                     # initialiaze dictionary entry.
                     imageDictionary[fileParts[SEQKEY]] \
-                        = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
+                        = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]]
 
         elif isMovie(filename) :
             # Check to see if file exists - might be broken soft link.
@@ -757,6 +758,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 somethingWasPrinted = True
 
     # lsseq - the contents of any subdirectories if need be.
+    #         Somewhat mimics the calls up in main().
     #
     firstDir = True
     if (listSubDirs or args.isRecursive) and args.listDirContents :
