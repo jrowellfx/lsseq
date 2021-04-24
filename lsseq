@@ -88,17 +88,14 @@ BY_SINGLE = 1
 BY_COLUMNS = 2
 BY_ROWS = 3
 
-# Array indices for the contents of the image dictionary.
-#
-IMDICT_PADDING = 0
-IMDICT_DATALIST = 1
-
 # Array indices for the data list within the image dictionary.
 #
 FRAME_NUM = 0
 FRAME_SIZE = 1
 FRAME_MTIME = 2
-FRAME_PADDING = 3 # To catch BAD PADDING.
+FRAME_PADDING = 3
+
+FRAME_BROKENLINK = -1
 
 # Array indices for results of the "seqSplit()" function.
 #
@@ -257,8 +254,8 @@ def actualImageName(filename, padding, frame) :
     return fileParts[0] + formatStr.format(frame) + "." + fileParts[2]
 
 
-# Prints an individual sequence with appropriate prefix based on cmd-line-args
-# frameList comes in sorted from smallest frame number to largest..
+# Prints an individual sequence based on cmd-line-args.
+# frameList comes in sorted from smallest frame number to largest.
 #
 def printSeq(filename, frameList, args, traversedPath) :
 
@@ -268,22 +265,49 @@ def printSeq(filename, frameList, args, traversedPath) :
     zeroFrames = []
     badFrames = []
     badPadFrames = []
-    minFrame = frameList[IMDICT_DATALIST][0][FRAME_NUM]
-    maxFrame = frameList[IMDICT_DATALIST][-1][FRAME_NUM]
-    padding = frameList[IMDICT_PADDING]
+    errFrames = []
+    minFrame = frameList[0][FRAME_NUM]
+    maxFrame = frameList[-1][FRAME_NUM]
+
+    # Calculate padding.
+    #
+    # Padding can be calculated from looking at the smallest
+    # non-negative integer, or if ALL are negative, then the largest
+    # negative integer. Since 1-padding and 2-padding are the same
+    # for negative numbers, then it it doesn't matter which one we
+    # choose, so we leave it at 2.
+    #
+    # See example: expandseq --pad 3 ' -11-11',
+    #         and: expandseq --pad 2 ' -11-11'
+    # 
+    if minFrame >= 0 :
+        padding = frameList[0][FRAME_PADDING]
+    elif maxFrame < 0 :
+        padding = frameList[-1][FRAME_PADDING]
+    else :
+        # Find smallest non-negative frame number.
+        #
+        i = 0
+        while frameList[i][FRAME_NUM] < 0 :
+            i += 1
+        padding = frameList[i][FRAME_PADDING]
+
     i = minFrame
     while i <= maxFrame :
         iMissing = False
-        currFrameData = frameList[IMDICT_DATALIST][0]
+        currFrameData = frameList[0]
         if i != currFrameData[FRAME_NUM] :
             iMissing = True
             if args.showMissing :
                 missingFrames.append(i)
         else :
-            frameList[IMDICT_DATALIST].pop(0)
+            frameList.pop(0)
+
+        # Gather up the various lists of problem frames.
+        #
         if not iMissing and (args.showZero or args.showBad or args.showBadPadding) :
-            # if this file is a broken soft link '-1' was stashed as mtime
-            if currFrameData[FRAME_MTIME] == -1 : # mtime
+
+            if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
                 if args.showZero :
                     zeroFrames.append(i)
                 elif args.showBad :
@@ -291,28 +315,25 @@ def printSeq(filename, frameList, args, traversedPath) :
                 actualFilename = actualImageName(filename, padding, i)
                 print( os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
                     " is a broken soft link.", sep='', file=sys.stderr)
-            # file size
+
+            # File-size issues.
+            #
             elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
                 zeroFrames.append(i)
             elif args.showBad and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
                 badFrames.append(i)
-            if args.showBadPadding \
-                    and  (\
-                    (curFrameData[FRAME_PADDING] > len(str(i)) \
-                    and curFrameData[FRAME_PADDING] > padding) \
+
+            # Bad padding occurs when a number is padded, but shouldn't be,
+            # or isn't padded, but it should be.
+            #
+            if args.showBadPadding and (\
+                    (curFrameData[FRAME_PADDING] > len(str(i)) and \
+                     curFrameData[FRAME_PADDING] > padding) \
                         or \
-                    curFrameData[FRAME_PADDING] < padding \
-                    ) :
-                        print("Stopped here - come back in a bit...)
+                    curFrameData[FRAME_PADDING] < padding) :
+                badPadFrames.append(i)
 
-
-                    # JPR   Since I'm keeping track of individual frame padding,
-                    #       I don't need to track the minimum padding size as we move
-                    #       through the files in listSeqDir().
-
-        i = i + 1
-
-    errFrames = []
+        i += 1
 
     formatStr = "%0" + str(padding) + "d"
     if minFrame != maxFrame :
@@ -522,10 +543,10 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
     # The 'imageDictionary' (and 'cacheDictionary') has <imageName>..<ext>
     # (or <imageName>_.<ext>), i.e.; name without the frame number, as the
-    # key for each entry.  Each entry is a two item list containing a number
-    # and a list of three-tuples, namely:
+    # key for each entry.  Each entry is a list containing four-tuples-tuples,
+    # namely:
     #
-    #     [ <framePadding>, [ (frameNum, fileSize, mtime), ... ] ]
+    #     [ (frameNum, fileSize, mtime, padding), ... ]
     #
     # The 'moviesDictionary' has the movie file name as the key, and the
     # file size as the data stored.  It stores -1 for the file size if the
@@ -550,53 +571,35 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             # Check to see if file exists - might be broken soft link.
             if not os.path.exists(filename) :
                 newFrameSize = 0
-                newFrameMTime = -1
+                newFrameMTime = FRAME_BROKENLINK
             else :
                 realFilename = os.path.realpath(filename)
                 newFrameSize = os.path.getsize(realFilename)
                 newFrameMTime = os.path.getmtime(realFilename)
 
-            # Take care of a special case - fix padding for single digit neg number.
-            #
-            # JPR - I believe the logic should actually be, the padding is determined
-            #       by the padding on the smallest positive integer, but in the case
-            #       that the range is ONLY negative numbers, the padding size should
-            #       be that of the largest negative integer (not counting the '-' sign.)
-            #
-            #       FIX THIS.
-            #
-            if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2 :
-                newPaddingSize = 1
-
             if isCache(fileParts[SEQKEY]) :
                 if fileParts[SEQKEY] in cacheDictionary :
                     # tack on new frame number.
-                    cacheDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
+                    cacheDictionary[fileParts[SEQKEY]].append( \
                         (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
-                    # smallest length frame number determines padding.
-                    if newPaddingSize < cacheDictionary[fileParts[SEQKEY]][IMDICT_PADDING] :
-                        cacheDictionary[fileParts[SEQKEY]][IMDICT_PADDING] = newPaddingSize
                 else :
                     # initialiaze dictionary entry.
-                    cacheDictionary[fileParts[SEQKEY]] \
-                        = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]]
+                    cacheDictionary[fileParts[SEQKEY]] = [ \
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
             else :
                 if fileParts[SEQKEY] in imageDictionary :
                     # tack on new frame number.
-                    imageDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
+                    imageDictionary[fileParts[SEQKEY]].append( \
                         (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
-                    # smallest length frame number determines padding.
-                    if newPaddingSize < imageDictionary[fileParts[SEQKEY]][IMDICT_PADDING] :
-                        imageDictionary[fileParts[SEQKEY]][IMDICT_PADDING] = newPaddingSize
                 else :
                     # initialiaze dictionary entry.
-                    imageDictionary[fileParts[SEQKEY]] \
-                        = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]]
+                    imageDictionary[fileParts[SEQKEY]] = [ \
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
 
         elif isMovie(filename) :
             # Check to see if file exists - might be broken soft link.
             if not os.path.exists(filename) :
-                moviesDictionary[filename] = -1
+                moviesDictionary[filename] = FRAME_BROKENLINK
             else :
                 realFilename = os.path.realpath(filename)
                 moviesDictionary[filename] = os.path.getmtime(realFilename)
@@ -662,8 +665,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
             elif isCache(k) :
                 validTimes = []
-                for im in cacheDictionary[k][IMDICT_DATALIST] :
-                    if im[FRAME_MTIME] != -1 :
+                for im in cacheDictionary[k] :
+                    if im[FRAME_MTIME] != FRAME_BROKENLINK :
                         validTimes.append(im[FRAME_MTIME])
                 validTimes.sort()
                 time = 0
@@ -685,8 +688,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
             else : # key is an image.
                 validTimes = []
-                for im in imageDictionary[k][IMDICT_DATALIST] :
-                    if im[FRAME_MTIME] != -1 :
+                for im in imageDictionary[k] :
+                    if im[FRAME_MTIME] != FRAME_BROKENLINK :
                         validTimes.append(im[FRAME_MTIME])
                 validTimes.sort()
                 time = 0
@@ -725,11 +728,11 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 print(seq[DICTKEY])
                 somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
-                cacheDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM))
                 printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
             else :
-                imageDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM))
                 printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
     elif args.cutoffTime != None :
@@ -750,11 +753,11 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 print(seq[DICTKEY])
                 somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
-                cacheDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM))
                 printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
             else :
-                imageDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM))
                 printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
     else :
@@ -768,11 +771,11 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 print(k)
                 somethingWasPrinted = True
             elif isCache(k) :
-                cacheDictionary[k][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                cacheDictionary[k].sort(key=itemgetter(FRAME_NUM))
                 printSeq(k, cacheDictionary[k], args, traversedPath)
                 somethingWasPrinted = True
             else :
-                imageDictionary[k][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                imageDictionary[k].sort(key=itemgetter(FRAME_NUM))
                 printSeq(k, imageDictionary[k], args, traversedPath)
                 somethingWasPrinted = True
 
