@@ -224,12 +224,12 @@ def isMovie(filename) :
         and MOV_EXT.count(fileComponents[-1]) >= 1
 
 
-# Split the filename key into (<imagename>, "", <ext>)
+# Split the filename dictionary KEY into (<imagename>, "", <ext>)
 # (empty placeholder for framenum)
 #
-def splitImageName(filename) :
+def splitImageName(filenameKey) :
     numSep = "."
-    fileComponents = splitFileComponents(filename)
+    fileComponents = splitFileComponents(filenameKey)
     if fileComponents[-2] == '' :
         fileComponents.pop(-2)
     else :
@@ -247,10 +247,11 @@ def isCache(keyName) :
     splitName = splitImageName(keyName)
     return splitName[-1] in CACHE_EXT
 
-# Reconstruct the imagename with the frame number.
+# Reconstruct the imagename with the frame number
+# from the dictionary key..
 #
-def actualImageName(filename, padding, frame) :
-    fileParts = splitImageName(filename)
+def actualImageName(filenameKey, padding, frame) :
+    fileParts = splitImageName(filenameKey)
     formatStr = "{0:0=-" + str(padding) + "d}"
     return fileParts[0] + formatStr.format(frame) + "." + fileParts[2]
 
@@ -258,9 +259,9 @@ def actualImageName(filename, padding, frame) :
 # Prints an individual sequence based on cmd-line-args.
 # frameList comes in sorted from smallest frame number to largest.
 #
-def printSeq(filename, frameList, args, traversedPath) :
+def printSeq(filenameKey, frameList, args, traversedPath) :
 
-    fileComponents = splitImageName(filename)
+    fileComponents = splitImageName(filenameKey)
 
     missingFrames = []
     zeroFrames = []
@@ -388,7 +389,7 @@ def printSeq(filename, frameList, args, traversedPath) :
                             zeroFrames.append(i)
                         elif args.showBad :
                             badFrames.append(i)
-                        actualFilename = actualImageName(filename, padding, i)
+                        actualFilename = actualImageName(filenameKey, padding, i)
                         print( os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
                             " is a broken soft link.", sep='', file=sys.stderr)
 

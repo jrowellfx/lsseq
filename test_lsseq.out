@@ -28,32 +28,31 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   --version             show program's version number and exit
-  --showBadFrames, -b   lists potentially bad frames based on the minimum size of a good frame
-                        (see --goodFrameMinSize)
-  --skipBadFrames, -B   do not show list of potentially bad frames [default]
-  --showMissing, -m     show list of missing frames [default]
-  --skipMissing, -M     do not show list of missing frames
-  --showZero, -z        show list of zero length images [default]
-  --skipZero, -Z        do not show list of zero length images
-  --showBadPadding      Bad padding occurs when a frame number contains leading zeros, but its
-                        pad-size is larger than the correct amount. The correct padding amount is
-                        derived from the pad-size of the smallest positive integer in the sequence
-                        (or largest negative if the entire range is negative)
-  --skipBadPadding      do not show list of badly padded frames [default]
-  --combineLists, -c    combine the lists of zero, missing and bad frames into one list
-  --extremes, -e        only list the first and last image on a separate line each. This option
-                        implies --prependPathAbs (unless --prependPathRel is explicitly specified)
-                        and --onlySequences
   --format FORMAT, -f FORMAT
                         list image sequences in various formats. The choices are 'native'
                         (default), 'nuke', 'rv', 'shake', 'glob', 'mplay', and 'houdini'. Note
                         that glob prints correct results only if the frame numbers are padded.
                         Further note that reporting of missing/bad/etc frames (e.g. --showMissing)
                         only happens with 'native' format
+  --showMissing, -m     show list of missing frames as 'm:[<list>]' [default]
+  --skipMissing, -M     do not show list of missing frames
+  --showZero, -z        show list of zero length images as 'z:[<list>]' [default]
+  --skipZero, -Z        do not show list of zero length images
+  --showBadFrames, -b   lists potentially bad frames based on the minimum size of a good frame
+                        (see --goodFrameMinSize). Reported as 'b:[<list>]'
+  --skipBadFrames, -B   do not show list of potentially bad frames [default]
   --goodFrameMinSize BYTES
                         any frame size less than this size is considered to be a bad frame. Short
                         forms for byte sizes are accepted as in '1K' (i.e., 1024) or '1.5K' for
                         example. [default: 512]
+  --showBadPadding      Report badly padded frame numbers which occurs when a number is padded but
+                        shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]'
+                        [default]
+  --skipBadPadding      do not show list of badly padded frames
+  --combineLists, -c    combine the lists of zero, missing and bad frames into one list
+  --extremes, -e        only list the first and last image on a separate line each. This option
+                        implies --prependPathAbs (unless --prependPathRel is explicitly specified)
+                        and --onlySequences
   --imgExt, -i          print list of image, cache and movie file extensions and exit
   --looseNumSeparator, -l
                         allow the use of '_' (underscore), in addition to '.' (dot) as a separator
@@ -93,19 +92,19 @@ optional arguments:
                         recently modified (newest) frames in each sequence. (see --time) (see
                         ls(1))
   --onlyShow TENSE [[CC]YY]MMDDhhmm[.ss]
-                        where TENSE is either 'before' or 'since'; only list sequences up to or
-                        after the time specified. The --time argument specifies which frame to use
-                        for the cutoff comparison
+                        where TENSE is either 'before' or 'since'; only list sequences up to (and
+                        including) or after (and including) the time specified. The --time
+                        argument specifies which frame to use for the cutoff comparison
 
 ------ Test 2 ------ lsseq --version ------
-2.1.0
+2.2.0
 
 ------ Test 3 ------ lsseq -lRFC testdir ------
 testdir:
-adir/         ddir/  hdir/                 mkBlackFrames_HD_10.v01.shk  mk_hdir_Frames.v01.nk
-bdir/         edir/  idir/                 mkBlackFrames_HD_2.v01.shk   www..exr
-blackFrames/  fdir/  mkAnimFrames.v01.shk  mkTestFrames.v01.nk
-cdir/         gdir/  mkAnimFrames.v02.shk  mkTestFrames.v02.nk
+adir/         ddir/  hdir/                 mkAnimFrames.v02.shk         mkTestFrames.v02.nk
+bdir/         edir/  idir/                 mkBlackFrames_HD_10.v01.shk  mk_hdir_Frames.v01.nk
+blackFrames/  fdir/  jdir/                 mkBlackFrames_HD_2.v01.shk   www..exr
+cdir/         gdir/  mkAnimFrames.v01.shk  mkTestFrames.v01.nk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -229,6 +228,20 @@ hhh01.[0001-0040].jpg
 hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
+testdir/jdir:
+beauty/
+
+testdir/jdir/beauty:
+v001/  v002/
+
+testdir/jdir/beauty/v001:
+sort.ls*
+filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1001]
+
+testdir/jdir/beauty/v002:
+sort.ls*
+filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1002]
+
 ------ Test 4 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../lsseq/testdir/testDirFile.001.exr
 /...absPathToRepo.../lsseq/testdir/testDirFile.012.exr
@@ -317,6 +330,10 @@ hhh03.[0001-0040].jpg
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0040.jpg
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0001.jpg
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/jdir/beauty/v001/filename.0007.jpg
+/...absPathToRepo.../lsseq/testdir/jdir/beauty/v001/filename.1002.jpg
+/...absPathToRepo.../lsseq/testdir/jdir/beauty/v002/filename.0007.jpg
+/...absPathToRepo.../lsseq/testdir/jdir/beauty/v002/filename.1002.jpg
 
 ------ Test 5 ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../lsseq/testdir/testDirFile.001.exr
@@ -420,6 +437,10 @@ hhh03.[0001-0040].jpg
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0040.jpg
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0001.jpg
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0040.jpg
+/...absPathToRepo.../lsseq/testdir/jdir/beauty/v001/filename.0007.jpg
+/...absPathToRepo.../lsseq/testdir/jdir/beauty/v001/filename.1002.jpg
+/...absPathToRepo.../lsseq/testdir/jdir/beauty/v002/filename.0007.jpg
+/...absPathToRepo.../lsseq/testdir/jdir/beauty/v002/filename.1002.jpg
 
 ------ Test 6 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
@@ -515,6 +536,10 @@ testdir/idir/v001/hhh02.0001.jpg
 testdir/idir/v001/hhh02.0040.jpg
 testdir/idir/v001/hhh03.0001.jpg
 testdir/idir/v001/hhh03.0040.jpg
+testdir/jdir/beauty/v001/filename.0007.jpg
+testdir/jdir/beauty/v001/filename.1002.jpg
+testdir/jdir/beauty/v002/filename.0007.jpg
+testdir/jdir/beauty/v002/filename.1002.jpg
 
 ------ Test 7 ------ lsseq -p ------
 /...absPathToRepo.../lsseq/testdir/testDirFile.[001-012].exr m:[3]
@@ -536,6 +561,7 @@ fdir
 gdir
 hdir
 idir
+jdir
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -731,6 +757,9 @@ v003
 idir:
 v001
 
+jdir:
+beauty
+
 ------ Test 10 ------ lsseq -l * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
@@ -885,6 +914,9 @@ v003
 
 idir:
 v001
+
+jdir:
+beauty
 
 ------ Test 11 ------ lsseq ------
 aaaa
@@ -1566,6 +1598,7 @@ fdir
 gdir
 hdir
 idir
+jdir
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -1916,6 +1949,21 @@ hhh01.[0001-0040].jpg
 hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
+/...absPathToRepo.../lsseq/testdir/jdir:
+beauty
+
+/...absPathToRepo.../lsseq/testdir/jdir/beauty:
+v001
+v002
+
+/...absPathToRepo.../lsseq/testdir/jdir/beauty/v001:
+sort.ls
+filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1001]
+
+/...absPathToRepo.../lsseq/testdir/jdir/beauty/v002:
+sort.ls
+filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1002]
+
 /...absPathToRepo.../lsseq/testdir/cdir:
 aaaa
 bbbb
@@ -2259,18 +2307,39 @@ v001/hhh03.[0001-0040].jpg
 v002/hhh01.[0001-0040].jpg
 v002/hhh02.[0001-0040].jpg
 
------- Test 49 ------ lsseq -i ------
+------ Test 49 ------ lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R ------
+.:
+beauty
+
+./beauty:
+v001
+v002
+
+./beauty/v001:
+sort.ls
+filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1001]
+
+./beauty/v002:
+sort.ls
+filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1002]
+
+------ Test 50 ------ lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R ------
+.:
+sort.ls
+filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1001]
+
+------ Test 51 ------ lsseq -i ------
 OIC_IMAGE_EXTENSION: JPEG:JPG:NEF:alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
 OIC_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
 OIC_CACHE_EXTENSION: ass:ass.gz:dshd:fur:obj:srf
 
------- Test 50 ------ lsseq --onlyImages ------
+------ Test 52 ------ lsseq --onlyImages ------
 
------- Test 51 ------ lsseq --onlyMovies ------
+------ Test 53 ------ lsseq --onlyMovies ------
 xxx01.mov
 xxx02.mov
 
------- Test 52 ------ lsseq --onlyCaches ------
+------ Test 54 ------ lsseq --onlyCaches ------
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
