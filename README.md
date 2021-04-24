@@ -111,8 +111,8 @@ used by many computer-graphics programs and CG-production studios.
 To install these commands on your system follow these steps (you need root
 privileges).
 
-1)  First make sure you have `python 3.6` installed on your machine, you can do
-    this simply by typing `python3.6` at the command prompt. If you are told
+1)  First make sure you have python version 3.x (x >= 6) installed on your machine, you can do
+    this simply by typing `python3` at the command prompt. If you are told
     `"command not found"`, then you need to download and install it, there are
     many helpful websites to get this going, not the least of which is [Python.org](https://www.python.org/).
 
