@@ -258,6 +258,7 @@ def actualImageName(filename, padding, frame) :
 
 
 # Prints an individual sequence with appropriate prefix based on cmd-line-args
+# frameList comes in sorted from smallest frame number to largest..
 #
 def printSeq(filename, frameList, args, traversedPath) :
 
@@ -280,7 +281,7 @@ def printSeq(filename, frameList, args, traversedPath) :
                 missingFrames.append(i)
         else :
             frameList[IMDICT_DATALIST].pop(0)
-        if not iMissing and (args.showZero or args.showBad):
+        if not iMissing and (args.showZero or args.showBad or args.showBadPadding) :
             # if this file is a broken soft link '-1' was stashed as mtime
             if currFrameData[FRAME_MTIME] == -1 : # mtime
                 if args.showZero :
@@ -295,6 +296,20 @@ def printSeq(filename, frameList, args, traversedPath) :
                 zeroFrames.append(i)
             elif args.showBad and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
                 badFrames.append(i)
+            if args.showBadPadding \
+                    and  (\
+                    (curFrameData[FRAME_PADDING] > len(str(i)) \
+                    and curFrameData[FRAME_PADDING] > padding) \
+                        or \
+                    curFrameData[FRAME_PADDING] < padding \
+                    ) :
+                        print("Stopped here - come back in a bit...)
+
+
+                    # JPR   Since I'm keeping track of individual frame padding,
+                    #       I don't need to track the minimum padding size as we move
+                    #       through the files in listSeqDir().
+
         i = i + 1
 
     errFrames = []
@@ -543,8 +558,12 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
             # Take care of a special case - fix padding for single digit neg number.
             #
-            # JPR - Test two digit and three digit negative numbers. Can't recall
-            #       why single digit is a special case.
+            # JPR - I believe the logic should actually be, the padding is determined
+            #       by the padding on the smallest positive integer, but in the case
+            #       that the range is ONLY negative numbers, the padding size should
+            #       be that of the largest negative integer (not counting the '-' sign.)
+            #
+            #       FIX THIS.
             #
             if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2 :
                 newPaddingSize = 1
@@ -857,6 +876,16 @@ def main() :
     p.add_argument("--skipZero", "-Z", action="store_false",
         dest="showZero",
         help="do not show list of zero length images" )
+    p.add_argument("--showBadPadding", action="store_true",
+        dest="showBadPadding", default=False,
+        help="Bad padding occurs when a frame number contains leading \
+        zeros, but its pad-size is larger than the correct amount. \
+        The correct padding amount is derived from the pad-size of the \
+        smallest positive integer in the sequence (or largest \
+        negative if the entire range is negative)")
+    p.add_argument("--skipBadPadding", action="store_false",
+        dest="showBadPadding",
+        help="do not show list of badly padded frames [default]" )
     p.add_argument("--combineLists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
         help="combine the lists of zero, missing and bad frames into one list")
