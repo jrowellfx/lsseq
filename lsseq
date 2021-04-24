@@ -292,49 +292,6 @@ def printSeq(filename, frameList, args, traversedPath) :
             i += 1
         padding = frameList[i][FRAME_PADDING]
 
-    i = minFrame
-    while i <= maxFrame :
-        iMissing = False
-        currFrameData = frameList[0]
-        if i != currFrameData[FRAME_NUM] :
-            iMissing = True
-            if args.showMissing :
-                missingFrames.append(i)
-        else :
-            frameList.pop(0)
-
-        # Gather up the various lists of problem frames.
-        #
-        if not iMissing and (args.showZero or args.showBad or args.showBadPadding) :
-
-            if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
-                if args.showZero :
-                    zeroFrames.append(i)
-                elif args.showBad :
-                    badFrames.append(i)
-                actualFilename = actualImageName(filename, padding, i)
-                print( os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
-                    " is a broken soft link.", sep='', file=sys.stderr)
-
-            # File-size issues.
-            #
-            elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
-                zeroFrames.append(i)
-            elif args.showBad and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
-                badFrames.append(i)
-
-            # Bad padding occurs when a number is padded, but shouldn't be,
-            # or isn't padded, but it should be.
-            #
-            if args.showBadPadding and (\
-                    (curFrameData[FRAME_PADDING] > len(str(i)) and \
-                     curFrameData[FRAME_PADDING] > padding) \
-                        or \
-                    curFrameData[FRAME_PADDING] < padding) :
-                badPadFrames.append(i)
-
-        i += 1
-
     formatStr = "%0" + str(padding) + "d"
 
     if args.seqFormat == 'nuke' :
@@ -415,6 +372,50 @@ def printSeq(filename, frameList, args, traversedPath) :
             print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     else : # native
+
+        # Gather up the various lists of problem frames.
+        # Only needed in native format listings.
+        #
+        i = minFrame
+        while i <= maxFrame :
+            iMissing = False
+            currFrameData = frameList[0]
+            if i != currFrameData[FRAME_NUM] :
+                iMissing = True
+                if args.showMissing :
+                    missingFrames.append(i)
+            else :
+                frameList.pop(0)
+
+            if not iMissing and (args.showZero or args.showBad or args.showBadPadding) :
+
+                if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
+                    if args.showZero :
+                        zeroFrames.append(i)
+                    elif args.showBad :
+                        badFrames.append(i)
+                    actualFilename = actualImageName(filename, padding, i)
+                    print( os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
+                        " is a broken soft link.", sep='', file=sys.stderr)
+
+                # File-size issues.
+                #
+                elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
+                    zeroFrames.append(i)
+                elif args.showBad and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
+                    badFrames.append(i)
+
+                # Bad padding occurs when a number is padded, but shouldn't be,
+                # or isn't padded, but it should be.
+                #
+                if args.showBadPadding and (\
+                        (curFrameData[FRAME_PADDING] > len(str(i)) and \
+                         curFrameData[FRAME_PADDING] > padding) \
+                            or \
+                        curFrameData[FRAME_PADDING] < padding) :
+                    badPadFrames.append(i)
+            i += 1
+
         if minFrame == maxFrame :
             frameRange = "[" \
                 + (formatStr % minFrame) \
@@ -441,7 +442,7 @@ def printSeq(filename, frameList, args, traversedPath) :
             print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
 
         if args.combineErrorFrames :
-            errFrames = missingFrames + zeroFrames + badFrames
+            errFrames = missingFrames + zeroFrames + badFrames + badPadFrames
             frameSeq = seqLister.condenseSeq(errFrames)
             if len(frameSeq) > 0 :
                 sys.stdout.write(" e:[")
@@ -478,11 +479,26 @@ def printSeq(filename, frameList, args, traversedPath) :
                 sys.stdout.write("]")
             badFrameSeq = seqLister.condenseSeq(badFrames)
             if len(badFrameSeq) > 0 :
-                if (len(missingFrameSeq) > 0) or (len(zeroFrameSeq) > 0) :
+                if      (len(missingFrameSeq) > 0) or \
+                        (len(zeroFrameSeq) > 0) :
                     sys.stdout.write(",")
                 sys.stdout.write(" b:[")
                 doPrintComma = False
                 for f in badFrameSeq :
+                    if doPrintComma :
+                        sys.stdout.write(",")
+                    sys.stdout.write(f)
+                    doPrintComma = True
+                sys.stdout.write("]")
+            badPadFrameSeq = seqLister.condenseSeq(badPadFrames)
+            if len(badPadFrameSeq) > 0 :
+                if      (len(missingFrameSeq) > 0) or \
+                        (len(zeroFrameSeq) > 0) or \
+                        (len(badFrameSeq) > 0) :
+                    sys.stdout.write(",")
+                sys.stdout.write(" p:[")
+                doPrintComma = False
+                for f in badPadFrameSeq :
                     if doPrintComma :
                         sys.stdout.write(",")
                     sys.stdout.write(f)
