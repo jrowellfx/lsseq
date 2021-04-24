@@ -240,7 +240,7 @@ def splitImageName(filenameKey) :
     fileRoot = ".".join(fileComponents) + numSep
     return [fileRoot, "", fileExt]
 
-# Return true if and only if keyName (eg. "a.b.c..ass" - from splitSeq())
+# Return true if and only if keyName (eg. "a.b.c..ass" - from seqSplit())
 # is a cache sequence (as opposed to an images sequence).
 #
 def isCache(keyName) :
