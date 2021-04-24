@@ -49,7 +49,8 @@ optional arguments:
                         shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]'
                         [default]
   --skipBadPadding      do not show list of badly padded frames
-  --combineLists, -c    combine the lists of zero, missing and bad frames into one list
+  --combineLists, -c    combine the lists of zero, missing and bad frames into one list. Reported
+                        as 'e:[<list>]'
   --extremes, -e        only list the first and last image on a separate line each. This option
                         implies --prependPathAbs (unless --prependPathRel is explicitly specified)
                         and --onlySequences
@@ -97,7 +98,7 @@ optional arguments:
                         argument specifies which frame to use for the cutoff comparison
 
 ------ Test 2 ------ lsseq --version ------
-2.2.0
+2.2.1
 
 ------ Test 3 ------ lsseq -lRFC testdir ------
 testdir:
