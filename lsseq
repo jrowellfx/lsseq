@@ -933,7 +933,8 @@ def main() :
         help="do not show list of badly padded frames" )
     p.add_argument("--combineLists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
-        help="combine the lists of zero, missing and bad frames into one list")
+        help="combine the lists of zero, missing and bad frames into one list. \
+        Reported as 'e:[<list>]'")
     p.add_argument("--extremes", "-e", action="store_true",
         dest="extremes", default=False,
         help="only list the first and last image on a separate line each. \
