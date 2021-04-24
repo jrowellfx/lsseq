@@ -1,9 +1,106 @@
 ------ Begin Tests ------
 
------- Test 1 ------ lsseq --version ------
+------ Test 1 ------ lsseq --help ------
+usage: lsseq [OPTION]... [FILE]...
+
+List directory contents (akin to /bin/ls) while condensing image
+sequences to one entry each. Filenames that are part of image
+sequences are assumed to be of the form:
+
+    <descriptiveName>.<frameNum>.<imgExtension>
+
+where <imgExtension> is drawn from a default list of image extensions
+(see option -i) or they can be set with the environment variable
+OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an
+OIC_MOV_EXTENSION environment variable for movie file extensions and
+OIC_CACHE_EXTENSION for caches and other miscellaneous sequences.
+
+lsseq will first list all non-image-sequence files followed by the
+list of image sequences as such:
+
+    $ lsseq
+    [output of /bin/ls minus image sequences]
+    [list of images sequences]
+
+positional arguments:
+  FILE                  file names
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --showBadFrames, -b   lists potentially bad frames based on the minimum size of a good frame
+                        (see --goodFrameMinSize)
+  --skipBadFrames, -B   do not show list of potentially bad frames [default]
+  --showMissing, -m     show list of missing frames [default]
+  --skipMissing, -M     do not show list of missing frames
+  --showZero, -z        show list of zero length images [default]
+  --skipZero, -Z        do not show list of zero length images
+  --showBadPadding      Bad padding occurs when a frame number contains leading zeros, but its
+                        pad-size is larger than the correct amount. The correct padding amount is
+                        derived from the pad-size of the smallest positive integer in the sequence
+                        (or largest negative if the entire range is negative)
+  --skipBadPadding      do not show list of badly padded frames [default]
+  --combineLists, -c    combine the lists of zero, missing and bad frames into one list
+  --extremes, -e        only list the first and last image on a separate line each. This option
+                        implies --prependPathAbs (unless --prependPathRel is explicitly specified)
+                        and --onlySequences
+  --format FORMAT, -f FORMAT
+                        list image sequences in various formats. The choices are 'native'
+                        (default), 'nuke', 'rv', 'shake', 'glob', 'mplay', and 'houdini'. Note
+                        that glob prints correct results only if the frame numbers are padded.
+                        Further note that reporting of missing/bad/etc frames (e.g. --showMissing)
+                        only happens with 'native' format
+  --goodFrameMinSize BYTES
+                        any frame size less than this size is considered to be a bad frame. Short
+                        forms for byte sizes are accepted as in '1K' (i.e., 1024) or '1.5K' for
+                        example. [default: 512]
+  --imgExt, -i          print list of image, cache and movie file extensions and exit
+  --looseNumSeparator, -l
+                        allow the use of '_' (underscore), in addition to '.' (dot) as a separator
+                        between the descriptiveName and frameNumber when looking to interpret
+                        filenames as image sequences. i.e.,
+                        <descriptiveName>_<frameNum>.<imgExtension> (also see
+                        --strictNumSeparator)
+  --onlySequences, -o   only list image sequences, cache sequences and movies
+  --onlyImages, -O      strictly list only image sequences (i.e., no movies or caches)
+  --onlyMovies          strictly list only movies (i.e., no images or caches)
+  --onlyCaches          strictly list only cache sequences (i.e., no images or movies)
+  --prependPathAbs, -p  prepend the absolute path name to the image name. This option implies the
+                        option --onlySequences and will also suppress printing directory name
+                        headers when listing directory contents
+  --prependPathRel, -P  prepend the relative path name to the image name. This option implies the
+                        option --onlySequences and will also suppress printing directory name
+                        headers when listing directory contents
+  --strictNumSeparator, -s
+                        strictly enforce the use of '.' (dot) as a separator between the
+                        descriptiveName and frameNumber when looking to interpret filenames as
+                        image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension> (this
+                        is the default; also see --looseNumSeparator)
+  --single, -1          list one non-sequence entry per line (see ls(1))
+  --all, -a             do not ignore entries starting with '.' while omitting implied '.' and
+                        '..' directories (see ls(1) --almost-all)
+  --byColumns, -C       list non-sequence entries by columns (see ls(1))
+  --byRows, -x          list non-sequence entries by lines instead of by columns (see ls(1))
+  --directory, -d       list directory entries instead of contents, and do not dereference
+                        symbolic links (see ls(1))
+  --classify, -F        append indicator (one of */=>@|) to entries (see ls(1))
+  --reverse, -r         reverse order while sorting
+  --recursive, -R       list subdirectories recursively
+  --time FRAME_AGE      which frame in the sequence to use to compare times between sequences when
+                        sorting by time. The possible values for 'FRAME_AGE' are 'oldest',
+                        'median' and 'newest' [default: 'newest']
+  -t                    sort by modification time, the default comparison time is between the most
+                        recently modified (newest) frames in each sequence. (see --time) (see
+                        ls(1))
+  --onlyShow TENSE [[CC]YY]MMDDhhmm[.ss]
+                        where TENSE is either 'before' or 'since'; only list sequences up to or
+                        after the time specified. The --time argument specifies which frame to use
+                        for the cutoff comparison
+
+------ Test 2 ------ lsseq --version ------
 2.1.0
 
------- Test 2 ------ lsseq -lRFC testdir ------
+------ Test 3 ------ lsseq -lRFC testdir ------
 testdir:
 adir/         ddir/  hdir/                 mkBlackFrames_HD_10.v01.shk  mk_hdir_Frames.v01.nk
 bdir/         edir/  idir/                 mkBlackFrames_HD_2.v01.shk   www..exr
@@ -132,7 +229,7 @@ hhh01.[0001-0040].jpg
 hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
------- Test 3 ------ lsseq -lReC testdir ------
+------ Test 4 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../lsseq/testdir/testDirFile.001.exr
 /...absPathToRepo.../lsseq/testdir/testDirFile.012.exr
 /...absPathToRepo.../lsseq/testdir/xxx.000.exr
@@ -221,7 +318,7 @@ hhh03.[0001-0040].jpg
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0001.jpg
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0040.jpg
 
------- Test 4 ------ lsseq -lReoC testdir ------
+------ Test 5 ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../lsseq/testdir/testDirFile.001.exr
 /...absPathToRepo.../lsseq/testdir/testDirFile.012.exr
 /...absPathToRepo.../lsseq/testdir/testDirFile.mov
@@ -324,7 +421,7 @@ hhh03.[0001-0040].jpg
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0001.jpg
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0040.jpg
 
------- Test 5 ------ lsseq -RePC testdir ------
+------ Test 6 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
 testdir/testDirFile.012.exr
 testdir/testDirFile.mov
@@ -419,7 +516,7 @@ testdir/idir/v001/hhh02.0040.jpg
 testdir/idir/v001/hhh03.0001.jpg
 testdir/idir/v001/hhh03.0040.jpg
 
------- Test 6 ------ lsseq -p ------
+------ Test 7 ------ lsseq -p ------
 /...absPathToRepo.../lsseq/testdir/testDirFile.[001-012].exr m:[3]
 /...absPathToRepo.../lsseq/testdir/testDirFile.mov
 /...absPathToRepo.../lsseq/testdir/testDirFile.wmv
@@ -428,7 +525,7 @@ testdir/idir/v001/hhh03.0040.jpg
 /...absPathToRepo.../lsseq/testdir/yyy.[0123].tif
 /...absPathToRepo.../lsseq/testdir/yyy.mov
 
------- Test 7 ------ lsseq ------
+------ Test 8 ------ lsseq ------
 adir
 bdir
 blackFrames
@@ -455,7 +552,7 @@ xxx.mov
 yyy.[0123].tif
 yyy.mov
 
------- Test 8 ------ lsseq * ------
+------ Test 9 ------ lsseq * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -634,7 +731,7 @@ v003
 idir:
 v001
 
------- Test 9 ------ lsseq -l * ------
+------ Test 10 ------ lsseq -l * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -789,7 +886,7 @@ v003
 idir:
 v001
 
------- Test 10 ------ lsseq ------
+------ Test 11 ------ lsseq ------
 aaaa
 bbbb
 c_subDir
@@ -828,7 +925,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 11 ------ lsseq . ------
+------ Test 12 ------ lsseq . ------
 aaaa
 bbbb
 c_subDir
@@ -867,7 +964,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 12 ------ lsseq * ------
+------ Test 13 ------ lsseq * ------
 aaaa
 bbbb
 cccc
@@ -908,7 +1005,7 @@ ccc03.[80-140].tga
 c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 13 ------ lsseq -d * ------
+------ Test 14 ------ lsseq -d * ------
 aaaa
 bbbb
 c_subDir
@@ -947,7 +1044,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 14 ------ lsseq -c ------
+------ Test 15 ------ lsseq -c ------
 aaaa
 bbbb
 c_subDir
@@ -986,7 +1083,7 @@ ccc01.[001-120].exr e:[3,52-55]
 ccc02.[001-120].exr e:[51,119]
 ccc03.[80-140].tga
 
------- Test 15 ------ lsseq -e -R ------
+------ Test 16 ------ lsseq -e -R ------
 /...absPathToRepo.../lsseq/testdir/cdir/ccc01.001.exr
 /...absPathToRepo.../lsseq/testdir/cdir/ccc01.120.exr
 /...absPathToRepo.../lsseq/testdir/cdir/ccc02.001.exr
@@ -996,7 +1093,7 @@ ccc03.[80-140].tga
 /...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.001.exr
 /...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.120.exr
 
------- Test 16 ------ lsseq -e -R -P ------
+------ Test 17 ------ lsseq -e -R -P ------
 ./ccc01.001.exr
 ./ccc01.120.exr
 ./ccc02.001.exr
@@ -1006,7 +1103,7 @@ ccc03.[80-140].tga
 ./c_subDir/ccc01.001.exr
 ./c_subDir/ccc01.120.exr
 
------- Test 17 ------ lsseq -fnative ------
+------ Test 18 ------ lsseq -fnative ------
 aaaa
 bbbb
 c_subDir
@@ -1045,7 +1142,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 18 ------ lsseq -fnuke ------
+------ Test 19 ------ lsseq -fnuke ------
 aaaa
 bbbb
 c_subDir
@@ -1084,7 +1181,7 @@ ccc01.%03d.exr 1-120
 ccc02.%03d.exr 1-120
 ccc03.%02d.tga 80-140
 
------- Test 19 ------ lsseq -fshake ------
+------ Test 20 ------ lsseq -fshake ------
 aaaa
 bbbb
 c_subDir
@@ -1123,7 +1220,7 @@ shake -t 1-120 ccc01.@@@.exr
 shake -t 1-120 ccc02.@@@.exr
 shake -t 80-140 ccc03.@@.tga
 
------- Test 20 ------ lsseq -frv ------
+------ Test 21 ------ lsseq -frv ------
 aaaa
 bbbb
 c_subDir
@@ -1158,11 +1255,11 @@ vvvv
 xxxx
 yyyy
 zzzz
-ccc01.1-120@@@.exr m:[3], z:[52-55]
-ccc02.1-120@@@.exr m:[51,119]
+ccc01.1-120@@@.exr
+ccc02.1-120@@@.exr
 ccc03.80-140@@.tga
 
------- Test 21 ------ lsseq -fglob ------
+------ Test 22 ------ lsseq -fglob ------
 aaaa
 bbbb
 c_subDir
@@ -1201,12 +1298,12 @@ ccc01.[0-9][0-9][0-9].exr
 ccc02.[0-9][0-9][0-9].exr
 ccc03.[0-9][0-9].tga
 
------- Test 22 ------ lsseq -i ------
+------ Test 23 ------ lsseq -i ------
 OIC_IMAGE_EXTENSION: JPEG:JPG:NEF:alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
 OIC_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
 OIC_CACHE_EXTENSION: ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:vdb:vdb.gz:vdb.sc
 
------- Test 23 ------ lsseq -M ------
+------ Test 24 ------ lsseq -M ------
 aaaa
 bbbb
 c_subDir
@@ -1245,24 +1342,24 @@ ccc01.[001-120].exr z:[52-55]
 ccc02.[001-120].exr
 ccc03.[80-140].tga
 
------- Test 24 ------ lsseq -o ------
+------ Test 25 ------ lsseq -o ------
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 25 ------ lsseq -p * ------
+------ Test 26 ------ lsseq -p * ------
 /...absPathToRepo.../lsseq/testdir/cdir/ccc01.[001-120].exr m:[3], z:[52-55]
 /...absPathToRepo.../lsseq/testdir/cdir/ccc02.[001-120].exr m:[51,119]
 /...absPathToRepo.../lsseq/testdir/cdir/ccc03.[80-140].tga
 /...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 26 ------ lsseq -P * ------
+------ Test 27 ------ lsseq -P * ------
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 27 ------ lsseq -r ------
+------ Test 28 ------ lsseq -r ------
 zzzz
 yyyy
 xxxx
@@ -1301,7 +1398,7 @@ ccc03.[80-140].tga
 ccc02.[001-120].exr m:[51,119]
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 28 ------ lsseq -t ------
+------ Test 29 ------ lsseq -t ------
 custom.touch.images
 list.images
 initial.image.mtimes
@@ -1340,7 +1437,7 @@ ccc03.[80-140].tga
 ccc02.[001-120].exr m:[51,119]
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 29 ------ lsseq -t --time oldest ------
+------ Test 30 ------ lsseq -t --time oldest ------
 custom.touch.images
 list.images
 initial.image.mtimes
@@ -1379,7 +1476,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc03.[80-140].tga
 ccc02.[001-120].exr m:[51,119]
 
------- Test 30 ------ lsseq -t --time median ------
+------ Test 31 ------ lsseq -t --time median ------
 custom.touch.images
 list.images
 initial.image.mtimes
@@ -1418,7 +1515,7 @@ ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 31 ------ lsseq -Z ------
+------ Test 32 ------ lsseq -Z ------
 aaaa
 bbbb
 c_subDir
@@ -1457,7 +1554,7 @@ ccc01.[001-120].exr m:[3]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 32 ------ lsseq -R /...absPathToRepo.../lsseq/testdir/cdir/ /...absPathToRepo.../lsseq/testdir/ ------
+------ Test 33 ------ lsseq -R /...absPathToRepo.../lsseq/testdir/cdir/ /...absPathToRepo.../lsseq/testdir/ ------
 /...absPathToRepo.../lsseq/testdir:
 adir
 bdir
@@ -1861,7 +1958,7 @@ ccc03.[80-140].tga
 /...absPathToRepo.../lsseq/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 33 ------ lsseq -R /...absPathToRepo.../lsseq/testdir/cdir/ ------
+------ Test 34 ------ lsseq -R /...absPathToRepo.../lsseq/testdir/cdir/ ------
 /...absPathToRepo.../lsseq/testdir/cdir:
 aaaa
 bbbb
@@ -1904,7 +2001,7 @@ ccc03.[80-140].tga
 /...absPathToRepo.../lsseq/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 34 ------ lsseq -Ra ------
+------ Test 35 ------ lsseq -Ra ------
 .:
 .aaa
 .bbb
@@ -1954,7 +2051,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 35 ------ lsseq -R -b --goodFrameMinSize 1K ------
+------ Test 36 ------ lsseq -R -b --goodFrameMinSize 1K ------
 .:
 aaaa
 bbbb
@@ -1997,7 +2094,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95,102]
 
------- Test 36 ------ lsseq -1Rb ------
+------ Test 37 ------ lsseq -1Rb ------
 .:
 aaaa
 bbbb
@@ -2040,7 +2137,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 37 ------ lsseq -1RbC ------
+------ Test 38 ------ lsseq -1RbC ------
 .:
 aaaa                 eeee                  jjjj             nnnn            shake01.02.shk  vvvv
 bbbb                 ffff                  kkkk             oooo            shake01.03.shk  xxxx
@@ -2055,7 +2152,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 38 ------ lsseq -Rbx ------
+------ Test 39 ------ lsseq -Rbx ------
 .:
 aaaa         bbbb  c_subDir         cccc            custom.touch.images   dddd            eeee
 ffff         gggg  hhhh             iiii            initial.image.mtimes  jjjj            kkkk
@@ -2069,7 +2166,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 39 ------ lsseq -1CRbx ------
+------ Test 40 ------ lsseq -1CRbx ------
 .:
 aaaa         bbbb  c_subDir         cccc            custom.touch.images   dddd            eeee
 ffff         gggg  hhhh             iiii            initial.image.mtimes  jjjj            kkkk
@@ -2083,16 +2180,16 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 40 ------ lsseq -R -P -p -P -f rv -f glob -fnative -C -b ------
+------ Test 41 ------ lsseq -R -P -p -P -f rv -f glob -fnative -C -b ------
 ./ccc01.[001-120].exr m:[3], z:[52-55]
 ./ccc02.[001-120].exr m:[51,119]
 ./ccc03.[80-140].tga
 ./c_subDir/ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 41 ------ lsseq ------
+------ Test 42 ------ lsseq ------
 v001
 
------- Test 42 ------ lsseq -R ------
+------ Test 43 ------ lsseq -R ------
 .:
 v001
 
@@ -2101,17 +2198,17 @@ hhh01.[0001-0040].jpg
 hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
------- Test 43 ------ lsseq -P * ------
+------ Test 44 ------ lsseq -P * ------
 v001/hhh01.[0001-0040].jpg
 v001/hhh02.[0001-0040].jpg
 v001/hhh03.[0001-0040].jpg
 
------- Test 44 ------ lsseq -p * ------
+------ Test 45 ------ lsseq -p * ------
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.[0001-0040].jpg
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.[0001-0040].jpg
 /...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.[0001-0040].jpg
 
------- Test 45 ------ lsseq -t -r -P foo/*/* v001/* v002/* v003/* ------
+------ Test 46 ------ lsseq -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -2131,7 +2228,7 @@ v003/hhh01.[0001-0040].jpg
 v003/hhh02.[0001-0040].jpg
 v003/hhh03.[0001-0040].jpg
 
------- Test 46 ------ lsseq --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/* v003/* ------
+------ Test 47 ------ lsseq --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -2146,7 +2243,7 @@ v001/hhh02.[0001-0040].jpg
 v001/hhh03.[0001-0040].jpg
 v002/hhh01.[0001-0040].jpg
 
------- Test 47 ------ lsseq --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/* ------
+------ Test 48 ------ lsseq --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -2162,18 +2259,18 @@ v001/hhh03.[0001-0040].jpg
 v002/hhh01.[0001-0040].jpg
 v002/hhh02.[0001-0040].jpg
 
------- Test 48 ------ lsseq -i ------
+------ Test 49 ------ lsseq -i ------
 OIC_IMAGE_EXTENSION: JPEG:JPG:NEF:alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
 OIC_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
 OIC_CACHE_EXTENSION: ass:ass.gz:dshd:fur:obj:srf
 
------- Test 49 ------ lsseq --onlyImages ------
+------ Test 50 ------ lsseq --onlyImages ------
 
------- Test 50 ------ lsseq --onlyMovies ------
+------ Test 51 ------ lsseq --onlyMovies ------
 xxx01.mov
 xxx02.mov
 
------- Test 51 ------ lsseq --onlyCaches ------
+------ Test 52 ------ lsseq --onlyCaches ------
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur

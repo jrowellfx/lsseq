@@ -48,6 +48,7 @@ export COLUMNS=100
 # The rest are args to lsseq.
 #
 cat << EOF > $tmpArgs
+. --help
 . --version
 . -lRFC testdir
 . -lReC testdir
