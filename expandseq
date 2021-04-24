@@ -1,4 +1,4 @@
-#!/usr/bin/python3.6
+#!/usr/bin/python3
 
 # expandseq/condenseseq - two command line utilities that expose the basic
 # functionality of the python-module "seqLister.py" functions "expandSeq()"
