@@ -7,7 +7,7 @@ unset OIC_CACHE_EXTENSION
 
 # !!! This script MUST be run from the root of the lsseq git repo for this to work.
 #
-REPO_DIR=`pwd`
+export REPO_DIR=`pwd`
 export PATH=$REPO_DIR:$PATH
 
 # NOTE: To make sure the modification times of the testdir/cdir images are
@@ -96,6 +96,8 @@ testdir/idir -p *
 testdir/hdir -t -r -P foo/*/* v001/* v002/* v003/*
 testdir/hdir --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/* v003/*
 testdir/hdir --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/*
+testdir/jdir --showBadPadding --skipMissing --skipZero --skipBadFrames -R
+testdir/jdir/beauty/v001 --showBadPadding --skipMissing --skipZero --skipBadFrames -R
 EOF
 
 echo ------ Begin Tests ------ > $REPO_DIR/test_lsseq.out.new

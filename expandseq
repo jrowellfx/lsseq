@@ -202,7 +202,10 @@ def main():
     isFirst = True
     for s in result :
         if args.seqDelimiter == 'space' :
-            print(s, end='')
+            if not isFirst :
+                sys.stdout.write(' ')
+            sys.stdout.write(str(s))
+            isFirst = False
         elif args.seqDelimiter == 'comma' :
             if not isFirst :
                 sys.stdout.write(',')
@@ -210,7 +213,7 @@ def main():
             isFirst = False
         else : # newline
             print(s)
-    if args.seqDelimiter == 'comma' and not isFirst :
+    if (args.seqDelimiter == 'comma' or args.seqDelimiter == 'space') and not isFirst :
         print()
 
 if __name__ == '__main__':

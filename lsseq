@@ -51,7 +51,6 @@
 #
 # which explains the use of the "OIC" prefix for my env-variables below.
 
-
 import argparse
 import os
 import sys
@@ -61,6 +60,8 @@ import math
 import time
 from operator import itemgetter
 import seqLister
+
+VERSION = "2.2.0"
 
 CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
     "bgeo.sc", "bgeo.gz", "ifd.sc", "ifd.gz", "vdb.sc", "vdb.gz"]
@@ -268,6 +269,7 @@ def printSeq(filename, frameList, args, traversedPath) :
     errFrames = []
     minFrame = frameList[0][FRAME_NUM]
     maxFrame = frameList[-1][FRAME_NUM]
+    padding = 0 # Set below, created here for scope.
 
     # Calculate padding.
     #
@@ -360,61 +362,53 @@ def printSeq(filename, frameList, args, traversedPath) :
 
         if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
             sys.stdout.write(traversedPath)
-        if args.extremes :
-            fileComponents[1] = formatStr % minFrame
-
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
-        if minFrame != maxFrame and args.extremes :
-            print()
-            if fileComponents[0][0] != '/' :
-                sys.stdout.write(traversedPath)
-            fileComponents[1] = formatStr % maxFrame
-            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     else : # native
 
         # Gather up the various lists of problem frames.
         # Only needed in native format listings.
         #
-        i = minFrame
-        while i <= maxFrame :
-            iMissing = False
-            currFrameData = frameList[0]
-            if i != currFrameData[FRAME_NUM] :
-                iMissing = True
-                if args.showMissing :
-                    missingFrames.append(i)
-            else :
-                frameList.pop(0)
+        if args.showMissing or args.showZero or args.showBad or args.showBadPadding :
+            i = minFrame
+            while i <= maxFrame :
+                iMissing = False
+                currFrameData = frameList[0]
+                if i != currFrameData[FRAME_NUM] :
+                    iMissing = True
+                    if args.showMissing :
+                        missingFrames.append(i)
+                else :
+                    frameList.pop(0)
 
-            if not iMissing and (args.showZero or args.showBad or args.showBadPadding) :
+                if not iMissing and (args.showZero or args.showBad or args.showBadPadding) :
 
-                if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
-                    if args.showZero :
+                    if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
+                        if args.showZero :
+                            zeroFrames.append(i)
+                        elif args.showBad :
+                            badFrames.append(i)
+                        actualFilename = actualImageName(filename, padding, i)
+                        print( os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
+                            " is a broken soft link.", sep='', file=sys.stderr)
+
+                    # File-size issues.
+                    #
+                    elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
                         zeroFrames.append(i)
-                    elif args.showBad :
+                    elif args.showBad and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
                         badFrames.append(i)
-                    actualFilename = actualImageName(filename, padding, i)
-                    print( os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
-                        " is a broken soft link.", sep='', file=sys.stderr)
 
-                # File-size issues.
-                #
-                elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
-                    zeroFrames.append(i)
-                elif args.showBad and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
-                    badFrames.append(i)
-
-                # Bad padding occurs when a number is padded, but shouldn't be,
-                # or isn't padded, but it should be.
-                #
-                if args.showBadPadding and (\
-                        (curFrameData[FRAME_PADDING] > len(str(i)) and \
-                         curFrameData[FRAME_PADDING] > padding) \
-                            or \
-                        curFrameData[FRAME_PADDING] < padding) :
-                    badPadFrames.append(i)
-            i += 1
+                    # Bad padding occurs when a number is padded, but shouldn't be,
+                    # or isn't padded, but it should be.
+                    #
+                    if args.showBadPadding and (\
+                            (currFrameData[FRAME_PADDING] > len(str(i)) and \
+                             currFrameData[FRAME_PADDING] > padding) \
+                                or \
+                            currFrameData[FRAME_PADDING] < padding) :
+                        badPadFrames.append(i)
+                i += 1
 
         if minFrame == maxFrame :
             frameRange = "[" \
@@ -430,9 +424,9 @@ def printSeq(filename, frameList, args, traversedPath) :
 
         if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
             sys.stdout.write(traversedPath)
+
         if args.extremes :
             fileComponents[1] = formatStr % minFrame
-
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
         if minFrame != maxFrame and args.extremes :
             print()
@@ -889,45 +883,8 @@ def main() :
             '''),
         usage="%(prog)s [OPTION]... [FILE]...")
 
-    p.add_argument("--version", action="version", version="2.1.0")
+    p.add_argument("--version", action="version", version=VERSION)
 
-    p.add_argument("--showBadFrames", "-b", action="store_true",
-        dest="showBad", default=False,
-        help="lists potentially bad frames based on the \
-        minimum size of a good frame (see --goodFrameMinSize)")
-    p.add_argument("--skipBadFrames", "-B", action="store_false",
-        dest="showBad",
-        help="do not show list of potentially bad frames [default]" )
-    p.add_argument("--showMissing", "-m", action="store_true",
-        dest="showMissing", default=True,
-        help="show list of missing frames [default]" )
-    p.add_argument("--skipMissing", "-M", action="store_false",
-        dest="showMissing",
-        help="do not show list of missing frames" )
-    p.add_argument("--showZero", "-z", action="store_true",
-        dest="showZero", default=True,
-        help="show list of zero length images [default]" )
-    p.add_argument("--skipZero", "-Z", action="store_false",
-        dest="showZero",
-        help="do not show list of zero length images" )
-    p.add_argument("--showBadPadding", action="store_true",
-        dest="showBadPadding", default=False,
-        help="Bad padding occurs when a frame number contains leading \
-        zeros, but its pad-size is larger than the correct amount. \
-        The correct padding amount is derived from the pad-size of the \
-        smallest positive integer in the sequence (or largest \
-        negative if the entire range is negative)")
-    p.add_argument("--skipBadPadding", action="store_false",
-        dest="showBadPadding",
-        help="do not show list of badly padded frames [default]" )
-    p.add_argument("--combineLists", "-c", action="store_true",
-        dest="combineErrorFrames", default=False,
-        help="combine the lists of zero, missing and bad frames into one list")
-    p.add_argument("--extremes", "-e", action="store_true",
-        dest="extremes", default=False,
-        help="only list the first and last image on a separate line each. \
-        This option implies --prependPathAbs (unless --prependPathRel is \
-        explicitly specified) and --onlySequences")
     p.add_argument("--format", "-f", action="store", type=str,
         choices=("native", "nuke", "rv", "shake", "glob", "mplay", "houdini"),
         dest="seqFormat",
@@ -940,12 +897,47 @@ def main() :
         the frame numbers are padded. Further note that reporting of \
         missing/bad/etc frames (e.g. --showMissing) only happens \
         with 'native' format")
+    p.add_argument("--showMissing", "-m", action="store_true",
+        dest="showMissing", default=True,
+        help="show list of missing frames as 'm:[<list>]' [default]" )
+    p.add_argument("--skipMissing", "-M", action="store_false",
+        dest="showMissing",
+        help="do not show list of missing frames" )
+    p.add_argument("--showZero", "-z", action="store_true",
+        dest="showZero", default=True,
+        help="show list of zero length images as 'z:[<list>]' [default]" )
+    p.add_argument("--skipZero", "-Z", action="store_false",
+        dest="showZero",
+        help="do not show list of zero length images" )
+    p.add_argument("--showBadFrames", "-b", action="store_true",
+        dest="showBad", default=False,
+        help="lists potentially bad frames based on the \
+        minimum size of a good frame (see --goodFrameMinSize). \
+        Reported as 'b:[<list>]'")
+    p.add_argument("--skipBadFrames", "-B", action="store_false",
+        dest="showBad",
+        help="do not show list of potentially bad frames [default]" )
     p.add_argument("--goodFrameMinSize", action="store", type=readByteShortForm,
         dest="goodFrameMinSize", default=512,
         metavar="BYTES",
         help="any frame size less than this size is considered to be \
         a bad frame. Short forms for byte sizes are accepted as \
         in '1K' (i.e., 1024) or '1.5K' for example. [default: 512]")
+    p.add_argument("--showBadPadding", action="store_true",
+        dest="showBadPadding", default=True,
+        help="Report badly padded frame numbers which occurs when a number is padded\
+        but shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]' [default]")
+    p.add_argument("--skipBadPadding", action="store_false",
+        dest="showBadPadding",
+        help="do not show list of badly padded frames" )
+    p.add_argument("--combineLists", "-c", action="store_true",
+        dest="combineErrorFrames", default=False,
+        help="combine the lists of zero, missing and bad frames into one list")
+    p.add_argument("--extremes", "-e", action="store_true",
+        dest="extremes", default=False,
+        help="only list the first and last image on a separate line each. \
+        This option implies --prependPathAbs (unless --prependPathRel is \
+        explicitly specified) and --onlySequences")
     p.add_argument("--imgExt", "-i", action="store_true",
         dest="printImgExtensions", default=False,
         help="print list of image, cache and movie file extensions and exit")
@@ -1029,7 +1021,7 @@ def main() :
     p.add_argument("--onlyShow", action="store", type=str, nargs=2,
         dest="cutoffTime",
         help="where TENSE is either 'before' or 'since'; only list sequences\
-        up to or after the time specified. The --time argument \
+        up to (and including) or after (and including) the time specified. The --time argument \
         specifies which frame to use for the cutoff comparison",
         metavar=("TENSE", "[[CC]YY]MMDDhhmm[.ss]"))
 
@@ -1090,6 +1082,8 @@ def main() :
             args.prependPath = PATH_ABS
         args.showMissing = False
         args.showZero = False
+        args.showBad = False
+        args.showBadPadding = False
         args.seqFormat = 'native'
         if args.listWhichFiles == LIST_ALLFILES :
             args.listWhichFiles = LIST_ONLYIMGS # Strictly only images.
