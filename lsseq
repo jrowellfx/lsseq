@@ -931,7 +931,7 @@ def main() :
     p.add_argument("--goodFrameMinSize", action="store", type=readByteShortForm,
         dest="goodFrameMinSize", default=512,
         metavar="BYTES",
-        help="any frame size less than this size is considered to be \
+        help="any frame size less than BYTES is considered to be \
         a bad frame. Short forms for byte sizes are accepted as \
         in '1K' (i.e., 1024) or '1.5K' for example. [default: 512]")
     p.add_argument("--showBadPadding", "-g", action="store_true",
