@@ -126,7 +126,7 @@ privileges).
     ```
 4)  install the commands and supporting python module:
     ```
-    $ cd lsseq-2.2.0
+    $ cd lsseq-2.3.0
     $ sudo python3 setup.py install
     ```
 
