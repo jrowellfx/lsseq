@@ -27,7 +27,7 @@ tmpArgs=/tmp/tmpTEST_LSSEQ.$$
 
 cleanup() {
     /bin/rm $tmpArgs  > /dev/null 2>&1
-    /bin/rm $tmp$$    > /dev/null 2>&1
+    /bin/rm /tmp/tmp$$    > /dev/null 2>&1
     exit 0
 }
 
