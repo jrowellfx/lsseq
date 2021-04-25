@@ -996,10 +996,10 @@ def main() :
         directory contents")
     p.add_argument("--strictNumSeparator", "-s", action="store_true",
         dest="strictSeparator", default=True,
-        help="strictly enforce the use of '.' (dot) as a separator between the\
-            descriptiveName and frameNumber when looking to interpret filenames as\
-            image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension>\
-            (this is the default; also see --looseNumSeparator)")
+        help="strictly enforce the use of '.' (dot) as a separator between the \
+            descriptiveName and frameNumber when looking to interpret filenames as \
+            image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension> \
+            (also see --looseNumSeparator) [default]")
     p.add_argument("--single", "-1", action="store_const",
         dest="byWhat", default=BY_UNSPECIFIED, const=BY_SINGLE,
         help="list one non-sequence entry per line (see ls(1))")
