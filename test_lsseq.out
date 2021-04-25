@@ -45,12 +45,16 @@ optional arguments:
                         any frame size less than this size is considered to be a bad frame. Short
                         forms for byte sizes are accepted as in '1K' (i.e., 1024) or '1.5K' for
                         example. [default: 512]
-  --showBadPadding      Report badly padded frame numbers which occurs when a number is padded but
+  --showBadPadding, -g  Report badly padded frame numbers which occurs when a number is padded but
                         shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]'
                         [default]
-  --skipBadPadding      do not show list of badly padded frames
+  --skipBadPadding, -G  do not show list of badly padded frames
   --combineLists, -c    combine the lists of zero, missing and bad frames into one list. Reported
                         as 'e:[<list>]'
+  --noCombineLists      Don't combine the error lists.
+  --noErrorLists, -n    Skip printing ALL error lists. Note: Setting --showBadPadding (for
+                        example) AFTER this option on the command line has the effect of ONLY
+                        showing the badPadding error list
   --extremes, -e        only list the first and last image on a separate line each. This option
                         implies --prependPathAbs (unless --prependPathRel is explicitly specified)
                         and --onlySequences
@@ -98,7 +102,7 @@ optional arguments:
                         argument specifies which frame to use for the cutoff comparison
 
 ------ Test 2 ------ lsseq --version ------
-2.2.1
+2.3.0
 
 ------ Test 3 ------ lsseq -lRFC testdir ------
 testdir:

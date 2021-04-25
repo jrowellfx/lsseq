@@ -61,7 +61,7 @@ import time
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.2.2"
+VERSION = "2.3.0"
 
 CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
     "bgeo.sc", "bgeo.gz", "ifd.sc", "ifd.gz", "vdb.sc", "vdb.gz"]
@@ -849,6 +849,27 @@ def main() :
     global LIST_ONLYMOVS
     global LIST_ONLYCACHES
 
+    # To help with argparse.
+    #
+    # This block of code allows us to set multiple values at once with
+    # one flag. I will use it to clear a bunch of toggles with one option
+    # on the command line. The beauty of this is that we can use this flag
+    # to clear all of the toggles, but then reset ONLY ONE later on the
+    # command line as argparse sets the values as it marches through the options.
+    #
+    def store_const_multiple(const, *destinations) :
+        class store_const_multiple_action(argparse.Action) :
+            def __init__(self, *args, **kwargs) :
+                super(store_const_multiple_action, self).__init__( \
+                    metavar = None, nargs = 0, const = const, *args, **kwargs)
+            def __call__(self, parser, namespace, values, option_string = None) :
+                for d in destinations :
+                    setattr(namespace, d, const)
+        return store_const_multiple_action
+
+    def store_false_multiple(*destinations) :
+        return store_const_multiple(False, *destinations)
+
     p = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=textwrap.dedent('''\
@@ -913,17 +934,25 @@ def main() :
         help="any frame size less than this size is considered to be \
         a bad frame. Short forms for byte sizes are accepted as \
         in '1K' (i.e., 1024) or '1.5K' for example. [default: 512]")
-    p.add_argument("--showBadPadding", action="store_true",
+    p.add_argument("--showBadPadding", "-g", action="store_true",
         dest="showBadPadding", default=True,
         help="Report badly padded frame numbers which occurs when a number is padded\
         but shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]' [default]")
-    p.add_argument("--skipBadPadding", action="store_false",
+    p.add_argument("--skipBadPadding", "-G", action="store_false",
         dest="showBadPadding",
         help="do not show list of badly padded frames" )
     p.add_argument("--combineLists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
         help="combine the lists of zero, missing and bad frames into one list. \
         Reported as 'e:[<list>]'")
+    p.add_argument("--noCombineLists", action="store_false",
+        dest="combineErrorFrames",
+        help="Don't combine the error lists.")
+    p.add_argument("--noErrorLists", "-n", help = "Skip printing ALL error lists. \
+        Note: Setting --showBadPadding (for example) AFTER this \
+        option on the command line has the effect of ONLY \
+        showing the badPadding error list ", \
+        action = store_false_multiple("showMissing", "showZero", "showBad", "showBadPadding"))
     p.add_argument("--extremes", "-e", action="store_true",
         dest="extremes", default=False,
         help="only list the first and last image on a separate line each. \

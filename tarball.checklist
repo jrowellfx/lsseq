@@ -1,0 +1,19 @@
+1. Make sure all version numbers are updated.
+   - lsseq
+   - setup.py
+   - expandseq (if needed)
+   - README.md
+2. Run test_lsseq
+   - diff output
+3. If test GOOD and test output CHANGED
+   mv test_lsseq.out.new test_lsseq.out
+4. python3 setup.py sdist
+5. Copy the new tarball up into tmpInstall dir,
+   tar -xvcf lsseq-xxxxx.tar.gz it
+   su -
+   cd into new tarball extracted dir
+   python3 setup.py install
+6. Test it in another window to make sure changes picked up.
+7. Check in all the new files.
+8. Push up to github.
+9. Make a new release.
