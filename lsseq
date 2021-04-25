@@ -391,7 +391,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                             badFrames.append(i)
                         actualFilename = actualImageName(filenameKey, padding, i)
                         print( os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
-                            " is a broken soft link.", sep='', file=sys.stderr)
+                            " is a broken soft link", sep='', file=sys.stderr)
 
                     # File-size issues.
                     #
@@ -947,7 +947,7 @@ def main() :
         Reported as 'e:[<list>]'")
     p.add_argument("--noCombineLists", action="store_false",
         dest="combineErrorFrames",
-        help="Don't combine the error lists.")
+        help="Don't combine the error lists")
     p.add_argument("--noErrorLists", "-n", help = "Skip printing ALL error lists. \
         Note: Setting --showBadPadding (for example) AFTER this \
         option on the command line has the effect of ONLY \
@@ -1112,7 +1112,7 @@ def main() :
         args.cutoffTime[0] = args.cutoffTime[0].lower()
         if (args.cutoffTime[0] != 'before') and (args.cutoffTime[0] != 'since') :
             print(os.path.basename(sys.argv[0]), \
-                ": error: argument --onlyShow: TENSE must be 'since' or 'before'.", \
+                ": error: argument --onlyShow: TENSE must be 'since' or 'before'", \
                 file=sys.stderr, sep='')
             sys.exit(1)
         timeSpec = args.cutoffTime[1].split('.')

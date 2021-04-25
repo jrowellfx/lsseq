@@ -23,11 +23,13 @@ export PATH=$REPO_DIR:$PATH
 # source custom.touch.images
 
 unalias lsseq > /dev/null 2>&1
-tmpArgs=/tmp/tmpTEST_LSSEQ.$$
+
+tmpArgs=/tmp/tmpARGS_LSSEQ$$
+tmpfile=/tmp/tmpFILE_LSSEQ$$
 
 cleanup() {
-    /bin/rm $tmpArgs  > /dev/null 2>&1
-    /bin/rm /tmp/tmp$$    > /dev/null 2>&1
+    /bin/rm $tmpArgs > /dev/null 2>&1
+    /bin/rm $tmpfile > /dev/null 2>&1
     exit 0
 }
 
@@ -41,7 +43,7 @@ cd testdir/hdir
 source touch.files
 cd $REPO_DIR
 
-export COLUMNS=100
+export COLUMNS=100 # Bash env var.
 
 # The following are test arguments. One test per line.
 # The first item on a line is the working directory for the test to place in.
@@ -148,8 +150,8 @@ while true; do
     j=$(expr $j + 1)
 done
 
-sed -e "1,$ s-$REPO_DIR-/...absPathToRepo.../lsseq-g" < $REPO_DIR/test_lsseq.out.new > /tmp/tmp$$
-expand < /tmp/tmp$$ | sed -e '1,$ s/ *$//' > $REPO_DIR/test_lsseq.out.new
+sed -e "1,$ s-$REPO_DIR-/...absPathToRepo.../lsseq-g" < $REPO_DIR/test_lsseq.out.new > $tmpfile
+expand < $tmpfile | sed -e '1,$ s/ *$//' > $REPO_DIR/test_lsseq.out.new
 
 cleanup
 
