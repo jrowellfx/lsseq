@@ -42,7 +42,7 @@ optional arguments:
                         (see --goodFrameMinSize). Reported as 'b:[<list>]'
   --skipBadFrames, -B   do not show list of potentially bad frames [default]
   --goodFrameMinSize BYTES
-                        any frame size less than this size is considered to be a bad frame. Short
+                        any frame size less than BYTES is considered to be a bad frame. Short
                         forms for byte sizes are accepted as in '1K' (i.e., 1024) or '1.5K' for
                         example. [default: 512]
   --showBadPadding, -g  Report badly padded frame numbers which occurs when a number is padded but
@@ -51,7 +51,7 @@ optional arguments:
   --skipBadPadding, -G  do not show list of badly padded frames
   --combineLists, -c    combine the lists of zero, missing and bad frames into one list. Reported
                         as 'e:[<list>]'
-  --noCombineLists      Don't combine the error lists.
+  --noCombineLists      Don't combine the error lists
   --noErrorLists, -n    Skip printing ALL error lists. Note: Setting --showBadPadding (for
                         example) AFTER this option on the command line has the effect of ONLY
                         showing the badPadding error list
@@ -78,8 +78,8 @@ optional arguments:
   --strictNumSeparator, -s
                         strictly enforce the use of '.' (dot) as a separator between the
                         descriptiveName and frameNumber when looking to interpret filenames as
-                        image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension> (this
-                        is the default; also see --looseNumSeparator)
+                        image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension> (also
+                        see --looseNumSeparator) [default]
   --single, -1          list one non-sequence entry per line (see ls(1))
   --all, -a             do not ignore entries starting with '.' while omitting implied '.' and
                         '..' directories (see ls(1) --almost-all)

@@ -598,20 +598,20 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             if isCache(fileParts[SEQKEY]) :
                 if fileParts[SEQKEY] in cacheDictionary :
                     # tack on new frame number.
-                    cacheDictionary[fileParts[SEQKEY]].append( \
+                    cacheDictionary[fileParts[SEQKEY]].append(
                         (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
                 else :
                     # initialiaze dictionary entry.
-                    cacheDictionary[fileParts[SEQKEY]] = [ \
+                    cacheDictionary[fileParts[SEQKEY]] = [
                         (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
             else :
                 if fileParts[SEQKEY] in imageDictionary :
                     # tack on new frame number.
-                    imageDictionary[fileParts[SEQKEY]].append( \
+                    imageDictionary[fileParts[SEQKEY]].append(
                         (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
                 else :
                     # initialiaze dictionary entry.
-                    imageDictionary[fileParts[SEQKEY]] = [ \
+                    imageDictionary[fileParts[SEQKEY]] = [
                         (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
 
         elif isMovie(filename) :
@@ -860,7 +860,7 @@ def main() :
     def store_const_multiple(const, *destinations) :
         class store_const_multiple_action(argparse.Action) :
             def __init__(self, *args, **kwargs) :
-                super(store_const_multiple_action, self).__init__( \
+                super(store_const_multiple_action, self).__init__(
                     metavar = None, nargs = 0, const = const, *args, **kwargs)
             def __call__(self, parser, namespace, values, option_string = None) :
                 for d in destinations :
@@ -936,7 +936,7 @@ def main() :
         in '1K' (i.e., 1024) or '1.5K' for example. [default: 512]")
     p.add_argument("--showBadPadding", "-g", action="store_true",
         dest="showBadPadding", default=True,
-        help="Report badly padded frame numbers which occurs when a number is padded\
+        help="Report badly padded frame numbers which occurs when a number is padded \
         but shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]' [default]")
     p.add_argument("--skipBadPadding", "-G", action="store_false",
         dest="showBadPadding",
@@ -963,10 +963,10 @@ def main() :
         help="print list of image, cache and movie file extensions and exit")
     p.add_argument("--looseNumSeparator", "-l", action="store_false",
         dest="strictSeparator",
-        help="allow the use of '_' (underscore), in addition to '.' (dot)\
-            as a separator between the descriptiveName and frameNumber when\
-            looking to interpret filenames as\
-            image sequences. i.e., <descriptiveName>_<frameNum>.<imgExtension>\
+        help="allow the use of '_' (underscore), in addition to '.' (dot) \
+            as a separator between the descriptiveName and frameNumber when \
+            looking to interpret filenames as \
+            image sequences. i.e., <descriptiveName>_<frameNum>.<imgExtension> \
             (also see --strictNumSeparator)")
     p.add_argument("--onlySequences", "-o", action="store_const",
         dest="listWhichFiles", default=LIST_ALLFILES, const=LIST_ONLYSEQS,
@@ -1040,7 +1040,7 @@ def main() :
         in each sequence. (see --time) (see ls(1))")
     p.add_argument("--onlyShow", action="store", type=str, nargs=2,
         dest="cutoffTime",
-        help="where TENSE is either 'before' or 'since'; only list sequences\
+        help="where TENSE is either 'before' or 'since'; only list sequences \
         up to (and including) or after (and including) the time specified. The --time argument \
         specifies which frame to use for the cutoff comparison",
         metavar=("TENSE", "[[CC]YY]MMDDhhmm[.ss]"))
@@ -1111,8 +1111,8 @@ def main() :
     if args.cutoffTime != None :
         args.cutoffTime[0] = args.cutoffTime[0].lower()
         if (args.cutoffTime[0] != 'before') and (args.cutoffTime[0] != 'since') :
-            print(os.path.basename(sys.argv[0]), \
-                ": error: argument --onlyShow: TENSE must be 'since' or 'before'", \
+            print(os.path.basename(sys.argv[0]),
+                ": error: argument --onlyShow: TENSE must be 'since' or 'before'",
                 file=sys.stderr, sep='')
             sys.exit(1)
         timeSpec = args.cutoffTime[1].split('.')
@@ -1124,8 +1124,8 @@ def main() :
             elif len(timeSpec[0]) == 8 :
                 timeFormat = "%m%d%H%M"
             else :
-                print(os.path.basename(sys.argv[0]), \
-                    ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]", \
+                print(os.path.basename(sys.argv[0]),
+                    ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]",
                     file=sys.stderr, sep='')
                 sys.exit(1)
         if len(timeSpec) == 2 :
@@ -1134,8 +1134,8 @@ def main() :
         try :
             timeData=time.strptime(args.cutoffTime[1], timeFormat)
         except ValueError :
-            print(os.path.basename(sys.argv[0]), \
-                ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]", \
+            print(os.path.basename(sys.argv[0]),
+                ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]",
                 file=sys.stderr, sep='')
             sys.exit(1)
 
