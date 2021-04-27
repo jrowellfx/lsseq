@@ -61,7 +61,7 @@ import time
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.3.0"
+VERSION = "2.3.1"
 
 CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
     "bgeo.sc", "bgeo.gz", "ifd.sc", "ifd.gz", "vdb.sc", "vdb.gz"]
@@ -153,6 +153,11 @@ def splitFileComponents(filename) :
     global CACHE_EXT
 
     fileComponents = filename.split(".")
+
+    # A file with no extension.
+    #
+    if len(fileComponents) <= 1 :
+        return []
 
     # Check for extensions with dot (for example, bgeo.sc, bgeo.g, or vdb.gz)
     # and join them before returning result.

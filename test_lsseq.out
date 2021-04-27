@@ -102,14 +102,17 @@ optional arguments:
                         argument specifies which frame to use for the cutoff comparison
 
 ------ Test 2 ------ lsseq --version ------
-2.3.0
+2.3.1
 
 ------ Test 3 ------ lsseq -lRFC testdir ------
 testdir:
-20592_chevrolet_cruze_reveal/  cdir/  gdir/  mkAnimFrames.v01.shk         mkTestFrames.v01.nk
-adir/                          ddir/  hdir/  mkAnimFrames.v02.shk         mkTestFrames.v02.nk
-bdir/                          edir/  idir/  mkBlackFrames_HD_10.v01.shk  mk_hdir_Frames.v01.nk
-blackFrames/                   fdir/  jdir/  mkBlackFrames_HD_2.v01.shk   www..exr
+20592_chevrolet_cruze_reveal/  edir/                 mkAnimFrames.v02.shk
+adir/                          fdir/                 mkBlackFrames_HD_10.v01.shk
+bdir/                          gdir/                 mkBlackFrames_HD_2.v01.shk
+blackFrames/                   hdir/                 mkTestFrames.v01.nk
+cdir/                          idir/                 mkTestFrames.v02.nk
+ddir/                          jdir/                 mk_hdir_Frames.v01.nk
+e01_sh0001_globalFX/           mkAnimFrames.v01.shk  www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -184,6 +187,18 @@ testdir/ddir:
 dddA.[-010-0017].exr
 dddB.[-10-17].exr
 dddC.[-10--3].exr
+
+testdir/e01_sh0001_globalFX:
+anim/  audio/
+
+testdir/e01_sh0001_globalFX/anim:
+_working/  published/
+
+testdir/e01_sh0001_globalFX/anim/_working:
+
+testdir/e01_sh0001_globalFX/anim/published:
+
+testdir/e01_sh0001_globalFX/audio:
 
 testdir/edir:
 e01/  e02/  e03/
@@ -592,6 +607,7 @@ bdir
 blackFrames
 cdir
 ddir
+e01_sh0001_globalFX
 edir
 fdir
 gdir
@@ -738,6 +754,10 @@ ddir:
 dddA.[-010-0017].exr
 dddB.[-10-17].exr
 dddC.[-10--3].exr
+
+e01_sh0001_globalFX:
+anim
+audio
 
 edir:
 e01
@@ -923,6 +943,10 @@ ddir:
 dddA.[-010-0017].exr
 dddB.[-10-17].exr
 dddC.[-10--3].exr
+
+e01_sh0001_globalFX:
+anim
+audio
 
 edir:
 e01
@@ -1636,6 +1660,7 @@ bdir
 blackFrames
 cdir
 ddir
+e01_sh0001_globalFX
 edir
 fdir
 gdir
@@ -1792,6 +1817,20 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 dddA.[-010-0017].exr
 dddB.[-10-17].exr
 dddC.[-10--3].exr
+
+/...absPathToRepo.../lsseq/testdir/e01_sh0001_globalFX:
+anim
+audio
+
+/...absPathToRepo.../lsseq/testdir/e01_sh0001_globalFX/anim:
+_working
+published
+
+/...absPathToRepo.../lsseq/testdir/e01_sh0001_globalFX/anim/_working:
+
+/...absPathToRepo.../lsseq/testdir/e01_sh0001_globalFX/anim/published:
+
+/...absPathToRepo.../lsseq/testdir/e01_sh0001_globalFX/audio:
 
 /...absPathToRepo.../lsseq/testdir/edir:
 e01
