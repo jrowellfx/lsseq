@@ -116,17 +116,17 @@ privileges).
     `"command not found"`, then you need to download and install it, there are
     many helpful websites to get this going, not the least of which is [Python.org](https://www.python.org/).
 
-2)  Download `lsseq-2.3.1.tar.gz` assuming that the latest version is `2.3.1` (if
+2)  Download `lsseq-2.3.2.tar.gz` assuming that the latest version is `2.3.2` (if
     not just grab the latest one), you can find all versions in the `dist` directory of this
     repo: [jrowellfx/lsseq/dist](dist)
 
 3)  Uncompress the file:
     ```
-    $ tar -xvzf lsseq-2.3.1.tar.gz
+    $ tar -xvzf lsseq-2.3.2.tar.gz
     ```
 4)  install the commands and supporting python module:
     ```
-    $ cd lsseq-2.3.1
+    $ cd lsseq-2.3.2
     $ sudo python3 setup.py install
     ```
 

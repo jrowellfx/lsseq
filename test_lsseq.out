@@ -102,17 +102,18 @@ optional arguments:
                         argument specifies which frame to use for the cutoff comparison
 
 ------ Test 2 ------ lsseq --version ------
-2.3.1
+2.3.2
 
 ------ Test 3 ------ lsseq -lRFC testdir ------
 testdir:
-20592_chevrolet_cruze_reveal/  edir/                 mkAnimFrames.v02.shk
-adir/                          fdir/                 mkBlackFrames_HD_10.v01.shk
-bdir/                          gdir/                 mkBlackFrames_HD_2.v01.shk
-blackFrames/                   hdir/                 mkTestFrames.v01.nk
-cdir/                          idir/                 mkTestFrames.v02.nk
-ddir/                          jdir/                 mk_hdir_Frames.v01.nk
-e01_sh0001_globalFX/           mkAnimFrames.v01.shk  www..exr
+20592_chevrolet_cruze_reveal/  fdir/                 mkBlackFrames_HD_10.v01.shk
+adir/                          gdir/                 mkBlackFrames_HD_2.v01.shk
+bdir/                          hdir/                 mkTestFrames.v01.nk
+blackFrames/                   idir/                 mkTestFrames.v02.nk
+cdir/                          jdir/                 mk_hdir_Frames.v01.nk
+ddir/                          kdir/                 www..exr
+e01_sh0001_globalFX/           mkAnimFrames.v01.shk
+edir/                          mkAnimFrames.v02.shk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -286,6 +287,22 @@ testdir/jdir/beauty/v002:
 sort.ls*
 filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1002]
 
+testdir/kdir:
+aaa.0001.exr/  bbb.01.jpg/  bbb.02.jpg/  ccc.jpg/  ccc.xyz/
+
+testdir/kdir/aaa.0001.exr:
+parentDirWeird.[001-002].exr z:[1-2]
+
+testdir/kdir/bbb.01.jpg:
+anotherWeirdParentDir.[09-10].jpg z:[9-10]
+
+testdir/kdir/bbb.02.jpg:
+handleThis.[07-13].jpg z:[7-13]
+
+testdir/kdir/ccc.jpg:
+
+testdir/kdir/ccc.xyz:
+
 ------ Test 4 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../lsseq/testdir/testDirFile.001.exr
 /...absPathToRepo.../lsseq/testdir/testDirFile.012.exr
@@ -380,6 +397,12 @@ filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,9
 /...absPathToRepo.../lsseq/testdir/jdir/beauty/v001/filename.1002.jpg
 /...absPathToRepo.../lsseq/testdir/jdir/beauty/v002/filename.0007.jpg
 /...absPathToRepo.../lsseq/testdir/jdir/beauty/v002/filename.1002.jpg
+/...absPathToRepo.../lsseq/testdir/kdir/aaa.0001.exr/parentDirWeird.001.exr
+/...absPathToRepo.../lsseq/testdir/kdir/aaa.0001.exr/parentDirWeird.002.exr
+/...absPathToRepo.../lsseq/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.09.jpg
+/...absPathToRepo.../lsseq/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
+/...absPathToRepo.../lsseq/testdir/kdir/bbb.02.jpg/handleThis.07.jpg
+/...absPathToRepo.../lsseq/testdir/kdir/bbb.02.jpg/handleThis.13.jpg
 
 ------ Test 5 ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../lsseq/testdir/testDirFile.001.exr
@@ -489,6 +512,12 @@ filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,9
 /...absPathToRepo.../lsseq/testdir/jdir/beauty/v001/filename.1002.jpg
 /...absPathToRepo.../lsseq/testdir/jdir/beauty/v002/filename.0007.jpg
 /...absPathToRepo.../lsseq/testdir/jdir/beauty/v002/filename.1002.jpg
+/...absPathToRepo.../lsseq/testdir/kdir/aaa.0001.exr/parentDirWeird.001.exr
+/...absPathToRepo.../lsseq/testdir/kdir/aaa.0001.exr/parentDirWeird.002.exr
+/...absPathToRepo.../lsseq/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.09.jpg
+/...absPathToRepo.../lsseq/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
+/...absPathToRepo.../lsseq/testdir/kdir/bbb.02.jpg/handleThis.07.jpg
+/...absPathToRepo.../lsseq/testdir/kdir/bbb.02.jpg/handleThis.13.jpg
 
 ------ Test 6 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
@@ -590,6 +619,12 @@ testdir/jdir/beauty/v001/filename.0007.jpg
 testdir/jdir/beauty/v001/filename.1002.jpg
 testdir/jdir/beauty/v002/filename.0007.jpg
 testdir/jdir/beauty/v002/filename.1002.jpg
+testdir/kdir/aaa.0001.exr/parentDirWeird.001.exr
+testdir/kdir/aaa.0001.exr/parentDirWeird.002.exr
+testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.09.jpg
+testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
+testdir/kdir/bbb.02.jpg/handleThis.07.jpg
+testdir/kdir/bbb.02.jpg/handleThis.13.jpg
 
 ------ Test 7 ------ lsseq -p ------
 /...absPathToRepo.../lsseq/testdir/testDirFile.[001-012].exr m:[3]
@@ -614,6 +649,7 @@ gdir
 hdir
 idir
 jdir
+kdir
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -819,6 +855,13 @@ v001
 jdir:
 beauty
 
+kdir:
+aaa.0001.exr
+bbb.01.jpg
+bbb.02.jpg
+ccc.jpg
+ccc.xyz
+
 ------ Test 10 ------ lsseq -l * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
@@ -983,6 +1026,13 @@ v001
 
 jdir:
 beauty
+
+kdir:
+aaa.0001.exr
+bbb.01.jpg
+bbb.02.jpg
+ccc.jpg
+ccc.xyz
 
 ------ Test 11 ------ lsseq ------
 aaaa
@@ -1667,6 +1717,7 @@ gdir
 hdir
 idir
 jdir
+kdir
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -2069,6 +2120,26 @@ filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,9
 /...absPathToRepo.../lsseq/testdir/jdir/beauty/v002:
 sort.ls
 filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1002]
+
+/...absPathToRepo.../lsseq/testdir/kdir:
+aaa.0001.exr
+bbb.01.jpg
+bbb.02.jpg
+ccc.jpg
+ccc.xyz
+
+/...absPathToRepo.../lsseq/testdir/kdir/aaa.0001.exr:
+parentDirWeird.[001-002].exr z:[1-2]
+
+/...absPathToRepo.../lsseq/testdir/kdir/bbb.01.jpg:
+anotherWeirdParentDir.[09-10].jpg z:[9-10]
+
+/...absPathToRepo.../lsseq/testdir/kdir/bbb.02.jpg:
+handleThis.[07-13].jpg z:[7-13]
+
+/...absPathToRepo.../lsseq/testdir/kdir/ccc.jpg:
+
+/...absPathToRepo.../lsseq/testdir/kdir/ccc.xyz:
 
 /...absPathToRepo.../lsseq/testdir/cdir:
 aaaa

@@ -61,7 +61,7 @@ import time
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.3.1"
+VERSION = "2.3.2"
 
 CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
     "bgeo.sc", "bgeo.gz", "ifd.sc", "ifd.gz", "vdb.sc", "vdb.gz"]
@@ -157,7 +157,7 @@ def splitFileComponents(filename) :
     # A file with no extension.
     #
     if len(fileComponents) <= 1 :
-        return []
+        return fileComponents
 
     # Check for extensions with dot (for example, bgeo.sc, bgeo.g, or vdb.gz)
     # and join them before returning result.
@@ -522,13 +522,13 @@ def stripDotFiles(dirContents, stripIt) :
 # ONLY be the contents of a single directory if this has been
 # called recursively with "-R" to lsseq, and we're more than one level deep.
 #
-# This fucntiuon assumes that if a directory "title" is needed
-# (i.e., dirContents), for example:
+# This fucntion assumes that if a directory "title" is needed
+# (i.e., the dirContents parameter to this function), for example:
 #
 # dirName:
 # aaa bbb ccc etc
 #
-# ...then that title is printed BEFORE the call to this function.
+# ...then that title "dirName:" is printed BEFORE the call to this function.
 #
 # The function arguments are as follows:
 # 
@@ -586,54 +586,63 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     #
     for filename in dirContents :
 
-        fileParts = seqSplit(filename, args)
-        if len(fileParts) == 2 : # Means file is an image or cache.
-            newFrameNum = int(fileParts[FRAMENUM])
-            newPaddingSize = len(fileParts[FRAMENUM])
-
-            # Check to see if file exists - might be broken soft link.
-            if not os.path.exists(filename) :
-                newFrameSize = 0
-                newFrameMTime = FRAME_BROKENLINK
-            else :
-                realFilename = os.path.realpath(filename)
-                newFrameSize = os.path.getsize(realFilename)
-                newFrameMTime = os.path.getmtime(realFilename)
-
-            if isCache(fileParts[SEQKEY]) :
-                if fileParts[SEQKEY] in cacheDictionary :
-                    # tack on new frame number.
-                    cacheDictionary[fileParts[SEQKEY]].append(
-                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
-                else :
-                    # initialiaze dictionary entry.
-                    cacheDictionary[fileParts[SEQKEY]] = [
-                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
-            else :
-                if fileParts[SEQKEY] in imageDictionary :
-                    # tack on new frame number.
-                    imageDictionary[fileParts[SEQKEY]].append(
-                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
-                else :
-                    # initialiaze dictionary entry.
-                    imageDictionary[fileParts[SEQKEY]] = [
-                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
-
-        elif isMovie(filename) :
-            # Check to see if file exists - might be broken soft link.
-            if not os.path.exists(filename) :
-                moviesDictionary[filename] = FRAME_BROKENLINK
-            else :
-                realFilename = os.path.realpath(filename)
-                moviesDictionary[filename] = os.path.getmtime(realFilename)
-
-        else :
-            isFileDir = os.path.isdir(filename)
-            if (not isFileDir or not listSubDirs or not args.listDirContents) \
+        # If the file is a directory, regardless of what it is called,
+        # then CLEARLY it is NOT part of an image sequence.
+        #
+        if os.path.isdir(filename) :
+            if (not listSubDirs or not args.listDirContents) \
                     and args.listWhichFiles == LIST_ALLFILES :
                 otherFiles.append(filename)
-            if isFileDir :
-                dirList.append(filename)
+            dirList.append(filename)
+
+        else :
+
+            fileParts = seqSplit(filename, args)
+            if len(fileParts) == 2 : # Means file is an image or cache.
+                newFrameNum = int(fileParts[FRAMENUM])
+                newPaddingSize = len(fileParts[FRAMENUM])
+
+                # Check to see if file exists - might be broken soft link.
+                if not os.path.exists(filename) :
+                    newFrameSize = 0
+                    newFrameMTime = FRAME_BROKENLINK
+                else :
+                    realFilename = os.path.realpath(filename)
+                    newFrameSize = os.path.getsize(realFilename)
+                    newFrameMTime = os.path.getmtime(realFilename)
+
+                if isCache(fileParts[SEQKEY]) :
+                    if fileParts[SEQKEY] in cacheDictionary :
+                        # tack on new frame number.
+                        cacheDictionary[fileParts[SEQKEY]].append(
+                            (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
+                    else :
+                        # initialiaze dictionary entry.
+                        cacheDictionary[fileParts[SEQKEY]] = [
+                            (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
+                else :
+                    if fileParts[SEQKEY] in imageDictionary :
+                        # tack on new frame number.
+                        imageDictionary[fileParts[SEQKEY]].append(
+                            (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
+                    else :
+                        # initialiaze dictionary entry.
+                        imageDictionary[fileParts[SEQKEY]] = [
+                            (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
+
+            elif isMovie(filename) :
+                # Check to see if file exists - might be broken soft link.
+                if not os.path.exists(filename) :
+                    moviesDictionary[filename] = FRAME_BROKENLINK
+                else :
+                    realFilename = os.path.realpath(filename)
+                    moviesDictionary[filename] = os.path.getmtime(realFilename)
+
+            # filename is neither part of an image sequence, NOR a movie file
+            # Add it to otherfiles if we need to list those as well.
+            #
+            elif args.listWhichFiles == LIST_ALLFILES :
+                    otherFiles.append(filename)
 
     # Use actual "ls" to print non-image files nicely.
     #
