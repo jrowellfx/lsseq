@@ -895,7 +895,7 @@ def main() :
 
             where <imgExtension> is drawn from a default list of image extensions
             (see option -i) or they can be set with the environment variable
-            OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an
+            OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly, there is an
             OIC_MOV_EXTENSION environment variable for movie file extensions and
             OIC_CACHE_EXTENSION for caches and other miscellaneous sequences.
 
@@ -945,12 +945,12 @@ def main() :
     p.add_argument("--goodFrameMinSize", action="store", type=readByteShortForm,
         dest="goodFrameMinSize", default=512,
         metavar="BYTES",
-        help="any frame size less than BYTES is considered to be \
+        help="any frame size less than BYTES is \
         a bad frame. Short forms for byte sizes are accepted as \
         in '1K' (i.e., 1024) or '1.5K' for example. [default: 512]")
     p.add_argument("--showBadPadding", "-g", action="store_true",
         dest="showBadPadding", default=True,
-        help="Report badly padded frame numbers which occurs when a number is padded \
+        help="report badly padded frame numbers which occurs when a number is padded \
         but shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]' [default]")
     p.add_argument("--skipBadPadding", "-G", action="store_false",
         dest="showBadPadding",
@@ -999,8 +999,8 @@ def main() :
     p.add_argument("--prependPathAbs", "-p", action="store_const",
         dest="prependPath", default=PATH_NOPREFIX, const=PATH_ABS,
         help="prepend the absolute path name to the image name. \
-        This option implies the option --onlySequences and will also \
-        suppress printing directory name headers when listing \
+        This option implies the option --onlySequences and also \
+        suppresses printing directory name headers when listing \
         directory contents")
     p.add_argument("--prependPathRel", "-P", action="store_const",
         dest="prependPath", const=PATH_REL,
