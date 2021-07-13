@@ -1,0 +1,32 @@
+cd $HOME
+
+# First step if not done yet.
+    python3 -m venv venv
+    source venv/bin/activate
+    python3 -m pip install --upgrade pip setuptools wheel
+    python3 -m pip install --upgrade build
+    python3 -m pip install --upgrade twine
+# else
+    source venv/bin/activate
+
+cd <dirWithGitRepos>/lsseq
+
+python3 -m build
+
+# Change next line to whatever latest version is. Then use
+# __token__ and password for PyPi account.
+# ...or not needed if .pypirc is installed in $HOME
+#
+python3 -m twine upload --repository pypi dist/lsseq-2.4.0*
+
+# Install it,
+    python3 -m pip install lsseq
+# or update it.
+    python3 -m pip install lsseq --upgrade
+
+# Test installation.
+#
+cd tests
+./test_renum
+diff test_renum.out test_renum.out.new
+

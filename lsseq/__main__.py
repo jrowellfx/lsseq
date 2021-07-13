@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 # 3-Clause BSD License
 # 
 # Copyright (c) 2008-2021, James Philip Rowell,
@@ -63,7 +61,7 @@ import time
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.3.3"
+VERSION = "2.4.0"
 
 CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
     "bgeo.sc", "bgeo.gz", "ifd.sc", "ifd.gz", "vdb.sc", "vdb.gz"]

@@ -1,25 +1,37 @@
-#!/usr/bin/python3
+from setuptools import setup, find_packages
+import pathlib
 
-from distutils.core import setup
-import os
-import shutil
+here = pathlib.Path(__file__).parent.resolve()
 
-createdCondenseseq = False
-if not os.path.exists('condenseseq') :
-    shutil.copy2('expandseq', 'condenseseq')
-    createdCondenseseq = True
+# Get the long description from the README file
+long_description = (here / 'README.md').read_text(encoding='utf-8')
 
-setup(name='lsseq',
-      version='2.3.2',
-      description='ls-like command for image frame sequences',
-      long_description='lsseq is built to behave very much like ls, but lists image sequences in a condensed manner.  A supporting module is included and two other useful command line utilities: expandseq and condenseseq.',
-      author='James Philip Rowell',
-      author_email='james@alpha-eleven.com',
-      url='http://www.alpha-eleven.com',
-      py_modules=['seqLister'],
-      scripts=['lsseq', 'expandseq', 'condenseseq'],
-      license = "BSD 3-Clause license",
-     )
+setup(
+    name            = 'lsseq',
+    version         = '2.4.0',
+    description='ls-like command for image frame sequences',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    url             = 'https://github.com/jrowellfx/lsseq',
+    author          = 'James Philip Rowell',
+    author_email    = 'james@alpha-eleven.com',
 
-if createdCondenseseq :
-    os.remove('condenseseq')
+    classifiers=[
+        'Programming Language :: Python :: 3',
+        'License :: OSI Approved :: BSD License',
+        'Operating System :: POSIX',
+        'Operating System :: Unix',
+        'Operating System :: MacOS',
+        'Development Status :: 5 - Production/Stable',
+    ],
+
+    packages        = ['lsseq'],
+    python_requires = '>=3.6, <4',
+    install_requires=['seqLister'],
+
+    entry_points = {
+        'console_scripts': [
+            'lsseq = lsseq.__main__:main',
+        ]
+    }
+)
