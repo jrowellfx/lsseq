@@ -17,7 +17,8 @@ between the `<descriptiveName>` and the `<frameNum>` is an underscore
 
 `lsseq` can print the image sequence in a variety of formats useful for `nuke`,
 `houdini` or `rv` and can also print a `glob` pattern for use in the shell. It also
-has it's own native output which is nice to read.
+has it's own native format which is nicer to read, and also used by another command-line
+tool called [`renumseq`](https://github.com/jrowellfx/renumSeq).
 
 #### For example:
 ```
@@ -102,38 +103,13 @@ It's recommended to review the capabilities of lsseq in how it can sort
 sequences, especially with respect to how it handles sorting by time. See
 `lsseq --help` for `--time, -t and --onlyShow` options.
 
-This package also includes two helpful command-line utilities (`expandseq` and `condenseseq`) that
-expand and condense lists of frame numbers into a fairly standard format
-used by many computer-graphics programs and CG-production studios.
+## Installing `lsseq`
 
-## How to install lsseq, expandseq and condenseseq on your computer
+```
+python3 -m pip install lsseq
+```
 
-To install these commands on your system follow these steps (you need root
-privileges).
-
-1)  First make sure you have python version 3.x (x >= 6) installed on your machine, you can do
-    this simply by typing `python3` at the command prompt. If you are told
-    `"command not found"`, then you need to download and install it, there are
-    many helpful websites to get this going, not the least of which is [Python.org](https://www.python.org/).
-
-2)  Download `lsseq-2.3.2.tar.gz` assuming that the latest version is `2.3.2` (if
-    not just grab the latest one), you can find all versions in the `dist` directory of this
-    repo: [jrowellfx/lsseq/dist](dist)
-
-3)  Uncompress the file:
-    ```
-    $ tar -xvzf lsseq-2.3.2.tar.gz
-    ```
-4)  install the commands and supporting python module:
-    ```
-    $ cd lsseq-2.3.2
-    $ sudo python3 setup.py install
-    ```
-
-5)  ...that's it! You should be able to run the commands `lsseq`, `expandseq`
-    and `condenseseq` now.
-
-To test `lsseq` properly `cd` into a directory containing frames from an image
+To test `lsseq`, `cd` into a directory containing frames from an image
 sequence then `lsseq` the contents of the directory.
 
 If you don't have one handy you can try this to test it.
@@ -158,7 +134,7 @@ $ condenseseq --help
 for much more useful info.
 
 Please contact `j a m e s <at> a l p h a - e l e v e n . c o m` with any bug
-reports, suggestions or oodles of praise as the case may be.
+reports, suggestions or praise as the case may be.
 
 If you want everthing in the `lsseq` repo:
 ```
