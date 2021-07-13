@@ -157,7 +157,6 @@ so that they are accessible to all users. This works on both macOS and Linux.
     # ln -s /usr/local/venv/bin/condenseseq /usr/local/bin/condenseseq
     # ln -s /usr/local/venv/bin/renumseq /usr/local/bin/renumseq
     # exit
-    $ cd $HOME
     $ lsseq --version
     2.4.1
 ```
@@ -169,7 +168,6 @@ Note that updates are easy now too. Say there's an update to lsseq that you want
     # cd /usr/local/venv
     # bin/pip install lsseq --upgrade
     # exit
-    $ cd $HOME
     $ lsseq --version
     99.99.99
 ```
