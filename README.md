@@ -159,7 +159,7 @@ so that they are accessible to all users. This works on both macOS and Linux.
     # exit
     $ cd $HOME
     $ lsseq --version
-    2.4.0
+    2.4.1
 ```
 At this point any user should be able to run any of the commands linked in the example above.
 Note that updates are easy now too. Say there's an update to lsseq that you want to install.
