@@ -5,17 +5,22 @@ unset OIC_IMAGE_EXTENSION
 unset OIC_MOV_EXTENSION
 unset OIC_CACHE_EXTENSION
 
-# !!! This script MUST be run from the root of the lsseq git repo for this to work.
+# !!! This script MUST be run from the 'tests'
+# !!! directory in the lsseq git repo for this to work.
 #
-export REPO_DIR=`pwd`
-export PATH=$REPO_DIR:$PATH
+export TEST_DIR=`pwd`
+
+if [[ `basename $TEST_DIR` != 'tests' ]]; then
+    echo $0: error: not running from tests directory, aborted.
+    exit 1
+fi
 
 # NOTE: To make sure the modification times of the testdir/cdir images are
 # set properly for testing we need to force specific times on to the files
 # as we can't rely on git to set these properly for us.
 #
 # How the timestamps were created:
-# cd testdir/cdir
+# cd tests/testdir/cdir
 # ls ccc*.*.* > list.images
 # vi list.images - then ordered it to be ccc01* ccc03* and ccc02* in the correct frame order
 # initial.image.mtimes < list.images > custom.touch.images
@@ -37,11 +42,11 @@ trap cleanup INT
 
 cd testdir/cdir
 source custom.touch.images
-cd $REPO_DIR
+cd $TEST_DIR
 
 cd testdir/hdir
 source touch.files
-cd $REPO_DIR
+cd $TEST_DIR
 
 export COLUMNS=100 # Bash env var.
 
@@ -82,8 +87,8 @@ testdir/cdir -t
 testdir/cdir -t --time oldest
 testdir/cdir -t --time median
 testdir/cdir -Z
-testdir/cdir -R $REPO_DIR/testdir/cdir/ $REPO_DIR/testdir/
-testdir/cdir -R $REPO_DIR/testdir/cdir/
+testdir/cdir -R $TEST_DIR/testdir/cdir/ $TEST_DIR/testdir/
+testdir/cdir -R $TEST_DIR/testdir/cdir/
 testdir/cdir -Ra
 testdir/cdir -R -b --goodFrameMinSize 1K
 testdir/cdir -1Rb
@@ -102,7 +107,7 @@ testdir/jdir --showBadPadding --skipMissing --skipZero --skipBadFrames -R
 testdir/jdir/beauty/v001 --showBadPadding --skipMissing --skipZero --skipBadFrames -R
 EOF
 
-echo ------ Begin Tests ------ > $REPO_DIR/test_lsseq.out.new
+echo ------ Begin Tests ------ > $TEST_DIR/test_lsseq.out.new
 
 i=1
 while true; do
@@ -113,12 +118,12 @@ while true; do
     fi
     workingDir=${args[0]}
     args=(${args[@]:1})
-    echo "" >> $REPO_DIR/test_lsseq.out.new
+    echo "" >> $TEST_DIR/test_lsseq.out.new
     echo ------ Test $i ------
-    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $REPO_DIR/test_lsseq.out.new
-    cd $REPO_DIR/$workingDir
+    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $TEST_DIR/test_lsseq.out.new
+    cd $TEST_DIR/$workingDir
     set +f # Turn globbing back on
-    $REPO_DIR/lsseq ${args[@]} >> $REPO_DIR/test_lsseq.out.new 2>&1
+    lsseq ${args[@]} >> $TEST_DIR/test_lsseq.out.new 2>&1
     i=$(expr $i + 1)
 done
 
@@ -140,18 +145,18 @@ while true; do
     fi
     workingDir=${args[0]}
     args=(${args[@]:1})
-    echo "" >> $REPO_DIR/test_lsseq.out.new
+    echo "" >> $TEST_DIR/test_lsseq.out.new
     echo ------ Test $i ------
-    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $REPO_DIR/test_lsseq.out.new
-    cd $REPO_DIR/$workingDir
+    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $TEST_DIR/test_lsseq.out.new
+    cd $TEST_DIR/$workingDir
     set +f
-    $REPO_DIR/lsseq ${args[@]} >> $REPO_DIR/test_lsseq.out.new 2>&1
+    lsseq ${args[@]} >> $TEST_DIR/test_lsseq.out.new 2>&1
     i=$(expr $i + 1)
     j=$(expr $j + 1)
 done
 
-sed -e "1,$ s-$REPO_DIR-/...absPathToRepo.../lsseq-g" < $REPO_DIR/test_lsseq.out.new > $tmpfile
-expand < $tmpfile | sed -e '1,$ s/ *$//' > $REPO_DIR/test_lsseq.out.new
+sed -e "1,$ s-$TEST_DIR-/...absPathToRepo.../tests-g" < $TEST_DIR/test_lsseq.out.new > $tmpfile
+expand < $tmpfile | sed -e '1,$ s/ *$//' > $TEST_DIR/test_lsseq.out.new
 
 cleanup
 

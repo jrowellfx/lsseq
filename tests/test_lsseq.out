@@ -11,7 +11,7 @@ sequences are assumed to be of the form:
 
 where <imgExtension> is drawn from a default list of image extensions
 (see option -i) or they can be set with the environment variable
-OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an
+OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly, there is an
 OIC_MOV_EXTENSION environment variable for movie file extensions and
 OIC_CACHE_EXTENSION for caches and other miscellaneous sequences.
 
@@ -42,10 +42,9 @@ optional arguments:
                         (see --goodFrameMinSize). Reported as 'b:[<list>]'
   --skipBadFrames, -B   do not show list of potentially bad frames [default]
   --goodFrameMinSize BYTES
-                        any frame size less than BYTES is considered to be a bad frame. Short
-                        forms for byte sizes are accepted as in '1K' (i.e., 1024) or '1.5K' for
-                        example. [default: 512]
-  --showBadPadding, -g  Report badly padded frame numbers which occurs when a number is padded but
+                        any frame size less than BYTES is a bad frame. Short forms for byte sizes
+                        are accepted as in '1K' (i.e., 1024) or '1.5K' for example. [default: 512]
+  --showBadPadding, -g  report badly padded frame numbers which occurs when a number is padded but
                         shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]'
                         [default]
   --skipBadPadding, -G  do not show list of badly padded frames
@@ -70,8 +69,8 @@ optional arguments:
   --onlyMovies          strictly list only movies (i.e., no images or caches)
   --onlyCaches          strictly list only cache sequences (i.e., no images or movies)
   --prependPathAbs, -p  prepend the absolute path name to the image name. This option implies the
-                        option --onlySequences and will also suppress printing directory name
-                        headers when listing directory contents
+                        option --onlySequences and also suppresses printing directory name headers
+                        when listing directory contents
   --prependPathRel, -P  prepend the relative path name to the image name. This option implies the
                         option --onlySequences and will also suppress printing directory name
                         headers when listing directory contents
@@ -102,7 +101,7 @@ optional arguments:
                         argument specifies which frame to use for the cutoff comparison
 
 ------ Test 2 ------ lsseq --version ------
-2.3.2
+2.4.0
 
 ------ Test 3 ------ lsseq -lRFC testdir ------
 testdir:
@@ -304,220 +303,220 @@ testdir/kdir/ccc.jpg:
 testdir/kdir/ccc.xyz:
 
 ------ Test 4 ------ lsseq -lReC testdir ------
-/...absPathToRepo.../lsseq/testdir/testDirFile.001.exr
-/...absPathToRepo.../lsseq/testdir/testDirFile.012.exr
-/...absPathToRepo.../lsseq/testdir/xxx.000.exr
-/...absPathToRepo.../lsseq/testdir/xxx.016.exr
-/...absPathToRepo.../lsseq/testdir/yyy.0123.tif
-/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0095.exr
-/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0136.exr
-/...absPathToRepo.../lsseq/testdir/adir/aaa.001.exr
-/...absPathToRepo.../lsseq/testdir/adir/aaa.120.exr
-/...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.001.exr
-/...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.120.exr
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.01.001.exr
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.01.120.exr
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.02.001.tif
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.02.120.tif
-/...absPathToRepo.../lsseq/testdir/bdir/b_subdir/bbb.02.008.tif
-/...absPathToRepo.../lsseq/testdir/bdir/b_subdir/bbb.02.095.tif
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.001.exr
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.120.exr
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.001.exr
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.120.exr
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.80.tga
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.140.tga
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.001.exr
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.120.exr
-/...absPathToRepo.../lsseq/testdir/ddir/dddA.-010.exr
-/...absPathToRepo.../lsseq/testdir/ddir/dddA.0017.exr
-/...absPathToRepo.../lsseq/testdir/ddir/dddB.-10.exr
-/...absPathToRepo.../lsseq/testdir/ddir/dddB.17.exr
-/...absPathToRepo.../lsseq/testdir/ddir/dddC.-10.exr
-/...absPathToRepo.../lsseq/testdir/ddir/dddC.-3.exr
-/...absPathToRepo.../lsseq/testdir/edir/e01/e_5.jpg
-/...absPathToRepo.../lsseq/testdir/edir/e01/e_9999.jpg
-/...absPathToRepo.../lsseq/testdir/edir/e02/e_5.jpg
-/...absPathToRepo.../lsseq/testdir/edir/e02/e_9999.jpg
-/...absPathToRepo.../lsseq/testdir/edir/e03/e_5.jpg
-/...absPathToRepo.../lsseq/testdir/edir/e03/e_10005.jpg
-/...absPathToRepo.../lsseq/testdir/fdir/aaa.-02.png
-/...absPathToRepo.../lsseq/testdir/fdir/aaa.002.png
-/...absPathToRepo.../lsseq/testdir/fdir/bbb.-009.jpg
-/...absPathToRepo.../lsseq/testdir/fdir/bbb.0010.jpg
-/...absPathToRepo.../lsseq/testdir/fdir/ccc.004.jpg
-/...absPathToRepo.../lsseq/testdir/fdir/ddd.-08.jpg
-/...absPathToRepo.../lsseq/testdir/fdir/xxx.01989.png
-/...absPathToRepo.../lsseq/testdir/fdir/xxx.02013.png
-/...absPathToRepo.../lsseq/testdir/fdir/xxx_01989.png
-/...absPathToRepo.../lsseq/testdir/fdir/xxx_02013.png
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/jdir/beauty/v001/filename.0007.jpg
-/...absPathToRepo.../lsseq/testdir/jdir/beauty/v001/filename.1002.jpg
-/...absPathToRepo.../lsseq/testdir/jdir/beauty/v002/filename.0007.jpg
-/...absPathToRepo.../lsseq/testdir/jdir/beauty/v002/filename.1002.jpg
-/...absPathToRepo.../lsseq/testdir/kdir/aaa.0001.exr/parentDirWeird.001.exr
-/...absPathToRepo.../lsseq/testdir/kdir/aaa.0001.exr/parentDirWeird.002.exr
-/...absPathToRepo.../lsseq/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.09.jpg
-/...absPathToRepo.../lsseq/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
-/...absPathToRepo.../lsseq/testdir/kdir/bbb.02.jpg/handleThis.07.jpg
-/...absPathToRepo.../lsseq/testdir/kdir/bbb.02.jpg/handleThis.13.jpg
+/...absPathToRepo.../tests/testdir/testDirFile.001.exr
+/...absPathToRepo.../tests/testdir/testDirFile.012.exr
+/...absPathToRepo.../tests/testdir/xxx.000.exr
+/...absPathToRepo.../tests/testdir/xxx.016.exr
+/...absPathToRepo.../tests/testdir/yyy.0123.tif
+/...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0095.exr
+/...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0136.exr
+/...absPathToRepo.../tests/testdir/adir/aaa.001.exr
+/...absPathToRepo.../tests/testdir/adir/aaa.120.exr
+/...absPathToRepo.../tests/testdir/adir/lrtm01_beauty02.001.exr
+/...absPathToRepo.../tests/testdir/adir/lrtm01_beauty02.120.exr
+/...absPathToRepo.../tests/testdir/bdir/bbb.01.001.exr
+/...absPathToRepo.../tests/testdir/bdir/bbb.01.120.exr
+/...absPathToRepo.../tests/testdir/bdir/bbb.02.001.tif
+/...absPathToRepo.../tests/testdir/bdir/bbb.02.120.tif
+/...absPathToRepo.../tests/testdir/bdir/b_subdir/bbb.02.008.tif
+/...absPathToRepo.../tests/testdir/bdir/b_subdir/bbb.02.095.tif
+/...absPathToRepo.../tests/testdir/cdir/ccc01.001.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc01.120.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc02.001.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc02.120.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc03.80.tga
+/...absPathToRepo.../tests/testdir/cdir/ccc03.140.tga
+/...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.001.exr
+/...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.120.exr
+/...absPathToRepo.../tests/testdir/ddir/dddA.-010.exr
+/...absPathToRepo.../tests/testdir/ddir/dddA.0017.exr
+/...absPathToRepo.../tests/testdir/ddir/dddB.-10.exr
+/...absPathToRepo.../tests/testdir/ddir/dddB.17.exr
+/...absPathToRepo.../tests/testdir/ddir/dddC.-10.exr
+/...absPathToRepo.../tests/testdir/ddir/dddC.-3.exr
+/...absPathToRepo.../tests/testdir/edir/e01/e_5.jpg
+/...absPathToRepo.../tests/testdir/edir/e01/e_9999.jpg
+/...absPathToRepo.../tests/testdir/edir/e02/e_5.jpg
+/...absPathToRepo.../tests/testdir/edir/e02/e_9999.jpg
+/...absPathToRepo.../tests/testdir/edir/e03/e_5.jpg
+/...absPathToRepo.../tests/testdir/edir/e03/e_10005.jpg
+/...absPathToRepo.../tests/testdir/fdir/aaa.-02.png
+/...absPathToRepo.../tests/testdir/fdir/aaa.002.png
+/...absPathToRepo.../tests/testdir/fdir/bbb.-009.jpg
+/...absPathToRepo.../tests/testdir/fdir/bbb.0010.jpg
+/...absPathToRepo.../tests/testdir/fdir/ccc.004.jpg
+/...absPathToRepo.../tests/testdir/fdir/ddd.-08.jpg
+/...absPathToRepo.../tests/testdir/fdir/xxx.01989.png
+/...absPathToRepo.../tests/testdir/fdir/xxx.02013.png
+/...absPathToRepo.../tests/testdir/fdir/xxx_01989.png
+/...absPathToRepo.../tests/testdir/fdir/xxx_02013.png
+/...absPathToRepo.../tests/testdir/hdir/foo/v001/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v001/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v001/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v001/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v001/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v001/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v002/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v002/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v002/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v002/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v002/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v002/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v003/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v003/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v003/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v003/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v003/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v003/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v001/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v001/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v001/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v001/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v001/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v001/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v002/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v002/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v002/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v002/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v002/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v002/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v003/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v003/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v003/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v003/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v003/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v003/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.0007.jpg
+/...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.1002.jpg
+/...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.0007.jpg
+/...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.1002.jpg
+/...absPathToRepo.../tests/testdir/kdir/aaa.0001.exr/parentDirWeird.001.exr
+/...absPathToRepo.../tests/testdir/kdir/aaa.0001.exr/parentDirWeird.002.exr
+/...absPathToRepo.../tests/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.09.jpg
+/...absPathToRepo.../tests/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
+/...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg/handleThis.07.jpg
+/...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg/handleThis.13.jpg
 
 ------ Test 5 ------ lsseq -lReoC testdir ------
-/...absPathToRepo.../lsseq/testdir/testDirFile.001.exr
-/...absPathToRepo.../lsseq/testdir/testDirFile.012.exr
-/...absPathToRepo.../lsseq/testdir/testDirFile.mov
-/...absPathToRepo.../lsseq/testdir/testDirFile.wmv
-/...absPathToRepo.../lsseq/testdir/xxx.000.exr
-/...absPathToRepo.../lsseq/testdir/xxx.016.exr
-/...absPathToRepo.../lsseq/testdir/xxx.mov
-/...absPathToRepo.../lsseq/testdir/yyy.0123.tif
-/...absPathToRepo.../lsseq/testdir/yyy.mov
-/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0095.exr
-/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0136.exr
-/...absPathToRepo.../lsseq/testdir/adir/aaa.001.exr
-/...absPathToRepo.../lsseq/testdir/adir/aaa.120.exr
-/...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.001.exr
-/...absPathToRepo.../lsseq/testdir/adir/lrtm01_beauty02.120.exr
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.01.001.exr
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.01.120.exr
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.02.001.tif
-/...absPathToRepo.../lsseq/testdir/bdir/bbb.02.120.tif
-/...absPathToRepo.../lsseq/testdir/bdir/b_subdir/bbb.02.008.tif
-/...absPathToRepo.../lsseq/testdir/bdir/b_subdir/bbb.02.095.tif
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.001.exr
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.120.exr
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.001.exr
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.120.exr
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.80.tga
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.140.tga
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.001.exr
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.120.exr
-/...absPathToRepo.../lsseq/testdir/ddir/dddA.-010.exr
-/...absPathToRepo.../lsseq/testdir/ddir/dddA.0017.exr
-/...absPathToRepo.../lsseq/testdir/ddir/dddB.-10.exr
-/...absPathToRepo.../lsseq/testdir/ddir/dddB.17.exr
-/...absPathToRepo.../lsseq/testdir/ddir/dddC.-10.exr
-/...absPathToRepo.../lsseq/testdir/ddir/dddC.-3.exr
-/...absPathToRepo.../lsseq/testdir/edir/e01/e_5.jpg
-/...absPathToRepo.../lsseq/testdir/edir/e01/e_9999.jpg
-/...absPathToRepo.../lsseq/testdir/edir/e02/e_5.jpg
-/...absPathToRepo.../lsseq/testdir/edir/e02/e_9999.jpg
-/...absPathToRepo.../lsseq/testdir/edir/e03/e_5.jpg
-/...absPathToRepo.../lsseq/testdir/edir/e03/e_10005.jpg
-/...absPathToRepo.../lsseq/testdir/fdir/aaa.-02.png
-/...absPathToRepo.../lsseq/testdir/fdir/aaa.002.png
-/...absPathToRepo.../lsseq/testdir/fdir/bbb.-009.jpg
-/...absPathToRepo.../lsseq/testdir/fdir/bbb.0010.jpg
-/...absPathToRepo.../lsseq/testdir/fdir/ccc.004.jpg
-/...absPathToRepo.../lsseq/testdir/fdir/ddd.-08.jpg
-/...absPathToRepo.../lsseq/testdir/fdir/xxx.01989.png
-/...absPathToRepo.../lsseq/testdir/fdir/xxx.02013.png
-/...absPathToRepo.../lsseq/testdir/fdir/xxx_01989.png
-/...absPathToRepo.../lsseq/testdir/fdir/xxx_02013.png
-/...absPathToRepo.../lsseq/testdir/gdir/ccc01.001.ass
-/...absPathToRepo.../lsseq/testdir/gdir/ccc01.120.ass
-/...absPathToRepo.../lsseq/testdir/gdir/ccc02.001.ass
-/...absPathToRepo.../lsseq/testdir/gdir/ccc02.120.ass
-/...absPathToRepo.../lsseq/testdir/gdir/ccc03.80.fur
-/...absPathToRepo.../lsseq/testdir/gdir/ccc03.140.fur
-/...absPathToRepo.../lsseq/testdir/gdir/ggg01.090.bgeo.sc
-/...absPathToRepo.../lsseq/testdir/gdir/ggg01.105.bgeo.sc
-/...absPathToRepo.../lsseq/testdir/gdir/xxx01.mov
-/...absPathToRepo.../lsseq/testdir/gdir/xxx02.mov
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v001/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v002/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/hdir/v003/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.0001.jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.0040.jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0001.jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.0040.jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0001.jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.0040.jpg
-/...absPathToRepo.../lsseq/testdir/jdir/beauty/v001/filename.0007.jpg
-/...absPathToRepo.../lsseq/testdir/jdir/beauty/v001/filename.1002.jpg
-/...absPathToRepo.../lsseq/testdir/jdir/beauty/v002/filename.0007.jpg
-/...absPathToRepo.../lsseq/testdir/jdir/beauty/v002/filename.1002.jpg
-/...absPathToRepo.../lsseq/testdir/kdir/aaa.0001.exr/parentDirWeird.001.exr
-/...absPathToRepo.../lsseq/testdir/kdir/aaa.0001.exr/parentDirWeird.002.exr
-/...absPathToRepo.../lsseq/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.09.jpg
-/...absPathToRepo.../lsseq/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
-/...absPathToRepo.../lsseq/testdir/kdir/bbb.02.jpg/handleThis.07.jpg
-/...absPathToRepo.../lsseq/testdir/kdir/bbb.02.jpg/handleThis.13.jpg
+/...absPathToRepo.../tests/testdir/testDirFile.001.exr
+/...absPathToRepo.../tests/testdir/testDirFile.012.exr
+/...absPathToRepo.../tests/testdir/testDirFile.mov
+/...absPathToRepo.../tests/testdir/testDirFile.wmv
+/...absPathToRepo.../tests/testdir/xxx.000.exr
+/...absPathToRepo.../tests/testdir/xxx.016.exr
+/...absPathToRepo.../tests/testdir/xxx.mov
+/...absPathToRepo.../tests/testdir/yyy.0123.tif
+/...absPathToRepo.../tests/testdir/yyy.mov
+/...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0095.exr
+/...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.0136.exr
+/...absPathToRepo.../tests/testdir/adir/aaa.001.exr
+/...absPathToRepo.../tests/testdir/adir/aaa.120.exr
+/...absPathToRepo.../tests/testdir/adir/lrtm01_beauty02.001.exr
+/...absPathToRepo.../tests/testdir/adir/lrtm01_beauty02.120.exr
+/...absPathToRepo.../tests/testdir/bdir/bbb.01.001.exr
+/...absPathToRepo.../tests/testdir/bdir/bbb.01.120.exr
+/...absPathToRepo.../tests/testdir/bdir/bbb.02.001.tif
+/...absPathToRepo.../tests/testdir/bdir/bbb.02.120.tif
+/...absPathToRepo.../tests/testdir/bdir/b_subdir/bbb.02.008.tif
+/...absPathToRepo.../tests/testdir/bdir/b_subdir/bbb.02.095.tif
+/...absPathToRepo.../tests/testdir/cdir/ccc01.001.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc01.120.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc02.001.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc02.120.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc03.80.tga
+/...absPathToRepo.../tests/testdir/cdir/ccc03.140.tga
+/...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.001.exr
+/...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.120.exr
+/...absPathToRepo.../tests/testdir/ddir/dddA.-010.exr
+/...absPathToRepo.../tests/testdir/ddir/dddA.0017.exr
+/...absPathToRepo.../tests/testdir/ddir/dddB.-10.exr
+/...absPathToRepo.../tests/testdir/ddir/dddB.17.exr
+/...absPathToRepo.../tests/testdir/ddir/dddC.-10.exr
+/...absPathToRepo.../tests/testdir/ddir/dddC.-3.exr
+/...absPathToRepo.../tests/testdir/edir/e01/e_5.jpg
+/...absPathToRepo.../tests/testdir/edir/e01/e_9999.jpg
+/...absPathToRepo.../tests/testdir/edir/e02/e_5.jpg
+/...absPathToRepo.../tests/testdir/edir/e02/e_9999.jpg
+/...absPathToRepo.../tests/testdir/edir/e03/e_5.jpg
+/...absPathToRepo.../tests/testdir/edir/e03/e_10005.jpg
+/...absPathToRepo.../tests/testdir/fdir/aaa.-02.png
+/...absPathToRepo.../tests/testdir/fdir/aaa.002.png
+/...absPathToRepo.../tests/testdir/fdir/bbb.-009.jpg
+/...absPathToRepo.../tests/testdir/fdir/bbb.0010.jpg
+/...absPathToRepo.../tests/testdir/fdir/ccc.004.jpg
+/...absPathToRepo.../tests/testdir/fdir/ddd.-08.jpg
+/...absPathToRepo.../tests/testdir/fdir/xxx.01989.png
+/...absPathToRepo.../tests/testdir/fdir/xxx.02013.png
+/...absPathToRepo.../tests/testdir/fdir/xxx_01989.png
+/...absPathToRepo.../tests/testdir/fdir/xxx_02013.png
+/...absPathToRepo.../tests/testdir/gdir/ccc01.001.ass
+/...absPathToRepo.../tests/testdir/gdir/ccc01.120.ass
+/...absPathToRepo.../tests/testdir/gdir/ccc02.001.ass
+/...absPathToRepo.../tests/testdir/gdir/ccc02.120.ass
+/...absPathToRepo.../tests/testdir/gdir/ccc03.80.fur
+/...absPathToRepo.../tests/testdir/gdir/ccc03.140.fur
+/...absPathToRepo.../tests/testdir/gdir/ggg01.090.bgeo.sc
+/...absPathToRepo.../tests/testdir/gdir/ggg01.105.bgeo.sc
+/...absPathToRepo.../tests/testdir/gdir/xxx01.mov
+/...absPathToRepo.../tests/testdir/gdir/xxx02.mov
+/...absPathToRepo.../tests/testdir/hdir/foo/v001/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v001/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v001/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v001/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v001/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v001/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v002/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v002/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v002/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v002/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v002/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v002/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v003/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v003/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v003/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v003/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v003/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/foo/v003/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v001/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v001/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v001/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v001/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v001/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v001/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v002/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v002/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v002/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v002/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v002/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v002/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v003/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v003/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v003/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v003/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/hdir/v003/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/hdir/v003/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh01.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh01.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh02.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh02.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh03.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.0007.jpg
+/...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.1002.jpg
+/...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.0007.jpg
+/...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.1002.jpg
+/...absPathToRepo.../tests/testdir/kdir/aaa.0001.exr/parentDirWeird.001.exr
+/...absPathToRepo.../tests/testdir/kdir/aaa.0001.exr/parentDirWeird.002.exr
+/...absPathToRepo.../tests/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.09.jpg
+/...absPathToRepo.../tests/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
+/...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg/handleThis.07.jpg
+/...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg/handleThis.13.jpg
 
 ------ Test 6 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
@@ -627,13 +626,13 @@ testdir/kdir/bbb.02.jpg/handleThis.07.jpg
 testdir/kdir/bbb.02.jpg/handleThis.13.jpg
 
 ------ Test 7 ------ lsseq -p ------
-/...absPathToRepo.../lsseq/testdir/testDirFile.[001-012].exr m:[3]
-/...absPathToRepo.../lsseq/testdir/testDirFile.mov
-/...absPathToRepo.../lsseq/testdir/testDirFile.wmv
-/...absPathToRepo.../lsseq/testdir/xxx.[000-016].exr m:[1-15x2]
-/...absPathToRepo.../lsseq/testdir/xxx.mov
-/...absPathToRepo.../lsseq/testdir/yyy.[0123].tif
-/...absPathToRepo.../lsseq/testdir/yyy.mov
+/...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
+/...absPathToRepo.../tests/testdir/testDirFile.mov
+/...absPathToRepo.../tests/testdir/testDirFile.wmv
+/...absPathToRepo.../tests/testdir/xxx.[000-016].exr m:[1-15x2]
+/...absPathToRepo.../tests/testdir/xxx.mov
+/...absPathToRepo.../tests/testdir/yyy.[0123].tif
+/...absPathToRepo.../tests/testdir/yyy.mov
 
 ------ Test 8 ------ lsseq ------
 20592_chevrolet_cruze_reveal
@@ -1232,14 +1231,14 @@ ccc02.[001-120].exr e:[51,119]
 ccc03.[80-140].tga
 
 ------ Test 16 ------ lsseq -e -R ------
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.001.exr
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.120.exr
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.001.exr
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.120.exr
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.80.tga
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.140.tga
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.001.exr
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.120.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc01.001.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc01.120.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc02.001.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc02.120.exr
+/...absPathToRepo.../tests/testdir/cdir/ccc03.80.tga
+/...absPathToRepo.../tests/testdir/cdir/ccc03.140.tga
+/...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.001.exr
+/...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.120.exr
 
 ------ Test 17 ------ lsseq -e -R -P ------
 ./ccc01.001.exr
@@ -1496,10 +1495,10 @@ ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
 ------ Test 26 ------ lsseq -p * ------
-/...absPathToRepo.../lsseq/testdir/cdir/ccc01.[001-120].exr m:[3], z:[52-55]
-/...absPathToRepo.../lsseq/testdir/cdir/ccc02.[001-120].exr m:[51,119]
-/...absPathToRepo.../lsseq/testdir/cdir/ccc03.[80-140].tga
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
+/...absPathToRepo.../tests/testdir/cdir/ccc01.[001-120].exr m:[3], z:[52-55]
+/...absPathToRepo.../tests/testdir/cdir/ccc02.[001-120].exr m:[51,119]
+/...absPathToRepo.../tests/testdir/cdir/ccc03.[80-140].tga
+/...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
 
 ------ Test 27 ------ lsseq -P * ------
 ccc01.[001-120].exr m:[3], z:[52-55]
@@ -1702,8 +1701,8 @@ ccc01.[001-120].exr m:[3]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 33 ------ lsseq -R /...absPathToRepo.../lsseq/testdir/cdir/ /...absPathToRepo.../lsseq/testdir/ ------
-/...absPathToRepo.../lsseq/testdir:
+------ Test 33 ------ lsseq -R /...absPathToRepo.../tests/testdir/cdir/ /...absPathToRepo.../tests/testdir/ ------
+/...absPathToRepo.../tests/testdir:
 20592_chevrolet_cruze_reveal
 adir
 bdir
@@ -1734,31 +1733,31 @@ xxx.mov
 yyy.[0123].tif
 yyy.mov
 
-/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal:
+/...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal:
 cg
 
-/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg:
+/...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal/cg:
 sequences
 
-/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences:
+/...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal/cg/sequences:
 sq2000
 
-/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000:
+/...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000:
 sh0110
 
-/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110:
+/...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110:
 images
 
-/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images:
+/...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images:
 comp
 
-/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp:
+/...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp:
 2000_0110_comp_v002
 
-/...absPathToRepo.../lsseq/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002:
+/...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002:
 2000_0110_comp_v002_l.[0095-0136].exr z:[95-136]
 
-/...absPathToRepo.../lsseq/testdir/adir:
+/...absPathToRepo.../tests/testdir/adir:
 -987654321.tmp
 -minusSignFileName
 testFile00.jpg
@@ -1784,15 +1783,15 @@ testFile19.jpg
 aaa.[001-120].exr z:[12,49]
 lrtm01_beauty02.[001-120].exr z:[11]
 
-/...absPathToRepo.../lsseq/testdir/bdir:
+/...absPathToRepo.../tests/testdir/bdir:
 b_subdir
 bbb.01.[001-120].exr z:[21]
 bbb.02.[001-120].tif
 
-/...absPathToRepo.../lsseq/testdir/bdir/b_subdir:
+/...absPathToRepo.../tests/testdir/bdir/b_subdir:
 bbb.02.[008-095].tif
 
-/...absPathToRepo.../lsseq/testdir/blackFrames:
+/...absPathToRepo.../tests/testdir/blackFrames:
 HD_by10.png
 HD_by10_lzw.tiff
 HD_by10_none.exr
@@ -1822,7 +1821,7 @@ HD_by2x060.jpg
 HD_by2x080.jpg
 HD_by2x100.jpg
 
-/...absPathToRepo.../lsseq/testdir/cdir:
+/...absPathToRepo.../tests/testdir/cdir:
 aaaa
 bbbb
 c_subDir
@@ -1861,34 +1860,34 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir:
+/...absPathToRepo.../tests/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
-/...absPathToRepo.../lsseq/testdir/ddir:
+/...absPathToRepo.../tests/testdir/ddir:
 dddA.[-010-0017].exr
 dddB.[-10-17].exr
 dddC.[-10--3].exr
 
-/...absPathToRepo.../lsseq/testdir/e01_sh0001_globalFX:
+/...absPathToRepo.../tests/testdir/e01_sh0001_globalFX:
 anim
 audio
 
-/...absPathToRepo.../lsseq/testdir/e01_sh0001_globalFX/anim:
+/...absPathToRepo.../tests/testdir/e01_sh0001_globalFX/anim:
 _working
 published
 
-/...absPathToRepo.../lsseq/testdir/e01_sh0001_globalFX/anim/_working:
+/...absPathToRepo.../tests/testdir/e01_sh0001_globalFX/anim/_working:
 
-/...absPathToRepo.../lsseq/testdir/e01_sh0001_globalFX/anim/published:
+/...absPathToRepo.../tests/testdir/e01_sh0001_globalFX/anim/published:
 
-/...absPathToRepo.../lsseq/testdir/e01_sh0001_globalFX/audio:
+/...absPathToRepo.../tests/testdir/e01_sh0001_globalFX/audio:
 
-/...absPathToRepo.../lsseq/testdir/edir:
+/...absPathToRepo.../tests/testdir/edir:
 e01
 e02
 e03
 
-/...absPathToRepo.../lsseq/testdir/edir/e01:
+/...absPathToRepo.../tests/testdir/edir/e01:
 e_10.jpg
 e_100.jpg
 e_1000.jpg
@@ -1928,7 +1927,7 @@ e_9997.jpg
 e_9998.jpg
 e_9999.jpg
 
-/...absPathToRepo.../lsseq/testdir/edir/e02:
+/...absPathToRepo.../tests/testdir/edir/e02:
 e_10.jpg
 e_100.jpg
 e_1000.jpg
@@ -1968,7 +1967,7 @@ e_9997.jpg
 e_9998.jpg
 e_9999.jpg
 
-/...absPathToRepo.../lsseq/testdir/edir/e03:
+/...absPathToRepo.../tests/testdir/edir/e03:
 e_10.jpg
 e_100.jpg
 e_1000.jpg
@@ -2014,7 +2013,7 @@ e_9997.jpg
 e_9998.jpg
 e_9999.jpg
 
-/...absPathToRepo.../lsseq/testdir/fdir:
+/...absPathToRepo.../tests/testdir/fdir:
 xxx_01989.png
 xxx_01990.png
 xxx_01991.png
@@ -2046,7 +2045,7 @@ ccc.[004].jpg
 ddd.[-08].jpg
 xxx.[01989-02013].png
 
-/...absPathToRepo.../lsseq/testdir/gdir:
+/...absPathToRepo.../tests/testdir/gdir:
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
@@ -2054,7 +2053,7 @@ ggg01.[090-105].bgeo.sc z:[90-105]
 xxx01.mov
 xxx02.mov
 
-/...absPathToRepo.../lsseq/testdir/hdir:
+/...absPathToRepo.../tests/testdir/hdir:
 all.files
 foo
 initial.image.mtimes
@@ -2063,85 +2062,85 @@ v001
 v002
 v003
 
-/...absPathToRepo.../lsseq/testdir/hdir/foo:
+/...absPathToRepo.../tests/testdir/hdir/foo:
 v001
 v002
 v003
 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v001:
+/...absPathToRepo.../tests/testdir/hdir/foo/v001:
 hhh01.[0001-0040].jpg
 hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v002:
+/...absPathToRepo.../tests/testdir/hdir/foo/v002:
 hhh01.[0001-0040].jpg
 hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
-/...absPathToRepo.../lsseq/testdir/hdir/foo/v003:
+/...absPathToRepo.../tests/testdir/hdir/foo/v003:
 hhh01.[0001-0040].jpg
 hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
-/...absPathToRepo.../lsseq/testdir/hdir/v001:
+/...absPathToRepo.../tests/testdir/hdir/v001:
 hhh01.[0001-0040].jpg
 hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
-/...absPathToRepo.../lsseq/testdir/hdir/v002:
+/...absPathToRepo.../tests/testdir/hdir/v002:
 hhh01.[0001-0040].jpg
 hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
-/...absPathToRepo.../lsseq/testdir/hdir/v003:
+/...absPathToRepo.../tests/testdir/hdir/v003:
 hhh01.[0001-0040].jpg
 hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
-/...absPathToRepo.../lsseq/testdir/idir:
+/...absPathToRepo.../tests/testdir/idir:
 v001
 
-/...absPathToRepo.../lsseq/testdir/idir/v001:
+/...absPathToRepo.../tests/testdir/idir/v001:
 hhh01.[0001-0040].jpg
 hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
-/...absPathToRepo.../lsseq/testdir/jdir:
+/...absPathToRepo.../tests/testdir/jdir:
 beauty
 
-/...absPathToRepo.../lsseq/testdir/jdir/beauty:
+/...absPathToRepo.../tests/testdir/jdir/beauty:
 v001
 v002
 
-/...absPathToRepo.../lsseq/testdir/jdir/beauty/v001:
+/...absPathToRepo.../tests/testdir/jdir/beauty/v001:
 sort.ls
 filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1001]
 
-/...absPathToRepo.../lsseq/testdir/jdir/beauty/v002:
+/...absPathToRepo.../tests/testdir/jdir/beauty/v002:
 sort.ls
 filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1002]
 
-/...absPathToRepo.../lsseq/testdir/kdir:
+/...absPathToRepo.../tests/testdir/kdir:
 aaa.0001.exr
 bbb.01.jpg
 bbb.02.jpg
 ccc.jpg
 ccc.xyz
 
-/...absPathToRepo.../lsseq/testdir/kdir/aaa.0001.exr:
+/...absPathToRepo.../tests/testdir/kdir/aaa.0001.exr:
 parentDirWeird.[001-002].exr z:[1-2]
 
-/...absPathToRepo.../lsseq/testdir/kdir/bbb.01.jpg:
+/...absPathToRepo.../tests/testdir/kdir/bbb.01.jpg:
 anotherWeirdParentDir.[09-10].jpg z:[9-10]
 
-/...absPathToRepo.../lsseq/testdir/kdir/bbb.02.jpg:
+/...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg:
 handleThis.[07-13].jpg z:[7-13]
 
-/...absPathToRepo.../lsseq/testdir/kdir/ccc.jpg:
+/...absPathToRepo.../tests/testdir/kdir/ccc.jpg:
 
-/...absPathToRepo.../lsseq/testdir/kdir/ccc.xyz:
+/...absPathToRepo.../tests/testdir/kdir/ccc.xyz:
 
-/...absPathToRepo.../lsseq/testdir/cdir:
+/...absPathToRepo.../tests/testdir/cdir:
 aaaa
 bbbb
 c_subDir
@@ -2180,11 +2179,11 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir:
+/...absPathToRepo.../tests/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 34 ------ lsseq -R /...absPathToRepo.../lsseq/testdir/cdir/ ------
-/...absPathToRepo.../lsseq/testdir/cdir:
+------ Test 34 ------ lsseq -R /...absPathToRepo.../tests/testdir/cdir/ ------
+/...absPathToRepo.../tests/testdir/cdir:
 aaaa
 bbbb
 c_subDir
@@ -2223,7 +2222,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
-/...absPathToRepo.../lsseq/testdir/cdir/c_subDir:
+/...absPathToRepo.../tests/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
 ------ Test 35 ------ lsseq -Ra ------
@@ -2429,9 +2428,9 @@ v001/hhh02.[0001-0040].jpg
 v001/hhh03.[0001-0040].jpg
 
 ------ Test 45 ------ lsseq -p * ------
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh01.[0001-0040].jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh02.[0001-0040].jpg
-/...absPathToRepo.../lsseq/testdir/idir/v001/hhh03.[0001-0040].jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh01.[0001-0040].jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh02.[0001-0040].jpg
+/...absPathToRepo.../tests/testdir/idir/v001/hhh03.[0001-0040].jpg
 
 ------ Test 46 ------ lsseq -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
