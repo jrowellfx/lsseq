@@ -4,6 +4,9 @@ export LC_ALL=POSIX
 unset OIC_IMAGE_EXTENSION
 unset OIC_MOV_EXTENSION
 unset OIC_CACHE_EXTENSION
+unset LSSEQ_IMAGE_EXTENSION
+unset LSSEQ_MOV_EXTENSION
+unset LSSEQ_CACHE_EXTENSION
 
 # !!! This script MUST be run from the 'tests'
 # !!! directory in the lsseq git repo for this to work.
@@ -145,7 +148,7 @@ while true; do
     i=$(expr $i + 1)
 done
 
-export OIC_CACHE_EXTENSION=ass:dshd:fur:obj:srf:ass.gz
+export LSSEQ_CACHE_EXTENSION=ass:dshd:fur:obj:srf:ass.gz
 
 cat << EOF2 > $tmpArgs
 . -i

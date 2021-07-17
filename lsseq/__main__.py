@@ -47,6 +47,7 @@
 # etc. <snip>
 #
 # which explains the use of the "OIC" prefix for my env-variables below.
+#     NOTE: the OIC env vars are being phased out in favor of LSSEQ prefix.
 
 # lsseq - List directory contents while condensing images sequences to
 # one entry each.  Filenames that are part of images sequences are
@@ -952,9 +953,9 @@ def main() :
 
             where <imgExtension> is drawn from a default list of image extensions
             (see option -i) or they can be set with the environment variable
-            OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly, there is an
-            OIC_MOV_EXTENSION environment variable for movie file extensions and
-            OIC_CACHE_EXTENSION for caches and other miscellaneous sequences.
+            LSSEQ_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly, there is an
+            LSSEQ_MOV_EXTENSION environment variable for movie file extensions and
+            LSSEQ_CACHE_EXTENSION for caches and other miscellaneous sequences.
 
             %(prog)s will first list all non-image-sequence files followed by the
             list of image sequences as such:
@@ -1124,9 +1125,12 @@ def main() :
 
     args = p.parse_args()
 
-    tmpExt = os.getenv("OIC_IMAGE_EXTENSION")
+    tmpExt = os.getenv("LSSEQ_IMAGE_EXTENSION")
+    tmpOICExt = os.getenv("OIC_IMAGE_EXTENSION")
     if tmpExt != None and tmpExt != "" :
         tmpExtList = tmpExt.split(":")
+    elif tmpOICExt != None and tmpOICExt != "" :
+        tmpExtList = tmpOICExt.split(":")
     else :
         tmpExtList = IMAGE_EXT
     tmpExtList.sort()
@@ -1134,9 +1138,12 @@ def main() :
     for e in tmpExtList :
         IMAGE_EXT.append(e)
 
-    tmpExt = os.getenv("OIC_MOV_EXTENSION")
+    tmpExt = os.getenv("LSSEQ_MOV_EXTENSION")
+    tmpOICExt = os.getenv("OIC_MOV_EXTENSION")
     if tmpExt != None and tmpExt != "" :
         tmpExtList = tmpExt.split(":")
+    elif tmpOICExt != None and tmpOICExt != "" :
+        tmpExtList = tmpOICExt.split(":")
     else :
         tmpExtList = MOV_EXT
     tmpExtList.sort()
@@ -1144,9 +1151,12 @@ def main() :
     for e in tmpExtList :
         MOV_EXT.append(e)
 
-    tmpExt = os.getenv("OIC_CACHE_EXTENSION")
+    tmpExt = os.getenv("LSSEQ_CACHE_EXTENSION")
+    tmpOICExt = os.getenv("OIC_CACHE_EXTENSION")
     if tmpExt != None and tmpExt != "" :
         tmpExtList = tmpExt.split(":")
+    elif tmpOICExt != None and tmpOICExt != "" :
+        tmpExtList = tmpOICExt.split(":")
     else :
         tmpExtList = CACHE_EXT
     tmpExtList.sort()
@@ -1156,11 +1166,11 @@ def main() :
 
     if args.printImgExtensions :
         extList = ":".join(IMAGE_EXT)
-        print("OIC_IMAGE_EXTENSION:", extList)
+        print("LSSEQ_IMAGE_EXTENSION:", extList)
         extList = ":".join(MOV_EXT)
-        print("OIC_MOV_EXTENSION:", extList)
+        print("LSSEQ_MOV_EXTENSION:", extList)
         extList = ":".join(CACHE_EXT)
-        print("OIC_CACHE_EXTENSION:", extList)
+        print("LSSEQ_CACHE_EXTENSION:", extList)
         sys.exit(0)
 
     if args.prependPath == PATH_REL :
