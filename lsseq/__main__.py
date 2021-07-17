@@ -64,7 +64,7 @@ import time
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.4.2"
+VERSION = "2.4.3"
 
 CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
     "bgeo.sc", "bgeo.gz", "ifd.sc", "ifd.gz", "vdb.sc", "vdb.gz"]

@@ -17,7 +17,7 @@ python3 -m build
 # __token__ and password for PyPi account.
 # ...or not needed if .pypirc is installed in $HOME
 #
-python3 -m twine upload --repository pypi dist/lsseq-2.4.0*
+python3 -m twine upload --repository pypi dist/lsseq-2.x.x*
 
 # Install it,
     python3 -m pip install lsseq

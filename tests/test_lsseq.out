@@ -102,7 +102,7 @@ optional arguments:
   --silent, --quiet     suppress errors and warnings
 
 ------ Test 2 ------ lsseq --version ------
-2.4.2
+2.4.3
 
 ------ Test 3 ------ lsseq -lRFC --quiet testdir ------
 testdir:
