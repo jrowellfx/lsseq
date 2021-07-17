@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # 3-Clause BSD License
 # 
 # Copyright (c) 2008-2021, James Philip Rowell,
@@ -61,7 +63,7 @@ import time
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.4.1"
+VERSION = "2.4.2"
 
 CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
     "bgeo.sc", "bgeo.gz", "ifd.sc", "ifd.gz", "vdb.sc", "vdb.gz"]
@@ -277,6 +279,50 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
     maxFrame = frameList[-1][FRAME_NUM]
     padding = 0 # Set below, created here for scope.
 
+    ## JPR DEBUG
+    ## print("minFrame: ", minFrame)
+    ## print("maxFrame: ", maxFrame)
+    ## print("frameList: ", frameList)
+
+    # Go through frameList and look for duplicated frame numbers.
+    # Throw out duplicates, keeping ONLY the frame with the smallest
+    # padding (frameList is already sorted by frame number AND padding).
+    # Note that if there is a four-padded sequence, e.g.:
+    #
+    #    a.0001.exr, a.0002.exr, a.0003.exr, a.0004.exr
+    #
+    # But there is also a file,
+    #
+    #    a.1.exr
+    #
+    # then lsseq (native output) will report the sequence as only one-padded,
+    # but will report frames 2, 3 and 4 as badly-padded. This is probably wrong
+    # as far as the user is concerned.  But it's up to the user to sort out what's
+    # supposed to happen, and how to get rid of the duplicate file.
+    #
+    # lsseq Will print WARNINGS when finding files with duplicated frame numbers.
+    #
+    frameListLen = len(frameList)
+    uniqueFrameList = [frameList[0]]
+    i = 1
+    while i < frameListLen :
+        if frameList[i][FRAME_NUM] == uniqueFrameList[-1][FRAME_NUM] :
+            if not args.silent :
+                actualFilename = actualImageName(filenameKey, 
+                    frameList[i][FRAME_PADDING], frameList[i][FRAME_NUM])
+                sys.stdout.flush()
+                sys.stderr.flush()
+                print(os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
+                    " is a duplicate (with different padding) of frame number: ",
+                    frameList[i][FRAME_NUM], sep='', file=sys.stderr)
+                sys.stderr.flush()
+        else :
+            uniqueFrameList.append(frameList[i])
+        i += 1
+
+    ## JPR DEBUG
+    ## print("uniqueFrameList: ", uniqueFrameList)
+
     # Calculate padding.
     #
     # Padding can be calculated from looking at the smallest
@@ -289,16 +335,19 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
     #         and: expandseq --pad 2 ' -11-11'
     # 
     if minFrame >= 0 :
-        padding = frameList[0][FRAME_PADDING]
+        padding = uniqueFrameList[0][FRAME_PADDING]
     elif maxFrame < 0 :
-        padding = frameList[-1][FRAME_PADDING]
+        padding = uniqueFrameList[-1][FRAME_PADDING]
     else :
         # Find smallest non-negative frame number.
         #
         i = 0
-        while frameList[i][FRAME_NUM] < 0 :
+        while uniqueFrameList[i][FRAME_NUM] < 0 :
             i += 1
-        padding = frameList[i][FRAME_PADDING]
+        padding = uniqueFrameList[i][FRAME_PADDING]
+
+    ## JPR DEBUG
+    ## print("padding: ", padding)
 
     formatStr = "%0" + str(padding) + "d"
 
@@ -379,13 +428,17 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
             i = minFrame
             while i <= maxFrame :
                 iMissing = False
-                currFrameData = frameList[0]
+                currFrameData = uniqueFrameList[0]
+                ## JPR DEBUG
+                ## print("i: ", i)
+                ## print("str(i): ", str(i))
+                ## print("currFrameData[FRAME_PADDING]: ", currFrameData[FRAME_PADDING])
                 if i != currFrameData[FRAME_NUM] :
                     iMissing = True
                     if args.showMissing :
                         missingFrames.append(i)
                 else :
-                    frameList.pop(0)
+                    uniqueFrameList.pop(0)
 
                 if not iMissing and (args.showZero or args.showBad or args.showBadPadding) :
 
@@ -394,9 +447,13 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                             zeroFrames.append(i)
                         elif args.showBad :
                             badFrames.append(i)
-                        actualFilename = actualImageName(filenameKey, padding, i)
-                        print( os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
-                            " is a broken soft link", sep='', file=sys.stderr)
+                        if not args.silent :
+                            actualFilename = actualImageName(filenameKey, padding, i)
+                            sys.stdout.flush()
+                            sys.stderr.flush()
+                            print(os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
+                                " is a broken soft link", sep='', file=sys.stderr)
+                            sys.stderr.flush()
 
                     # File-size issues.
                     #
@@ -760,11 +817,11 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 print(seq[DICTKEY])
                 somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
-                cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM))
+                cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
                 printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
             else :
-                imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM))
+                imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
                 printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
     elif args.cutoffTime != None :
@@ -785,11 +842,11 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 print(seq[DICTKEY])
                 somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
-                cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM))
+                cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
                 printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
             else :
-                imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM))
+                imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
                 printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
     else :
@@ -803,11 +860,11 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 print(k)
                 somethingWasPrinted = True
             elif isCache(k) :
-                cacheDictionary[k].sort(key=itemgetter(FRAME_NUM))
+                cacheDictionary[k].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
                 printSeq(k, cacheDictionary[k], args, traversedPath)
                 somethingWasPrinted = True
             else :
-                imageDictionary[k].sort(key=itemgetter(FRAME_NUM))
+                imageDictionary[k].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
                 printSeq(k, imageDictionary[k], args, traversedPath)
                 somethingWasPrinted = True
 
@@ -1058,6 +1115,9 @@ def main() :
         up to (and including) or after (and including) the time specified. The --time argument \
         specifies which frame to use for the cutoff comparison",
         metavar=("TENSE", "[[CC]YY]MMDDhhmm[.ss]"))
+    p.add_argument("--silent", "--quiet", action="store_true",
+        dest="silent", default=False,
+        help="suppress errors and warnings")
 
     p.add_argument("files", metavar="FILE", nargs="*",
         help="file names")
@@ -1125,9 +1185,10 @@ def main() :
     if args.cutoffTime != None :
         args.cutoffTime[0] = args.cutoffTime[0].lower()
         if (args.cutoffTime[0] != 'before') and (args.cutoffTime[0] != 'since') :
-            print(os.path.basename(sys.argv[0]),
-                ": error: argument --onlyShow: TENSE must be 'since' or 'before'",
-                file=sys.stderr, sep='')
+            if not args.silent :
+                print(os.path.basename(sys.argv[0]),
+                    ": error: argument --onlyShow: TENSE must be 'since' or 'before'",
+                    file=sys.stderr, sep='')
             sys.exit(1)
         timeSpec = args.cutoffTime[1].split('.')
         if len(timeSpec) <= 2 :
@@ -1138,9 +1199,10 @@ def main() :
             elif len(timeSpec[0]) == 8 :
                 timeFormat = "%m%d%H%M"
             else :
-                print(os.path.basename(sys.argv[0]),
-                    ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]",
-                    file=sys.stderr, sep='')
+                if not args.silent :
+                    print(os.path.basename(sys.argv[0]),
+                        ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]",
+                        file=sys.stderr, sep='')
                 sys.exit(1)
         if len(timeSpec) == 2 :
             timeFormat += ".%S"
@@ -1148,9 +1210,10 @@ def main() :
         try :
             timeData=time.strptime(args.cutoffTime[1], timeFormat)
         except ValueError :
-            print(os.path.basename(sys.argv[0]),
-                ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]",
-                file=sys.stderr, sep='')
+            if not args.silent :
+                print(os.path.basename(sys.argv[0]),
+                    ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]",
+                    file=sys.stderr, sep='')
             sys.exit(1)
 
         args.cutoffTime[1] = int(time.mktime(timeData)) # Epoch time

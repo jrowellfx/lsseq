@@ -100,7 +100,7 @@ It's recommended to review the capabilities of lsseq in how it can sort
 sequences, especially with respect to how it handles sorting by time. See
 `lsseq --help` for `--time, -t and --onlyShow` options.
 
-## Installing `lsseq`
+## Installing lsseq
 
 ```
     python3 -m pip install lsseq
@@ -110,7 +110,7 @@ I have written more helpful installation-information below in an addendum.
 You may find it helpful when
 trying to install this command on your system, be it Linux or macOS.
 
-## Testing `lsseq`
+## Testing lsseq
 
 To test `lsseq`, `cd` into a directory containing frames from an image
 sequence then `lsseq` the contents of the directory.

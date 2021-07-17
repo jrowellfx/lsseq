@@ -15,6 +15,23 @@ if [[ `basename $TEST_DIR` != 'tests' ]]; then
     exit 1
 fi
 
+cleanup() {
+    /bin/rm $tmpArgs > /dev/null 2>&1
+    /bin/rm $tmpfile > /dev/null 2>&1
+    /bin/rm $TEST_DIR/testdir/jdir/j03/j04.005.jpg > /dev/null 2>&1
+    exit 0
+}
+
+trap cleanup INT
+
+ln -sf ../lsseq/__main__.py  lsseq
+
+if [[ ! ":$PATH:" == *":$TEST_DIR:"* ]]; then
+    export PATH="$TEST_DIR:$PATH"
+    echo \# Run the following command once to help live testing.
+    echo export PATH=\"$TEST_DIR:\$PATH\"
+fi
+
 # NOTE: To make sure the modification times of the testdir/cdir images are
 # set properly for testing we need to force specific times on to the files
 # as we can't rely on git to set these properly for us.
@@ -32,20 +49,17 @@ unalias lsseq > /dev/null 2>&1
 tmpArgs=/tmp/tmpARGS_LSSEQ$$
 tmpfile=/tmp/tmpFILE_LSSEQ$$
 
-cleanup() {
-    /bin/rm $tmpArgs > /dev/null 2>&1
-    /bin/rm $tmpfile > /dev/null 2>&1
-    exit 0
-}
-
-trap cleanup INT
-
 cd testdir/cdir
 source custom.touch.images
 cd $TEST_DIR
 
 cd testdir/hdir
 source touch.files
+cd $TEST_DIR
+
+cd testdir/jdir/j03
+/bin/rm -f j04.005.jpg
+ln -s missing.jpg j04.005.jpg
 cd $TEST_DIR
 
 export COLUMNS=100 # Bash env var.
@@ -57,6 +71,10 @@ export COLUMNS=100 # Bash env var.
 cat << EOF > $tmpArgs
 . --help
 . --version
+. -lRFC --quiet testdir
+. -lReC --silent testdir
+. -lReoC --silent testdir
+. -RePC --quiet testdir
 . -lRFC testdir
 . -lReC testdir
 . -lReoC testdir

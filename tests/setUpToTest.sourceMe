@@ -1,0 +1,10 @@
+# Assumes that venv has seqLister installed.
+export TEST_DIR=`pwd`
+pushd $HOME
+source venv/bin/activate
+pip install seqLister --upgrade
+popd
+ln -sf ../lsseq/__main__.py lsseq
+if [[ ! ":$PATH:" == *":$TEST_DIR:"* ]]; then
+    export PATH="$TEST_DIR:$PATH"
+fi

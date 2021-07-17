@@ -4,4 +4,3 @@ build
 *egg-info*
 *.bak
 __pycache__
-test_lsseq.out.new
