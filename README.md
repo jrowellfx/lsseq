@@ -137,7 +137,7 @@ for much more useful info.
 ## Addendum - more on installing command-line tools
 
 Here's the process that I've followed to install `lsseq`, as well as my other
-pytthon-based command-line
+python-based command-line
 tools (i.e., `expandseq`, `condenseseq` and `renumseq`)
 so that they are accessible to all users. This works on both macOS and Linux.
 
@@ -158,7 +158,7 @@ so that they are accessible to all users. This works on both macOS and Linux.
     # ln -s /usr/local/venv/bin/renumseq /usr/local/bin/renumseq
     # exit
     $ lsseq --version
-    2.4.1
+    2.4.3
 ```
 At this point any user should be able to run any of the commands linked in the example above.
 Note that updates are easy now too. Say there's an update to lsseq that you want to install.
