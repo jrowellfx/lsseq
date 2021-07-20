@@ -64,7 +64,7 @@ import time
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.4.3"
+VERSION = "2.4.4"
 
 CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
     "bgeo.sc", "bgeo.gz", "ifd.sc", "ifd.gz", "vdb.sc", "vdb.gz"]
@@ -280,11 +280,6 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
     maxFrame = frameList[-1][FRAME_NUM]
     padding = 0 # Set below, created here for scope.
 
-    ## JPR DEBUG
-    ## print("minFrame: ", minFrame)
-    ## print("maxFrame: ", maxFrame)
-    ## print("frameList: ", frameList)
-
     # Go through frameList and look for duplicated frame numbers.
     # Throw out duplicates, keeping ONLY the frame with the smallest
     # padding (frameList is already sorted by frame number AND padding).
@@ -313,16 +308,21 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                     frameList[i][FRAME_PADDING], frameList[i][FRAME_NUM])
                 sys.stdout.flush()
                 sys.stderr.flush()
-                print(os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
+                print(os.path.basename(sys.argv[0]), ": warning: ",
+                    end='', sep='', file=sys.stderr)
+                if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+                    print(traversedPath, sep='', end='', file=sys.stderr)
+                    print(os.path.basename(actualFilename),
+                    " is a duplicate (with different padding) of frame number: ",
+                    frameList[i][FRAME_NUM], sep='', file=sys.stderr)
+                else :
+                    print(actualFilename,
                     " is a duplicate (with different padding) of frame number: ",
                     frameList[i][FRAME_NUM], sep='', file=sys.stderr)
                 sys.stderr.flush()
         else :
             uniqueFrameList.append(frameList[i])
         i += 1
-
-    ## JPR DEBUG
-    ## print("uniqueFrameList: ", uniqueFrameList)
 
     # Calculate padding.
     #
@@ -346,9 +346,6 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
         while uniqueFrameList[i][FRAME_NUM] < 0 :
             i += 1
         padding = uniqueFrameList[i][FRAME_PADDING]
-
-    ## JPR DEBUG
-    ## print("padding: ", padding)
 
     formatStr = "%0" + str(padding) + "d"
 
@@ -425,54 +422,57 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
         # Gather up the various lists of problem frames.
         # Only needed in native format listings.
         #
-        if args.showMissing or args.showZero or args.showBad or args.showBadPadding :
-            i = minFrame
-            while i <= maxFrame :
-                iMissing = False
-                currFrameData = uniqueFrameList[0]
-                ## JPR DEBUG
-                ## print("i: ", i)
-                ## print("str(i): ", str(i))
-                ## print("currFrameData[FRAME_PADDING]: ", currFrameData[FRAME_PADDING])
-                if i != currFrameData[FRAME_NUM] :
-                    iMissing = True
-                    if args.showMissing :
-                        missingFrames.append(i)
-                else :
-                    uniqueFrameList.pop(0)
+        ## if args.showMissing or args.showZero or args.showBad or args.showBadPadding :
+        i = minFrame
+        while i <= maxFrame :
+            iMissing = False
+            currFrameData = uniqueFrameList[0]
+            if i != currFrameData[FRAME_NUM] :
+                iMissing = True
+                if args.showMissing :
+                    missingFrames.append(i)
+            else :
+                uniqueFrameList.pop(0)
 
-                if not iMissing and (args.showZero or args.showBad or args.showBadPadding) :
+            if not iMissing :
+                if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK and not args.silent :
+                    actualFilename = actualImageName(filenameKey, padding, i)
+                    sys.stdout.flush()
+                    sys.stderr.flush()
+                    print(os.path.basename(sys.argv[0]), ": warning: ",
+                        end='', sep='', file=sys.stderr)
+                    if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+                        print(traversedPath, sep='', end='', file=sys.stderr)
+                        print(os.path.basename(actualFilename),
+                            " is a broken soft link", sep='', file=sys.stderr)
+                    else :
+                        print(actualFilename, " is a broken soft link", sep='', file=sys.stderr)
+                    sys.stderr.flush()
 
-                    if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
-                        if args.showZero :
-                            zeroFrames.append(i)
-                        elif args.showBad :
-                            badFrames.append(i)
-                        if not args.silent :
-                            actualFilename = actualImageName(filenameKey, padding, i)
-                            sys.stdout.flush()
-                            sys.stderr.flush()
-                            print(os.path.basename(sys.argv[0]), ": warning: ", actualFilename,
-                                " is a broken soft link", sep='', file=sys.stderr)
-                            sys.stderr.flush()
-
-                    # File-size issues.
-                    #
-                    elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
+            if not iMissing and (args.showZero or args.showBad or args.showBadPadding) :
+                if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
+                    if args.showZero :
                         zeroFrames.append(i)
-                    elif args.showBad and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
+                    elif args.showBad :
                         badFrames.append(i)
 
-                    # Bad padding occurs when a number is padded, but shouldn't be,
-                    # or isn't padded, but it should be.
-                    #
-                    if args.showBadPadding and (\
-                            (currFrameData[FRAME_PADDING] > len(str(i)) and \
-                             currFrameData[FRAME_PADDING] > padding) \
-                                or \
-                            currFrameData[FRAME_PADDING] < padding) :
-                        badPadFrames.append(i)
-                i += 1
+                # File-size issues.
+                #
+                elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
+                    zeroFrames.append(i)
+                elif args.showBad and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
+                    badFrames.append(i)
+
+                # Bad padding occurs when a number is padded, but shouldn't be,
+                # or isn't padded, but it should be.
+                #
+                if args.showBadPadding and (\
+                        (currFrameData[FRAME_PADDING] > len(str(i)) and \
+                         currFrameData[FRAME_PADDING] > padding) \
+                            or \
+                        currFrameData[FRAME_PADDING] < padding) :
+                    badPadFrames.append(i)
+            i += 1
 
         if minFrame == maxFrame :
             frameRange = "[" \

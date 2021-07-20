@@ -1,6 +1,9 @@
 ------ Begin Tests ------
 
------- Test 1 ------ lsseq --help ------
+------ Test 1 ------ lsseq --version ------
+2.4.4
+
+------ Test 2 ------ lsseq --help ------
 usage: lsseq [OPTION]... [FILE]...
 
 List directory contents (akin to /bin/ls) while condensing image
@@ -100,9 +103,6 @@ optional arguments:
                         including) or after (and including) the time specified. The --time
                         argument specifies which frame to use for the cutoff comparison
   --silent, --quiet     suppress errors and warnings
-
------- Test 2 ------ lsseq --version ------
-2.4.3
 
 ------ Test 3 ------ lsseq -lRFC --quiet testdir ------
 testdir:
@@ -988,24 +988,25 @@ testdir/kdir/ccc.xyz:
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.1002.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.0007.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.1002.jpg
-lsseq: warning: j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j01/j.00130.jpg is a duplicate (with different padding) of frame number: 130
 /...absPathToRepo.../tests/testdir/jdir/j01/j.0100.jpg
 /...absPathToRepo.../tests/testdir/jdir/j01/j.0140.jpg
-lsseq: warning: j.00108.jpg is a duplicate (with different padding) of frame number: 108
-lsseq: warning: j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j02/j.00108.jpg is a duplicate (with different padding) of frame number: 108
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j02/j.00130.jpg is a duplicate (with different padding) of frame number: 130
 /...absPathToRepo.../tests/testdir/jdir/j02/j.0100.jpg
 /...absPathToRepo.../tests/testdir/jdir/j02/j.0140.jpg
-lsseq: warning: j01.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j01.0009.jpg is a duplicate (with different padding) of frame number: 9
 /...absPathToRepo.../tests/testdir/jdir/j03/j01.1.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j01.9.jpg
-lsseq: warning: j02.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j02.0009.jpg is a duplicate (with different padding) of frame number: 9
 /...absPathToRepo.../tests/testdir/jdir/j03/j02.001.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j02.009.jpg
-lsseq: warning: j03.05.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: j03.005.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: j03.0005.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j03.05.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j03.005.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j03.0005.jpg is a duplicate (with different padding) of frame number: 5
 /...absPathToRepo.../tests/testdir/jdir/j03/j03.001.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j03.009.jpg
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a broken soft link
 /...absPathToRepo.../tests/testdir/jdir/j03/j04.-10.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j04.010.jpg
 /...absPathToRepo.../tests/testdir/kdir/aaa.0001.exr/parentDirWeird.001.exr
@@ -1123,24 +1124,25 @@ lsseq: warning: j03.0005.jpg is a duplicate (with different padding) of frame nu
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.1002.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.0007.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.1002.jpg
-lsseq: warning: j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j01/j.00130.jpg is a duplicate (with different padding) of frame number: 130
 /...absPathToRepo.../tests/testdir/jdir/j01/j.0100.jpg
 /...absPathToRepo.../tests/testdir/jdir/j01/j.0140.jpg
-lsseq: warning: j.00108.jpg is a duplicate (with different padding) of frame number: 108
-lsseq: warning: j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j02/j.00108.jpg is a duplicate (with different padding) of frame number: 108
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j02/j.00130.jpg is a duplicate (with different padding) of frame number: 130
 /...absPathToRepo.../tests/testdir/jdir/j02/j.0100.jpg
 /...absPathToRepo.../tests/testdir/jdir/j02/j.0140.jpg
-lsseq: warning: j01.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j01.0009.jpg is a duplicate (with different padding) of frame number: 9
 /...absPathToRepo.../tests/testdir/jdir/j03/j01.1.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j01.9.jpg
-lsseq: warning: j02.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j02.0009.jpg is a duplicate (with different padding) of frame number: 9
 /...absPathToRepo.../tests/testdir/jdir/j03/j02.001.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j02.009.jpg
-lsseq: warning: j03.05.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: j03.005.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: j03.0005.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j03.05.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j03.005.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j03.0005.jpg is a duplicate (with different padding) of frame number: 5
 /...absPathToRepo.../tests/testdir/jdir/j03/j03.001.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j03.009.jpg
+lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a broken soft link
 /...absPathToRepo.../tests/testdir/jdir/j03/j04.-10.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j04.010.jpg
 /...absPathToRepo.../tests/testdir/kdir/aaa.0001.exr/parentDirWeird.001.exr
@@ -1250,24 +1252,25 @@ testdir/jdir/beauty/v001/filename.0007.jpg
 testdir/jdir/beauty/v001/filename.1002.jpg
 testdir/jdir/beauty/v002/filename.0007.jpg
 testdir/jdir/beauty/v002/filename.1002.jpg
-lsseq: warning: j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: testdir/jdir/j01/j.00130.jpg is a duplicate (with different padding) of frame number: 130
 testdir/jdir/j01/j.0100.jpg
 testdir/jdir/j01/j.0140.jpg
-lsseq: warning: j.00108.jpg is a duplicate (with different padding) of frame number: 108
-lsseq: warning: j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: testdir/jdir/j02/j.00108.jpg is a duplicate (with different padding) of frame number: 108
+lsseq: warning: testdir/jdir/j02/j.00130.jpg is a duplicate (with different padding) of frame number: 130
 testdir/jdir/j02/j.0100.jpg
 testdir/jdir/j02/j.0140.jpg
-lsseq: warning: j01.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: testdir/jdir/j03/j01.0009.jpg is a duplicate (with different padding) of frame number: 9
 testdir/jdir/j03/j01.1.jpg
 testdir/jdir/j03/j01.9.jpg
-lsseq: warning: j02.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: testdir/jdir/j03/j02.0009.jpg is a duplicate (with different padding) of frame number: 9
 testdir/jdir/j03/j02.001.jpg
 testdir/jdir/j03/j02.009.jpg
-lsseq: warning: j03.05.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: j03.005.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: j03.0005.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: testdir/jdir/j03/j03.05.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: testdir/jdir/j03/j03.005.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: testdir/jdir/j03/j03.0005.jpg is a duplicate (with different padding) of frame number: 5
 testdir/jdir/j03/j03.001.jpg
 testdir/jdir/j03/j03.009.jpg
+lsseq: warning: testdir/jdir/j03/j04.005.jpg is a broken soft link
 testdir/jdir/j03/j04.-10.jpg
 testdir/jdir/j03/j04.010.jpg
 testdir/kdir/aaa.0001.exr/parentDirWeird.001.exr

@@ -72,8 +72,8 @@ export COLUMNS=100 # Bash env var.
 # The rest are args to lsseq.
 #
 cat << EOF > $tmpArgs
-. --help
 . --version
+. --help
 . -lRFC --quiet testdir
 . -lReC --silent testdir
 . -lReoC --silent testdir
