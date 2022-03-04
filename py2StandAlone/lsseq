@@ -1,0 +1,1629 @@
+#!/usr/bin/python2.7
+
+# lsseq - List directory contents while condensing images sequences to
+# one entry each.  Filenames that are part of images sequences are
+# assumed to be of the form:
+#     <descriptiveName>.<frameNum>.<imgExtension>
+
+# BSD 3-Clause License
+#
+# Copyright (c) 2008-2020, James Philip Rowell,
+# Alpha Eleven Incorporated
+# www.alpha-eleven.com
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#
+#   - Redistributions of source code must retain the above copyright
+#     notice, this list of conditions and the following disclaimer.
+#
+#   - Redistributions in binary form must reproduce the above copyright
+#     notice, this list of conditions and the following disclaimer in
+#     the documentation and/or other materials provided with the
+#     distribution.
+#
+#   - Neither the name of "Alpha Eleven, Inc."  nor the names of its
+#     contributors may be used to endorse or promote products derived
+#     from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+# HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+import argparse
+import os
+import sys
+import subprocess
+import textwrap
+import math
+import time
+from operator import itemgetter
+
+# seqLister module - used for expanding and condensing ranges of
+# frame numbers to/from a common format to describe such ranges.
+
+
+# Expands the argument 'seqList' into a list of integers.
+# 'seqList' may be a single string with the following format
+# (see description below), or a list of integers and/or
+# strings of the following format:
+#
+# individual frame numbers: [1, "4", 10, 15]
+#     yeilds -> [1, 4, 10, 15]
+# sequences of successive frame numbers: ["1-4", "10-15"]
+#     yeilds -> [1, 2, 3, 4, 10, 11, 12, 13, 14, 15]
+# sequences of skipped frame numbers: ["1-10x2", "20-60x10"]
+#     yeilds -> [1, 3, 5, 7, 9, 20, 30, 40, 50, 60]
+# reverse sequences work too: ["5-1"]
+#     yeilds -> [5, 4, 3, 2, 1]
+# as do negative numbers: ["-10--3"]
+#     yeilds -> [-10, -9, -8, -7, -6, -5, -4, -3]
+#
+# These formats may be listed in any order, but if a number has
+# been listed once, it will not be listed again.
+#
+# Eg. ["0-16x8", "0-16x2"]
+#     yeilds -> [0, 8, 16, 2, 4, 6, 10, 12, 14]
+#
+# Anything that is not of the above format is ignored for
+# the purposes of building the list of integers and the ignored
+# item is appended to the optional argument "nonSeqList".
+#
+# The returned list of integers is NOT sorted.
+#
+def expandSeq(seqList, nonSeqList=[]) :
+
+    if not isinstance(seqList, list) :
+        tmp=seqList
+        seqList = [tmp]
+
+    resultList = []
+    for seqItem in seqList :
+        origItem = seqItem
+        if not (isinstance(seqItem, int) or isinstance(seqItem, str)) :
+            # Discard item and continue to next one
+            nonSeqList.append(origItem)
+            continue
+
+        if isinstance(seqItem, int) :
+            if seqItem not in resultList :
+                resultList.append(seqItem)
+            continue
+
+        stepValue = 1
+        seqItem = seqItem.replace(" ", "") # Strip all whitespace.
+        seqItem = seqItem.replace("     ", "")
+
+        # No stepping by negative numbers - step back by reversing start/end
+        seqItem = seqItem.replace("x-", "x")
+
+        seqItemList = seqItem.split("-") # might be range or neg number.
+
+        if "x" in seqItemList[-1] :
+            lastItem = seqItemList[-1].split("x")
+            if len(lastItem) != 2 :
+                nonSeqList.append(origItem)
+                continue
+            if not lastItem[1].isdigit() :
+                nonSeqList.append(origItem)
+                continue
+            stepValue = int(lastItem[1])
+            seqItemList[-1] = lastItem[0] # Stick back in list minus "xN" part
+
+        if seqItemList[0] == "" : # Means there was leading minus sign.
+            seqItemList.pop(0)
+            if len(seqItemList) == 0:
+                nonSeqList.append(origItem)
+                continue
+            if not seqItemList[0].isdigit() :
+                nonSeqList.append(origItem)
+                continue
+            seqItemList[0] = -1 * int(seqItemList[0]) # Repace first entry...
+        elif seqItemList[0].isdigit() :
+            seqItemList[0] = int(seqItemList[0]) #...with an ingeter.
+        else :
+            nonSeqList.append(origItem)
+            continue
+
+        if len(seqItemList) == 1 : # Was just string with one number in it.
+            if seqItemList[0] not in resultList :
+                resultList.append(seqItemList[0])
+            continue
+
+        if seqItemList[1] == "" : # Same as above for next entry.
+            seqItemList.pop(1)
+            if len(seqItemList) == 1:
+                nonSeqList.append(origItem)
+                continue
+            if not seqItemList[1].isdigit() :
+                nonSeqList.append(origItem)
+                continue
+            seqItemList[1] = -1 * int(seqItemList[1])
+        elif seqItemList[1].isdigit() :
+            seqItemList[1] = int(seqItemList[1])
+        else :
+            nonSeqList.append(origItem)
+            continue
+
+        # Should only be exactly two entries at this point.
+        if len(seqItemList) != 2 :
+            nonSeqList.append(origItem)
+            continue
+
+        # Ummm - dumb but why not? list from n to n, i.e., one number.
+        if seqItemList[0] == seqItemList[1] :
+            if seqItemList[0] not in resultList :
+                resultList.append(seqItemList[0])
+        elif seqItemList[0] < seqItemList[1] : # Counting up.
+            frameNum = seqItemList[0]
+            while frameNum <= seqItemList[1] :
+                if frameNum not in resultList :
+                    resultList.append(frameNum)
+                frameNum =  frameNum + stepValue
+        else : # Counting down.
+            frameNum = seqItemList[0]
+            while frameNum >= seqItemList[1] :
+                if frameNum not in resultList :
+                    resultList.append(frameNum)
+                frameNum =  frameNum - stepValue
+
+    return resultList
+
+class _gapRun :
+    def __init__(self, seqLen, startInd, gapSize, isCorrected=False) :
+        self.seqLen = seqLen
+        self.startInd = startInd
+        self.gapSize = gapSize
+        self.isCorrected = isCorrected
+
+    def __str__(self) :
+        return "[seqLen = " + str(self.seqLen) + \
+            " startInd = " + str(self.startInd) + \
+            " gapSize = " + str(self.gapSize) + \
+            " isCorrected = " + str(self.isCorrected) + "]"
+
+# "__" at the start of function nane indicated private in module.
+#
+def __debugPrintList(li) :
+    for l in li :
+        print "%02d" % l,
+    print ""
+
+
+# Takes a list of numbers and condenses it into the most minimal
+# form using the notation described in 'expandSeq()' above.
+#
+# This [2, 1, 3, 7, 8, 4, 5, 6, 9, 10]
+#     yeilds -> ['1-10']
+# and this [0, 8, 16, 2, 4, 6, 10, 12, 14]
+#     yeilds -> ['0-16x2']
+#
+# and it tries to keep runs of condensed frame lists as
+# long as possible while also trying to keep random smatterings
+# of frame numbers, simply as numbers and not strange sequences.
+#
+# Eg. condenseSeq(expandSeq(["0-100x2", 51]))
+#     yeilds -> ['0-50x2', '51', '52-100x2']
+# and [1, 5, 13]
+#     yeilds -> ['1', '5', '13']
+#
+# and other examples:
+# [1, 1, 1, 3, 3, 5, 5, 5] -> ['1-5x2']
+# [1, 2, 3, 4, 6, 8, 10] -> ['1-4', '6-10x2']
+# [1, 2, 3, 4, 6, 8] -> ['1-4', '6', '8']
+#
+# condenseSeq(expandSeq(["2-50x2", "3-50x3", "5-50x5", "7-50x7", "11-50x11", "13-50x13", "17-50x17", "19-50x19", "23-50x23"]))
+#     yeilds -> ['2-28', '30', '32-36', '38-40', '42', '44-46', '48-50']
+#
+def condenseSeq(seqList, pad=1) :
+
+    # Turn seqList into all integers and throw away invalid entries
+    #
+    tmpSeqList = seqList
+    seqList = []
+    for n in tmpSeqList :
+        if isinstance(n, int) :
+            seqList.append(int(n))
+        if isinstance(n, str) :
+            if n.isdigit() :
+                seqList.append(int(n))
+            elif n[0] == "-" and n[1:].isdigit() :
+                seqList.append(-1 * int(n))
+
+    if len(seqList) == 0 : # Take care of 1st trivial case
+        return []
+
+    # Remove duplicates
+    #
+    seqList.sort()
+    tmpSeqList = seqList
+    seqList = []
+    seqList.append(tmpSeqList[0])
+    tmpSeqList.pop(0)
+    for n in tmpSeqList :
+        if n != seqList[-1] :
+            seqList.append(n)
+
+    formatStr = "%0" + str(pad) + "d"
+
+    if len(seqList) == 1 : # Take care of second trivial case.
+        return [formatStr % seqList[0]]
+
+    # At this point - guaranteed that len(seqList) > 1
+
+    gapList = []
+    i = 1
+    while i < len(seqList) : # Record gaps between frame #'s
+        gapList.append(seqList[i] - seqList[i-1])
+        i += 1
+
+    # Count lengths of similar "gaps".
+    i = 0
+    currentGap = 0 # Impossible - good starting point.
+    gapRunList = []
+    while i < len(gapList) :
+        if gapList[i] != currentGap :
+            currentGap = gapList[i]
+            gapRunList.append(_gapRun(2, i, currentGap))
+        else :
+            gapRunList[-1].seqLen += 1
+        i += 1
+    gapRunList.append(_gapRun(0, i, 0)) # Add entry for last number in seqList (note zero gapSize)
+
+    # The largest runs steals from the prior and next runs last and first frame (respectively)
+    # if possible, working our way to smaller and smaller runs.
+    #
+    while True :
+
+        # Find largest run with smallest gapSize.
+        #
+        runInd = len(gapRunList) - 1 # This will contain index to desired run
+        maxSeqLen = 0
+        maxSeqLenGapSize = 0
+        i = 0
+        for run in gapRunList :
+            if not run.isCorrected :
+                if run.seqLen > maxSeqLen :
+                    runInd = i
+                    maxSeqLen = run.seqLen
+                    maxSeqLenGapSize = run.gapSize
+                elif run.seqLen == maxSeqLen and run.gapSize < maxSeqLenGapSize :
+                    runInd = i
+                    maxSeqLenGapSize = run.gapSize
+            i += 1
+
+        if runInd == len(gapRunList) - 1 :
+            break
+
+        gapRunList[runInd].isCorrected = True
+
+        if gapRunList[runInd].seqLen == 0 :
+            continue
+
+        # Correct prior sequence if possible.
+        if runInd > 0 :
+            if not gapRunList[runInd-1].isCorrected :
+                gapRunList[runInd-1].seqLen -= 1
+
+        # Also correct next sequence if possible.
+        if runInd < len(gapRunList) - 1 :
+            if not gapRunList[runInd+1].isCorrected : # Means it was bigger than this one and we can't steal from it.
+                gapRunList[runInd+1].seqLen -= 1
+                gapRunList[runInd+1].startInd += 1
+
+    condensedList = []
+
+    for run in gapRunList :
+        if run.seqLen <= 0 :
+            continue
+
+        if run.seqLen == 1 :
+            condensedList.append(formatStr % seqList[run.startInd])
+            continue
+
+        # Don't print out this case as a range, but as two separate entries.
+        #
+        if run.seqLen == 2 and run.gapSize > 1:
+            condensedList.append(formatStr % seqList[run.startInd])
+            condensedList.append(formatStr % seqList[run.startInd+1])
+            continue
+
+        firstFrame = seqList[run.startInd]
+        lastFrame = seqList[run.startInd + run.seqLen - 1]
+        gap = run.gapSize
+        condensedList.append(formatStr % firstFrame +"-"+ formatStr % lastFrame)
+        if gap > 1 :
+            condensedList[-1] = condensedList[-1] + "x" + str(gap)
+
+    return condensedList
+
+# Takes a list of numbers and condenses it into the most minimal
+# form using with the restriction that sequences are compressed
+# to a range (A-B) if and only if the numbers are successive.
+#
+# This [2, 1, 3, 7, 8, 4, 5, 6, 9, 10]
+#     yeilds -> ['1-10']
+# and this [0, 8, 16, 2, 4, 6, 10, 12, 14]
+#     yeilds -> [0, 2, 4, 6, 8, 10, 12, 14, 16]
+#
+def condenseSeqOnes(seqList, pad=1) :
+
+    # Turn seqList into all integers and throw away invalid entries
+    #
+    tmpSeqList = seqList
+    seqList = []
+    for n in tmpSeqList :
+        if isinstance(n, int) :
+            seqList.append(int(n))
+        if isinstance(n, str) :
+            if n.isdigit() :
+                seqList.append(int(n))
+            elif n[0] == "-" and n[1:].isdigit() :
+                seqList.append(-1 * int(n))
+
+    if len(seqList) == 0 : # Take care of 1st trivial case
+        return []
+
+    # Remove duplicates
+    #
+    seqList.sort()
+    tmpSeqList = seqList
+    seqList = []
+    seqList.append(tmpSeqList[0])
+    tmpSeqList.pop(0)
+    for n in tmpSeqList :
+        if n != seqList[-1] :
+            seqList.append(n)
+
+    formatStr = "%0" + str(pad) + "d"
+
+    if len(seqList) == 1 : # Take care of second trivial case.
+        return [formatStr % seqList[0]]
+
+    # At this point - guaranteed that len(seqList) > 1
+
+    condensedList = []
+
+    firstFrame = seqList[0]
+    lastFrame = seqList[0]
+    seqList.pop(0)
+    for f in seqList :
+        if f == lastFrame + 1 : # Sequence is on ones.
+            lastFrame = f
+        else :
+            if firstFrame == lastFrame : # Last one was a single entry.
+                condensedList.append(formatStr % firstFrame)
+            else : # Had a range.
+                condensedList.append(formatStr % firstFrame +"-"+ formatStr % lastFrame)
+            firstFrame = f
+            lastFrame = f
+
+    if firstFrame == lastFrame :
+        condensedList.append(formatStr % firstFrame)
+    else :
+        condensedList.append(formatStr % firstFrame +"-"+ formatStr % lastFrame)
+
+    return condensedList
+
+CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
+    "bgeo.sc", "bgeo.gz", "ifd.sc", "ifd.gz", "vdb.sc", "vdb.gz"]
+MOV_EXT = ["avi", "mov", "mp4", "mpg", "wmv"]
+IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
+    "dib", "dpx", "exr", "gfa", "gif", "giff", "icon", "iff", "img",
+    "int", "inta", "jpe", "jpeg", "jpg", "JPEG", "JPG", "mask",
+    "matte", "nef", "NEF", "pct", "pct1", "pct2", "pdb", "pdd",
+    "pic", "piclc", "picnc", "pict", "pix", "png", "psb", "psd",
+    "rat", "raw", "rgb", "rgba", "rle", "rw2", "sgi", "tga", "tif",
+    "tiff", "tpic"]
+
+PATH_UNSPECIFIED = 0
+PATH_ABS = 1
+PATH_REL = 2
+
+LIST_ALLFILES   = 0
+LIST_ONLYSEQS   = 1 # Images, movies and caches.
+LIST_ONLYIMGS   = 2 # Strictly images.
+LIST_ONLYMOVS   = 3 # Strictly movies.
+LIST_ONLYCACHES = 4 # Strictly caches.
+
+BY_UNSPECIFIED = 0
+BY_SINGLE = 1
+BY_COLUMNS = 2
+BY_ROWS = 3
+
+# Array indices for the contents of the image dictionary.
+#
+IMDICT_PADDING = 0
+IMDICT_DATALIST = 1
+
+# Array indices for the data list within the image dictionary.
+#
+FRAME_NUM = 0
+FRAME_SIZE = 1
+FRAME_MTIME = 2
+
+# Array indices for results of the "seqSplit()" function.
+#
+SEQKEY = 0
+FRAMENUM = 1
+
+# Array indices for the items in the rolling average calculation.
+#
+AVERAGE = 0
+STDDEV = 1
+
+# Given that we are not allowing "no separator" between the
+# descriptive filename and the frame number, then the only
+# other character besides "." (dot) that makes sense to have as a
+# separator is "_" (underscore).
+#
+# Clearly we should not allow alphanumeric characters as separators,
+# NOR unix/linux/windows shell special characters NOR minus ("-")
+# NOR space (" ").  That potentially leaves us with only "_", "+",
+# "^" and "~".  Tilde has associations with tmp/crufty files or user
+# home directories and his unlikely to ever be used as a separator
+# character.  "+" and "^" are potentially usable in as separators
+# but unlikely to be used so the effort to generalize the mechanism
+# to support the "loose" separator to a list is not worth the effort.
+# Thus "loose" is only defined as the use of "_" over and above the
+# far more desirable strict case of only allowing ".".
+#
+LOOSE_SEP = "_"
+
+# stats util for helping determine "bad" frames based on file sizes
+# deviation from a rolling avg of frame sizes.
+#
+def rollingAvg(list, window, errFrames, minFrame) :
+
+    # window must be a positive integer.
+    assert window > 0
+
+    # The rolling avg is (list[i-window] + ... + list[i+window])/window
+    # i.e.; the actual window size is (2*window + 1) in length.
+
+    result = [] # List of [ [rollingAvg, stddev], ... ]
+    list_len = len(list)
+    if list_len == 0 :
+        return result
+    elif list_len == 1 :
+        result.append([list[0], 0])
+        return result
+    else :
+        i = 0
+        listSquared = []
+        ignore = []
+        while i < list_len :
+            listSquared.append(list[i] * list[i])
+            ignore.append(False)
+            i += 1
+
+        for i in errFrames :
+            ignore[i-minFrame] = True
+
+        start = 0
+        end = window
+        if end >= list_len - 1 :
+            # List is so short that window extends beyond
+            # or touches the end already.
+            end = list_len - 1
+        winLen = end + 1
+
+        runningSum = 0
+        runningSumSq = 0
+        i = 0
+        while i <= end :
+            if ignore[i] :
+                winLen -= 1
+            else :
+                runningSum += list[i]
+                runningSumSq += listSquared[i]
+            i += 1
+        winLenSq = winLen * winLen
+
+        if winLen == 0 :
+            result.append([0, 0])
+        else :
+            mean = float(runningSum) / winLen
+            stdev = math.sqrt((float(runningSumSq)/winLen) \
+                - (float(runningSum * runningSum)/winLenSq))
+            result.append([mean, stdev])
+
+        j = 1
+        while j < list_len :
+            start = j - window
+            if start <= 0 :
+                start = 0
+            else :
+                if not ignore[start-1] :
+                    runningSum -= list[start-1]
+                    runningSumSq -= listSquared[start-1]
+                    winLen -= 1
+            end = j + window
+            if end >= list_len:
+                end = list_len -1
+            else :
+                if not ignore[end] :
+                    runningSum += list[end]
+                    runningSumSq += listSquared[end]
+                    winLen += 1
+
+            winLenSq = winLen * winLen
+            if winLen == 0 :
+                result.append([0, 0])
+            else :
+                mean = float(runningSum) / winLen
+                stdev = math.sqrt((runningSumSq/winLen) - ((runningSum * runningSum)/winLenSq))
+                result.append([mean, stdev])
+
+            j += 1
+
+        return result
+
+
+def isFrameNum(f) :
+        return (f != '') and (f.isdigit() or (f[0] == '-' and f[1:].isdigit()))
+
+
+def readByteShortForm(bytes) :
+    multiplier = 1
+    if bytes[-1] == 'K' or bytes[-1] == 'k' :
+        multiplier = 1<<10L
+        bytes = bytes[:-1]
+    elif bytes[-1] == 'M' or bytes[-1] == 'm' :
+        multiplier = 1<<20L
+        bytes = bytes[:-1]
+    elif bytes[-1] == 'G' or bytes[-1] == 'g' :
+        multiplier = 1<<30L
+        bytes = bytes[:-1]
+
+    try :
+        b = float(bytes)
+        if b <= 0 :
+            return 512
+        else :
+            return int(math.ceil(b*multiplier)) # Will always be at least 1.
+    except ValueError :
+        msg = "%r is not a valid byte size" % bytes
+        raise argparse.ArgumentTypeError(msg)
+
+def splitFileComponents(filename) :
+    global IMAGE_EXT
+    global CACHE_EXT
+
+    fileComponents = filename.split(".")
+
+    # Check for extensions with dot (for example, blosc compressed bgeos)
+    #
+    if (".".join(fileComponents[-2:]) in IMAGE_EXT) or (".".join(fileComponents[-2:]) in CACHE_EXT) :
+
+        fileComponents[-2] = ".".join(fileComponents[-2:])
+        del fileComponents[-1]
+
+    return fileComponents
+
+# Return two components if "filename" is formatted like a file in a
+# sequence otherwise return an empty list.  The two returned
+# components are the full filename but missing the frame number,
+# and the frame number (with its existing padding if any).
+#     Eg.  "a.b.c.001.exr" -> ["a.b.c..exr", "001"]
+#          "a.b.c_001.exr" -> ["a.b.c_.exr", "001"]
+#
+def seqSplit(filename, args) :
+
+    global IMAGE_EXT
+    global CACHE_EXT
+    global LOOSE_SEP
+    fileComponents = splitFileComponents(filename)
+
+    # A file with no extension.
+    #
+    if len(fileComponents) <= 1 :
+        return []
+
+    # Test if image or cache sequence.
+    #
+    if (fileComponents[-1] in IMAGE_EXT) or (fileComponents[-1] in CACHE_EXT) :
+
+        if not args.strictSeparator :
+            looseFileComponents = fileComponents[-2].split("_")
+            if len(looseFileComponents) > 1 :
+                if isFrameNum(looseFileComponents[-1]) :
+
+                    fileFrameNum = looseFileComponents[-1]
+                    looseFileComponents.pop(-1)
+                    looseFileComponents[-1] = looseFileComponents[-1] + "_"
+                    looseFileKey = "_".join(looseFileComponents)
+                    fileComponents[-2] = looseFileKey
+                    fileKey = ".".join(fileComponents)
+                    return [fileKey, fileFrameNum]
+
+        if len(fileComponents) > 2 and isFrameNum(fileComponents[-2]) :
+
+            fileFrameNum = fileComponents[-2]
+            fileComponents.pop(-2)
+            fileComponents[-2] = fileComponents[-2] + "."
+            fileKey = ".".join(fileComponents)
+            return [fileKey, fileFrameNum]
+
+    return []
+
+
+# Return true if and only if filename is a movie file.
+#
+def isMovie(filename) :
+    global MOV_EXT
+    fileComponents = filename.split(".")
+
+    return len(fileComponents) > 1 \
+        and MOV_EXT.count(fileComponents[-1]) >= 1
+
+
+# Split the filename key into (<imagename>, "", <ext>)
+# (empty placeholder for framenum)
+#
+def splitImageName(filename) :
+    numSep = "."
+    fileComponents = splitFileComponents(filename)
+    if fileComponents[-2] == '' :
+        fileComponents.pop(-2)
+    else :
+        numSep = fileComponents[-2][-1] # i.e.; "_"
+        fileComponents[-2] = fileComponents[-2][:-1]
+
+    fileExt = fileComponents.pop(-1)
+    fileRoot = ".".join(fileComponents) + numSep
+    return [fileRoot, "", fileExt]
+
+# Return true if and only if keyName (eg. "a.b.c..ass" - from splitSeq())
+# is a cache sequence (as opposed to an images sequence).
+#
+def isCache(keyName) :
+    splitName = splitImageName(keyName)
+    return splitName[-1] in CACHE_EXT
+
+# Reconstruct the imagename with the frame number.
+#
+def actualImageName(filename, padding, frame) :
+    fileParts = splitImageName(filename)
+    formatStr = "{0:0=-" + str(padding) + "d}"
+    return fileParts[0] + formatStr.format(frame) + "." + fileParts[2]
+
+
+def printSeq(filename, frameList, args, traversedPath) :
+
+    fileComponents = splitImageName(filename)
+
+    missingFrames = []
+    zeroFrames = []
+    badFrames = []
+    frameSizes = []
+    minFrame = frameList[IMDICT_DATALIST][0][FRAME_NUM]
+    maxFrame = frameList[IMDICT_DATALIST][-1][FRAME_NUM]
+    padding = frameList[IMDICT_PADDING]
+    i = minFrame
+    while i <= maxFrame:
+        iMissing = False
+        currFrameData = frameList[IMDICT_DATALIST][0]
+        if i != currFrameData[FRAME_NUM] :
+            iMissing = True
+            if args.showBad > 1 :
+                frameSizes.append(0)
+            if args.showMissing :
+                missingFrames.append(i)
+        else :
+            frameList[IMDICT_DATALIST].pop(0)
+            if args.showBad > 1 :
+                # if this file is a broken soft link '-1' was stashed as mtime
+                if currFrameData[FRAME_MTIME] == -1 :
+                    frameSizes.append(0)
+                else :
+                    frameSizes.append(currFrameData[FRAME_SIZE])
+        if (not iMissing and args.showZero) :
+            # if this file is a broken soft link '-1' was stashed as mtime
+            if currFrameData[FRAME_MTIME] == -1 : # mtime
+                if args.showZero :
+                    zeroFrames.append(i)
+                elif args.showBad > 0 :
+                    badFrames.append(i)
+                actualFilename = actualImageName(filename, padding, i)
+                print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+                    ": warning: " + actualFilename + " is a broken soft link."
+            # file size
+            elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
+                zeroFrames.append(i)
+            elif (args.showBad > 0) and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
+                badFrames.append(i)
+            elif currFrameData[FRAME_SIZE] == 0 :
+                zeroFrames.append(i)
+        i = i + 1
+
+    errFrames = []
+    # if args.showBad > 1 :
+    if False : # Bypass for now.
+        errFrames = missingFrames + zeroFrames + badFrames
+        errFrames.sort()
+#        stdevList = rollingAvg(frameSizes, args.badWindow, errFrames, minFrame)
+
+        i = 0
+        while i < len(frameSizes) :
+            if frameSizes[i] >= args.goodFrameMinSize and frameSizes[i] < stdevList[i][AVERAGE] :
+                if stdevList[i][STDDEV] != 0 and stdevList[i][AVERAGE] != 0 :
+                    x = (stdevList[i][AVERAGE] - frameSizes[i])/float(stdevList[i][STDDEV])
+                    y = stdevList[i][STDDEV]/float(stdevList[i][AVERAGE])
+                    xy = float(x) * y
+                else :
+                    xy = 0.0
+
+                levels = args.showBad - 1
+#                cutoff = 1.0 - (float(levels) * args.badThreshold)
+                if cutoff <= 0.0 :
+                    cutoff = 0.0001
+                if xy > cutoff :
+                    badFrames.append(i+minFrame)
+
+            if False : # Turn on for debugging stats info JPR
+                x = 0
+                y = 0
+                xy = 0
+                if stdevList[i][STDDEV] != 0 and stdevList[i][AVERAGE] != 0 :
+                    x = (stdevList[i][AVERAGE] - frameSizes[i])/float(stdevList[i][STDDEV])
+                    y = stdevList[i][STDDEV]/float(stdevList[i][AVERAGE])
+                    xy = float(x) * y
+                print "%05d" % int(i+minFrame) \
+                    + ": %8d" % frameSizes[i] \
+                    + "; m: %10.2f" % stdevList[i][AVERAGE] \
+                    + "; m(%): " + "%1.4f" % y \
+                    + "; s: %10.2f" % stdevList[i][STDDEV] \
+                    + "; s(%): " + "% 1.4f" % x \
+                    + "; xy: " + "% 1.4f" % xy
+            i += 1
+
+    formatStr = "%0" + str(padding) + "d"
+    if minFrame != maxFrame :
+        if args.seqFormat == 'rv' :
+            padStr = '@' * padding
+            if padding == 4 :
+                padStr = '#'
+            frameRange = str(minFrame) + "-" + str(maxFrame) + padStr
+        else :
+            frameRange = "[" \
+                + (formatStr % minFrame) \
+                + "-" \
+                + (formatStr % maxFrame) \
+                + "]"
+    else :
+        if args.seqFormat == 'rv' :
+            frameRange = (formatStr % minFrame)
+        else :
+            frameRange = "[" \
+                + (formatStr % minFrame) \
+                + "]"
+    fileComponents[1] = frameRange
+
+    if args.seqFormat == 'nuke' :
+        if minFrame == maxFrame :
+            fileComponents[1] = (formatStr % minFrame)
+        else :
+            fileComponents[1] = "%0" + str(padding) + "d"
+        if args.prependPath > 0 and fileComponents[0][0] != '/':
+            sys.stdout.write(traversedPath)
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
+        if minFrame == maxFrame :
+            print ""
+        else :
+            print str(minFrame) + "-" + str(maxFrame)
+
+    elif args.seqFormat == 'shake' :
+        if minFrame == maxFrame :
+            fileComponents[1] = (formatStr % minFrame)
+            print "shake ",
+        else :
+            if padding == 4 :
+                fileComponents[1] = "#"
+            else :
+                fileComponents[1] = "@"*padding
+            print "shake -t", str(minFrame) + "-" + str(maxFrame) + " ",
+        if args.prependPath > 0 and fileComponents[0][0] != '/':
+            sys.stdout.write(traversedPath)
+        else :
+            sys.stdout.write("")
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
+
+    elif args.seqFormat == 'glob' :
+        if minFrame < 0 :
+            fileComponents[1] = "[\-0-9]"
+        else :
+            fileComponents[1] = "[0-9]"
+        if (padding > 1) :
+            fileComponents[1] = fileComponents[1] + "[0-9]"*(padding-1)
+
+        if args.prependPath > 0 and fileComponents[0][0] != '/':
+            sys.stdout.write(traversedPath)
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
+
+    elif args.seqFormat == 'houdini' or args.seqFormat == 'mplay':
+        if minFrame == maxFrame :
+            fileComponents[1] = (formatStr % minFrame)
+        else :
+            fileComponents[1] = "$F"
+            if args.seqFormat == 'mplay':
+                fileComponents[1] = "\$F"
+            if padding >= 2:
+                fileComponents[1] += str(padding)
+        if args.prependPath > 0 and fileComponents[0][0] != '/':
+            sys.stdout.write(traversedPath)
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2]
+
+    else : # native and rv
+        if args.prependPath > 0 and fileComponents[0][0] != '/':
+            sys.stdout.write(traversedPath)
+        if args.extremes :
+            fileComponents[1] = formatStr % minFrame
+
+        print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
+        if minFrame != maxFrame and args.extremes :
+            print ""
+            if fileComponents[0][0] != '/':
+                sys.stdout.write(traversedPath)
+            fileComponents[1] = formatStr % maxFrame
+            print fileComponents[0] + fileComponents[1] + "." + fileComponents[2],
+
+        if args.combineErrorFrames :
+            if not args.showBad > 1 : #  Save this step, already done.
+                errFrames = missingFrames + zeroFrames + badFrames
+            frameSeq = condenseSeq(errFrames)
+            if (len(frameSeq) > 0) :
+                sys.stdout.write(" e:[")
+                doPrintComma = False
+                for f in frameSeq :
+                    if doPrintComma :
+                        sys.stdout.write(",")
+                    sys.stdout.write(f)
+                    doPrintComma = True
+                sys.stdout.write("]")
+            print ""
+        else :
+            missingFrameSeq = condenseSeq(missingFrames)
+            if (len(missingFrameSeq) > 0) :
+                sys.stdout.write(" m:[")
+                doPrintComma = False
+                for f in missingFrameSeq :
+                    if doPrintComma :
+                        sys.stdout.write(",")
+                    sys.stdout.write(f)
+                    doPrintComma = True
+                sys.stdout.write("]")
+            zeroFrameSeq = condenseSeq(zeroFrames)
+            if (len(zeroFrameSeq) > 0) :
+                if (len(missingFrameSeq) > 0) :
+                    sys.stdout.write(",")
+                sys.stdout.write(" z:[")
+                doPrintComma = False
+                for f in zeroFrameSeq :
+                    if doPrintComma :
+                        sys.stdout.write(",")
+                    sys.stdout.write(f)
+                    doPrintComma = True
+                sys.stdout.write("]")
+            badFrameSeq = condenseSeq(badFrames)
+            if (len(badFrameSeq) > 0) :
+                if (len(missingFrameSeq) > 0) or (len(zeroFrameSeq) > 0) :
+                    sys.stdout.write(",")
+                sys.stdout.write(" b:[")
+                doPrintComma = False
+                for f in badFrameSeq :
+                    if doPrintComma :
+                        sys.stdout.write(",")
+                    sys.stdout.write(f)
+                    doPrintComma = True
+                sys.stdout.write("]")
+            print ""
+
+
+def stripDotFiles(dirContents, stripIt) :
+    if not stripIt:
+        return dirContents
+    else :
+        strippedDirContents = []
+        for f in dirContents :
+            if f[0] != "." :
+                strippedDirContents.append(f)
+        return strippedDirContents
+
+
+def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
+
+    # Array indices for "timeList" used below.
+    #
+    DICTKEY = 0
+    MTIME = 1
+
+    tmpCWD = ""
+    # Stash the current working dir, to come back to and the end
+    # of this function.
+    if (len(path) > 0) :
+        tmpCWD = os.path.abspath(".")
+        os.chdir(path)
+
+    # Following flag set iff something got printed here before reaching
+    # printing of subdirs.
+    somethingWasPrinted = False
+
+    # The 'imageDictionary' (and 'cacheDictionary') has <imageName>..<ext>
+    # (or <imageName>_.<ext>), i.e.; name without the frame number, as the
+    # key for each entry.  Each entry is a two item list containing a number
+    # and a list of three-tuples, namely:
+    #
+    #     [ <framePadding>, [ (frameNum, fileSize, mtime), ... ] ]
+    #
+    # The 'moviesDictionary' has the movie file name as the key, and the
+    # file size as the data stored.  It stores -1 for the file size if the
+    # file is invalid.
+    #
+    imageDictionary = {}
+    cacheDictionary = {}
+    moviesDictionary = {}
+    otherFiles = []
+    dirList = []
+
+    # Go through the directory contents sifting out the various file types,
+    # collect the names into various lists for printing after this is done.
+    #
+    for filename in dirContents:
+
+        fileParts = seqSplit(filename, args)
+        if len(fileParts) == 2 : # Means file is an image or cache.
+            newFrameNum = int(fileParts[FRAMENUM])
+            newPaddingSize = len(fileParts[FRAMENUM])
+
+            # Check to see if file exists - might be broken soft link.
+            if not os.path.exists(filename) :
+                newFrameSize = 0
+                newFrameMTime = -1
+            else :
+                realFilename = os.path.realpath(filename)
+                newFrameSize = os.path.getsize(realFilename)
+                newFrameMTime = os.path.getmtime(realFilename)
+
+            # Take care of a special case - fix padding for single digit neg number.
+            #
+            if newFrameNum < 0 and newFrameNum > -10 and newPaddingSize == 2:
+                newPaddingSize = 1
+
+            if isCache(fileParts[SEQKEY]) :
+                if cacheDictionary.has_key(fileParts[SEQKEY]) :
+                    # tack on new frame number.
+                    cacheDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
+                        (newFrameNum, newFrameSize, newFrameMTime))
+                    # smallest length frame number determines padding.
+                    if (newPaddingSize < cacheDictionary[fileParts[SEQKEY]][IMDICT_PADDING]) :
+                        cacheDictionary[fileParts[SEQKEY]][IMDICT_PADDING] = newPaddingSize
+                else :
+                    # initialiaze dictionary entry.
+                    cacheDictionary[fileParts[SEQKEY]] \
+                        = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
+            else :
+                if imageDictionary.has_key(fileParts[SEQKEY]) :
+                    # tack on new frame number.
+                    imageDictionary[fileParts[SEQKEY]][IMDICT_DATALIST].append( \
+                        (newFrameNum, newFrameSize, newFrameMTime))
+                    # smallest length frame number determines padding.
+                    if (newPaddingSize < imageDictionary[fileParts[SEQKEY]][IMDICT_PADDING]) :
+                        imageDictionary[fileParts[SEQKEY]][IMDICT_PADDING] = newPaddingSize
+                else :
+                    # initialiaze dictionary entry.
+                    imageDictionary[fileParts[SEQKEY]] \
+                        = [newPaddingSize, [(newFrameNum, newFrameSize, newFrameMTime)]]
+
+        elif isMovie(filename) :
+            # Check to see if file exists - might be broken soft link.
+            if not os.path.exists(filename) :
+                moviesDictionary[filename] = -1
+            else :
+                realFilename = os.path.realpath(filename)
+                moviesDictionary[filename] = os.path.getmtime(realFilename)
+
+        else :
+            isFileDir = os.path.isdir(filename)
+            if ((not isFileDir
+                    or not listSubDirs
+                    or not args.listDirContents)
+                    and args.listWhichFiles == LIST_ALLFILES):
+                otherFiles.append(filename)
+            if isFileDir :
+                dirList.append(filename)
+
+    # Use actual "ls" to print non-image files nicely.
+    #
+    otherFiles.sort()
+    if len(otherFiles) > 0 :
+        extra_ls_options = []
+        if args.classify :
+            extra_ls_options.append("-F")
+        if args.byWhat == BY_SINGLE :
+            extra_ls_options.append("-1")
+        if args.byWhat == BY_COLUMNS :
+            extra_ls_options.append("-C")
+        if args.byWhat == BY_ROWS :
+            extra_ls_options.append("-x")
+        if args.sortByMTime :
+            extra_ls_options.append("-t")
+        if args.reverseListing :
+            extra_ls_options.append("-r")
+        extra_ls_options.append("--")
+        lsCmd = ["ls", "-d"] + extra_ls_options + otherFiles
+        sys.stdout.flush()
+        subprocess.call(lsCmd)
+        sys.stdout.flush()
+        somethingWasPrinted = True
+
+    # Now actually print the sequences in this directory.
+    #
+    if args.listWhichFiles == LIST_ONLYIMGS :
+        seqKeys = imageDictionary.keys()
+    elif args.listWhichFiles == LIST_ONLYMOVS :
+        seqKeys = moviesDictionary.keys()
+    elif args.listWhichFiles == LIST_ONLYCACHES :
+        seqKeys = cacheDictionary.keys()
+    else :
+        seqKeys = imageDictionary.keys()
+        movKeys = moviesDictionary.keys()
+        cacheKeys = cacheDictionary.keys()
+        for k in movKeys :
+            seqKeys.append(k)
+        for k in cacheKeys :
+            seqKeys.append(k)
+
+    # Gather file mod times if needed.
+    #
+    timeList = []
+    if args.sortByMTime or args.cutoffTime != None : # non-null cutoffTime means need time compare
+        for k in seqKeys :
+
+            if isMovie(k) :
+                # Note: only thing stored in "moviesDictionary" is the mod-time of the file.
+                timeList.append((k, moviesDictionary[k]))
+
+            elif isCache(k) :
+                validTimes = []
+                for im in cacheDictionary[k][IMDICT_DATALIST] :
+                    if im[FRAME_MTIME] != -1 :
+                        validTimes.append(im[FRAME_MTIME])
+                validTimes.sort()
+                time = 0
+                n = len(validTimes)
+                if n == 1 :
+                    time = validTimes[0]
+                elif n > 1 :
+                    if args.timeCompare == 'oldest' :
+                        time = validTimes[0]
+                    elif args.timeCompare == 'median' :
+                        midIndex = int(math.floor(n/2))
+                        if n % 2 == 1 : # Odd number of items
+                            time = validTimes[midIndex]
+                        else : # Even number of items.
+                            time = (validTimes[midIndex] + validTimes[midIndex-1])/2
+                    else : # newest
+                        time = validTimes[-1]
+                timeList.append((k, time))
+
+            else : # key is an image.
+                validTimes = []
+                for im in imageDictionary[k][IMDICT_DATALIST] :
+                    if im[FRAME_MTIME] != -1 :
+                        validTimes.append(im[FRAME_MTIME])
+                validTimes.sort()
+                time = 0
+                n = len(validTimes)
+                if n == 1 :
+                    time = validTimes[0]
+                elif n > 1 :
+                    if args.timeCompare == 'oldest' :
+                        time = validTimes[0]
+                    elif args.timeCompare == 'median' :
+                        midIndex = int(math.floor(n/2))
+                        if n % 2 == 1 : # Odd number of items
+                            time = validTimes[midIndex]
+                        else : # Even number of items.
+                            time = (validTimes[midIndex] + validTimes[midIndex-1])/2
+                    else : # newest
+                        time = validTimes[-1]
+                timeList.append((k, time))
+
+    if args.sortByMTime :
+        timeList.sort(key=itemgetter(MTIME))
+        # Note: ls -t prints newest first; ls -tr is newest last.
+        if not args.reverseListing :
+            timeList.reverse()
+        for seq in timeList :
+            if args.cutoffTime != None :
+                ### print "Sequences epoch mtime: " + str(seq[MTIME])
+                if args.cutoffTime[0] == 'before' :
+                    if seq[MTIME] >= args.cutoffTime[1] :
+                        continue
+                else : # Guaranteed to be 'since'
+                    if seq[MTIME] <= args.cutoffTime[1] :
+                        continue
+            if isMovie(seq[DICTKEY]) :
+                if args.prependPath > 0 :
+                    sys.stdout.write(traversedPath)
+                print seq[DICTKEY]
+                somethingWasPrinted = True
+            elif isCache(seq[DICTKEY]) :
+                cacheDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
+                somethingWasPrinted = True
+            else :
+                imageDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
+                somethingWasPrinted = True
+    elif args.cutoffTime != None :
+        timeList.sort(key=itemgetter(DICTKEY))
+        # Note: ls -t prints newest first; ls -tr is newest last.
+        if not args.reverseListing :
+            timeList.reverse()
+        for seq in timeList :
+            ### print "Sequences epoch mtime: " + str(seq[MTIME])
+            if args.cutoffTime[0] == 'before' :
+                if seq[MTIME] >= args.cutoffTime[1] :
+                    continue
+            else : # Guaranteed to be 'since'
+                if seq[MTIME] <= args.cutoffTime[1] :
+                    continue
+            if isMovie(seq[DICTKEY]) :
+                if args.prependPath > 0 :
+                    sys.stdout.write(traversedPath)
+                print seq[DICTKEY]
+                somethingWasPrinted = True
+            elif isCache(seq[DICTKEY]) :
+                cacheDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
+                somethingWasPrinted = True
+            else :
+                imageDictionary[seq[DICTKEY]][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
+                somethingWasPrinted = True
+    else :
+        seqKeys.sort()
+        if args.reverseListing :
+            seqKeys.reverse()
+        for k in seqKeys :
+            if isMovie(k) :
+                if args.prependPath > 0 :
+                    sys.stdout.write(traversedPath)
+                print k
+                somethingWasPrinted = True
+            elif isCache(k) :
+                cacheDictionary[k][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                printSeq(k, cacheDictionary[k], args, traversedPath)
+                somethingWasPrinted = True
+            else :
+                imageDictionary[k][IMDICT_DATALIST].sort(key=itemgetter(FRAME_NUM))
+                printSeq(k, imageDictionary[k], args, traversedPath)
+                somethingWasPrinted = True
+
+    # lsseq - the contents of any subdirectories if need be.
+    #
+    firstDir = True
+    if ((listSubDirs or args.isRecursive) and args.listDirContents) :
+        dirList.sort()
+        for d in dirList :
+            if d[-1] == "/" :
+                d = d[:-1]
+            if args.prependPath == 0 :
+                if somethingWasPrinted or not firstDir :
+                    print ""
+                firstDir = False
+                if args.isRecursive :
+                    print traversedPath + d + ":"
+                else :
+                    print d + ":"
+
+            if d[0] == "/" :
+                passedPath = d + "/"
+            else :
+                passedPath = traversedPath + d + "/"
+
+            listSeqDir(stripDotFiles(os.listdir(d), args.ignoreDotFiles),
+                d, False, args, passedPath)
+
+    if (len(path) > 0) :
+        os.chdir(tmpCWD)
+
+
+def main():
+
+    # Redefine the exception handling routine so that it does NOT
+    # do a trace dump if the user types ^C while lsseq is running.
+    #
+    old_excepthook = sys.excepthook
+    def new_hook(exceptionType, value, traceback):
+        if exceptionType != KeyboardInterrupt and exceptionType != IOError:
+            old_excepthook(exceptionType, value, traceback)
+        else:
+            pass
+    sys.excepthook = new_hook
+
+    global IMAGE_EXT
+    global MOV_EXT
+    global CACHE_EXT
+    global PATH_ABS
+    global PATH_REL
+    global LIST_ALLFILES
+    global LIST_ONLYSEQS
+    global LIST_ONLYIMGS
+    global LIST_ONLYMOVS
+    global LIST_ONLYCACHES
+
+    p = argparse.ArgumentParser(
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        description=textwrap.dedent('''\
+            List directory contents (akin to /bin/ls) while condensing image
+            sequences to one entry each. Filenames that are part of image
+            sequences are assumed to be of the form:
+
+                <descriptiveName>.<frameNum>.<imgExtension>
+
+            where <imgExtension> is drawn from a default list of image extensions
+            (see option -i) or they can be set with the environment variable
+            OIC_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly there is an
+            OIC_MOV_EXTENSION environment variable for movie file extensions and
+            OIC_CACHE_EXTENSION for caches and other miscellaneous sequences.
+
+            %(prog)s will first list all non-image-sequence files followed by the
+            list of image sequences as such:
+
+                $ %(prog)s
+                [output of /bin/ls minus image sequences]
+                [list of images sequences]
+            '''),
+        usage="%(prog)s [OPTION]... [FILE]...")
+
+    p.add_argument("--version", action="version", version="2.030.standAlone")
+
+    p.add_argument("--showBadFrames", "-b", action="count",
+        dest="showBad", default=0,
+        help="lists potentially bad frames based on the \
+        minimum size of a good frame (see --goodFrameMinSize)")
+#        help="a single '-b' lists potentially bad frames based on the \
+#        minimum size of a good frame (see --goodFrameMinSize).  Listing the argument \
+#        more than once (eg. '-bb') expands the definion of a 'bad frame' to include \
+#        frames whose sizes deviate significantly (lower) than a rolling average of frame sizes. \
+#        Increasing the number of repetitions of the argument (eg. '-bbbb') loosens the \
+#        threshold at which frame sizes are considered 'bad'." )
+    p.add_argument("--skipBadFrames", "-B", action="store_const",
+        dest="showBad", const=0,
+        help="do not show list of potentially bad frames [default]" )
+    p.add_argument("--showMissing", "-m", action="store_true",
+        dest="showMissing", default=True,
+        help="show list of missing frames [default]" )
+    p.add_argument("--skipMissing", "-M", action="store_false",
+        dest="showMissing",
+        help="do not show list of missing frames" )
+    p.add_argument("--showZero", "-z", action="store_true",
+        dest="showZero", default=True,
+        help="show list of zero length images [default]" )
+    p.add_argument("--skipZero", "-Z", action="store_false",
+        dest="showZero",
+        help="do not show list of zero length images" )
+
+#    p.add_argument("--badWindow", action="store", type=int,
+#        dest="badWindow", default=2,
+#        metavar="WINDOW",
+#        help="how many frames ahead, and back to use when calculating the rolling \
+#        average of frame sizes for the 'bad frame' calculations.  The default is 2, \
+#        in which case the rolling average would be calculated across 5 frames in total, \
+#        that is, the current frame plus the two before and the two after.")
+#    p.add_argument("--badThreshold", action="store", type=float,
+#        dest="badThreshold", default=0.05,
+#        metavar="THRESHOLD",
+#        help="sets the threshold value for flagging bad frames based on \
+#        the rolling average of frames sizes.  The default is 0.05 (corresponds to -bb) \
+#        means 5 percent of the \
+#        avg frame size. Increasing \
+#        the number of '-b' arguments additively increases this threshold, eg. \
+#        '-bbbb' has the effect of making the threshold be 0.15 for the 'bad frame' \
+#        calulations.")
+
+    p.add_argument("--combineLists", "-c", action="store_true",
+        dest="combineErrorFrames", default=False,
+        help="combine the lists of zero, missing and bad frames into one list")
+    p.add_argument("--extremes", "-e", action="store_true",
+        dest="extremes", default=False,
+        help="only list the first and last image on a separate line each. \
+        This option implies --prependPathAbs (unless --prependPathRel is \
+        explicitly specified) and --onlySequences")
+    p.add_argument("--format", "-f", action="store", type=str,
+        choices=("native", "nuke", "rv", "shake", "glob", "mplay", "houdini"),
+        dest="seqFormat",
+        metavar="FORMAT",
+        default="native",
+        help="list image sequences in various formats.\
+        The choices are 'native' (default), 'nuke', 'rv', 'shake', 'glob', \
+        'mplay', and 'houdini'.\
+        Note that glob prints correct results only if \
+        the frame numbers are padded")
+    p.add_argument("--goodFrameMinSize", action="store", type=readByteShortForm,
+        dest="goodFrameMinSize", default=512,
+        metavar="BYTES",
+        help="any frame size less than this size is considered to be \
+        a bad frame.  Shortforms for byte sizes are accepted as \
+        in '1K' (i.e.; 1024) or '1.5K' for example.  [default: 512]")
+    p.add_argument("--imgExt", "-i", action="store_true",
+        dest="printImgExtensions", default=False,
+        help="print list of image, cache and movie file extensions and exit")
+    p.add_argument("--looseNumSeparator", "-l", action="store_false",
+        dest="strictSeparator",
+        help="allow the use of '_' (underscore), in addition to '.' (dot)\
+            as a separator between the descriptiveName and frameNumber when\
+            looking to interpret filenames as\
+            image sequences. i.e.; <descriptiveName>_<frameNum>.<imgExtension>\
+            (also see --strictNumSeparator)")
+    p.add_argument("--onlySequences", "-o", action="store_const",
+        dest="listWhichFiles", default=LIST_ALLFILES, const=LIST_ONLYSEQS,
+        help="only list image sequences, cache sequences and movies")
+
+    p.add_argument("--onlyImages", "-O", action="store_const",
+        dest="listWhichFiles", const=LIST_ONLYIMGS,
+        help="strictly list only image sequences (i.e.; no movies or caches)")
+    p.add_argument("--onlyMovies", action="store_const",
+        dest="listWhichFiles", const=LIST_ONLYMOVS,
+        help="strictly list only movies (i.e.; no images or caches)")
+    p.add_argument("--onlyCaches", action="store_const",
+        dest="listWhichFiles", const=LIST_ONLYCACHES,
+        help="strictly list only cache sequences (i.e.; no images or movies)")
+
+    p.add_argument("--prependPathAbs", "-p", action="store_const",
+        dest="prependPath", default=PATH_UNSPECIFIED, const=PATH_ABS,
+        help="prepend the absolute path name to the image name. \
+        This option implies the option --onlySequences and will also \
+        suppress printing directory name headers when listing \
+        directory contents")
+    p.add_argument("--prependPathRel", "-P", action="store_const",
+        dest="prependPath", const=PATH_REL,
+        help="prepend the relative path name to the image name. \
+        This option implies the option --onlySequences and will also \
+        suppress printing directory name headers when listing \
+        directory contents")
+    p.add_argument("--strictNumSeparator", "-s", action="store_true",
+        dest="strictSeparator", default=True,
+        help="strictly enforce the use of '.' (dot) as a separator between the\
+            descriptiveName and frameNumber when looking to interpret filenames as\
+            image sequences. i.e.; <descriptiveName>.<frameNum>.<imgExtension>\
+            (this is the default; also see --looseNumSeparator)")
+    p.add_argument("--single", "-1", action="store_const",
+        dest="byWhat", default=BY_UNSPECIFIED, const=BY_SINGLE,
+        help="list one non-sequence entry per line (see ls(1))")
+    p.add_argument("--all", "-a", action="store_false",
+        dest="ignoreDotFiles", default=True,
+        help="do not ignore entries starting with '.' \
+        while omitting implied '.' and '..' directories (see ls(1) --almost-all)")
+    p.add_argument("--byColumns", "-C", action="store_const",
+        dest="byWhat", const=BY_COLUMNS,
+        help="list non-sequence entries by columns (see ls(1))")
+    p.add_argument("--byRows", "-x", action="store_const",
+        dest="byWhat", const=BY_ROWS,
+        help="list non-sequence entries by lines instead of by columns (see ls(1))")
+    p.add_argument("--directory", "-d", action="store_false",
+        dest="listDirContents", default=True,
+        help="list directory entries instead of contents, \
+        and do not dereference symbolic links (see ls(1))")
+    p.add_argument("--classify", "-F", action="store_true",
+        dest="classify", default=False,
+        help="append indicator (one of */=>@|) to entries (see ls(1))")
+    p.add_argument("--reverse", "-r", action="store_true",
+        dest="reverseListing", default=False,
+        help="reverse order while sorting")
+    p.add_argument("--recursive", "-R", action="store_true",
+        dest="isRecursive", default=False,
+        help="list subdirectories recursively")
+    p.add_argument("--time", action="store", type=str,
+        dest="timeCompare",
+        help="which frame in the sequence to use to compare times \
+        between sequences when sorting by time.  The possible values \
+        for 'FRAME_AGE' are 'oldest', 'median' and 'newest' \
+        [default: 'newest']", metavar="FRAME_AGE", default="newest",
+        choices=("oldest", "median", "newest"))
+    p.add_argument("-t", action="store_true",
+        dest="sortByMTime", default=False,
+        help="sort by modification time, the default comparison \
+        time is between the most recently modified (newest) frames \
+        in each sequence. (see --time) (see ls(1))")
+    p.add_argument("--onlyShow", action="store", type=str, nargs=2,
+        dest="cutoffTime",
+        help="where TENSE is either 'before' or 'since'; only list sequences\
+        up to or after the time specified.  The --time argument \
+        specifies which frame to use for the cutoff comparison",
+        metavar=("TENSE", "[[CC]YY]MMDDhhmm[.ss]"))
+
+    p.add_argument("files", metavar="FILE", nargs="*",
+        help="file names")
+
+    args = p.parse_args()
+
+#    if args.badWindow < 1 :
+#        print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+#            ": error: the badWindow argument must be a positive integer."
+#        sys.exit(1)
+#
+#    if args.badThreshold <= 0.0 or args.badThreshold >= 1.0 :
+#        print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+#            ": error: the badThreshold argument must be a number greater than zero and less than one."
+#        sys.exit(1)
+
+    tmpExt = os.getenv("OIC_IMAGE_EXTENSION")
+    if tmpExt != None and tmpExt != "" :
+        tmpExtList = tmpExt.split(":")
+    else :
+        tmpExtList = IMAGE_EXT
+    tmpExtList.sort();
+    IMAGE_EXT = [];
+    for e in tmpExtList :
+        # if '.' in e :
+        #     print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+        #         ": warning: dots are not currently supported in file name extensions so " + e + " is being ignored."
+        # else :
+        #     IMAGE_EXT.append(e);
+        IMAGE_EXT.append(e);
+
+    tmpExt = os.getenv("OIC_MOV_EXTENSION")
+    if tmpExt != None and tmpExt != "" :
+        tmpExtList = tmpExt.split(":")
+    else :
+        tmpExtList = MOV_EXT
+    tmpExtList.sort();
+    MOV_EXT = []
+    for e in tmpExtList :
+        # if '.' in e :
+        #     print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+        #         ": warning: dots are not currently supported in movie file name extensions so " + e + " is being ignored."
+        # else :
+        #     MOV_EXT.append(e);
+        MOV_EXT.append(e)
+
+    tmpExt = os.getenv("OIC_CACHE_EXTENSION")
+    if tmpExt != None and tmpExt != "" :
+        tmpExtList = tmpExt.split(":")
+    else :
+        tmpExtList = CACHE_EXT
+    tmpExtList.sort();
+    CACHE_EXT = []
+    for e in tmpExtList :
+        CACHE_EXT.append(e)
+
+    if args.printImgExtensions :
+        extList = ":".join(IMAGE_EXT)
+        print "OIC_IMAGE_EXTENSION:", extList
+        extList = ":".join(MOV_EXT)
+        print "OIC_MOV_EXTENSION:", extList
+        extList = ":".join(CACHE_EXT)
+        print "OIC_CACHE_EXTENSION:", extList
+        sys.exit(0)
+
+    if args.prependPath == PATH_REL :
+        if args.listWhichFiles == LIST_ALLFILES :
+            args.listWhichFiles = LIST_ONLYSEQS
+
+    if args.prependPath == PATH_ABS :
+        if args.listWhichFiles == LIST_ALLFILES :
+            args.listWhichFiles = LIST_ONLYSEQS
+
+    if args.extremes :
+        if args.prependPath == PATH_UNSPECIFIED :
+            args.prependPath = PATH_ABS
+        args.showMissing = False
+        args.showZero = False
+        args.seqFormat = 'native'
+        if args.listWhichFiles == LIST_ALLFILES :
+            args.listWhichFiles = LIST_ONLYIMGS # Strictly only images.
+
+    if args.cutoffTime != None :
+        args.cutoffTime[0] = args.cutoffTime[0].lower()
+        if (args.cutoffTime[0] != 'before') and (args.cutoffTime[0] != 'since') :
+            print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+                ": error: argument --onlyShow: TENSE must be 'since' or 'before'."
+            sys.exit(1)
+        timeSpec = args.cutoffTime[1].split('.')
+        if len(timeSpec) <= 2 :
+            if   len(timeSpec[0]) == 12 :
+                timeFormat = "%Y%m%d%H%M"
+            elif len(timeSpec[0]) == 10 :
+                timeFormat = "%y%m%d%H%M"
+            elif len(timeSpec[0]) == 8 :
+                timeFormat = "%m%d%H%M"
+            else :
+                print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+                    ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]"
+                sys.exit(1)
+        if len(timeSpec) == 2 :
+            timeFormat += ".%S"
+
+        try :
+            timeData=time.strptime(args.cutoffTime[1], timeFormat)
+        except ValueError :
+            print >> sys.stderr, os.path.basename(sys.argv[0]) + \
+                ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]"
+            sys.exit(1)
+
+        args.cutoffTime[1] = int(time.mktime(timeData)) # Epoch time
+        ### print "Epoch time specified: " + str(args.cutoffTime[1])
+
+
+    # The following logic attempts to mimic the behavior
+    # of /bin/ls as closely as possible.
+
+    # No args means list the current directory.
+    #
+    if len(args.files) == 0:
+        if (not args.listDirContents) :
+            if args.listWhichFiles == LIST_ALLFILES :
+                print "."
+        else :
+            if args.isRecursive :
+                if args.prependPath == 0 :
+                    print ".:"
+                passedPath = "./"
+            else :
+                passedPath = ""
+            if args.prependPath == PATH_ABS :
+                passedPath = os.getcwd() + "/"
+
+            listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), "", False, args, passedPath)
+
+    # We are being asked to list a specific directory, so we don't need
+    # to print the directory name before listing the contents (unless
+    # it is a recursive listing).  (/bin/ls behavior.)
+    #
+    elif len(args.files) == 1 and os.path.isdir(args.files[0]) and args.prependPath != PATH_ABS :
+        arg0 = args.files[0]
+        # Strip out trailing "/" that may have been tacked on by
+        # file completion.  (/bin/ls does not do this - but it's
+        # cleaner looking.)
+        if args.files[0][-1] == "/" :
+            arg0 = args.files[0][:-1]
+
+        if (not args.listDirContents) :
+            print arg0
+
+        else :
+
+            if args.isRecursive:
+                if args.prependPath == 0 :
+                    print arg0 + ":"
+                passedPath = arg0 + "/"
+            else :
+                passedPath = ""
+
+            if args.prependPath == PATH_REL :
+                passedPath = arg0 + "/"
+
+            if args.prependPath == PATH_ABS :
+                passedPath = os.getcwd() + "/"
+
+            if arg0[0] == "/" :
+                passedPath = arg0 + "/"
+
+            listSeqDir(stripDotFiles(os.listdir(arg0), args.ignoreDotFiles), arg0, False, args, passedPath)
+
+    # List all the arguments on the command line and unless prevented by
+    # the "-d" option, it will also list the contents of all the directories
+    # entered on the command line as well.
+    #
+    else:
+        passedPath = ""
+        if args.prependPath == PATH_ABS :
+            passedPath = os.getcwd() + "/"
+        listSeqDir(args.files, "", True, args, passedPath)
+
+if __name__ == '__main__':
+    main()
