@@ -61,21 +61,85 @@ import subprocess
 import textwrap
 import math
 import time
+import copy
 from operator import itemgetter
 import seqLister
 
 VERSION = "2.4.4"
 
-CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
-    "bgeo.sc", "bgeo.gz", "ifd.sc", "ifd.gz", "vdb.sc", "vdb.gz"]
-MOV_EXT = ["avi", "mov", "mp4", "mpg", "wmv"]
-IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
-    "dib", "dpx", "exr", "gfa", "gif", "giff", "icon", "iff", "img",
-    "int", "inta", "jpe", "jpeg", "jpg", "JPEG", "JPG", "mask",
-    "matte", "nef", "NEF", "pct", "pct1", "pct2", "pdb", "pdd",
-    "pic", "piclc", "picnc", "pict", "pix", "png", "psb", "psd",
-    "rat", "raw", "rgb", "rgba", "rle", "rw2", "sgi", "tga", "tif",
-    "tiff", "tpic"]
+CACHE_EXT = [
+    "ass",
+    "bgeo",
+    "bgeo.gz",
+    "bgeo.sc",
+    "dshd",
+    "fur",
+    "ifd",
+    "ifd.gz",
+    "ifd.sc",
+    "obj",
+    "srf",
+    "vdb",
+    "vdb.gz",
+    "vdb.sc"
+]
+MOV_EXT = [
+    "avi",
+    "mov",
+    "mp4",
+    "mpg",
+    "wmv"
+]
+IMAGE_EXT = [
+    "alpha",
+    "als",
+    "anim",
+    "bmp",
+    "btf",
+    "bw",
+    "cin",
+    "dib",
+    "dpx",
+    "exr",
+    "gfa",
+    "gif",
+    "giff",
+    "icon",
+    "iff",
+    "img",
+    "int",
+    "inta",
+    "jpe",
+    "jpeg",
+    "jpg",
+    "mask",
+    "matte",
+    "nef",
+    "pct",
+    "pct1",
+    "pct2",
+    "pdb",
+    "pdd",
+    "pic",
+    "piclc",
+    "picnc",
+    "pict",
+    "pix",
+    "png",
+    "psb",
+    "psd",
+    "rat",
+    "raw",
+    "rgb",
+    "rgba",
+    "rle",
+    "rw2",
+    "sgi",
+    "tga",
+    "tif",
+    "tiff",
+    "tpic"
+]
 
 PATH_NOPREFIX = 0
 PATH_ABS = 1
@@ -165,8 +229,8 @@ def splitFileComponents(filename) :
     # Check for extensions with dot (for example, bgeo.sc, bgeo.g, or vdb.gz)
     # and join them before returning result.
     #
-    if (".".join(fileComponents[-2:]) in IMAGE_EXT) \
-	    or (".".join(fileComponents[-2:]) in CACHE_EXT) :
+    if (lower(".".join(fileComponents[-2:])) in IMAGE_EXT) \
+	    or (lower(".".join(fileComponents[-2:])) in CACHE_EXT) :
 
         # If we found a match, join the last two items,
         # into the second last slot, then and delete the last one.
@@ -197,7 +261,8 @@ def seqSplit(filename, args) :
 
     # Test if image or cache sequence.
     #
-    if (fileComponents[-1] in IMAGE_EXT) or (fileComponents[-1] in CACHE_EXT) :
+    if (lower(fileComponents[-1]) in IMAGE_EXT) \
+            or (lower(fileComponents[-1]) in CACHE_EXT) :
 
         if not args.strictSeparator :
             looseFileComponents = fileComponents[-2].split("_")
@@ -229,7 +294,7 @@ def isMovie(filename) :
     fileComponents = filename.split(".")
 
     return len(fileComponents) > 1 \
-        and MOV_EXT.count(fileComponents[-1]) >= 1
+        and (lower(fileComponents[-1]) in MOV_EXT)
 
 
 # Split the filename dictionary KEY into (<imagename>, "", <ext>)
@@ -253,7 +318,7 @@ def splitImageName(filenameKey) :
 #
 def isCache(keyName) :
     splitName = splitImageName(keyName)
-    return splitName[-1] in CACHE_EXT
+    return lower(splitName[-1]) in CACHE_EXT
 
 # Reconstruct the imagename with the frame number
 # from the dictionary key..
@@ -1133,10 +1198,11 @@ def main() :
         tmpExtList = tmpOICExt.split(":")
     else :
         tmpExtList = IMAGE_EXT
-    tmpExtList.sort()
-    IMAGE_EXT = []
+    tmpExtSet = set([])
     for e in tmpExtList :
-        IMAGE_EXT.append(e)
+        tmpExtSet.add(lower(e))
+    tmpExtList.sorted(tmpExtSet)
+    IMAGE_EXT = copy.deepcopy(tmpExtList)
 
     tmpExt = os.getenv("LSSEQ_MOV_EXTENSION")
     tmpOICExt = os.getenv("OIC_MOV_EXTENSION")
@@ -1146,10 +1212,11 @@ def main() :
         tmpExtList = tmpOICExt.split(":")
     else :
         tmpExtList = MOV_EXT
-    tmpExtList.sort()
-    MOV_EXT = []
+    tmpExtSet = set([])
     for e in tmpExtList :
-        MOV_EXT.append(e)
+        tmpExtSet.add(lower(e))
+    tmpExtList.sorted(tmpExtSet)
+    MOV_EXT = copy.deepcopy(tmpExtList)
 
     tmpExt = os.getenv("LSSEQ_CACHE_EXTENSION")
     tmpOICExt = os.getenv("OIC_CACHE_EXTENSION")
@@ -1159,10 +1226,11 @@ def main() :
         tmpExtList = tmpOICExt.split(":")
     else :
         tmpExtList = CACHE_EXT
-    tmpExtList.sort()
-    CACHE_EXT = []
+    tmpExtSet = set([])
     for e in tmpExtList :
-        CACHE_EXT.append(e)
+        tmpExtSet.add(lower(e))
+    tmpExtList.sorted(tmpExtSet)
+    CACHE_EXT = copy.deepcopy(tmpExtList)
 
     if args.printImgExtensions :
         extList = ":".join(IMAGE_EXT)
