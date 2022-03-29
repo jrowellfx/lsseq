@@ -65,7 +65,7 @@ import copy
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.4.4"
+VERSION = "2.5.0"     # Semantic Versioning 2.0.0
 
 CACHE_EXT = [
     "ass",

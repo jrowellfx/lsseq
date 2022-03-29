@@ -1,7 +1,7 @@
 ------ Begin Tests ------
 
 ------ Test 1 ------ lsseq --version ------
-2.4.4
+2.5.0
 
 ------ Test 2 ------ lsseq --help ------
 usage: lsseq [OPTION]... [FILE]...
