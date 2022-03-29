@@ -1,4 +1,5 @@
-# Assumes that venv has seqLister installed.
+# Assumes that seqLister is installed.
+#
 export TEST_DIR=`pwd`
 pushd $HOME
 source venv/bin/activate

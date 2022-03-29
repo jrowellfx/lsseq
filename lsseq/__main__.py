@@ -230,8 +230,8 @@ def splitFileComponents(filename) :
     # and join them before returning result.
     # Note: use of lower() allows us to ignore case of extensions.
     #
-    if (lower(".".join(fileComponents[-2:])) in IMAGE_EXT) \
-	    or (lower(".".join(fileComponents[-2:])) in CACHE_EXT) :
+    if (".".join(fileComponents[-2:]).lower() in IMAGE_EXT) \
+	    or (".".join(fileComponents[-2:]).lower() in CACHE_EXT) :
 
         # If we found a match, join the last two items,
         # into the second last slot, then and delete the last one.
@@ -263,8 +263,8 @@ def seqSplit(filename, args) :
     # Test if image or cache sequence.
     # Note: use of lower() allows us to ignore case of extensions.
     #
-    if (lower(fileComponents[-1]) in IMAGE_EXT) \
-            or (lower(fileComponents[-1]) in CACHE_EXT) :
+    if (fileComponents[-1].lower() in IMAGE_EXT) \
+            or (fileComponents[-1].lower() in CACHE_EXT) :
 
         if not args.strictSeparator :
             looseFileComponents = fileComponents[-2].split("_")
@@ -298,7 +298,7 @@ def isMovie(filename) :
     # Note: use of lower() allows us to ignore case of extensions.
     #
     return len(fileComponents) > 1 \
-        and (lower(fileComponents[-1]) in MOV_EXT)
+        and fileComponents[-1].lower() in MOV_EXT
 
 
 # Split the filename dictionary KEY into (<imagename>, "", <ext>)
@@ -323,7 +323,7 @@ def splitImageName(filenameKey) :
 def isCache(keyName) :
     splitName = splitImageName(keyName)
     # use of lower() allows us to ignore case of extensions.
-    return lower(splitName[-1]) in CACHE_EXT
+    return splitName[-1].lower() in CACHE_EXT
 
 # Reconstruct the imagename with the frame number
 # from the dictionary key..
@@ -1213,8 +1213,8 @@ def main() :
     #
     tmpExtSet = set([])
     for e in tmpExtList :
-        tmpExtSet.add(lower(e))
-    tmpExtList.sorted(tmpExtSet)
+        tmpExtSet.add(e.lower())
+    tmpExtList = sorted(tmpExtSet)
     IMAGE_EXT = copy.deepcopy(tmpExtList)
 
     tmpExt = os.getenv("LSSEQ_MOV_EXTENSION")
@@ -1228,8 +1228,8 @@ def main() :
     # Using a set like this removes duplicates if they exist.
     tmpExtSet = set([])
     for e in tmpExtList :
-        tmpExtSet.add(lower(e))
-    tmpExtList.sorted(tmpExtSet)
+        tmpExtSet.add(e.lower())
+    tmpExtList = sorted(tmpExtSet)
     MOV_EXT = copy.deepcopy(tmpExtList)
 
     tmpExt = os.getenv("LSSEQ_CACHE_EXTENSION")
@@ -1243,8 +1243,8 @@ def main() :
     # Using a set like this removes duplicates if they exist.
     tmpExtSet = set([])
     for e in tmpExtList :
-        tmpExtSet.add(lower(e))
-    tmpExtList.sorted(tmpExtSet)
+        tmpExtSet.add(e.lower())
+    tmpExtList = sorted(tmpExtSet)
     CACHE_EXT = copy.deepcopy(tmpExtList)
 
     if args.printImgExtensions :
