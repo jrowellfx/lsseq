@@ -228,6 +228,7 @@ def splitFileComponents(filename) :
 
     # Check for extensions with dot (for example, bgeo.sc, bgeo.g, or vdb.gz)
     # and join them before returning result.
+    # Note: use of lower() allows us to ignore case of extensions.
     #
     if (lower(".".join(fileComponents[-2:])) in IMAGE_EXT) \
 	    or (lower(".".join(fileComponents[-2:])) in CACHE_EXT) :
@@ -260,6 +261,7 @@ def seqSplit(filename, args) :
         return []
 
     # Test if image or cache sequence.
+    # Note: use of lower() allows us to ignore case of extensions.
     #
     if (lower(fileComponents[-1]) in IMAGE_EXT) \
             or (lower(fileComponents[-1]) in CACHE_EXT) :
@@ -293,6 +295,8 @@ def isMovie(filename) :
     global MOV_EXT
     fileComponents = filename.split(".")
 
+    # Note: use of lower() allows us to ignore case of extensions.
+    #
     return len(fileComponents) > 1 \
         and (lower(fileComponents[-1]) in MOV_EXT)
 
@@ -318,6 +322,7 @@ def splitImageName(filenameKey) :
 #
 def isCache(keyName) :
     splitName = splitImageName(keyName)
+    # use of lower() allows us to ignore case of extensions.
     return lower(splitName[-1]) in CACHE_EXT
 
 # Reconstruct the imagename with the frame number
@@ -1198,6 +1203,14 @@ def main() :
         tmpExtList = tmpOICExt.split(":")
     else :
         tmpExtList = IMAGE_EXT
+    #
+    # Using a set below removes duplicates if they exist.
+    #
+    # Also: Use of lower() allows us to ignore case of file extensions.
+    # We store our list entries below as lowercase, then compare file
+    # extenstions (that have been converted to lowercase) against
+    # these lists.
+    #
     tmpExtSet = set([])
     for e in tmpExtList :
         tmpExtSet.add(lower(e))
@@ -1212,6 +1225,7 @@ def main() :
         tmpExtList = tmpOICExt.split(":")
     else :
         tmpExtList = MOV_EXT
+    # Using a set like this removes duplicates if they exist.
     tmpExtSet = set([])
     for e in tmpExtList :
         tmpExtSet.add(lower(e))
@@ -1226,6 +1240,7 @@ def main() :
         tmpExtList = tmpOICExt.split(":")
     else :
         tmpExtList = CACHE_EXT
+    # Using a set like this removes duplicates if they exist.
     tmpExtSet = set([])
     for e in tmpExtList :
         tmpExtSet.add(lower(e))
