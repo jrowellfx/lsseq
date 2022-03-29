@@ -1248,6 +1248,7 @@ def main() :
     CACHE_EXT = copy.deepcopy(tmpExtList)
 
     if args.printImgExtensions :
+        print("Note:", os.path.basename(sys.argv[0]), "also recognizes all extensions below when uppercase.")
         extList = ":".join(IMAGE_EXT)
         print("LSSEQ_IMAGE_EXTENSION:", extList)
         extList = ":".join(MOV_EXT)

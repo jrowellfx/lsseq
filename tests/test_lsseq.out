@@ -106,14 +106,14 @@ optional arguments:
 
 ------ Test 3 ------ lsseq -lRFC --quiet testdir ------
 testdir:
-20592_chevrolet_cruze_reveal/  fdir/                 mkBlackFrames_HD_10.v01.shk
-adir/                          gdir/                 mkBlackFrames_HD_2.v01.shk
-bdir/                          hdir/                 mkTestFrames.v01.nk
-blackFrames/                   idir/                 mkTestFrames.v02.nk
-cdir/                          jdir/                 mk_hdir_Frames.v01.nk
-ddir/                          kdir/                 www..exr
-e01_sh0001_globalFX/           mkAnimFrames.v01.shk
-edir/                          mkAnimFrames.v02.shk
+20592_chevrolet_cruze_reveal/   fdir/                           mkAnimFrames.v02.shk
+adir/                           gdir/                           mkBlackFrames_HD_10.v01.shk
+bdir/                           hdir/                           mkBlackFrames_HD_2.v01.shk
+blackFrames/                    idir/                           mkTestFrames.v01.nk
+cdir/                           jdir/                           mkTestFrames.v02.nk
+ddir/                           kdir/                           mk_hdir_Frames.v01.nk
+e01_sh0001_globalFX/            ldir/                           www..exr
+edir/                           mkAnimFrames.v01.shk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -147,10 +147,12 @@ testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000
 2000_0110_comp_v002_l.[0095-0136].exr z:[95-136]
 
 testdir/adir:
--987654321.tmp      testFile02.jpg  testFile06.jpg  testFile10.jpg  testFile14.jpg  testFile18.jpg
--minusSignFileName  testFile03.jpg  testFile07.jpg  testFile11.jpg  testFile15.jpg  testFile19.jpg
-testFile00.jpg      testFile04.jpg  testFile08.jpg  testFile12.jpg  testFile16.jpg
-testFile01.jpg      testFile05.jpg  testFile09.jpg  testFile13.jpg  testFile17.jpg
+-987654321.tmp          testFile04.jpg          testFile10.jpg          testFile16.jpg
+-minusSignFileName      testFile05.jpg          testFile11.jpg          testFile17.jpg
+testFile00.jpg          testFile06.jpg          testFile12.jpg          testFile18.jpg
+testFile01.jpg          testFile07.jpg          testFile13.jpg          testFile19.jpg
+testFile02.jpg          testFile08.jpg          testFile14.jpg
+testFile03.jpg          testFile09.jpg          testFile15.jpg
 aaa.[001-120].exr z:[12,49]
 lrtm01_beauty02.[001-120].exr z:[11]
 
@@ -163,20 +165,24 @@ testdir/bdir/b_subdir:
 bbb.02.[008-095].tif
 
 testdir/blackFrames:
-HD_by10.png        HD_by10_rle.tiff  HD_by10x080.jpg  HD_by2_pxr24.exr  HD_by2x040.jpg
-HD_by10_lzw.tiff   HD_by10_zipB.exr  HD_by10x100.jpg  HD_by2_rle.exr    HD_by2x060.jpg
-HD_by10_none.exr   HD_by10_zipS.exr  HD_by2.png       HD_by2_rle.tiff   HD_by2x080.jpg
-HD_by10_piz.exr    HD_by10x040.dpx   HD_by2_lzw.tiff  HD_by2_zipB.exr   HD_by2x100.jpg
-HD_by10_pxr24.exr  HD_by10x040.jpg   HD_by2_none.exr  HD_by2_zipS.exr
-HD_by10_rle.exr    HD_by10x060.jpg   HD_by2_piz.exr   HD_by2x040.dpx
+HD_by10.png             HD_by10_zipB.exr        HD_by2.png              HD_by2_zipB.exr
+HD_by10_lzw.tiff        HD_by10_zipS.exr        HD_by2_lzw.tiff         HD_by2_zipS.exr
+HD_by10_none.exr        HD_by10x040.dpx         HD_by2_none.exr         HD_by2x040.dpx
+HD_by10_piz.exr         HD_by10x040.jpg         HD_by2_piz.exr          HD_by2x040.jpg
+HD_by10_pxr24.exr       HD_by10x060.jpg         HD_by2_pxr24.exr        HD_by2x060.jpg
+HD_by10_rle.exr         HD_by10x080.jpg         HD_by2_rle.exr          HD_by2x080.jpg
+HD_by10_rle.tiff        HD_by10x100.jpg         HD_by2_rle.tiff         HD_by2x100.jpg
 
 testdir/cdir:
-aaaa                 eeee                   jjjj             nnnn            shake01.02.shk  vvvv
-bbbb                 ffff                   kkkk             oooo            shake01.03.shk  xxxx
-c_subDir/            gggg                   list.images      pppp            shake02.01.shk  yyyy
-cccc                 hhhh                   llll             qqqq            ssss            zzzz
-custom.touch.images  iiii                   mkFrames.v01.nk  rrrr            tttt
-dddd                 initial.image.mtimes*  mmmm             shake01.01.shk  uuuu
+aaaa                    hhhh                    nnnn                    ssss
+bbbb                    iiii                    oooo                    tttt
+c_subDir/               initial.image.mtimes*   pppp                    uuuu
+cccc                    jjjj                    qqqq                    vvvv
+custom.touch.images     kkkk                    rrrr                    xxxx
+dddd                    list.images             shake01.01.shk          yyyy
+eeee                    llll                    shake01.02.shk          zzzz
+ffff                    mkFrames.v01.nk         shake01.03.shk
+gggg                    mmmm                    shake02.01.shk
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
@@ -190,10 +196,10 @@ dddB.[-10-17].exr
 dddC.[-10--3].exr
 
 testdir/e01_sh0001_globalFX:
-anim/  audio/
+anim/   audio/
 
 testdir/e01_sh0001_globalFX/anim:
-_working/  published/
+_working/       published/
 
 testdir/e01_sh0001_globalFX/anim/_working:
 
@@ -202,7 +208,7 @@ testdir/e01_sh0001_globalFX/anim/published:
 testdir/e01_sh0001_globalFX/audio:
 
 testdir/edir:
-e01/  e02/  e03/
+e01/    e02/    e03/
 
 testdir/edir/e01:
 e_[5-9999].jpg m:[16-94,106-994,1006-9994], z:[5-15,95-105,995-1005,9995-9999]
@@ -230,10 +236,11 @@ xxx01.mov
 xxx02.mov
 
 testdir/hdir:
-all.files*  foo/  initial.image.mtimes*  touch.files*  v001/  v002/  v003/
+all.files*              initial.image.mtimes*   v001/                   v003/
+foo/                    touch.files*            v002/
 
 testdir/hdir/foo:
-v001/  v002/  v003/
+v001/   v002/   v003/
 
 testdir/hdir/foo/v001:
 hhh01.[0001-0040].jpg
@@ -274,10 +281,10 @@ hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
 testdir/jdir:
-beauty/  j01/  j02/  j03/
+beauty/ j01/    j02/    j03/
 
 testdir/jdir/beauty:
-v001/  v002/
+v001/   v002/
 
 testdir/jdir/beauty/v001:
 sort.ls*
@@ -300,7 +307,7 @@ j03.[001-009].jpg z:[1-9], p:[5]
 j04.[-10-010].jpg z:[-10-10], p:[-7,1,10]
 
 testdir/kdir:
-aaa.0001.exr/  bbb.01.jpg/  bbb.02.jpg/  ccc.jpg/  ccc.xyz/
+aaa.0001.exr/   bbb.01.jpg/     bbb.02.jpg/     ccc.jpg/        ccc.xyz/
 
 testdir/kdir/aaa.0001.exr:
 parentDirWeird.[001-002].exr z:[1-2]
@@ -314,6 +321,10 @@ handleThis.[07-13].jpg z:[7-13]
 testdir/kdir/ccc.jpg:
 
 testdir/kdir/ccc.xyz:
+
+testdir/ldir:
+a.[01-21].JPG m:[9-14]
+a.[09-14].jpg
 
 ------ Test 4 ------ lsseq -lReC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -427,6 +438,10 @@ testdir/kdir/ccc.xyz:
 /...absPathToRepo.../tests/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
 /...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg/handleThis.07.jpg
 /...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg/handleThis.13.jpg
+/...absPathToRepo.../tests/testdir/ldir/a.01.JPG
+/...absPathToRepo.../tests/testdir/ldir/a.21.JPG
+/...absPathToRepo.../tests/testdir/ldir/a.09.jpg
+/...absPathToRepo.../tests/testdir/ldir/a.14.jpg
 
 ------ Test 5 ------ lsseq -lReoC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -554,6 +569,10 @@ testdir/kdir/ccc.xyz:
 /...absPathToRepo.../tests/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
 /...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg/handleThis.07.jpg
 /...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg/handleThis.13.jpg
+/...absPathToRepo.../tests/testdir/ldir/a.01.JPG
+/...absPathToRepo.../tests/testdir/ldir/a.21.JPG
+/...absPathToRepo.../tests/testdir/ldir/a.09.jpg
+/...absPathToRepo.../tests/testdir/ldir/a.14.jpg
 
 ------ Test 6 ------ lsseq -RePC --quiet testdir ------
 testdir/testDirFile.001.exr
@@ -673,17 +692,21 @@ testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.09.jpg
 testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
 testdir/kdir/bbb.02.jpg/handleThis.07.jpg
 testdir/kdir/bbb.02.jpg/handleThis.13.jpg
+testdir/ldir/a.01.JPG
+testdir/ldir/a.21.JPG
+testdir/ldir/a.09.jpg
+testdir/ldir/a.14.jpg
 
 ------ Test 7 ------ lsseq -lRFC testdir ------
 testdir:
-20592_chevrolet_cruze_reveal/  fdir/                 mkBlackFrames_HD_10.v01.shk
-adir/                          gdir/                 mkBlackFrames_HD_2.v01.shk
-bdir/                          hdir/                 mkTestFrames.v01.nk
-blackFrames/                   idir/                 mkTestFrames.v02.nk
-cdir/                          jdir/                 mk_hdir_Frames.v01.nk
-ddir/                          kdir/                 www..exr
-e01_sh0001_globalFX/           mkAnimFrames.v01.shk
-edir/                          mkAnimFrames.v02.shk
+20592_chevrolet_cruze_reveal/   fdir/                           mkAnimFrames.v02.shk
+adir/                           gdir/                           mkBlackFrames_HD_10.v01.shk
+bdir/                           hdir/                           mkBlackFrames_HD_2.v01.shk
+blackFrames/                    idir/                           mkTestFrames.v01.nk
+cdir/                           jdir/                           mkTestFrames.v02.nk
+ddir/                           kdir/                           mk_hdir_Frames.v01.nk
+e01_sh0001_globalFX/            ldir/                           www..exr
+edir/                           mkAnimFrames.v01.shk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -717,10 +740,12 @@ testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000
 2000_0110_comp_v002_l.[0095-0136].exr z:[95-136]
 
 testdir/adir:
--987654321.tmp      testFile02.jpg  testFile06.jpg  testFile10.jpg  testFile14.jpg  testFile18.jpg
--minusSignFileName  testFile03.jpg  testFile07.jpg  testFile11.jpg  testFile15.jpg  testFile19.jpg
-testFile00.jpg      testFile04.jpg  testFile08.jpg  testFile12.jpg  testFile16.jpg
-testFile01.jpg      testFile05.jpg  testFile09.jpg  testFile13.jpg  testFile17.jpg
+-987654321.tmp          testFile04.jpg          testFile10.jpg          testFile16.jpg
+-minusSignFileName      testFile05.jpg          testFile11.jpg          testFile17.jpg
+testFile00.jpg          testFile06.jpg          testFile12.jpg          testFile18.jpg
+testFile01.jpg          testFile07.jpg          testFile13.jpg          testFile19.jpg
+testFile02.jpg          testFile08.jpg          testFile14.jpg
+testFile03.jpg          testFile09.jpg          testFile15.jpg
 aaa.[001-120].exr z:[12,49]
 lrtm01_beauty02.[001-120].exr z:[11]
 
@@ -733,20 +758,24 @@ testdir/bdir/b_subdir:
 bbb.02.[008-095].tif
 
 testdir/blackFrames:
-HD_by10.png        HD_by10_rle.tiff  HD_by10x080.jpg  HD_by2_pxr24.exr  HD_by2x040.jpg
-HD_by10_lzw.tiff   HD_by10_zipB.exr  HD_by10x100.jpg  HD_by2_rle.exr    HD_by2x060.jpg
-HD_by10_none.exr   HD_by10_zipS.exr  HD_by2.png       HD_by2_rle.tiff   HD_by2x080.jpg
-HD_by10_piz.exr    HD_by10x040.dpx   HD_by2_lzw.tiff  HD_by2_zipB.exr   HD_by2x100.jpg
-HD_by10_pxr24.exr  HD_by10x040.jpg   HD_by2_none.exr  HD_by2_zipS.exr
-HD_by10_rle.exr    HD_by10x060.jpg   HD_by2_piz.exr   HD_by2x040.dpx
+HD_by10.png             HD_by10_zipB.exr        HD_by2.png              HD_by2_zipB.exr
+HD_by10_lzw.tiff        HD_by10_zipS.exr        HD_by2_lzw.tiff         HD_by2_zipS.exr
+HD_by10_none.exr        HD_by10x040.dpx         HD_by2_none.exr         HD_by2x040.dpx
+HD_by10_piz.exr         HD_by10x040.jpg         HD_by2_piz.exr          HD_by2x040.jpg
+HD_by10_pxr24.exr       HD_by10x060.jpg         HD_by2_pxr24.exr        HD_by2x060.jpg
+HD_by10_rle.exr         HD_by10x080.jpg         HD_by2_rle.exr          HD_by2x080.jpg
+HD_by10_rle.tiff        HD_by10x100.jpg         HD_by2_rle.tiff         HD_by2x100.jpg
 
 testdir/cdir:
-aaaa                 eeee                   jjjj             nnnn            shake01.02.shk  vvvv
-bbbb                 ffff                   kkkk             oooo            shake01.03.shk  xxxx
-c_subDir/            gggg                   list.images      pppp            shake02.01.shk  yyyy
-cccc                 hhhh                   llll             qqqq            ssss            zzzz
-custom.touch.images  iiii                   mkFrames.v01.nk  rrrr            tttt
-dddd                 initial.image.mtimes*  mmmm             shake01.01.shk  uuuu
+aaaa                    hhhh                    nnnn                    ssss
+bbbb                    iiii                    oooo                    tttt
+c_subDir/               initial.image.mtimes*   pppp                    uuuu
+cccc                    jjjj                    qqqq                    vvvv
+custom.touch.images     kkkk                    rrrr                    xxxx
+dddd                    list.images             shake01.01.shk          yyyy
+eeee                    llll                    shake01.02.shk          zzzz
+ffff                    mkFrames.v01.nk         shake01.03.shk
+gggg                    mmmm                    shake02.01.shk
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
@@ -760,10 +789,10 @@ dddB.[-10-17].exr
 dddC.[-10--3].exr
 
 testdir/e01_sh0001_globalFX:
-anim/  audio/
+anim/   audio/
 
 testdir/e01_sh0001_globalFX/anim:
-_working/  published/
+_working/       published/
 
 testdir/e01_sh0001_globalFX/anim/_working:
 
@@ -772,7 +801,7 @@ testdir/e01_sh0001_globalFX/anim/published:
 testdir/e01_sh0001_globalFX/audio:
 
 testdir/edir:
-e01/  e02/  e03/
+e01/    e02/    e03/
 
 testdir/edir/e01:
 e_[5-9999].jpg m:[16-94,106-994,1006-9994], z:[5-15,95-105,995-1005,9995-9999]
@@ -800,10 +829,11 @@ xxx01.mov
 xxx02.mov
 
 testdir/hdir:
-all.files*  foo/  initial.image.mtimes*  touch.files*  v001/  v002/  v003/
+all.files*              initial.image.mtimes*   v001/                   v003/
+foo/                    touch.files*            v002/
 
 testdir/hdir/foo:
-v001/  v002/  v003/
+v001/   v002/   v003/
 
 testdir/hdir/foo/v001:
 hhh01.[0001-0040].jpg
@@ -844,10 +874,10 @@ hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
 testdir/jdir:
-beauty/  j01/  j02/  j03/
+beauty/ j01/    j02/    j03/
 
 testdir/jdir/beauty:
-v001/  v002/
+v001/   v002/
 
 testdir/jdir/beauty/v001:
 sort.ls*
@@ -879,7 +909,7 @@ lsseq: warning: j04.005.jpg is a broken soft link
 j04.[-10-010].jpg z:[-10-10], p:[-7,1,10]
 
 testdir/kdir:
-aaa.0001.exr/  bbb.01.jpg/  bbb.02.jpg/  ccc.jpg/  ccc.xyz/
+aaa.0001.exr/   bbb.01.jpg/     bbb.02.jpg/     ccc.jpg/        ccc.xyz/
 
 testdir/kdir/aaa.0001.exr:
 parentDirWeird.[001-002].exr z:[1-2]
@@ -893,6 +923,10 @@ handleThis.[07-13].jpg z:[7-13]
 testdir/kdir/ccc.jpg:
 
 testdir/kdir/ccc.xyz:
+
+testdir/ldir:
+a.[01-21].JPG m:[9-14]
+a.[09-14].jpg
 
 ------ Test 8 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -1015,6 +1049,10 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
 /...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg/handleThis.07.jpg
 /...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg/handleThis.13.jpg
+/...absPathToRepo.../tests/testdir/ldir/a.01.JPG
+/...absPathToRepo.../tests/testdir/ldir/a.21.JPG
+/...absPathToRepo.../tests/testdir/ldir/a.09.jpg
+/...absPathToRepo.../tests/testdir/ldir/a.14.jpg
 
 ------ Test 9 ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -1151,6 +1189,10 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
 /...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg/handleThis.07.jpg
 /...absPathToRepo.../tests/testdir/kdir/bbb.02.jpg/handleThis.13.jpg
+/...absPathToRepo.../tests/testdir/ldir/a.01.JPG
+/...absPathToRepo.../tests/testdir/ldir/a.21.JPG
+/...absPathToRepo.../tests/testdir/ldir/a.09.jpg
+/...absPathToRepo.../tests/testdir/ldir/a.14.jpg
 
 ------ Test 10 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
@@ -1279,6 +1321,10 @@ testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.09.jpg
 testdir/kdir/bbb.01.jpg/anotherWeirdParentDir.10.jpg
 testdir/kdir/bbb.02.jpg/handleThis.07.jpg
 testdir/kdir/bbb.02.jpg/handleThis.13.jpg
+testdir/ldir/a.01.JPG
+testdir/ldir/a.21.JPG
+testdir/ldir/a.09.jpg
+testdir/ldir/a.14.jpg
 
 ------ Test 11 ------ lsseq -p ------
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
@@ -1304,6 +1350,7 @@ hdir
 idir
 jdir
 kdir
+ldir
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -1519,6 +1566,10 @@ bbb.02.jpg
 ccc.jpg
 ccc.xyz
 
+ldir:
+a.[01-21].JPG m:[9-14]
+a.[09-14].jpg
+
 ------ Test 14 ------ lsseq -l * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
@@ -1693,6 +1744,10 @@ bbb.01.jpg
 bbb.02.jpg
 ccc.jpg
 ccc.xyz
+
+ldir:
+a.[01-21].JPG m:[9-14]
+a.[09-14].jpg
 
 ------ Test 15 ------ lsseq ------
 aaaa
@@ -2107,7 +2162,8 @@ ccc02.[0-9][0-9][0-9].exr
 ccc03.[0-9][0-9].tga
 
 ------ Test 27 ------ lsseq -i ------
-LSSEQ_IMAGE_EXTENSION: JPEG:JPG:NEF:alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
+Note: lsseq also recognizes all extensions below when uppercase.
+LSSEQ_IMAGE_EXTENSION: alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
 LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
 LSSEQ_CACHE_EXTENSION: ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:vdb:vdb.gz:vdb.sc
 
@@ -2378,6 +2434,7 @@ hdir
 idir
 jdir
 kdir
+ldir
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -2825,6 +2882,10 @@ handleThis.[07-13].jpg z:[7-13]
 
 /...absPathToRepo.../tests/testdir/kdir/ccc.xyz:
 
+/...absPathToRepo.../tests/testdir/ldir:
+a.[01-21].JPG m:[9-14]
+a.[09-14].jpg
+
 /...absPathToRepo.../tests/testdir/cdir:
 aaaa
 bbbb
@@ -3048,12 +3109,15 @@ ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 42 ------ lsseq -1RbC ------
 .:
-aaaa                 eeee                  jjjj             nnnn            shake01.02.shk  vvvv
-bbbb                 ffff                  kkkk             oooo            shake01.03.shk  xxxx
-c_subDir             gggg                  list.images      pppp            shake02.01.shk  yyyy
-cccc                 hhhh                  llll             qqqq            ssss            zzzz
-custom.touch.images  iiii                  mkFrames.v01.nk  rrrr            tttt
-dddd                 initial.image.mtimes  mmmm             shake01.01.shk  uuuu
+aaaa                    hhhh                    nnnn                    ssss
+bbbb                    iiii                    oooo                    tttt
+c_subDir                initial.image.mtimes    pppp                    uuuu
+cccc                    jjjj                    qqqq                    vvvv
+custom.touch.images     kkkk                    rrrr                    xxxx
+dddd                    list.images             shake01.01.shk          yyyy
+eeee                    llll                    shake01.02.shk          zzzz
+ffff                    mkFrames.v01.nk         shake01.03.shk
+gggg                    mmmm                    shake02.01.shk
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
@@ -3063,11 +3127,15 @@ ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 43 ------ lsseq -Rbx ------
 .:
-aaaa         bbbb  c_subDir         cccc            custom.touch.images   dddd            eeee
-ffff         gggg  hhhh             iiii            initial.image.mtimes  jjjj            kkkk
-list.images  llll  mkFrames.v01.nk  mmmm            nnnn                  oooo            pppp
-qqqq         rrrr  shake01.01.shk   shake01.02.shk  shake01.03.shk        shake02.01.shk  ssss
-tttt         uuuu  vvvv             xxxx            yyyy                  zzzz
+aaaa                    bbbb                    c_subDir                cccc
+custom.touch.images     dddd                    eeee                    ffff
+gggg                    hhhh                    iiii                    initial.image.mtimes
+jjjj                    kkkk                    list.images             llll
+mkFrames.v01.nk         mmmm                    nnnn                    oooo
+pppp                    qqqq                    rrrr                    shake01.01.shk
+shake01.02.shk          shake01.03.shk          shake02.01.shk          ssss
+tttt                    uuuu                    vvvv                    xxxx
+yyyy                    zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
@@ -3077,11 +3145,15 @@ ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 44 ------ lsseq -1CRbx ------
 .:
-aaaa         bbbb  c_subDir         cccc            custom.touch.images   dddd            eeee
-ffff         gggg  hhhh             iiii            initial.image.mtimes  jjjj            kkkk
-list.images  llll  mkFrames.v01.nk  mmmm            nnnn                  oooo            pppp
-qqqq         rrrr  shake01.01.shk   shake01.02.shk  shake01.03.shk        shake02.01.shk  ssss
-tttt         uuuu  vvvv             xxxx            yyyy                  zzzz
+aaaa                    bbbb                    c_subDir                cccc
+custom.touch.images     dddd                    eeee                    ffff
+gggg                    hhhh                    iiii                    initial.image.mtimes
+jjjj                    kkkk                    list.images             llll
+mkFrames.v01.nk         mmmm                    nnnn                    oooo
+pppp                    qqqq                    rrrr                    shake01.01.shk
+shake01.02.shk          shake01.03.shk          shake02.01.shk          ssss
+tttt                    uuuu                    vvvv                    xxxx
+yyyy                    zzzz
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
@@ -3214,7 +3286,8 @@ sort.ls
 filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1001]
 
 ------ Test 55 ------ lsseq -i ------
-LSSEQ_IMAGE_EXTENSION: JPEG:JPG:NEF:alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
+Note: lsseq also recognizes all extensions below when uppercase.
+LSSEQ_IMAGE_EXTENSION: alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
 LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
 LSSEQ_CACHE_EXTENSION: ass:ass.gz:dshd:fur:obj:srf
 
