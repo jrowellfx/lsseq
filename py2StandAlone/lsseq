@@ -418,7 +418,7 @@ def condenseSeqOnes(seqList, pad=1) :
 CACHE_EXT = ["ass", "dshd", "fur", "obj", "srf", "bgeo", "ifd", "vdb",
     "bgeo.sc", "bgeo.gz", "ifd.sc", "ifd.gz", "vdb.sc", "vdb.gz"]
 MOV_EXT = ["avi", "mov", "mp4", "mpg", "wmv"]
-IMAGE_EXT = ["alpha", "als", "anim", "bmp", "btf", "bw", "cin",
+IMAGE_EXT = ["alpha", "als", "anim", "avif", "bmp", "btf", "bw", "cin",
     "dib", "dpx", "exr", "gfa", "gif", "giff", "icon", "iff", "img",
     "int", "inta", "jpe", "jpeg", "jpg", "JPEG", "JPG", "mask",
     "matte", "nef", "NEF", "pct", "pct1", "pct2", "pdb", "pdd",

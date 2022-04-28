@@ -65,7 +65,7 @@ import copy
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.5.0"     # Semantic Versioning 2.0.0
+VERSION = "2.5.1"     # Semantic Versioning 2.0.0
 
 CACHE_EXT = [
     "ass",
@@ -94,6 +94,7 @@ IMAGE_EXT = [
     "alpha",
     "als",
     "anim",
+    "avif",
     "bmp",
     "btf",
     "bw",
