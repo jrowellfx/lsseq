@@ -105,6 +105,8 @@ IMAGE_EXT = [
     "gfa",
     "gif",
     "giff",
+    "heic",
+    "heif",
     "icon",
     "iff",
     "img",

@@ -1,7 +1,7 @@
 ------ Begin Tests ------
 
 ------ Test 1 ------ lsseq --version ------
-2.5.0
+2.5.1
 
 ------ Test 2 ------ lsseq --help ------
 usage: lsseq [OPTION]... [FILE]...
@@ -106,14 +106,14 @@ optional arguments:
 
 ------ Test 3 ------ lsseq -lRFC --quiet testdir ------
 testdir:
-20592_chevrolet_cruze_reveal/   fdir/                           mkAnimFrames.v02.shk
-adir/                           gdir/                           mkBlackFrames_HD_10.v01.shk
-bdir/                           hdir/                           mkBlackFrames_HD_2.v01.shk
-blackFrames/                    idir/                           mkTestFrames.v01.nk
-cdir/                           jdir/                           mkTestFrames.v02.nk
-ddir/                           kdir/                           mk_hdir_Frames.v01.nk
-e01_sh0001_globalFX/            ldir/                           www..exr
-edir/                           mkAnimFrames.v01.shk
+20592_chevrolet_cruze_reveal/   fdir/                           mkAnimFrames.v01.shk
+adir/                           gdir/                           mkAnimFrames.v02.shk
+bdir/                           hdir/                           mkBlackFrames_HD_10.v01.shk
+blackFrames/                    idir/                           mkBlackFrames_HD_2.v01.shk
+cdir/                           jdir/                           mkTestFrames.v01.nk
+ddir/                           kdir/                           mkTestFrames.v02.nk
+e01_sh0001_globalFX/            ldir/                           mk_hdir_Frames.v01.nk
+edir/                           mdir/                           www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -326,6 +326,11 @@ testdir/ldir:
 a.[01-21].JPG m:[9-14]
 a.[09-14].jpg
 
+testdir/mdir:
+a.[098-102].avif z:[98-102]
+b.[098-102].heic z:[98-102]
+c.[098-102].heif z:[98-102]
+
 ------ Test 4 ------ lsseq -lReC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
@@ -442,6 +447,12 @@ a.[09-14].jpg
 /...absPathToRepo.../tests/testdir/ldir/a.21.JPG
 /...absPathToRepo.../tests/testdir/ldir/a.09.jpg
 /...absPathToRepo.../tests/testdir/ldir/a.14.jpg
+/...absPathToRepo.../tests/testdir/mdir/a.098.avif
+/...absPathToRepo.../tests/testdir/mdir/a.102.avif
+/...absPathToRepo.../tests/testdir/mdir/b.098.heic
+/...absPathToRepo.../tests/testdir/mdir/b.102.heic
+/...absPathToRepo.../tests/testdir/mdir/c.098.heif
+/...absPathToRepo.../tests/testdir/mdir/c.102.heif
 
 ------ Test 5 ------ lsseq -lReoC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -573,6 +584,12 @@ a.[09-14].jpg
 /...absPathToRepo.../tests/testdir/ldir/a.21.JPG
 /...absPathToRepo.../tests/testdir/ldir/a.09.jpg
 /...absPathToRepo.../tests/testdir/ldir/a.14.jpg
+/...absPathToRepo.../tests/testdir/mdir/a.098.avif
+/...absPathToRepo.../tests/testdir/mdir/a.102.avif
+/...absPathToRepo.../tests/testdir/mdir/b.098.heic
+/...absPathToRepo.../tests/testdir/mdir/b.102.heic
+/...absPathToRepo.../tests/testdir/mdir/c.098.heif
+/...absPathToRepo.../tests/testdir/mdir/c.102.heif
 
 ------ Test 6 ------ lsseq -RePC --quiet testdir ------
 testdir/testDirFile.001.exr
@@ -696,17 +713,23 @@ testdir/ldir/a.01.JPG
 testdir/ldir/a.21.JPG
 testdir/ldir/a.09.jpg
 testdir/ldir/a.14.jpg
+testdir/mdir/a.098.avif
+testdir/mdir/a.102.avif
+testdir/mdir/b.098.heic
+testdir/mdir/b.102.heic
+testdir/mdir/c.098.heif
+testdir/mdir/c.102.heif
 
 ------ Test 7 ------ lsseq -lRFC testdir ------
 testdir:
-20592_chevrolet_cruze_reveal/   fdir/                           mkAnimFrames.v02.shk
-adir/                           gdir/                           mkBlackFrames_HD_10.v01.shk
-bdir/                           hdir/                           mkBlackFrames_HD_2.v01.shk
-blackFrames/                    idir/                           mkTestFrames.v01.nk
-cdir/                           jdir/                           mkTestFrames.v02.nk
-ddir/                           kdir/                           mk_hdir_Frames.v01.nk
-e01_sh0001_globalFX/            ldir/                           www..exr
-edir/                           mkAnimFrames.v01.shk
+20592_chevrolet_cruze_reveal/   fdir/                           mkAnimFrames.v01.shk
+adir/                           gdir/                           mkAnimFrames.v02.shk
+bdir/                           hdir/                           mkBlackFrames_HD_10.v01.shk
+blackFrames/                    idir/                           mkBlackFrames_HD_2.v01.shk
+cdir/                           jdir/                           mkTestFrames.v01.nk
+ddir/                           kdir/                           mkTestFrames.v02.nk
+e01_sh0001_globalFX/            ldir/                           mk_hdir_Frames.v01.nk
+edir/                           mdir/                           www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -928,6 +951,11 @@ testdir/ldir:
 a.[01-21].JPG m:[9-14]
 a.[09-14].jpg
 
+testdir/mdir:
+a.[098-102].avif z:[98-102]
+b.[098-102].heic z:[98-102]
+c.[098-102].heif z:[98-102]
+
 ------ Test 8 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
@@ -1053,6 +1081,12 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/ldir/a.21.JPG
 /...absPathToRepo.../tests/testdir/ldir/a.09.jpg
 /...absPathToRepo.../tests/testdir/ldir/a.14.jpg
+/...absPathToRepo.../tests/testdir/mdir/a.098.avif
+/...absPathToRepo.../tests/testdir/mdir/a.102.avif
+/...absPathToRepo.../tests/testdir/mdir/b.098.heic
+/...absPathToRepo.../tests/testdir/mdir/b.102.heic
+/...absPathToRepo.../tests/testdir/mdir/c.098.heif
+/...absPathToRepo.../tests/testdir/mdir/c.102.heif
 
 ------ Test 9 ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -1193,6 +1227,12 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/ldir/a.21.JPG
 /...absPathToRepo.../tests/testdir/ldir/a.09.jpg
 /...absPathToRepo.../tests/testdir/ldir/a.14.jpg
+/...absPathToRepo.../tests/testdir/mdir/a.098.avif
+/...absPathToRepo.../tests/testdir/mdir/a.102.avif
+/...absPathToRepo.../tests/testdir/mdir/b.098.heic
+/...absPathToRepo.../tests/testdir/mdir/b.102.heic
+/...absPathToRepo.../tests/testdir/mdir/c.098.heif
+/...absPathToRepo.../tests/testdir/mdir/c.102.heif
 
 ------ Test 10 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
@@ -1325,6 +1365,12 @@ testdir/ldir/a.01.JPG
 testdir/ldir/a.21.JPG
 testdir/ldir/a.09.jpg
 testdir/ldir/a.14.jpg
+testdir/mdir/a.098.avif
+testdir/mdir/a.102.avif
+testdir/mdir/b.098.heic
+testdir/mdir/b.102.heic
+testdir/mdir/c.098.heif
+testdir/mdir/c.102.heif
 
 ------ Test 11 ------ lsseq -p ------
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
@@ -1351,6 +1397,7 @@ idir
 jdir
 kdir
 ldir
+mdir
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -1570,6 +1617,11 @@ ldir:
 a.[01-21].JPG m:[9-14]
 a.[09-14].jpg
 
+mdir:
+a.[098-102].avif z:[98-102]
+b.[098-102].heic z:[98-102]
+c.[098-102].heif z:[98-102]
+
 ------ Test 14 ------ lsseq -l * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
@@ -1748,6 +1800,11 @@ ccc.xyz
 ldir:
 a.[01-21].JPG m:[9-14]
 a.[09-14].jpg
+
+mdir:
+a.[098-102].avif z:[98-102]
+b.[098-102].heic z:[98-102]
+c.[098-102].heif z:[98-102]
 
 ------ Test 15 ------ lsseq ------
 aaaa
@@ -2163,7 +2220,7 @@ ccc03.[0-9][0-9].tga
 
 ------ Test 27 ------ lsseq -i ------
 Note: lsseq also recognizes all extensions below when uppercase.
-LSSEQ_IMAGE_EXTENSION: alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
+LSSEQ_IMAGE_EXTENSION: alpha:als:anim:avif:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
 LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
 LSSEQ_CACHE_EXTENSION: ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:vdb:vdb.gz:vdb.sc
 
@@ -2435,6 +2492,7 @@ idir
 jdir
 kdir
 ldir
+mdir
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -2886,6 +2944,11 @@ handleThis.[07-13].jpg z:[7-13]
 a.[01-21].JPG m:[9-14]
 a.[09-14].jpg
 
+/...absPathToRepo.../tests/testdir/mdir:
+a.[098-102].avif z:[98-102]
+b.[098-102].heic z:[98-102]
+c.[098-102].heif z:[98-102]
+
 /...absPathToRepo.../tests/testdir/cdir:
 aaaa
 bbbb
@@ -3287,7 +3350,7 @@ filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1001]
 
 ------ Test 55 ------ lsseq -i ------
 Note: lsseq also recognizes all extensions below when uppercase.
-LSSEQ_IMAGE_EXTENSION: alpha:als:anim:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
+LSSEQ_IMAGE_EXTENSION: alpha:als:anim:avif:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
 LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
 LSSEQ_CACHE_EXTENSION: ass:ass.gz:dshd:fur:obj:srf
 
