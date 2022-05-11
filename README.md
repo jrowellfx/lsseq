@@ -152,10 +152,12 @@ so that they are accessible to all users. This works on both macOS and Linux.
     # bin/pip install lsseq
     # bin/pip install expandSeq
     # bin/pip install renumSeq
+    # bin/pip install fixSeqPadding
     # ln -s /usr/local/venv/bin/lsseq /usr/local/bin/lsseq
     # ln -s /usr/local/venv/bin/expandseq /usr/local/bin/expandseq
     # ln -s /usr/local/venv/bin/condenseseq /usr/local/bin/condenseseq
     # ln -s /usr/local/venv/bin/renumseq /usr/local/bin/renumseq
+    # ln -s /usr/local/venv/bin/fixSeqPadding /usr/local/bin/fixSeqPadding
     # exit
     $ lsseq --version
     2.4.4
