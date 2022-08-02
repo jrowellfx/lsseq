@@ -67,6 +67,8 @@ import seqLister
 
 VERSION = "2.5.1"     # Semantic Versioning 2.0.0
 
+PROG_NAME = "lsseq"
+
 CACHE_EXT = [
     "ass",
     "bgeo",
@@ -381,7 +383,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                     frameList[i][FRAME_PADDING], frameList[i][FRAME_NUM])
                 sys.stdout.flush()
                 sys.stderr.flush()
-                print(os.path.basename(sys.argv[0]), ": warning: ",
+                print(PROG_NAME, ": warning: ",
                     end='', sep='', file=sys.stderr)
                 if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
                     print(traversedPath, sep='', end='', file=sys.stderr)
@@ -512,7 +514,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                     actualFilename = actualImageName(filenameKey, padding, i)
                     sys.stdout.flush()
                     sys.stderr.flush()
-                    print(os.path.basename(sys.argv[0]), ": warning: ",
+                    print(PROG_NAME, ": warning: ",
                         end='', sep='', file=sys.stderr)
                     if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
                         print(traversedPath, sep='', end='', file=sys.stderr)
@@ -1016,6 +1018,7 @@ def main() :
         return store_const_multiple(False, *destinations)
 
     p = argparse.ArgumentParser(
+        prog=PROG_NAME,
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=textwrap.dedent('''\
             List directory contents (akin to /bin/ls) while condensing image
@@ -1251,7 +1254,7 @@ def main() :
     CACHE_EXT = copy.deepcopy(tmpExtList)
 
     if args.printImgExtensions :
-        print("Note:", os.path.basename(sys.argv[0]), "also recognizes all extensions below when uppercase.")
+        print("Note:", PROG_NAME, "also recognizes all extensions below when uppercase.")
         extList = ":".join(IMAGE_EXT)
         print("LSSEQ_IMAGE_EXTENSION:", extList)
         extList = ":".join(MOV_EXT)
@@ -1283,7 +1286,7 @@ def main() :
         args.cutoffTime[0] = args.cutoffTime[0].lower()
         if (args.cutoffTime[0] != 'before') and (args.cutoffTime[0] != 'since') :
             if not args.silent :
-                print(os.path.basename(sys.argv[0]),
+                print(PROG_NAME,
                     ": error: argument --onlyShow: TENSE must be 'since' or 'before'",
                     file=sys.stderr, sep='')
             sys.exit(1)
@@ -1297,7 +1300,7 @@ def main() :
                 timeFormat = "%m%d%H%M"
             else :
                 if not args.silent :
-                    print(os.path.basename(sys.argv[0]),
+                    print(PROG_NAME,
                         ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]",
                         file=sys.stderr, sep='')
                 sys.exit(1)
@@ -1308,7 +1311,7 @@ def main() :
             timeData=time.strptime(args.cutoffTime[1], timeFormat)
         except ValueError :
             if not args.silent :
-                print(os.path.basename(sys.argv[0]),
+                print(PROG_NAME,
                     ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]",
                     file=sys.stderr, sep='')
             sys.exit(1)
