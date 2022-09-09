@@ -1,7 +1,7 @@
 ------ Begin Tests ------
 
 ------ Test 1 ------ lsseq --version ------
-2.5.2
+2.5.3
 
 ------ Test 2 ------ lsseq --help ------
 usage: lsseq [OPTION]... [FILE]...
@@ -2220,9 +2220,9 @@ ccc03.[0-9][0-9].tga
 
 ------ Test 27 ------ lsseq -i ------
 Note: lsseq also recognizes all extensions below when uppercase.
-LSSEQ_IMAGE_EXTENSION: alpha:als:anim:avif:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
-LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
-LSSEQ_CACHE_EXTENSION: ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:vdb:vdb.gz:vdb.sc
+LSSEQ_IMAGE_EXTENSION: alpha:als:anim:ari:arw:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
+LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:mxf:wmv
+LSSEQ_CACHE_EXTENSION: ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:tx:vdb:vdb.gz:vdb.sc
 
 ------ Test 28 ------ lsseq -M ------
 aaaa
@@ -3350,8 +3350,8 @@ filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1001]
 
 ------ Test 55 ------ lsseq -i ------
 Note: lsseq also recognizes all extensions below when uppercase.
-LSSEQ_IMAGE_EXTENSION: alpha:als:anim:avif:bmp:btf:bw:cin:dib:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:pct:pct1:pct2:pdb:pdd:pic:piclc:picnc:pict:pix:png:psb:psd:rat:raw:rgb:rgba:rle:rw2:sgi:tga:tif:tiff:tpic
-LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:wmv
+LSSEQ_IMAGE_EXTENSION: alpha:als:anim:ari:arw:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
+LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:mxf:wmv
 LSSEQ_CACHE_EXTENSION: ass:ass.gz:dshd:fur:obj:srf
 
 ------ Test 56 ------ lsseq --onlyImages ------
