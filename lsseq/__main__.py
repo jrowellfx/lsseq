@@ -81,6 +81,7 @@ CACHE_EXT = [
     "ifd.sc",
     "obj",
     "srf",
+    "tx",
     "vdb",
     "vdb.gz",
     "vdb.sc"
@@ -143,8 +144,7 @@ IMAGE_EXT = [
     "tga",
     "tif",
     "tiff",
-    "tpic",
-    "tx",
+    "tpic"
 ]
 
 PATH_NOPREFIX = 0
