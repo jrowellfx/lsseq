@@ -65,7 +65,7 @@ import copy
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.5.2"     # Semantic Versioning 2.0.0
+VERSION = "2.5.3"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
