@@ -91,12 +91,14 @@ MOV_EXT = [
     "mov",
     "mp4",
     "mpg",
+    "mxf",
     "wmv"
 ]
 IMAGE_EXT = [
     "alpha",
     "als",
     "anim",
+    "ari",
     "avif",
     "bmp",
     "btf",
