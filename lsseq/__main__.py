@@ -143,7 +143,8 @@ IMAGE_EXT = [
     "tga",
     "tif",
     "tiff",
-    "tpic"
+    "tpic",
+    "tx",
 ]
 
 PATH_NOPREFIX = 0
