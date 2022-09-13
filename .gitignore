@@ -3,4 +3,5 @@ build
 *egg_info*
 *egg-info*
 *.bak
+.*.runsed
 __pycache__

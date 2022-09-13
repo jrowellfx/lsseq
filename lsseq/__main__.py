@@ -2,7 +2,7 @@
 
 # 3-Clause BSD License
 # 
-# Copyright (c) 2008-2021, James Philip Rowell,
+# Copyright (c) 2008-2022, James Philip Rowell,
 # Alpha Eleven Incorporated
 # www.alpha-eleven.com
 # All rights reserved.
