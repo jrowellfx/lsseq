@@ -1206,7 +1206,7 @@ def main() :
         specifies which frame to use for the cutoff comparison. \
         The optional YY (year) defaults to the current year. \
         The optional CC (century) defaults to the current century. \
-        The optional -hh (hours), .mm (minutes) or .ss (seconds) \
+        The optional -hh (hours), mm (minutes) or ss (seconds) \
         default to zero if not specified.",
         metavar=("TENSE", "[[CC]YY]MMDD[-hh[mm[ss]]]"))
     p.add_argument("--silent", "--quiet", action="store_true",
