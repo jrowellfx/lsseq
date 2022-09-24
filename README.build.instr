@@ -11,7 +11,14 @@ cd $HOME
 
 cd <dirWithGitRepos>/lsseq
 
-make sure the VERSION is set properly in lsseq/__main__.py
+make sure the VERSION is set properly in lsseq/__main__.py, namely
+
+    Given a version number MAJOR.MINOR.PATCH, increment the:
+
+    MAJOR version for incompatible API changes
+    MINOR version for added functionality in a backwards compatible manner
+    PATCH version for backwards compatible bug fixes
+
 change the version to match in setup.py
 run the tests - make sure everthing is OK
     and that the version in test_lsseq.out is updated
