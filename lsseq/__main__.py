@@ -65,7 +65,7 @@ import copy
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.5.3"     # Semantic Versioning 2.0.0
+VERSION = "2.6.0"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -1203,8 +1203,12 @@ def main() :
         dest="cutoffTime",
         help="where TENSE is either 'before' or 'since'; only list sequences \
         up to (and including) or after (and including) the time specified. The --time argument \
-        specifies which frame to use for the cutoff comparison",
-        metavar=("TENSE", "[[CC]YY]MMDDhhmm[.ss]"))
+        specifies which frame to use for the cutoff comparison. \
+        The optional YY (year) defaults to the current year. \
+        The optional CC (century) defaults to the current century. \
+        The optional -hh (hours), .mm (minutes) or .ss (seconds) \
+        default to zero if not specified.",
+        metavar=("TENSE", "[[CC]YY]MMDD[-hh[.mm[.ss]]]"))
     p.add_argument("--silent", "--quiet", action="store_true",
         dest="silent", default=False,
         help="suppress errors and warnings")
