@@ -4,7 +4,7 @@
 Linux
 
 ------ Test 2 ------ lsseq --version ------
-2.5.3
+2.6.0
 
 ------ Test 3 ------ lsseq --help ------
 usage: lsseq [OPTION]... [FILE]...
@@ -101,10 +101,12 @@ optional arguments:
   -t                    sort by modification time, the default comparison time is between the most
                         recently modified (newest) frames in each sequence. (see --time) (see
                         ls(1))
-  --onlyShow TENSE [[CC]YY]MMDDhhmm[.ss]
+  --onlyShow TENSE [CC]YYMMDD[-hh[mm[ss]]]
                         where TENSE is either 'before' or 'since'; only list sequences up to (and
                         including) or after (and including) the time specified. The --time
-                        argument specifies which frame to use for the cutoff comparison
+                        argument specifies which frame to use for the cutoff comparison. The
+                        optional CC (century) defaults to the current century. The optional -hh
+                        (hours), mm (minutes) or ss (seconds) default to zero if not specified.
   --silent, --quiet     suppress errors and warnings
 
 ------ Test 4 ------ lsseq -lRFC --quiet testdir ------
