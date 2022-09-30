@@ -25,6 +25,8 @@ cleanup() {
     exit 0
 }
 
+TEST_OUT_FILENAME=test_lsseq.out.`uname`.new
+
 trap cleanup INT
 
 ln -sf ../lsseq/__main__.py  lsseq
@@ -72,79 +74,81 @@ export COLUMNS=100 # Bash env var.
 # The rest are args to lsseq.
 #
 cat << EOF > $tmpArgs
-. --version
-. --help
-. -lRFC --quiet testdir
-. -lReC --silent testdir
-. -lReoC --silent testdir
-. -RePC --quiet testdir
-. -lRFC testdir
-. -lReC testdir
-. -lReoC testdir
-. -RePC testdir
-testdir -p
-testdir
-testdir *
-testdir -l *
-testdir/cdir
-testdir/cdir .
-testdir/cdir *
-testdir/cdir -d *
-testdir/cdir -c
-testdir/cdir -e -R
-testdir/cdir -e -R -P
-testdir/cdir -fnative
-testdir/cdir -fnuke
-testdir/cdir -fshake
-testdir/cdir -frv
-testdir/cdir -fglob
-testdir/cdir -i
-testdir/cdir -M
-testdir/cdir -o
-testdir/cdir -p *
-testdir/cdir -P *
-testdir/cdir -r
-testdir/cdir -t
-testdir/cdir -t --time oldest
-testdir/cdir -t --time median
-testdir/cdir -Z
-testdir/cdir -R $TEST_DIR/testdir/cdir/ $TEST_DIR/testdir/
-testdir/cdir -R $TEST_DIR/testdir/cdir/
-testdir/cdir -Ra
-testdir/cdir -R -b --goodFrameMinSize 1K
-testdir/cdir -1Rb
-testdir/cdir -1RbC
-testdir/cdir -Rbx
-testdir/cdir -1CRbx
-testdir/cdir -R -P -p -P -f rv -f glob -fnative -C -b
-testdir/idir
-testdir/idir -R
-testdir/idir -P *
-testdir/idir -p *
-testdir/hdir -t -r -P foo/*/* v001/* v002/* v003/*
-testdir/hdir --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/* v003/*
-testdir/hdir --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/*
-testdir/jdir --showBadPadding --skipMissing --skipZero --skipBadFrames -R
-testdir/jdir/beauty/v001 --showBadPadding --skipMissing --skipZero --skipBadFrames -R
+. uname
+. lsseq --version
+. lsseq --help
+. lsseq -lRFC --quiet testdir
+. lsseq -lReC --silent testdir
+. lsseq -lReoC --silent testdir
+. lsseq -RePC --quiet testdir
+. lsseq -lRFC testdir
+. lsseq -lReC testdir
+. lsseq -lReoC testdir
+. lsseq -RePC testdir
+testdir lsseq -p
+testdir lsseq
+testdir lsseq *
+testdir lsseq -l *
+testdir/cdir lsseq
+testdir/cdir lsseq .
+testdir/cdir lsseq *
+testdir/cdir lsseq -d *
+testdir/cdir lsseq -c
+testdir/cdir lsseq -e -R
+testdir/cdir lsseq -e -R -P
+testdir/cdir lsseq -fnative
+testdir/cdir lsseq -fnuke
+testdir/cdir lsseq -fshake
+testdir/cdir lsseq -frv
+testdir/cdir lsseq -fglob
+testdir/cdir lsseq -i
+testdir/cdir lsseq -M
+testdir/cdir lsseq -o
+testdir/cdir lsseq -p *
+testdir/cdir lsseq -P *
+testdir/cdir lsseq -r
+testdir/cdir lsseq -t
+testdir/cdir lsseq -t --time oldest
+testdir/cdir lsseq -t --time median
+testdir/cdir lsseq -Z
+testdir/cdir lsseq -R $TEST_DIR/testdir/cdir/ $TEST_DIR/testdir/
+testdir/cdir lsseq -R $TEST_DIR/testdir/cdir/
+testdir/cdir lsseq -Ra
+testdir/cdir lsseq -R -b --goodFrameMinSize 1K
+testdir/cdir lsseq -1Rb
+testdir/cdir lsseq -1RbC
+testdir/cdir lsseq -Rbx
+testdir/cdir lsseq -1CRbx
+testdir/cdir lsseq -R -P -p -P -f rv -f glob -fnative -C -b
+testdir/idir lsseq
+testdir/idir lsseq -R
+testdir/idir lsseq -P *
+testdir/idir lsseq -p *
+testdir/hdir lsseq -t -r -P foo/*/* v001/* v002/* v003/*
+testdir/hdir lsseq --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/* v003/*
+testdir/hdir lsseq --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/*
+testdir/jdir lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R
+testdir/jdir/beauty/v001 lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R
 EOF
 
-echo ------ Begin Tests ------ > $TEST_DIR/test_lsseq.out.new
+echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME
 
 i=1
 while true; do
     set -f # Turn off globbing
-    declare -a args=(`sed -n -e "$i p" $tmpArgs`)
+    declare -a args=(`sed -n -e "$i p" $tmpArgs | sed -e 's/#.*//' `)
     if [ ${#args[@]} -eq 0 ]; then
         break;
     fi
     workingDir=${args[0]}
-    args=(${args[@]:1})
-    echo "" >> $TEST_DIR/test_lsseq.out.new
+    cmd=${args[1]}
+    args=(${args[@]:2})
+    echo "" >> $TEST_DIR/$TEST_OUT_FILENAME
     echo ------ Test $i ------
-    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $TEST_DIR/test_lsseq.out.new
+    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $TEST_DIR/$TEST_OUT_FILENAME
     cd $TEST_DIR/$workingDir
     set +f # Turn globbing back on
-    lsseq ${args[@]} >> $TEST_DIR/test_lsseq.out.new 2>&1
+    $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     i=$(expr $i + 1)
 done
 
@@ -152,32 +156,33 @@ export LSSEQ_CACHE_EXTENSION=ass:dshd:fur:obj:srf:ass.gz
 
 cat << EOF2 > $tmpArgs
 . -i
-testdir/gdir --onlyImages
-testdir/gdir --onlyMovies
-testdir/gdir --onlyCaches
+testdir/gdir lsseq --onlyImages
+testdir/gdir lsseq --onlyMovies
+testdir/gdir lsseq --onlyCaches
 EOF2
 
 j=1
 while true; do
     set -f
-    declare -a args=(`sed -n -e "$j p" $tmpArgs`)
+    declare -a args=(`sed -n -e "$j p" $tmpArgs | sed -e 's/#.*//' `)
     if [ ${#args[@]} -eq 0 ]; then
         break;
     fi
     workingDir=${args[0]}
-    args=(${args[@]:1})
-    echo "" >> $TEST_DIR/test_lsseq.out.new
+    cmd=${args[1]}
+    args=(${args[@]:2})
+    echo "" >> $TEST_DIR/$TEST_OUT_FILENAME
     echo ------ Test $i ------
-    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $TEST_DIR/test_lsseq.out.new
+    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $TEST_DIR/$TEST_OUT_FILENAME
     cd $TEST_DIR/$workingDir
     set +f
-    lsseq ${args[@]} >> $TEST_DIR/test_lsseq.out.new 2>&1
+    $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     i=$(expr $i + 1)
     j=$(expr $j + 1)
 done
 
-sed -e "1,$ s-$TEST_DIR-/...absPathToRepo.../tests-g" < $TEST_DIR/test_lsseq.out.new > $tmpfile
-expand < $tmpfile | sed -e '1,$ s/ *$//' > $TEST_DIR/test_lsseq.out.new
+sed -e "1,$ s-$TEST_DIR-/...absPathToRepo.../tests-g" < $TEST_DIR/$TEST_OUT_FILENAME > $tmpfile
+expand < $tmpfile | sed -e '1,$ s/ *$//' > $TEST_DIR/$TEST_OUT_FILENAME
 
 cleanup
 
