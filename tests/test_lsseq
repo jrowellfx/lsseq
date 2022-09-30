@@ -155,7 +155,7 @@ done
 export LSSEQ_CACHE_EXTENSION=ass:dshd:fur:obj:srf:ass.gz
 
 cat << EOF2 > $tmpArgs
-. -i
+.            lsseq -i
 testdir/gdir lsseq --onlyImages
 testdir/gdir lsseq --onlyMovies
 testdir/gdir lsseq --onlyCaches
