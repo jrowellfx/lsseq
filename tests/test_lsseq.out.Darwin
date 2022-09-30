@@ -1,9 +1,12 @@
 ------ Begin Tests ------
 
------- Test 1 ------ lsseq --version ------
-2.5.3
+------ Test 1 ------ lsseq ------
+Darwin
 
------- Test 2 ------ lsseq --help ------
+------ Test 2 ------ lsseq --version ------
+2.6.0
+
+------ Test 3 ------ lsseq --help ------
 usage: lsseq [OPTION]... [FILE]...
 
 List directory contents (akin to /bin/ls) while condensing image
@@ -98,13 +101,15 @@ optional arguments:
   -t                    sort by modification time, the default comparison time is between the most
                         recently modified (newest) frames in each sequence. (see --time) (see
                         ls(1))
-  --onlyShow TENSE [[CC]YY]MMDDhhmm[.ss]
+  --onlyShow TENSE [CC]YYMMDD[-hh[mm[ss]]]
                         where TENSE is either 'before' or 'since'; only list sequences up to (and
                         including) or after (and including) the time specified. The --time
-                        argument specifies which frame to use for the cutoff comparison
+                        argument specifies which frame to use for the cutoff comparison. The
+                        optional CC (century) defaults to the current century. The optional -hh
+                        (hours), mm (minutes) or ss (seconds) default to zero if not specified.
   --silent, --quiet     suppress errors and warnings
 
------- Test 3 ------ lsseq -lRFC --quiet testdir ------
+------ Test 4 ------ lsseq -lRFC --quiet testdir ------
 testdir:
 20592_chevrolet_cruze_reveal/   fdir/                           mkAnimFrames.v01.shk
 adir/                           gdir/                           mkAnimFrames.v02.shk
@@ -331,7 +336,7 @@ a.[098-102].avif z:[98-102]
 b.[098-102].heic z:[98-102]
 c.[098-102].heif z:[98-102]
 
------- Test 4 ------ lsseq -lReC --silent testdir ------
+------ Test 5 ------ lsseq -lReC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
 /...absPathToRepo.../tests/testdir/xxx.000.exr
@@ -454,7 +459,7 @@ c.[098-102].heif z:[98-102]
 /...absPathToRepo.../tests/testdir/mdir/c.098.heif
 /...absPathToRepo.../tests/testdir/mdir/c.102.heif
 
------- Test 5 ------ lsseq -lReoC --silent testdir ------
+------ Test 6 ------ lsseq -lReoC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
 /...absPathToRepo.../tests/testdir/testDirFile.mov
@@ -591,7 +596,7 @@ c.[098-102].heif z:[98-102]
 /...absPathToRepo.../tests/testdir/mdir/c.098.heif
 /...absPathToRepo.../tests/testdir/mdir/c.102.heif
 
------- Test 6 ------ lsseq -RePC --quiet testdir ------
+------ Test 7 ------ lsseq -RePC --quiet testdir ------
 testdir/testDirFile.001.exr
 testdir/testDirFile.012.exr
 testdir/testDirFile.mov
@@ -720,7 +725,7 @@ testdir/mdir/b.102.heic
 testdir/mdir/c.098.heif
 testdir/mdir/c.102.heif
 
------- Test 7 ------ lsseq -lRFC testdir ------
+------ Test 8 ------ lsseq -lRFC testdir ------
 testdir:
 20592_chevrolet_cruze_reveal/   fdir/                           mkAnimFrames.v01.shk
 adir/                           gdir/                           mkAnimFrames.v02.shk
@@ -956,7 +961,7 @@ a.[098-102].avif z:[98-102]
 b.[098-102].heic z:[98-102]
 c.[098-102].heif z:[98-102]
 
------- Test 8 ------ lsseq -lReC testdir ------
+------ Test 9 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
 /...absPathToRepo.../tests/testdir/xxx.000.exr
@@ -1088,7 +1093,7 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/mdir/c.098.heif
 /...absPathToRepo.../tests/testdir/mdir/c.102.heif
 
------- Test 9 ------ lsseq -lReoC testdir ------
+------ Test 10 ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
 /...absPathToRepo.../tests/testdir/testDirFile.mov
@@ -1234,7 +1239,7 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/mdir/c.098.heif
 /...absPathToRepo.../tests/testdir/mdir/c.102.heif
 
------- Test 10 ------ lsseq -RePC testdir ------
+------ Test 11 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
 testdir/testDirFile.012.exr
 testdir/testDirFile.mov
@@ -1372,7 +1377,7 @@ testdir/mdir/b.102.heic
 testdir/mdir/c.098.heif
 testdir/mdir/c.102.heif
 
------- Test 11 ------ lsseq -p ------
+------ Test 12 ------ lsseq -p ------
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
 /...absPathToRepo.../tests/testdir/testDirFile.mov
 /...absPathToRepo.../tests/testdir/testDirFile.wmv
@@ -1381,7 +1386,7 @@ testdir/mdir/c.102.heif
 /...absPathToRepo.../tests/testdir/yyy.[0123].tif
 /...absPathToRepo.../tests/testdir/yyy.mov
 
------- Test 12 ------ lsseq ------
+------ Test 13 ------ lsseq ------
 20592_chevrolet_cruze_reveal
 adir
 bdir
@@ -1414,7 +1419,7 @@ xxx.mov
 yyy.[0123].tif
 yyy.mov
 
------- Test 13 ------ lsseq * ------
+------ Test 14 ------ lsseq * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -1622,7 +1627,7 @@ a.[098-102].avif z:[98-102]
 b.[098-102].heic z:[98-102]
 c.[098-102].heif z:[98-102]
 
------- Test 14 ------ lsseq -l * ------
+------ Test 15 ------ lsseq -l * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -1806,7 +1811,7 @@ a.[098-102].avif z:[98-102]
 b.[098-102].heic z:[98-102]
 c.[098-102].heif z:[98-102]
 
------- Test 15 ------ lsseq ------
+------ Test 16 ------ lsseq ------
 aaaa
 bbbb
 c_subDir
@@ -1845,7 +1850,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 16 ------ lsseq . ------
+------ Test 17 ------ lsseq . ------
 aaaa
 bbbb
 c_subDir
@@ -1884,7 +1889,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 17 ------ lsseq * ------
+------ Test 18 ------ lsseq * ------
 aaaa
 bbbb
 cccc
@@ -1925,7 +1930,7 @@ ccc03.[80-140].tga
 c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 18 ------ lsseq -d * ------
+------ Test 19 ------ lsseq -d * ------
 aaaa
 bbbb
 c_subDir
@@ -1964,7 +1969,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 19 ------ lsseq -c ------
+------ Test 20 ------ lsseq -c ------
 aaaa
 bbbb
 c_subDir
@@ -2003,7 +2008,7 @@ ccc01.[001-120].exr e:[3,52-55]
 ccc02.[001-120].exr e:[51,119]
 ccc03.[80-140].tga
 
------- Test 20 ------ lsseq -e -R ------
+------ Test 21 ------ lsseq -e -R ------
 /...absPathToRepo.../tests/testdir/cdir/ccc01.001.exr
 /...absPathToRepo.../tests/testdir/cdir/ccc01.120.exr
 /...absPathToRepo.../tests/testdir/cdir/ccc02.001.exr
@@ -2013,7 +2018,7 @@ ccc03.[80-140].tga
 /...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.001.exr
 /...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.120.exr
 
------- Test 21 ------ lsseq -e -R -P ------
+------ Test 22 ------ lsseq -e -R -P ------
 ./ccc01.001.exr
 ./ccc01.120.exr
 ./ccc02.001.exr
@@ -2023,7 +2028,7 @@ ccc03.[80-140].tga
 ./c_subDir/ccc01.001.exr
 ./c_subDir/ccc01.120.exr
 
------- Test 22 ------ lsseq -fnative ------
+------ Test 23 ------ lsseq -fnative ------
 aaaa
 bbbb
 c_subDir
@@ -2062,7 +2067,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 23 ------ lsseq -fnuke ------
+------ Test 24 ------ lsseq -fnuke ------
 aaaa
 bbbb
 c_subDir
@@ -2101,7 +2106,7 @@ ccc01.%03d.exr 1-120
 ccc02.%03d.exr 1-120
 ccc03.%02d.tga 80-140
 
------- Test 24 ------ lsseq -fshake ------
+------ Test 25 ------ lsseq -fshake ------
 aaaa
 bbbb
 c_subDir
@@ -2140,7 +2145,7 @@ shake -t 1-120 ccc01.@@@.exr
 shake -t 1-120 ccc02.@@@.exr
 shake -t 80-140 ccc03.@@.tga
 
------- Test 25 ------ lsseq -frv ------
+------ Test 26 ------ lsseq -frv ------
 aaaa
 bbbb
 c_subDir
@@ -2179,7 +2184,7 @@ ccc01.1-120@@@.exr
 ccc02.1-120@@@.exr
 ccc03.80-140@@.tga
 
------- Test 26 ------ lsseq -fglob ------
+------ Test 27 ------ lsseq -fglob ------
 aaaa
 bbbb
 c_subDir
@@ -2218,13 +2223,13 @@ ccc01.[0-9][0-9][0-9].exr
 ccc02.[0-9][0-9][0-9].exr
 ccc03.[0-9][0-9].tga
 
------- Test 27 ------ lsseq -i ------
+------ Test 28 ------ lsseq -i ------
 Note: lsseq also recognizes all extensions below when uppercase.
 LSSEQ_IMAGE_EXTENSION: alpha:als:anim:ari:arw:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
 LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:mxf:wmv
 LSSEQ_CACHE_EXTENSION: ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:tx:vdb:vdb.gz:vdb.sc
 
------- Test 28 ------ lsseq -M ------
+------ Test 29 ------ lsseq -M ------
 aaaa
 bbbb
 c_subDir
@@ -2263,24 +2268,24 @@ ccc01.[001-120].exr z:[52-55]
 ccc02.[001-120].exr
 ccc03.[80-140].tga
 
------- Test 29 ------ lsseq -o ------
+------ Test 30 ------ lsseq -o ------
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 30 ------ lsseq -p * ------
+------ Test 31 ------ lsseq -p * ------
 /...absPathToRepo.../tests/testdir/cdir/ccc01.[001-120].exr m:[3], z:[52-55]
 /...absPathToRepo.../tests/testdir/cdir/ccc02.[001-120].exr m:[51,119]
 /...absPathToRepo.../tests/testdir/cdir/ccc03.[80-140].tga
 /...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 31 ------ lsseq -P * ------
+------ Test 32 ------ lsseq -P * ------
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 32 ------ lsseq -r ------
+------ Test 33 ------ lsseq -r ------
 zzzz
 yyyy
 xxxx
@@ -2319,7 +2324,7 @@ ccc03.[80-140].tga
 ccc02.[001-120].exr m:[51,119]
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 33 ------ lsseq -t ------
+------ Test 34 ------ lsseq -t ------
 custom.touch.images
 list.images
 initial.image.mtimes
@@ -2358,7 +2363,7 @@ ccc03.[80-140].tga
 ccc02.[001-120].exr m:[51,119]
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 34 ------ lsseq -t --time oldest ------
+------ Test 35 ------ lsseq -t --time oldest ------
 custom.touch.images
 list.images
 initial.image.mtimes
@@ -2397,7 +2402,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc03.[80-140].tga
 ccc02.[001-120].exr m:[51,119]
 
------- Test 35 ------ lsseq -t --time median ------
+------ Test 36 ------ lsseq -t --time median ------
 custom.touch.images
 list.images
 initial.image.mtimes
@@ -2436,7 +2441,7 @@ ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 36 ------ lsseq -Z ------
+------ Test 37 ------ lsseq -Z ------
 aaaa
 bbbb
 c_subDir
@@ -2475,7 +2480,7 @@ ccc01.[001-120].exr m:[3]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 37 ------ lsseq -R /...absPathToRepo.../tests/testdir/cdir/ /...absPathToRepo.../tests/testdir/ ------
+------ Test 38 ------ lsseq -R /...absPathToRepo.../tests/testdir/cdir/ /...absPathToRepo.../tests/testdir/ ------
 /...absPathToRepo.../tests/testdir:
 20592_chevrolet_cruze_reveal
 adir
@@ -2991,7 +2996,7 @@ ccc03.[80-140].tga
 /...absPathToRepo.../tests/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 38 ------ lsseq -R /...absPathToRepo.../tests/testdir/cdir/ ------
+------ Test 39 ------ lsseq -R /...absPathToRepo.../tests/testdir/cdir/ ------
 /...absPathToRepo.../tests/testdir/cdir:
 aaaa
 bbbb
@@ -3034,7 +3039,7 @@ ccc03.[80-140].tga
 /...absPathToRepo.../tests/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 39 ------ lsseq -Ra ------
+------ Test 40 ------ lsseq -Ra ------
 .:
 .aaa
 .bbb
@@ -3084,7 +3089,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 40 ------ lsseq -R -b --goodFrameMinSize 1K ------
+------ Test 41 ------ lsseq -R -b --goodFrameMinSize 1K ------
 .:
 aaaa
 bbbb
@@ -3127,7 +3132,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95,102]
 
------- Test 41 ------ lsseq -1Rb ------
+------ Test 42 ------ lsseq -1Rb ------
 .:
 aaaa
 bbbb
@@ -3170,7 +3175,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 42 ------ lsseq -1RbC ------
+------ Test 43 ------ lsseq -1RbC ------
 .:
 aaaa                    hhhh                    nnnn                    ssss
 bbbb                    iiii                    oooo                    tttt
@@ -3188,7 +3193,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 43 ------ lsseq -Rbx ------
+------ Test 44 ------ lsseq -Rbx ------
 .:
 aaaa                    bbbb                    c_subDir                cccc
 custom.touch.images     dddd                    eeee                    ffff
@@ -3206,7 +3211,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 44 ------ lsseq -1CRbx ------
+------ Test 45 ------ lsseq -1CRbx ------
 .:
 aaaa                    bbbb                    c_subDir                cccc
 custom.touch.images     dddd                    eeee                    ffff
@@ -3224,16 +3229,16 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 45 ------ lsseq -R -P -p -P -f rv -f glob -fnative -C -b ------
+------ Test 46 ------ lsseq -R -P -p -P -f rv -f glob -fnative -C -b ------
 ./ccc01.[001-120].exr m:[3], z:[52-55]
 ./ccc02.[001-120].exr m:[51,119]
 ./ccc03.[80-140].tga
 ./c_subDir/ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 46 ------ lsseq ------
+------ Test 47 ------ lsseq ------
 v001
 
------- Test 47 ------ lsseq -R ------
+------ Test 48 ------ lsseq -R ------
 .:
 v001
 
@@ -3242,17 +3247,17 @@ hhh01.[0001-0040].jpg
 hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
------- Test 48 ------ lsseq -P * ------
+------ Test 49 ------ lsseq -P * ------
 v001/hhh01.[0001-0040].jpg
 v001/hhh02.[0001-0040].jpg
 v001/hhh03.[0001-0040].jpg
 
------- Test 49 ------ lsseq -p * ------
+------ Test 50 ------ lsseq -p * ------
 /...absPathToRepo.../tests/testdir/idir/v001/hhh01.[0001-0040].jpg
 /...absPathToRepo.../tests/testdir/idir/v001/hhh02.[0001-0040].jpg
 /...absPathToRepo.../tests/testdir/idir/v001/hhh03.[0001-0040].jpg
 
------- Test 50 ------ lsseq -t -r -P foo/*/* v001/* v002/* v003/* ------
+------ Test 51 ------ lsseq -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -3272,7 +3277,7 @@ v003/hhh01.[0001-0040].jpg
 v003/hhh02.[0001-0040].jpg
 v003/hhh03.[0001-0040].jpg
 
------- Test 51 ------ lsseq --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/* v003/* ------
+------ Test 52 ------ lsseq --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -3287,7 +3292,7 @@ v001/hhh02.[0001-0040].jpg
 v001/hhh03.[0001-0040].jpg
 v002/hhh01.[0001-0040].jpg
 
------- Test 52 ------ lsseq --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/* ------
+------ Test 53 ------ lsseq --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -3303,7 +3308,7 @@ v001/hhh03.[0001-0040].jpg
 v002/hhh01.[0001-0040].jpg
 v002/hhh02.[0001-0040].jpg
 
------- Test 53 ------ lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R ------
+------ Test 54 ------ lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R ------
 .:
 beauty
 j01
@@ -3343,24 +3348,24 @@ j03.[001-009].jpg p:[5]
 lsseq: warning: j04.005.jpg is a broken soft link
 j04.[-10-010].jpg p:[-7,1,10]
 
------- Test 54 ------ lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R ------
+------ Test 55 ------ lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R ------
 .:
 sort.ls
 filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1001]
 
------- Test 55 ------ lsseq -i ------
+------ Test 56 ------ lsseq -i ------
 Note: lsseq also recognizes all extensions below when uppercase.
 LSSEQ_IMAGE_EXTENSION: alpha:als:anim:ari:arw:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
 LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:mxf:wmv
 LSSEQ_CACHE_EXTENSION: ass:ass.gz:dshd:fur:obj:srf
 
------- Test 56 ------ lsseq --onlyImages ------
+------ Test 57 ------ lsseq --onlyImages ------
 
------- Test 57 ------ lsseq --onlyMovies ------
+------ Test 58 ------ lsseq --onlyMovies ------
 xxx01.mov
 xxx02.mov
 
------- Test 58 ------ lsseq --onlyCaches ------
+------ Test 59 ------ lsseq --onlyCaches ------
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
