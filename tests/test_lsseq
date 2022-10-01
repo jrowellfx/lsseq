@@ -37,11 +37,11 @@ if [[ ! ":$PATH:" == *":$TEST_DIR:"* ]]; then
     echo export PATH=\"$TEST_DIR:\$PATH\"
 fi
 
-# NOTE: To make sure the modification times of the testdir/cdir images are
+# NOTE: To make sure the modification times of the testdir/cdir and ndir images are
 # set properly for testing we need to force specific times on to the files
 # as we can't rely on git to set these properly for us.
 #
-# How the timestamps were created:
+# How the timestamps were created: (for example)
 # cd tests/testdir/cdir
 # ls ccc*.*.* > list.images
 # vi list.images - then ordered it to be ccc01* ccc03* and ccc02* in the correct frame order
@@ -55,6 +55,8 @@ tmpArgs=/tmp/tmpARGS_LSSEQ$$
 tmpfile=/tmp/tmpFILE_LSSEQ$$
 
 cd testdir/cdir
+source custom.touch.images
+cd $TEST_DIR/testdir/ndir
 source custom.touch.images
 cd $TEST_DIR
 
@@ -129,6 +131,14 @@ testdir/hdir lsseq --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/*
 testdir/hdir lsseq --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/*
 testdir/jdir lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R
 testdir/jdir/beauty/v001 lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R
+testdir/ndir ls --full-time
+testdir/ndir lsseq
+testdir/ndir lsseq --onlyShow before 20100615-12 --time oldest
+testdir/ndir lsseq --onlyShow before 20100615-12 --time median
+testdir/ndir lsseq --onlyShow before 20100615-12 --time newest
+testdir/ndir lsseq --onlyShow since  20100615-12 --time oldest
+testdir/ndir lsseq --onlyShow since  20100615-12 --time median
+testdir/ndir lsseq --onlyShow since  20100615-12 --time newest
 EOF
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME
