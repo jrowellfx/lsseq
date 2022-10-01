@@ -851,7 +851,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     # Gather file mod times if needed.
     #
     timeList = []
-    if args.sortByMTime or args.cutoffTime != None : # non-null cutoffTime means need time compare
+    if args.sortByMTime or args.cutoffTime != None :
         for k in seqKeys :
 
             if isMovie(k) :
@@ -905,7 +905,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 timeList.append((k, time))
 
     if args.sortByMTime :
-        timeList.sort(key=itemgetter(MTIME))
+        timeList.sort(key=itemgetter(MTIME)) # Sorts by time.
         # Note: ls -t prints newest first; ls -tr is newest last.
         if not args.reverseListing :
             timeList.reverse()
@@ -931,9 +931,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
                 somethingWasPrinted = True
     elif args.cutoffTime != None :
-        timeList.sort(key=itemgetter(DICTKEY))
-        # Note: ls -t prints newest first; ls -tr is newest last.
-        if not args.reverseListing :
+        timeList.sort(key=itemgetter(DICTKEY)) # Sorts by name.
+        if args.reverseListing :
             timeList.reverse()
         for seq in timeList :
             if args.cutoffTime[0] == 'before' :
