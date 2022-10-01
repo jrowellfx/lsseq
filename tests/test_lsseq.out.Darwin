@@ -111,14 +111,15 @@ optional arguments:
 
 ------ Test 4 ------ lsseq -lRFC --quiet testdir ------
 testdir:
-20592_chevrolet_cruze_reveal/   fdir/                           mkAnimFrames.v01.shk
-adir/                           gdir/                           mkAnimFrames.v02.shk
-bdir/                           hdir/                           mkBlackFrames_HD_10.v01.shk
-blackFrames/                    idir/                           mkBlackFrames_HD_2.v01.shk
-cdir/                           jdir/                           mkTestFrames.v01.nk
-ddir/                           kdir/                           mkTestFrames.v02.nk
-e01_sh0001_globalFX/            ldir/                           mk_hdir_Frames.v01.nk
-edir/                           mdir/                           www..exr
+20592_chevrolet_cruze_reveal/   gdir/                           mkBlackFrames_HD_10.v01.shk
+adir/                           hdir/                           mkBlackFrames_HD_2.v01.shk
+bdir/                           idir/                           mkTestFrames.v01.nk
+blackFrames/                    jdir/                           mkTestFrames.v02.nk
+cdir/                           kdir/                           mk_hdir_Frames.v01.nk
+ddir/                           ldir/                           ndir/
+e01_sh0001_globalFX/            mdir/                           www..exr
+edir/                           mkAnimFrames.v01.shk
+fdir/                           mkAnimFrames.v02.shk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -336,6 +337,14 @@ a.[098-102].avif z:[98-102]
 b.[098-102].heic z:[98-102]
 c.[098-102].heif z:[98-102]
 
+testdir/ndir:
+custom.touch.images*
+nnn_v01.[0005-0015].jpg
+nnn_v02.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
+nnn_v05.[0005-0015].jpg
+
 ------ Test 5 ------ lsseq -lReC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
@@ -458,6 +467,16 @@ c.[098-102].heif z:[98-102]
 /...absPathToRepo.../tests/testdir/mdir/b.102.heic
 /...absPathToRepo.../tests/testdir/mdir/c.098.heif
 /...absPathToRepo.../tests/testdir/mdir/c.102.heif
+/...absPathToRepo.../tests/testdir/ndir/nnn_v01.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v01.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v02.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v02.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v03.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v03.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v04.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v04.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v05.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v05.0015.jpg
 
 ------ Test 6 ------ lsseq -lReoC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -595,6 +614,16 @@ c.[098-102].heif z:[98-102]
 /...absPathToRepo.../tests/testdir/mdir/b.102.heic
 /...absPathToRepo.../tests/testdir/mdir/c.098.heif
 /...absPathToRepo.../tests/testdir/mdir/c.102.heif
+/...absPathToRepo.../tests/testdir/ndir/nnn_v01.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v01.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v02.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v02.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v03.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v03.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v04.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v04.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v05.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v05.0015.jpg
 
 ------ Test 7 ------ lsseq -RePC --quiet testdir ------
 testdir/testDirFile.001.exr
@@ -724,17 +753,28 @@ testdir/mdir/b.098.heic
 testdir/mdir/b.102.heic
 testdir/mdir/c.098.heif
 testdir/mdir/c.102.heif
+testdir/ndir/nnn_v01.0005.jpg
+testdir/ndir/nnn_v01.0015.jpg
+testdir/ndir/nnn_v02.0005.jpg
+testdir/ndir/nnn_v02.0015.jpg
+testdir/ndir/nnn_v03.0005.jpg
+testdir/ndir/nnn_v03.0015.jpg
+testdir/ndir/nnn_v04.0005.jpg
+testdir/ndir/nnn_v04.0015.jpg
+testdir/ndir/nnn_v05.0005.jpg
+testdir/ndir/nnn_v05.0015.jpg
 
 ------ Test 8 ------ lsseq -lRFC testdir ------
 testdir:
-20592_chevrolet_cruze_reveal/   fdir/                           mkAnimFrames.v01.shk
-adir/                           gdir/                           mkAnimFrames.v02.shk
-bdir/                           hdir/                           mkBlackFrames_HD_10.v01.shk
-blackFrames/                    idir/                           mkBlackFrames_HD_2.v01.shk
-cdir/                           jdir/                           mkTestFrames.v01.nk
-ddir/                           kdir/                           mkTestFrames.v02.nk
-e01_sh0001_globalFX/            ldir/                           mk_hdir_Frames.v01.nk
-edir/                           mdir/                           www..exr
+20592_chevrolet_cruze_reveal/   gdir/                           mkBlackFrames_HD_10.v01.shk
+adir/                           hdir/                           mkBlackFrames_HD_2.v01.shk
+bdir/                           idir/                           mkTestFrames.v01.nk
+blackFrames/                    jdir/                           mkTestFrames.v02.nk
+cdir/                           kdir/                           mk_hdir_Frames.v01.nk
+ddir/                           ldir/                           ndir/
+e01_sh0001_globalFX/            mdir/                           www..exr
+edir/                           mkAnimFrames.v01.shk
+fdir/                           mkAnimFrames.v02.shk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -961,6 +1001,14 @@ a.[098-102].avif z:[98-102]
 b.[098-102].heic z:[98-102]
 c.[098-102].heif z:[98-102]
 
+testdir/ndir:
+custom.touch.images*
+nnn_v01.[0005-0015].jpg
+nnn_v02.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
+nnn_v05.[0005-0015].jpg
+
 ------ Test 9 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
@@ -1092,6 +1140,16 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/mdir/b.102.heic
 /...absPathToRepo.../tests/testdir/mdir/c.098.heif
 /...absPathToRepo.../tests/testdir/mdir/c.102.heif
+/...absPathToRepo.../tests/testdir/ndir/nnn_v01.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v01.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v02.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v02.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v03.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v03.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v04.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v04.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v05.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v05.0015.jpg
 
 ------ Test 10 ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -1238,6 +1296,16 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/mdir/b.102.heic
 /...absPathToRepo.../tests/testdir/mdir/c.098.heif
 /...absPathToRepo.../tests/testdir/mdir/c.102.heif
+/...absPathToRepo.../tests/testdir/ndir/nnn_v01.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v01.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v02.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v02.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v03.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v03.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v04.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v04.0015.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v05.0005.jpg
+/...absPathToRepo.../tests/testdir/ndir/nnn_v05.0015.jpg
 
 ------ Test 11 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
@@ -1376,6 +1444,16 @@ testdir/mdir/b.098.heic
 testdir/mdir/b.102.heic
 testdir/mdir/c.098.heif
 testdir/mdir/c.102.heif
+testdir/ndir/nnn_v01.0005.jpg
+testdir/ndir/nnn_v01.0015.jpg
+testdir/ndir/nnn_v02.0005.jpg
+testdir/ndir/nnn_v02.0015.jpg
+testdir/ndir/nnn_v03.0005.jpg
+testdir/ndir/nnn_v03.0015.jpg
+testdir/ndir/nnn_v04.0005.jpg
+testdir/ndir/nnn_v04.0015.jpg
+testdir/ndir/nnn_v05.0005.jpg
+testdir/ndir/nnn_v05.0015.jpg
 
 ------ Test 12 ------ lsseq -p ------
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
@@ -1410,6 +1488,7 @@ mkBlackFrames_HD_2.v01.shk
 mkTestFrames.v01.nk
 mkTestFrames.v02.nk
 mk_hdir_Frames.v01.nk
+ndir
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -1627,6 +1706,14 @@ a.[098-102].avif z:[98-102]
 b.[098-102].heic z:[98-102]
 c.[098-102].heif z:[98-102]
 
+ndir:
+custom.touch.images
+nnn_v01.[0005-0015].jpg
+nnn_v02.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
+nnn_v05.[0005-0015].jpg
+
 ------ Test 15 ------ lsseq -l * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
@@ -1810,6 +1897,14 @@ mdir:
 a.[098-102].avif z:[98-102]
 b.[098-102].heic z:[98-102]
 c.[098-102].heif z:[98-102]
+
+ndir:
+custom.touch.images
+nnn_v01.[0005-0015].jpg
+nnn_v02.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
+nnn_v05.[0005-0015].jpg
 
 ------ Test 16 ------ lsseq ------
 aaaa
@@ -2505,6 +2600,7 @@ mkBlackFrames_HD_2.v01.shk
 mkTestFrames.v01.nk
 mkTestFrames.v02.nk
 mk_hdir_Frames.v01.nk
+ndir
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -2954,6 +3050,14 @@ a.[098-102].avif z:[98-102]
 b.[098-102].heic z:[98-102]
 c.[098-102].heif z:[98-102]
 
+/...absPathToRepo.../tests/testdir/ndir:
+custom.touch.images
+nnn_v01.[0005-0015].jpg
+nnn_v02.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
+nnn_v05.[0005-0015].jpg
+
 /...absPathToRepo.../tests/testdir/cdir:
 aaaa
 bbbb
@@ -3353,19 +3457,64 @@ j04.[-10-010].jpg p:[-7,1,10]
 sort.ls
 filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1001]
 
------- Test 56 ------ lsseq -i ------
+------ Test 56 ------ lsseq --full-time ------
+ls: unrecognized option `--full-time'
+usage: ls [-@ABCFGHILOPRSTUWabcdefghiklmnopqrstuvwxy1%,] [--color=when] [-D format] [file ...]
+
+------ Test 57 ------ lsseq ------
+custom.touch.images
+nnn_v01.[0005-0015].jpg
+nnn_v02.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
+nnn_v05.[0005-0015].jpg
+
+------ Test 58 ------ lsseq --onlyShow before 20100615-12 --time oldest ------
+custom.touch.images
+nnn_v04.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+nnn_v02.[0005-0015].jpg
+nnn_v01.[0005-0015].jpg
+
+------ Test 59 ------ lsseq --onlyShow before 20100615-12 --time median ------
+custom.touch.images
+nnn_v02.[0005-0015].jpg
+nnn_v01.[0005-0015].jpg
+
+------ Test 60 ------ lsseq --onlyShow before 20100615-12 --time newest ------
+custom.touch.images
+nnn_v01.[0005-0015].jpg
+
+------ Test 61 ------ lsseq --onlyShow since 20100615-12 --time oldest ------
+custom.touch.images
+nnn_v05.[0005-0015].jpg
+
+------ Test 62 ------ lsseq --onlyShow since 20100615-12 --time median ------
+custom.touch.images
+nnn_v05.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+
+------ Test 63 ------ lsseq --onlyShow since 20100615-12 --time newest ------
+custom.touch.images
+nnn_v05.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+nnn_v02.[0005-0015].jpg
+
+------ Test 64 ------ lsseq -i ------
 Note: lsseq also recognizes all extensions below when uppercase.
 LSSEQ_IMAGE_EXTENSION: alpha:als:anim:ari:arw:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
 LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:mxf:wmv
 LSSEQ_CACHE_EXTENSION: ass:ass.gz:dshd:fur:obj:srf
 
------- Test 57 ------ lsseq --onlyImages ------
+------ Test 65 ------ lsseq --onlyImages ------
 
------- Test 58 ------ lsseq --onlyMovies ------
+------ Test 66 ------ lsseq --onlyMovies ------
 xxx01.mov
 xxx02.mov
 
------- Test 59 ------ lsseq --onlyCaches ------
+------ Test 67 ------ lsseq --onlyCaches ------
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
