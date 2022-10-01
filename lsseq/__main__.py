@@ -61,6 +61,8 @@ import subprocess
 import textwrap
 import math
 import time
+import datetime
+import dateparser
 import copy
 from operator import itemgetter
 import seqLister
@@ -157,6 +159,21 @@ IMAGE_EXT = [
     "tif",
     "tiff",
     "tpic"
+]
+
+DATE_FORMAT_LIST = [
+    '%y%m%d',
+    '%Y%m%d',
+    '%y%m%d-%H',
+    '%Y%m%d-%H',
+    '%y%m%d-%H%M',
+    '%Y%m%d-%H%M',
+    '%y%m%d-%H%M%S',
+    '%Y%m%d-%H%M%S',
+    '%y%m%d%H%M',    # Undocumented, but kept for compatibility
+    '%Y%m%d%H%M',    # with earlier versions (v2.5.3 and earlier)
+    '%y%m%d%H%M.%S', # of lsseq. Note MMDDhhmm[.ss] is no longers
+    '%Y%m%d%H%M.%S'  # supported, thus not fully backward compatible.
 ]
 
 PATH_NOPREFIX = 0
@@ -1217,6 +1234,9 @@ def main() :
 
     args = p.parse_args()
 
+    # Grab environment variables if they exist and clean them
+    # up if they contain gargage..
+    #
     tmpExt = os.getenv("LSSEQ_IMAGE_EXTENSION")
     tmpOICExt = os.getenv("OIC_IMAGE_EXTENSION")
     if tmpExt != None and tmpExt != "" :
@@ -1269,6 +1289,11 @@ def main() :
     tmpExtList = sorted(tmpExtSet)
     CACHE_EXT = copy.deepcopy(tmpExtList)
 
+    #
+    # Respond to arguments set by user and/or set up variables
+    # etc. needed later based on the user's arguments.
+    #
+
     if args.printImgExtensions :
         print("Note:", PROG_NAME, "also recognizes all extensions below when uppercase.")
         extList = ":".join(IMAGE_EXT)
@@ -1299,6 +1324,9 @@ def main() :
             args.listWhichFiles = LIST_ONLYIMGS # Strictly only images.
 
     if args.cutoffTime != None :
+
+        # Do they want sequences 'before' or 'since' a given date?
+        #
         args.cutoffTime[0] = args.cutoffTime[0].lower()
         if (args.cutoffTime[0] != 'before') and (args.cutoffTime[0] != 'since') :
             if not args.silent :
@@ -1306,35 +1334,26 @@ def main() :
                     ": error: argument --onlyShow: TENSE must be 'since' or 'before'",
                     file=sys.stderr, sep='')
             sys.exit(1)
-        timeSpec = args.cutoffTime[1].split('.')
-        if len(timeSpec) <= 2 :
-            if   len(timeSpec[0]) == 12 :
-                timeFormat = "%Y%m%d%H%M"
-            elif len(timeSpec[0]) == 10 :
-                timeFormat = "%y%m%d%H%M"
-            elif len(timeSpec[0]) == 8 :
-                timeFormat = "%m%d%H%M"
-            else :
-                if not args.silent :
-                    print(PROG_NAME,
-                        ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]",
-                        file=sys.stderr, sep='')
-                sys.exit(1)
-        if len(timeSpec) == 2 :
-            timeFormat += ".%S"
 
-        try :
-            timeData=time.strptime(args.cutoffTime[1], timeFormat)
-        except ValueError :
+        # Process the cutoff time set.
+        #
+        tzName = datetime.datetime.now(datetime.timezone.utc).astimezone().tzname()
+        parsers = ['custom-formats']
+        timeData = dateparser.parse( \
+            args.cutoffTime[1], \
+            date_formats=DATE_FORMAT_LIST, \
+            settings={'TIMEZONE': tzName, 'PARSERS': parsers})
+
+        if timeData == None :
             if not args.silent :
                 print(PROG_NAME,
-                    ": error: argument --onlyShow: the time must be of the form [[CC]YY]MMDDhhmm[.ss]",
+                    ": error: argument --onlyShow: the time must be of the form [CC]YYMMDD[-hh[mm[ss]]]",
                     file=sys.stderr, sep='')
             sys.exit(1)
 
-        args.cutoffTime[1] = int(time.mktime(timeData)) # Epoch time
+        args.cutoffTime[1] = int(time.mktime(timeData.timetuple())) # Epoch time
 
-
+    # Now the meat and potatoes.
     # The following logic attempts to mimic the behavior
     # of /bin/ls as closely as possible.
 
