@@ -851,7 +851,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     # Gather file mod times if needed.
     #
     timeList = []
-    if args.sortByMTime or args.cutoffTime != None :
+    if args.sortByMTime or args.cutoffTime != None : # non-null cutoffTime means need time compare
         for k in seqKeys :
 
             if isMovie(k) :
