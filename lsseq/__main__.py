@@ -856,7 +856,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
             if isMovie(k) :
                 # Note: only thing stored in "moviesDictionary" is the mod-time of the file.
-                timeList.append((k, moviesDictionary[k]))
+                timeList.append((k, int(moviesDictionary[k])))
 
             elif isCache(k) :
                 validTimes = []
@@ -879,7 +879,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                             time = (validTimes[midIndex] + validTimes[midIndex-1])/2
                     else : # newest
                         time = validTimes[-1]
-                timeList.append((k, time))
+                timeList.append((k, int(time)))
 
             else : # key is an image.
                 validTimes = []
@@ -889,6 +889,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 validTimes.sort()
                 time = 0
                 n = len(validTimes)
+                ### print("debug: length of validTimes:", n)
                 if n == 1 :
                     time = validTimes[0]
                 elif n > 1 :
@@ -896,13 +897,17 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                         time = validTimes[0]
                     elif args.timeCompare == 'median' :
                         midIndex = int(math.floor(n/2))
+                        ### print("debug: midIndex:", midIndex)
                         if n % 2 == 1 : # Odd number of items
                             time = validTimes[midIndex]
                         else : # Even number of items.
                             time = (validTimes[midIndex] + validTimes[midIndex-1])/2
                     else : # newest
                         time = validTimes[-1]
-                timeList.append((k, time))
+                timeList.append((k, int(time)))
+                ### print("debug: key:", k)
+                ### print("debug: time:", time, "is type:", type(time))
+                ### print("debug: time:", int(time))
 
     if args.sortByMTime :
         timeList.sort(key=itemgetter(MTIME)) # Sorts by time.
@@ -912,10 +917,10 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         for seq in timeList :
             if args.cutoffTime != None :
                 if args.cutoffTime[0] == 'before' :
-                    if seq[MTIME] >= args.cutoffTime[1] :
+                    if seq[MTIME] > args.cutoffTime[1] :
                         continue
                 else : # Guaranteed to be 'since'
-                    if seq[MTIME] <= args.cutoffTime[1] :
+                    if seq[MTIME] < args.cutoffTime[1] :
                         continue
             if isMovie(seq[DICTKEY]) :
                 if args.prependPath != PATH_NOPREFIX :
@@ -936,10 +941,11 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             timeList.reverse()
         for seq in timeList :
             if args.cutoffTime[0] == 'before' :
-                if seq[MTIME] >= args.cutoffTime[1] :
+                ### print("debug: cutoffTime:", args.cutoffTime[1], "is type:", type(args.cutoffTime[1]))
+                if seq[MTIME] > args.cutoffTime[1] :
                     continue
             else : # Guaranteed to be 'since'
-                if seq[MTIME] <= args.cutoffTime[1] :
+                if seq[MTIME] < args.cutoffTime[1] :
                     continue
             if isMovie(seq[DICTKEY]) :
                 if args.prependPath != PATH_NOPREFIX :
