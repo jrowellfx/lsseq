@@ -889,7 +889,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 validTimes.sort()
                 time = 0
                 n = len(validTimes)
-                ### print("debug: length of validTimes:", n)
                 if n == 1 :
                     time = validTimes[0]
                 elif n > 1 :
@@ -897,7 +896,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                         time = validTimes[0]
                     elif args.timeCompare == 'median' :
                         midIndex = int(math.floor(n/2))
-                        ### print("debug: midIndex:", midIndex)
                         if n % 2 == 1 : # Odd number of items
                             time = validTimes[midIndex]
                         else : # Even number of items.
@@ -905,9 +903,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     else : # newest
                         time = validTimes[-1]
                 timeList.append((k, int(time)))
-                ### print("debug: key:", k)
-                ### print("debug: time:", time, "is type:", type(time))
-                ### print("debug: time:", int(time))
 
     if args.sortByMTime :
         timeList.sort(key=itemgetter(MTIME)) # Sorts by time.
@@ -941,7 +936,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             timeList.reverse()
         for seq in timeList :
             if args.cutoffTime[0] == 'before' :
-                ### print("debug: cutoffTime:", args.cutoffTime[1], "is type:", type(args.cutoffTime[1]))
                 if seq[MTIME] > args.cutoffTime[1] :
                     continue
             else : # Guaranteed to be 'since'
