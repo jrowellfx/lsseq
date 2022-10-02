@@ -3430,7 +3430,7 @@ filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1001]
 
 ------ Test 56 ------ lsseq --full-time ------
 total 224
--rwxrwxrwx. 1 jrowell users 2864 2022-09-30 22:47:57.025514474 -0500 custom.touch.images
+-rwxrwxrwx. 1 jrowell users 2314 2022-10-01 17:35:25.850100836 -0500 custom.touch.images
 -rw-rw-rw-. 1 jrowell users 1139 2010-06-15 10:55:00.000000000 -0500 nnn_v01.0005.jpg
 -rw-rw-rw-. 1 jrowell users 1146 2010-06-15 10:56:00.000000000 -0500 nnn_v01.0006.jpg
 -rw-rw-rw-. 1 jrowell users 1112 2010-06-15 10:57:00.000000000 -0500 nnn_v01.0007.jpg
@@ -3458,7 +3458,7 @@ total 224
 -rw-rw-rw-. 1 jrowell users 1112 2010-06-15 11:57:00.000000000 -0500 nnn_v03.0007.jpg
 -rw-rw-rw-. 1 jrowell users 1150 2010-06-15 11:58:00.000000000 -0500 nnn_v03.0008.jpg
 -rw-rw-rw-. 1 jrowell users 1140 2010-06-15 11:59:00.000000000 -0500 nnn_v03.0009.jpg
--rw-rw-rw-. 1 jrowell users 1238 2010-06-15 12:00:30.000000000 -0500 nnn_v03.0010.jpg
+-rw-rw-rw-. 1 jrowell users 1238 2010-06-15 12:00:00.000000000 -0500 nnn_v03.0010.jpg
 -rw-rw-rw-. 1 jrowell users 1219 2010-06-15 12:01:00.000000000 -0500 nnn_v03.0011.jpg
 -rw-rw-rw-. 1 jrowell users 1221 2010-06-15 12:02:00.000000000 -0500 nnn_v03.0012.jpg
 -rw-rw-rw-. 1 jrowell users 1232 2010-06-15 12:03:00.000000000 -0500 nnn_v03.0013.jpg
@@ -3497,15 +3497,16 @@ nnn_v05.[0005-0015].jpg
 
 ------ Test 58 ------ lsseq --onlyShow before 20100615-12 --time oldest ------
 custom.touch.images
-nnn_v04.[0005-0015].jpg
-nnn_v03.[0005-0015].jpg
-nnn_v02.[0005-0015].jpg
 nnn_v01.[0005-0015].jpg
+nnn_v02.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
 
 ------ Test 59 ------ lsseq --onlyShow before 20100615-12 --time median ------
 custom.touch.images
-nnn_v02.[0005-0015].jpg
 nnn_v01.[0005-0015].jpg
+nnn_v02.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
 
 ------ Test 60 ------ lsseq --onlyShow before 20100615-12 --time newest ------
 custom.touch.images
@@ -3517,16 +3518,16 @@ nnn_v05.[0005-0015].jpg
 
 ------ Test 62 ------ lsseq --onlyShow since 20100615-12 --time median ------
 custom.touch.images
-nnn_v05.[0005-0015].jpg
-nnn_v04.[0005-0015].jpg
 nnn_v03.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
+nnn_v05.[0005-0015].jpg
 
 ------ Test 63 ------ lsseq --onlyShow since 20100615-12 --time newest ------
 custom.touch.images
-nnn_v05.[0005-0015].jpg
-nnn_v04.[0005-0015].jpg
-nnn_v03.[0005-0015].jpg
 nnn_v02.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
+nnn_v05.[0005-0015].jpg
 
 ------ Test 64 ------ lsseq -i ------
 Note: lsseq also recognizes all extensions below when uppercase.
