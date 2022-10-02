@@ -3471,15 +3471,16 @@ nnn_v05.[0005-0015].jpg
 
 ------ Test 58 ------ lsseq --onlyShow before 20100615-12 --time oldest ------
 custom.touch.images
-nnn_v04.[0005-0015].jpg
-nnn_v03.[0005-0015].jpg
-nnn_v02.[0005-0015].jpg
 nnn_v01.[0005-0015].jpg
+nnn_v02.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
 
 ------ Test 59 ------ lsseq --onlyShow before 20100615-12 --time median ------
 custom.touch.images
-nnn_v02.[0005-0015].jpg
 nnn_v01.[0005-0015].jpg
+nnn_v02.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
 
 ------ Test 60 ------ lsseq --onlyShow before 20100615-12 --time newest ------
 custom.touch.images
@@ -3491,16 +3492,16 @@ nnn_v05.[0005-0015].jpg
 
 ------ Test 62 ------ lsseq --onlyShow since 20100615-12 --time median ------
 custom.touch.images
-nnn_v05.[0005-0015].jpg
-nnn_v04.[0005-0015].jpg
 nnn_v03.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
+nnn_v05.[0005-0015].jpg
 
 ------ Test 63 ------ lsseq --onlyShow since 20100615-12 --time newest ------
 custom.touch.images
-nnn_v05.[0005-0015].jpg
-nnn_v04.[0005-0015].jpg
-nnn_v03.[0005-0015].jpg
 nnn_v02.[0005-0015].jpg
+nnn_v03.[0005-0015].jpg
+nnn_v04.[0005-0015].jpg
+nnn_v05.[0005-0015].jpg
 
 ------ Test 64 ------ lsseq -i ------
 Note: lsseq also recognizes all extensions below when uppercase.
