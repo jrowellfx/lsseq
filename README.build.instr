@@ -22,6 +22,7 @@ make sure the VERSION is set properly in lsseq/__main__.py, namely
 change the version to match in setup.py
 run the tests - make sure everthing is OK
     and that the version in test_lsseq.out is updated
+    for BOTH Darwin (MacOS) and Linux.
 
 python3 -m build
 
@@ -35,6 +36,14 @@ python3 -m twine upload --repository pypi dist/lsseq-2.x.x*
     python3 -m pip install lsseq
 # or update it.
     python3 -m pip install lsseq --upgrade
+
+# As superuser
+su -
+cd /usr/local/venv
+bin/pip install lsseq --upgrade
+exit
+lsseq --version
+
 
 # Test installation.
 #
