@@ -42,7 +42,7 @@ several production studios. There is a regression test program included with
 the source here on github to help test any changes, additions, bug fixes
 etc.
 
-Lastly some useful options have been added beyond what `/bin/ls` does that
+Lastly some useful options have been added, beyond what `/bin/ls` does, that
 extend `lsseq's` capability.
 
 #### For example:
