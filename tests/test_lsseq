@@ -119,8 +119,10 @@ if [ "$TEST_SYSTEM_LSSEQ" = no ]; then
         echo export PATH=\"$TEST_DIR:\$PATH\"
     fi
 else
-    TEST_OUT_FILENAME=test_lsseq.out.installed.`uname`.new
+    TEST_OUT_FILENAME=test_lsseq.out.`uname`.installed.new
 fi
+
+echo "Test is using " `which lsseq`
 
 # NOTE: To make sure the modification times of the testdir/cdir and ndir images are
 # set properly for testing we need to force specific times on to the files

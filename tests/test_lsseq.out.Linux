@@ -4,10 +4,10 @@
 Linux
 
 ------ Test 2 ------ lsseq --version ------
-2.6.0
+2.6.1
 
 ------ Test 3 ------ lsseq --help ------
-usage: lsseq [OPTION]... [FILE]...
+usage: lsseq [-h | --help] [OPTION]... [FILE]...
 
 List directory contents (akin to /bin/ls) while condensing image
 sequences to one entry each. Filenames that are part of image
@@ -105,8 +105,9 @@ optional arguments:
                         where TENSE is either 'before' or 'since'; only list sequences up to (and
                         including) or after (and including) the time specified. The --time
                         argument specifies which frame to use for the cutoff comparison. The
-                        optional CC (century) defaults to the current century. The optional -hh
-                        (hours), mm (minutes) or ss (seconds) default to zero if not specified.
+                        optional CC (century) defaults to the current century. The optional '-hh'
+                        (hours), 'mm' (minutes) or 'ss' (seconds) default to zero if not
+                        specified.
   --silent, --quiet     suppress errors and warnings
 
 ------ Test 4 ------ lsseq -lRFC --quiet testdir ------
