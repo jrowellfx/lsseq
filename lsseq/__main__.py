@@ -67,7 +67,7 @@ import copy
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.6.0"     # Semantic Versioning 2.0.0
+VERSION = "2.6.1"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -1069,7 +1069,7 @@ def main() :
                 [output of /bin/ls minus image sequences]
                 [list of images sequences]
             '''),
-        usage="%(prog)s [OPTION]... [FILE]...")
+        usage="%(prog)s [-h | --help] [OPTION]... [FILE]...")
 
     p.add_argument("--version", action="version", version=VERSION)
 
@@ -1221,7 +1221,7 @@ def main() :
         up to (and including) or after (and including) the time specified. The --time argument \
         specifies which frame to use for the cutoff comparison. \
         The optional CC (century) defaults to the current century. \
-        The optional -hh (hours), mm (minutes) or ss (seconds) \
+        The optional '-hh' (hours), 'mm' (minutes) or 'ss' (seconds) \
         default to zero if not specified.",
         metavar=("TENSE", "[CC]YYMMDD[-hh[mm[ss]]]"))
     p.add_argument("--silent", "--quiet", action="store_true",

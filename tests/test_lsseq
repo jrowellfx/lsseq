@@ -1,5 +1,86 @@
 #!/bin/bash
 
+# 3-Clause BSD License
+#
+# Copyright (c) 2008-2022, James Philip Rowell,
+# Alpha Eleven Incorporated
+# www.alpha-eleven.com
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#
+#  1. Redistributions of source code must retain the above copyright
+#     notice, this list of conditions and the following disclaimer.
+#
+#  2. Redistributions in binary form must reproduce the above copyright
+#     notice, this list of conditions and the following disclaimer in
+#     the documentation and/or other materials provided with the
+#     distribution.
+#
+#  3. Neither the name of the copyright holder, "Alpha Eleven, Inc.",
+#     nor the names of its contributors may be used to endorse or
+#     promote products derived from this software without specific prior
+#     written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+# HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+# test_lsseq - Run the lsseq regression tests.
+
+usage_exit() {
+    echo "Usage: ${0##*/} [-h | --help] [--testSystem-lsseq]"
+    if [ "$1" = help ]; then
+	cat - <<@eof
+
+${0##*/} Run regression tests on lsseq. Must be run in the
+<lsseq-repository>/tests directory.
+
+Options:
+
+ -h, --help         show this help and exit
+ --testSystem-lsseq run the regression tests on the version of
+                    lsseq installed on the system. Output test
+                    results to appropriatly named file.
+
+@eof
+    fi
+    exit 1
+}
+
+TEST_SYSTEM_LSSEQ=no
+
+#
+# Parse options.  Stop when you get to the file list.
+#
+shopt -s extglob
+while :
+do
+    case "$1" in
+        -h|--help) usage_exit help
+        ;;
+
+        --testSystem-lsseq) TEST_SYSTEM_LSSEQ=yes
+             shift
+        ;;
+
+        --*|-*) usage_exit
+        ;;
+
+        *) break # We're done processing arguments, so let's get on with it. :-)
+    esac
+done
+
 export LC_ALL=POSIX
 unset OIC_IMAGE_EXTENSION
 unset OIC_MOV_EXTENSION
@@ -29,12 +110,16 @@ TEST_OUT_FILENAME=test_lsseq.out.`uname`.new
 
 trap cleanup INT
 
-ln -sf ../lsseq/__main__.py  lsseq
+if [ "$TEST_SYSTEM_LSSEQ" = no ]; then
+    ln -sf ../lsseq/__main__.py  lsseq
 
-if [[ ! ":$PATH:" == *":$TEST_DIR:"* ]]; then
-    export PATH="$TEST_DIR:$PATH"
-    echo \# Run the following command once to help live testing.
-    echo export PATH=\"$TEST_DIR:\$PATH\"
+    if [[ ! ":$PATH:" == *":$TEST_DIR:"* ]]; then
+        export PATH="$TEST_DIR:$PATH"
+        echo \# Run the following command once to help live testing.
+        echo export PATH=\"$TEST_DIR:\$PATH\"
+    fi
+else
+    TEST_OUT_FILENAME=test_lsseq.out.installed.`uname`.new
 fi
 
 # NOTE: To make sure the modification times of the testdir/cdir and ndir images are

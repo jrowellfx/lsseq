@@ -24,6 +24,8 @@ run the tests - make sure everthing is OK
     and that the version in test_lsseq.out is updated
     for BOTH Darwin (MacOS) and Linux.
 
+Update the version number in README.md appendix example
+
 python3 -m build
 
 # Change next line to whatever latest version is. Then use
@@ -51,3 +53,4 @@ cd tests
 ./test_renum
 diff test_renum.out test_renum.out.new
 
+# Make a new tagged release on github

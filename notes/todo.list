@@ -10,5 +10,3 @@
     Request from Fabrizio - who works in a film archive site and apparently old Kodak
     Cineon sequences frequenly use this kind of convention. (I.e. no file name,
     just frame numbers.)
-
-+ add flag to ignore case in file extensions. Useful for jpg vs JPG etc.
