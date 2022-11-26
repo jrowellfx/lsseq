@@ -60,9 +60,6 @@ import sys
 import subprocess
 import textwrap
 import math
-import time
-import datetime
-import dateparser
 import copy
 from operator import itemgetter
 import seqLister
@@ -1334,6 +1331,9 @@ def main() :
                     file=sys.stderr, sep='')
             sys.exit(1)
 
+        import datetime
+        import dateparser
+
         # Process the cutoff time set.
         #
         tzName = datetime.datetime.now(datetime.timezone.utc).astimezone().tzname()
@@ -1350,6 +1350,7 @@ def main() :
                     file=sys.stderr, sep='')
             sys.exit(1)
 
+        import time
         args.cutoffTime[1] = int(time.mktime(timeData.timetuple())) # Epoch time
 
     # Now the meat and potatoes.
