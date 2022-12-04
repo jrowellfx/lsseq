@@ -64,7 +64,7 @@ import copy
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.6.1"     # Semantic Versioning 2.0.0
+VERSION = "2.7.0"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -169,8 +169,8 @@ DATE_FORMAT_LIST = [
     '%Y%m%d-%H%M%S',
     '%y%m%d%H%M',    # Undocumented, but kept for compatibility
     '%Y%m%d%H%M',    # with earlier versions (v2.5.3 and earlier)
-    '%y%m%d%H%M.%S', # of lsseq. Note MMDDhhmm[.ss] is no longers
-    '%Y%m%d%H%M.%S'  # supported, thus not fully backward compatible.
+    '%y%m%d%H%M.%S', # of lsseq. Note MMDDhhmm[.ss] is no longer
+    '%Y%m%d%H%M.%S'  # supported, thus not FULLY backward compatible.
 ]
 
 PATH_NOPREFIX = 0
@@ -218,6 +218,9 @@ FRAMENUM = 1
 # Thus "loose" is only defined as the use of "_" over and above the
 # far more desirable strict case of only allowing ".".
 #
+# Actually the following global variable is never used in the code.
+# But keeping it here for the important discussion above.
+#
 LOOSE_SEP = "_"
 
 def isFrameNum(f) :
@@ -248,9 +251,6 @@ def readByteShortForm(numBytes) :
 # Splits up a filename by the dots in the name.
 #
 def splitFileComponents(filename) :
-    global IMAGE_EXT
-    global CACHE_EXT
-
     fileComponents = filename.split(".")
 
     # A file with no extension.
@@ -282,9 +282,6 @@ def splitFileComponents(filename) :
 #
 def seqSplit(filename, args) :
 
-    global IMAGE_EXT
-    global CACHE_EXT
-    global LOOSE_SEP
     fileComponents = splitFileComponents(filename)
 
     # A file with no extension.
@@ -324,7 +321,6 @@ def seqSplit(filename, args) :
 # Return true if and only if filename is a movie file.
 #
 def isMovie(filename) :
-    global MOV_EXT
     fileComponents = filename.split(".")
 
     # Note: use of lower() allows us to ignore case of extensions.
@@ -1011,16 +1007,12 @@ def main() :
             pass
     sys.excepthook = new_hook
 
+    # These global variables might be changed below depending on
+    # whether some environment variables are set.
+    #
     global IMAGE_EXT
     global MOV_EXT
     global CACHE_EXT
-    global PATH_ABS
-    global PATH_REL
-    global LIST_ALLFILES
-    global LIST_ONLYSEQS
-    global LIST_ONLYIMGS
-    global LIST_ONLYMOVS
-    global LIST_ONLYCACHES
 
     # To help with argparse.
     #
@@ -1200,6 +1192,11 @@ def main() :
     p.add_argument("--recursive", "-R", action="store_true",
         dest="isRecursive", default=False,
         help="list subdirectories recursively")
+    p.add_argument("-t", "--sortByTime", action="store_true",
+        dest="sortByMTime", default=False,
+        help="sort by modification time, the default comparison \
+        time is between the most recently modified (newest) frames \
+        in each sequence. (see --time) (see ls(1))")
     p.add_argument("--time", action="store", type=str,
         dest="timeCompare",
         help="which frame in the sequence to use to compare times \
@@ -1207,11 +1204,6 @@ def main() :
         for 'FRAME_AGE' are 'oldest', 'median' and 'newest' \
         [default: 'newest']", metavar="FRAME_AGE", default="newest",
         choices=("oldest", "median", "newest"))
-    p.add_argument("-t", action="store_true",
-        dest="sortByMTime", default=False,
-        help="sort by modification time, the default comparison \
-        time is between the most recently modified (newest) frames \
-        in each sequence. (see --time) (see ls(1))")
     p.add_argument("--onlyShow", action="store", type=str, nargs=2,
         dest="cutoffTime",
         help="where TENSE is either 'before' or 'since'; only list sequences \
@@ -1221,6 +1213,13 @@ def main() :
         The optional '-hh' (hours), 'mm' (minutes) or 'ss' (seconds) \
         default to zero if not specified.",
         metavar=("TENSE", "[CC]YYMMDD[-hh[mm[ss]]]"))
+    p.add_argument("--globalSortByTime", action="store_true",
+        dest="globalSortByMTime", default=False,
+        help="when listing with --recursive AND using either \
+        --prependPathAbs or --prependPathRel then this option will sort ALL \
+        sequences by time compared to each other, as opposed to only sorting \
+        sequences by time within their common directory. If the above contitions \
+        are NOT met, then this option is simply ignored.")
     p.add_argument("--silent", "--quiet", action="store_true",
         dest="silent", default=False,
         help="suppress errors and warnings")
@@ -1291,7 +1290,9 @@ def main() :
     #
 
     if args.printImgExtensions :
-        print("Note:", PROG_NAME, "also recognizes all extensions below when uppercase.")
+        print(PROG_NAME,
+            ": note: ", PROG_NAME, " also recognizes all extensions below when uppercase.",
+            sep='')
         extList = ":".join(IMAGE_EXT)
         print("LSSEQ_IMAGE_EXTENSION:", extList)
         extList = ":".join(MOV_EXT)
@@ -1352,6 +1353,19 @@ def main() :
 
         import time
         args.cutoffTime[1] = int(time.mktime(timeData.timetuple())) # Epoch time
+
+    # args.globalSortByMTime is only used in the code above to defer printing
+    # the sequences until the end, after ALL the sequences been collected into
+    # a common dictionary. We check the validity of the other command-line
+    # options to determine if this flag should be set (see help description above).
+    # Also we need to turn on args.sortByMTime so that some code above gets
+    # excuted which captures times etc.
+    #
+    if args.globalSortByMTime :
+        if not args.isRecursive or args.prependPath == PATH_NOPREFIX :
+            args.globalSortByMTime = False
+        else :
+            args.sortByMTime = True # Needed to engage code to capture times
 
     # Now the meat and potatoes.
     # The following logic attempts to mimic the behavior

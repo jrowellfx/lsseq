@@ -226,6 +226,13 @@ testdir/ndir lsseq --onlyShow before 20100615-12 --time newest
 testdir/ndir lsseq --onlyShow since  20100615-12 --time oldest
 testdir/ndir lsseq --onlyShow since  20100615-12 --time median
 testdir/ndir lsseq --onlyShow since  20100615-12 --time newest
+.            lsseq -i
+testdir/gdir lsseq --onlyImages
+testdir/gdir lsseq --onlyMovies
+testdir/gdir lsseq --onlyCaches
+testdir lsseq --noErrorLists --recursive --prependPathRel -t --time newest cdir ndir
+testdir lsseq --noErrorLists --recursive --prependPathRel -t --time oldest cdir ndir
+testdir lsseq --noErrorLists --recursive --prependPathRel -t --time median cdir ndir
 EOF
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME
@@ -249,7 +256,9 @@ while true; do
     i=$(expr $i + 1)
 done
 
-export LSSEQ_CACHE_EXTENSION=ass:dshd:fur:obj:srf:ass.gz
+export LSSEQ_IMAGE_EXTENSION=jpg:exr
+export LSSEQ_MOV_EXTENSION=mov
+export LSSEQ_CACHE_EXTENSION=ass:fur
 
 cat << EOF2 > $tmpArgs
 .            lsseq -i
