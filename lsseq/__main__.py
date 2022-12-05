@@ -68,7 +68,7 @@ VERSION = "2.7.0"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
-CACHE_EXT = [
+gCacheExtList = [
     "ass",
     "bgeo",
     "bgeo.gz",
@@ -85,7 +85,7 @@ CACHE_EXT = [
     "vdb.gz",
     "vdb.sc"
 ]
-MOV_EXT = [
+gMoveExtList = [
     "avi",
     "mov",
     "mp4",
@@ -93,7 +93,7 @@ MOV_EXT = [
     "mxf",
     "wmv"
 ]
-IMAGE_EXT = [
+gImageExtList = [
     "alpha",
     "als",
     "anim",
@@ -275,8 +275,8 @@ def splitFileComponents(filename) :
     # and join them before returning result.
     # Note: use of lower() allows us to ignore case of extensions.
     #
-    if (".".join(fileComponents[-2:]).lower() in IMAGE_EXT) \
-	    or (".".join(fileComponents[-2:]).lower() in CACHE_EXT) :
+    if (".".join(fileComponents[-2:]).lower() in gImageExtList) \
+	    or (".".join(fileComponents[-2:]).lower() in gCacheExtList) :
 
         # If we found a match, join the last two items,
         # into the second last slot, then and delete the last one.
@@ -305,8 +305,8 @@ def seqSplit(filename, args) :
     # Test if image or cache sequence.
     # Note: use of lower() allows us to ignore case of extensions.
     #
-    if (fileComponents[-1].lower() in IMAGE_EXT) \
-            or (fileComponents[-1].lower() in CACHE_EXT) :
+    if (fileComponents[-1].lower() in gImageExtList) \
+            or (fileComponents[-1].lower() in gCacheExtList) :
 
         if not args.strictSeparator :
             looseFileComponents = fileComponents[-2].split("_")
@@ -339,7 +339,7 @@ def isMovie(filename) :
     # Note: use of lower() allows us to ignore case of extensions.
     #
     return len(fileComponents) > 1 \
-        and fileComponents[-1].lower() in MOV_EXT
+        and fileComponents[-1].lower() in gMoveExtList
 
 
 # Split the filename dictionary KEY into (<imagename>, "", <ext>)
@@ -364,7 +364,7 @@ def splitImageName(filenameKey) :
 def isCache(keyName) :
     splitName = splitImageName(keyName)
     # use of lower() allows us to ignore case of extensions.
-    return splitName[-1].lower() in CACHE_EXT
+    return splitName[-1].lower() in gCacheExtList
 
 # Reconstruct the imagename with the frame number
 # from the dictionary key..
@@ -1051,9 +1051,9 @@ def main() :
     # These global variables might be changed below depending on
     # whether some environment variables are set.
     #
-    global IMAGE_EXT
-    global MOV_EXT
-    global CACHE_EXT
+    global gImageExtList
+    global gMoveExtList
+    global gCacheExtList
 
     # To help with argparse.
     #
@@ -1280,7 +1280,7 @@ def main() :
     elif tmpOICExt != None and tmpOICExt != "" :
         tmpExtList = tmpOICExt.split(":")
     else :
-        tmpExtList = IMAGE_EXT
+        tmpExtList = gImageExtList
     #
     # Using a set below removes duplicates if they exist.
     #
@@ -1293,7 +1293,7 @@ def main() :
     for e in tmpExtList :
         tmpExtSet.add(e.lower())
     tmpExtList = sorted(tmpExtSet)
-    IMAGE_EXT = copy.deepcopy(tmpExtList)
+    gImageExtList = copy.deepcopy(tmpExtList)
 
     tmpExt = os.getenv("LSSEQ_MOV_EXTENSION")
     tmpOICExt = os.getenv("OIC_MOV_EXTENSION")
@@ -1302,13 +1302,13 @@ def main() :
     elif tmpOICExt != None and tmpOICExt != "" :
         tmpExtList = tmpOICExt.split(":")
     else :
-        tmpExtList = MOV_EXT
+        tmpExtList = gMoveExtList
     # Using a set like this removes duplicates if they exist.
     tmpExtSet = set([])
     for e in tmpExtList :
         tmpExtSet.add(e.lower())
     tmpExtList = sorted(tmpExtSet)
-    MOV_EXT = copy.deepcopy(tmpExtList)
+    gMoveExtList = copy.deepcopy(tmpExtList)
 
     tmpExt = os.getenv("LSSEQ_CACHE_EXTENSION")
     tmpOICExt = os.getenv("OIC_CACHE_EXTENSION")
@@ -1317,13 +1317,13 @@ def main() :
     elif tmpOICExt != None and tmpOICExt != "" :
         tmpExtList = tmpOICExt.split(":")
     else :
-        tmpExtList = CACHE_EXT
+        tmpExtList = gCacheExtList
     # Using a set like this removes duplicates if they exist.
     tmpExtSet = set([])
     for e in tmpExtList :
         tmpExtSet.add(e.lower())
     tmpExtList = sorted(tmpExtSet)
-    CACHE_EXT = copy.deepcopy(tmpExtList)
+    gCacheExtList = copy.deepcopy(tmpExtList)
 
     #
     # Respond to arguments set by user and/or set up variables
@@ -1334,11 +1334,11 @@ def main() :
         print(PROG_NAME,
             ": note: ", PROG_NAME, " also recognizes all extensions below when uppercase.",
             sep='')
-        extList = ":".join(IMAGE_EXT)
+        extList = ":".join(gImageExtList)
         print("LSSEQ_IMAGE_EXTENSION:", extList)
-        extList = ":".join(MOV_EXT)
+        extList = ":".join(gMoveExtList)
         print("LSSEQ_MOV_EXTENSION:", extList)
-        extList = ":".join(CACHE_EXT)
+        extList = ":".join(gCacheExtList)
         print("LSSEQ_CACHE_EXTENSION:", extList)
         sys.exit(0)
 
