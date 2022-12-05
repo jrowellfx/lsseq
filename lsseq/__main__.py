@@ -173,6 +173,19 @@ DATE_FORMAT_LIST = [
     '%Y%m%d%H%M.%S'  # supported, thus not FULLY backward compatible.
 ]
 
+# Support for --globalSortByTime feature.
+#
+gTimeList = []
+gImageDictionary = {}
+gCacheDictionary = {}
+gMoviesDictionary = {}
+
+# Array indices for timeList (used in "listSeqDir()") and gTimeList
+#
+DICTKEY = 0
+MTIME = 1
+TRAVERSEDPATH = 2
+
 PATH_NOPREFIX = 0
 PATH_ABS = 1
 PATH_REL = 2
@@ -702,10 +715,12 @@ def stripDotFiles(dirContents, stripIt) :
 # 
 def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
-    # Array indices for "timeList" used below.
+    # Declare global variables since they might be modified by this function.
     #
-    DICTKEY = 0
-    MTIME = 1
+    global gTimeList
+    global gImageDictionary
+    global gCacheDictionary
+    global gMoviesDictionary
 
     # Stash the current working dir, to come back to and the end
     # of this function. I.e.; we need to push and pop the current
@@ -898,31 +913,57 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 timeList.append((k, int(time)))
 
     if args.sortByMTime :
-        timeList.sort(key=itemgetter(MTIME)) # Sorts by time.
-        # Note: ls -t prints newest first; ls -tr is newest last.
-        if not args.reverseListing :
-            timeList.reverse()
-        for seq in timeList :
-            if args.cutoffTime != None :
-                if args.cutoffTime[0] == 'before' :
-                    if seq[MTIME] > args.cutoffTime[1] :
-                        continue
-                else : # Guaranteed to be 'since'
-                    if seq[MTIME] < args.cutoffTime[1] :
-                        continue
-            if isMovie(seq[DICTKEY]) :
-                if args.prependPath != PATH_NOPREFIX :
-                    sys.stdout.write(traversedPath)
-                print(seq[DICTKEY])
-                somethingWasPrinted = True
-            elif isCache(seq[DICTKEY]) :
-                cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
-                printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
-                somethingWasPrinted = True
-            else :
-                imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
-                printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
-                somethingWasPrinted = True
+        if args.globalSortByTime :
+            #
+            # Append sequences to the global list for later printing.
+            # then print nothing and continue below (recursive descent,
+            # or processing other directory contents). Need to extend
+            # the tuple in gTimeList to include "traversedPath" since
+            # that string won't be availabe when we finally emerge from
+            # listSeqDir() in main().
+            #
+xxxx jpr here
+            for seq in timeList :
+                gTimeList.append( (seq[DICTKEY], seq[MTIME], traversedPath) )
+                if isMovie(seq[DICTKEY]) :
+                    if args.prependPath != PATH_NOPREFIX :
+                        sys.stdout.write(traversedPath)
+                    print(seq[DICTKEY])
+                    somethingWasPrinted = True
+                elif isCache(seq[DICTKEY]) :
+                    cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
+                    printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
+                    somethingWasPrinted = True
+                else :
+                    imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
+                    printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
+                    somethingWasPrinted = True
+        else :
+            timeList.sort(key=itemgetter(MTIME)) # Sorts by time.
+            # Note: ls -t prints newest first; ls -tr is newest last.
+            if not args.reverseListing :
+                timeList.reverse()
+            for seq in timeList :
+                if args.cutoffTime != None :
+                    if args.cutoffTime[0] == 'before' :
+                        if seq[MTIME] > args.cutoffTime[1] :
+                            continue
+                    else : # Guaranteed to be 'since'
+                        if seq[MTIME] < args.cutoffTime[1] :
+                            continue
+                if isMovie(seq[DICTKEY]) :
+                    if args.prependPath != PATH_NOPREFIX :
+                        sys.stdout.write(traversedPath)
+                    print(seq[DICTKEY])
+                    somethingWasPrinted = True
+                elif isCache(seq[DICTKEY]) :
+                    cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
+                    printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
+                    somethingWasPrinted = True
+                else :
+                    imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
+                    printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
+                    somethingWasPrinted = True
     elif args.cutoffTime != None :
         timeList.sort(key=itemgetter(DICTKEY)) # Sorts by name.
         if args.reverseListing :
@@ -1214,7 +1255,7 @@ def main() :
         default to zero if not specified.",
         metavar=("TENSE", "[CC]YYMMDD[-hh[mm[ss]]]"))
     p.add_argument("--globalSortByTime", action="store_true",
-        dest="globalSortByMTime", default=False,
+        dest="globalSortByTime", default=False,
         help="when listing with --recursive AND using either \
         --prependPathAbs or --prependPathRel then this option will sort ALL \
         sequences by time compared to each other, as opposed to only sorting \
@@ -1354,16 +1395,16 @@ def main() :
         import time
         args.cutoffTime[1] = int(time.mktime(timeData.timetuple())) # Epoch time
 
-    # args.globalSortByMTime is only used in the code above to defer printing
+    # args.globalSortByTime is only used in the code above to defer printing
     # the sequences until the end, after ALL the sequences been collected into
     # a common dictionary. We check the validity of the other command-line
     # options to determine if this flag should be set (see help description above).
     # Also we need to turn on args.sortByMTime so that some code above gets
     # excuted which captures times etc.
     #
-    if args.globalSortByMTime :
-        if not args.isRecursive or args.prependPath == PATH_NOPREFIX :
-            args.globalSortByMTime = False
+    if args.globalSortByTime :
+        if args.prependPath == PATH_NOPREFIX :
+            args.globalSortByTime = False
         else :
             args.sortByMTime = True # Needed to engage code to capture times
 
@@ -1440,6 +1481,38 @@ def main() :
         if args.prependPath == PATH_ABS :
             passedPath = os.getcwd() + "/"
         listSeqDir(args.files, ".", True, args, passedPath)
+
+
+    # If we need to print the sequences globally sorted by time,
+    # we do it here, note that in this case nothing will have been
+    # printed so far. Also we know that args.prependPath != PATH_NOPREFIX
+    # since this option is turned OFF if this is not the case.
+    #
+    if args.globalSortByTime :
+        gTimeList.sort(key=itemgetter(MTIME)) # Sorts by time.
+        # Note: ls -t prints newest first; ls -tr is newest last.
+        if not args.reverseListing :
+            gTimeList.reverse()
+        for seq in gTimeList :
+            if args.cutoffTime != None :
+                if args.cutoffTime[0] == 'before' :
+                    if seq[MTIME] > args.cutoffTime[1] :
+                        continue
+                else : # Guaranteed to be 'since'
+                    if seq[MTIME] < args.cutoffTime[1] :
+                        continue
+            if isMovie(seq[DICTKEY]) :
+                sys.stdout.write(seq[TRAVERSEDPATH])
+                print(seq[DICTKEY])
+                somethingWasPrinted = True
+            elif isCache(seq[DICTKEY]) :
+                cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
+                printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, seq[TRAVERSEDPATH])
+                somethingWasPrinted = True
+            else :
+                imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
+                printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, seq[TRAVERSEDPATH])
+                somethingWasPrinted = True
 
 if __name__ == '__main__' :
     main()
