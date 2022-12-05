@@ -85,7 +85,7 @@ gCacheExtList = [
     "vdb.gz",
     "vdb.sc"
 ]
-gMoveExtList = [
+gMovieExtList = [
     "avi",
     "mov",
     "mp4",
@@ -339,7 +339,7 @@ def isMovie(filename) :
     # Note: use of lower() allows us to ignore case of extensions.
     #
     return len(fileComponents) > 1 \
-        and fileComponents[-1].lower() in gMoveExtList
+        and fileComponents[-1].lower() in gMovieExtList
 
 
 # Split the filename dictionary KEY into (<imagename>, "", <ext>)
@@ -1052,7 +1052,7 @@ def main() :
     # whether some environment variables are set.
     #
     global gImageExtList
-    global gMoveExtList
+    global gMovieExtList
     global gCacheExtList
 
     # To help with argparse.
@@ -1302,13 +1302,13 @@ def main() :
     elif tmpOICExt != None and tmpOICExt != "" :
         tmpExtList = tmpOICExt.split(":")
     else :
-        tmpExtList = gMoveExtList
+        tmpExtList = gMovieExtList
     # Using a set like this removes duplicates if they exist.
     tmpExtSet = set([])
     for e in tmpExtList :
         tmpExtSet.add(e.lower())
     tmpExtList = sorted(tmpExtSet)
-    gMoveExtList = copy.deepcopy(tmpExtList)
+    gMovieExtList = copy.deepcopy(tmpExtList)
 
     tmpExt = os.getenv("LSSEQ_CACHE_EXTENSION")
     tmpOICExt = os.getenv("OIC_CACHE_EXTENSION")
@@ -1336,7 +1336,7 @@ def main() :
             sep='')
         extList = ":".join(gImageExtList)
         print("LSSEQ_IMAGE_EXTENSION:", extList)
-        extList = ":".join(gMoveExtList)
+        extList = ":".join(gMovieExtList)
         print("LSSEQ_MOV_EXTENSION:", extList)
         extList = ":".join(gCacheExtList)
         print("LSSEQ_CACHE_EXTENSION:", extList)
