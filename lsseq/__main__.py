@@ -1256,7 +1256,7 @@ def main() :
         metavar=("TENSE", "[CC]YYMMDD[-hh[mm[ss]]]"))
     p.add_argument("--globalSortByTime", action="store_true",
         dest="globalSortByTime", default=False,
-        help="when listing with --recursive AND using either \
+        help="when using either \
         --prependPathAbs or --prependPathRel then this option will sort ALL \
         sequences by time compared to each other, as opposed to only sorting \
         sequences by time within their common directory. If the above contitions \
