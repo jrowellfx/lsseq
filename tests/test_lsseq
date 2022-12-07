@@ -247,7 +247,7 @@ testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t 
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median pdir cdir ndir
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest pdir cdir ndir
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest pdir cdir ndir
-testdir/pdir ls --recursive $LS_FULL_TIME -o -t -r
+testdir/pdir ls -R $LS_FULL_TIME -o -t -r
 testdir/pdir lsseq --noErrorLists --recursive -t -r --time median
 testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive -t -r --time median
 testdir lsseq --noErrorLists --recursive --prependPathRel -t -r --time median pdir
@@ -256,7 +256,7 @@ testdir lsseq --noErrorLists --recursive --prependPathRel -t -r --time newest pd
 testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time median
 testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time oldest
 testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time newest
-testdir/pdir ls --recursive $LS_FULL_TIME -t -o
+testdir/pdir ls -R $LS_FULL_TIME -t -o
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median pdir
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest pdir
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest pdir

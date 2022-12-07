@@ -4134,9 +4134,139 @@ ndir/nnn_v03.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 
------- Test 77 ------ ls --recursive -T -o -t -r ------
-ls: unrecognized option `--recursive'
-usage: ls [-@ABCFGHILOPRSTUWabcdefghiklmnopqrstuvwxy1%,] [--color=when] [-D format] [file ...]
+------ Test 77 ------ ls -R -T -o -t -r ------
+total 24
+-rwxrwxrwx   1 testUser     0 Jun 15 08:28:00 2010 p_median4_v03.08.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 09:28:00 2010 p_median4_v01.08.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 10:28:00 2010 p_median4_v02.08.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 11:29:00 2010 p_median4_v01.09.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 11:30:00 2010 p_median4_v01.10.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 11:31:00 2010 p_median4_v01.11.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 12:29:00 2010 p_median4_v02.09.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 12:30:00 2010 p_median4_v02.10.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 12:31:00 2010 p_median4_v02.11.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 13:29:00 2010 p_median4_v03.09.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 13:30:00 2010 p_median4_v03.10.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 13:31:00 2010 p_median4_v03.11.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 14:32:00 2010 p_median4_v02.12.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 15:32:00 2010 p_median4_v03.12.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 16:32:00 2010 p_median4_v01.12.jpg
+-rwxrwxrwx   1 testUser  7072 Dec  7 12:00:00 2022 custom.touch.images
+-rwxrwxrwx   1 testUser   863 Dec  7 12:01:00 2022 initial.image.mtimes
+drwxrwxrwx  19 testUser   608 Dec  7 12:02:00 2022 p01_dir
+drwxrwxrwx  19 testUser   608 Dec  7 12:05:00 2022 p02_dir
+
+./p01_dir:
+total 0
+-rwxrwxrwx   1 testUser    0 Jun 13 08:28:00 2010 p01_median2_v03.08.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 09:28:00 2010 p01_median2_v01.08.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 10:28:00 2010 p01_median2_v02.08.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 11:29:00 2010 p01_median2_v01.09.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 11:30:00 2010 p01_median2_v01.10.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 11:31:00 2010 p01_median2_v01.11.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 12:29:00 2010 p01_median2_v02.09.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 12:30:00 2010 p01_median2_v02.10.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 12:31:00 2010 p01_median2_v02.11.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 13:29:00 2010 p01_median2_v03.09.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 13:30:00 2010 p01_median2_v03.10.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 13:31:00 2010 p01_median2_v03.11.jpg
+-rwxrwxrwx   1 testUser    0 Jul 13 14:32:00 2010 p01_median2_v02.12.jpg
+-rwxrwxrwx   1 testUser    0 Jul 13 15:32:00 2010 p01_median2_v03.12.jpg
+-rwxrwxrwx   1 testUser    0 Jul 13 16:32:00 2010 p01_median2_v01.12.jpg
+drwxrwxrwx  17 testUser  544 Dec  7 12:03:00 2022 p01A_dir
+drwxrwxrwx  17 testUser  544 Dec  7 12:04:00 2022 p02B_dir
+
+./p01_dir/p01A_dir:
+total 0
+-rwxrwxrwx  1 testUser  0 Jun 14 08:28:00 2010 p01A_median3_v03.08.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 09:28:00 2010 p01A_median3_v01.08.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 10:28:00 2010 p01A_median3_v02.08.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 11:29:00 2010 p01A_median3_v01.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 11:30:00 2010 p01A_median3_v01.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 11:31:00 2010 p01A_median3_v01.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 12:29:00 2010 p01A_median3_v02.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 12:30:00 2010 p01A_median3_v02.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 12:31:00 2010 p01A_median3_v02.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 13:29:00 2010 p01A_median3_v03.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 13:30:00 2010 p01A_median3_v03.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 13:31:00 2010 p01A_median3_v03.11.jpg
+-rwxrwxrwx  1 testUser  0 Jul 14 14:32:00 2010 p01A_median3_v02.12.jpg
+-rwxrwxrwx  1 testUser  0 Jul 14 15:32:00 2010 p01A_median3_v03.12.jpg
+-rwxrwxrwx  1 testUser  0 Jul 14 16:32:00 2010 p01A_median3_v01.12.jpg
+
+./p01_dir/p02B_dir:
+total 0
+-rwxrwxrwx  1 testUser  0 Jun 12 08:28:00 2010 p01B_median1_v03.08.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 09:28:00 2010 p01B_median1_v01.08.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 10:28:00 2010 p01B_median1_v02.08.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 11:29:00 2010 p01B_median1_v01.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 11:30:00 2010 p01B_median1_v01.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 11:31:00 2010 p01B_median1_v01.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 12:29:00 2010 p01B_median1_v02.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 12:30:00 2010 p01B_median1_v02.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 12:31:00 2010 p01B_median1_v02.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 13:29:00 2010 p01B_median1_v03.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 13:30:00 2010 p01B_median1_v03.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 13:31:00 2010 p01B_median1_v03.11.jpg
+-rwxrwxrwx  1 testUser  0 Jul 12 14:32:00 2010 p01B_median1_v02.12.jpg
+-rwxrwxrwx  1 testUser  0 Jul 12 15:32:00 2010 p01B_median1_v03.12.jpg
+-rwxrwxrwx  1 testUser  0 Jul 12 16:32:00 2010 p01B_median1_v01.12.jpg
+
+./p02_dir:
+total 0
+-rwxrwxrwx   1 testUser    0 May 16 08:28:00 2010 p02_median5_v03.08.jpg
+-rwxrwxrwx   1 testUser    0 May 16 09:28:00 2010 p02_median5_v01.08.jpg
+-rwxrwxrwx   1 testUser    0 May 16 10:28:00 2010 p02_median5_v02.08.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 11:29:00 2010 p02_median5_v01.09.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 11:30:00 2010 p02_median5_v01.10.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 11:31:00 2010 p02_median5_v01.11.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 12:29:00 2010 p02_median5_v02.09.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 12:30:00 2010 p02_median5_v02.10.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 12:31:00 2010 p02_median5_v02.11.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 13:29:00 2010 p02_median5_v03.09.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 13:30:00 2010 p02_median5_v03.10.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 13:31:00 2010 p02_median5_v03.11.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 14:32:00 2010 p02_median5_v02.12.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 15:32:00 2010 p02_median5_v03.12.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 16:32:00 2010 p02_median5_v01.12.jpg
+drwxrwxrwx  17 testUser  544 Dec  7 12:06:00 2022 p02B_dir
+drwxrwxrwx  17 testUser  544 Dec  7 12:07:00 2022 p02A_dir
+
+./p02_dir/p02B_dir:
+total 0
+-rwxrwxrwx  1 testUser  0 May 18 08:28:00 2010 p02B_median7_v03.08.jpg
+-rwxrwxrwx  1 testUser  0 May 18 09:28:00 2010 p02B_median7_v01.08.jpg
+-rwxrwxrwx  1 testUser  0 May 18 10:28:00 2010 p02B_median7_v02.08.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 11:29:00 2010 p02B_median7_v01.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 11:30:00 2010 p02B_median7_v01.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 11:31:00 2010 p02B_median7_v01.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 12:29:00 2010 p02B_median7_v02.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 12:30:00 2010 p02B_median7_v02.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 12:31:00 2010 p02B_median7_v02.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 13:29:00 2010 p02B_median7_v03.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 13:30:00 2010 p02B_median7_v03.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 13:31:00 2010 p02B_median7_v03.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 14:32:00 2010 p02B_median7_v02.12.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 15:32:00 2010 p02B_median7_v03.12.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 16:32:00 2010 p02B_median7_v01.12.jpg
+
+./p02_dir/p02A_dir:
+total 0
+-rwxrwxrwx  1 testUser  0 May 17 08:28:00 2010 p02A_median6_v03.08.jpg
+-rwxrwxrwx  1 testUser  0 May 17 09:28:00 2010 p02A_median6_v01.08.jpg
+-rwxrwxrwx  1 testUser  0 May 17 10:28:00 2010 p02A_median6_v02.08.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 11:29:00 2010 p02A_median6_v01.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 11:30:00 2010 p02A_median6_v01.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 11:31:00 2010 p02A_median6_v01.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 12:29:00 2010 p02A_median6_v02.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 12:30:00 2010 p02A_median6_v02.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 12:31:00 2010 p02A_median6_v02.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 13:29:00 2010 p02A_median6_v03.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 13:30:00 2010 p02A_median6_v03.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 13:31:00 2010 p02A_median6_v03.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 14:32:00 2010 p02A_median6_v02.12.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 15:32:00 2010 p02A_median6_v03.12.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 16:32:00 2010 p02A_median6_v01.12.jpg
 
 ------ Test 78 ------ lsseq --noErrorLists --recursive -t -r --time median ------
 .:
@@ -4364,9 +4494,139 @@ pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
 ./p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
 ./p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
 
------- Test 86 ------ ls --recursive -T -t -o ------
-ls: unrecognized option `--recursive'
-usage: ls [-@ABCFGHILOPRSTUWabcdefghiklmnopqrstuvwxy1%,] [--color=when] [-D format] [file ...]
+------ Test 86 ------ ls -R -T -t -o ------
+total 24
+drwxrwxrwx  19 testUser   608 Dec  7 12:05:00 2022 p02_dir
+drwxrwxrwx  19 testUser   608 Dec  7 12:02:00 2022 p01_dir
+-rwxrwxrwx   1 testUser   863 Dec  7 12:01:00 2022 initial.image.mtimes
+-rwxrwxrwx   1 testUser  7072 Dec  7 12:00:00 2022 custom.touch.images
+-rwxrwxrwx   1 testUser     0 Jun 15 16:32:00 2010 p_median4_v01.12.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 15:32:00 2010 p_median4_v03.12.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 14:32:00 2010 p_median4_v02.12.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 13:31:00 2010 p_median4_v03.11.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 13:30:00 2010 p_median4_v03.10.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 13:29:00 2010 p_median4_v03.09.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 12:31:00 2010 p_median4_v02.11.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 12:30:00 2010 p_median4_v02.10.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 12:29:00 2010 p_median4_v02.09.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 11:31:00 2010 p_median4_v01.11.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 11:30:00 2010 p_median4_v01.10.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 11:29:00 2010 p_median4_v01.09.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 10:28:00 2010 p_median4_v02.08.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 09:28:00 2010 p_median4_v01.08.jpg
+-rwxrwxrwx   1 testUser     0 Jun 15 08:28:00 2010 p_median4_v03.08.jpg
+
+./p02_dir:
+total 0
+drwxrwxrwx  17 testUser  544 Dec  7 12:07:00 2022 p02A_dir
+drwxrwxrwx  17 testUser  544 Dec  7 12:06:00 2022 p02B_dir
+-rwxrwxrwx   1 testUser    0 Jun 16 16:32:00 2010 p02_median5_v01.12.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 15:32:00 2010 p02_median5_v03.12.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 14:32:00 2010 p02_median5_v02.12.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 13:31:00 2010 p02_median5_v03.11.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 13:30:00 2010 p02_median5_v03.10.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 13:29:00 2010 p02_median5_v03.09.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 12:31:00 2010 p02_median5_v02.11.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 12:30:00 2010 p02_median5_v02.10.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 12:29:00 2010 p02_median5_v02.09.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 11:31:00 2010 p02_median5_v01.11.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 11:30:00 2010 p02_median5_v01.10.jpg
+-rwxrwxrwx   1 testUser    0 Jun 16 11:29:00 2010 p02_median5_v01.09.jpg
+-rwxrwxrwx   1 testUser    0 May 16 10:28:00 2010 p02_median5_v02.08.jpg
+-rwxrwxrwx   1 testUser    0 May 16 09:28:00 2010 p02_median5_v01.08.jpg
+-rwxrwxrwx   1 testUser    0 May 16 08:28:00 2010 p02_median5_v03.08.jpg
+
+./p02_dir/p02A_dir:
+total 0
+-rwxrwxrwx  1 testUser  0 Jun 17 16:32:00 2010 p02A_median6_v01.12.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 15:32:00 2010 p02A_median6_v03.12.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 14:32:00 2010 p02A_median6_v02.12.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 13:31:00 2010 p02A_median6_v03.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 13:30:00 2010 p02A_median6_v03.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 13:29:00 2010 p02A_median6_v03.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 12:31:00 2010 p02A_median6_v02.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 12:30:00 2010 p02A_median6_v02.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 12:29:00 2010 p02A_median6_v02.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 11:31:00 2010 p02A_median6_v01.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 11:30:00 2010 p02A_median6_v01.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 17 11:29:00 2010 p02A_median6_v01.09.jpg
+-rwxrwxrwx  1 testUser  0 May 17 10:28:00 2010 p02A_median6_v02.08.jpg
+-rwxrwxrwx  1 testUser  0 May 17 09:28:00 2010 p02A_median6_v01.08.jpg
+-rwxrwxrwx  1 testUser  0 May 17 08:28:00 2010 p02A_median6_v03.08.jpg
+
+./p02_dir/p02B_dir:
+total 0
+-rwxrwxrwx  1 testUser  0 Jun 18 16:32:00 2010 p02B_median7_v01.12.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 15:32:00 2010 p02B_median7_v03.12.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 14:32:00 2010 p02B_median7_v02.12.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 13:31:00 2010 p02B_median7_v03.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 13:30:00 2010 p02B_median7_v03.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 13:29:00 2010 p02B_median7_v03.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 12:31:00 2010 p02B_median7_v02.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 12:30:00 2010 p02B_median7_v02.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 12:29:00 2010 p02B_median7_v02.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 11:31:00 2010 p02B_median7_v01.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 11:30:00 2010 p02B_median7_v01.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 18 11:29:00 2010 p02B_median7_v01.09.jpg
+-rwxrwxrwx  1 testUser  0 May 18 10:28:00 2010 p02B_median7_v02.08.jpg
+-rwxrwxrwx  1 testUser  0 May 18 09:28:00 2010 p02B_median7_v01.08.jpg
+-rwxrwxrwx  1 testUser  0 May 18 08:28:00 2010 p02B_median7_v03.08.jpg
+
+./p01_dir:
+total 0
+drwxrwxrwx  17 testUser  544 Dec  7 12:04:00 2022 p02B_dir
+drwxrwxrwx  17 testUser  544 Dec  7 12:03:00 2022 p01A_dir
+-rwxrwxrwx   1 testUser    0 Jul 13 16:32:00 2010 p01_median2_v01.12.jpg
+-rwxrwxrwx   1 testUser    0 Jul 13 15:32:00 2010 p01_median2_v03.12.jpg
+-rwxrwxrwx   1 testUser    0 Jul 13 14:32:00 2010 p01_median2_v02.12.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 13:31:00 2010 p01_median2_v03.11.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 13:30:00 2010 p01_median2_v03.10.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 13:29:00 2010 p01_median2_v03.09.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 12:31:00 2010 p01_median2_v02.11.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 12:30:00 2010 p01_median2_v02.10.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 12:29:00 2010 p01_median2_v02.09.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 11:31:00 2010 p01_median2_v01.11.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 11:30:00 2010 p01_median2_v01.10.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 11:29:00 2010 p01_median2_v01.09.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 10:28:00 2010 p01_median2_v02.08.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 09:28:00 2010 p01_median2_v01.08.jpg
+-rwxrwxrwx   1 testUser    0 Jun 13 08:28:00 2010 p01_median2_v03.08.jpg
+
+./p01_dir/p02B_dir:
+total 0
+-rwxrwxrwx  1 testUser  0 Jul 12 16:32:00 2010 p01B_median1_v01.12.jpg
+-rwxrwxrwx  1 testUser  0 Jul 12 15:32:00 2010 p01B_median1_v03.12.jpg
+-rwxrwxrwx  1 testUser  0 Jul 12 14:32:00 2010 p01B_median1_v02.12.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 13:31:00 2010 p01B_median1_v03.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 13:30:00 2010 p01B_median1_v03.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 13:29:00 2010 p01B_median1_v03.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 12:31:00 2010 p01B_median1_v02.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 12:30:00 2010 p01B_median1_v02.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 12:29:00 2010 p01B_median1_v02.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 11:31:00 2010 p01B_median1_v01.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 11:30:00 2010 p01B_median1_v01.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 11:29:00 2010 p01B_median1_v01.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 10:28:00 2010 p01B_median1_v02.08.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 09:28:00 2010 p01B_median1_v01.08.jpg
+-rwxrwxrwx  1 testUser  0 Jun 12 08:28:00 2010 p01B_median1_v03.08.jpg
+
+./p01_dir/p01A_dir:
+total 0
+-rwxrwxrwx  1 testUser  0 Jul 14 16:32:00 2010 p01A_median3_v01.12.jpg
+-rwxrwxrwx  1 testUser  0 Jul 14 15:32:00 2010 p01A_median3_v03.12.jpg
+-rwxrwxrwx  1 testUser  0 Jul 14 14:32:00 2010 p01A_median3_v02.12.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 13:31:00 2010 p01A_median3_v03.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 13:30:00 2010 p01A_median3_v03.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 13:29:00 2010 p01A_median3_v03.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 12:31:00 2010 p01A_median3_v02.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 12:30:00 2010 p01A_median3_v02.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 12:29:00 2010 p01A_median3_v02.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 11:31:00 2010 p01A_median3_v01.11.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 11:30:00 2010 p01A_median3_v01.10.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 11:29:00 2010 p01A_median3_v01.09.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 10:28:00 2010 p01A_median3_v02.08.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 09:28:00 2010 p01A_median3_v01.08.jpg
+-rwxrwxrwx  1 testUser  0 Jun 14 08:28:00 2010 p01A_median3_v03.08.jpg
 
 ------ Test 87 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median pdir ------
 pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
