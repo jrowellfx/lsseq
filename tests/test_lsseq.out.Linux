@@ -4105,7 +4105,7 @@ ndir/nnn_v03.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 
------- Test 77 ------ ls --recursive --full-time -o -t -r ------
+------ Test 77 ------ ls -R --full-time -o -t -r ------
 .:
 total 20
 -rwxrwxrwx. 1 testUser    0 2010-06-15 08:28:00.000000000 -0500 p_median4_v03.08.jpg
@@ -4466,7 +4466,7 @@ pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
 ./p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
 ./p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
 
------- Test 86 ------ ls --recursive --full-time -t -o ------
+------ Test 86 ------ ls -R --full-time -t -o ------
 .:
 total 20
 drwxrwxrwx. 4 testUser 4096 2022-12-07 12:05:00.000000000 -0600 p02_dir
