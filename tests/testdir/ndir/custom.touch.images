@@ -1,3 +1,5 @@
+touch -t 201006151055.00 custom.touch.images
+
 touch -t 201006151055.00 nnn_v01.0005.jpg
 touch -t 201006151056.00 nnn_v01.0006.jpg
 touch -t 201006151057.00 nnn_v01.0007.jpg

@@ -1,0 +1,41 @@
+#!/bin/bash
+
+declare -a fileNames=( \
+    p01_dir/p02B_dir/p01B \
+    p01_dir/p01 \
+    p01_dir/p01A_dir/p01A \
+    p \
+    p02_dir/p02 \
+    p02_dir/p02A_dir/p02B \
+    p02_dir/p02B_dir/p02A \
+)
+
+year=2010
+month=6
+
+day=12
+
+for file in "${fileNames[@]}"
+do
+
+    hour=11
+    i=0
+    while [[ $i -le 2 ]]
+    do
+        min=28
+        frame=8
+        vers=$(expr $i + 1)
+        while [[ $frame -le 12 ]]
+        do
+            echo touch -a -m -t \
+                $year`printf '%02d' $month``printf '%02d' $day``printf '%02d' $hour``printf '%02d' $min` \
+                ${file}_v0${vers}.`printf '%02d' $frame`.jpg
+            frame=$(expr $frame + 1)
+            min=$(expr $min + 1)
+        done
+        echo
+        hour=$(expr $hour + 1)
+        i=$(expr $i + 1)
+    done
+    day=$(expr $day + 1)
+done
