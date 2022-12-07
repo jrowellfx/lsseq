@@ -1,13 +1,13 @@
 #!/bin/bash
 
 declare -a fileNames=( \
-    p01_dir/p02B_dir/p01B \
-    p01_dir/p01 \
-    p01_dir/p01A_dir/p01A \
-    p \
-    p02_dir/p02 \
-    p02_dir/p02A_dir/p02B \
-    p02_dir/p02B_dir/p02A \
+    p01_dir/p02B_dir/p01B_median1 \
+    p01_dir/p01_median2 \
+    p01_dir/p01A_dir/p01A_median3 \
+    p_median4 \
+    p02_dir/p02_median5 \
+    p02_dir/p02A_dir/p02A_median6 \
+    p02_dir/p02B_dir/p02B_median7 \
 )
 
 year=2010
