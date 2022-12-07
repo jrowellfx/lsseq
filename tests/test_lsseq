@@ -220,7 +220,7 @@ testdir/hdir lsseq --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/*
 testdir/hdir lsseq --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/*
 testdir/jdir lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R
 testdir/jdir/beauty/v001 lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R
-testdir/ndir ls --full-time
+testdir/ndir ls --full-time -o
 testdir/ndir lsseq
 testdir/ndir lsseq --onlyShow before 20100615-12 --time oldest
 testdir/ndir lsseq --onlyShow before 20100615-12 --time median
@@ -241,14 +241,16 @@ testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t 
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median pdir cdir ndir
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest pdir cdir ndir
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest pdir cdir ndir
-testdir/pdir ls --recursive --full-time -t -r
+testdir/pdir ls --recursive --full-time -o -t -r
+testdir/pdir lsseq --noErrorLists --recursive -t -r --time median
+testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive -t -r --time median
 testdir lsseq --noErrorLists --recursive --prependPathRel -t -r --time median pdir
 testdir lsseq --noErrorLists --recursive --prependPathRel -t -r --time oldest pdir
 testdir lsseq --noErrorLists --recursive --prependPathRel -t -r --time newest pdir
 testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time median
 testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time oldest
 testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time newest
-testdir/pdir ls --recursive --full-time -t
+testdir/pdir ls --recursive --full-time -t -o
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median pdir
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest pdir
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest pdir
@@ -268,7 +270,7 @@ while true; do
     args=(${args[@]:2})
     echo "" >> $TEST_DIR/$TEST_OUT_FILENAME
     echo ------ Test $i ------
-    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $TEST_DIR/$TEST_OUT_FILENAME
+    echo ------ Test $i ------ $cmd ${args[@]} ------ >> $TEST_DIR/$TEST_OUT_FILENAME
     cd $TEST_DIR/$workingDir
     set +f # Turn globbing back on
     $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
@@ -298,7 +300,7 @@ while true; do
     args=(${args[@]:2})
     echo "" >> $TEST_DIR/$TEST_OUT_FILENAME
     echo ------ Test $i ------
-    echo ------ Test $i ------ lsseq ${args[@]} ------ >> $TEST_DIR/$TEST_OUT_FILENAME
+    echo ------ Test $i ------ $cmd ${args[@]} ------ >> $TEST_DIR/$TEST_OUT_FILENAME
     cd $TEST_DIR/$workingDir
     set +f
     $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
@@ -306,7 +308,8 @@ while true; do
     j=$(expr $j + 1)
 done
 
-sed -e "1,$ s-$TEST_DIR-/...absPathToRepo.../tests-g" < $TEST_DIR/$TEST_OUT_FILENAME > $tmpfile
+sed -e "1,$ s-$TEST_DIR-/...absPathToRepo.../tests-g" < $TEST_DIR/$TEST_OUT_FILENAME | \
+        sed -e "1,$ s/$USER/testUser/g" > $tmpfile
 expand < $tmpfile | sed -e '1,$ s/ *$//' > $TEST_DIR/$TEST_OUT_FILENAME
 
 cleanup
