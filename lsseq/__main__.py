@@ -920,24 +920,20 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             # or processing other directory contents). Need to extend
             # the tuple in gTimeList to include "traversedPath" since
             # that string won't be availabe when we finally emerge from
-            # listSeqDir() in main().
+            # listSeqDir() in main(). Also need copies of the dictionaries 
+            # saved globally for use in main(), but the key needs to 
+            # be extended to include traversedPath to get unique keys
+            # globally.
             #
-xxxx jpr here
             for seq in timeList :
                 gTimeList.append( (seq[DICTKEY], seq[MTIME], traversedPath) )
+                gDictKey = traversedPath + '/' + seq[DICTKEY]
                 if isMovie(seq[DICTKEY]) :
-                    if args.prependPath != PATH_NOPREFIX :
-                        sys.stdout.write(traversedPath)
-                    print(seq[DICTKEY])
-                    somethingWasPrinted = True
+                    gMoviesDictionary[gDictKey] = moviesDictionary[seq[DICTKEY]]
                 elif isCache(seq[DICTKEY]) :
-                    cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
-                    printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, traversedPath)
-                    somethingWasPrinted = True
+                    gCacheDictionary[gDictKey] = cacheDictionary[seq[DICTKEY]]
                 else :
-                    imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
-                    printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
-                    somethingWasPrinted = True
+                    gImageDictionary[gDictKey] = imageDictionary[seq[DICTKEY]]
         else :
             timeList.sort(key=itemgetter(MTIME)) # Sorts by time.
             # Note: ls -t prints newest first; ls -tr is newest last.
@@ -1501,18 +1497,15 @@ def main() :
                 else : # Guaranteed to be 'since'
                     if seq[MTIME] < args.cutoffTime[1] :
                         continue
+            gDictKey = seq[TRAVERSEDPATH] + '/' + seq[DICTKEY]
             if isMovie(seq[DICTKEY]) :
-                sys.stdout.write(seq[TRAVERSEDPATH])
-                print(seq[DICTKEY])
-                somethingWasPrinted = True
+                print(gDictKey)
             elif isCache(seq[DICTKEY]) :
-                cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
-                printSeq(seq[DICTKEY], cacheDictionary[seq[DICTKEY]], args, seq[TRAVERSEDPATH])
-                somethingWasPrinted = True
+                gCacheDictionary[gDictKey].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
+                printSeq(seq[DICTKEY], gCacheDictionary[gDictKey], args, seq[TRAVERSEDPATH])
             else :
-                imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
-                printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, seq[TRAVERSEDPATH])
-                somethingWasPrinted = True
+                gImageDictionary[gDictKey].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
+                printSeq(seq[DICTKEY], gImageDictionary[gDictKey], args, seq[TRAVERSEDPATH])
 
 if __name__ == '__main__' :
     main()
