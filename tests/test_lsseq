@@ -248,6 +248,10 @@ testdir lsseq --noErrorLists --recursive --prependPathRel -t -r --time newest pd
 testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time median
 testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time oldest
 testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time newest
+testdir/pdir ls --recursive --full-time -t
+testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median pdir
+testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest pdir
+testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest pdir
 EOF
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME

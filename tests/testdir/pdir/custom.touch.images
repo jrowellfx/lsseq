@@ -10,9 +10,9 @@ touch -a -m -t 202212071207 p02_dir/p02A_dir
 
 #---
 
-touch -a -m -t 201006120928 p01_dir/p02B_dir/p01B_median1_v03.08.jpg
-touch -a -m -t 201006121028 p01_dir/p02B_dir/p01B_median1_v01.08.jpg
-touch -a -m -t 201006121128 p01_dir/p02B_dir/p01B_median1_v02.08.jpg
+touch -a -m -t 201006120828 p01_dir/p02B_dir/p01B_median1_v03.08.jpg
+touch -a -m -t 201006120928 p01_dir/p02B_dir/p01B_median1_v01.08.jpg
+touch -a -m -t 201006121028 p01_dir/p02B_dir/p01B_median1_v02.08.jpg
 
 touch -a -m -t 201006121129 p01_dir/p02B_dir/p01B_median1_v01.09.jpg
 touch -a -m -t 201006121130 p01_dir/p02B_dir/p01B_median1_v01.10.jpg
@@ -21,20 +21,20 @@ touch -a -m -t 201006121131 p01_dir/p02B_dir/p01B_median1_v01.11.jpg
 touch -a -m -t 201006121229 p01_dir/p02B_dir/p01B_median1_v02.09.jpg
 touch -a -m -t 201006121230 p01_dir/p02B_dir/p01B_median1_v02.10.jpg
 touch -a -m -t 201006121231 p01_dir/p02B_dir/p01B_median1_v02.11.jpg
-touch -a -m -t 201006121232 p01_dir/p02B_dir/p01B_median1_v02.12.jpg
 
 touch -a -m -t 201006121329 p01_dir/p02B_dir/p01B_median1_v03.09.jpg
 touch -a -m -t 201006121330 p01_dir/p02B_dir/p01B_median1_v03.10.jpg
 touch -a -m -t 201006121331 p01_dir/p02B_dir/p01B_median1_v03.11.jpg
-touch -a -m -t 201006121332 p01_dir/p02B_dir/p01B_median1_v03.12.jpg
 
-touch -a -m -t 201007121432 p01_dir/p02B_dir/p01B_median1_v01.12.jpg
+touch -a -m -t 201007121432 p01_dir/p02B_dir/p01B_median1_v02.12.jpg
+touch -a -m -t 201007121532 p01_dir/p02B_dir/p01B_median1_v03.12.jpg
+touch -a -m -t 201007121632 p01_dir/p02B_dir/p01B_median1_v01.12.jpg
 
 #---
 
-touch -a -m -t 201006130928 p01_dir/p01_median2_v03.08.jpg
-touch -a -m -t 201006131028 p01_dir/p01_median2_v01.08.jpg
-touch -a -m -t 201006131128 p01_dir/p01_median2_v02.08.jpg
+touch -a -m -t 201006130828 p01_dir/p01_median2_v03.08.jpg
+touch -a -m -t 201006130928 p01_dir/p01_median2_v01.08.jpg
+touch -a -m -t 201006131028 p01_dir/p01_median2_v02.08.jpg
 
 touch -a -m -t 201006131129 p01_dir/p01_median2_v01.09.jpg
 touch -a -m -t 201006131130 p01_dir/p01_median2_v01.10.jpg
@@ -43,20 +43,20 @@ touch -a -m -t 201006131131 p01_dir/p01_median2_v01.11.jpg
 touch -a -m -t 201006131229 p01_dir/p01_median2_v02.09.jpg
 touch -a -m -t 201006131230 p01_dir/p01_median2_v02.10.jpg
 touch -a -m -t 201006131231 p01_dir/p01_median2_v02.11.jpg
-touch -a -m -t 201006131232 p01_dir/p01_median2_v02.12.jpg
 
 touch -a -m -t 201006131329 p01_dir/p01_median2_v03.09.jpg
 touch -a -m -t 201006131330 p01_dir/p01_median2_v03.10.jpg
 touch -a -m -t 201006131331 p01_dir/p01_median2_v03.11.jpg
-touch -a -m -t 201006131332 p01_dir/p01_median2_v03.12.jpg
 
-touch -a -m -t 201007131432 p01_dir/p01_median2_v01.12.jpg
+touch -a -m -t 201007131432 p01_dir/p01_median2_v02.12.jpg
+touch -a -m -t 201007131532 p01_dir/p01_median2_v03.12.jpg
+touch -a -m -t 201007131632 p01_dir/p01_median2_v01.12.jpg
 
 #---
 
-touch -a -m -t 201006140928 p01_dir/p01A_dir/p01A_median3_v03.08.jpg
-touch -a -m -t 201006141028 p01_dir/p01A_dir/p01A_median3_v01.08.jpg
-touch -a -m -t 201006141128 p01_dir/p01A_dir/p01A_median3_v02.08.jpg
+touch -a -m -t 201006140828 p01_dir/p01A_dir/p01A_median3_v03.08.jpg
+touch -a -m -t 201006140928 p01_dir/p01A_dir/p01A_median3_v01.08.jpg
+touch -a -m -t 201006141028 p01_dir/p01A_dir/p01A_median3_v02.08.jpg
 
 touch -a -m -t 201006141129 p01_dir/p01A_dir/p01A_median3_v01.09.jpg
 touch -a -m -t 201006141130 p01_dir/p01A_dir/p01A_median3_v01.10.jpg
@@ -65,20 +65,20 @@ touch -a -m -t 201006141131 p01_dir/p01A_dir/p01A_median3_v01.11.jpg
 touch -a -m -t 201006141229 p01_dir/p01A_dir/p01A_median3_v02.09.jpg
 touch -a -m -t 201006141230 p01_dir/p01A_dir/p01A_median3_v02.10.jpg
 touch -a -m -t 201006141231 p01_dir/p01A_dir/p01A_median3_v02.11.jpg
-touch -a -m -t 201006141232 p01_dir/p01A_dir/p01A_median3_v02.12.jpg
 
 touch -a -m -t 201006141329 p01_dir/p01A_dir/p01A_median3_v03.09.jpg
 touch -a -m -t 201006141330 p01_dir/p01A_dir/p01A_median3_v03.10.jpg
 touch -a -m -t 201006141331 p01_dir/p01A_dir/p01A_median3_v03.11.jpg
-touch -a -m -t 201006141332 p01_dir/p01A_dir/p01A_median3_v03.12.jpg
 
-touch -a -m -t 201007141432 p01_dir/p01A_dir/p01A_median3_v01.12.jpg
+touch -a -m -t 201007141432 p01_dir/p01A_dir/p01A_median3_v02.12.jpg
+touch -a -m -t 201007141532 p01_dir/p01A_dir/p01A_median3_v03.12.jpg
+touch -a -m -t 201007141632 p01_dir/p01A_dir/p01A_median3_v01.12.jpg
 
 #---
 
-touch -a -m -t 201006150928 p_median4_v03.08.jpg
-touch -a -m -t 201006151028 p_median4_v01.08.jpg
-touch -a -m -t 201006151128 p_median4_v02.08.jpg
+touch -a -m -t 201006150828 p_median4_v03.08.jpg
+touch -a -m -t 201006150928 p_median4_v01.08.jpg
+touch -a -m -t 201006151028 p_median4_v02.08.jpg
 
 touch -a -m -t 201006151129 p_median4_v01.09.jpg
 touch -a -m -t 201006151130 p_median4_v01.10.jpg
@@ -87,20 +87,20 @@ touch -a -m -t 201006151131 p_median4_v01.11.jpg
 touch -a -m -t 201006151229 p_median4_v02.09.jpg
 touch -a -m -t 201006151230 p_median4_v02.10.jpg
 touch -a -m -t 201006151231 p_median4_v02.11.jpg
-touch -a -m -t 201006151232 p_median4_v02.12.jpg
 
 touch -a -m -t 201006151329 p_median4_v03.09.jpg
 touch -a -m -t 201006151330 p_median4_v03.10.jpg
 touch -a -m -t 201006151331 p_median4_v03.11.jpg
-touch -a -m -t 201006151332 p_median4_v03.12.jpg
 
-touch -a -m -t 201006151432 p_median4_v01.12.jpg
+touch -a -m -t 201006151432 p_median4_v02.12.jpg
+touch -a -m -t 201006151532 p_median4_v03.12.jpg
+touch -a -m -t 201006151632 p_median4_v01.12.jpg
 
 #---
 
-touch -a -m -t 201005160928 p02_dir/p02_median5_v03.08.jpg
-touch -a -m -t 201005161028 p02_dir/p02_median5_v01.08.jpg
-touch -a -m -t 201005161128 p02_dir/p02_median5_v02.08.jpg
+touch -a -m -t 201005160828 p02_dir/p02_median5_v03.08.jpg
+touch -a -m -t 201005160928 p02_dir/p02_median5_v01.08.jpg
+touch -a -m -t 201005161028 p02_dir/p02_median5_v02.08.jpg
 
 touch -a -m -t 201006161129 p02_dir/p02_median5_v01.09.jpg
 touch -a -m -t 201006161130 p02_dir/p02_median5_v01.10.jpg
@@ -109,20 +109,20 @@ touch -a -m -t 201006161131 p02_dir/p02_median5_v01.11.jpg
 touch -a -m -t 201006161229 p02_dir/p02_median5_v02.09.jpg
 touch -a -m -t 201006161230 p02_dir/p02_median5_v02.10.jpg
 touch -a -m -t 201006161231 p02_dir/p02_median5_v02.11.jpg
-touch -a -m -t 201006161232 p02_dir/p02_median5_v02.12.jpg
 
 touch -a -m -t 201006161329 p02_dir/p02_median5_v03.09.jpg
 touch -a -m -t 201006161330 p02_dir/p02_median5_v03.10.jpg
 touch -a -m -t 201006161331 p02_dir/p02_median5_v03.11.jpg
-touch -a -m -t 201006161332 p02_dir/p02_median5_v03.12.jpg
 
-touch -a -m -t 201006161432 p02_dir/p02_median5_v01.12.jpg
+touch -a -m -t 201006161432 p02_dir/p02_median5_v02.12.jpg
+touch -a -m -t 201006161532 p02_dir/p02_median5_v03.12.jpg
+touch -a -m -t 201006161632 p02_dir/p02_median5_v01.12.jpg
 
 #---
 
-touch -a -m -t 201005170928 p02_dir/p02A_dir/p02A_median6_v03.08.jpg
-touch -a -m -t 201005171028 p02_dir/p02A_dir/p02A_median6_v01.08.jpg
-touch -a -m -t 201005171128 p02_dir/p02A_dir/p02A_median6_v02.08.jpg
+touch -a -m -t 201005170828 p02_dir/p02A_dir/p02A_median6_v03.08.jpg
+touch -a -m -t 201005170928 p02_dir/p02A_dir/p02A_median6_v01.08.jpg
+touch -a -m -t 201005171028 p02_dir/p02A_dir/p02A_median6_v02.08.jpg
 
 touch -a -m -t 201006171129 p02_dir/p02A_dir/p02A_median6_v01.09.jpg
 touch -a -m -t 201006171130 p02_dir/p02A_dir/p02A_median6_v01.10.jpg
@@ -131,20 +131,20 @@ touch -a -m -t 201006171131 p02_dir/p02A_dir/p02A_median6_v01.11.jpg
 touch -a -m -t 201006171229 p02_dir/p02A_dir/p02A_median6_v02.09.jpg
 touch -a -m -t 201006171230 p02_dir/p02A_dir/p02A_median6_v02.10.jpg
 touch -a -m -t 201006171231 p02_dir/p02A_dir/p02A_median6_v02.11.jpg
-touch -a -m -t 201006171232 p02_dir/p02A_dir/p02A_median6_v02.12.jpg
 
 touch -a -m -t 201006171329 p02_dir/p02A_dir/p02A_median6_v03.09.jpg
 touch -a -m -t 201006171330 p02_dir/p02A_dir/p02A_median6_v03.10.jpg
 touch -a -m -t 201006171331 p02_dir/p02A_dir/p02A_median6_v03.11.jpg
-touch -a -m -t 201006171332 p02_dir/p02A_dir/p02A_median6_v03.12.jpg
 
-touch -a -m -t 201006171432 p02_dir/p02A_dir/p02A_median6_v01.12.jpg
+touch -a -m -t 201006171432 p02_dir/p02A_dir/p02A_median6_v02.12.jpg
+touch -a -m -t 201006171532 p02_dir/p02A_dir/p02A_median6_v03.12.jpg
+touch -a -m -t 201006171632 p02_dir/p02A_dir/p02A_median6_v01.12.jpg
 
 #---
 
-touch -a -m -t 201005180928 p02_dir/p02B_dir/p02B_median7_v03.08.jpg
-touch -a -m -t 201005181028 p02_dir/p02B_dir/p02B_median7_v01.08.jpg
-touch -a -m -t 201005181128 p02_dir/p02B_dir/p02B_median7_v02.08.jpg
+touch -a -m -t 201005180828 p02_dir/p02B_dir/p02B_median7_v03.08.jpg
+touch -a -m -t 201005180928 p02_dir/p02B_dir/p02B_median7_v01.08.jpg
+touch -a -m -t 201005181028 p02_dir/p02B_dir/p02B_median7_v02.08.jpg
 
 touch -a -m -t 201006181129 p02_dir/p02B_dir/p02B_median7_v01.09.jpg
 touch -a -m -t 201006181130 p02_dir/p02B_dir/p02B_median7_v01.10.jpg
@@ -153,11 +153,11 @@ touch -a -m -t 201006181131 p02_dir/p02B_dir/p02B_median7_v01.11.jpg
 touch -a -m -t 201006181229 p02_dir/p02B_dir/p02B_median7_v02.09.jpg
 touch -a -m -t 201006181230 p02_dir/p02B_dir/p02B_median7_v02.10.jpg
 touch -a -m -t 201006181231 p02_dir/p02B_dir/p02B_median7_v02.11.jpg
-touch -a -m -t 201006181232 p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 
 touch -a -m -t 201006181329 p02_dir/p02B_dir/p02B_median7_v03.09.jpg
 touch -a -m -t 201006181330 p02_dir/p02B_dir/p02B_median7_v03.10.jpg
 touch -a -m -t 201006181331 p02_dir/p02B_dir/p02B_median7_v03.11.jpg
-touch -a -m -t 201006181332 p02_dir/p02B_dir/p02B_median7_v03.12.jpg
 
-touch -a -m -t 201006181432 p02_dir/p02B_dir/p02B_median7_v01.12.jpg
+touch -a -m -t 201006181432 p02_dir/p02B_dir/p02B_median7_v02.12.jpg
+touch -a -m -t 201006181532 p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+touch -a -m -t 201006181632 p02_dir/p02B_dir/p02B_median7_v01.12.jpg
