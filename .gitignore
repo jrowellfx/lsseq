@@ -4,4 +4,7 @@ build
 *egg-info*
 *.bak
 .*.runsed
+f
+g
+sed.script
 __pycache__
