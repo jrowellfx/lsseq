@@ -1,10 +1,10 @@
 ------ Begin Tests ------
 
------- Test 1 ------ lsseq ------
+------ Test 1 ------ uname ------
 Darwin
 
 ------ Test 2 ------ lsseq --version ------
-2.6.1
+2.7.0
 
 ------ Test 3 ------ lsseq --help ------
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
@@ -95,12 +95,12 @@ optional arguments:
   --classify, -F        append indicator (one of */=>@|) to entries (see ls(1))
   --reverse, -r         reverse order while sorting
   --recursive, -R       list subdirectories recursively
+  -t, --sortByTime      sort by modification time, the default comparison time is between the most
+                        recently modified (newest) frames in each sequence. (see --time) (see
+                        ls(1))
   --time FRAME_AGE      which frame in the sequence to use to compare times between sequences when
                         sorting by time. The possible values for 'FRAME_AGE' are 'oldest',
                         'median' and 'newest' [default: 'newest']
-  -t                    sort by modification time, the default comparison time is between the most
-                        recently modified (newest) frames in each sequence. (see --time) (see
-                        ls(1))
   --onlyShow TENSE [CC]YYMMDD[-hh[mm[ss]]]
                         where TENSE is either 'before' or 'since'; only list sequences up to (and
                         including) or after (and including) the time specified. The --time
@@ -108,6 +108,10 @@ optional arguments:
                         optional CC (century) defaults to the current century. The optional '-hh'
                         (hours), 'mm' (minutes) or 'ss' (seconds) default to zero if not
                         specified.
+  --globalSortByTime    when using either --prependPathAbs or --prependPathRel then this option
+                        will sort ALL sequences by time compared to each other, as opposed to only
+                        sorting sequences by time within their common directory. If the above
+                        contitions are NOT met, then this option is simply ignored.
   --silent, --quiet     suppress errors and warnings
 
 ------ Test 4 ------ lsseq -lRFC --quiet testdir ------
@@ -118,8 +122,8 @@ bdir/                           idir/                           mkTestFrames.v01
 blackFrames/                    jdir/                           mkTestFrames.v02.nk
 cdir/                           kdir/                           mk_hdir_Frames.v01.nk
 ddir/                           ldir/                           ndir/
-e01_sh0001_globalFX/            mdir/                           www..exr
-edir/                           mkAnimFrames.v01.shk
+e01_sh0001_globalFX/            mdir/                           pdir/
+edir/                           mkAnimFrames.v01.shk            www..exr
 fdir/                           mkAnimFrames.v02.shk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -346,6 +350,44 @@ nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
 
+testdir/pdir:
+custom.touch.images*    initial.image.mtimes*   p01_dir/                p02_dir/
+p_median4_v01.[08-12].jpg z:[8-12]
+p_median4_v02.[08-12].jpg z:[8-12]
+p_median4_v03.[08-12].jpg z:[8-12]
+
+testdir/pdir/p01_dir:
+p01A_dir/       p02B_dir/
+p01_median2_v01.[08-12].jpg z:[8-12]
+p01_median2_v02.[08-12].jpg z:[8-12]
+p01_median2_v03.[08-12].jpg z:[8-12]
+
+testdir/pdir/p01_dir/p01A_dir:
+p01A_median3_v01.[08-12].jpg z:[8-12]
+p01A_median3_v02.[08-12].jpg z:[8-12]
+p01A_median3_v03.[08-12].jpg z:[8-12]
+
+testdir/pdir/p01_dir/p02B_dir:
+p01B_median1_v01.[08-12].jpg z:[8-12]
+p01B_median1_v02.[08-12].jpg z:[8-12]
+p01B_median1_v03.[08-12].jpg z:[8-12]
+
+testdir/pdir/p02_dir:
+p02A_dir/       p02B_dir/
+p02_median5_v01.[08-12].jpg z:[8-12]
+p02_median5_v02.[08-12].jpg z:[8-12]
+p02_median5_v03.[08-12].jpg z:[8-12]
+
+testdir/pdir/p02_dir/p02A_dir:
+p02A_median6_v01.[08-12].jpg z:[8-12]
+p02A_median6_v02.[08-12].jpg z:[8-12]
+p02A_median6_v03.[08-12].jpg z:[8-12]
+
+testdir/pdir/p02_dir/p02B_dir:
+p02B_median7_v01.[08-12].jpg z:[8-12]
+p02B_median7_v02.[08-12].jpg z:[8-12]
+p02B_median7_v03.[08-12].jpg z:[8-12]
+
 ------ Test 5 ------ lsseq -lReC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
@@ -478,6 +520,48 @@ nnn_v05.[0005-0015].jpg
 /...absPathToRepo.../tests/testdir/ndir/nnn_v04.0015.jpg
 /...absPathToRepo.../tests/testdir/ndir/nnn_v05.0005.jpg
 /...absPathToRepo.../tests/testdir/ndir/nnn_v05.0015.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
 
 ------ Test 6 ------ lsseq -lReoC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -625,6 +709,48 @@ nnn_v05.[0005-0015].jpg
 /...absPathToRepo.../tests/testdir/ndir/nnn_v04.0015.jpg
 /...absPathToRepo.../tests/testdir/ndir/nnn_v05.0005.jpg
 /...absPathToRepo.../tests/testdir/ndir/nnn_v05.0015.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
 
 ------ Test 7 ------ lsseq -RePC --quiet testdir ------
 testdir/testDirFile.001.exr
@@ -764,6 +890,48 @@ testdir/ndir/nnn_v04.0005.jpg
 testdir/ndir/nnn_v04.0015.jpg
 testdir/ndir/nnn_v05.0005.jpg
 testdir/ndir/nnn_v05.0015.jpg
+testdir/pdir/p_median4_v01.08.jpg
+testdir/pdir/p_median4_v01.12.jpg
+testdir/pdir/p_median4_v02.08.jpg
+testdir/pdir/p_median4_v02.12.jpg
+testdir/pdir/p_median4_v03.08.jpg
+testdir/pdir/p_median4_v03.12.jpg
+testdir/pdir/p01_dir/p01_median2_v01.08.jpg
+testdir/pdir/p01_dir/p01_median2_v01.12.jpg
+testdir/pdir/p01_dir/p01_median2_v02.08.jpg
+testdir/pdir/p01_dir/p01_median2_v02.12.jpg
+testdir/pdir/p01_dir/p01_median2_v03.08.jpg
+testdir/pdir/p01_dir/p01_median2_v03.12.jpg
+testdir/pdir/p01_dir/p01A_dir/p01A_median3_v01.08.jpg
+testdir/pdir/p01_dir/p01A_dir/p01A_median3_v01.12.jpg
+testdir/pdir/p01_dir/p01A_dir/p01A_median3_v02.08.jpg
+testdir/pdir/p01_dir/p01A_dir/p01A_median3_v02.12.jpg
+testdir/pdir/p01_dir/p01A_dir/p01A_median3_v03.08.jpg
+testdir/pdir/p01_dir/p01A_dir/p01A_median3_v03.12.jpg
+testdir/pdir/p01_dir/p02B_dir/p01B_median1_v01.08.jpg
+testdir/pdir/p01_dir/p02B_dir/p01B_median1_v01.12.jpg
+testdir/pdir/p01_dir/p02B_dir/p01B_median1_v02.08.jpg
+testdir/pdir/p01_dir/p02B_dir/p01B_median1_v02.12.jpg
+testdir/pdir/p01_dir/p02B_dir/p01B_median1_v03.08.jpg
+testdir/pdir/p01_dir/p02B_dir/p01B_median1_v03.12.jpg
+testdir/pdir/p02_dir/p02_median5_v01.08.jpg
+testdir/pdir/p02_dir/p02_median5_v01.12.jpg
+testdir/pdir/p02_dir/p02_median5_v02.08.jpg
+testdir/pdir/p02_dir/p02_median5_v02.12.jpg
+testdir/pdir/p02_dir/p02_median5_v03.08.jpg
+testdir/pdir/p02_dir/p02_median5_v03.12.jpg
+testdir/pdir/p02_dir/p02A_dir/p02A_median6_v01.08.jpg
+testdir/pdir/p02_dir/p02A_dir/p02A_median6_v01.12.jpg
+testdir/pdir/p02_dir/p02A_dir/p02A_median6_v02.08.jpg
+testdir/pdir/p02_dir/p02A_dir/p02A_median6_v02.12.jpg
+testdir/pdir/p02_dir/p02A_dir/p02A_median6_v03.08.jpg
+testdir/pdir/p02_dir/p02A_dir/p02A_median6_v03.12.jpg
+testdir/pdir/p02_dir/p02B_dir/p02B_median7_v01.08.jpg
+testdir/pdir/p02_dir/p02B_dir/p02B_median7_v01.12.jpg
+testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.08.jpg
+testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
+testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
+testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
 
 ------ Test 8 ------ lsseq -lRFC testdir ------
 testdir:
@@ -773,8 +941,8 @@ bdir/                           idir/                           mkTestFrames.v01
 blackFrames/                    jdir/                           mkTestFrames.v02.nk
 cdir/                           kdir/                           mk_hdir_Frames.v01.nk
 ddir/                           ldir/                           ndir/
-e01_sh0001_globalFX/            mdir/                           www..exr
-edir/                           mkAnimFrames.v01.shk
+e01_sh0001_globalFX/            mdir/                           pdir/
+edir/                           mkAnimFrames.v01.shk            www..exr
 fdir/                           mkAnimFrames.v02.shk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -1010,6 +1178,44 @@ nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
 
+testdir/pdir:
+custom.touch.images*    initial.image.mtimes*   p01_dir/                p02_dir/
+p_median4_v01.[08-12].jpg z:[8-12]
+p_median4_v02.[08-12].jpg z:[8-12]
+p_median4_v03.[08-12].jpg z:[8-12]
+
+testdir/pdir/p01_dir:
+p01A_dir/       p02B_dir/
+p01_median2_v01.[08-12].jpg z:[8-12]
+p01_median2_v02.[08-12].jpg z:[8-12]
+p01_median2_v03.[08-12].jpg z:[8-12]
+
+testdir/pdir/p01_dir/p01A_dir:
+p01A_median3_v01.[08-12].jpg z:[8-12]
+p01A_median3_v02.[08-12].jpg z:[8-12]
+p01A_median3_v03.[08-12].jpg z:[8-12]
+
+testdir/pdir/p01_dir/p02B_dir:
+p01B_median1_v01.[08-12].jpg z:[8-12]
+p01B_median1_v02.[08-12].jpg z:[8-12]
+p01B_median1_v03.[08-12].jpg z:[8-12]
+
+testdir/pdir/p02_dir:
+p02A_dir/       p02B_dir/
+p02_median5_v01.[08-12].jpg z:[8-12]
+p02_median5_v02.[08-12].jpg z:[8-12]
+p02_median5_v03.[08-12].jpg z:[8-12]
+
+testdir/pdir/p02_dir/p02A_dir:
+p02A_median6_v01.[08-12].jpg z:[8-12]
+p02A_median6_v02.[08-12].jpg z:[8-12]
+p02A_median6_v03.[08-12].jpg z:[8-12]
+
+testdir/pdir/p02_dir/p02B_dir:
+p02B_median7_v01.[08-12].jpg z:[8-12]
+p02B_median7_v02.[08-12].jpg z:[8-12]
+p02B_median7_v03.[08-12].jpg z:[8-12]
+
 ------ Test 9 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
@@ -1151,6 +1357,48 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/ndir/nnn_v04.0015.jpg
 /...absPathToRepo.../tests/testdir/ndir/nnn_v05.0005.jpg
 /...absPathToRepo.../tests/testdir/ndir/nnn_v05.0015.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
 
 ------ Test 10 ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -1307,6 +1555,48 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/ndir/nnn_v04.0015.jpg
 /...absPathToRepo.../tests/testdir/ndir/nnn_v05.0005.jpg
 /...absPathToRepo.../tests/testdir/ndir/nnn_v05.0015.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p_median4_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01_median2_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir/p01A_median3_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir/p01B_median1_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02_median5_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir/p02A_median6_v03.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v01.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v01.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
 
 ------ Test 11 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
@@ -1455,6 +1745,48 @@ testdir/ndir/nnn_v04.0005.jpg
 testdir/ndir/nnn_v04.0015.jpg
 testdir/ndir/nnn_v05.0005.jpg
 testdir/ndir/nnn_v05.0015.jpg
+testdir/pdir/p_median4_v01.08.jpg
+testdir/pdir/p_median4_v01.12.jpg
+testdir/pdir/p_median4_v02.08.jpg
+testdir/pdir/p_median4_v02.12.jpg
+testdir/pdir/p_median4_v03.08.jpg
+testdir/pdir/p_median4_v03.12.jpg
+testdir/pdir/p01_dir/p01_median2_v01.08.jpg
+testdir/pdir/p01_dir/p01_median2_v01.12.jpg
+testdir/pdir/p01_dir/p01_median2_v02.08.jpg
+testdir/pdir/p01_dir/p01_median2_v02.12.jpg
+testdir/pdir/p01_dir/p01_median2_v03.08.jpg
+testdir/pdir/p01_dir/p01_median2_v03.12.jpg
+testdir/pdir/p01_dir/p01A_dir/p01A_median3_v01.08.jpg
+testdir/pdir/p01_dir/p01A_dir/p01A_median3_v01.12.jpg
+testdir/pdir/p01_dir/p01A_dir/p01A_median3_v02.08.jpg
+testdir/pdir/p01_dir/p01A_dir/p01A_median3_v02.12.jpg
+testdir/pdir/p01_dir/p01A_dir/p01A_median3_v03.08.jpg
+testdir/pdir/p01_dir/p01A_dir/p01A_median3_v03.12.jpg
+testdir/pdir/p01_dir/p02B_dir/p01B_median1_v01.08.jpg
+testdir/pdir/p01_dir/p02B_dir/p01B_median1_v01.12.jpg
+testdir/pdir/p01_dir/p02B_dir/p01B_median1_v02.08.jpg
+testdir/pdir/p01_dir/p02B_dir/p01B_median1_v02.12.jpg
+testdir/pdir/p01_dir/p02B_dir/p01B_median1_v03.08.jpg
+testdir/pdir/p01_dir/p02B_dir/p01B_median1_v03.12.jpg
+testdir/pdir/p02_dir/p02_median5_v01.08.jpg
+testdir/pdir/p02_dir/p02_median5_v01.12.jpg
+testdir/pdir/p02_dir/p02_median5_v02.08.jpg
+testdir/pdir/p02_dir/p02_median5_v02.12.jpg
+testdir/pdir/p02_dir/p02_median5_v03.08.jpg
+testdir/pdir/p02_dir/p02_median5_v03.12.jpg
+testdir/pdir/p02_dir/p02A_dir/p02A_median6_v01.08.jpg
+testdir/pdir/p02_dir/p02A_dir/p02A_median6_v01.12.jpg
+testdir/pdir/p02_dir/p02A_dir/p02A_median6_v02.08.jpg
+testdir/pdir/p02_dir/p02A_dir/p02A_median6_v02.12.jpg
+testdir/pdir/p02_dir/p02A_dir/p02A_median6_v03.08.jpg
+testdir/pdir/p02_dir/p02A_dir/p02A_median6_v03.12.jpg
+testdir/pdir/p02_dir/p02B_dir/p02B_median7_v01.08.jpg
+testdir/pdir/p02_dir/p02B_dir/p02B_median7_v01.12.jpg
+testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.08.jpg
+testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
+testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
+testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
 
 ------ Test 12 ------ lsseq -p ------
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
@@ -1490,6 +1822,7 @@ mkTestFrames.v01.nk
 mkTestFrames.v02.nk
 mk_hdir_Frames.v01.nk
 ndir
+pdir
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -1715,6 +2048,15 @@ nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
 
+pdir:
+custom.touch.images
+initial.image.mtimes
+p01_dir
+p02_dir
+p_median4_v01.[08-12].jpg z:[8-12]
+p_median4_v02.[08-12].jpg z:[8-12]
+p_median4_v03.[08-12].jpg z:[8-12]
+
 ------ Test 15 ------ lsseq -l * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
@@ -1906,6 +2248,15 @@ nnn_v02.[0005-0015].jpg
 nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
+
+pdir:
+custom.touch.images
+initial.image.mtimes
+p01_dir
+p02_dir
+p_median4_v01.[08-12].jpg z:[8-12]
+p_median4_v02.[08-12].jpg z:[8-12]
+p_median4_v03.[08-12].jpg z:[8-12]
 
 ------ Test 16 ------ lsseq ------
 aaaa
@@ -2320,7 +2671,7 @@ ccc02.[0-9][0-9][0-9].exr
 ccc03.[0-9][0-9].tga
 
 ------ Test 28 ------ lsseq -i ------
-Note: lsseq also recognizes all extensions below when uppercase.
+lsseq: note: lsseq also recognizes all extensions below when uppercase.
 LSSEQ_IMAGE_EXTENSION: alpha:als:anim:ari:arw:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
 LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:mxf:wmv
 LSSEQ_CACHE_EXTENSION: ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:tx:vdb:vdb.gz:vdb.sc
@@ -2602,6 +2953,7 @@ mkTestFrames.v01.nk
 mkTestFrames.v02.nk
 mk_hdir_Frames.v01.nk
 ndir
+pdir
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -3059,6 +3411,49 @@ nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
 
+/...absPathToRepo.../tests/testdir/pdir:
+custom.touch.images
+initial.image.mtimes
+p01_dir
+p02_dir
+p_median4_v01.[08-12].jpg z:[8-12]
+p_median4_v02.[08-12].jpg z:[8-12]
+p_median4_v03.[08-12].jpg z:[8-12]
+
+/...absPathToRepo.../tests/testdir/pdir/p01_dir:
+p01A_dir
+p02B_dir
+p01_median2_v01.[08-12].jpg z:[8-12]
+p01_median2_v02.[08-12].jpg z:[8-12]
+p01_median2_v03.[08-12].jpg z:[8-12]
+
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p01A_dir:
+p01A_median3_v01.[08-12].jpg z:[8-12]
+p01A_median3_v02.[08-12].jpg z:[8-12]
+p01A_median3_v03.[08-12].jpg z:[8-12]
+
+/...absPathToRepo.../tests/testdir/pdir/p01_dir/p02B_dir:
+p01B_median1_v01.[08-12].jpg z:[8-12]
+p01B_median1_v02.[08-12].jpg z:[8-12]
+p01B_median1_v03.[08-12].jpg z:[8-12]
+
+/...absPathToRepo.../tests/testdir/pdir/p02_dir:
+p02A_dir
+p02B_dir
+p02_median5_v01.[08-12].jpg z:[8-12]
+p02_median5_v02.[08-12].jpg z:[8-12]
+p02_median5_v03.[08-12].jpg z:[8-12]
+
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02A_dir:
+p02A_median6_v01.[08-12].jpg z:[8-12]
+p02A_median6_v02.[08-12].jpg z:[8-12]
+p02A_median6_v03.[08-12].jpg z:[8-12]
+
+/...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir:
+p02B_median7_v01.[08-12].jpg z:[8-12]
+p02B_median7_v02.[08-12].jpg z:[8-12]
+p02B_median7_v03.[08-12].jpg z:[8-12]
+
 /...absPathToRepo.../tests/testdir/cdir:
 aaaa
 bbbb
@@ -3458,9 +3853,64 @@ j04.[-10-010].jpg p:[-7,1,10]
 sort.ls
 filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1001]
 
------- Test 56 ------ lsseq --full-time ------
-ls: unrecognized option `--full-time'
-usage: ls [-@ABCFGHILOPRSTUWabcdefghiklmnopqrstuvwxy1%,] [--color=when] [-D format] [file ...]
+------ Test 56 ------ ls -T -o ------
+total 448
+-rwxrwxrwx  1 testUser  2360 Jun 15 10:55:00 2010 custom.touch.images
+-rw-rw-rw-  1 testUser  1139 Jun 15 10:55:00 2010 nnn_v01.0005.jpg
+-rw-rw-rw-  1 testUser  1146 Jun 15 10:56:00 2010 nnn_v01.0006.jpg
+-rw-rw-rw-  1 testUser  1112 Jun 15 10:57:00 2010 nnn_v01.0007.jpg
+-rw-rw-rw-  1 testUser  1150 Jun 15 10:58:00 2010 nnn_v01.0008.jpg
+-rw-rw-rw-  1 testUser  1140 Jun 15 10:59:00 2010 nnn_v01.0009.jpg
+-rw-rw-rw-  1 testUser  1238 Jun 15 11:00:00 2010 nnn_v01.0010.jpg
+-rw-rw-rw-  1 testUser  1219 Jun 15 11:01:00 2010 nnn_v01.0011.jpg
+-rw-rw-rw-  1 testUser  1221 Jun 15 11:02:00 2010 nnn_v01.0012.jpg
+-rw-rw-rw-  1 testUser  1232 Jun 15 11:03:00 2010 nnn_v01.0013.jpg
+-rw-rw-rw-  1 testUser  1215 Jun 15 11:04:00 2010 nnn_v01.0014.jpg
+-rw-rw-rw-  1 testUser  1237 Jun 15 11:05:00 2010 nnn_v01.0015.jpg
+-rw-rw-rw-  1 testUser  1139 Jun 15 11:52:00 2010 nnn_v02.0005.jpg
+-rw-rw-rw-  1 testUser  1146 Jun 15 11:53:00 2010 nnn_v02.0006.jpg
+-rw-rw-rw-  1 testUser  1112 Jun 15 11:54:00 2010 nnn_v02.0007.jpg
+-rw-rw-rw-  1 testUser  1150 Jun 15 11:55:00 2010 nnn_v02.0008.jpg
+-rw-rw-rw-  1 testUser  1140 Jun 15 11:56:00 2010 nnn_v02.0009.jpg
+-rw-rw-rw-  1 testUser  1238 Jun 15 11:57:00 2010 nnn_v02.0010.jpg
+-rw-rw-rw-  1 testUser  1219 Jun 15 11:58:00 2010 nnn_v02.0011.jpg
+-rw-rw-rw-  1 testUser  1221 Jun 15 11:59:00 2010 nnn_v02.0012.jpg
+-rw-rw-rw-  1 testUser  1232 Jun 15 12:00:00 2010 nnn_v02.0013.jpg
+-rw-rw-rw-  1 testUser  1215 Jun 15 12:01:00 2010 nnn_v02.0014.jpg
+-rw-rw-rw-  1 testUser  1237 Jun 15 12:02:00 2010 nnn_v02.0015.jpg
+-rw-rw-rw-  1 testUser  1139 Jun 15 11:55:00 2010 nnn_v03.0005.jpg
+-rw-rw-rw-  1 testUser  1146 Jun 15 11:56:00 2010 nnn_v03.0006.jpg
+-rw-rw-rw-  1 testUser  1112 Jun 15 11:57:00 2010 nnn_v03.0007.jpg
+-rw-rw-rw-  1 testUser  1150 Jun 15 11:58:00 2010 nnn_v03.0008.jpg
+-rw-rw-rw-  1 testUser  1140 Jun 15 11:59:00 2010 nnn_v03.0009.jpg
+-rw-rw-rw-  1 testUser  1238 Jun 15 12:00:00 2010 nnn_v03.0010.jpg
+-rw-rw-rw-  1 testUser  1219 Jun 15 12:01:00 2010 nnn_v03.0011.jpg
+-rw-rw-rw-  1 testUser  1221 Jun 15 12:02:00 2010 nnn_v03.0012.jpg
+-rw-rw-rw-  1 testUser  1232 Jun 15 12:03:00 2010 nnn_v03.0013.jpg
+-rw-rw-rw-  1 testUser  1215 Jun 15 12:04:00 2010 nnn_v03.0014.jpg
+-rw-rw-rw-  1 testUser  1237 Jun 15 12:05:00 2010 nnn_v03.0015.jpg
+-rw-rw-rw-  1 testUser  1139 Jun 15 11:58:00 2010 nnn_v04.0005.jpg
+-rw-rw-rw-  1 testUser  1146 Jun 15 11:59:00 2010 nnn_v04.0006.jpg
+-rw-rw-rw-  1 testUser  1112 Jun 15 12:00:00 2010 nnn_v04.0007.jpg
+-rw-rw-rw-  1 testUser  1150 Jun 15 12:01:00 2010 nnn_v04.0008.jpg
+-rw-rw-rw-  1 testUser  1140 Jun 15 12:02:00 2010 nnn_v04.0009.jpg
+-rw-rw-rw-  1 testUser  1238 Jun 15 12:03:00 2010 nnn_v04.0010.jpg
+-rw-rw-rw-  1 testUser  1219 Jun 15 12:04:00 2010 nnn_v04.0011.jpg
+-rw-rw-rw-  1 testUser  1221 Jun 15 12:05:00 2010 nnn_v04.0012.jpg
+-rw-rw-rw-  1 testUser  1232 Jun 15 12:06:00 2010 nnn_v04.0013.jpg
+-rw-rw-rw-  1 testUser  1215 Jun 15 12:07:00 2010 nnn_v04.0014.jpg
+-rw-rw-rw-  1 testUser  1237 Jun 15 12:08:00 2010 nnn_v04.0015.jpg
+-rw-rw-rw-  1 testUser  1139 Jun 15 12:55:00 2010 nnn_v05.0005.jpg
+-rw-rw-rw-  1 testUser  1146 Jun 15 12:56:00 2010 nnn_v05.0006.jpg
+-rw-rw-rw-  1 testUser  1112 Jun 15 12:57:00 2010 nnn_v05.0007.jpg
+-rw-rw-rw-  1 testUser  1150 Jun 15 12:58:00 2010 nnn_v05.0008.jpg
+-rw-rw-rw-  1 testUser  1140 Jun 15 12:59:00 2010 nnn_v05.0009.jpg
+-rw-rw-rw-  1 testUser  1238 Jun 15 13:00:00 2010 nnn_v05.0010.jpg
+-rw-rw-rw-  1 testUser  1219 Jun 15 13:01:00 2010 nnn_v05.0011.jpg
+-rw-rw-rw-  1 testUser  1221 Jun 15 13:02:00 2010 nnn_v05.0012.jpg
+-rw-rw-rw-  1 testUser  1232 Jun 15 13:03:00 2010 nnn_v05.0013.jpg
+-rw-rw-rw-  1 testUser  1215 Jun 15 13:04:00 2010 nnn_v05.0014.jpg
+-rw-rw-rw-  1 testUser  1237 Jun 15 13:05:00 2010 nnn_v05.0015.jpg
 
 ------ Test 57 ------ lsseq ------
 custom.touch.images
@@ -3505,10 +3955,10 @@ nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
 
 ------ Test 64 ------ lsseq -i ------
-Note: lsseq also recognizes all extensions below when uppercase.
+lsseq: note: lsseq also recognizes all extensions below when uppercase.
 LSSEQ_IMAGE_EXTENSION: alpha:als:anim:ari:arw:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
 LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:mxf:wmv
-LSSEQ_CACHE_EXTENSION: ass:ass.gz:dshd:fur:obj:srf
+LSSEQ_CACHE_EXTENSION: ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:tx:vdb:vdb.gz:vdb.sc
 
 ------ Test 65 ------ lsseq --onlyImages ------
 
@@ -3517,6 +3967,489 @@ xxx01.mov
 xxx02.mov
 
 ------ Test 67 ------ lsseq --onlyCaches ------
+ccc01.[001-120].ass m:[3]
+ccc02.[001-120].ass m:[51,119]
+ccc03.[80-140].fur
+ggg01.[090-105].bgeo.sc z:[90-105]
+
+------ Test 68 ------ lsseq --noErrorLists --recursive --prependPathRel -t --time median cdir ndir ------
+cdir/ccc02.[001-120].exr
+cdir/ccc03.[80-140].tga
+cdir/ccc01.[001-120].exr
+cdir/c_subDir/ccc01.[001-120].exr
+ndir/nnn_v05.[0005-0015].jpg
+ndir/nnn_v04.[0005-0015].jpg
+ndir/nnn_v03.[0005-0015].jpg
+ndir/nnn_v02.[0005-0015].jpg
+ndir/nnn_v01.[0005-0015].jpg
+
+------ Test 69 ------ lsseq --noErrorLists --recursive --prependPathRel -t --time oldest cdir ndir ------
+cdir/ccc01.[001-120].exr
+cdir/ccc03.[80-140].tga
+cdir/ccc02.[001-120].exr
+cdir/c_subDir/ccc01.[001-120].exr
+ndir/nnn_v05.[0005-0015].jpg
+ndir/nnn_v04.[0005-0015].jpg
+ndir/nnn_v03.[0005-0015].jpg
+ndir/nnn_v02.[0005-0015].jpg
+ndir/nnn_v01.[0005-0015].jpg
+
+------ Test 70 ------ lsseq --noErrorLists --recursive --prependPathRel -t --time newest cdir ndir ------
+cdir/ccc03.[80-140].tga
+cdir/ccc02.[001-120].exr
+cdir/ccc01.[001-120].exr
+cdir/c_subDir/ccc01.[001-120].exr
+ndir/nnn_v05.[0005-0015].jpg
+ndir/nnn_v04.[0005-0015].jpg
+ndir/nnn_v03.[0005-0015].jpg
+ndir/nnn_v02.[0005-0015].jpg
+ndir/nnn_v01.[0005-0015].jpg
+
+------ Test 71 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median cdir ndir ------
+cdir/c_subDir/ccc01.[001-120].exr
+cdir/ccc02.[001-120].exr
+cdir/ccc03.[80-140].tga
+ndir/nnn_v05.[0005-0015].jpg
+cdir/ccc01.[001-120].exr
+ndir/nnn_v04.[0005-0015].jpg
+ndir/nnn_v03.[0005-0015].jpg
+ndir/nnn_v02.[0005-0015].jpg
+ndir/nnn_v01.[0005-0015].jpg
+
+------ Test 72 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest cdir ndir ------
+cdir/c_subDir/ccc01.[001-120].exr
+ndir/nnn_v05.[0005-0015].jpg
+ndir/nnn_v04.[0005-0015].jpg
+ndir/nnn_v03.[0005-0015].jpg
+ndir/nnn_v02.[0005-0015].jpg
+cdir/ccc01.[001-120].exr
+cdir/ccc03.[80-140].tga
+cdir/ccc02.[001-120].exr
+ndir/nnn_v01.[0005-0015].jpg
+
+------ Test 73 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest cdir ndir ------
+cdir/c_subDir/ccc01.[001-120].exr
+cdir/ccc03.[80-140].tga
+cdir/ccc02.[001-120].exr
+cdir/ccc01.[001-120].exr
+ndir/nnn_v05.[0005-0015].jpg
+ndir/nnn_v04.[0005-0015].jpg
+ndir/nnn_v03.[0005-0015].jpg
+ndir/nnn_v02.[0005-0015].jpg
+ndir/nnn_v01.[0005-0015].jpg
+
+------ Test 74 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median pdir cdir ndir ------
+cdir/c_subDir/ccc01.[001-120].exr
+pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+pdir/p02_dir/p02_median5_v03.[08-12].jpg
+pdir/p02_dir/p02_median5_v02.[08-12].jpg
+pdir/p02_dir/p02_median5_v01.[08-12].jpg
+cdir/ccc02.[001-120].exr
+cdir/ccc03.[80-140].tga
+pdir/p_median4_v03.[08-12].jpg
+ndir/nnn_v05.[0005-0015].jpg
+cdir/ccc01.[001-120].exr
+pdir/p_median4_v02.[08-12].jpg
+ndir/nnn_v04.[0005-0015].jpg
+ndir/nnn_v03.[0005-0015].jpg
+ndir/nnn_v02.[0005-0015].jpg
+pdir/p_median4_v01.[08-12].jpg
+ndir/nnn_v01.[0005-0015].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+pdir/p01_dir/p01_median2_v03.[08-12].jpg
+pdir/p01_dir/p01_median2_v02.[08-12].jpg
+pdir/p01_dir/p01_median2_v01.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+
+------ Test 75 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest pdir cdir ndir ------
+cdir/c_subDir/ccc01.[001-120].exr
+ndir/nnn_v05.[0005-0015].jpg
+ndir/nnn_v04.[0005-0015].jpg
+ndir/nnn_v03.[0005-0015].jpg
+ndir/nnn_v02.[0005-0015].jpg
+cdir/ccc01.[001-120].exr
+cdir/ccc03.[80-140].tga
+cdir/ccc02.[001-120].exr
+ndir/nnn_v01.[0005-0015].jpg
+pdir/p_median4_v02.[08-12].jpg
+pdir/p_median4_v01.[08-12].jpg
+pdir/p_median4_v03.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+pdir/p01_dir/p01_median2_v02.[08-12].jpg
+pdir/p01_dir/p01_median2_v01.[08-12].jpg
+pdir/p01_dir/p01_median2_v03.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+pdir/p02_dir/p02_median5_v02.[08-12].jpg
+pdir/p02_dir/p02_median5_v01.[08-12].jpg
+pdir/p02_dir/p02_median5_v03.[08-12].jpg
+
+------ Test 76 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest pdir cdir ndir ------
+cdir/c_subDir/ccc01.[001-120].exr
+pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+pdir/p01_dir/p01_median2_v01.[08-12].jpg
+pdir/p01_dir/p01_median2_v03.[08-12].jpg
+pdir/p01_dir/p01_median2_v02.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+pdir/p02_dir/p02_median5_v01.[08-12].jpg
+pdir/p02_dir/p02_median5_v03.[08-12].jpg
+pdir/p02_dir/p02_median5_v02.[08-12].jpg
+cdir/ccc03.[80-140].tga
+cdir/ccc02.[001-120].exr
+cdir/ccc01.[001-120].exr
+pdir/p_median4_v01.[08-12].jpg
+pdir/p_median4_v03.[08-12].jpg
+pdir/p_median4_v02.[08-12].jpg
+ndir/nnn_v05.[0005-0015].jpg
+ndir/nnn_v04.[0005-0015].jpg
+ndir/nnn_v03.[0005-0015].jpg
+ndir/nnn_v02.[0005-0015].jpg
+ndir/nnn_v01.[0005-0015].jpg
+
+------ Test 77 ------ ls --recursive -T -o -t -r ------
+ls: unrecognized option `--recursive'
+usage: ls [-@ABCFGHILOPRSTUWabcdefghiklmnopqrstuvwxy1%,] [--color=when] [-D format] [file ...]
+
+------ Test 78 ------ lsseq --noErrorLists --recursive -t -r --time median ------
+.:
+custom.touch.images
+initial.image.mtimes
+p01_dir
+p02_dir
+p_median4_v01.[08-12].jpg
+p_median4_v02.[08-12].jpg
+p_median4_v03.[08-12].jpg
+
+./p01_dir:
+p01A_dir
+p02B_dir
+p01_median2_v01.[08-12].jpg
+p01_median2_v02.[08-12].jpg
+p01_median2_v03.[08-12].jpg
+
+./p01_dir/p01A_dir:
+p01A_median3_v01.[08-12].jpg
+p01A_median3_v02.[08-12].jpg
+p01A_median3_v03.[08-12].jpg
+
+./p01_dir/p02B_dir:
+p01B_median1_v01.[08-12].jpg
+p01B_median1_v02.[08-12].jpg
+p01B_median1_v03.[08-12].jpg
+
+./p02_dir:
+p02B_dir
+p02A_dir
+p02_median5_v01.[08-12].jpg
+p02_median5_v02.[08-12].jpg
+p02_median5_v03.[08-12].jpg
+
+./p02_dir/p02A_dir:
+p02A_median6_v01.[08-12].jpg
+p02A_median6_v02.[08-12].jpg
+p02A_median6_v03.[08-12].jpg
+
+./p02_dir/p02B_dir:
+p02B_median7_v01.[08-12].jpg
+p02B_median7_v02.[08-12].jpg
+p02B_median7_v03.[08-12].jpg
+
+------ Test 79 ------ lsseq --globalSortByTime --noErrorLists --recursive -t -r --time median ------
+.:
+custom.touch.images
+initial.image.mtimes
+p01_dir
+p02_dir
+p_median4_v01.[08-12].jpg
+p_median4_v02.[08-12].jpg
+p_median4_v03.[08-12].jpg
+
+./p01_dir:
+p01A_dir
+p02B_dir
+p01_median2_v01.[08-12].jpg
+p01_median2_v02.[08-12].jpg
+p01_median2_v03.[08-12].jpg
+
+./p01_dir/p01A_dir:
+p01A_median3_v01.[08-12].jpg
+p01A_median3_v02.[08-12].jpg
+p01A_median3_v03.[08-12].jpg
+
+./p01_dir/p02B_dir:
+p01B_median1_v01.[08-12].jpg
+p01B_median1_v02.[08-12].jpg
+p01B_median1_v03.[08-12].jpg
+
+./p02_dir:
+p02B_dir
+p02A_dir
+p02_median5_v01.[08-12].jpg
+p02_median5_v02.[08-12].jpg
+p02_median5_v03.[08-12].jpg
+
+./p02_dir/p02A_dir:
+p02A_median6_v01.[08-12].jpg
+p02A_median6_v02.[08-12].jpg
+p02A_median6_v03.[08-12].jpg
+
+./p02_dir/p02B_dir:
+p02B_median7_v01.[08-12].jpg
+p02B_median7_v02.[08-12].jpg
+p02B_median7_v03.[08-12].jpg
+
+------ Test 80 ------ lsseq --noErrorLists --recursive --prependPathRel -t -r --time median pdir ------
+pdir/p_median4_v01.[08-12].jpg
+pdir/p_median4_v02.[08-12].jpg
+pdir/p_median4_v03.[08-12].jpg
+pdir/p01_dir/p01_median2_v01.[08-12].jpg
+pdir/p01_dir/p01_median2_v02.[08-12].jpg
+pdir/p01_dir/p01_median2_v03.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+pdir/p02_dir/p02_median5_v01.[08-12].jpg
+pdir/p02_dir/p02_median5_v02.[08-12].jpg
+pdir/p02_dir/p02_median5_v03.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+
+------ Test 81 ------ lsseq --noErrorLists --recursive --prependPathRel -t -r --time oldest pdir ------
+pdir/p_median4_v03.[08-12].jpg
+pdir/p_median4_v01.[08-12].jpg
+pdir/p_median4_v02.[08-12].jpg
+pdir/p01_dir/p01_median2_v03.[08-12].jpg
+pdir/p01_dir/p01_median2_v01.[08-12].jpg
+pdir/p01_dir/p01_median2_v02.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+pdir/p02_dir/p02_median5_v03.[08-12].jpg
+pdir/p02_dir/p02_median5_v01.[08-12].jpg
+pdir/p02_dir/p02_median5_v02.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+
+------ Test 82 ------ lsseq --noErrorLists --recursive --prependPathRel -t -r --time newest pdir ------
+pdir/p_median4_v02.[08-12].jpg
+pdir/p_median4_v03.[08-12].jpg
+pdir/p_median4_v01.[08-12].jpg
+pdir/p01_dir/p01_median2_v02.[08-12].jpg
+pdir/p01_dir/p01_median2_v03.[08-12].jpg
+pdir/p01_dir/p01_median2_v01.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+pdir/p02_dir/p02_median5_v02.[08-12].jpg
+pdir/p02_dir/p02_median5_v03.[08-12].jpg
+pdir/p02_dir/p02_median5_v01.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+
+------ Test 83 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time median ------
+./p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+./p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+./p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+./p01_dir/p01_median2_v01.[08-12].jpg
+./p01_dir/p01_median2_v02.[08-12].jpg
+./p01_dir/p01_median2_v03.[08-12].jpg
+./p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+./p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+./p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+./p_median4_v01.[08-12].jpg
+./p_median4_v02.[08-12].jpg
+./p_median4_v03.[08-12].jpg
+./p02_dir/p02_median5_v01.[08-12].jpg
+./p02_dir/p02_median5_v02.[08-12].jpg
+./p02_dir/p02_median5_v03.[08-12].jpg
+./p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+./p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+./p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+./p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+./p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+./p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+
+------ Test 84 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time oldest ------
+./p02_dir/p02_median5_v03.[08-12].jpg
+./p02_dir/p02_median5_v01.[08-12].jpg
+./p02_dir/p02_median5_v02.[08-12].jpg
+./p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+./p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+./p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+./p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+./p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+./p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+./p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+./p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+./p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+./p01_dir/p01_median2_v03.[08-12].jpg
+./p01_dir/p01_median2_v01.[08-12].jpg
+./p01_dir/p01_median2_v02.[08-12].jpg
+./p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+./p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+./p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+./p_median4_v03.[08-12].jpg
+./p_median4_v01.[08-12].jpg
+./p_median4_v02.[08-12].jpg
+
+------ Test 85 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time newest ------
+./p_median4_v02.[08-12].jpg
+./p_median4_v03.[08-12].jpg
+./p_median4_v01.[08-12].jpg
+./p02_dir/p02_median5_v02.[08-12].jpg
+./p02_dir/p02_median5_v03.[08-12].jpg
+./p02_dir/p02_median5_v01.[08-12].jpg
+./p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+./p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+./p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+./p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+./p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+./p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+./p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+./p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+./p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+./p01_dir/p01_median2_v02.[08-12].jpg
+./p01_dir/p01_median2_v03.[08-12].jpg
+./p01_dir/p01_median2_v01.[08-12].jpg
+./p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+./p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+./p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+
+------ Test 86 ------ ls --recursive -T -t -o ------
+ls: unrecognized option `--recursive'
+usage: ls [-@ABCFGHILOPRSTUWabcdefghiklmnopqrstuvwxy1%,] [--color=when] [-D format] [file ...]
+
+------ Test 87 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median pdir ------
+pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+pdir/p02_dir/p02_median5_v03.[08-12].jpg
+pdir/p02_dir/p02_median5_v02.[08-12].jpg
+pdir/p02_dir/p02_median5_v01.[08-12].jpg
+pdir/p_median4_v03.[08-12].jpg
+pdir/p_median4_v02.[08-12].jpg
+pdir/p_median4_v01.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+pdir/p01_dir/p01_median2_v03.[08-12].jpg
+pdir/p01_dir/p01_median2_v02.[08-12].jpg
+pdir/p01_dir/p01_median2_v01.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+
+------ Test 88 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest pdir ------
+pdir/p_median4_v02.[08-12].jpg
+pdir/p_median4_v01.[08-12].jpg
+pdir/p_median4_v03.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+pdir/p01_dir/p01_median2_v02.[08-12].jpg
+pdir/p01_dir/p01_median2_v01.[08-12].jpg
+pdir/p01_dir/p01_median2_v03.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+pdir/p02_dir/p02_median5_v02.[08-12].jpg
+pdir/p02_dir/p02_median5_v01.[08-12].jpg
+pdir/p02_dir/p02_median5_v03.[08-12].jpg
+
+------ Test 89 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest pdir ------
+pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+pdir/p01_dir/p01_median2_v01.[08-12].jpg
+pdir/p01_dir/p01_median2_v03.[08-12].jpg
+pdir/p01_dir/p01_median2_v02.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+pdir/p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+pdir/p02_dir/p02_median5_v01.[08-12].jpg
+pdir/p02_dir/p02_median5_v03.[08-12].jpg
+pdir/p02_dir/p02_median5_v02.[08-12].jpg
+pdir/p_median4_v01.[08-12].jpg
+pdir/p_median4_v03.[08-12].jpg
+pdir/p_median4_v02.[08-12].jpg
+
+------ Test 90 ------ lsseq -i ------
+lsseq: note: lsseq also recognizes all extensions below when uppercase.
+LSSEQ_IMAGE_EXTENSION: exr:jpg
+LSSEQ_MOV_EXTENSION: mov
+LSSEQ_CACHE_EXTENSION: ass:fur
+
+------ Test 91 ------ lsseq --onlyImages ------
+
+------ Test 92 ------ lsseq --onlyMovies ------
+xxx01.mov
+xxx02.mov
+
+------ Test 93 ------ lsseq --onlyCaches ------
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
