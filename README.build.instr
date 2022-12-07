@@ -50,7 +50,7 @@ lsseq --version
 # Test installation.
 #
 cd tests
-./test_renum
-diff test_renum.out test_renum.out.new
+./test_lsseq --testSystem-lsseq
+diff test_lsseq.out.Linux test_lsseq.out.Linux.installed.new
 
 # Make a new tagged release on github
