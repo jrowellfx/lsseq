@@ -199,7 +199,7 @@ Then command #3 calls `lsseq` with the same wildcard as #2:
 ```
 The first thing to note above is how close `lsseq` is to mimicking `/bin/ls` in
 labelling directories and listing directory contents etc. (compare the
-output of command #2 to #3). One difference being that `lsseq` first lists all
+output of command #2 to #3). The difference being that `lsseq` first lists all
 non-sequence images in a directory exactly as `ls` would list them (minus the
 sequences) then lists all the sequences in their condensed form.
 
@@ -239,7 +239,7 @@ or after a given timestamp with the `--onlyShow TENSE [CC]YYMMDD[-hh[mm[ss]]]` o
 An especially powerful feature of `lsseq` is the ability to sort by time
 across different directories! This is special to `lsseq` as `/bin/ls` doesn't 
 sort by time across directories. Here's how you do it with `lsseq`, the
-description snipped rom the output of `lsseq --help`:
+description snipped from the output of `lsseq --help`:
 ```
   --globalSortByTime    when using either --prependPathAbs or --prependPathRel
                         then this option will sort ALL sequences by time
