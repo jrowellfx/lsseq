@@ -85,7 +85,7 @@ are run and passed before every new release.
 
 ### Why use lsseq?
 
-Anyone who generates, or handles, frames of images for film and video needs `lsseq`.
+Anyone who generates or works with frames of images for film and video needs `lsseq`.
 If not already using `lsseq`, then all major post-production 
 studios have some kind of version of this essential tool.
 However
