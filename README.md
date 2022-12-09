@@ -90,7 +90,7 @@ If not already using `lsseq`, then all major post-production
 studios have some kind of version of this essential tool.
 However
 [I](https://github.com/jrowellfx) believe that
-`lsseq` is quintessential!
+`lsseq` is the quintessential version!
 
 #### lsseq reports useful information in a nice compact form
 
