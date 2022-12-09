@@ -13,14 +13,26 @@ or from a user supplied environment variable.
 `lsseq` also handles the case when the separator
 between the `<descriptiveName>` and the `<frameNum>` is an underscore instead of a dot.
 
+`lsseq` first lists all non-image-sequence files followed by the
+list of image sequences as such:
+```
+    $ lsseq
+    [output of /bin/ls minus image sequences]
+    [list of images sequences]
+```
+
 #### Example:
 ```
     $ ls
-    aaa.097.tif  aaa.098.tif  aaa.100.tif  aaa.101.tif  aaa.102.tif  aaa.103.tif
+    aaa.097.tif  aaa.100.tif  aaa.102.tif  bar.pdf
+    aaa.098.tif  aaa.101.tif  aaa.103.tif  foo.txt
     $ lsseq
+    bar.pdf  foo.txt
     aaa.[097-103].tif m:[99]
 ```
-What `lsseq` tells us here is that there is a sequence of tif files named
+What `lsseq` tells us here is
+that this directory contains two non-image files, `bar.pdf` and `foo.txt`,
+plus a sequence of tif files named
 `aaa` with frames 97 through 103 (three padded) and frame 99 is missing.
 
 `lsseq` prints sequences in its own native format, which is nice to read,
@@ -147,7 +159,7 @@ Furthermore, without doing a long listing (i.e. "`ls -l`"),
 you might miss that frames `1030-1033` of `v01` 
 are also zero length and empty. Maybe a bad render?
 
-That information easily pops out when using `lsseq`.
+As you can see above, that information easily pops out when using `lsseq`.
 
 If you like, you can turn off reporting zero-length and missing frames with some
 command-line options:
@@ -177,12 +189,14 @@ Then command #3 calls `lsseq` with the same wildcard as #2:
     ccc.0101.exr  nonImage.file
 
     aaa:
-    aaa.097.tif  aaa.098.tif  aaa.100.tif  aaa.101.tif  aaa.102.tif  aaa.103.tif  nonImage_A.file
+    aaa.097.tif  aaa.100.tif  aaa.102.tif  nonImage_A.file
+    aaa.098.tif  aaa.101.tif  aaa.103.tif
 
     bbb:
-    bbx.0097.tif  bbx.0100.tif  bbx.0103.tif  bby.0199.tif  bby.0202.tif      nonImage_B2.file
-    bbx.0098.tif  bbx.0101.tif  bby.0197.tif  bby.0200.tif  bby.0203.tif
-    bbx.0099.tif  bbx.0102.tif  bby.0198.tif  bby.0201.tif  nonImage_B1.file
+    bbx.0097.tif  bbx.0101.tif  bby.0198.tif  bby.0202.tif
+    bbx.0098.tif  bbx.0102.tif  bby.0199.tif  bby.0203.tif
+    bbx.0099.tif  bbx.0103.tif  bby.0200.tif  nonImage_B1.file
+    bbx.0100.tif  bby.0197.tif  bby.0201.tif  nonImage_B2.file
 
     3$ lsseq *
     nonImage.file
@@ -234,10 +248,11 @@ compare sequences by comparing the `oldest`, `median` or `newest` frames from
 each sequence with the `--time FRAME_AGE` option.
 
 `lsseq` can also limit listing sequences that are created before
-or after a given timestamp with the `--onlyShow TENSE [CC]YYMMDD[-hh[mm[ss]]]` option.
+or after a given timestamp with the `--onlyShow TENSE [CC]YYMMDD[-hh[mm[ss]]]` option,
+where `TENSE` is either `before` or `since`.
 
 An especially powerful feature of `lsseq` is the ability to sort by time
-across different directories! This is special to `lsseq` as `/bin/ls` doesn't 
+across different directories. This is special to `lsseq` as `/bin/ls` doesn't 
 sort by time across directories. Here's how you do it with `lsseq`, the
 description snipped from the output of `lsseq --help`:
 ```
@@ -260,7 +275,7 @@ Please explore the rest of `lsseq's` capabilities by typing:
 Here's the process that I've followed to install `lsseq`, as well as my other
 python-based command-line
 tools (i.e., `expandseq`, `condenseseq` and `renumseq`)
-so that they are accessible to all users. This works on both macOS and Linux.
+so that they are accessible to all users. This works on both MacOS and Linux.
 
 ```
     $ su -
