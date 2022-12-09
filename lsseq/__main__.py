@@ -1255,7 +1255,7 @@ def main() :
         help="when using either \
         --prependPathAbs or --prependPathRel then this option will sort ALL \
         sequences by time compared to each other, as opposed to only sorting \
-        sequences by time within their common directory. If the above contitions \
+        sequences by time within their common directory. If the above conditions \
         are NOT met, then this option is simply ignored.")
     p.add_argument("--silent", "--quiet", action="store_true",
         dest="silent", default=False,

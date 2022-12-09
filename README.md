@@ -100,42 +100,42 @@ that is otherwise hard to notice without using `lsseq`.
 
 #### Example:
 ```
-$ ls
-ccc_v01.0995.exr  ccc_v01.1029.exr  ccc_v02.1019.exr  ccc_v03.1008.exr
-ccc_v01.0996.exr  ccc_v01.1030.exr  ccc_v02.1020.exr  ccc_v03.1009.exr
-ccc_v01.0997.exr  ccc_v01.1031.exr  ccc_v02.1021.exr  ccc_v03.1010.exr
-ccc_v01.0998.exr  ccc_v01.1032.exr  ccc_v02.1022.exr  ccc_v03.1011.exr
-ccc_v01.1000.exr  ccc_v01.1033.exr  ccc_v02.1023.exr  ccc_v03.1012.exr
-ccc_v01.1001.exr  ccc_v01.1034.exr  ccc_v02.1024.exr  ccc_v03.1013.exr
-ccc_v01.1002.exr  ccc_v01.1035.exr  ccc_v02.1025.exr  ccc_v03.1014.exr
-ccc_v01.1003.exr  ccc_v02.0995.exr  ccc_v02.1026.exr  ccc_v03.1015.exr
-ccc_v01.1004.exr  ccc_v02.0996.exr  ccc_v02.1027.exr  ccc_v03.1016.exr
-ccc_v01.1005.exr  ccc_v02.0997.exr  ccc_v02.1028.exr  ccc_v03.1017.exr
-ccc_v01.1006.exr  ccc_v02.0998.exr  ccc_v02.1029.exr  ccc_v03.1018.exr
-ccc_v01.1007.exr  ccc_v02.0999.exr  ccc_v02.1030.exr  ccc_v03.1019.exr
-ccc_v01.1008.exr  ccc_v02.1000.exr  ccc_v02.1031.exr  ccc_v03.1020.exr
-ccc_v01.1009.exr  ccc_v02.1001.exr  ccc_v02.1032.exr  ccc_v03.1021.exr
-ccc_v01.1010.exr  ccc_v02.1002.exr  ccc_v02.1033.exr  ccc_v03.1022.exr
-ccc_v01.1011.exr  ccc_v02.1003.exr  ccc_v02.1034.exr  ccc_v03.1023.exr
-ccc_v01.1012.exr  ccc_v02.1004.exr  ccc_v02.1035.exr  ccc_v03.1024.exr
-ccc_v01.1013.exr  ccc_v02.1005.exr  ccc_v03.0995.exr  ccc_v03.1025.exr
-ccc_v01.1014.exr  ccc_v02.1006.exr  ccc_v03.0996.exr  ccc_v03.1026.exr
-ccc_v01.1015.exr  ccc_v02.1007.exr  ccc_v03.0997.exr  ccc_v03.1027.exr
-ccc_v01.1016.exr  ccc_v02.1008.exr  ccc_v03.0998.exr  ccc_v03.1028.exr
-ccc_v01.1017.exr  ccc_v02.1009.exr  ccc_v03.0999.exr  ccc_v03.1029.exr
-ccc_v01.1018.exr  ccc_v02.1010.exr  ccc_v03.1000.exr  ccc_v03.1030.exr
-ccc_v01.1019.exr  ccc_v02.1011.exr  ccc_v03.1001.exr  ccc_v03.1031.exr
-ccc_v01.1020.exr  ccc_v02.1012.exr  ccc_v03.1002.exr  ccc_v03.1032.exr
-ccc_v01.1021.exr  ccc_v02.1013.exr  ccc_v03.1003.exr  ccc_v03.1033.exr
-ccc_v01.1025.exr  ccc_v02.1014.exr  ccc_v03.1004.exr  ccc_v03.1034.exr
-ccc_v01.1026.exr  ccc_v02.1015.exr  ccc_v03.1005.exr  ccc_v03.1035.exr
-ccc_v01.1027.exr  ccc_v02.1016.exr  ccc_v03.1006.exr
-ccc_v01.1028.exr  ccc_v02.1018.exr  ccc_v03.1007.exr
+    $ ls
+    ccc_v01.0995.exr  ccc_v01.1029.exr  ccc_v02.1019.exr  ccc_v03.1008.exr
+    ccc_v01.0996.exr  ccc_v01.1030.exr  ccc_v02.1020.exr  ccc_v03.1009.exr
+    ccc_v01.0997.exr  ccc_v01.1031.exr  ccc_v02.1021.exr  ccc_v03.1010.exr
+    ccc_v01.0998.exr  ccc_v01.1032.exr  ccc_v02.1022.exr  ccc_v03.1011.exr
+    ccc_v01.1000.exr  ccc_v01.1033.exr  ccc_v02.1023.exr  ccc_v03.1012.exr
+    ccc_v01.1001.exr  ccc_v01.1034.exr  ccc_v02.1024.exr  ccc_v03.1013.exr
+    ccc_v01.1002.exr  ccc_v01.1035.exr  ccc_v02.1025.exr  ccc_v03.1014.exr
+    ccc_v01.1003.exr  ccc_v02.0995.exr  ccc_v02.1026.exr  ccc_v03.1015.exr
+    ccc_v01.1004.exr  ccc_v02.0996.exr  ccc_v02.1027.exr  ccc_v03.1016.exr
+    ccc_v01.1005.exr  ccc_v02.0997.exr  ccc_v02.1028.exr  ccc_v03.1017.exr
+    ccc_v01.1006.exr  ccc_v02.0998.exr  ccc_v02.1029.exr  ccc_v03.1018.exr
+    ccc_v01.1007.exr  ccc_v02.0999.exr  ccc_v02.1030.exr  ccc_v03.1019.exr
+    ccc_v01.1008.exr  ccc_v02.1000.exr  ccc_v02.1031.exr  ccc_v03.1020.exr
+    ccc_v01.1009.exr  ccc_v02.1001.exr  ccc_v02.1032.exr  ccc_v03.1021.exr
+    ccc_v01.1010.exr  ccc_v02.1002.exr  ccc_v02.1033.exr  ccc_v03.1022.exr
+    ccc_v01.1011.exr  ccc_v02.1003.exr  ccc_v02.1034.exr  ccc_v03.1023.exr
+    ccc_v01.1012.exr  ccc_v02.1004.exr  ccc_v02.1035.exr  ccc_v03.1024.exr
+    ccc_v01.1013.exr  ccc_v02.1005.exr  ccc_v03.0995.exr  ccc_v03.1025.exr
+    ccc_v01.1014.exr  ccc_v02.1006.exr  ccc_v03.0996.exr  ccc_v03.1026.exr
+    ccc_v01.1015.exr  ccc_v02.1007.exr  ccc_v03.0997.exr  ccc_v03.1027.exr
+    ccc_v01.1016.exr  ccc_v02.1008.exr  ccc_v03.0998.exr  ccc_v03.1028.exr
+    ccc_v01.1017.exr  ccc_v02.1009.exr  ccc_v03.0999.exr  ccc_v03.1029.exr
+    ccc_v01.1018.exr  ccc_v02.1010.exr  ccc_v03.1000.exr  ccc_v03.1030.exr
+    ccc_v01.1019.exr  ccc_v02.1011.exr  ccc_v03.1001.exr  ccc_v03.1031.exr
+    ccc_v01.1020.exr  ccc_v02.1012.exr  ccc_v03.1002.exr  ccc_v03.1032.exr
+    ccc_v01.1021.exr  ccc_v02.1013.exr  ccc_v03.1003.exr  ccc_v03.1033.exr
+    ccc_v01.1025.exr  ccc_v02.1014.exr  ccc_v03.1004.exr  ccc_v03.1034.exr
+    ccc_v01.1026.exr  ccc_v02.1015.exr  ccc_v03.1005.exr  ccc_v03.1035.exr
+    ccc_v01.1027.exr  ccc_v02.1016.exr  ccc_v03.1006.exr
+    ccc_v01.1028.exr  ccc_v02.1018.exr  ccc_v03.1007.exr
 
-$ lsseq
-ccc_v01.[0995-1035].exr m:[999,1022-1024], z:[1030-1033]
-ccc_v02.[0995-1035].exr m:[1017]
-ccc_v03.[0995-1035].exr
+    $ lsseq
+    ccc_v01.[0995-1035].exr m:[999,1022-1024], z:[1030-1033]
+    ccc_v02.[0995-1035].exr m:[1017]
+    ccc_v03.[0995-1035].exr
 ```
 This is a typical example of how hard it is to look at the contents of a directory
 containing image sequences without `lsseq`.
@@ -152,10 +152,10 @@ That information easily pops out when using `lsseq`.
 If you like, you can turn off reporting zero-length and missing frames with some
 command-line options:
 ```
-$ lsseq --skipMissing --skipZero
-ccc_v01.[0995-1035].exr
-ccc_v02.[0995-1035].exr
-ccc_v03.[0995-1035].exr
+    $ lsseq --skipMissing --skipZero
+    ccc_v01.[0995-1035].exr
+    ccc_v02.[0995-1035].exr
+    ccc_v03.[0995-1035].exr
 ```
 
 #### lsseq is a natural partner to /bin/ls
@@ -203,7 +203,7 @@ output of command #2 to #3). One difference being that `lsseq` first lists all
 non-sequence images in a directory exactly as `ls` would list them (minus the
 sequences) then lists all the sequences in their condensed form.
 
-#### Natural extenstion of lsseq beyond /bin/ls
+#### Natural extension of lsseq beyond /bin/ls
 
 Some useful options have been added, beyond what `/bin/ls` does, that
 extend `lsseq's` capability.
@@ -233,18 +233,27 @@ which frame from each sequence to use when comparing modification times. You can
 compare sequences by comparing the `oldest`, `median` or `newest` frames from
 each sequence with the `--time FRAME_AGE` option.
 
-An extremely useful feature of `lsseq`
-is how it can sort sequences by modification times, as well as only listing 
-sequences before or after a given timestamp. This ability to sort by time
-becomes especially powerful when combined with the option `--globalSortByTime`
-which allows sorting 
+`lsseq` can also limit listing sequences that are created before
+or after a given timestamp with the `--onlyShow TENSE [CC]YYMMDD[-hh[mm[ss]]]` option.
 
+An especially powerful feature of `lsseq` is the ability to sort by time
+across different directories! This is special to `lsseq` as `/bin/ls` doesn't 
+sort by time across directories. Here's how you do it with `lsseq`, the
+description snipped rom the output of `lsseq --help`:
+```
+  --globalSortByTime    when using either --prependPathAbs or --prependPathRel
+                        then this option will sort ALL sequences by time
+                        compared to each other, as opposed to only sorting
+                        sequences by time within their common directory. If
+                        the above conditions are NOT met, then this option is
+                        simply ignored.
+```
 
-Type:
+Please explore the rest of `lsseq's` capabilities by typing:
+
 ```
     $ lsseq --help
 ```
-for much more useful info.
 
 ## Addendum - more on installing command-line tools
 
