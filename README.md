@@ -96,7 +96,7 @@ However
 
 Even if you aren't an avid command-line user, having `lsseq` available to you might 
 make you a convert because it reports VERY useful information about sequences
-that is otherwise hard to notice without using `lsseq`.
+that are otherwise hard to discover without using `lsseq`.
 
 #### Example:
 ```
