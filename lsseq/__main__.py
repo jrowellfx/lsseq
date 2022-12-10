@@ -64,7 +64,11 @@ import copy
 from operator import itemgetter
 import seqLister
 
-VERSION = "2.7.0"     # Semantic Versioning 2.0.0
+# MAJOR version for incompatible API changes
+# MINOR version for added functionality in a backwards compatible manner
+# PATCH version for backwards compatible bug fixes
+#
+VERSION = "2.7.1"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -1076,19 +1080,18 @@ def main() :
         prog=PROG_NAME,
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=textwrap.dedent('''\
-            List directory contents (akin to /bin/ls) while condensing image
+            List directory contents like /bin/ls except condense image
             sequences to one entry each. Filenames that are part of image
             sequences are assumed to be of the form:
 
                 <descriptiveName>.<frameNum>.<imgExtension>
 
             where <imgExtension> is drawn from a default list of image extensions
-            (see option -i) or they can be set with the environment variable
-            LSSEQ_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly, there is an
-            LSSEQ_MOV_EXTENSION environment variable for movie file extensions and
-            LSSEQ_CACHE_EXTENSION for caches and other miscellaneous sequences.
+            (displayed with option --imgExt) or alternatively from the environment
+            variable LSSEQ_IMAGE_EXTENSION which should contain a colon separated
+            list of image file extensions.
 
-            %(prog)s will first list all non-image-sequence files followed by the
+            %(prog)s first lists all non-image-sequence files followed by the
             list of image sequences as such:
 
                 $ %(prog)s
@@ -1327,15 +1330,14 @@ def main() :
     #
 
     if args.printImgExtensions :
-        print(PROG_NAME,
-            ": note: ", PROG_NAME, " also recognizes all extensions below when uppercase.",
-            sep='')
+        print(PROG_NAME, ": Modify the following environment variables to extend the supported file types.", sep='')
+        print("       NOTE: ", PROG_NAME, " also recognizes the following extensions when uppercase.", sep='')
         extList = ":".join(gImageExtList)
-        print("LSSEQ_IMAGE_EXTENSION:", extList)
+        print("  export LSSEQ_IMAGE_EXTENSION=", extList, sep='')
         extList = ":".join(gMovieExtList)
-        print("LSSEQ_MOV_EXTENSION:", extList)
+        print("  export LSSEQ_MOV_EXTENSION=", extList, sep='')
         extList = ":".join(gCacheExtList)
-        print("LSSEQ_CACHE_EXTENSION:", extList)
+        print("  export LSSEQ_CACHE_EXTENSION=", extList, sep='')
         sys.exit(0)
 
     if args.prependPath == PATH_REL :

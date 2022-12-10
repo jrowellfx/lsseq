@@ -8,7 +8,7 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name            = 'lsseq',
-    version         = '2.7.0',
+    version         = '2.7.1',
     description='ls-like command for image frame sequences',
     long_description=long_description,
     long_description_content_type='text/markdown',
