@@ -3,7 +3,10 @@
 export TEST_DIR=`pwd`
 pushd $HOME
 source venv/bin/activate
+# Need to install the libraries that lsseq needs
+# into the local venv for testing to work.
 pip install seqLister --upgrade
+pip install dateparser --upgrade
 popd
 ln -sf ../lsseq/__main__.py lsseq
 if [[ ! ":$PATH:" == *":$TEST_DIR:"* ]]; then

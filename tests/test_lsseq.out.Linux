@@ -119,8 +119,8 @@ testdir:
 adir/                          fdir/  mdir/                        mk_hdir_Frames.v01.nk
 bdir/                          gdir/  mkAnimFrames.v01.shk         ndir/
 blackFrames/                   hdir/  mkAnimFrames.v02.shk         pdir/
-cdir/                          idir/  mkBlackFrames_HD_10.v01.shk  www..exr
-ddir/                          jdir/  mkBlackFrames_HD_2.v01.shk
+cdir/                          idir/  mkBlackFrames_HD_10.v01.shk  qdir/
+ddir/                          jdir/  mkBlackFrames_HD_2.v01.shk   www..exr
 e01_sh0001_globalFX/           kdir/  mkTestFrames.v01.nk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -378,6 +378,18 @@ p02B_median7_v01.[08-12].jpg z:[8-12]
 p02B_median7_v02.[08-12].jpg z:[8-12]
 p02B_median7_v03.[08-12].jpg z:[8-12]
 
+testdir/qdir:
+custom.touch.images*  initial.image.mtimes*  q1Dir/  q2Dir/  q3Dir/
+
+testdir/qdir/q1Dir:
+qqq.[001-005].jpg z:[1-5]
+
+testdir/qdir/q2Dir:
+qqq.[002-006].jpg z:[2-6]
+
+testdir/qdir/q3Dir:
+qqq.[003-007].jpg z:[3-7]
+
 ------ Test 5 ------ lsseq -lReC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
@@ -552,6 +564,12 @@ p02B_median7_v03.[08-12].jpg z:[8-12]
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.001.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.005.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.002.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
 
 ------ Test 6 ------ lsseq -lReoC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -741,6 +759,12 @@ p02B_median7_v03.[08-12].jpg z:[8-12]
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.001.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.005.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.002.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
 
 ------ Test 7 ------ lsseq -RePC --quiet testdir ------
 testdir/testDirFile.001.exr
@@ -922,6 +946,12 @@ testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.08.jpg
 testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
 testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+testdir/qdir/q1Dir/qqq.001.jpg
+testdir/qdir/q1Dir/qqq.005.jpg
+testdir/qdir/q2Dir/qqq.002.jpg
+testdir/qdir/q2Dir/qqq.006.jpg
+testdir/qdir/q3Dir/qqq.003.jpg
+testdir/qdir/q3Dir/qqq.007.jpg
 
 ------ Test 8 ------ lsseq -lRFC testdir ------
 testdir:
@@ -929,8 +959,8 @@ testdir:
 adir/                          fdir/  mdir/                        mk_hdir_Frames.v01.nk
 bdir/                          gdir/  mkAnimFrames.v01.shk         ndir/
 blackFrames/                   hdir/  mkAnimFrames.v02.shk         pdir/
-cdir/                          idir/  mkBlackFrames_HD_10.v01.shk  www..exr
-ddir/                          jdir/  mkBlackFrames_HD_2.v01.shk
+cdir/                          idir/  mkBlackFrames_HD_10.v01.shk  qdir/
+ddir/                          jdir/  mkBlackFrames_HD_2.v01.shk   www..exr
 e01_sh0001_globalFX/           kdir/  mkTestFrames.v01.nk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -1197,6 +1227,18 @@ p02B_median7_v01.[08-12].jpg z:[8-12]
 p02B_median7_v02.[08-12].jpg z:[8-12]
 p02B_median7_v03.[08-12].jpg z:[8-12]
 
+testdir/qdir:
+custom.touch.images*  initial.image.mtimes*  q1Dir/  q2Dir/  q3Dir/
+
+testdir/qdir/q1Dir:
+qqq.[001-005].jpg z:[1-5]
+
+testdir/qdir/q2Dir:
+qqq.[002-006].jpg z:[2-6]
+
+testdir/qdir/q3Dir:
+qqq.[003-007].jpg z:[3-7]
+
 ------ Test 9 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
@@ -1380,6 +1422,12 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.001.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.005.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.002.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
 
 ------ Test 10 ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -1578,6 +1626,12 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.001.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.005.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.002.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
 
 ------ Test 11 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
@@ -1768,6 +1822,12 @@ testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.08.jpg
 testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
 testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+testdir/qdir/q1Dir/qqq.001.jpg
+testdir/qdir/q1Dir/qqq.005.jpg
+testdir/qdir/q2Dir/qqq.002.jpg
+testdir/qdir/q2Dir/qqq.006.jpg
+testdir/qdir/q3Dir/qqq.003.jpg
+testdir/qdir/q3Dir/qqq.007.jpg
 
 ------ Test 12 ------ lsseq -p ------
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
@@ -1804,6 +1864,7 @@ mkTestFrames.v02.nk
 mk_hdir_Frames.v01.nk
 ndir
 pdir
+qdir
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -2038,6 +2099,13 @@ p_median4_v01.[08-12].jpg z:[8-12]
 p_median4_v02.[08-12].jpg z:[8-12]
 p_median4_v03.[08-12].jpg z:[8-12]
 
+qdir:
+custom.touch.images
+initial.image.mtimes
+q1Dir
+q2Dir
+q3Dir
+
 ------ Test 15 ------ lsseq -l * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
@@ -2238,6 +2306,13 @@ p02_dir
 p_median4_v01.[08-12].jpg z:[8-12]
 p_median4_v02.[08-12].jpg z:[8-12]
 p_median4_v03.[08-12].jpg z:[8-12]
+
+qdir:
+custom.touch.images
+initial.image.mtimes
+q1Dir
+q2Dir
+q3Dir
 
 ------ Test 16 ------ lsseq ------
 aaaa
@@ -2936,6 +3011,7 @@ mkTestFrames.v02.nk
 mk_hdir_Frames.v01.nk
 ndir
 pdir
+qdir
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -3435,6 +3511,22 @@ p02A_median6_v03.[08-12].jpg z:[8-12]
 p02B_median7_v01.[08-12].jpg z:[8-12]
 p02B_median7_v02.[08-12].jpg z:[8-12]
 p02B_median7_v03.[08-12].jpg z:[8-12]
+
+/...absPathToRepo.../tests/testdir/qdir:
+custom.touch.images
+initial.image.mtimes
+q1Dir
+q2Dir
+q3Dir
+
+/...absPathToRepo.../tests/testdir/qdir/q1Dir:
+qqq.[001-005].jpg z:[1-5]
+
+/...absPathToRepo.../tests/testdir/qdir/q2Dir:
+qqq.[002-006].jpg z:[2-6]
+
+/...absPathToRepo.../tests/testdir/qdir/q3Dir:
+qqq.[003-007].jpg z:[3-7]
 
 /...absPathToRepo.../tests/testdir/cdir:
 aaaa
@@ -4671,20 +4763,68 @@ pdir/p_median4_v01.[08-12].jpg
 pdir/p_median4_v03.[08-12].jpg
 pdir/p_median4_v02.[08-12].jpg
 
------- Test 90 ------ lsseq -i ------
+------ Test 90 ------ ls -R --full-time -t -o ------
+.:
+total 20
+drwxrwxrwx. 2 testUser 4096 2023-02-10 11:04:00.000000000 -0600 q3Dir
+drwxrwxrwx. 2 testUser 4096 2023-02-10 11:03:00.000000000 -0600 q2Dir
+drwxrwxrwx. 2 testUser 4096 2023-02-10 11:02:00.000000000 -0600 q1Dir
+-rwxrwxrwx. 1 testUser  627 2023-02-10 11:01:00.000000000 -0600 initial.image.mtimes
+-rwxrwxrwx. 1 testUser  892 2023-02-10 11:00:00.000000000 -0600 custom.touch.images
+
+./q3Dir:
+total 0
+-rwxrwxrwx. 1 testUser 0 2023-02-05 13:32:00.000000000 -0600 qqq.007.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 13:31:00.000000000 -0600 qqq.006.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 13:30:00.000000000 -0600 qqq.005.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 13:29:00.000000000 -0600 qqq.004.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 09:28:00.000000000 -0600 qqq.003.jpg
+
+./q2Dir:
+total 0
+-rwxrwxrwx. 1 testUser 0 2023-02-05 14:32:00.000000000 -0600 qqq.006.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 12:31:00.000000000 -0600 qqq.005.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 12:30:00.000000000 -0600 qqq.004.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 12:29:00.000000000 -0600 qqq.003.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 10:28:00.000000000 -0600 qqq.002.jpg
+
+./q1Dir:
+total 0
+-rwxrwxrwx. 1 testUser 0 2023-02-05 11:32:00.000000000 -0600 qqq.005.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 11:31:00.000000000 -0600 qqq.004.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 11:30:00.000000000 -0600 qqq.003.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 11:29:00.000000000 -0600 qqq.002.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 11:28:00.000000000 -0600 qqq.001.jpg
+
+------ Test 91 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median qdir ------
+qdir/q3Dir/qqq.[003-007].jpg
+qdir/q2Dir/qqq.[002-006].jpg
+qdir/q1Dir/qqq.[001-005].jpg
+
+------ Test 92 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest qdir ------
+qdir/q1Dir/qqq.[001-005].jpg
+qdir/q2Dir/qqq.[002-006].jpg
+qdir/q3Dir/qqq.[003-007].jpg
+
+------ Test 93 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest qdir ------
+qdir/q2Dir/qqq.[002-006].jpg
+qdir/q3Dir/qqq.[003-007].jpg
+qdir/q1Dir/qqq.[001-005].jpg
+
+------ Test 94 ------ lsseq -i ------
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------- Test 91 ------ lsseq --onlyImages ------
+------ Test 95 ------ lsseq --onlyImages ------
 
------- Test 92 ------ lsseq --onlyMovies ------
+------ Test 96 ------ lsseq --onlyMovies ------
 xxx01.mov
 xxx02.mov
 
------- Test 93 ------ lsseq --onlyCaches ------
+------ Test 97 ------ lsseq --onlyCaches ------
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur

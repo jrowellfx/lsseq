@@ -1,0 +1,36 @@
+#!/bin/bash
+
+declare -a fileNames=( \
+    q1Dir/qqq \
+    q2Dir/qqq \
+    q3Dir/qqq \
+)
+
+year=2023
+month=2
+day=05
+hour=11
+
+startFrame=1
+
+for file in "${fileNames[@]}"
+do
+    min=28
+    frame=$startFrame
+
+    i=0
+    while [[ $i -le 4 ]]
+    do
+        echo touch -a -m -t \
+            $year`printf '%02d' $month``printf '%02d' $day``printf '%02d' $hour``printf '%02d' $min` \
+            ${file}.`printf '%03d' $frame`.jpg
+        frame=$(expr $frame + 1)
+        min=$(expr $min + 1)
+        i=$(expr $i + 1)
+    done
+
+    echo
+    startFrame=$(expr $startFrame + 1)
+    hour=$(expr $hour + 1)
+    #day=$(expr $day + 1)
+done

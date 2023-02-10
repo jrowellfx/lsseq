@@ -1,0 +1,23 @@
+touch -a -m -t 202302051128 q1Dir/qqq.001.jpg
+touch -a -m -t 202302051129 q1Dir/qqq.002.jpg
+touch -a -m -t 202302051130 q1Dir/qqq.003.jpg
+touch -a -m -t 202302051131 q1Dir/qqq.004.jpg
+touch -a -m -t 202302051132 q1Dir/qqq.005.jpg
+
+touch -a -m -t 202302051028 q2Dir/qqq.002.jpg
+touch -a -m -t 202302051229 q2Dir/qqq.003.jpg
+touch -a -m -t 202302051230 q2Dir/qqq.004.jpg
+touch -a -m -t 202302051231 q2Dir/qqq.005.jpg
+touch -a -m -t 202302051432 q2Dir/qqq.006.jpg
+
+touch -a -m -t 202302050928 q3Dir/qqq.003.jpg
+touch -a -m -t 202302051329 q3Dir/qqq.004.jpg
+touch -a -m -t 202302051330 q3Dir/qqq.005.jpg
+touch -a -m -t 202302051331 q3Dir/qqq.006.jpg
+touch -a -m -t 202302051332 q3Dir/qqq.007.jpg
+
+touch -a -m -t 202302101100 custom.touch.images
+touch -a -m -t 202302101101 initial.image.mtimes
+touch -a -m -t 202302101102 q1Dir
+touch -a -m -t 202302101103 q2Dir
+touch -a -m -t 202302101104 q3Dir
