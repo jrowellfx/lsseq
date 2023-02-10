@@ -147,6 +147,8 @@ cd $TEST_DIR/testdir/ndir
 source custom.touch.images
 cd $TEST_DIR/testdir/pdir
 source custom.touch.images
+cd $TEST_DIR/testdir/qdir
+source custom.touch.images
 cd $TEST_DIR
 
 cd testdir/hdir

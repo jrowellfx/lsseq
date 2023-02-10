@@ -4,24 +4,23 @@
 Darwin
 
 ------ Test 2 ------ lsseq --version ------
-2.7.0
+2.7.1
 
 ------ Test 3 ------ lsseq --help ------
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
 
-List directory contents (akin to /bin/ls) while condensing image
+List directory contents like /bin/ls except condense image
 sequences to one entry each. Filenames that are part of image
 sequences are assumed to be of the form:
 
     <descriptiveName>.<frameNum>.<imgExtension>
 
 where <imgExtension> is drawn from a default list of image extensions
-(see option -i) or they can be set with the environment variable
-LSSEQ_IMAGE_EXTENSION=exr:jpg:tif (for example).  Similarly, there is an
-LSSEQ_MOV_EXTENSION environment variable for movie file extensions and
-LSSEQ_CACHE_EXTENSION for caches and other miscellaneous sequences.
+(displayed with option --imgExt) or alternatively from the environment
+variable LSSEQ_IMAGE_EXTENSION which should contain a colon separated
+list of image file extensions.
 
-lsseq will first list all non-image-sequence files followed by the
+lsseq first lists all non-image-sequence files followed by the
 list of image sequences as such:
 
     $ lsseq
@@ -111,7 +110,7 @@ optional arguments:
   --globalSortByTime    when using either --prependPathAbs or --prependPathRel then this option
                         will sort ALL sequences by time compared to each other, as opposed to only
                         sorting sequences by time within their common directory. If the above
-                        contitions are NOT met, then this option is simply ignored.
+                        conditions are NOT met, then this option is simply ignored.
   --silent, --quiet     suppress errors and warnings
 
 ------ Test 4 ------ lsseq -lRFC --quiet testdir ------
@@ -123,8 +122,8 @@ blackFrames/                    jdir/                           mkTestFrames.v02
 cdir/                           kdir/                           mk_hdir_Frames.v01.nk
 ddir/                           ldir/                           ndir/
 e01_sh0001_globalFX/            mdir/                           pdir/
-edir/                           mkAnimFrames.v01.shk            www..exr
-fdir/                           mkAnimFrames.v02.shk
+edir/                           mkAnimFrames.v01.shk            qdir/
+fdir/                           mkAnimFrames.v02.shk            www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -388,6 +387,19 @@ p02B_median7_v01.[08-12].jpg z:[8-12]
 p02B_median7_v02.[08-12].jpg z:[8-12]
 p02B_median7_v03.[08-12].jpg z:[8-12]
 
+testdir/qdir:
+custom.touch.images*    q1Dir/                  q3Dir/
+initial.image.mtimes*   q2Dir/
+
+testdir/qdir/q1Dir:
+qqq.[001-005].jpg z:[1-5]
+
+testdir/qdir/q2Dir:
+qqq.[002-006].jpg z:[2-6]
+
+testdir/qdir/q3Dir:
+qqq.[003-007].jpg z:[3-7]
+
 ------ Test 5 ------ lsseq -lReC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
@@ -562,6 +574,12 @@ p02B_median7_v03.[08-12].jpg z:[8-12]
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.001.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.005.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.002.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
 
 ------ Test 6 ------ lsseq -lReoC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -751,6 +769,12 @@ p02B_median7_v03.[08-12].jpg z:[8-12]
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.001.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.005.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.002.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
 
 ------ Test 7 ------ lsseq -RePC --quiet testdir ------
 testdir/testDirFile.001.exr
@@ -932,6 +956,12 @@ testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.08.jpg
 testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
 testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+testdir/qdir/q1Dir/qqq.001.jpg
+testdir/qdir/q1Dir/qqq.005.jpg
+testdir/qdir/q2Dir/qqq.002.jpg
+testdir/qdir/q2Dir/qqq.006.jpg
+testdir/qdir/q3Dir/qqq.003.jpg
+testdir/qdir/q3Dir/qqq.007.jpg
 
 ------ Test 8 ------ lsseq -lRFC testdir ------
 testdir:
@@ -942,8 +972,8 @@ blackFrames/                    jdir/                           mkTestFrames.v02
 cdir/                           kdir/                           mk_hdir_Frames.v01.nk
 ddir/                           ldir/                           ndir/
 e01_sh0001_globalFX/            mdir/                           pdir/
-edir/                           mkAnimFrames.v01.shk            www..exr
-fdir/                           mkAnimFrames.v02.shk
+edir/                           mkAnimFrames.v01.shk            qdir/
+fdir/                           mkAnimFrames.v02.shk            www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -1216,6 +1246,19 @@ p02B_median7_v01.[08-12].jpg z:[8-12]
 p02B_median7_v02.[08-12].jpg z:[8-12]
 p02B_median7_v03.[08-12].jpg z:[8-12]
 
+testdir/qdir:
+custom.touch.images*    q1Dir/                  q3Dir/
+initial.image.mtimes*   q2Dir/
+
+testdir/qdir/q1Dir:
+qqq.[001-005].jpg z:[1-5]
+
+testdir/qdir/q2Dir:
+qqq.[002-006].jpg z:[2-6]
+
+testdir/qdir/q3Dir:
+qqq.[003-007].jpg z:[3-7]
+
 ------ Test 9 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
@@ -1399,6 +1442,12 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.001.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.005.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.002.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
 
 ------ Test 10 ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -1597,6 +1646,12 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
 /...absPathToRepo.../tests/testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.001.jpg
+/...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.005.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.002.jpg
+/...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
+/...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
 
 ------ Test 11 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
@@ -1787,6 +1842,12 @@ testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.08.jpg
 testdir/pdir/p02_dir/p02B_dir/p02B_median7_v02.12.jpg
 testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.08.jpg
 testdir/pdir/p02_dir/p02B_dir/p02B_median7_v03.12.jpg
+testdir/qdir/q1Dir/qqq.001.jpg
+testdir/qdir/q1Dir/qqq.005.jpg
+testdir/qdir/q2Dir/qqq.002.jpg
+testdir/qdir/q2Dir/qqq.006.jpg
+testdir/qdir/q3Dir/qqq.003.jpg
+testdir/qdir/q3Dir/qqq.007.jpg
 
 ------ Test 12 ------ lsseq -p ------
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
@@ -1823,6 +1884,7 @@ mkTestFrames.v02.nk
 mk_hdir_Frames.v01.nk
 ndir
 pdir
+qdir
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -2057,6 +2119,13 @@ p_median4_v01.[08-12].jpg z:[8-12]
 p_median4_v02.[08-12].jpg z:[8-12]
 p_median4_v03.[08-12].jpg z:[8-12]
 
+qdir:
+custom.touch.images
+initial.image.mtimes
+q1Dir
+q2Dir
+q3Dir
+
 ------ Test 15 ------ lsseq -l * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
@@ -2257,6 +2326,13 @@ p02_dir
 p_median4_v01.[08-12].jpg z:[8-12]
 p_median4_v02.[08-12].jpg z:[8-12]
 p_median4_v03.[08-12].jpg z:[8-12]
+
+qdir:
+custom.touch.images
+initial.image.mtimes
+q1Dir
+q2Dir
+q3Dir
 
 ------ Test 16 ------ lsseq ------
 aaaa
@@ -2671,10 +2747,11 @@ ccc02.[0-9][0-9][0-9].exr
 ccc03.[0-9][0-9].tga
 
 ------ Test 28 ------ lsseq -i ------
-lsseq: note: lsseq also recognizes all extensions below when uppercase.
-LSSEQ_IMAGE_EXTENSION: alpha:als:anim:ari:arw:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
-LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:mxf:wmv
-LSSEQ_CACHE_EXTENSION: ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:tx:vdb:vdb.gz:vdb.sc
+lsseq: Modify the following environment variables to extend the supported file types.
+       NOTE: lsseq also recognizes the following extensions when uppercase.
+  export LSSEQ_IMAGE_EXTENSION=alpha:als:anim:ari:arw:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
+  export LSSEQ_MOV_EXTENSION=avi:mov:mp4:mpg:mxf:wmv
+  export LSSEQ_CACHE_EXTENSION=ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:tx:vdb:vdb.gz:vdb.sc
 
 ------ Test 29 ------ lsseq -M ------
 aaaa
@@ -2954,6 +3031,7 @@ mkTestFrames.v02.nk
 mk_hdir_Frames.v01.nk
 ndir
 pdir
+qdir
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -3453,6 +3531,22 @@ p02A_median6_v03.[08-12].jpg z:[8-12]
 p02B_median7_v01.[08-12].jpg z:[8-12]
 p02B_median7_v02.[08-12].jpg z:[8-12]
 p02B_median7_v03.[08-12].jpg z:[8-12]
+
+/...absPathToRepo.../tests/testdir/qdir:
+custom.touch.images
+initial.image.mtimes
+q1Dir
+q2Dir
+q3Dir
+
+/...absPathToRepo.../tests/testdir/qdir/q1Dir:
+qqq.[001-005].jpg z:[1-5]
+
+/...absPathToRepo.../tests/testdir/qdir/q2Dir:
+qqq.[002-006].jpg z:[2-6]
+
+/...absPathToRepo.../tests/testdir/qdir/q3Dir:
+qqq.[003-007].jpg z:[3-7]
 
 /...absPathToRepo.../tests/testdir/cdir:
 aaaa
@@ -3955,10 +4049,11 @@ nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
 
 ------ Test 64 ------ lsseq -i ------
-lsseq: note: lsseq also recognizes all extensions below when uppercase.
-LSSEQ_IMAGE_EXTENSION: alpha:als:anim:ari:arw:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
-LSSEQ_MOV_EXTENSION: avi:mov:mp4:mpg:mxf:wmv
-LSSEQ_CACHE_EXTENSION: ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:tx:vdb:vdb.gz:vdb.sc
+lsseq: Modify the following environment variables to extend the supported file types.
+       NOTE: lsseq also recognizes the following extensions when uppercase.
+  export LSSEQ_IMAGE_EXTENSION=alpha:als:anim:ari:arw:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
+  export LSSEQ_MOV_EXTENSION=avi:mov:mp4:mpg:mxf:wmv
+  export LSSEQ_CACHE_EXTENSION=ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:tx:vdb:vdb.gz:vdb.sc
 
 ------ Test 65 ------ lsseq --onlyImages ------
 
@@ -4697,19 +4792,67 @@ pdir/p_median4_v01.[08-12].jpg
 pdir/p_median4_v03.[08-12].jpg
 pdir/p_median4_v02.[08-12].jpg
 
------- Test 90 ------ lsseq -i ------
-lsseq: note: lsseq also recognizes all extensions below when uppercase.
-LSSEQ_IMAGE_EXTENSION: exr:jpg
-LSSEQ_MOV_EXTENSION: mov
-LSSEQ_CACHE_EXTENSION: ass:fur
+------ Test 90 ------ ls -R -T -t -o ------
+total 16
+drwxrwxrwx  7 testUser  224 Feb 10 11:04:00 2023 q3Dir
+drwxrwxrwx  7 testUser  224 Feb 10 11:03:00 2023 q2Dir
+drwxrwxrwx  7 testUser  224 Feb 10 11:02:00 2023 q1Dir
+-rwxrwxrwx  1 testUser  627 Feb 10 11:01:00 2023 initial.image.mtimes
+-rwxrwxrwx  1 testUser  892 Feb 10 11:00:00 2023 custom.touch.images
 
------- Test 91 ------ lsseq --onlyImages ------
+./q3Dir:
+total 0
+-rwxrwxrwx  1 testUser  0 Feb  5 13:32:00 2023 qqq.007.jpg
+-rwxrwxrwx  1 testUser  0 Feb  5 13:31:00 2023 qqq.006.jpg
+-rwxrwxrwx  1 testUser  0 Feb  5 13:30:00 2023 qqq.005.jpg
+-rwxrwxrwx  1 testUser  0 Feb  5 13:29:00 2023 qqq.004.jpg
+-rwxrwxrwx  1 testUser  0 Feb  5 09:28:00 2023 qqq.003.jpg
 
------- Test 92 ------ lsseq --onlyMovies ------
+./q2Dir:
+total 0
+-rwxrwxrwx  1 testUser  0 Feb  5 14:32:00 2023 qqq.006.jpg
+-rwxrwxrwx  1 testUser  0 Feb  5 12:31:00 2023 qqq.005.jpg
+-rwxrwxrwx  1 testUser  0 Feb  5 12:30:00 2023 qqq.004.jpg
+-rwxrwxrwx  1 testUser  0 Feb  5 12:29:00 2023 qqq.003.jpg
+-rwxrwxrwx  1 testUser  0 Feb  5 10:28:00 2023 qqq.002.jpg
+
+./q1Dir:
+total 0
+-rwxrwxrwx  1 testUser  0 Feb  5 11:32:00 2023 qqq.005.jpg
+-rwxrwxrwx  1 testUser  0 Feb  5 11:31:00 2023 qqq.004.jpg
+-rwxrwxrwx  1 testUser  0 Feb  5 11:30:00 2023 qqq.003.jpg
+-rwxrwxrwx  1 testUser  0 Feb  5 11:29:00 2023 qqq.002.jpg
+-rwxrwxrwx  1 testUser  0 Feb  5 11:28:00 2023 qqq.001.jpg
+
+------ Test 91 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median qdir ------
+qdir/q3Dir/qqq.[003-007].jpg
+qdir/q2Dir/qqq.[002-006].jpg
+qdir/q1Dir/qqq.[001-005].jpg
+
+------ Test 92 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest qdir ------
+qdir/q1Dir/qqq.[001-005].jpg
+qdir/q2Dir/qqq.[002-006].jpg
+qdir/q3Dir/qqq.[003-007].jpg
+
+------ Test 93 ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest qdir ------
+qdir/q2Dir/qqq.[002-006].jpg
+qdir/q3Dir/qqq.[003-007].jpg
+qdir/q1Dir/qqq.[001-005].jpg
+
+------ Test 94 ------ lsseq -i ------
+lsseq: Modify the following environment variables to extend the supported file types.
+       NOTE: lsseq also recognizes the following extensions when uppercase.
+  export LSSEQ_IMAGE_EXTENSION=exr:jpg
+  export LSSEQ_MOV_EXTENSION=mov
+  export LSSEQ_CACHE_EXTENSION=ass:fur
+
+------ Test 95 ------ lsseq --onlyImages ------
+
+------ Test 96 ------ lsseq --onlyMovies ------
 xxx01.mov
 xxx02.mov
 
------- Test 93 ------ lsseq --onlyCaches ------
+------ Test 97 ------ lsseq --onlyCaches ------
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
