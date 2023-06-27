@@ -115,10 +115,9 @@ if [ "$TEST_SYSTEM_LSSEQ" = no ]; then
 
     if [[ ! ":$PATH:" == *":$TEST_DIR:"* ]]; then
         export PATH="$TEST_DIR:$PATH"
-        echo \# Run the following command once to help live testing.
-        echo export PATH=\"$TEST_DIR:\$PATH\"
     fi
 else
+    /bin/rm lsseq > /dev/null 2>&1 # Remove soft-linked lsseq if in this test dir
     TEST_OUT_FILENAME=test_lsseq.out.`uname`.installed.new
 fi
 
