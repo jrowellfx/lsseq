@@ -13,9 +13,9 @@ echo
 echo Run the following lines to make the repo version of lsseq
 echo the active command \(instead of the one installed sitewide.\)
 echo
-echo "   " ln -sf ../lsseq/__main__.py lsseq
-echo "   " if [[ ! ":$PATH:" == *":$TEST_DIR:"* ]]; then
-echo "       " export PATH="$TEST_DIR:$PATH"
-echo "   " fi
+echo '    ln -sf ../lsseq/__main__.py lsseq'
+echo '    if [[ ! ":$PATH:" == *":$TEST_DIR:"* ]]; then'
+echo '        export PATH="$TEST_DIR:$PATH"'
+echo '    fi'
 echo
 
