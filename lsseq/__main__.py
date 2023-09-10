@@ -166,7 +166,7 @@ gImageExtList = [
 #
 # Note: We MUST list %y before %Y in each case below to make sure
 # that, for example, "200731" get's interpreted as July 31, 2020
-# and not May 1, 2007, as it will if %Y is listed first because
+# and not March 1, 2007, as it will if %Y is listed first because
 # strptime() does not enforce zero padding for month, day, etc.
 #
 # Note the ordered pairs below. The second entry is the length
