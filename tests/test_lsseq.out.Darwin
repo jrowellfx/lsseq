@@ -3871,7 +3871,7 @@ v003/hhh01.[0001-0040].jpg
 v003/hhh02.[0001-0040].jpg
 v003/hhh03.[0001-0040].jpg
 
------- Test 52 ------ lsseq --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/* v003/* ------
+------ Test 52 ------ lsseq --onlyShow before 20150701-1821 -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -3886,7 +3886,7 @@ v001/hhh02.[0001-0040].jpg
 v001/hhh03.[0001-0040].jpg
 v002/hhh01.[0001-0040].jpg
 
------- Test 53 ------ lsseq --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/* ------
+------ Test 53 ------ lsseq --onlyShow before 150701-1821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -4031,17 +4031,17 @@ nnn_v03.[0005-0015].jpg
 custom.touch.images
 nnn_v01.[0005-0015].jpg
 
------- Test 61 ------ lsseq --onlyShow since 20100615-12 --time oldest ------
+------ Test 61 ------ lsseq --onlyShow since 100615-12 --time oldest ------
 custom.touch.images
 nnn_v05.[0005-0015].jpg
 
------- Test 62 ------ lsseq --onlyShow since 20100615-12 --time median ------
+------ Test 62 ------ lsseq --onlyShow since 100615-12 --time median ------
 custom.touch.images
 nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
 
------- Test 63 ------ lsseq --onlyShow since 20100615-12 --time newest ------
+------ Test 63 ------ lsseq --onlyShow since 100615-12 --time newest ------
 custom.touch.images
 nnn_v02.[0005-0015].jpg
 nnn_v03.[0005-0015].jpg
