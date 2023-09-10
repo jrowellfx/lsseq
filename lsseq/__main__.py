@@ -68,7 +68,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "2.7.2"     # Semantic Versioning 2.0.0
+VERSION = "2.7.1"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
