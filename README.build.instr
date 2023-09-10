@@ -26,6 +26,11 @@ run the tests - make sure everthing is OK
 
 Update the version number in README.md appendix example
 
+If on Linux, then PUSH up to github, and pull down to macos and test before building
+and uploading to pypi
+
+IF on working branch FIRST merge it back to master
+
 python3 -m build
 
 # Change next line to whatever latest version is. Then use
