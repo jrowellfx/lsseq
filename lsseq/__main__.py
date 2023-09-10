@@ -68,7 +68,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "2.7.1"     # Semantic Versioning 2.0.0
+VERSION = "2.7.2"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -162,19 +162,30 @@ gImageExtList = [
     "tpic"
 ]
 
+# List of date formats accepted to set file times with --onlyShow.
+#
+# Note: We MUST list %y before %Y in each case below to make sure
+# that, for example, "200731" get's interpreted as July 31, 2020
+# and not May 1, 2007, as it will if %Y is listed first because
+# strptime() does not enforce zero padding for month, day, etc.
+#
+# Note the ordered pairs below. The second entry is the length
+# of a properly zero padded date string, used to double check
+# any matches that strptime() makes.
+#
 DATE_FORMAT_LIST = [
-    '%y%m%d',
-    '%Y%m%d',
-    '%y%m%d-%H',
-    '%Y%m%d-%H',
-    '%y%m%d-%H%M',
-    '%Y%m%d-%H%M',
-    '%y%m%d-%H%M%S',
-    '%Y%m%d-%H%M%S',
-    '%y%m%d%H%M',    # Undocumented, but kept for compatibility
-    '%Y%m%d%H%M',    # with earlier versions (v2.5.3 and earlier)
-    '%y%m%d%H%M.%S', # of lsseq. Note MMDDhhmm[.ss] is no longer
-    '%Y%m%d%H%M.%S'  # supported, thus not FULLY backward compatible.
+    ('%y%m%d', 6),
+    ('%Y%m%d', 8),
+    ('%y%m%d-%H', 9),
+    ('%Y%m%d-%H', 11),
+    ('%y%m%d-%H%M', 11),
+    ('%Y%m%d-%H%M', 13),
+    ('%y%m%d-%H%M%S', 13),
+    ('%Y%m%d-%H%M%S', 15),
+    ('%y%m%d%H%M', 10),    # Undocumented, but kept for compatibility
+    ('%Y%m%d%H%M', 12),    # with earlier versions (v2.5.3 and earlier)
+    ('%y%m%d%H%M.%S', 13), # of lsseq. Note MMDDhhmm[.ss] is no longer
+    ('%Y%m%d%H%M.%S', 15)  # supported, thus not FULLY backward compatible.
 ]
 
 # Support for --globalSortByTime feature.
@@ -1371,19 +1382,40 @@ def main() :
                     file=sys.stderr, sep='')
             sys.exit(1)
 
-        import datetime
-        import dateparser
+        from datetime import datetime
 
         # Process the cutoff time set.
+        # Loop through list of acceptable formats declared globally.
         #
-        tzName = datetime.datetime.now(datetime.timezone.utc).astimezone().tzname()
-        parsers = ['custom-formats']
-        timeData = dateparser.parse( \
-            args.cutoffTime[1], \
-            date_formats=DATE_FORMAT_LIST, \
-            settings={'TIMEZONE': tzName, 'PARSERS': parsers})
+        matchedDate = False
+        for dateFormat in DATE_FORMAT_LIST :
+            try:
+                timeData = datetime.strptime(args.cutoffTime[1], dateFormat[0])
 
-        if timeData == None :
+                # Make sure the prior strptime() call matched against a string
+                # with zero padding for month, day, etc. If the length of the matched
+                # string doesn't add up to what it should be if zero padded
+                # then reject the match and keep looping.
+                #
+                # This test is needed since strptime() does not ENFORCE zero
+                # padding of months, days, minutes etc. leading to possible
+                # ambiguity and thus is an undesireable feature of strptime().
+                #
+                # This code works around that limitation.
+                #
+                if len(args.cutoffTime[1]) == dateFormat[1] :
+                    matchedDate = True
+                    break
+
+            except ValueError as ve:
+                # Note, we could probably make clever use of the ValueError
+                # reported here, but since we have a list of possible formats
+                # sorting it out if everthing fails seems like more trouble
+                # than it's worth.
+                #
+                continue
+
+        if not matchedDate :
             if not args.silent :
                 print(PROG_NAME,
                     ": error: argument --onlyShow: the time must be of the form [CC]YYMMDD[-hh[mm[ss]]]",

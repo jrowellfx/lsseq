@@ -223,8 +223,8 @@ testdir/idir lsseq -R
 testdir/idir lsseq -P *
 testdir/idir lsseq -p *
 testdir/hdir lsseq -t -r -P foo/*/* v001/* v002/* v003/*
-testdir/hdir lsseq --onlyShow before 201507011821 -t -r -P foo/*/* v001/* v002/* v003/*
-testdir/hdir lsseq --onlyShow before 201507011821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/*
+testdir/hdir lsseq --onlyShow before 20150701-1821 -t -r -P foo/*/* v001/* v002/* v003/*
+testdir/hdir lsseq --onlyShow before   150701-1821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/*
 testdir/jdir lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R
 testdir/jdir/beauty/v001 lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R
 testdir/ndir ls $LS_FULL_TIME -o
@@ -232,9 +232,9 @@ testdir/ndir lsseq
 testdir/ndir lsseq --onlyShow before 20100615-12 --time oldest
 testdir/ndir lsseq --onlyShow before 20100615-12 --time median
 testdir/ndir lsseq --onlyShow before 20100615-12 --time newest
-testdir/ndir lsseq --onlyShow since  20100615-12 --time oldest
-testdir/ndir lsseq --onlyShow since  20100615-12 --time median
-testdir/ndir lsseq --onlyShow since  20100615-12 --time newest
+testdir/ndir lsseq --onlyShow since    100615-12 --time oldest
+testdir/ndir lsseq --onlyShow since    100615-12 --time median
+testdir/ndir lsseq --onlyShow since    100615-12 --time newest
 .            lsseq -i
 testdir/gdir lsseq --onlyImages
 testdir/gdir lsseq --onlyMovies
