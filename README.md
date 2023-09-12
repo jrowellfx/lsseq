@@ -293,7 +293,7 @@ so that they are accessible to all users. This works on both MacOS and Linux.
     # ln -s /usr/local/venv/bin/expandseq /usr/local/bin/expandseq
     # ln -s /usr/local/venv/bin/condenseseq /usr/local/bin/condenseseq
     # ln -s /usr/local/venv/bin/renumseq /usr/local/bin/renumseq
-    # ln -s /usr/local/venv/bin/fixSeqPadding /usr/local/bin/fixSeqPadding
+    # ln -s /usr/local/venv/bin/fixseqpadding /usr/local/bin/fixseqpadding
     # exit
     $ lsseq --version
     2.7.1
