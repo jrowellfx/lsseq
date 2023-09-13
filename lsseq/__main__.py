@@ -68,7 +68,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "2.7.1"     # Semantic Versioning 2.0.0
+VERSION = "2.7.2"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -1170,14 +1170,6 @@ def main() :
         option on the command line has the effect of ONLY \
         showing the badPadding error list ", \
         action = store_false_multiple("showMissing", "showZero", "showBad", "showBadPadding"))
-    p.add_argument("--extremes", "-e", action="store_true",
-        dest="extremes", default=False,
-        help="only list the first and last image on a separate line each. \
-        This option implies --prependPathAbs (unless --prependPathRel is \
-        explicitly specified) and --onlySequences")
-    p.add_argument("--imgExt", "-i", action="store_true",
-        dest="printImgExtensions", default=False,
-        help="print list of image, cache and movie file extensions and exit")
     p.add_argument("--looseNumSeparator", "-l", action="store_false",
         dest="strictSeparator",
         help="allow the use of '_' (underscore), in addition to '.' (dot) \
@@ -1185,10 +1177,16 @@ def main() :
             looking to interpret filenames as \
             image sequences. i.e., <descriptiveName>_<frameNum>.<imgExtension> \
             (also see --strictNumSeparator)")
+    p.add_argument("--strictNumSeparator", "-s", action="store_true",
+        dest="strictSeparator", default=True,
+        help="strictly enforce the use of '.' (dot) as a separator between the \
+            descriptiveName and frameNumber when looking to interpret filenames as \
+            image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension> \
+            (also see --looseNumSeparator) [default]")
+
     p.add_argument("--onlySequences", "-o", action="store_const",
         dest="listWhichFiles", default=LIST_ALLFILES, const=LIST_ONLYSEQS,
         help="only list image sequences, cache sequences and movies")
-
     p.add_argument("--onlyImages", "-O", action="store_const",
         dest="listWhichFiles", const=LIST_ONLYIMGS,
         help="strictly list only image sequences (i.e., no movies or caches)")
@@ -1198,6 +1196,9 @@ def main() :
     p.add_argument("--onlyCaches", action="store_const",
         dest="listWhichFiles", const=LIST_ONLYCACHES,
         help="strictly list only cache sequences (i.e., no images or movies)")
+    p.add_argument("--imgExt", "-i", action="store_true",
+        dest="printImgExtensions", default=False,
+        help="print list of image, cache and movie file extensions and exit")
 
     p.add_argument("--prependPathAbs", "-p", action="store_const",
         dest="prependPath", default=PATH_NOPREFIX, const=PATH_ABS,
@@ -1211,12 +1212,12 @@ def main() :
         This option implies the option --onlySequences and will also \
         suppress printing directory name headers when listing \
         directory contents")
-    p.add_argument("--strictNumSeparator", "-s", action="store_true",
-        dest="strictSeparator", default=True,
-        help="strictly enforce the use of '.' (dot) as a separator between the \
-            descriptiveName and frameNumber when looking to interpret filenames as \
-            image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension> \
-            (also see --looseNumSeparator) [default]")
+    p.add_argument("--extremes", "-e", action="store_true",
+        dest="extremes", default=False,
+        help="only list the first and last image on a separate line each. \
+        This option implies --prependPathAbs (unless --prependPathRel is \
+        explicitly specified) and --onlySequences")
+
     p.add_argument("--single", "-1", action="store_const",
         dest="byWhat", default=BY_UNSPECIFIED, const=BY_SINGLE,
         help="list one non-sequence entry per line (see ls(1))")
