@@ -27,7 +27,7 @@ setup(
 
     packages        = ['lsseq'],
     python_requires = '>=3.6, <4',
-    install_requires=['seqLister', 'dateparser'],
+    install_requires=['seqLister'],
 
     entry_points = {
         'console_scripts': [
