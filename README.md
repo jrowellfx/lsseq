@@ -92,7 +92,7 @@ handles negative frames properly and has been extensively tested and used at
 several production studios for many years.
 
 Furthermore, to ensure that updates to `lsseq` don't
-introduce new bugs, the `lsseq` repo contains extensive regression tests, which
+introduce new bugs, the `lsseq` repo contains extensive regression tests that
 are run and passed before every new release.
 
 ### Why use lsseq?
@@ -241,8 +241,8 @@ lists of sequences to pipe into other scripts.
 
 #### Sorting by modification times
 
-`/bin/ls` allows us to sort directory contents by modification time, as well as
-by filename. `lsseq` also duplicates this functionality, but adds options to specify
+`/bin/ls` allows us to sort directory contents by modification time as well as
+by filename. `lsseq` also duplicates this functionality but adds options to specify
 which frame from each sequence to use when comparing modification times. You can
 compare sequences by comparing the `oldest`, `median` or `newest` frames from
 each sequence with the `--time FRAME_AGE` option.
