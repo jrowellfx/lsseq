@@ -273,7 +273,7 @@ Please explore the rest of `lsseq's` capabilities by typing:
 
 Here's the process that I've followed to install `lsseq`, as well as my other
 python-based command-line
-tools (i.e., `expandseq`, `condenseseq` and `renumseq`)
+tools (i.e., [`renumseq`](https://github.com/jrowellfx/renumSeq), [`expandseq`](https://github.com/jrowellfx/expandseq), [`condenseseq`](https://github.com/jrowellfx/expandseq) and [`fixSeqPadding`](https://github.com/jrowellfx/fixSeqPadding))
 so that they are accessible to all users. This works on both MacOS and Linux.
 
 ```
