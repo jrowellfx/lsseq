@@ -46,7 +46,7 @@ however it can print sequences in a variety of formats useful for `nuke`,
     bbb.098.jpg  bbb.100.jpg  bbb.102.jpg
     $ lsseq
     bbb.[097-103].jpg
-    $ lsseq -f rv
+    $ lsseq --format rv
     bbb.97-103@@@.jpg
     $ rv `lsseq -f rv`
     <rv launches with sequence bbb>
@@ -82,8 +82,7 @@ If you don't have one handy you can try this to test it.
     aaa.[001-005].tif z:[1-5]
 ```
 Note the `z:[1-5]` which is telling you that the frames `aaa.[001-005].tif`
-have zero length, and if you had generated those with a renderer I'm
-guessing you'd need to rerender them.
+have zero length.
 
 ## Deeper dive on lsseq capabilities
 
@@ -102,7 +101,7 @@ If not already using `lsseq`, then all major post-production
 studios have some kind of version of this essential tool.
 However
 [I](https://github.com/jrowellfx) believe that
-`lsseq` is the quintessential version.
+`lsseq` is quintessential.
 
 #### lsseq reports useful information in a nice compact form
 
