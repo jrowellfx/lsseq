@@ -850,6 +850,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         extra_ls_options.append("--")
         lsCmd = ["ls", "-d"] + extra_ls_options + otherFiles
         sys.stdout.flush()
+        ## JPR - need to treat stderr output of next call properly if --silent
+        ## Also, need to capture error code to better set exit code of lsseq.
         subprocess.call(lsCmd)
         sys.stdout.flush()
         somethingWasPrinted = True
