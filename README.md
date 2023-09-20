@@ -314,7 +314,7 @@ Just kidding about the version number, maybe in the year 2159? Will Unix still b
 ### Helpful hint: Upgrading the system-wide default version of python3?
 
 Say you have installed `lsseq` as described above, while the default `python3` was linked to `python3.6`.
-(Try: ``ls -l `which python3` ``.)
+(Check with: `` ls -l `which python3` ``.)
 
 Then suppose the system default `python3` is then linked to a higher version of python (perhaps
 with the `alternatives` command). At that point running `lsseq` will error out like this:
