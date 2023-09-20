@@ -295,7 +295,7 @@ so that they are accessible to all users. This works on both MacOS and Linux.
     # ln -s /usr/local/venv/bin/fixseqpadding /usr/local/bin/fixseqpadding
     # exit
     $ lsseq --version
-    2.7.1
+    3.0.0
 ```
 At this point any user should be able to run any of the commands linked in the example above.
 Note that updates are easy now too. Say there's an update to lsseq that you want to install.
@@ -311,16 +311,25 @@ Note that updates are easy now too. Say there's an update to lsseq that you want
 
 Just kidding about the version number, maybe in the year 2159? Will Unix still be a thing!?
 
+### Helpful hint: Upgrading the default version of python3?
+
+Say you have installed `lsseq` as described above, while the default `python3` was linked to `python3.6`.
+(Try: ``ls -l `which python3` ``.)
+
+Then suppose the system default `python3` is then linked to a higher version of python (perhaps
+with the `alternatives` command). At that point running `lsseq` will error out like this:
+
+```
+Traceback (most recent call last):
+  File "/usr/local/bin/lsseq", line 5, in <module>
+    from lsseq.__main__ import main
+ModuleNotFoundError: No module named 'lsseq'
+```
+This is an easy problem to fix. Delete (or move to a backup location)
+the entire directory `/usr/local/venv` and redo the steps above
+to install lsseq, renumseq, expandseq etc. from scratch.
+
 ## Contact
 
 Please contact `j a m e s <at> a l p h a - e l e v e n . c o m` with any bug
 reports, suggestions or praise as the case may be.
-
-<!--
-
-and is used by another command-line
-tool called [`renumseq`](https://github.com/jrowellfx/renumSeq).
-
-(see `lsseq --help` and in particular `--imgExt`).
-(see `lsseq --help` for `--looseNumSeparator, -l`).
--->
