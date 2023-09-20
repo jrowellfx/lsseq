@@ -574,6 +574,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                     else :
                         print(actualFilename, " is a broken soft link", sep='', file=sys.stderr)
                     sys.stderr.flush()
+                    ## Set error code to be returned at the end?
 
             if not iMissing and (args.showZero or args.showBad or args.showBadPadding) :
                 if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :

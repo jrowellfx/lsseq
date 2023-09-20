@@ -1,6 +1,7 @@
 cd $HOME
 
 # First step if not done yet.
+# Blow away old venv, and redo this, if upgraded python versions.
     python3 -m venv venv
     source venv/bin/activate
     python3 -m pip install --upgrade pip setuptools wheel
