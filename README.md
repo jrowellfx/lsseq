@@ -311,7 +311,7 @@ Note that updates are easy now too. Say there's an update to lsseq that you want
 
 Just kidding about the version number, maybe in the year 2159? Will Unix still be a thing!?
 
-### Helpful hint: Upgrading the default version of python3?
+### Helpful hint: Upgrading the system-wide default version of python3?
 
 Say you have installed `lsseq` as described above, while the default `python3` was linked to `python3.6`.
 (Try: ``ls -l `which python3` ``.)
