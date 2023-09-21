@@ -271,6 +271,35 @@ testdir/qdir ls -R $LS_FULL_TIME -t -o
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median qdir
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest qdir
 testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest qdir
+testdir/idir/v002 ls
+testdir/idir/v002 ls foobar
+testdir/idir/v002 lsseq
+testdir/idir      lsseq v002
+testdir           lsseq idir/v002
+testdir/idir/v002 lsseq -p
+testdir/idir/v002 lsseq -P
+testdir/idir      lsseq -P v002
+testdir           lsseq -P idir/v002
+testdir/idir/v002 lsseq iii01.*
+testdir/idir/v002 lsseq iii02.*
+testdir/idir/v002 lsseq iii03.*
+testdir/idir/v002 lsseq iii02.* foobar
+testdir/idir/v002 lsseq iii03.* foobar
+testdir/idir/v002 lsseq iii*.* foobar
+.                 lsseq $TEST_DIR/testdir/idir/v002/iii02.*
+testdir/idir/v002 lsseq --silent
+testdir/idir      lsseq --silent v002
+testdir           lsseq --silent idir/v002
+testdir/idir/v002 lsseq --silent -p
+testdir/idir/v002 lsseq --silent -P
+testdir/idir      lsseq --silent -P v002
+testdir           lsseq --silent -P idir/v002
+testdir/idir/v002 lsseq --silent iii01.*
+testdir/idir/v002 lsseq --silent iii02.*
+testdir/idir/v002 lsseq --silent iii03.*
+testdir/idir/v002 lsseq --silent iii02.* foobar
+testdir/idir/v002 lsseq --silent iii03.* foobar
+testdir/idir/v002 lsseq --silent iii*.* foobar
 EOF
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME
@@ -287,7 +316,7 @@ while true; do
     args=(${args[@]:2})
     echo "" >> $TEST_DIR/$TEST_OUT_FILENAME
     echo ------ Test $i ------
-    echo ------ Test $i ------ $cmd ${args[@]} ------ >> $TEST_DIR/$TEST_OUT_FILENAME
+    echo ------ Test $i : $workingDir ------ $cmd ${args[@]} ------ >> $TEST_DIR/$TEST_OUT_FILENAME
     cd $TEST_DIR/$workingDir
     set +f # Turn globbing back on
     $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
@@ -321,7 +350,7 @@ while true; do
     args=(${args[@]:2})
     echo "" >> $TEST_DIR/$TEST_OUT_FILENAME
     echo ------ Test $i ------
-    echo ------ Test $i ------ $cmd ${args[@]} ------ >> $TEST_DIR/$TEST_OUT_FILENAME
+    echo ------ Test $i : $workingDir ------ $cmd ${args[@]} ------ >> $TEST_DIR/$TEST_OUT_FILENAME
     cd $TEST_DIR/$workingDir
     set +f
     $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
