@@ -419,10 +419,12 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
     maxFrame = frameList[-1][FRAME_NUM]
     padding = 0 # Set below, created here for scope.
 
-    # Go through frameList and look for duplicated frame numbers.
-    # Throw out duplicates, keeping ONLY the frame with the smallest
-    # padding (frameList is already sorted by frame number AND padding).
-    # Note that if there is a four-padded sequence, e.g.:
+    # Go through frameList and look for duplicated frame numbers,
+    # printing a WARNING when finding duplicates.
+    #
+    # Throw out duplicates, and arbitrarily keep ONLY the frame with
+    # the smallest padding (frameList is already sorted by frame number
+    # AND padding). For example: if there is a four-padded sequence,
     #
     #    a.0001.exr, a.0002.exr, a.0003.exr, a.0004.exr
     #
@@ -430,12 +432,16 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
     #
     #    a.1.exr
     #
-    # then lsseq (native output) will report the sequence as only one-padded,
-    # but will report frames 2, 3 and 4 as badly-padded. This is probably wrong
-    # as far as the user is concerned.  But it's up to the user to sort out what's
-    # supposed to happen, and how to get rid of the duplicate file.
+    # then due to how padding is calculated below, lsseq will report
+    # the sequence as only one-padded, but will report frames 2, 3 and 4
+    # as badly-padded. This is probably wrong as far as the user is concerned.
+    # But it's up to the user to sort out what's supposed to happen, and how
+    # to get rid of the duplicate file, and fix the padding.
     #
-    # lsseq Will print WARNINGS when finding files with duplicated frame numbers.
+    # However a.0001.exr, a.0002.exr, a.0003.exr, a.0004.exr, a.2.exr
+    #
+    # ...will only report frame 2 as badly padded, also warning about a.0002.exr
+    #
     #
     frameListLen = len(frameList)
     uniqueFrameList = [frameList[0]]
@@ -444,20 +450,24 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
         if frameList[i][FRAME_NUM] == uniqueFrameList[-1][FRAME_NUM] :
             if not args.silent :
                 actualFilename = actualImageName(filenameKey, 
+                    uniqueFrameList[-1][FRAME_PADDING], uniqueFrameList[-1][FRAME_NUM])
+                duplicateFilename = actualImageName(filenameKey, 
                     frameList[i][FRAME_PADDING], frameList[i][FRAME_NUM])
                 sys.stdout.flush()
                 sys.stderr.flush()
                 print(PROG_NAME, ": warning: ",
                     end='', sep='', file=sys.stderr)
                 if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-                    print(traversedPath, sep='', end='', file=sys.stderr)
-                    print(os.path.basename(actualFilename),
-                    " is a duplicate (with different padding) of frame number: ",
-                    frameList[i][FRAME_NUM], sep='', file=sys.stderr)
+                    print("sequence: ", traversedPath, sep='', end='', file=sys.stderr)
+                    print(fileComponents[0][:-1], ", frame ", frameList[i][FRAME_NUM],
+                        ", has duplicate entries: ",
+                        os.path.basename(actualFilename), " and ", os.path.basename(duplicateFilename),
+                        sep='', file=sys.stderr)
                 else :
-                    print(actualFilename,
-                    " is a duplicate (with different padding) of frame number: ",
-                    frameList[i][FRAME_NUM], sep='', file=sys.stderr)
+                    print("sequence ", fileComponents[0][:-1], ", frame ", frameList[i][FRAME_NUM],
+                        ", has duplicate entries: ",
+                        actualFilename, " and ", duplicateFilename,
+                        sep='', file=sys.stderr)
                 sys.stderr.flush()
             gExitStatus = gExitStatus | EXIT_LSSEQ_PADDING_WARNING
         else :
@@ -472,8 +482,8 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
     # for negative numbers, then it it doesn't matter which one we
     # choose, so we leave it at 2.
     #
-    # See example: expandseq --pad 3 ' -11-11',
-    #         and: expandseq --pad 2 ' -11-11'
+    # See example: expandseq --pad 3 -- -11-11
+    #         and: expandseq --pad 2 -- -11-11
     # 
     if minFrame >= 0 :
         padding = uniqueFrameList[0][FRAME_PADDING]

@@ -103,6 +103,7 @@ cleanup() {
     /bin/rm $tmpArgs > /dev/null 2>&1
     /bin/rm $tmpfile > /dev/null 2>&1
     /bin/rm $TEST_DIR/testdir/jdir/j03/j04.005.jpg > /dev/null 2>&1
+    /bin/rm $TEST_DIR/testdir/idir/v002/iii03.0005.jpg > /dev/null 2>&1
     exit 0
 }
 
@@ -157,6 +158,11 @@ cd $TEST_DIR
 cd testdir/jdir/j03
 /bin/rm -f j04.005.jpg
 ln -s missing.jpg j04.005.jpg
+cd $TEST_DIR
+
+cd testdir/idir/v002
+/bin/rm -f iii03.0005.jpg
+ln -s missing.jpg iii03.0005.jpg
 cd $TEST_DIR
 
 if [ `uname` = Darwin ]; then

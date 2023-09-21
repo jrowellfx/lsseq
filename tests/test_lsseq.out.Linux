@@ -274,12 +274,17 @@ hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
 testdir/idir:
-v001/
+v001/  v002/
 
 testdir/idir/v001:
 iii01.[0001-0040].jpg
 iii02.[0001-0040].jpg
 iii03.[0001-0040].jpg
+
+testdir/idir/v002:
+iii01.[0001-0010].jpg
+iii02.[1-10].jpg p:[2-10]
+iii03.[0001-0010].jpg z:[5]
 
 testdir/jdir:
 beauty/  j01/  j02/  j03/
@@ -481,6 +486,12 @@ lsseq returned non-zero error code: 12
 /...absPathToRepo.../tests/testdir/idir/v001/iii02.0040.jpg
 /...absPathToRepo.../tests/testdir/idir/v001/iii03.0001.jpg
 /...absPathToRepo.../tests/testdir/idir/v001/iii03.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii01.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii01.0010.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii02.1.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii02.10.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii03.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii03.0010.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.0007.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.1002.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.0007.jpg
@@ -677,6 +688,12 @@ lsseq returned non-zero error code: 12
 /...absPathToRepo.../tests/testdir/idir/v001/iii02.0040.jpg
 /...absPathToRepo.../tests/testdir/idir/v001/iii03.0001.jpg
 /...absPathToRepo.../tests/testdir/idir/v001/iii03.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii01.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii01.0010.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii02.1.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii02.10.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii03.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii03.0010.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.0007.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.1002.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.0007.jpg
@@ -865,6 +882,12 @@ testdir/idir/v001/iii02.0001.jpg
 testdir/idir/v001/iii02.0040.jpg
 testdir/idir/v001/iii03.0001.jpg
 testdir/idir/v001/iii03.0040.jpg
+testdir/idir/v002/iii01.0001.jpg
+testdir/idir/v002/iii01.0010.jpg
+testdir/idir/v002/iii02.1.jpg
+testdir/idir/v002/iii02.10.jpg
+testdir/idir/v002/iii03.0001.jpg
+testdir/idir/v002/iii03.0010.jpg
 testdir/jdir/beauty/v001/filename.0007.jpg
 testdir/jdir/beauty/v001/filename.1002.jpg
 testdir/jdir/beauty/v002/filename.0007.jpg
@@ -1118,12 +1141,19 @@ hhh02.[0001-0040].jpg
 hhh03.[0001-0040].jpg
 
 testdir/idir:
-v001/
+v001/  v002/
 
 testdir/idir/v001:
 iii01.[0001-0040].jpg
 iii02.[0001-0040].jpg
 iii03.[0001-0040].jpg
+
+testdir/idir/v002:
+iii01.[0001-0010].jpg
+lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
+iii02.[1-10].jpg p:[2-10]
+lsseq: warning: iii03.0005.jpg is a broken soft link
+iii03.[0001-0010].jpg z:[5]
 
 testdir/jdir:
 beauty/  j01/  j02/  j03/
@@ -1140,22 +1170,22 @@ sort.ls*
 filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1002]
 
 testdir/jdir/j01:
-lsseq: warning: j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: sequence j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
 j.[0100-0140].jpg m:[101,134-139], z:[100,102-133,140], p:[102-105,131-133,140]
 
 testdir/jdir/j02:
-lsseq: warning: j.00108.jpg is a duplicate (with different padding) of frame number: 108
-lsseq: warning: j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: sequence j, frame 108, has duplicate entries: j.108.jpg and j.00108.jpg
+lsseq: warning: sequence j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
 j.[0100-0140].jpg m:[101,134-139], z:[100,102-133,140], p:[102-105,108,119-120,126]
 
 testdir/jdir/j03:
-lsseq: warning: j01.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: sequence j01, frame 9, has duplicate entries: j01.09.jpg and j01.0009.jpg
 j01.[1-9].jpg z:[1-9], p:[2-9]
-lsseq: warning: j02.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: sequence j02, frame 9, has duplicate entries: j02.09.jpg and j02.0009.jpg
 j02.[001-009].jpg z:[1-9], p:[2,9]
-lsseq: warning: j03.05.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: j03.005.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: j03.0005.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.05.jpg
+lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.005.jpg
+lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.0005.jpg
 j03.[001-009].jpg z:[1-9], p:[5]
 lsseq: warning: j04.005.jpg is a broken soft link
 j04.[-10-010].jpg z:[-10-10], p:[-7,1,10]
@@ -1334,26 +1364,34 @@ lsseq returned non-zero error code: 12
 /...absPathToRepo.../tests/testdir/idir/v001/iii02.0040.jpg
 /...absPathToRepo.../tests/testdir/idir/v001/iii03.0001.jpg
 /...absPathToRepo.../tests/testdir/idir/v001/iii03.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii01.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii01.0010.jpg
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/idir/v002/iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii02.1.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii02.10.jpg
+lsseq: warning: /...absPathToRepo.../tests/testdir/idir/v002/iii03.0005.jpg is a broken soft link
+/...absPathToRepo.../tests/testdir/idir/v002/iii03.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii03.0010.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.0007.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.1002.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.0007.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.1002.jpg
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j01/j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j01/j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
 /...absPathToRepo.../tests/testdir/jdir/j01/j.0100.jpg
 /...absPathToRepo.../tests/testdir/jdir/j01/j.0140.jpg
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j02/j.00108.jpg is a duplicate (with different padding) of frame number: 108
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j02/j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j02/j, frame 108, has duplicate entries: j.108.jpg and j.00108.jpg
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j02/j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
 /...absPathToRepo.../tests/testdir/jdir/j02/j.0100.jpg
 /...absPathToRepo.../tests/testdir/jdir/j02/j.0140.jpg
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j01.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j03/j01, frame 9, has duplicate entries: j01.09.jpg and j01.0009.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j01.1.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j01.9.jpg
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j02.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j03/j02, frame 9, has duplicate entries: j02.09.jpg and j02.0009.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j02.001.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j02.009.jpg
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j03.05.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j03.005.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j03.0005.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j03/j03, frame 5, has duplicate entries: j03.5.jpg and j03.05.jpg
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j03/j03, frame 5, has duplicate entries: j03.5.jpg and j03.005.jpg
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j03/j03, frame 5, has duplicate entries: j03.5.jpg and j03.0005.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j03.001.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j03.009.jpg
 lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a broken soft link
@@ -1539,26 +1577,34 @@ lsseq returned non-zero error code: 12
 /...absPathToRepo.../tests/testdir/idir/v001/iii02.0040.jpg
 /...absPathToRepo.../tests/testdir/idir/v001/iii03.0001.jpg
 /...absPathToRepo.../tests/testdir/idir/v001/iii03.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii01.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii01.0010.jpg
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/idir/v002/iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii02.1.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii02.10.jpg
+lsseq: warning: /...absPathToRepo.../tests/testdir/idir/v002/iii03.0005.jpg is a broken soft link
+/...absPathToRepo.../tests/testdir/idir/v002/iii03.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii03.0010.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.0007.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.1002.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.0007.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.1002.jpg
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j01/j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j01/j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
 /...absPathToRepo.../tests/testdir/jdir/j01/j.0100.jpg
 /...absPathToRepo.../tests/testdir/jdir/j01/j.0140.jpg
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j02/j.00108.jpg is a duplicate (with different padding) of frame number: 108
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j02/j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j02/j, frame 108, has duplicate entries: j.108.jpg and j.00108.jpg
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j02/j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
 /...absPathToRepo.../tests/testdir/jdir/j02/j.0100.jpg
 /...absPathToRepo.../tests/testdir/jdir/j02/j.0140.jpg
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j01.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j03/j01, frame 9, has duplicate entries: j01.09.jpg and j01.0009.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j01.1.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j01.9.jpg
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j02.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j03/j02, frame 9, has duplicate entries: j02.09.jpg and j02.0009.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j02.001.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j02.009.jpg
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j03.05.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j03.005.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j03.0005.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j03/j03, frame 5, has duplicate entries: j03.5.jpg and j03.05.jpg
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j03/j03, frame 5, has duplicate entries: j03.5.jpg and j03.005.jpg
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j03/j03, frame 5, has duplicate entries: j03.5.jpg and j03.0005.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j03.001.jpg
 /...absPathToRepo.../tests/testdir/jdir/j03/j03.009.jpg
 lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a broken soft link
@@ -1736,26 +1782,34 @@ testdir/idir/v001/iii02.0001.jpg
 testdir/idir/v001/iii02.0040.jpg
 testdir/idir/v001/iii03.0001.jpg
 testdir/idir/v001/iii03.0040.jpg
+testdir/idir/v002/iii01.0001.jpg
+testdir/idir/v002/iii01.0010.jpg
+lsseq: warning: sequence: testdir/idir/v002/iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
+testdir/idir/v002/iii02.1.jpg
+testdir/idir/v002/iii02.10.jpg
+lsseq: warning: testdir/idir/v002/iii03.0005.jpg is a broken soft link
+testdir/idir/v002/iii03.0001.jpg
+testdir/idir/v002/iii03.0010.jpg
 testdir/jdir/beauty/v001/filename.0007.jpg
 testdir/jdir/beauty/v001/filename.1002.jpg
 testdir/jdir/beauty/v002/filename.0007.jpg
 testdir/jdir/beauty/v002/filename.1002.jpg
-lsseq: warning: testdir/jdir/j01/j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: sequence: testdir/jdir/j01/j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
 testdir/jdir/j01/j.0100.jpg
 testdir/jdir/j01/j.0140.jpg
-lsseq: warning: testdir/jdir/j02/j.00108.jpg is a duplicate (with different padding) of frame number: 108
-lsseq: warning: testdir/jdir/j02/j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: sequence: testdir/jdir/j02/j, frame 108, has duplicate entries: j.108.jpg and j.00108.jpg
+lsseq: warning: sequence: testdir/jdir/j02/j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
 testdir/jdir/j02/j.0100.jpg
 testdir/jdir/j02/j.0140.jpg
-lsseq: warning: testdir/jdir/j03/j01.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: sequence: testdir/jdir/j03/j01, frame 9, has duplicate entries: j01.09.jpg and j01.0009.jpg
 testdir/jdir/j03/j01.1.jpg
 testdir/jdir/j03/j01.9.jpg
-lsseq: warning: testdir/jdir/j03/j02.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: sequence: testdir/jdir/j03/j02, frame 9, has duplicate entries: j02.09.jpg and j02.0009.jpg
 testdir/jdir/j03/j02.001.jpg
 testdir/jdir/j03/j02.009.jpg
-lsseq: warning: testdir/jdir/j03/j03.05.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: testdir/jdir/j03/j03.005.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: testdir/jdir/j03/j03.0005.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: sequence: testdir/jdir/j03/j03, frame 5, has duplicate entries: j03.5.jpg and j03.05.jpg
+lsseq: warning: sequence: testdir/jdir/j03/j03, frame 5, has duplicate entries: j03.5.jpg and j03.005.jpg
+lsseq: warning: sequence: testdir/jdir/j03/j03, frame 5, has duplicate entries: j03.5.jpg and j03.0005.jpg
 testdir/jdir/j03/j03.001.jpg
 testdir/jdir/j03/j03.009.jpg
 lsseq: warning: testdir/jdir/j03/j04.005.jpg is a broken soft link
@@ -2067,6 +2121,7 @@ v003
 
 idir:
 v001
+v002
 
 jdir:
 beauty
@@ -2275,6 +2330,7 @@ v003
 
 idir:
 v001
+v002
 
 jdir:
 beauty
@@ -3395,11 +3451,19 @@ hhh03.[0001-0040].jpg
 
 /...absPathToRepo.../tests/testdir/idir:
 v001
+v002
 
 /...absPathToRepo.../tests/testdir/idir/v001:
 iii01.[0001-0040].jpg
 iii02.[0001-0040].jpg
 iii03.[0001-0040].jpg
+
+/...absPathToRepo.../tests/testdir/idir/v002:
+iii01.[0001-0010].jpg
+lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
+iii02.[1-10].jpg p:[2-10]
+lsseq: warning: iii03.0005.jpg is a broken soft link
+iii03.[0001-0010].jpg z:[5]
 
 /...absPathToRepo.../tests/testdir/jdir:
 beauty
@@ -3420,22 +3484,22 @@ sort.ls
 filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1002]
 
 /...absPathToRepo.../tests/testdir/jdir/j01:
-lsseq: warning: j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: sequence j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
 j.[0100-0140].jpg m:[101,134-139], z:[100,102-133,140], p:[102-105,131-133,140]
 
 /...absPathToRepo.../tests/testdir/jdir/j02:
-lsseq: warning: j.00108.jpg is a duplicate (with different padding) of frame number: 108
-lsseq: warning: j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: sequence j, frame 108, has duplicate entries: j.108.jpg and j.00108.jpg
+lsseq: warning: sequence j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
 j.[0100-0140].jpg m:[101,134-139], z:[100,102-133,140], p:[102-105,108,119-120,126]
 
 /...absPathToRepo.../tests/testdir/jdir/j03:
-lsseq: warning: j01.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: sequence j01, frame 9, has duplicate entries: j01.09.jpg and j01.0009.jpg
 j01.[1-9].jpg z:[1-9], p:[2-9]
-lsseq: warning: j02.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: sequence j02, frame 9, has duplicate entries: j02.09.jpg and j02.0009.jpg
 j02.[001-009].jpg z:[1-9], p:[2,9]
-lsseq: warning: j03.05.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: j03.005.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: j03.0005.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.05.jpg
+lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.005.jpg
+lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.0005.jpg
 j03.[001-009].jpg z:[1-9], p:[5]
 lsseq: warning: j04.005.jpg is a broken soft link
 j04.[-10-010].jpg z:[-10-10], p:[-7,1,10]
@@ -3809,25 +3873,47 @@ ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 47 ------ lsseq ------
 v001
+v002
 
 ------ Test 48 ------ lsseq -R ------
 .:
 v001
+v002
 
 ./v001:
 iii01.[0001-0040].jpg
 iii02.[0001-0040].jpg
 iii03.[0001-0040].jpg
 
+./v002:
+iii01.[0001-0010].jpg
+lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
+iii02.[1-10].jpg p:[2-10]
+lsseq: warning: iii03.0005.jpg is a broken soft link
+iii03.[0001-0010].jpg z:[5]
+lsseq returned non-zero error code: 12
+
 ------ Test 49 ------ lsseq -P * ------
 v001/iii01.[0001-0040].jpg
 v001/iii02.[0001-0040].jpg
 v001/iii03.[0001-0040].jpg
+v002/iii01.[0001-0010].jpg
+lsseq: warning: sequence: v002/iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
+v002/iii02.[1-10].jpg p:[2-10]
+lsseq: warning: v002/iii03.0005.jpg is a broken soft link
+v002/iii03.[0001-0010].jpg z:[5]
+lsseq returned non-zero error code: 12
 
 ------ Test 50 ------ lsseq -p * ------
 /...absPathToRepo.../tests/testdir/idir/v001/iii01.[0001-0040].jpg
 /...absPathToRepo.../tests/testdir/idir/v001/iii02.[0001-0040].jpg
 /...absPathToRepo.../tests/testdir/idir/v001/iii03.[0001-0040].jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii01.[0001-0010].jpg
+lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/idir/v002/iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
+/...absPathToRepo.../tests/testdir/idir/v002/iii02.[1-10].jpg p:[2-10]
+lsseq: warning: /...absPathToRepo.../tests/testdir/idir/v002/iii03.0005.jpg is a broken soft link
+/...absPathToRepo.../tests/testdir/idir/v002/iii03.[0001-0010].jpg z:[5]
+lsseq returned non-zero error code: 12
 
 ------ Test 51 ------ lsseq -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
@@ -3900,22 +3986,22 @@ sort.ls
 filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1002]
 
 ./j01:
-lsseq: warning: j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: sequence j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
 j.[0100-0140].jpg p:[102-105,131-133,140]
 
 ./j02:
-lsseq: warning: j.00108.jpg is a duplicate (with different padding) of frame number: 108
-lsseq: warning: j.00130.jpg is a duplicate (with different padding) of frame number: 130
+lsseq: warning: sequence j, frame 108, has duplicate entries: j.108.jpg and j.00108.jpg
+lsseq: warning: sequence j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
 j.[0100-0140].jpg p:[102-105,108,119-120,126]
 
 ./j03:
-lsseq: warning: j01.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: sequence j01, frame 9, has duplicate entries: j01.09.jpg and j01.0009.jpg
 j01.[1-9].jpg p:[2-9]
-lsseq: warning: j02.0009.jpg is a duplicate (with different padding) of frame number: 9
+lsseq: warning: sequence j02, frame 9, has duplicate entries: j02.09.jpg and j02.0009.jpg
 j02.[001-009].jpg p:[2,9]
-lsseq: warning: j03.05.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: j03.005.jpg is a duplicate (with different padding) of frame number: 5
-lsseq: warning: j03.0005.jpg is a duplicate (with different padding) of frame number: 5
+lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.05.jpg
+lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.005.jpg
+lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.0005.jpg
 j03.[001-009].jpg p:[5]
 lsseq: warning: j04.005.jpg is a broken soft link
 j04.[-10-010].jpg p:[-7,1,10]
