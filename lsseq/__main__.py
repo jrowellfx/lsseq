@@ -195,6 +195,17 @@ gImageDictionary = {}
 gCacheDictionary = {}
 gMoviesDictionary = {}
 
+# EXIT codes, they will be combined bitwise to return 
+# possibly more than one different warning and/or error.
+#
+EXIT_NO_ERROR               = 0 # Clean exit.
+EXIT_LS_ERROR               = 1 # A call to 'ls' returned an error or another internal issue
+EXIT_ARGPARSE_ERROR         = 2 # The default code that argparse exits with if bad option.
+EXIT_LSSEQ_SOFTLINK_WARNING = 4 # warning - broken softlink
+EXIT_LSSEQ_PADDING_WARNING  = 8 # warning - two images with same name, same frame-num, diff padding
+#
+gExitStatus = EXIT_NO_ERROR
+
 # Array indices for timeList (used in "listSeqDir()") and gTimeList
 #
 DICTKEY = 0
@@ -395,6 +406,8 @@ def actualImageName(filenameKey, padding, frame) :
 #
 def printSeq(filenameKey, frameList, args, traversedPath) :
 
+    global gExitStatus
+
     fileComponents = splitImageName(filenameKey)
 
     missingFrames = []
@@ -446,6 +459,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                     " is a duplicate (with different padding) of frame number: ",
                     frameList[i][FRAME_NUM], sep='', file=sys.stderr)
                 sys.stderr.flush()
+            gExitStatus = gExitStatus | EXIT_LSSEQ_PADDING_WARNING
         else :
             uniqueFrameList.append(frameList[i])
         i += 1
@@ -548,7 +562,6 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
         # Gather up the various lists of problem frames.
         # Only needed in native format listings.
         #
-        ## if args.showMissing or args.showZero or args.showBad or args.showBadPadding :
         i = minFrame
         while i <= maxFrame :
             iMissing = False
@@ -561,20 +574,21 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                 uniqueFrameList.pop(0)
 
             if not iMissing :
-                if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK and not args.silent :
-                    actualFilename = actualImageName(filenameKey, padding, i)
-                    sys.stdout.flush()
-                    sys.stderr.flush()
-                    print(PROG_NAME, ": warning: ",
-                        end='', sep='', file=sys.stderr)
-                    if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-                        print(traversedPath, sep='', end='', file=sys.stderr)
-                        print(os.path.basename(actualFilename),
-                            " is a broken soft link", sep='', file=sys.stderr)
-                    else :
-                        print(actualFilename, " is a broken soft link", sep='', file=sys.stderr)
-                    sys.stderr.flush()
-                    ## Set error code to be returned at the end?
+                if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
+                    if not args.silent :
+                        actualFilename = actualImageName(filenameKey, padding, i)
+                        sys.stdout.flush()
+                        sys.stderr.flush()
+                        print(PROG_NAME, ": warning: ",
+                            end='', sep='', file=sys.stderr)
+                        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+                            print(traversedPath, sep='', end='', file=sys.stderr)
+                            print(os.path.basename(actualFilename),
+                                " is a broken soft link", sep='', file=sys.stderr)
+                        else :
+                            print(actualFilename, " is a broken soft link", sep='', file=sys.stderr)
+                        sys.stderr.flush()
+                    gExitStatus = gExitStatus | EXIT_LSSEQ_SOFTLINK_WARNING
 
             if not iMissing and (args.showZero or args.showBad or args.showBadPadding) :
                 if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
@@ -737,6 +751,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     global gImageDictionary
     global gCacheDictionary
     global gMoviesDictionary
+    global gExitStatus
 
     # Stash the current working dir, to come back to and the end
     # of this function. I.e.; we need to push and pop the current
@@ -850,12 +865,26 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             extra_ls_options.append("-r")
         extra_ls_options.append("--")
         lsCmd = ["ls", "-d"] + extra_ls_options + otherFiles
+
         sys.stdout.flush()
-        ## JPR - need to treat stderr output of next call properly if --silent
-        ## Also, need to capture error code to better set exit code of lsseq.
-        subprocess.call(lsCmd)
-        sys.stdout.flush()
-        somethingWasPrinted = True
+        sys.stderr.flush()
+        lsResult = subprocess.run(lsCmd, capture_output=True, text=True)
+
+        if lsResult.returncode > 0 :
+            if not args.silent :
+                print(PROG_NAME, " : ", lsResult.stderr,
+                    file=sys.stderr, sep='', end='') # ls error message contains newline
+                sys.stderr.flush()
+
+            # Don't actually exit - but like 'ls', finish doing the work
+            # but exit with non-zero exit-status at the end of the program.
+            #
+            gExitStatus = gExitStatus | EXIT_LS_ERROR
+
+        if len(lsResult.stdout) > 0 :
+            print(lsResult.stdout, end='') # ls output contains newlines
+            sys.stdout.flush()
+            somethingWasPrinted = True
 
     # Now actually print the sequences in this directory.
     #
@@ -1068,6 +1097,7 @@ def main() :
     global gImageExtList
     global gMovieExtList
     global gCacheExtList
+    global gExitStatus
 
     # To help with argparse.
     #
@@ -1353,7 +1383,7 @@ def main() :
         print("  export LSSEQ_MOV_EXTENSION=", extList, sep='')
         extList = ":".join(gCacheExtList)
         print("  export LSSEQ_CACHE_EXTENSION=", extList, sep='')
-        sys.exit(0)
+        sys.exit(EXIT_NO_ERROR)
 
     if args.prependPath == PATH_REL :
         if args.listWhichFiles == LIST_ALLFILES :
@@ -1384,7 +1414,7 @@ def main() :
                 print(PROG_NAME,
                     ": error: argument --onlyShow: TENSE must be 'since' or 'before'",
                     file=sys.stderr, sep='')
-            sys.exit(1)
+            sys.exit(gExitStatus | EXIT_ARGPARSE_ERROR) # Doing our own 'argparse' checks here.
 
         from datetime import datetime
 
@@ -1424,7 +1454,7 @@ def main() :
                 print(PROG_NAME,
                     ": error: argument --onlyShow: the time must be of the form [CC]YYMMDD[-hh[mm[ss]]]",
                     file=sys.stderr, sep='')
-            sys.exit(1)
+            sys.exit(gExitStatus | EXIT_ARGPARSE_ERROR)
 
         import time
         args.cutoffTime[1] = int(time.mktime(timeData.timetuple())) # Epoch time
@@ -1544,6 +1574,8 @@ def main() :
             else :
                 gImageDictionary[gDictKey].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
                 printSeq(seq[DICTKEY], gImageDictionary[gDictKey], args, seq[TRAVERSEDPATH])
+
+    sys.exit(gExitStatus)
 
 if __name__ == '__main__' :
     main()

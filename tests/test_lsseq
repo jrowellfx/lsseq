@@ -285,6 +285,10 @@ while true; do
     cd $TEST_DIR/$workingDir
     set +f # Turn globbing back on
     $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+        echo "$cmd returned non-zero error code: $retVal" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+    fi
     i=$(expr $i + 1)
 done
 
@@ -315,6 +319,10 @@ while true; do
     cd $TEST_DIR/$workingDir
     set +f
     $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+        echo "$cmd returned non-zero error code: $retVal" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+    fi
     i=$(expr $i + 1)
     j=$(expr $j + 1)
 done
@@ -324,4 +332,3 @@ sed -e "1,$ s-$TEST_DIR-/...absPathToRepo.../tests-g" < $TEST_DIR/$TEST_OUT_FILE
 expand < $tmpfile | sed -e '1,$ s/ *$//' > $TEST_DIR/$TEST_OUT_FILENAME
 
 cleanup
-

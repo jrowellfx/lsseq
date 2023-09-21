@@ -4,7 +4,7 @@
 Linux
 
 ------ Test 2 ------ lsseq --version ------
-2.7.1
+3.0.0
 
 ------ Test 3 ------ lsseq --help ------
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
@@ -59,31 +59,31 @@ optional arguments:
   --noErrorLists, -n    Skip printing ALL error lists. Note: Setting --showBadPadding (for
                         example) AFTER this option on the command line has the effect of ONLY
                         showing the badPadding error list
-  --extremes, -e        only list the first and last image on a separate line each. This option
-                        implies --prependPathAbs (unless --prependPathRel is explicitly specified)
-                        and --onlySequences
-  --imgExt, -i          print list of image, cache and movie file extensions and exit
   --looseNumSeparator, -l
                         allow the use of '_' (underscore), in addition to '.' (dot) as a separator
                         between the descriptiveName and frameNumber when looking to interpret
                         filenames as image sequences. i.e.,
                         <descriptiveName>_<frameNum>.<imgExtension> (also see
                         --strictNumSeparator)
+  --strictNumSeparator, -s
+                        strictly enforce the use of '.' (dot) as a separator between the
+                        descriptiveName and frameNumber when looking to interpret filenames as
+                        image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension> (also
+                        see --looseNumSeparator) [default]
   --onlySequences, -o   only list image sequences, cache sequences and movies
   --onlyImages, -O      strictly list only image sequences (i.e., no movies or caches)
   --onlyMovies          strictly list only movies (i.e., no images or caches)
   --onlyCaches          strictly list only cache sequences (i.e., no images or movies)
+  --imgExt, -i          print list of image, cache and movie file extensions and exit
   --prependPathAbs, -p  prepend the absolute path name to the image name. This option implies the
                         option --onlySequences and also suppresses printing directory name headers
                         when listing directory contents
   --prependPathRel, -P  prepend the relative path name to the image name. This option implies the
                         option --onlySequences and will also suppress printing directory name
                         headers when listing directory contents
-  --strictNumSeparator, -s
-                        strictly enforce the use of '.' (dot) as a separator between the
-                        descriptiveName and frameNumber when looking to interpret filenames as
-                        image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension> (also
-                        see --looseNumSeparator) [default]
+  --extremes, -e        only list the first and last image on a separate line each. This option
+                        implies --prependPathAbs (unless --prependPathRel is explicitly specified)
+                        and --onlySequences
   --single, -1          list one non-sequence entry per line (see ls(1))
   --all, -a             do not ignore entries starting with '.' while omitting implied '.' and
                         '..' directories (see ls(1) --almost-all)
@@ -277,9 +277,9 @@ testdir/idir:
 v001/
 
 testdir/idir/v001:
-hhh01.[0001-0040].jpg
-hhh02.[0001-0040].jpg
-hhh03.[0001-0040].jpg
+iii01.[0001-0040].jpg
+iii02.[0001-0040].jpg
+iii03.[0001-0040].jpg
 
 testdir/jdir:
 beauty/  j01/  j02/  j03/
@@ -389,6 +389,7 @@ qqq.[002-006].jpg z:[2-6]
 
 testdir/qdir/q3Dir:
 qqq.[003-007].jpg z:[3-7]
+lsseq returned non-zero error code: 12
 
 ------ Test 5 ------ lsseq -lReC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -474,12 +475,12 @@ qqq.[003-007].jpg z:[3-7]
 /...absPathToRepo.../tests/testdir/hdir/v003/hhh02.0040.jpg
 /...absPathToRepo.../tests/testdir/hdir/v003/hhh03.0001.jpg
 /...absPathToRepo.../tests/testdir/hdir/v003/hhh03.0040.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh01.0001.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh01.0040.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh02.0001.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh02.0040.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh03.0001.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii01.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii01.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii02.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii02.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii03.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii03.0040.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.0007.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.1002.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.0007.jpg
@@ -570,6 +571,7 @@ qqq.[003-007].jpg z:[3-7]
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
+lsseq returned non-zero error code: 12
 
 ------ Test 6 ------ lsseq -lReoC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -669,12 +671,12 @@ qqq.[003-007].jpg z:[3-7]
 /...absPathToRepo.../tests/testdir/hdir/v003/hhh02.0040.jpg
 /...absPathToRepo.../tests/testdir/hdir/v003/hhh03.0001.jpg
 /...absPathToRepo.../tests/testdir/hdir/v003/hhh03.0040.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh01.0001.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh01.0040.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh02.0001.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh02.0040.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh03.0001.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii01.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii01.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii02.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii02.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii03.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii03.0040.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.0007.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.1002.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.0007.jpg
@@ -765,6 +767,7 @@ qqq.[003-007].jpg z:[3-7]
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
+lsseq returned non-zero error code: 12
 
 ------ Test 7 ------ lsseq -RePC --quiet testdir ------
 testdir/testDirFile.001.exr
@@ -856,12 +859,12 @@ testdir/hdir/v003/hhh02.0001.jpg
 testdir/hdir/v003/hhh02.0040.jpg
 testdir/hdir/v003/hhh03.0001.jpg
 testdir/hdir/v003/hhh03.0040.jpg
-testdir/idir/v001/hhh01.0001.jpg
-testdir/idir/v001/hhh01.0040.jpg
-testdir/idir/v001/hhh02.0001.jpg
-testdir/idir/v001/hhh02.0040.jpg
-testdir/idir/v001/hhh03.0001.jpg
-testdir/idir/v001/hhh03.0040.jpg
+testdir/idir/v001/iii01.0001.jpg
+testdir/idir/v001/iii01.0040.jpg
+testdir/idir/v001/iii02.0001.jpg
+testdir/idir/v001/iii02.0040.jpg
+testdir/idir/v001/iii03.0001.jpg
+testdir/idir/v001/iii03.0040.jpg
 testdir/jdir/beauty/v001/filename.0007.jpg
 testdir/jdir/beauty/v001/filename.1002.jpg
 testdir/jdir/beauty/v002/filename.0007.jpg
@@ -952,6 +955,7 @@ testdir/qdir/q2Dir/qqq.002.jpg
 testdir/qdir/q2Dir/qqq.006.jpg
 testdir/qdir/q3Dir/qqq.003.jpg
 testdir/qdir/q3Dir/qqq.007.jpg
+lsseq returned non-zero error code: 12
 
 ------ Test 8 ------ lsseq -lRFC testdir ------
 testdir:
@@ -1117,9 +1121,9 @@ testdir/idir:
 v001/
 
 testdir/idir/v001:
-hhh01.[0001-0040].jpg
-hhh02.[0001-0040].jpg
-hhh03.[0001-0040].jpg
+iii01.[0001-0040].jpg
+iii02.[0001-0040].jpg
+iii03.[0001-0040].jpg
 
 testdir/jdir:
 beauty/  j01/  j02/  j03/
@@ -1238,6 +1242,7 @@ qqq.[002-006].jpg z:[2-6]
 
 testdir/qdir/q3Dir:
 qqq.[003-007].jpg z:[3-7]
+lsseq returned non-zero error code: 12
 
 ------ Test 9 ------ lsseq -lReC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -1323,12 +1328,12 @@ qqq.[003-007].jpg z:[3-7]
 /...absPathToRepo.../tests/testdir/hdir/v003/hhh02.0040.jpg
 /...absPathToRepo.../tests/testdir/hdir/v003/hhh03.0001.jpg
 /...absPathToRepo.../tests/testdir/hdir/v003/hhh03.0040.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh01.0001.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh01.0040.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh02.0001.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh02.0040.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh03.0001.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii01.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii01.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii02.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii02.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii03.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii03.0040.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.0007.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.1002.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.0007.jpg
@@ -1428,6 +1433,7 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
+lsseq returned non-zero error code: 12
 
 ------ Test 10 ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -1527,12 +1533,12 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/hdir/v003/hhh02.0040.jpg
 /...absPathToRepo.../tests/testdir/hdir/v003/hhh03.0001.jpg
 /...absPathToRepo.../tests/testdir/hdir/v003/hhh03.0040.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh01.0001.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh01.0040.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh02.0001.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh02.0040.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh03.0001.jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh03.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii01.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii01.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii02.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii02.0040.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii03.0001.jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii03.0040.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.0007.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v001/filename.1002.jpg
 /...absPathToRepo.../tests/testdir/jdir/beauty/v002/filename.0007.jpg
@@ -1632,6 +1638,7 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
+lsseq returned non-zero error code: 12
 
 ------ Test 11 ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
@@ -1723,12 +1730,12 @@ testdir/hdir/v003/hhh02.0001.jpg
 testdir/hdir/v003/hhh02.0040.jpg
 testdir/hdir/v003/hhh03.0001.jpg
 testdir/hdir/v003/hhh03.0040.jpg
-testdir/idir/v001/hhh01.0001.jpg
-testdir/idir/v001/hhh01.0040.jpg
-testdir/idir/v001/hhh02.0001.jpg
-testdir/idir/v001/hhh02.0040.jpg
-testdir/idir/v001/hhh03.0001.jpg
-testdir/idir/v001/hhh03.0040.jpg
+testdir/idir/v001/iii01.0001.jpg
+testdir/idir/v001/iii01.0040.jpg
+testdir/idir/v001/iii02.0001.jpg
+testdir/idir/v001/iii02.0040.jpg
+testdir/idir/v001/iii03.0001.jpg
+testdir/idir/v001/iii03.0040.jpg
 testdir/jdir/beauty/v001/filename.0007.jpg
 testdir/jdir/beauty/v001/filename.1002.jpg
 testdir/jdir/beauty/v002/filename.0007.jpg
@@ -1828,6 +1835,7 @@ testdir/qdir/q2Dir/qqq.002.jpg
 testdir/qdir/q2Dir/qqq.006.jpg
 testdir/qdir/q3Dir/qqq.003.jpg
 testdir/qdir/q3Dir/qqq.007.jpg
+lsseq returned non-zero error code: 12
 
 ------ Test 12 ------ lsseq -p ------
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
@@ -3389,9 +3397,9 @@ hhh03.[0001-0040].jpg
 v001
 
 /...absPathToRepo.../tests/testdir/idir/v001:
-hhh01.[0001-0040].jpg
-hhh02.[0001-0040].jpg
-hhh03.[0001-0040].jpg
+iii01.[0001-0040].jpg
+iii02.[0001-0040].jpg
+iii03.[0001-0040].jpg
 
 /...absPathToRepo.../tests/testdir/jdir:
 beauty
@@ -3569,6 +3577,7 @@ ccc03.[80-140].tga
 
 /...absPathToRepo.../tests/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
+lsseq returned non-zero error code: 12
 
 ------ Test 39 ------ lsseq -R /...absPathToRepo.../tests/testdir/cdir/ ------
 /...absPathToRepo.../tests/testdir/cdir:
@@ -3806,19 +3815,19 @@ v001
 v001
 
 ./v001:
-hhh01.[0001-0040].jpg
-hhh02.[0001-0040].jpg
-hhh03.[0001-0040].jpg
+iii01.[0001-0040].jpg
+iii02.[0001-0040].jpg
+iii03.[0001-0040].jpg
 
 ------ Test 49 ------ lsseq -P * ------
-v001/hhh01.[0001-0040].jpg
-v001/hhh02.[0001-0040].jpg
-v001/hhh03.[0001-0040].jpg
+v001/iii01.[0001-0040].jpg
+v001/iii02.[0001-0040].jpg
+v001/iii03.[0001-0040].jpg
 
 ------ Test 50 ------ lsseq -p * ------
-/...absPathToRepo.../tests/testdir/idir/v001/hhh01.[0001-0040].jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh02.[0001-0040].jpg
-/...absPathToRepo.../tests/testdir/idir/v001/hhh03.[0001-0040].jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii01.[0001-0040].jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii02.[0001-0040].jpg
+/...absPathToRepo.../tests/testdir/idir/v001/iii03.[0001-0040].jpg
 
 ------ Test 51 ------ lsseq -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
@@ -3910,6 +3919,7 @@ lsseq: warning: j03.0005.jpg is a duplicate (with different padding) of frame nu
 j03.[001-009].jpg p:[5]
 lsseq: warning: j04.005.jpg is a broken soft link
 j04.[-10-010].jpg p:[-7,1,10]
+lsseq returned non-zero error code: 12
 
 ------ Test 55 ------ lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R ------
 .:
