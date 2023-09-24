@@ -394,7 +394,7 @@ qqq.[002-006].jpg z:[2-6]
 
 testdir/qdir/q3Dir:
 qqq.[003-007].jpg z:[3-7]
-lsseq returned non-zero error code: 12
+-+- Test 4: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 5 : . ------ lsseq -lReC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -582,7 +582,7 @@ lsseq returned non-zero error code: 12
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
-lsseq returned non-zero error code: 12
+-+- Test 5: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 6 : . ------ lsseq -lReoC --silent testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -784,7 +784,7 @@ lsseq returned non-zero error code: 12
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
-lsseq returned non-zero error code: 12
+-+- Test 6: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 7 : . ------ lsseq -RePC --quiet testdir ------
 testdir/testDirFile.001.exr
@@ -978,7 +978,7 @@ testdir/qdir/q2Dir/qqq.002.jpg
 testdir/qdir/q2Dir/qqq.006.jpg
 testdir/qdir/q3Dir/qqq.003.jpg
 testdir/qdir/q3Dir/qqq.007.jpg
-lsseq returned non-zero error code: 12
+-+- Test 7: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 8 : . ------ lsseq -lRFC testdir ------
 testdir:
@@ -1272,7 +1272,7 @@ qqq.[002-006].jpg z:[2-6]
 
 testdir/qdir/q3Dir:
 qqq.[003-007].jpg z:[3-7]
-lsseq returned non-zero error code: 12
+-+- Test 8: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 9 : . ------ lsseq -lReC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -1471,7 +1471,7 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
-lsseq returned non-zero error code: 12
+-+- Test 9: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 10 : . ------ lsseq -lReoC testdir ------
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
@@ -1684,7 +1684,7 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
-lsseq returned non-zero error code: 12
+-+- Test 10: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 11 : . ------ lsseq -RePC testdir ------
 testdir/testDirFile.001.exr
@@ -1889,7 +1889,7 @@ testdir/qdir/q2Dir/qqq.002.jpg
 testdir/qdir/q2Dir/qqq.006.jpg
 testdir/qdir/q3Dir/qqq.003.jpg
 testdir/qdir/q3Dir/qqq.007.jpg
-lsseq returned non-zero error code: 12
+-+- Test 11: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 12 : testdir ------ lsseq -p ------
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
@@ -3641,7 +3641,7 @@ ccc03.[80-140].tga
 
 /...absPathToRepo.../tests/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
-lsseq returned non-zero error code: 12
+-+- Test 38: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 39 : testdir/cdir ------ lsseq -R /...absPathToRepo.../tests/testdir/cdir/ ------
 /...absPathToRepo.../tests/testdir/cdir:
@@ -3891,7 +3891,7 @@ lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and 
 iii02.[1-10].jpg p:[2-10]
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 48: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 49 : testdir/idir ------ lsseq -P * ------
 v001/iii01.[0001-0040].jpg
@@ -3902,7 +3902,7 @@ lsseq: warning: sequence: v002/iii02, frame 1, has duplicate entries: iii02.1.jp
 v002/iii02.[1-10].jpg p:[2-10]
 lsseq: warning: v002/iii03.0005.jpg is a broken soft link
 v002/iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 49: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 50 : testdir/idir ------ lsseq -p * ------
 /...absPathToRepo.../tests/testdir/idir/v001/iii01.[0001-0040].jpg
@@ -3913,7 +3913,7 @@ lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/idir/v002/iii02, fr
 /...absPathToRepo.../tests/testdir/idir/v002/iii02.[1-10].jpg p:[2-10]
 lsseq: warning: /...absPathToRepo.../tests/testdir/idir/v002/iii03.0005.jpg is a broken soft link
 /...absPathToRepo.../tests/testdir/idir/v002/iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 50: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 51 : testdir/hdir ------ lsseq -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
@@ -4005,7 +4005,7 @@ lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.
 j03.[001-009].jpg p:[5]
 lsseq: warning: j04.005.jpg is a broken soft link
 j04.[-10-010].jpg p:[-7,1,10]
-lsseq returned non-zero error code: 12
+-+- Test 54: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 55 : testdir/jdir/beauty/v001 ------ lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R ------
 .:
@@ -4942,7 +4942,7 @@ iii03.0010.jpg
 
 ------ Test 95 : testdir/idir/v002 ------ ls foobar ------
 ls: cannot access 'foobar': No such file or directory
-ls returned non-zero error code: 2
+-+- Test 95: ls returned non-zero error code: 2 -+-
 
 ------ Test 96 : testdir/idir/v002 ------ lsseq ------
 iii01.[01-10].jpg p:[2-10]
@@ -4950,7 +4950,7 @@ lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and 
 iii02.[1-10].jpg p:[2-10]
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 96: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 97 : testdir/idir ------ lsseq v002 ------
 iii01.[01-10].jpg p:[2-10]
@@ -4958,7 +4958,7 @@ lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and 
 iii02.[1-10].jpg p:[2-10]
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 97: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 98 : testdir ------ lsseq idir/v002 ------
 iii01.[01-10].jpg p:[2-10]
@@ -4966,7 +4966,7 @@ lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and 
 iii02.[1-10].jpg p:[2-10]
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 98: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 99 : testdir/idir/v002 ------ lsseq -p ------
 /...absPathToRepo.../tests/testdir/idir/v002/iii01.[01-10].jpg p:[2-10]
@@ -4974,7 +4974,7 @@ lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/idir/v002/iii02, fr
 /...absPathToRepo.../tests/testdir/idir/v002/iii02.[1-10].jpg p:[2-10]
 lsseq: warning: /...absPathToRepo.../tests/testdir/idir/v002/iii03.0005.jpg is a broken soft link
 /...absPathToRepo.../tests/testdir/idir/v002/iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 99: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 100 : testdir/idir/v002 ------ lsseq -P ------
 iii01.[01-10].jpg p:[2-10]
@@ -4982,7 +4982,7 @@ lsseq: warning: sequence: iii02, frame 1, has duplicate entries: iii02.1.jpg and
 iii02.[1-10].jpg p:[2-10]
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 100: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 101 : testdir/idir ------ lsseq -P v002 ------
 v002/iii01.[01-10].jpg p:[2-10]
@@ -4990,7 +4990,7 @@ lsseq: warning: sequence: v002/iii02, frame 1, has duplicate entries: iii02.1.jp
 v002/iii02.[1-10].jpg p:[2-10]
 lsseq: warning: v002/iii03.0005.jpg is a broken soft link
 v002/iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 101: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 102 : testdir ------ lsseq -P idir/v002 ------
 idir/v002/iii01.[01-10].jpg p:[2-10]
@@ -4998,7 +4998,7 @@ lsseq: warning: sequence: idir/v002/iii02, frame 1, has duplicate entries: iii02
 idir/v002/iii02.[1-10].jpg p:[2-10]
 lsseq: warning: idir/v002/iii03.0005.jpg is a broken soft link
 idir/v002/iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 102: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 103 : testdir/idir/v002 ------ lsseq iii01.* ------
 iii01.[01-10].jpg p:[2-10]
@@ -5006,24 +5006,24 @@ iii01.[01-10].jpg p:[2-10]
 ------ Test 104 : testdir/idir/v002 ------ lsseq iii02.* ------
 lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
 iii02.[1-10].jpg p:[2-10]
-lsseq returned non-zero error code: 8
+-+- Test 104: lsseq returned non-zero error code: 8 -+-
 
 ------ Test 105 : testdir/idir/v002 ------ lsseq iii03.* ------
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 4
+-+- Test 105: lsseq returned non-zero error code: 4 -+-
 
 ------ Test 106 : testdir/idir/v002 ------ lsseq iii02.* foobar ------
 lsseq : ls: cannot access 'foobar': No such file or directory
 lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
 iii02.[1-10].jpg p:[2-10]
-lsseq returned non-zero error code: 9
+-+- Test 106: lsseq returned non-zero error code: 9 -+-
 
 ------ Test 107 : testdir/idir/v002 ------ lsseq iii03.* foobar ------
 lsseq : ls: cannot access 'foobar': No such file or directory
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 5
+-+- Test 107: lsseq returned non-zero error code: 5 -+-
 
 ------ Test 108 : testdir/idir/v002 ------ lsseq iii*.* foobar ------
 lsseq : ls: cannot access 'foobar': No such file or directory
@@ -5032,79 +5032,79 @@ lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and 
 iii02.[1-10].jpg p:[2-10]
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 13
+-+- Test 108: lsseq returned non-zero error code: 13 -+-
 
 ------ Test 109 : . ------ lsseq /...absPathToRepo.../tests/testdir/idir/v002/iii02.* ------
 lsseq: warning: sequence /...absPathToRepo.../tests/testdir/idir/v002/iii02, frame 1, has duplicate entries: /...absPathToRepo.../tests/testdir/idir/v002/iii02.1.jpg and /...absPathToRepo.../tests/testdir/idir/v002/iii02.01.jpg
 /...absPathToRepo.../tests/testdir/idir/v002/iii02.[1-10].jpg p:[2-10]
-lsseq returned non-zero error code: 8
+-+- Test 109: lsseq returned non-zero error code: 8 -+-
 
 ------ Test 110 : testdir/idir/v002 ------ lsseq --silent ------
 iii01.[01-10].jpg p:[2-10]
 iii02.[1-10].jpg p:[2-10]
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 110: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 111 : testdir/idir ------ lsseq --silent v002 ------
 iii01.[01-10].jpg p:[2-10]
 iii02.[1-10].jpg p:[2-10]
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 111: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 112 : testdir ------ lsseq --silent idir/v002 ------
 iii01.[01-10].jpg p:[2-10]
 iii02.[1-10].jpg p:[2-10]
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 112: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 113 : testdir/idir/v002 ------ lsseq --silent -p ------
 /...absPathToRepo.../tests/testdir/idir/v002/iii01.[01-10].jpg p:[2-10]
 /...absPathToRepo.../tests/testdir/idir/v002/iii02.[1-10].jpg p:[2-10]
 /...absPathToRepo.../tests/testdir/idir/v002/iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 113: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 114 : testdir/idir/v002 ------ lsseq --silent -P ------
 iii01.[01-10].jpg p:[2-10]
 iii02.[1-10].jpg p:[2-10]
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 114: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 115 : testdir/idir ------ lsseq --silent -P v002 ------
 v002/iii01.[01-10].jpg p:[2-10]
 v002/iii02.[1-10].jpg p:[2-10]
 v002/iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 115: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 116 : testdir ------ lsseq --silent -P idir/v002 ------
 idir/v002/iii01.[01-10].jpg p:[2-10]
 idir/v002/iii02.[1-10].jpg p:[2-10]
 idir/v002/iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 12
+-+- Test 116: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 117 : testdir/idir/v002 ------ lsseq --silent iii01.* ------
 iii01.[01-10].jpg p:[2-10]
 
 ------ Test 118 : testdir/idir/v002 ------ lsseq --silent iii02.* ------
 iii02.[1-10].jpg p:[2-10]
-lsseq returned non-zero error code: 8
+-+- Test 118: lsseq returned non-zero error code: 8 -+-
 
 ------ Test 119 : testdir/idir/v002 ------ lsseq --silent iii03.* ------
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 4
+-+- Test 119: lsseq returned non-zero error code: 4 -+-
 
 ------ Test 120 : testdir/idir/v002 ------ lsseq --silent iii02.* foobar ------
 iii02.[1-10].jpg p:[2-10]
-lsseq returned non-zero error code: 9
+-+- Test 120: lsseq returned non-zero error code: 9 -+-
 
 ------ Test 121 : testdir/idir/v002 ------ lsseq --silent iii03.* foobar ------
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 5
+-+- Test 121: lsseq returned non-zero error code: 5 -+-
 
 ------ Test 122 : testdir/idir/v002 ------ lsseq --silent iii*.* foobar ------
 iii01.[01-10].jpg p:[2-10]
 iii02.[1-10].jpg p:[2-10]
 iii03.[0001-0010].jpg z:[5]
-lsseq returned non-zero error code: 13
+-+- Test 122: lsseq returned non-zero error code: 13 -+-
 
 ------ Test 123 : . ------ lsseq -i ------
 lsseq: Modify the following environment variables to extend the supported file types.
@@ -5123,3 +5123,6 @@ xxx02.mov
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
+
+------ Test 127 : . ------ echo There is no way to test lsseq output to stdio if isatty is True so PLEASE manually run lsseq -R once on testdir to check if column-output is correct for the /bin/ls output. ------
+There is no way to test lsseq output to stdio if isatty is True so PLEASE manually run lsseq -R once on testdir to check if column-output is correct for the /bin/ls output.

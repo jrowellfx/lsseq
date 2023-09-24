@@ -325,7 +325,7 @@ while true; do
     $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo "$cmd returned non-zero error code: $retVal" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+        echo "-+- Test $i: $cmd returned non-zero error code: $retVal -+-" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     fi
     i=$(expr $i + 1)
 done
@@ -339,6 +339,7 @@ cat << EOF2 > $tmpArgs
 testdir/gdir lsseq --onlyImages
 testdir/gdir lsseq --onlyMovies
 testdir/gdir lsseq --onlyCaches
+. echo There is no way to test lsseq output to stdio if isatty is True so PLEASE manually run lsseq -R once on testdir to check if column-output is correct for the /bin/ls output.
 EOF2
 
 j=1
@@ -359,7 +360,7 @@ while true; do
     $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo "$cmd returned non-zero error code: $retVal" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+        echo "-+- Test $i: $cmd returned non-zero error code: $retVal -+-" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     fi
     i=$(expr $i + 1)
     j=$(expr $j + 1)
