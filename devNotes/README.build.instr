@@ -12,7 +12,7 @@ cd $HOME
 
 cd <dirWithGitRepos>/lsseq
 
-make sure the VERSION is set properly in lsseq/__main__.py, namely
+# make sure the VERSION is set properly in lsseq/__main__.py, namely
 
     Given a version number MAJOR.MINOR.PATCH, increment the:
 
@@ -20,17 +20,22 @@ make sure the VERSION is set properly in lsseq/__main__.py, namely
     MINOR version for added functionality in a backwards compatible manner
     PATCH version for backwards compatible bug fixes
 
-change the version to match in setup.py
-run the tests - make sure everthing is OK
+# change the version to match in setup.py
+cd tests
+source setUpToTest.sourceMe
+#
+# Then proceed with code-dev, testing the command at will.
+#
+# run the tests - make sure everthing is OK
     and that the version in test_lsseq.out is updated
     for BOTH Darwin (MacOS) and Linux.
 
-Update the version number in README.md appendix example
+# Update the version number in README.md appendix example
 
-If on Linux, then PUSH up to github, and pull down to macos and test before building
-and uploading to pypi
+# If on Linux, then PUSH up to github, and pull down to macos and test before building
+# and uploading to pypi
 
-IF on working branch FIRST merge it back to master
+# IF on working branch FIRST merge it back to master
 
 python3 -m build
 
@@ -38,12 +43,31 @@ python3 -m build
 # __token__ and password for PyPi account.
 # ...or not needed if .pypirc is installed in $HOME
 #
-python3 -m twine upload --repository pypi dist/lsseq-2.x.x*
+# TEST INSTALLATION
+#
+#   python3 -m twine upload --repository testpypi dist/lsseq-x.x.x*
+#
+# or FOR REAL
+python3 -m twine upload --repository pypi dist/lsseq-x.x.x*
 
-# Install it,
+# Install it locally in venv,
+    #
+    # TEST (First one is for test.pypi - second is for non-test dependencies)
+    #
+    # python3 -m pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple/ lsseq
+    #
+    # or the REAL one on pypi
+    #
     python3 -m pip install lsseq
-# or update it.
-    python3 -m pip install lsseq --upgrade
+
+# or update it, append '--upgrade' to either of the above lines.
+
+# Test installation.
+#
+cd tests
+# Make sure using locally installed testing version in venv
+./test_renum
+diff test_renum.out test_renum.out.new
 
 # As superuser
 su -
@@ -52,11 +76,12 @@ bin/pip install lsseq --upgrade
 exit
 lsseq --version
 
-
 # Test installation.
 #
 cd tests
 ./test_lsseq --testSystem-lsseq
 diff test_lsseq.out.Linux test_lsseq.out.Linux.installed.new
 
-# Make a new tagged release on github
+CHECK IN AN COMMIT ALL CHANGES AND PUSH UP TO GITHUB
+
+MAKE NEW github RELEASE to match VERSION
