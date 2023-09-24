@@ -1,0 +1,39 @@
+returnHere=`pwd`
+
+cd $TEST_DIR/testdir/ndir
+ls
+
+echo ------
+ls > /tmp/tmp.$$
+cat /tmp/tmp.$$
+
+echo ------
+ls -C > /tmp/tmp.$$
+cat /tmp/tmp.$$
+
+echo ------
+export COLUMNS
+ls -C > /tmp/tmp.$$
+cat /tmp/tmp.$$
+
+echo ------
+(COLUMNS=50; ls -C) > /tmp/tmp.$$
+cat /tmp/tmp.$$
+
+echo ------
+ls -C > /tmp/tmp.$$
+cat /tmp/tmp.$$
+
+echo ------
+export -n COLUMNS
+ls -C > /tmp/tmp.$$
+cat /tmp/tmp.$$
+
+echo ------
+(export COLUMNS=aaa; ls -C) > /tmp/tmp.$$
+echo "error status from ls:" $?
+cat /tmp/tmp.$$
+
+export -n COLUMNS
+rm -f /tmp/tmp.$$
+cd $returnHere

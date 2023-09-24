@@ -863,16 +863,60 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         extra_ls_options = []
         if args.classify :
             extra_ls_options.append("-F")
-        if args.byWhat == BY_SINGLE :
+
+        if args.byWhat == BY_SINGLE : # byWhat values are mutually exclusive.
             extra_ls_options.append("-1")
-        if args.byWhat == BY_COLUMNS :
+        elif args.byWhat == BY_COLUMNS :
             extra_ls_options.append("-C")
-        if args.byWhat == BY_ROWS :
+        elif args.byWhat == BY_ROWS :
             extra_ls_options.append("-x")
+
         if args.sortByMTime :
             extra_ls_options.append("-t")
+
         if args.reverseListing :
             extra_ls_options.append("-r")
+
+        # Note: v2.7.* and earlier version of lsseq used subprocess.call('ls')
+        # Which did not intercept stdout, so it calculated columns 
+        # properly based on if stdout was a terminal or not.
+        #
+        # Now, as of v3.0.0, we are using subprocess.run('ls', capture_output=True"),
+        # so 'ls' doesn't understand if lsseq's stdout is connected to stdout or not.
+        # Now we need to duplicate ls's internal logic ourselves.
+        
+        # "COLUMNS" is a variable that is used by 'ls' on BOTH Linux AND Darwin,
+        # but its use is only documented on Darwin (see man ls(1)).
+        #
+        # However COLUMNS is NOT an enviroment-variable by default. Which isn't
+        # to say that someone might not have 'exported' it as such on purpose.
+        #
+        # As you can see from the following cmds that were run in a
+        # 'terminal' on RHEL 8 (actually AlmaLinux release 8.8):
+        #
+        #    $ echo $COLUMNS
+        #    110
+        #    $ cat printColumns 
+        #    #!/bin/bash
+        #    echo COLUMNS $COLUMNS
+        #    $ ./printColumns 
+        #    COLUMNS
+        #    $ export COLUMNS
+        #    $ ./printColumns 
+        #    COLUMNS 110
+        #    $ export -n COLUMNS
+        #    $ ./printColumns 
+        #    COLUMNS
+        #    $ source printColumns 
+        #    COLUMNS 110
+        #
+        # ...and from further experimentation, '/bin/ls' respects 'COLUMNS' and
+        # its treatment of stdout as a tty or pipe or redirect, also as relates
+        # to -C and -x etc. 
+
+        if args.byWhat == BY_UNSPECIFIED : # No '-1', '-C' or '-x' use on cmd-line.
+
+
         extra_ls_options.append("--")
         lsCmd = ["ls", "-d"] + extra_ls_options + otherFiles
 
