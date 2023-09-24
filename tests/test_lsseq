@@ -171,7 +171,10 @@ else
     LS_FULL_TIME='--full-time'
 fi
 
-export COLUMNS=100 # Bash env var.
+# Set as env-var for 'ls -C' and 'ls -x'.
+# Also will be interpreted as width of tty
+#
+export COLUMNS=100
 
 # The following are test arguments. One test per line.
 # The first item on a line is the working directory for the test to place in.
@@ -201,9 +204,9 @@ testdir/cdir lsseq -c
 testdir/cdir lsseq -e -R
 testdir/cdir lsseq -e -R -P
 testdir/cdir lsseq -fnative
-testdir/cdir lsseq -fnuke
+testdir/cdir lsseq -f nuke
 testdir/cdir lsseq -fshake
-testdir/cdir lsseq -frv
+testdir/cdir lsseq -f rv
 testdir/cdir lsseq -fglob
 testdir/cdir lsseq -i
 testdir/cdir lsseq -M
@@ -223,7 +226,7 @@ testdir/cdir lsseq -1Rb
 testdir/cdir lsseq -1RbC
 testdir/cdir lsseq -Rbx
 testdir/cdir lsseq -1CRbx
-testdir/cdir lsseq -R -P -p -P -f rv -f glob -fnative -C -b
+testdir/cdir lsseq -R -P -p -P -f rv -f glob -f native -C -b
 testdir/idir lsseq
 testdir/idir lsseq -R
 testdir/idir lsseq -P *

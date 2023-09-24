@@ -61,6 +61,7 @@ import subprocess
 import textwrap
 import math
 import copy
+import shutil
 from operator import itemgetter
 import seqLister
 
@@ -883,10 +884,12 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         #
         # Now, as of v3.0.0, we are using subprocess.run('ls', capture_output=True"),
         # so 'ls' doesn't understand if lsseq's stdout is connected to stdout or not.
-        # Now we need to duplicate ls's internal logic ourselves.
+        # Now we need to duplicate ls's internal logic ourselves to set the output
+        # correctly. We will set an env-var "COLUMNS" as used by 'ls' to acheive this.
         
         # "COLUMNS" is a variable that is used by 'ls' on BOTH Linux AND Darwin,
-        # but its use is only documented on Darwin (see man ls(1)).
+        # for setting the width for both '-C' and '-x', but its use is only
+        # documented on Darwin (see man ls(1)).
         #
         # However COLUMNS is NOT an enviroment-variable by default. Which isn't
         # to say that someone might not have 'exported' it as such on purpose.
@@ -914,8 +917,21 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         # its treatment of stdout as a tty or pipe or redirect, also as relates
         # to -C and -x etc. 
 
-        if args.byWhat == BY_UNSPECIFIED : # No '-1', '-C' or '-x' use on cmd-line.
+        # shutil.get_terminal_size() returns the value of COLUMNS (if set as
+        # env-var by the caller AND when it's a valid positive integer) and also
+        # returns a decent default if not an env-var AND stdout is not a tty.
+        # 
+        # Then we set COLUMNS as an env-var so our call to 'ls' picks it up properly.
+        #
+        cols, rows = shutil.get_terminal_size()
+        os.environ["COLUMNS"] = str(cols)
 
+        # No '-1', '-C' or '-x' used on cmd-line.
+        # So, if stdout is a tty, then behave as if '-C' was set,
+        # which is standard 'ls' behavior.
+        #
+        if args.byWhat == BY_UNSPECIFIED and sys.stdout.isatty():
+            extra_ls_options.append("-C")
 
         extra_ls_options.append("--")
         lsCmd = ["ls", "-d"] + extra_ls_options + otherFiles

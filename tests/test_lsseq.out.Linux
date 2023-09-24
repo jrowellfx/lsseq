@@ -2634,7 +2634,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 24 : testdir/cdir ------ lsseq -fnuke ------
+------ Test 24 : testdir/cdir ------ lsseq -f nuke ------
 aaaa
 bbbb
 c_subDir
@@ -2712,7 +2712,7 @@ shake -t 1-120 ccc01.@@@.exr
 shake -t 1-120 ccc02.@@@.exr
 shake -t 80-140 ccc03.@@.tga
 
------- Test 26 : testdir/cdir ------ lsseq -frv ------
+------ Test 26 : testdir/cdir ------ lsseq -f rv ------
 aaaa
 bbbb
 c_subDir
@@ -3865,7 +3865,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 46 : testdir/cdir ------ lsseq -R -P -p -P -f rv -f glob -fnative -C -b ------
+------ Test 46 : testdir/cdir ------ lsseq -R -P -p -P -f rv -f glob -f native -C -b ------
 ./ccc01.[001-120].exr m:[3], z:[52-55]
 ./ccc02.[001-120].exr m:[51,119]
 ./ccc03.[80-140].tga

@@ -44,13 +44,11 @@ def testRun(extraLsArg) :
 
     print("len(stdout): ", len(result.stdout))
     print("stdout:")
-    ## print(result.stdout, end= ('' if len(result.stdout) > 0 else '\n'))
     print(result.stdout, end= '')
     print("---")
 
     print("len(stderr): ", len(result.stderr))
     print("stderr:", sep='', end='')
-    ## print(result.stderr, end= ('' if len(result.stderr) > 0 else '\n'))
     print(result.stderr, end='')
 
     print("---")
@@ -66,6 +64,7 @@ def testRun(extraLsArg) :
     ## You're being piped or redirected
 
 cols, rows = shutil.get_terminal_size()
+
 ## print("From shutil.get_terminal_size()")
 ## print("cols:", cols)
 ## print("rows:", rows)
