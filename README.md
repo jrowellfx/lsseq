@@ -269,6 +269,20 @@ Please explore the rest of `lsseq's` capabilities by typing:
     $ lsseq --help
 ```
 
+#### Error codes returned by `lsseq`
+
+As described in the source code,
+the following EXIT codes will be combined bitwise to return
+possibly more than one different warning and/or error.
+
+```
+EXIT_NO_ERROR               = 0 # Clean exit.
+EXIT_LS_ERROR               = 1 # A call to 'ls' returned an error code.
+EXIT_ARGPARSE_ERROR         = 2 # A bad option was passed to lsseq. Exit lsseq.
+EXIT_LSSEQ_SOFTLINK_WARNING = 4 # warning - broken softlink found
+EXIT_LSSEQ_PADDING_WARNING  = 8 # warning - two images with same name, same frame-num, but diff padding
+```
+
 ## Addendum - more on installing command-line tools
 
 Here's the process that I've followed to install `lsseq`, as well as my other
