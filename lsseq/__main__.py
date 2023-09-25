@@ -69,7 +69,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "3.0.0a"     # Semantic Versioning 2.0.0
+VERSION = "3.0.0.0"     # Semantic Versioning 2.0.0
 ## JPR FIX ME ^^^^^ from TESTING install on testpypi and renumseq
 
 PROG_NAME = "lsseq"

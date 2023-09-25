@@ -8,7 +8,7 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name            = 'lsseq',
-    version         = '3.0.0a', # The 'a' for using on testpypi
+    version         = '3.0.0.0', # The extra .0 is for testpypi
     description='ls-like command for image frame sequences',
     long_description=long_description,
     long_description_content_type='text/markdown',

@@ -1,10 +1,46 @@
-cd $HOME
+# Helpful NOTES TO SELF for developer James Rowell.
+#
+# Regarding installing and/or testing latest versions of lsseq.
+#
+# Versions of lsseq prior to v3.0.0 had python_requires = '>=3.6, <4',
+# lsseq v3.0.0 and later has            python_requires = '>=3.7, <4',
+#
+# If attempting to install lsseq on a system that only has python3.6
+# available, then 'python3 -m pip install lsseq' will ONLY install
+# the latest allowed by the above 'python_requires' constraint,
+# that is, v2.7.1 will be installed.
+#
+# However if python3 links to python3.6, BUT say python3.7 (or higher)
+# is installed then in the following "First STEPS", by explicitly 
+# using (say) "python3.9" when installing "venv" then subsequent steps
+# will install the latest lsseq in venv. For example,
+#
+#    $ cd $HOME
+#    $ python3 --version
+#    Python 3.6.8
+#    $ ls /usr/bin/python3*
+#    /usr/bin/python3    /usr/bin/python3.6m  /usr/bin/python3.9
+#    /usr/bin/python3.6  /usr/bin/python3.8
+#    $ python3.9 -m venv venv
+#    $ source venv/bin/activate
+#    $ python3 --version
+#    Python 3.9.16
+#    ...etc. as below
+#
+# This technique also works when installing sitewide as root in /usr/local/venv
 
-# First step if not done yet.
-# Blow away old venv, and redo this, if upgraded python versions.
+cd $HOME
+python3 --version
+
+# First STEPS.
+#
+# If the system has upgraded the default 'python3' (from say 3.6 to 3.9)
+# since the last time venv was created, then delete ~/venv, continue with
+#
     python3 -m venv venv
     source venv/bin/activate
-    python3 -m pip install --upgrade pip setuptools wheel
+    python3 -m pip install --upgrade pip 
+    python3 -m pip install --upgrade setuptools wheel
     python3 -m pip install --upgrade build
     python3 -m pip install --upgrade twine
 # else
@@ -36,6 +72,8 @@ source setUpToTest.sourceMe
 # and uploading to pypi
 
 # IF on working branch FIRST merge it back to master
+# UNLESS still testing with testpypi below, then wait
+# until satisfied with all tests.
 
 python3 -m build
 
