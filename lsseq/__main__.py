@@ -1378,7 +1378,7 @@ def main() :
         are NOT met, then this option is simply ignored.")
     p.add_argument("--silent", "--quiet", action="store_true",
         dest="silent", default=False,
-        help="suppress errors and warnings")
+        help="suppress error and warning messages")
 
     p.add_argument("files", metavar="FILE", nargs="*",
         help="file names")
