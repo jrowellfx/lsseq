@@ -8,8 +8,8 @@ long_description = (here / 'README.md').read_text(encoding='utf-8')
 
 setup(
     name            = 'lsseq',
-    version         = '3.0.0.0', # The extra .0 is for testpypi
-    description='ls-like command for image frame sequences',
+    version         = '3.0.0',
+    description='ls-like command for image-sequences',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url             = 'https://github.com/jrowellfx/lsseq',
@@ -27,7 +27,7 @@ setup(
 
     packages        = ['lsseq'],
     python_requires = '>=3.7, <4',
-    install_requires=['seqLister'],
+    install_requires=['seqLister>=1.0.0'],
 
     entry_points = {
         'console_scripts': [
