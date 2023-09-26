@@ -108,23 +108,11 @@ python3 -m twine upload --repository pypi dist/lsseq-x.x.x*
 # Test installation.
 #
 cd tests
-# Make sure using locally installed testing version in venv
-./test_renum
-diff test_renum.out test_renum.out.new
-
-# As superuser
-su -
-cd /usr/local/venv
-bin/pip install lsseq --upgrade
-exit
-lsseq --version
-
-# Test installation.
-#
-cd tests
 ./test_lsseq --testSystem-lsseq
 diff test_lsseq.out.Linux test_lsseq.out.Linux.installed.new
 
 CHECK IN AN COMMIT ALL CHANGES AND PUSH UP TO GITHUB
+
+MERGE to master/main branch
 
 MAKE NEW github RELEASE to match VERSION
