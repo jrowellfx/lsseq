@@ -271,7 +271,7 @@ Please explore the rest of `lsseq's` capabilities by typing:
 
 #### Error codes returned by `lsseq`
 
-As described in the source code,
+As copied from the source code,
 the following EXIT codes will be combined bitwise to return
 possibly more than one different warning and/or error.
 
@@ -325,13 +325,12 @@ Note that updates are easy now too. Say there's an update to lsseq that you want
 
 Just kidding about the version number, maybe in the year 2159? Will Unix still be a thing!?
 
-### Helpful hint: Upgrading the system-wide default version of python3?
+### Helpful hint: Upgraded the system-wide default version of python3?
 
-Say you have installed `lsseq` as described above, while the default `python3` was linked to `python3.6`.
-(Check with: `` ls -l `which python3` ``.)
-
-Then suppose the system default `python3` is then linked to a higher version of python (perhaps
-with the `alternatives` command). At that point running `lsseq` will error out like this:
+Say you had installed `lsseq` as described above, while the default `python3` was linked to `python3.6`.
+Then suppose the system default `python3` was then linked to a higher version of python
+(Check with: `python3 --version`).
+At that point running `lsseq` might error out like this:
 
 ```
 Traceback (most recent call last):
