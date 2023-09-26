@@ -339,7 +339,7 @@ cat << EOF2 > $tmpArgs
 testdir/gdir lsseq --onlyImages
 testdir/gdir lsseq --onlyMovies
 testdir/gdir lsseq --onlyCaches
-. echo There is no way to test lsseq output to stdio if isatty is True so PLEASE manually run lsseq -R once on testdir to check if column-output is correct for the /bin/ls output.
+. echo -e \nThere is no way to test lsseq output to stdio if isatty is \nTrue so PLEASE manually run lsseq -R once on testdir to check \nif column-output is correct for the /bin/ls output.
 EOF2
 
 j=1

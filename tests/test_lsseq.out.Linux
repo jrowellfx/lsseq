@@ -5124,5 +5124,8 @@ ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------- Test 127 : . ------ echo There is no way to test lsseq output to stdio if isatty is True so PLEASE manually run lsseq -R once on testdir to check if column-output is correct for the /bin/ls output. ------
-There is no way to test lsseq output to stdio if isatty is True so PLEASE manually run lsseq -R once on testdir to check if column-output is correct for the /bin/ls output.
+------ Test 127 : . ------ echo -e \nThere is no way to test lsseq output to stdio if isatty is \nTrue so PLEASE manually run lsseq -R once on testdir to check \nif column-output is correct for the /bin/ls output. ------
+
+There is no way to test lsseq output to stdio if isatty is
+True so PLEASE manually run lsseq -R once on testdir to check
+if column-output is correct for the /bin/ls output.
