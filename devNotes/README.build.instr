@@ -81,12 +81,17 @@ python3 -m build
 # __token__ and password for PyPi account.
 # ...or not needed if .pypirc is installed in $HOME
 #
-# TEST INSTALLATION
+# TEST INSTALLATION testpypi
 #
 #   python3 -m twine upload --repository testpypi dist/lsseq-x.x.x*
 #
-# or FOR REAL
+# or FOR REAL on pypi
+#
 python3 -m twine upload --repository pypi dist/lsseq-x.x.x*
+
+# NOTE! Sometimes you have to wait 5 minutes or so for
+# the update to take effect on the pipy server before the install
+# below will pick up the latest version.
 
 # Install it locally in venv,
     #
