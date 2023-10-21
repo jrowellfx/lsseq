@@ -5106,25 +5106,71 @@ iii02.[1-10].jpg p:[2-10]
 iii03.[0001-0010].jpg z:[5]
 -+- Test 122: lsseq returned non-zero error code: 13 -+-
 
------- Test 123 : . ------ lsseq -i ------
+------ Test 123 : testdir/pdir ------ lsseq --recursive --prependPathRel ------
+./p_median4_v01.[08-12].jpg z:[8-12]
+./p_median4_v02.[08-12].jpg z:[8-12]
+./p_median4_v03.[08-12].jpg z:[8-12]
+./p01_dir/p01_median2_v01.[08-12].jpg z:[8-12]
+./p01_dir/p01_median2_v02.[08-12].jpg z:[8-12]
+./p01_dir/p01_median2_v03.[08-12].jpg z:[8-12]
+./p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg z:[8-12]
+./p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg z:[8-12]
+./p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg z:[8-12]
+./p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg z:[8-12]
+./p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg z:[8-12]
+./p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg z:[8-12]
+./p02_dir/p02_median5_v01.[08-12].jpg z:[8-12]
+./p02_dir/p02_median5_v02.[08-12].jpg z:[8-12]
+./p02_dir/p02_median5_v03.[08-12].jpg z:[8-12]
+./p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg z:[8-12]
+./p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg z:[8-12]
+./p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg z:[8-12]
+./p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg z:[8-12]
+./p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg z:[8-12]
+./p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg z:[8-12]
+
+------ Test 124 : testdir/pdir ------ lsseq --recursive --prependPathRel * ------
+p_median4_v01.[08-12].jpg z:[8-12]
+p_median4_v02.[08-12].jpg z:[8-12]
+p_median4_v03.[08-12].jpg z:[8-12]
+p01_dir/p01_median2_v01.[08-12].jpg z:[8-12]
+p01_dir/p01_median2_v02.[08-12].jpg z:[8-12]
+p01_dir/p01_median2_v03.[08-12].jpg z:[8-12]
+p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg z:[8-12]
+p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg z:[8-12]
+p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg z:[8-12]
+p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg z:[8-12]
+p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg z:[8-12]
+p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg z:[8-12]
+p02_dir/p02_median5_v01.[08-12].jpg z:[8-12]
+p02_dir/p02_median5_v02.[08-12].jpg z:[8-12]
+p02_dir/p02_median5_v03.[08-12].jpg z:[8-12]
+p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg z:[8-12]
+p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg z:[8-12]
+p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg z:[8-12]
+p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg z:[8-12]
+p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg z:[8-12]
+p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg z:[8-12]
+
+------ Test 125 : . ------ lsseq -i ------
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------- Test 124 : testdir/gdir ------ lsseq --onlyImages ------
+------ Test 126 : testdir/gdir ------ lsseq --onlyImages ------
 
------- Test 125 : testdir/gdir ------ lsseq --onlyMovies ------
+------ Test 127 : testdir/gdir ------ lsseq --onlyMovies ------
 xxx01.mov
 xxx02.mov
 
------- Test 126 : testdir/gdir ------ lsseq --onlyCaches ------
+------ Test 128 : testdir/gdir ------ lsseq --onlyCaches ------
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------- Test 127 : . ------ echo -e \nThere is no way to test lsseq output to stdio if isatty is \nTrue so PLEASE manually run lsseq -R once on testdir to check \nif column-output is correct for the /bin/ls output. ------
+------ Test 129 : . ------ echo -e \nThere is no way to test lsseq output to stdio if isatty is \nTrue so PLEASE manually run lsseq -R once on testdir to check \nif column-output is correct for the /bin/ls output. ------
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check

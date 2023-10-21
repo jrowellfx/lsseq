@@ -303,6 +303,8 @@ testdir/idir/v002 lsseq --silent iii03.*
 testdir/idir/v002 lsseq --silent iii02.* foobar
 testdir/idir/v002 lsseq --silent iii03.* foobar
 testdir/idir/v002 lsseq --silent iii*.* foobar
+testdir/pdir lsseq --recursive --prependPathRel
+testdir/pdir lsseq --recursive --prependPathRel *
 EOF
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME
