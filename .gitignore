@@ -4,6 +4,7 @@ build
 *egg-info*
 *.bak
 .*.runsed
+.*.swp
 f
 g
 sed.script
