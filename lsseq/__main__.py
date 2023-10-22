@@ -651,7 +651,12 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
         if minFrame != maxFrame and args.extremes :
             print()
             if fileComponents[0][0] != '/' :
-                sys.stdout.write(traversedPath)
+                # Strip off any leading "./" from traversedPath. (added v3.0.1)
+                #
+                if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                    sys.stdout.write(traversedPath[2:])
+                else :
+                    sys.stdout.write(traversedPath)
             fileComponents[1] = formatStr % maxFrame
             print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
 

@@ -2587,13 +2587,13 @@ ccc03.[80-140].tga
 
 ------ Test 22 : testdir/cdir ------ lsseq -e -R -P ------
 ccc01.001.exr
-./ccc01.120.exr
+ccc01.120.exr
 ccc02.001.exr
-./ccc02.120.exr
+ccc02.120.exr
 ccc03.80.tga
-./ccc03.140.tga
+ccc03.140.tga
 c_subDir/ccc01.001.exr
-./c_subDir/ccc01.120.exr
+c_subDir/ccc01.120.exr
 
 ------ Test 23 : testdir/cdir ------ lsseq -fnative ------
 aaaa
