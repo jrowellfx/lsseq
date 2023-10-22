@@ -111,8 +111,9 @@ cd tests
 ./test_lsseq --testSystem-lsseq
 diff test_lsseq.out.Linux test_lsseq.out.Linux.installed.new
 
+# !! Double that any branch is MERGED back to master/main branch
+
 CHECK IN AN COMMIT ALL CHANGES AND PUSH UP TO GITHUB
 
-MERGE to master/main branch
 
 MAKE NEW github RELEASE to match VERSION

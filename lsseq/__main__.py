@@ -69,7 +69,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "3.0.1"     # Semantic Versioning 2.0.0
+VERSION = "3.0.2"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -504,7 +504,12 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
         else :
             fileComponents[1] = "%0" + str(padding) + "d"
         if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-            sys.stdout.write(traversedPath)
+            # Strip off any leading "./" from traversedPath. (added v3.0.1)
+            #
+            if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                sys.stdout.write(traversedPath[2:])
+            else :
+                sys.stdout.write(traversedPath)
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
         if minFrame == maxFrame :
             print()
@@ -522,7 +527,12 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                 fileComponents[1] = "@"*padding
             print("shake -t ", str(minFrame), "-", str(maxFrame), " ", sep='', end='')
         if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-            sys.stdout.write(traversedPath)
+            # Strip off any leading "./" from traversedPath. (added v3.0.1)
+            #
+            if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                sys.stdout.write(traversedPath[2:])
+            else :
+                sys.stdout.write(traversedPath)
         else :
             sys.stdout.write("")
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
@@ -536,7 +546,12 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
             fileComponents[1] = fileComponents[1] + "[0-9]"*(padding-1)
 
         if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-            sys.stdout.write(traversedPath)
+            # Strip off any leading "./" from traversedPath. (added v3.0.1)
+            #
+            if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                sys.stdout.write(traversedPath[2:])
+            else :
+                sys.stdout.write(traversedPath)
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     elif args.seqFormat == 'houdini' or args.seqFormat == 'mplay' :
@@ -549,7 +564,12 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
             if padding >= 2 :
                 fileComponents[1] += str(padding)
         if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-            sys.stdout.write(traversedPath)
+            # Strip off any leading "./" from traversedPath. (added v3.0.1)
+            #
+            if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                sys.stdout.write(traversedPath[2:])
+            else :
+                sys.stdout.write(traversedPath)
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     elif args.seqFormat == 'rv' :
@@ -563,7 +583,12 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
         fileComponents[1] = frameRange
 
         if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-            sys.stdout.write(traversedPath)
+            # Strip off any leading "./" from traversedPath. (added v3.0.1)
+            #
+            if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                sys.stdout.write(traversedPath[2:])
+            else :
+                sys.stdout.write(traversedPath)
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     else : # native
@@ -1077,7 +1102,12 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                             continue
                 if isMovie(seq[DICTKEY]) :
                     if args.prependPath != PATH_NOPREFIX :
-                        sys.stdout.write(traversedPath)
+                        # Strip off any leading "./" from traversedPath. (added v3.0.1)
+                        #
+                        if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                            sys.stdout.write(traversedPath[2:])
+                        else :
+                            sys.stdout.write(traversedPath)
                     print(seq[DICTKEY])
                     somethingWasPrinted = True
                 elif isCache(seq[DICTKEY]) :
@@ -1101,7 +1131,12 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     continue
             if isMovie(seq[DICTKEY]) :
                 if args.prependPath != PATH_NOPREFIX :
-                    sys.stdout.write(traversedPath)
+                    # Strip off any leading "./" from traversedPath. (added v3.0.1)
+                    #
+                    if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                        sys.stdout.write(traversedPath[2:])
+                    else :
+                        sys.stdout.write(traversedPath)
                 print(seq[DICTKEY])
                 somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
@@ -1119,7 +1154,12 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         for k in seqKeys :
             if isMovie(k) :
                 if args.prependPath != PATH_NOPREFIX :
-                    sys.stdout.write(traversedPath)
+                    # Strip off any leading "./" from traversedPath. (added v3.0.1)
+                    #
+                    if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                        sys.stdout.write(traversedPath[2:])
+                    else :
+                        sys.stdout.write(traversedPath)
                 print(k)
                 somethingWasPrinted = True
             elif isCache(k) :

@@ -4,7 +4,7 @@
 Darwin
 
 ------ Test 2 : . ------ lsseq --version ------
-3.0.1
+3.0.2
 
 ------ Test 3 : . ------ lsseq --help ------
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
@@ -115,15 +115,16 @@ optional arguments:
 
 ------ Test 4 : . ------ lsseq -lRFC --quiet testdir ------
 testdir:
-20592_chevrolet_cruze_reveal/   gdir/                           mkBlackFrames_HD_10.v01.shk
-adir/                           hdir/                           mkBlackFrames_HD_2.v01.shk
-bdir/                           idir/                           mkTestFrames.v01.nk
-blackFrames/                    jdir/                           mkTestFrames.v02.nk
-cdir/                           kdir/                           mk_hdir_Frames.v01.nk
-ddir/                           ldir/                           ndir/
-e01_sh0001_globalFX/            mdir/                           pdir/
-edir/                           mkAnimFrames.v01.shk            qdir/
-fdir/                           mkAnimFrames.v02.shk            www..exr
+20592_chevrolet_cruze_reveal/   hdir/                           mkTestFrames.v01.nk
+adir/                           idir/                           mkTestFrames.v02.nk
+bdir/                           jdir/                           mk_hdir_Frames.v01.nk
+blackFrames/                    kdir/                           ndir/
+cdir/                           ldir/                           pdir/
+ddir/                           mdir/                           qdir/
+e01_sh0001_globalFX/            mkAnimFrames.v01.shk            rdir/
+edir/                           mkAnimFrames.v02.shk            www..exr
+fdir/                           mkBlackFrames_HD_10.v01.shk
+gdir/                           mkBlackFrames_HD_2.v01.shk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -404,6 +405,37 @@ qqq.[002-006].jpg z:[2-6]
 
 testdir/qdir/q3Dir:
 qqq.[003-007].jpg z:[3-7]
+
+testdir/rdir:
+rSub01/ rSub02/
+r1.[001-015].jpg z:[1-15]
+r2.[101-115].jpg z:[101-115]
+rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rrr01.[090-105].bgeo.sc z:[90-105]
+rrr01.mov
+rrr02.[001-015].ass z:[1-15]
+rrr02.mov
+rrr03.[100-115].fur z:[100-115]
+
+testdir/rdir/rSub01:
+r1.[001-015].jpg z:[1-15]
+r2.[101-115].jpg z:[101-115]
+rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rrr01.[090-105].bgeo.sc z:[90-105]
+rrr01.mov
+rrr02.[001-015].ass z:[1-15]
+rrr02.mov
+rrr03.[100-115].fur z:[100-115]
+
+testdir/rdir/rSub02:
+r1.[001-015].jpg z:[1-15]
+r2.[101-115].jpg z:[101-115]
+rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rrr01.[090-105].bgeo.sc z:[90-105]
+rrr01.mov
+rrr02.[001-015].ass z:[1-15]
+rrr02.mov
+rrr03.[100-115].fur z:[100-115]
 -+- Test 4: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 5 : . ------ lsseq -lReC --silent testdir ------
@@ -592,6 +624,18 @@ qqq.[003-007].jpg z:[3-7]
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
+/...absPathToRepo.../tests/testdir/rdir/r1.001.jpg
+/...absPathToRepo.../tests/testdir/rdir/r1.015.jpg
+/...absPathToRepo.../tests/testdir/rdir/r2.101.jpg
+/...absPathToRepo.../tests/testdir/rdir/r2.115.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r1.001.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r1.015.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r2.101.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r2.115.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r1.001.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r1.015.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r2.101.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r2.115.jpg
 -+- Test 5: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 6 : . ------ lsseq -lReoC --silent testdir ------
@@ -794,6 +838,48 @@ qqq.[003-007].jpg z:[3-7]
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
+/...absPathToRepo.../tests/testdir/rdir/r1.001.jpg
+/...absPathToRepo.../tests/testdir/rdir/r1.015.jpg
+/...absPathToRepo.../tests/testdir/rdir/r2.101.jpg
+/...absPathToRepo.../tests/testdir/rdir/r2.115.jpg
+/...absPathToRepo.../tests/testdir/rdir/rrr01.001.ass
+/...absPathToRepo.../tests/testdir/rdir/rrr01.015.ass
+/...absPathToRepo.../tests/testdir/rdir/rrr01.090.bgeo.sc
+/...absPathToRepo.../tests/testdir/rdir/rrr01.105.bgeo.sc
+/...absPathToRepo.../tests/testdir/rdir/rrr01.mov
+/...absPathToRepo.../tests/testdir/rdir/rrr02.001.ass
+/...absPathToRepo.../tests/testdir/rdir/rrr02.015.ass
+/...absPathToRepo.../tests/testdir/rdir/rrr02.mov
+/...absPathToRepo.../tests/testdir/rdir/rrr03.100.fur
+/...absPathToRepo.../tests/testdir/rdir/rrr03.115.fur
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r1.001.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r1.015.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r2.101.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r2.115.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.001.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.015.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.090.bgeo.sc
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.105.bgeo.sc
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr02.001.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr02.015.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr02.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr03.100.fur
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr03.115.fur
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r1.001.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r1.015.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r2.101.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r2.115.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.001.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.015.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.090.bgeo.sc
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.105.bgeo.sc
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.001.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.015.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
 -+- Test 6: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 7 : . ------ lsseq -RePC --quiet testdir ------
@@ -988,19 +1074,62 @@ testdir/qdir/q2Dir/qqq.002.jpg
 testdir/qdir/q2Dir/qqq.006.jpg
 testdir/qdir/q3Dir/qqq.003.jpg
 testdir/qdir/q3Dir/qqq.007.jpg
+testdir/rdir/r1.001.jpg
+testdir/rdir/r1.015.jpg
+testdir/rdir/r2.101.jpg
+testdir/rdir/r2.115.jpg
+testdir/rdir/rrr01.001.ass
+testdir/rdir/rrr01.015.ass
+testdir/rdir/rrr01.090.bgeo.sc
+testdir/rdir/rrr01.105.bgeo.sc
+testdir/rdir/rrr01.mov
+testdir/rdir/rrr02.001.ass
+testdir/rdir/rrr02.015.ass
+testdir/rdir/rrr02.mov
+testdir/rdir/rrr03.100.fur
+testdir/rdir/rrr03.115.fur
+testdir/rdir/rSub01/r1.001.jpg
+testdir/rdir/rSub01/r1.015.jpg
+testdir/rdir/rSub01/r2.101.jpg
+testdir/rdir/rSub01/r2.115.jpg
+testdir/rdir/rSub01/rrr01.001.ass
+testdir/rdir/rSub01/rrr01.015.ass
+testdir/rdir/rSub01/rrr01.090.bgeo.sc
+testdir/rdir/rSub01/rrr01.105.bgeo.sc
+testdir/rdir/rSub01/rrr01.mov
+testdir/rdir/rSub01/rrr02.001.ass
+testdir/rdir/rSub01/rrr02.015.ass
+testdir/rdir/rSub01/rrr02.mov
+testdir/rdir/rSub01/rrr03.100.fur
+testdir/rdir/rSub01/rrr03.115.fur
+testdir/rdir/rSub02/r1.001.jpg
+testdir/rdir/rSub02/r1.015.jpg
+testdir/rdir/rSub02/r2.101.jpg
+testdir/rdir/rSub02/r2.115.jpg
+testdir/rdir/rSub02/rrr01.001.ass
+testdir/rdir/rSub02/rrr01.015.ass
+testdir/rdir/rSub02/rrr01.090.bgeo.sc
+testdir/rdir/rSub02/rrr01.105.bgeo.sc
+testdir/rdir/rSub02/rrr01.mov
+testdir/rdir/rSub02/rrr02.001.ass
+testdir/rdir/rSub02/rrr02.015.ass
+testdir/rdir/rSub02/rrr02.mov
+testdir/rdir/rSub02/rrr03.100.fur
+testdir/rdir/rSub02/rrr03.115.fur
 -+- Test 7: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 8 : . ------ lsseq -lRFC testdir ------
 testdir:
-20592_chevrolet_cruze_reveal/   gdir/                           mkBlackFrames_HD_10.v01.shk
-adir/                           hdir/                           mkBlackFrames_HD_2.v01.shk
-bdir/                           idir/                           mkTestFrames.v01.nk
-blackFrames/                    jdir/                           mkTestFrames.v02.nk
-cdir/                           kdir/                           mk_hdir_Frames.v01.nk
-ddir/                           ldir/                           ndir/
-e01_sh0001_globalFX/            mdir/                           pdir/
-edir/                           mkAnimFrames.v01.shk            qdir/
-fdir/                           mkAnimFrames.v02.shk            www..exr
+20592_chevrolet_cruze_reveal/   hdir/                           mkTestFrames.v01.nk
+adir/                           idir/                           mkTestFrames.v02.nk
+bdir/                           jdir/                           mk_hdir_Frames.v01.nk
+blackFrames/                    kdir/                           ndir/
+cdir/                           ldir/                           pdir/
+ddir/                           mdir/                           qdir/
+e01_sh0001_globalFX/            mkAnimFrames.v01.shk            rdir/
+edir/                           mkAnimFrames.v02.shk            www..exr
+fdir/                           mkBlackFrames_HD_10.v01.shk
+gdir/                           mkBlackFrames_HD_2.v01.shk
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -1292,6 +1421,37 @@ qqq.[002-006].jpg z:[2-6]
 
 testdir/qdir/q3Dir:
 qqq.[003-007].jpg z:[3-7]
+
+testdir/rdir:
+rSub01/ rSub02/
+r1.[001-015].jpg z:[1-15]
+r2.[101-115].jpg z:[101-115]
+rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rrr01.[090-105].bgeo.sc z:[90-105]
+rrr01.mov
+rrr02.[001-015].ass z:[1-15]
+rrr02.mov
+rrr03.[100-115].fur z:[100-115]
+
+testdir/rdir/rSub01:
+r1.[001-015].jpg z:[1-15]
+r2.[101-115].jpg z:[101-115]
+rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rrr01.[090-105].bgeo.sc z:[90-105]
+rrr01.mov
+rrr02.[001-015].ass z:[1-15]
+rrr02.mov
+rrr03.[100-115].fur z:[100-115]
+
+testdir/rdir/rSub02:
+r1.[001-015].jpg z:[1-15]
+r2.[101-115].jpg z:[101-115]
+rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rrr01.[090-105].bgeo.sc z:[90-105]
+rrr01.mov
+rrr02.[001-015].ass z:[1-15]
+rrr02.mov
+rrr03.[100-115].fur z:[100-115]
 -+- Test 8: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 9 : . ------ lsseq -lReC testdir ------
@@ -1491,6 +1651,18 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
+/...absPathToRepo.../tests/testdir/rdir/r1.001.jpg
+/...absPathToRepo.../tests/testdir/rdir/r1.015.jpg
+/...absPathToRepo.../tests/testdir/rdir/r2.101.jpg
+/...absPathToRepo.../tests/testdir/rdir/r2.115.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r1.001.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r1.015.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r2.101.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r2.115.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r1.001.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r1.015.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r2.101.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r2.115.jpg
 -+- Test 9: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 10 : . ------ lsseq -lReoC testdir ------
@@ -1704,6 +1876,48 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.006.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.003.jpg
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.007.jpg
+/...absPathToRepo.../tests/testdir/rdir/r1.001.jpg
+/...absPathToRepo.../tests/testdir/rdir/r1.015.jpg
+/...absPathToRepo.../tests/testdir/rdir/r2.101.jpg
+/...absPathToRepo.../tests/testdir/rdir/r2.115.jpg
+/...absPathToRepo.../tests/testdir/rdir/rrr01.001.ass
+/...absPathToRepo.../tests/testdir/rdir/rrr01.015.ass
+/...absPathToRepo.../tests/testdir/rdir/rrr01.090.bgeo.sc
+/...absPathToRepo.../tests/testdir/rdir/rrr01.105.bgeo.sc
+/...absPathToRepo.../tests/testdir/rdir/rrr01.mov
+/...absPathToRepo.../tests/testdir/rdir/rrr02.001.ass
+/...absPathToRepo.../tests/testdir/rdir/rrr02.015.ass
+/...absPathToRepo.../tests/testdir/rdir/rrr02.mov
+/...absPathToRepo.../tests/testdir/rdir/rrr03.100.fur
+/...absPathToRepo.../tests/testdir/rdir/rrr03.115.fur
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r1.001.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r1.015.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r2.101.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/r2.115.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.001.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.015.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.090.bgeo.sc
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.105.bgeo.sc
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr02.001.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr02.015.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr02.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr03.100.fur
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr03.115.fur
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r1.001.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r1.015.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r2.101.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/r2.115.jpg
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.001.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.015.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.090.bgeo.sc
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.105.bgeo.sc
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.001.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.015.ass
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
 -+- Test 10: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 11 : . ------ lsseq -RePC testdir ------
@@ -1909,6 +2123,48 @@ testdir/qdir/q2Dir/qqq.002.jpg
 testdir/qdir/q2Dir/qqq.006.jpg
 testdir/qdir/q3Dir/qqq.003.jpg
 testdir/qdir/q3Dir/qqq.007.jpg
+testdir/rdir/r1.001.jpg
+testdir/rdir/r1.015.jpg
+testdir/rdir/r2.101.jpg
+testdir/rdir/r2.115.jpg
+testdir/rdir/rrr01.001.ass
+testdir/rdir/rrr01.015.ass
+testdir/rdir/rrr01.090.bgeo.sc
+testdir/rdir/rrr01.105.bgeo.sc
+testdir/rdir/rrr01.mov
+testdir/rdir/rrr02.001.ass
+testdir/rdir/rrr02.015.ass
+testdir/rdir/rrr02.mov
+testdir/rdir/rrr03.100.fur
+testdir/rdir/rrr03.115.fur
+testdir/rdir/rSub01/r1.001.jpg
+testdir/rdir/rSub01/r1.015.jpg
+testdir/rdir/rSub01/r2.101.jpg
+testdir/rdir/rSub01/r2.115.jpg
+testdir/rdir/rSub01/rrr01.001.ass
+testdir/rdir/rSub01/rrr01.015.ass
+testdir/rdir/rSub01/rrr01.090.bgeo.sc
+testdir/rdir/rSub01/rrr01.105.bgeo.sc
+testdir/rdir/rSub01/rrr01.mov
+testdir/rdir/rSub01/rrr02.001.ass
+testdir/rdir/rSub01/rrr02.015.ass
+testdir/rdir/rSub01/rrr02.mov
+testdir/rdir/rSub01/rrr03.100.fur
+testdir/rdir/rSub01/rrr03.115.fur
+testdir/rdir/rSub02/r1.001.jpg
+testdir/rdir/rSub02/r1.015.jpg
+testdir/rdir/rSub02/r2.101.jpg
+testdir/rdir/rSub02/r2.115.jpg
+testdir/rdir/rSub02/rrr01.001.ass
+testdir/rdir/rSub02/rrr01.015.ass
+testdir/rdir/rSub02/rrr01.090.bgeo.sc
+testdir/rdir/rSub02/rrr01.105.bgeo.sc
+testdir/rdir/rSub02/rrr01.mov
+testdir/rdir/rSub02/rrr02.001.ass
+testdir/rdir/rSub02/rrr02.015.ass
+testdir/rdir/rSub02/rrr02.mov
+testdir/rdir/rSub02/rrr03.100.fur
+testdir/rdir/rSub02/rrr03.115.fur
 -+- Test 11: lsseq returned non-zero error code: 12 -+-
 
 ------ Test 12 : testdir ------ lsseq -p ------
@@ -1947,6 +2203,7 @@ mk_hdir_Frames.v01.nk
 ndir
 pdir
 qdir
+rdir
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -2189,6 +2446,18 @@ q1Dir
 q2Dir
 q3Dir
 
+rdir:
+rSub01
+rSub02
+r1.[001-015].jpg z:[1-15]
+r2.[101-115].jpg z:[101-115]
+rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rrr01.[090-105].bgeo.sc z:[90-105]
+rrr01.mov
+rrr02.[001-015].ass z:[1-15]
+rrr02.mov
+rrr03.[100-115].fur z:[100-115]
+
 ------ Test 15 : testdir ------ lsseq -l * ------
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
@@ -2397,6 +2666,18 @@ initial.image.mtimes
 q1Dir
 q2Dir
 q3Dir
+
+rdir:
+rSub01
+rSub02
+r1.[001-015].jpg z:[1-15]
+r2.[101-115].jpg z:[101-115]
+rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rrr01.[090-105].bgeo.sc z:[90-105]
+rrr01.mov
+rrr02.[001-015].ass z:[1-15]
+rrr02.mov
+rrr03.[100-115].fur z:[100-115]
 
 ------ Test 16 : testdir/cdir ------ lsseq ------
 aaaa
@@ -3096,6 +3377,7 @@ mk_hdir_Frames.v01.nk
 ndir
 pdir
 qdir
+rdir
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -3619,6 +3901,38 @@ qqq.[002-006].jpg z:[2-6]
 
 /...absPathToRepo.../tests/testdir/qdir/q3Dir:
 qqq.[003-007].jpg z:[3-7]
+
+/...absPathToRepo.../tests/testdir/rdir:
+rSub01
+rSub02
+r1.[001-015].jpg z:[1-15]
+r2.[101-115].jpg z:[101-115]
+rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rrr01.[090-105].bgeo.sc z:[90-105]
+rrr01.mov
+rrr02.[001-015].ass z:[1-15]
+rrr02.mov
+rrr03.[100-115].fur z:[100-115]
+
+/...absPathToRepo.../tests/testdir/rdir/rSub01:
+r1.[001-015].jpg z:[1-15]
+r2.[101-115].jpg z:[101-115]
+rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rrr01.[090-105].bgeo.sc z:[90-105]
+rrr01.mov
+rrr02.[001-015].ass z:[1-15]
+rrr02.mov
+rrr03.[100-115].fur z:[100-115]
+
+/...absPathToRepo.../tests/testdir/rdir/rSub02:
+r1.[001-015].jpg z:[1-15]
+r2.[101-115].jpg z:[101-115]
+rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rrr01.[090-105].bgeo.sc z:[90-105]
+rrr01.mov
+rrr02.[001-015].ass z:[1-15]
+rrr02.mov
+rrr03.[100-115].fur z:[100-115]
 
 /...absPathToRepo.../tests/testdir/cdir:
 aaaa
@@ -5180,25 +5494,237 @@ p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg z:[8-12]
 p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg z:[8-12]
 p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg z:[8-12]
 
------- Test 125 : . ------ lsseq -i ------
+------ Test 125 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive ------
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+rSub01/r1.[001-015].jpg
+rSub01/r2.[101-115].jpg
+rSub01/rrr01.[001-015].ass
+rSub01/rrr01.[090-105].bgeo.sc
+rSub01/rrr01.mov
+rSub01/rrr02.[001-015].ass
+rSub01/rrr02.mov
+rSub01/rrr03.[100-115].fur
+rSub02/r1.[001-015].jpg
+rSub02/r2.[101-115].jpg
+rSub02/rrr01.[001-015].ass
+rSub02/rrr01.[090-105].bgeo.sc
+rSub02/rrr01.mov
+rSub02/rrr02.[001-015].ass
+rSub02/rrr02.mov
+rSub02/rrr03.[100-115].fur
+
+------ Test 126 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --onlyImages ------
+r1.[001-015].jpg
+r2.[101-115].jpg
+rSub01/r1.[001-015].jpg
+rSub01/r2.[101-115].jpg
+rSub02/r1.[001-015].jpg
+rSub02/r2.[101-115].jpg
+
+------ Test 127 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --onlyMovies ------
+rrr01.mov
+rrr02.mov
+rSub01/rrr01.mov
+rSub01/rrr02.mov
+rSub02/rrr01.mov
+rSub02/rrr02.mov
+
+------ Test 128 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --onlyCaches ------
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+rSub01/rrr01.[001-015].ass
+rSub01/rrr01.[090-105].bgeo.sc
+rSub01/rrr02.[001-015].ass
+rSub01/rrr03.[100-115].fur
+rSub02/rrr01.[001-015].ass
+rSub02/rrr01.[090-105].bgeo.sc
+rSub02/rrr02.[001-015].ass
+rSub02/rrr03.[100-115].fur
+
+------ Test 129 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format nuke ------
+r1.%03d.jpg 1-15
+r2.%03d.jpg 101-115
+rrr01.%03d.ass 1-15
+rrr01.%03d.bgeo.sc 90-105
+rrr01.mov
+rrr02.%03d.ass 1-15
+rrr02.mov
+rrr03.%03d.fur 100-115
+rSub01/r1.%03d.jpg 1-15
+rSub01/r2.%03d.jpg 101-115
+rSub01/rrr01.%03d.ass 1-15
+rSub01/rrr01.%03d.bgeo.sc 90-105
+rSub01/rrr01.mov
+rSub01/rrr02.%03d.ass 1-15
+rSub01/rrr02.mov
+rSub01/rrr03.%03d.fur 100-115
+rSub02/r1.%03d.jpg 1-15
+rSub02/r2.%03d.jpg 101-115
+rSub02/rrr01.%03d.ass 1-15
+rSub02/rrr01.%03d.bgeo.sc 90-105
+rSub02/rrr01.mov
+rSub02/rrr02.%03d.ass 1-15
+rSub02/rrr02.mov
+rSub02/rrr03.%03d.fur 100-115
+
+------ Test 130 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format rv ------
+r1.1-15@@@.jpg
+r2.101-115@@@.jpg
+rrr01.1-15@@@.ass
+rrr01.90-105@@@.bgeo.sc
+rrr01.mov
+rrr02.1-15@@@.ass
+rrr02.mov
+rrr03.100-115@@@.fur
+rSub01/r1.1-15@@@.jpg
+rSub01/r2.101-115@@@.jpg
+rSub01/rrr01.1-15@@@.ass
+rSub01/rrr01.90-105@@@.bgeo.sc
+rSub01/rrr01.mov
+rSub01/rrr02.1-15@@@.ass
+rSub01/rrr02.mov
+rSub01/rrr03.100-115@@@.fur
+rSub02/r1.1-15@@@.jpg
+rSub02/r2.101-115@@@.jpg
+rSub02/rrr01.1-15@@@.ass
+rSub02/rrr01.90-105@@@.bgeo.sc
+rSub02/rrr01.mov
+rSub02/rrr02.1-15@@@.ass
+rSub02/rrr02.mov
+rSub02/rrr03.100-115@@@.fur
+
+------ Test 131 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format shake ------
+shake -t 1-15 r1.@@@.jpg
+shake -t 101-115 r2.@@@.jpg
+shake -t 1-15 rrr01.@@@.ass
+shake -t 90-105 rrr01.@@@.bgeo.sc
+rrr01.mov
+shake -t 1-15 rrr02.@@@.ass
+rrr02.mov
+shake -t 100-115 rrr03.@@@.fur
+shake -t 1-15 rSub01/r1.@@@.jpg
+shake -t 101-115 rSub01/r2.@@@.jpg
+shake -t 1-15 rSub01/rrr01.@@@.ass
+shake -t 90-105 rSub01/rrr01.@@@.bgeo.sc
+rSub01/rrr01.mov
+shake -t 1-15 rSub01/rrr02.@@@.ass
+rSub01/rrr02.mov
+shake -t 100-115 rSub01/rrr03.@@@.fur
+shake -t 1-15 rSub02/r1.@@@.jpg
+shake -t 101-115 rSub02/r2.@@@.jpg
+shake -t 1-15 rSub02/rrr01.@@@.ass
+shake -t 90-105 rSub02/rrr01.@@@.bgeo.sc
+rSub02/rrr01.mov
+shake -t 1-15 rSub02/rrr02.@@@.ass
+rSub02/rrr02.mov
+shake -t 100-115 rSub02/rrr03.@@@.fur
+
+------ Test 132 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format glob ------
+r1.[0-9][0-9][0-9].jpg
+r2.[0-9][0-9][0-9].jpg
+rrr01.[0-9][0-9][0-9].ass
+rrr01.[0-9][0-9][0-9].bgeo.sc
+rrr01.mov
+rrr02.[0-9][0-9][0-9].ass
+rrr02.mov
+rrr03.[0-9][0-9][0-9].fur
+rSub01/r1.[0-9][0-9][0-9].jpg
+rSub01/r2.[0-9][0-9][0-9].jpg
+rSub01/rrr01.[0-9][0-9][0-9].ass
+rSub01/rrr01.[0-9][0-9][0-9].bgeo.sc
+rSub01/rrr01.mov
+rSub01/rrr02.[0-9][0-9][0-9].ass
+rSub01/rrr02.mov
+rSub01/rrr03.[0-9][0-9][0-9].fur
+rSub02/r1.[0-9][0-9][0-9].jpg
+rSub02/r2.[0-9][0-9][0-9].jpg
+rSub02/rrr01.[0-9][0-9][0-9].ass
+rSub02/rrr01.[0-9][0-9][0-9].bgeo.sc
+rSub02/rrr01.mov
+rSub02/rrr02.[0-9][0-9][0-9].ass
+rSub02/rrr02.mov
+rSub02/rrr03.[0-9][0-9][0-9].fur
+
+------ Test 133 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format mplay ------
+r1.\$F3.jpg
+r2.\$F3.jpg
+rrr01.\$F3.ass
+rrr01.\$F3.bgeo.sc
+rrr01.mov
+rrr02.\$F3.ass
+rrr02.mov
+rrr03.\$F3.fur
+rSub01/r1.\$F3.jpg
+rSub01/r2.\$F3.jpg
+rSub01/rrr01.\$F3.ass
+rSub01/rrr01.\$F3.bgeo.sc
+rSub01/rrr01.mov
+rSub01/rrr02.\$F3.ass
+rSub01/rrr02.mov
+rSub01/rrr03.\$F3.fur
+rSub02/r1.\$F3.jpg
+rSub02/r2.\$F3.jpg
+rSub02/rrr01.\$F3.ass
+rSub02/rrr01.\$F3.bgeo.sc
+rSub02/rrr01.mov
+rSub02/rrr02.\$F3.ass
+rSub02/rrr02.mov
+rSub02/rrr03.\$F3.fur
+
+------ Test 134 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format houdini ------
+r1.$F3.jpg
+r2.$F3.jpg
+rrr01.$F3.ass
+rrr01.$F3.bgeo.sc
+rrr01.mov
+rrr02.$F3.ass
+rrr02.mov
+rrr03.$F3.fur
+rSub01/r1.$F3.jpg
+rSub01/r2.$F3.jpg
+rSub01/rrr01.$F3.ass
+rSub01/rrr01.$F3.bgeo.sc
+rSub01/rrr01.mov
+rSub01/rrr02.$F3.ass
+rSub01/rrr02.mov
+rSub01/rrr03.$F3.fur
+rSub02/r1.$F3.jpg
+rSub02/r2.$F3.jpg
+rSub02/rrr01.$F3.ass
+rSub02/rrr01.$F3.bgeo.sc
+rSub02/rrr01.mov
+rSub02/rrr02.$F3.ass
+rSub02/rrr02.mov
+rSub02/rrr03.$F3.fur
+
+------ Test 135 : . ------ lsseq -i ------
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------- Test 126 : testdir/gdir ------ lsseq --onlyImages ------
+------ Test 136 : testdir/gdir ------ lsseq --onlyImages ------
 
------- Test 127 : testdir/gdir ------ lsseq --onlyMovies ------
+------ Test 137 : testdir/gdir ------ lsseq --onlyMovies ------
 xxx01.mov
 xxx02.mov
 
------- Test 128 : testdir/gdir ------ lsseq --onlyCaches ------
+------ Test 138 : testdir/gdir ------ lsseq --onlyCaches ------
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------- Test 129 : . ------ echo -e \nThere is no way to test lsseq output to stdio if isatty is \nTrue so PLEASE manually run lsseq -R once on testdir to check \nif column-output is correct for the /bin/ls output. ------
+------ Test 139 : . ------ echo -e \nThere is no way to test lsseq output to stdio if isatty is \nTrue so PLEASE manually run lsseq -R once on testdir to check \nif column-output is correct for the /bin/ls output. ------
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check

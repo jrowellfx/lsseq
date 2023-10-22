@@ -305,6 +305,16 @@ testdir/idir/v002 lsseq --silent iii03.* foobar
 testdir/idir/v002 lsseq --silent iii*.* foobar
 testdir/pdir lsseq --recursive --prependPathRel
 testdir/pdir lsseq --recursive --prependPathRel *
+testdir/rdir lsseq --prependPathRel --noErrorLists --recursive
+testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --onlyImages
+testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --onlyMovies
+testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --onlyCaches
+testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format nuke
+testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format rv
+testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format shake
+testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format glob
+testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format mplay
+testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format houdini
 EOF
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME
