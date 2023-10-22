@@ -69,7 +69,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "3.0.0"     # Semantic Versioning 2.0.0
+VERSION = "3.0.1"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -368,7 +368,6 @@ def isMovie(filename) :
     return len(fileComponents) > 1 \
         and fileComponents[-1].lower() in gMovieExtList
 
-
 # Split the filename dictionary KEY into (<imagename>, "", <ext>)
 # (empty placeholder for framenum)
 #
@@ -400,7 +399,6 @@ def actualImageName(filenameKey, padding, frame) :
     fileParts = splitImageName(filenameKey)
     formatStr = "{0:0=-" + str(padding) + "d}"
     return fileParts[0] + formatStr.format(frame) + "." + fileParts[2]
-
 
 # Prints an individual sequence based on cmd-line-args.
 # frameList comes in sorted from smallest frame number to largest.
@@ -639,7 +637,13 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
         fileComponents[1] = frameRange
 
         if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-            sys.stdout.write(traversedPath)
+
+            # Strip off any leading "./" from traversedPath. (added v3.0.1)
+            #
+            if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                sys.stdout.write(traversedPath[2:])
+            else :
+                sys.stdout.write(traversedPath)
 
         if args.extremes :
             fileComponents[1] = formatStr % minFrame
@@ -732,7 +736,7 @@ def stripDotFiles(dirContents, stripIt) :
 # ONLY be the contents of a single directory if this has been
 # called recursively with "-R" to lsseq, and we're more than one level deep.
 #
-# This fucntion assumes that if a directory "title" is needed
+# This fucntion assumes that if a directory-title is needed
 # (i.e., the dirContents parameter to this function), for example:
 #
 # dirName:
@@ -752,7 +756,9 @@ def stripDotFiles(dirContents, stripIt) :
 #                 case we may descend further if need be.
 #          args - The all the args set on the command line.
 # traversedPath - The path descended so far to get to this level
-#                 used to print the directory "titles".
+#                 used to print the directory-title. Also note that
+#                 traversedPath will always have a '/' as the last
+#                 character in the string.
 # 
 def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
@@ -779,7 +785,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
     # The 'imageDictionary' (and 'cacheDictionary') has <imageName>..<ext>
     # (or <imageName>_.<ext>), i.e., name without the frame number, as the
-    # key for each entry.  Each entry is a list containing four-tuples-tuples,
+    # key for each entry.  Each entry is a list containing four-tuples,
     # namely:
     #
     #     [ (frameNum, fileSize, mtime, padding), ... ]
@@ -1120,7 +1126,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 printSeq(k, imageDictionary[k], args, traversedPath)
                 somethingWasPrinted = True
 
-    # lsseq - the contents of any subdirectories if need be.
+    # lsseq the contents of any subdirectories if need be.
     #         Somewhat mimics the calls up in main().
     #
     firstDir = True

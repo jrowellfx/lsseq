@@ -4,7 +4,7 @@
 Linux
 
 ------ Test 2 : . ------ lsseq --version ------
-3.0.0
+3.0.1
 
 ------ Test 3 : . ------ lsseq --help ------
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
@@ -2586,13 +2586,13 @@ ccc03.[80-140].tga
 /...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.120.exr
 
 ------ Test 22 : testdir/cdir ------ lsseq -e -R -P ------
-./ccc01.001.exr
+ccc01.001.exr
 ./ccc01.120.exr
-./ccc02.001.exr
+ccc02.001.exr
 ./ccc02.120.exr
-./ccc03.80.tga
+ccc03.80.tga
 ./ccc03.140.tga
-./c_subDir/ccc01.001.exr
+c_subDir/ccc01.001.exr
 ./c_subDir/ccc01.120.exr
 
 ------ Test 23 : testdir/cdir ------ lsseq -fnative ------
@@ -3866,10 +3866,10 @@ ccc03.[80-140].tga
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 46 : testdir/cdir ------ lsseq -R -P -p -P -f rv -f glob -f native -C -b ------
-./ccc01.[001-120].exr m:[3], z:[52-55]
-./ccc02.[001-120].exr m:[51,119]
-./ccc03.[80-140].tga
-./c_subDir/ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
+ccc01.[001-120].exr m:[3], z:[52-55]
+ccc02.[001-120].exr m:[51,119]
+ccc03.[80-140].tga
+c_subDir/ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
 ------ Test 47 : testdir/idir ------ lsseq ------
 v001
@@ -4587,73 +4587,73 @@ pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
 
 ------ Test 83 : testdir/pdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time median ------
-./p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
-./p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
-./p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
-./p01_dir/p01_median2_v01.[08-12].jpg
-./p01_dir/p01_median2_v02.[08-12].jpg
-./p01_dir/p01_median2_v03.[08-12].jpg
-./p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
-./p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
-./p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
-./p_median4_v01.[08-12].jpg
-./p_median4_v02.[08-12].jpg
-./p_median4_v03.[08-12].jpg
-./p02_dir/p02_median5_v01.[08-12].jpg
-./p02_dir/p02_median5_v02.[08-12].jpg
-./p02_dir/p02_median5_v03.[08-12].jpg
-./p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
-./p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
-./p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
-./p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
-./p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
-./p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+p01_dir/p01_median2_v01.[08-12].jpg
+p01_dir/p01_median2_v02.[08-12].jpg
+p01_dir/p01_median2_v03.[08-12].jpg
+p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+p_median4_v01.[08-12].jpg
+p_median4_v02.[08-12].jpg
+p_median4_v03.[08-12].jpg
+p02_dir/p02_median5_v01.[08-12].jpg
+p02_dir/p02_median5_v02.[08-12].jpg
+p02_dir/p02_median5_v03.[08-12].jpg
+p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 
 ------ Test 84 : testdir/pdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time oldest ------
-./p02_dir/p02_median5_v03.[08-12].jpg
-./p02_dir/p02_median5_v01.[08-12].jpg
-./p02_dir/p02_median5_v02.[08-12].jpg
-./p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
-./p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
-./p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
-./p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
-./p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
-./p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
-./p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
-./p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
-./p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
-./p01_dir/p01_median2_v03.[08-12].jpg
-./p01_dir/p01_median2_v01.[08-12].jpg
-./p01_dir/p01_median2_v02.[08-12].jpg
-./p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
-./p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
-./p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
-./p_median4_v03.[08-12].jpg
-./p_median4_v01.[08-12].jpg
-./p_median4_v02.[08-12].jpg
+p02_dir/p02_median5_v03.[08-12].jpg
+p02_dir/p02_median5_v01.[08-12].jpg
+p02_dir/p02_median5_v02.[08-12].jpg
+p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+p01_dir/p01_median2_v03.[08-12].jpg
+p01_dir/p01_median2_v01.[08-12].jpg
+p01_dir/p01_median2_v02.[08-12].jpg
+p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+p_median4_v03.[08-12].jpg
+p_median4_v01.[08-12].jpg
+p_median4_v02.[08-12].jpg
 
 ------ Test 85 : testdir/pdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time newest ------
-./p_median4_v02.[08-12].jpg
-./p_median4_v03.[08-12].jpg
-./p_median4_v01.[08-12].jpg
-./p02_dir/p02_median5_v02.[08-12].jpg
-./p02_dir/p02_median5_v03.[08-12].jpg
-./p02_dir/p02_median5_v01.[08-12].jpg
-./p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
-./p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
-./p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
-./p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
-./p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
-./p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
-./p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
-./p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
-./p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
-./p01_dir/p01_median2_v02.[08-12].jpg
-./p01_dir/p01_median2_v03.[08-12].jpg
-./p01_dir/p01_median2_v01.[08-12].jpg
-./p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
-./p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
-./p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
+p_median4_v02.[08-12].jpg
+p_median4_v03.[08-12].jpg
+p_median4_v01.[08-12].jpg
+p02_dir/p02_median5_v02.[08-12].jpg
+p02_dir/p02_median5_v03.[08-12].jpg
+p02_dir/p02_median5_v01.[08-12].jpg
+p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg
+p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg
+p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg
+p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
+p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
+p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
+p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
+p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
+p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
+p01_dir/p01_median2_v02.[08-12].jpg
+p01_dir/p01_median2_v03.[08-12].jpg
+p01_dir/p01_median2_v01.[08-12].jpg
+p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
+p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
+p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
 
 ------ Test 86 : testdir/pdir ------ ls -R --full-time -t -o ------
 .:
@@ -5107,27 +5107,27 @@ iii03.[0001-0010].jpg z:[5]
 -+- Test 122: lsseq returned non-zero error code: 13 -+-
 
 ------ Test 123 : testdir/pdir ------ lsseq --recursive --prependPathRel ------
-./p_median4_v01.[08-12].jpg z:[8-12]
-./p_median4_v02.[08-12].jpg z:[8-12]
-./p_median4_v03.[08-12].jpg z:[8-12]
-./p01_dir/p01_median2_v01.[08-12].jpg z:[8-12]
-./p01_dir/p01_median2_v02.[08-12].jpg z:[8-12]
-./p01_dir/p01_median2_v03.[08-12].jpg z:[8-12]
-./p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg z:[8-12]
-./p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg z:[8-12]
-./p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg z:[8-12]
-./p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg z:[8-12]
-./p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg z:[8-12]
-./p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg z:[8-12]
-./p02_dir/p02_median5_v01.[08-12].jpg z:[8-12]
-./p02_dir/p02_median5_v02.[08-12].jpg z:[8-12]
-./p02_dir/p02_median5_v03.[08-12].jpg z:[8-12]
-./p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg z:[8-12]
-./p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg z:[8-12]
-./p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg z:[8-12]
-./p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg z:[8-12]
-./p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg z:[8-12]
-./p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg z:[8-12]
+p_median4_v01.[08-12].jpg z:[8-12]
+p_median4_v02.[08-12].jpg z:[8-12]
+p_median4_v03.[08-12].jpg z:[8-12]
+p01_dir/p01_median2_v01.[08-12].jpg z:[8-12]
+p01_dir/p01_median2_v02.[08-12].jpg z:[8-12]
+p01_dir/p01_median2_v03.[08-12].jpg z:[8-12]
+p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg z:[8-12]
+p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg z:[8-12]
+p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg z:[8-12]
+p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg z:[8-12]
+p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg z:[8-12]
+p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg z:[8-12]
+p02_dir/p02_median5_v01.[08-12].jpg z:[8-12]
+p02_dir/p02_median5_v02.[08-12].jpg z:[8-12]
+p02_dir/p02_median5_v03.[08-12].jpg z:[8-12]
+p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg z:[8-12]
+p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg z:[8-12]
+p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg z:[8-12]
+p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg z:[8-12]
+p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg z:[8-12]
+p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg z:[8-12]
 
 ------ Test 124 : testdir/pdir ------ lsseq --recursive --prependPathRel * ------
 p_median4_v01.[08-12].jpg z:[8-12]
