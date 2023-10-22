@@ -309,7 +309,7 @@ so that they are accessible to all users. This works on both MacOS and Linux.
     # ln -s /usr/local/venv/bin/fixseqpadding /usr/local/bin/fixseqpadding
     # exit
     $ lsseq --version
-    3.0.0
+    3.0.1
 ```
 At this point any user should be able to run any of the commands linked in the example above.
 Note that updates are easy now too. Say there's an update to lsseq that you want to install.
