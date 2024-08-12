@@ -104,6 +104,7 @@ gImageExtList = [
     "anim",
     "ari",
     "arw",
+    "arx",
     "avif",
     "bmp",
     "btf",
