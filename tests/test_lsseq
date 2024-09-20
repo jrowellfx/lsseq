@@ -321,6 +321,12 @@ testdir lsseq -R -P --onlyCaches
 testdir lsseq -R -P --onlyCaches --globalSortByTime
 testdir lsseq -R -P --onlySequences
 testdir lsseq -R -P --onlySequences --globalSortByTime
+testdir lsseq -R -p --onlyMovies
+testdir lsseq -R -p --onlyMovies --globalSortByTime
+testdir lsseq -R -p --onlyCaches
+testdir lsseq -R -p --onlyCaches --globalSortByTime
+testdir lsseq -R -p --onlySequences
+testdir lsseq -R -p --onlySequences --globalSortByTime
 EOF
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME
