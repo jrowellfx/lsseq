@@ -1689,7 +1689,18 @@ def main() :
                         continue
             gDictKey = seq[TRAVERSEDPATH] + '/' + seq[DICTKEY]
             if isMovie(seq[DICTKEY]) :
-                print(gDictKey)
+                traversedPath = seq[TRAVERSEDPATH]
+                if args.prependPath != PATH_NOPREFIX and seq[DICTKEY][0] != '/' :
+                    # Strip off any leading "./" from traversedPath. (added v3.0.1)
+                    #
+                    if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                        sys.stdout.write(traversedPath[2:])
+                    else :
+                        sys.stdout.write(traversedPath)
+                else :
+                    sys.stdout.write(traversedPath)
+                print(seq[DICTKEY])
+
             elif isCache(seq[DICTKEY]) :
                 gCacheDictionary[gDictKey].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
                 printSeq(seq[DICTKEY], gCacheDictionary[gDictKey], args, seq[TRAVERSEDPATH])

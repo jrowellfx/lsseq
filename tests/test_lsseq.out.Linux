@@ -5691,18 +5691,18 @@ rdir/rSub02/rrr01.mov
 rdir/rSub02/rrr02.mov
 
 ------ Test 136 : testdir ------ lsseq -R -P --onlyMovies --globalSortByTime ------
-./rdir/rSub02//rrr01.mov
-./rdir/rSub02//rrr02.mov
-./rdir/rSub01//rrr01.mov
-./rdir/rSub01//rrr02.mov
-./rdir//rrr01.mov
-./rdir//rrr02.mov
-.//testDirFile.wmv
-.//testDirFile.mov
-.//xxx.mov
-.//yyy.mov
-./gdir//xxx01.mov
-./gdir//xxx02.mov
+rdir/rSub02/rrr01.mov
+rdir/rSub02/rrr02.mov
+rdir/rSub01/rrr01.mov
+rdir/rSub01/rrr02.mov
+rdir/rrr01.mov
+rdir/rrr02.mov
+testDirFile.wmv
+testDirFile.mov
+xxx.mov
+yyy.mov
+gdir/xxx01.mov
+gdir/xxx02.mov
 
 ------ Test 137 : testdir ------ lsseq -R -P --onlyCaches ------
 gdir/ccc01.[001-120].ass m:[3]
@@ -5883,24 +5883,24 @@ rdir/rSub02/rrr01.[001-015].ass m:[3], z:[1-2,4-15]
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr01.[090-105].bgeo.sc z:[90-105]
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
-./rdir/rSub02//rrr01.mov
-./rdir/rSub02//rrr02.mov
+rdir/rSub02/rrr01.mov
+rdir/rSub02/rrr02.mov
 rdir/rSub02/r1.[001-015].jpg z:[1-15]
 rdir/rSub02/r2.[101-115].jpg z:[101-115]
 rdir/rSub01/rrr01.[001-015].ass m:[3], z:[1-2,4-15]
 rdir/rSub01/rrr02.[001-015].ass z:[1-15]
 rdir/rSub01/rrr01.[090-105].bgeo.sc z:[90-105]
 rdir/rSub01/rrr03.[100-115].fur z:[100-115]
-./rdir/rSub01//rrr01.mov
-./rdir/rSub01//rrr02.mov
+rdir/rSub01/rrr01.mov
+rdir/rSub01/rrr02.mov
 rdir/rSub01/r1.[001-015].jpg z:[1-15]
 rdir/rSub01/r2.[101-115].jpg z:[101-115]
 rdir/rrr01.[001-015].ass m:[3], z:[1-2,4-15]
 rdir/rrr02.[001-015].ass z:[1-15]
 rdir/rrr01.[090-105].bgeo.sc z:[90-105]
 rdir/rrr03.[100-115].fur z:[100-115]
-./rdir//rrr01.mov
-./rdir//rrr02.mov
+rdir/rrr01.mov
+rdir/rrr02.mov
 rdir/r1.[001-015].jpg z:[1-15]
 rdir/r2.[101-115].jpg z:[101-115]
 lsseq: warning: sequence: ./idir/v002/iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
@@ -5914,10 +5914,10 @@ idir/v001/iii01.[0001-0040].jpg
 qdir/q2Dir/qqq.[002-006].jpg z:[2-6]
 qdir/q3Dir/qqq.[003-007].jpg z:[3-7]
 qdir/q1Dir/qqq.[001-005].jpg z:[1-5]
-.//testDirFile.wmv
-.//testDirFile.mov
-.//xxx.mov
-.//yyy.mov
+testDirFile.wmv
+testDirFile.mov
+xxx.mov
+yyy.mov
 yyy.[0123].tif
 xxx.[000-016].exr m:[1-15x2]
 testDirFile.[001-012].exr m:[3]
@@ -5950,8 +5950,8 @@ gdir/ccc03.[80-140].fur
 gdir/ggg01.[090-105].bgeo.sc z:[90-105]
 gdir/ccc01.[001-120].ass m:[3]
 gdir/ccc02.[001-120].ass m:[51,119]
-./gdir//xxx01.mov
-./gdir//xxx02.mov
+gdir/xxx01.mov
+gdir/xxx02.mov
 fdir/ccc.[004].jpg
 fdir/ddd.[-08].jpg
 fdir/xxx.[01989-02013].png
@@ -6031,18 +6031,18 @@ ndir/nnn_v01.[0005-0015].jpg
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
 
 ------ Test 142 : testdir ------ lsseq -R -p --onlyMovies --globalSortByTime ------
-/...absPathToRepo.../tests/testdir/rdir/rSub02//rrr01.mov
-/...absPathToRepo.../tests/testdir/rdir/rSub02//rrr02.mov
-/...absPathToRepo.../tests/testdir/rdir/rSub01//rrr01.mov
-/...absPathToRepo.../tests/testdir/rdir/rSub01//rrr02.mov
-/...absPathToRepo.../tests/testdir/rdir//rrr01.mov
-/...absPathToRepo.../tests/testdir/rdir//rrr02.mov
-/...absPathToRepo.../tests/testdir//testDirFile.wmv
-/...absPathToRepo.../tests/testdir//testDirFile.mov
-/...absPathToRepo.../tests/testdir//xxx.mov
-/...absPathToRepo.../tests/testdir//yyy.mov
-/...absPathToRepo.../tests/testdir/gdir//xxx01.mov
-/...absPathToRepo.../tests/testdir/gdir//xxx02.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr02.mov
+/...absPathToRepo.../tests/testdir/rdir/rrr01.mov
+/...absPathToRepo.../tests/testdir/rdir/rrr02.mov
+/...absPathToRepo.../tests/testdir/testDirFile.wmv
+/...absPathToRepo.../tests/testdir/testDirFile.mov
+/...absPathToRepo.../tests/testdir/xxx.mov
+/...absPathToRepo.../tests/testdir/yyy.mov
+/...absPathToRepo.../tests/testdir/gdir/xxx01.mov
+/...absPathToRepo.../tests/testdir/gdir/xxx02.mov
 
 ------ Test 143 : testdir ------ lsseq -R -p --onlyCaches ------
 /...absPathToRepo.../tests/testdir/gdir/ccc01.[001-120].ass m:[3]
@@ -6223,24 +6223,24 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.[090-105].bgeo.sc z:[90-105]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.[100-115].fur z:[100-115]
-/...absPathToRepo.../tests/testdir/rdir/rSub02//rrr01.mov
-/...absPathToRepo.../tests/testdir/rdir/rSub02//rrr02.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
 /...absPathToRepo.../tests/testdir/rdir/rSub02/r1.[001-015].jpg z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/r2.[101-115].jpg z:[101-115]
 /...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.[001-015].ass m:[3], z:[1-2,4-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub01/rrr02.[001-015].ass z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.[090-105].bgeo.sc z:[90-105]
 /...absPathToRepo.../tests/testdir/rdir/rSub01/rrr03.[100-115].fur z:[100-115]
-/...absPathToRepo.../tests/testdir/rdir/rSub01//rrr01.mov
-/...absPathToRepo.../tests/testdir/rdir/rSub01//rrr02.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.mov
+/...absPathToRepo.../tests/testdir/rdir/rSub01/rrr02.mov
 /...absPathToRepo.../tests/testdir/rdir/rSub01/r1.[001-015].jpg z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub01/r2.[101-115].jpg z:[101-115]
 /...absPathToRepo.../tests/testdir/rdir/rrr01.[001-015].ass m:[3], z:[1-2,4-15]
 /...absPathToRepo.../tests/testdir/rdir/rrr02.[001-015].ass z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rrr01.[090-105].bgeo.sc z:[90-105]
 /...absPathToRepo.../tests/testdir/rdir/rrr03.[100-115].fur z:[100-115]
-/...absPathToRepo.../tests/testdir/rdir//rrr01.mov
-/...absPathToRepo.../tests/testdir/rdir//rrr02.mov
+/...absPathToRepo.../tests/testdir/rdir/rrr01.mov
+/...absPathToRepo.../tests/testdir/rdir/rrr02.mov
 /...absPathToRepo.../tests/testdir/rdir/r1.[001-015].jpg z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/r2.[101-115].jpg z:[101-115]
 lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/idir/v002/iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
@@ -6254,10 +6254,10 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/idir/v002/iii03.0005.jpg is a
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.[002-006].jpg z:[2-6]
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.[003-007].jpg z:[3-7]
 /...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.[001-005].jpg z:[1-5]
-/...absPathToRepo.../tests/testdir//testDirFile.wmv
-/...absPathToRepo.../tests/testdir//testDirFile.mov
-/...absPathToRepo.../tests/testdir//xxx.mov
-/...absPathToRepo.../tests/testdir//yyy.mov
+/...absPathToRepo.../tests/testdir/testDirFile.wmv
+/...absPathToRepo.../tests/testdir/testDirFile.mov
+/...absPathToRepo.../tests/testdir/xxx.mov
+/...absPathToRepo.../tests/testdir/yyy.mov
 /...absPathToRepo.../tests/testdir/yyy.[0123].tif
 /...absPathToRepo.../tests/testdir/xxx.[000-016].exr m:[1-15x2]
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
@@ -6290,8 +6290,8 @@ lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/jdir/j01/j, frame 1
 /...absPathToRepo.../tests/testdir/gdir/ggg01.[090-105].bgeo.sc z:[90-105]
 /...absPathToRepo.../tests/testdir/gdir/ccc01.[001-120].ass m:[3]
 /...absPathToRepo.../tests/testdir/gdir/ccc02.[001-120].ass m:[51,119]
-/...absPathToRepo.../tests/testdir/gdir//xxx01.mov
-/...absPathToRepo.../tests/testdir/gdir//xxx02.mov
+/...absPathToRepo.../tests/testdir/gdir/xxx01.mov
+/...absPathToRepo.../tests/testdir/gdir/xxx02.mov
 /...absPathToRepo.../tests/testdir/fdir/ccc.[004].jpg
 /...absPathToRepo.../tests/testdir/fdir/ddd.[-08].jpg
 /...absPathToRepo.../tests/testdir/fdir/xxx.[01989-02013].png
