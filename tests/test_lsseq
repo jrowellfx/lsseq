@@ -315,6 +315,12 @@ testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format shake
 testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format glob
 testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format mplay
 testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format houdini
+testdir lsseq -R -P --onlyMovies
+testdir lsseq -R -P --onlyMovies --globalSortByTime
+testdir lsseq -R -P --onlyCaches
+testdir lsseq -R -P --onlyCaches --globalSortByTime
+testdir lsseq -R -P --onlySequences
+testdir lsseq -R -P --onlySequences --globalSortByTime
 EOF
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME
