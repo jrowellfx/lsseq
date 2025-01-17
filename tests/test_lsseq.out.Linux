@@ -2987,9 +2987,9 @@ vvvv
 xxxx
 yyyy
 zzzz
-shake -t 1-120 ccc01.@@@.exr
-shake -t 1-120 ccc02.@@@.exr
-shake -t 80-140 ccc03.@@.tga
+ccc01.@@@.exr -t 1-120
+ccc02.@@@.exr -t 1-120
+ccc03.@@.tga -t 80-140
 
 ------ Test 26 : testdir/cdir ------ lsseq -f rv ------
 aaaa
@@ -5599,30 +5599,30 @@ rSub02/rrr02.mov
 rSub02/rrr03.100-115@@@.fur
 
 ------ Test 132 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format shake ------
-shake -t 1-15 r1.@@@.jpg
-shake -t 101-115 r2.@@@.jpg
-shake -t 1-15 rrr01.@@@.ass
-shake -t 90-105 rrr01.@@@.bgeo.sc
+r1.@@@.jpg -t 1-15
+r2.@@@.jpg -t 101-115
+rrr01.@@@.ass -t 1-15
+rrr01.@@@.bgeo.sc -t 90-105
 rrr01.mov
-shake -t 1-15 rrr02.@@@.ass
+rrr02.@@@.ass -t 1-15
 rrr02.mov
-shake -t 100-115 rrr03.@@@.fur
-shake -t 1-15 rSub01/r1.@@@.jpg
-shake -t 101-115 rSub01/r2.@@@.jpg
-shake -t 1-15 rSub01/rrr01.@@@.ass
-shake -t 90-105 rSub01/rrr01.@@@.bgeo.sc
+rrr03.@@@.fur -t 100-115
+rSub01/r1.@@@.jpg -t 1-15
+rSub01/r2.@@@.jpg -t 101-115
+rSub01/rrr01.@@@.ass -t 1-15
+rSub01/rrr01.@@@.bgeo.sc -t 90-105
 rSub01/rrr01.mov
-shake -t 1-15 rSub01/rrr02.@@@.ass
+rSub01/rrr02.@@@.ass -t 1-15
 rSub01/rrr02.mov
-shake -t 100-115 rSub01/rrr03.@@@.fur
-shake -t 1-15 rSub02/r1.@@@.jpg
-shake -t 101-115 rSub02/r2.@@@.jpg
-shake -t 1-15 rSub02/rrr01.@@@.ass
-shake -t 90-105 rSub02/rrr01.@@@.bgeo.sc
+rSub01/rrr03.@@@.fur -t 100-115
+rSub02/r1.@@@.jpg -t 1-15
+rSub02/r2.@@@.jpg -t 101-115
+rSub02/rrr01.@@@.ass -t 1-15
+rSub02/rrr01.@@@.bgeo.sc -t 90-105
 rSub02/rrr01.mov
-shake -t 1-15 rSub02/rrr02.@@@.ass
+rSub02/rrr02.@@@.ass -t 1-15
 rSub02/rrr02.mov
-shake -t 100-115 rSub02/rrr03.@@@.fur
+rSub02/rrr03.@@@.fur -t 100-115
 
 ------ Test 133 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format glob ------
 r1.[0-9][0-9][0-9].jpg

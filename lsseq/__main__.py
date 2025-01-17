@@ -520,13 +520,12 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
     elif args.seqFormat == 'shake' :
         if minFrame == maxFrame :
             fileComponents[1] = (formatStr % minFrame)
-            print("shake ", sep='', end='')
         else :
             if padding == 4 :
                 fileComponents[1] = "#"
             else :
                 fileComponents[1] = "@"*padding
-            print("shake -t ", str(minFrame), "-", str(maxFrame), " ", sep='', end='')
+
         if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
             # Strip off any leading "./" from traversedPath. (added v3.0.1)
             #
@@ -534,9 +533,12 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                 sys.stdout.write(traversedPath[2:])
             else :
                 sys.stdout.write(traversedPath)
+
+        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
+        if minFrame == maxFrame :
+            print("")
         else :
-            sys.stdout.write("")
-        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
+            print(" -t ", str(minFrame), "-", str(maxFrame), " ", sep='')
 
     elif args.seqFormat == 'glob' :
         if minFrame < 0 :
