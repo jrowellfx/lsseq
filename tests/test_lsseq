@@ -309,6 +309,7 @@ testdir/rdir lsseq --prependPathRel --noErrorLists --recursive
 testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --onlyImages
 testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --onlyMovies
 testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --onlyCaches
+testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format native
 testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format nuke
 testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format rv
 testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format shake
