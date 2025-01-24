@@ -4,7 +4,7 @@
 Linux
 
 ------ Test 2 : . ------ lsseq --version ------
-3.0.3
+3.0.4
 
 ------ Test 3 : . ------ lsseq --help ------
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
