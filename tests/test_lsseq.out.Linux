@@ -4,7 +4,7 @@
 Linux
 
 ------ Test 2 : . ------ lsseq --version ------
-3.0.4
+4.0.0
 
 ------ Test 3 : . ------ lsseq --help ------
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
@@ -16,7 +16,7 @@ sequences are assumed to be of the form:
     <descriptiveName>.<frameNum>.<imgExtension>
 
 where <imgExtension> is drawn from a default list of image extensions
-(displayed with option --imgExt) or alternatively from the environment
+(displayed with option --img-ext) or alternatively from the environment
 variable LSSEQ_IMAGE_EXTENSION which should contain a colon separated
 list of image file extensions.
 
@@ -37,80 +37,85 @@ optional arguments:
                         list image sequences in various formats. The choices are 'native'
                         (default), 'nuke', 'rv', 'shake', 'glob', 'mplay', and 'houdini'. Note
                         that glob prints correct results only if the frame numbers are padded.
-                        Further note that reporting of missing/bad/etc frames (e.g. --showMissing)
-                        only happens with 'native' format
-  --showMissing, -m     show list of missing frames as 'm:[<list>]' [default]
-  --skipMissing, -M     do not show list of missing frames
-  --showZero, -z        show list of zero length images as 'z:[<list>]' [default]
-  --skipZero, -Z        do not show list of zero length images
-  --showBadFrames, -b   lists potentially bad frames based on the minimum size of a good frame
-                        (see --goodFrameMinSize). Reported as 'b:[<list>]'
-  --skipBadFrames, -B   do not show list of potentially bad frames [default]
-  --goodFrameMinSize BYTES
+                        Further note that reporting of missing/bad/etc frames (e.g. --show-
+                        missing) only happens with 'native' format
+  --show-missing, -m    show list of missing frames as 'm:[<list>]' [default]
+  --skip-missing, -M    do not show list of missing frames
+  --show-zero, -z       show list of zero length images as 'z:[<list>]' [default]
+  --skip-zero, -Z       do not show list of zero length images
+  --show-bad-frames, -b
+                        lists potentially bad frames based on the minimum size of a good frame
+                        (see --good-frame-min-size). Reported as 'b:[<list>]'
+  --skip-bad-frames, -B
+                        do not show list of potentially bad frames [default]
+  --good-frame-min-size BYTES
                         any frame size less than BYTES is a bad frame. Short forms for byte sizes
                         are accepted as in '1K' (i.e., 1024) or '1.5K' for example. [default: 512]
-  --showBadPadding, -g  report badly padded frame numbers which occurs when a number is padded but
+  --show-bad-padding    report badly padded frame numbers which occurs when a number is padded but
                         shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]'
                         [default]
-  --skipBadPadding, -G  do not show list of badly padded frames
-  --combineLists, -c    combine the lists of zero, missing and bad frames into one list. Reported
+  --skip-bad-padding    do not show list of badly padded frames
+  --combine-lists, -c   combine the lists of zero, missing and bad frames into one list. Reported
                         as 'e:[<list>]'
-  --noCombineLists      Don't combine the error lists
-  --noErrorLists, -n    Skip printing ALL error lists. Note: Setting --showBadPadding (for
+  --no-combine-lists    Don't combine the error lists
+  --no-error-lists, -n  Skip printing ALL error lists. Note: Setting --show-bad-padding (for
                         example) AFTER this option on the command line has the effect of ONLY
                         showing the badPadding error list
-  --looseNumSeparator, -l
+  --loose-num-separator, -l
                         allow the use of '_' (underscore), in addition to '.' (dot) as a separator
                         between the descriptiveName and frameNumber when looking to interpret
                         filenames as image sequences. i.e.,
-                        <descriptiveName>_<frameNum>.<imgExtension> (also see
-                        --strictNumSeparator)
-  --strictNumSeparator, -s
+                        <descriptiveName>_<frameNum>.<imgExtension> (also see --strict-num-
+                        separator)
+  --strict-num-separator, -s
                         strictly enforce the use of '.' (dot) as a separator between the
                         descriptiveName and frameNumber when looking to interpret filenames as
                         image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension> (also
-                        see --looseNumSeparator) [default]
-  --onlySequences, -o   only list image sequences, cache sequences and movies
-  --onlyImages, -O      strictly list only image sequences (i.e., no movies or caches)
-  --onlyMovies          strictly list only movies (i.e., no images or caches)
-  --onlyCaches          strictly list only cache sequences (i.e., no images or movies)
-  --imgExt, -i          print list of image, cache and movie file extensions and exit
-  --prependPathAbs, -p  prepend the absolute path name to the image name. This option implies the
-                        option --onlySequences and also suppresses printing directory name headers
-                        when listing directory contents
-  --prependPathRel, -P  prepend the relative path name to the image name. This option implies the
-                        option --onlySequences and will also suppress printing directory name
+                        see --loose-num-separator) [default]
+  --only-sequences, -o  only list image sequences, cache sequences and movies
+  --only-images, -O     strictly list only image sequences (i.e., no movies or caches)
+  --only-movies         strictly list only movies (i.e., no images or caches)
+  --only-caches         strictly list only cache sequences (i.e., no images or movies)
+  --img-ext, -i         print list of image, cache and movie file extensions and exit
+  --prepend-path-abs, -p
+                        prepend the absolute path name to the image name. This option implies the
+                        option --only-sequences and also suppresses printing directory name
+                        headers when listing directory contents
+  --prepend-path-rel, -P
+                        prepend the relative path name to the image name. This option implies the
+                        option --only-sequences and will also suppress printing directory name
                         headers when listing directory contents
   --extremes, -e        only list the first and last image on a separate line each. This option
-                        implies --prependPathAbs (unless --prependPathRel is explicitly specified)
-                        and --onlySequences
+                        implies --prepend-path-abs (unless --prepend-path-rel is explicitly
+                        specified) and --only-sequences
   --single, -1          list one non-sequence entry per line (see ls(1))
   --all, -a             do not ignore entries starting with '.' while omitting implied '.' and
                         '..' directories (see ls(1) --almost-all)
-  --byColumns, -C       list non-sequence entries by columns (see ls(1))
-  --byRows, -x          list non-sequence entries by lines instead of by columns (see ls(1))
+  --by-columns, -C      list non-sequence entries by columns (see ls(1))
+  --by-rows, -x         list non-sequence entries by lines instead of by columns (see ls(1))
   --directory, -d       list directory entries instead of contents, and do not dereference
                         symbolic links (see ls(1))
   --classify, -F        append indicator (one of */=>@|) to entries (see ls(1))
   --reverse, -r         reverse order while sorting
   --recursive, -R       list subdirectories recursively
-  -t, --sortByTime      sort by modification time, the default comparison time is between the most
+  --sort-by-time, -t    sort by modification time, the default comparison time is between the most
                         recently modified (newest) frames in each sequence. (see --time) (see
                         ls(1))
   --time FRAME_AGE      which frame in the sequence to use to compare times between sequences when
                         sorting by time. The possible values for 'FRAME_AGE' are 'oldest',
                         'median' and 'newest' [default: 'newest']
-  --onlyShow TENSE [CC]YYMMDD[-hh[mm[ss]]]
+  --only-show TENSE [CC]YYMMDD[-hh[mm[ss]]]
                         where TENSE is either 'before' or 'since'; only list sequences up to (and
                         including) or after (and including) the time specified. The --time
                         argument specifies which frame to use for the cutoff comparison. The
                         optional CC (century) defaults to the current century. The optional '-hh'
                         (hours), 'mm' (minutes) or 'ss' (seconds) default to zero if not
                         specified.
-  --globalSortByTime    when using either --prependPathAbs or --prependPathRel then this option
-                        will sort ALL sequences by time compared to each other, as opposed to only
-                        sorting sequences by time within their common directory. If the above
-                        conditions are NOT met, then this option is simply ignored.
+  --global-sort-by-time, -G
+                        when using either --prepend-path-abs or --prepend-path-rel then this
+                        option will sort ALL sequences by time compared to each other, as opposed
+                        to only sorting sequences by time within their common directory. If the
+                        above conditions are NOT met, then this option is simply ignored.
   --silent, --quiet     suppress error and warning messages
 
 ------ Test 4 : . ------ lsseq -lRFC --quiet testdir ------
@@ -4048,7 +4053,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 41 : testdir/cdir ------ lsseq -R -b --goodFrameMinSize 1K ------
+------ Test 41 : testdir/cdir ------ lsseq -R -b --good-frame-min-size 1K ------
 .:
 aaaa
 bbbb
@@ -4247,7 +4252,7 @@ v003/hhh01.[0001-0040].jpg
 v003/hhh02.[0001-0040].jpg
 v003/hhh03.[0001-0040].jpg
 
------- Test 52 : testdir/hdir ------ lsseq --onlyShow before 20150701-1821 -t -r -P foo/*/* v001/* v002/* v003/* ------
+------ Test 52 : testdir/hdir ------ lsseq --only-show before 20150701-1821 -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -4262,7 +4267,7 @@ v001/hhh02.[0001-0040].jpg
 v001/hhh03.[0001-0040].jpg
 v002/hhh01.[0001-0040].jpg
 
------- Test 53 : testdir/hdir ------ lsseq --onlyShow before 150701-1821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/* ------
+------ Test 53 : testdir/hdir ------ lsseq --only-show before 150701-1821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/* ------
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -4278,7 +4283,7 @@ v001/hhh03.[0001-0040].jpg
 v002/hhh01.[0001-0040].jpg
 v002/hhh02.[0001-0040].jpg
 
------- Test 54 : testdir/jdir ------ lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R ------
+------ Test 54 : testdir/jdir ------ lsseq --show-bad-padding --skip-missing --skip-zero --skip-bad-frames -R ------
 .:
 beauty
 j01
@@ -4319,7 +4324,7 @@ lsseq: warning: j04.005.jpg is a broken soft link
 j04.[-10-010].jpg p:[-7,1,10]
 -+- Test 54: lsseq returned non-zero error code: 12 -+-
 
------- Test 55 : testdir/jdir/beauty/v001 ------ lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R ------
+------ Test 55 : testdir/jdir/beauty/v001 ------ lsseq --show-bad-padding --skip-missing --skip-zero --skip-bad-frames -R ------
 .:
 sort.ls
 filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1001]
@@ -4391,34 +4396,34 @@ nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
 
------- Test 58 : testdir/ndir ------ lsseq --onlyShow before 20100615-12 --time oldest ------
+------ Test 58 : testdir/ndir ------ lsseq --only-show before 20100615-12 --time oldest ------
 custom.touch.images
 nnn_v01.[0005-0015].jpg
 nnn_v02.[0005-0015].jpg
 nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 
------- Test 59 : testdir/ndir ------ lsseq --onlyShow before 20100615-12 --time median ------
+------ Test 59 : testdir/ndir ------ lsseq --only-show before 20100615-12 --time median ------
 custom.touch.images
 nnn_v01.[0005-0015].jpg
 nnn_v02.[0005-0015].jpg
 nnn_v03.[0005-0015].jpg
 
------- Test 60 : testdir/ndir ------ lsseq --onlyShow before 20100615-12 --time newest ------
+------ Test 60 : testdir/ndir ------ lsseq --only-show before 20100615-12 --time newest ------
 custom.touch.images
 nnn_v01.[0005-0015].jpg
 
------- Test 61 : testdir/ndir ------ lsseq --onlyShow since 100615-12 --time oldest ------
+------ Test 61 : testdir/ndir ------ lsseq --only-show since 100615-12 --time oldest ------
 custom.touch.images
 nnn_v05.[0005-0015].jpg
 
------- Test 62 : testdir/ndir ------ lsseq --onlyShow since 100615-12 --time median ------
+------ Test 62 : testdir/ndir ------ lsseq --only-show since 100615-12 --time median ------
 custom.touch.images
 nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
 
------- Test 63 : testdir/ndir ------ lsseq --onlyShow since 100615-12 --time newest ------
+------ Test 63 : testdir/ndir ------ lsseq --only-show since 100615-12 --time newest ------
 custom.touch.images
 nnn_v02.[0005-0015].jpg
 nnn_v03.[0005-0015].jpg
@@ -4432,19 +4437,19 @@ lsseq: Modify the following environment variables to extend the supported file t
   export LSSEQ_MOV_EXTENSION=avi:mov:mp4:mpg:mxf:wmv
   export LSSEQ_CACHE_EXTENSION=ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:tx:vdb:vdb.gz:vdb.sc
 
------- Test 65 : testdir/gdir ------ lsseq --onlyImages ------
+------ Test 65 : testdir/gdir ------ lsseq --only-images ------
 
------- Test 66 : testdir/gdir ------ lsseq --onlyMovies ------
+------ Test 66 : testdir/gdir ------ lsseq --only-movies ------
 xxx01.mov
 xxx02.mov
 
------- Test 67 : testdir/gdir ------ lsseq --onlyCaches ------
+------ Test 67 : testdir/gdir ------ lsseq --only-caches ------
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 ggg01.[090-105].bgeo.sc z:[90-105]
 
------- Test 68 : testdir ------ lsseq --noErrorLists --recursive --prependPathRel -t --time median cdir ndir ------
+------ Test 68 : testdir ------ lsseq --no-error-lists --recursive --prepend-path-rel -t --time median cdir ndir ------
 cdir/ccc02.[001-120].exr
 cdir/ccc03.[80-140].tga
 cdir/ccc01.[001-120].exr
@@ -4455,7 +4460,7 @@ ndir/nnn_v03.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 
------- Test 69 : testdir ------ lsseq --noErrorLists --recursive --prependPathRel -t --time oldest cdir ndir ------
+------ Test 69 : testdir ------ lsseq --no-error-lists --recursive --prepend-path-rel -t --time oldest cdir ndir ------
 cdir/ccc01.[001-120].exr
 cdir/ccc03.[80-140].tga
 cdir/ccc02.[001-120].exr
@@ -4466,7 +4471,7 @@ ndir/nnn_v03.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 
------- Test 70 : testdir ------ lsseq --noErrorLists --recursive --prependPathRel -t --time newest cdir ndir ------
+------ Test 70 : testdir ------ lsseq --no-error-lists --recursive --prepend-path-rel -t --time newest cdir ndir ------
 cdir/ccc03.[80-140].tga
 cdir/ccc02.[001-120].exr
 cdir/ccc01.[001-120].exr
@@ -4477,7 +4482,7 @@ ndir/nnn_v03.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 
------- Test 71 : testdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median cdir ndir ------
+------ Test 71 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median cdir ndir ------
 cdir/c_subDir/ccc01.[001-120].exr
 cdir/ccc02.[001-120].exr
 cdir/ccc03.[80-140].tga
@@ -4488,7 +4493,7 @@ ndir/nnn_v03.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 
------- Test 72 : testdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest cdir ndir ------
+------ Test 72 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest cdir ndir ------
 cdir/c_subDir/ccc01.[001-120].exr
 ndir/nnn_v05.[0005-0015].jpg
 ndir/nnn_v04.[0005-0015].jpg
@@ -4499,7 +4504,7 @@ cdir/ccc03.[80-140].tga
 cdir/ccc02.[001-120].exr
 ndir/nnn_v01.[0005-0015].jpg
 
------- Test 73 : testdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest cdir ndir ------
+------ Test 73 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest cdir ndir ------
 cdir/c_subDir/ccc01.[001-120].exr
 cdir/ccc03.[80-140].tga
 cdir/ccc02.[001-120].exr
@@ -4510,7 +4515,7 @@ ndir/nnn_v03.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 
------- Test 74 : testdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median pdir cdir ndir ------
+------ Test 74 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median pdir cdir ndir ------
 cdir/c_subDir/ccc01.[001-120].exr
 pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
@@ -4542,7 +4547,7 @@ pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
 pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
 pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
 
------- Test 75 : testdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest pdir cdir ndir ------
+------ Test 75 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest pdir cdir ndir ------
 cdir/c_subDir/ccc01.[001-120].exr
 ndir/nnn_v05.[0005-0015].jpg
 ndir/nnn_v04.[0005-0015].jpg
@@ -4574,7 +4579,7 @@ pdir/p02_dir/p02_median5_v02.[08-12].jpg
 pdir/p02_dir/p02_median5_v01.[08-12].jpg
 pdir/p02_dir/p02_median5_v03.[08-12].jpg
 
------- Test 76 : testdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest pdir cdir ndir ------
+------ Test 76 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest pdir cdir ndir ------
 cdir/c_subDir/ccc01.[001-120].exr
 pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
 pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
@@ -4741,7 +4746,7 @@ total 0
 -rwxrwxrwx. 1 testUser 0 2010-06-17 15:32:00.000000000 -0500 p02A_median6_v03.12.jpg
 -rwxrwxrwx. 1 testUser 0 2010-06-17 16:32:00.000000000 -0500 p02A_median6_v01.12.jpg
 
------- Test 78 : testdir/pdir ------ lsseq --noErrorLists --recursive -t -r --time median ------
+------ Test 78 : testdir/pdir ------ lsseq --no-error-lists --recursive -t -r --time median ------
 .:
 custom.touch.images
 initial.image.mtimes
@@ -4785,7 +4790,7 @@ p02B_median7_v01.[08-12].jpg
 p02B_median7_v02.[08-12].jpg
 p02B_median7_v03.[08-12].jpg
 
------- Test 79 : testdir/pdir ------ lsseq --globalSortByTime --noErrorLists --recursive -t -r --time median ------
+------ Test 79 : testdir/pdir ------ lsseq --global-sort-by-time --no-error-lists --recursive -t -r --time median ------
 .:
 custom.touch.images
 initial.image.mtimes
@@ -4829,7 +4834,7 @@ p02B_median7_v01.[08-12].jpg
 p02B_median7_v02.[08-12].jpg
 p02B_median7_v03.[08-12].jpg
 
------- Test 80 : testdir ------ lsseq --noErrorLists --recursive --prependPathRel -t -r --time median pdir ------
+------ Test 80 : testdir ------ lsseq --no-error-lists --recursive --prepend-path-rel -t -r --time median pdir ------
 pdir/p_median4_v01.[08-12].jpg
 pdir/p_median4_v02.[08-12].jpg
 pdir/p_median4_v03.[08-12].jpg
@@ -4852,7 +4857,7 @@ pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 
------- Test 81 : testdir ------ lsseq --noErrorLists --recursive --prependPathRel -t -r --time oldest pdir ------
+------ Test 81 : testdir ------ lsseq --no-error-lists --recursive --prepend-path-rel -t -r --time oldest pdir ------
 pdir/p_median4_v03.[08-12].jpg
 pdir/p_median4_v01.[08-12].jpg
 pdir/p_median4_v02.[08-12].jpg
@@ -4875,7 +4880,7 @@ pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
 
------- Test 82 : testdir ------ lsseq --noErrorLists --recursive --prependPathRel -t -r --time newest pdir ------
+------ Test 82 : testdir ------ lsseq --no-error-lists --recursive --prepend-path-rel -t -r --time newest pdir ------
 pdir/p_median4_v02.[08-12].jpg
 pdir/p_median4_v03.[08-12].jpg
 pdir/p_median4_v01.[08-12].jpg
@@ -4898,7 +4903,7 @@ pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
 
------- Test 83 : testdir/pdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time median ------
+------ Test 83 : testdir/pdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t -r --time median ------
 p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
 p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
 p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
@@ -4921,7 +4926,7 @@ p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
 p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
 p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 
------- Test 84 : testdir/pdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time oldest ------
+------ Test 84 : testdir/pdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t -r --time oldest ------
 p02_dir/p02_median5_v03.[08-12].jpg
 p02_dir/p02_median5_v01.[08-12].jpg
 p02_dir/p02_median5_v02.[08-12].jpg
@@ -4944,7 +4949,7 @@ p_median4_v03.[08-12].jpg
 p_median4_v01.[08-12].jpg
 p_median4_v02.[08-12].jpg
 
------- Test 85 : testdir/pdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time newest ------
+------ Test 85 : testdir/pdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t -r --time newest ------
 p_median4_v02.[08-12].jpg
 p_median4_v03.[08-12].jpg
 p_median4_v01.[08-12].jpg
@@ -5102,7 +5107,7 @@ total 0
 -rwxrwxrwx. 1 testUser 0 2010-06-14 09:28:00.000000000 -0500 p01A_median3_v01.08.jpg
 -rwxrwxrwx. 1 testUser 0 2010-06-14 08:28:00.000000000 -0500 p01A_median3_v03.08.jpg
 
------- Test 87 : testdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median pdir ------
+------ Test 87 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median pdir ------
 pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
@@ -5125,7 +5130,7 @@ pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
 pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
 pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
 
------- Test 88 : testdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest pdir ------
+------ Test 88 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest pdir ------
 pdir/p_median4_v02.[08-12].jpg
 pdir/p_median4_v01.[08-12].jpg
 pdir/p_median4_v03.[08-12].jpg
@@ -5148,7 +5153,7 @@ pdir/p02_dir/p02_median5_v02.[08-12].jpg
 pdir/p02_dir/p02_median5_v01.[08-12].jpg
 pdir/p02_dir/p02_median5_v03.[08-12].jpg
 
------- Test 89 : testdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest pdir ------
+------ Test 89 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest pdir ------
 pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
 pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
 pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
@@ -5204,17 +5209,17 @@ total 0
 -rwxrwxrwx. 1 testUser 0 2023-02-05 11:29:00.000000000 -0600 qqq.002.jpg
 -rwxrwxrwx. 1 testUser 0 2023-02-05 11:28:00.000000000 -0600 qqq.001.jpg
 
------- Test 91 : testdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median qdir ------
+------ Test 91 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median qdir ------
 qdir/q3Dir/qqq.[003-007].jpg
 qdir/q2Dir/qqq.[002-006].jpg
 qdir/q1Dir/qqq.[001-005].jpg
 
------- Test 92 : testdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest qdir ------
+------ Test 92 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest qdir ------
 qdir/q1Dir/qqq.[001-005].jpg
 qdir/q2Dir/qqq.[002-006].jpg
 qdir/q3Dir/qqq.[003-007].jpg
 
------- Test 93 : testdir ------ lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest qdir ------
+------ Test 93 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest qdir ------
 qdir/q2Dir/qqq.[002-006].jpg
 qdir/q3Dir/qqq.[003-007].jpg
 qdir/q1Dir/qqq.[001-005].jpg
@@ -5418,7 +5423,7 @@ iii02.[1-10].jpg p:[2-10]
 iii03.[0001-0010].jpg z:[5]
 -+- Test 122: lsseq returned non-zero error code: 13 -+-
 
------- Test 123 : testdir/pdir ------ lsseq --recursive --prependPathRel ------
+------ Test 123 : testdir/pdir ------ lsseq --recursive --prepend-path-rel ------
 p_median4_v01.[08-12].jpg z:[8-12]
 p_median4_v02.[08-12].jpg z:[8-12]
 p_median4_v03.[08-12].jpg z:[8-12]
@@ -5441,7 +5446,7 @@ p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg z:[8-12]
 p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg z:[8-12]
 p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg z:[8-12]
 
------- Test 124 : testdir/pdir ------ lsseq --recursive --prependPathRel * ------
+------ Test 124 : testdir/pdir ------ lsseq --recursive --prepend-path-rel * ------
 p_median4_v01.[08-12].jpg z:[8-12]
 p_median4_v02.[08-12].jpg z:[8-12]
 p_median4_v03.[08-12].jpg z:[8-12]
@@ -5464,7 +5469,7 @@ p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg z:[8-12]
 p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg z:[8-12]
 p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg z:[8-12]
 
------- Test 125 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive ------
+------ Test 125 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive ------
 r1.[001-015].jpg
 r2.[101-115].jpg
 rrr01.[001-015].ass
@@ -5490,7 +5495,7 @@ rSub02/rrr02.[001-015].ass
 rSub02/rrr02.mov
 rSub02/rrr03.[100-115].fur
 
------- Test 126 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --onlyImages ------
+------ Test 126 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --only-images ------
 r1.[001-015].jpg
 r2.[101-115].jpg
 rSub01/r1.[001-015].jpg
@@ -5498,7 +5503,7 @@ rSub01/r2.[101-115].jpg
 rSub02/r1.[001-015].jpg
 rSub02/r2.[101-115].jpg
 
------- Test 127 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --onlyMovies ------
+------ Test 127 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --only-movies ------
 rrr01.mov
 rrr02.mov
 rSub01/rrr01.mov
@@ -5506,7 +5511,7 @@ rSub01/rrr02.mov
 rSub02/rrr01.mov
 rSub02/rrr02.mov
 
------- Test 128 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --onlyCaches ------
+------ Test 128 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --only-caches ------
 rrr01.[001-015].ass
 rrr01.[090-105].bgeo.sc
 rrr02.[001-015].ass
@@ -5520,7 +5525,7 @@ rSub02/rrr01.[090-105].bgeo.sc
 rSub02/rrr02.[001-015].ass
 rSub02/rrr03.[100-115].fur
 
------- Test 129 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format native ------
+------ Test 129 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format native ------
 r1.[001-015].jpg
 r2.[101-115].jpg
 rrr01.[001-015].ass
@@ -5546,7 +5551,7 @@ rSub02/rrr02.[001-015].ass
 rSub02/rrr02.mov
 rSub02/rrr03.[100-115].fur
 
------- Test 130 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format nuke ------
+------ Test 130 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format nuke ------
 r1.%03d.jpg 1-15
 r2.%03d.jpg 101-115
 rrr01.%03d.ass 1-15
@@ -5572,7 +5577,7 @@ rSub02/rrr02.%03d.ass 1-15
 rSub02/rrr02.mov
 rSub02/rrr03.%03d.fur 100-115
 
------- Test 131 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format rv ------
+------ Test 131 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format rv ------
 r1.1-15@@@.jpg
 r2.101-115@@@.jpg
 rrr01.1-15@@@.ass
@@ -5598,7 +5603,7 @@ rSub02/rrr02.1-15@@@.ass
 rSub02/rrr02.mov
 rSub02/rrr03.100-115@@@.fur
 
------- Test 132 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format shake ------
+------ Test 132 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format shake ------
 r1.@@@.jpg -t 1-15
 r2.@@@.jpg -t 101-115
 rrr01.@@@.ass -t 1-15
@@ -5624,7 +5629,7 @@ rSub02/rrr02.@@@.ass -t 1-15
 rSub02/rrr02.mov
 rSub02/rrr03.@@@.fur -t 100-115
 
------- Test 133 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format glob ------
+------ Test 133 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format glob ------
 r1.[0-9][0-9][0-9].jpg
 r2.[0-9][0-9][0-9].jpg
 rrr01.[0-9][0-9][0-9].ass
@@ -5650,7 +5655,7 @@ rSub02/rrr02.[0-9][0-9][0-9].ass
 rSub02/rrr02.mov
 rSub02/rrr03.[0-9][0-9][0-9].fur
 
------- Test 134 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format mplay ------
+------ Test 134 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format mplay ------
 r1.\$F3.jpg
 r2.\$F3.jpg
 rrr01.\$F3.ass
@@ -5676,7 +5681,7 @@ rSub02/rrr02.\$F3.ass
 rSub02/rrr02.mov
 rSub02/rrr03.\$F3.fur
 
------- Test 135 : testdir/rdir ------ lsseq --prependPathRel --noErrorLists --recursive --format houdini ------
+------ Test 135 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format houdini ------
 r1.$F3.jpg
 r2.$F3.jpg
 rrr01.$F3.ass
@@ -5702,7 +5707,7 @@ rSub02/rrr02.$F3.ass
 rSub02/rrr02.mov
 rSub02/rrr03.$F3.fur
 
------- Test 136 : testdir ------ lsseq -R -P --onlyMovies ------
+------ Test 136 : testdir ------ lsseq -R -P --only-movies ------
 testDirFile.mov
 testDirFile.wmv
 xxx.mov
@@ -5716,7 +5721,7 @@ rdir/rSub01/rrr02.mov
 rdir/rSub02/rrr01.mov
 rdir/rSub02/rrr02.mov
 
------- Test 137 : testdir ------ lsseq -R -P --onlyMovies --globalSortByTime ------
+------ Test 137 : testdir ------ lsseq -R -P --only-movies --global-sort-by-time ------
 rdir/rSub02/rrr01.mov
 rdir/rSub02/rrr02.mov
 rdir/rSub01/rrr01.mov
@@ -5730,7 +5735,7 @@ yyy.mov
 gdir/xxx01.mov
 gdir/xxx02.mov
 
------- Test 138 : testdir ------ lsseq -R -P --onlyCaches ------
+------ Test 138 : testdir ------ lsseq -R -P --only-caches ------
 gdir/ccc01.[001-120].ass m:[3]
 gdir/ccc02.[001-120].ass m:[51,119]
 gdir/ccc03.[80-140].fur
@@ -5748,7 +5753,7 @@ rdir/rSub02/rrr01.[090-105].bgeo.sc z:[90-105]
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
 
------- Test 139 : testdir ------ lsseq -R -P --onlyCaches --globalSortByTime ------
+------ Test 139 : testdir ------ lsseq -R -P --only-caches --global-sort-by-time ------
 rdir/rSub02/rrr01.[001-015].ass m:[3], z:[1-2,4-15]
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr01.[090-105].bgeo.sc z:[90-105]
@@ -5766,7 +5771,7 @@ gdir/ggg01.[090-105].bgeo.sc z:[90-105]
 gdir/ccc01.[001-120].ass m:[3]
 gdir/ccc02.[001-120].ass m:[51,119]
 
------- Test 140 : testdir ------ lsseq -R -P --onlySequences ------
+------ Test 140 : testdir ------ lsseq -R -P --only-sequences ------
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -5904,7 +5909,7 @@ rdir/rSub02/rrr02.mov
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
 -+- Test 140: lsseq returned non-zero error code: 12 -+-
 
------- Test 141 : testdir ------ lsseq -R -P --onlySequences --globalSortByTime ------
+------ Test 141 : testdir ------ lsseq -R -P --only-sequences --global-sort-by-time ------
 rdir/rSub02/rrr01.[001-015].ass m:[3], z:[1-2,4-15]
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr01.[090-105].bgeo.sc z:[90-105]
@@ -6042,7 +6047,7 @@ ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 -+- Test 141: lsseq returned non-zero error code: 12 -+-
 
------- Test 142 : testdir ------ lsseq -R -p --onlyMovies ------
+------ Test 142 : testdir ------ lsseq -R -p --only-movies ------
 /...absPathToRepo.../tests/testdir/testDirFile.mov
 /...absPathToRepo.../tests/testdir/testDirFile.wmv
 /...absPathToRepo.../tests/testdir/xxx.mov
@@ -6056,7 +6061,7 @@ ndir/nnn_v01.[0005-0015].jpg
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.mov
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
 
------- Test 143 : testdir ------ lsseq -R -p --onlyMovies --globalSortByTime ------
+------ Test 143 : testdir ------ lsseq -R -p --only-movies --global-sort-by-time ------
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.mov
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
 /...absPathToRepo.../tests/testdir/rdir/rSub01/rrr01.mov
@@ -6070,7 +6075,7 @@ ndir/nnn_v01.[0005-0015].jpg
 /...absPathToRepo.../tests/testdir/gdir/xxx01.mov
 /...absPathToRepo.../tests/testdir/gdir/xxx02.mov
 
------- Test 144 : testdir ------ lsseq -R -p --onlyCaches ------
+------ Test 144 : testdir ------ lsseq -R -p --only-caches ------
 /...absPathToRepo.../tests/testdir/gdir/ccc01.[001-120].ass m:[3]
 /...absPathToRepo.../tests/testdir/gdir/ccc02.[001-120].ass m:[51,119]
 /...absPathToRepo.../tests/testdir/gdir/ccc03.[80-140].fur
@@ -6088,7 +6093,7 @@ ndir/nnn_v01.[0005-0015].jpg
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.[100-115].fur z:[100-115]
 
------- Test 145 : testdir ------ lsseq -R -p --onlyCaches --globalSortByTime ------
+------ Test 145 : testdir ------ lsseq -R -p --only-caches --global-sort-by-time ------
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.[001-015].ass m:[3], z:[1-2,4-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.[090-105].bgeo.sc z:[90-105]
@@ -6106,7 +6111,7 @@ ndir/nnn_v01.[0005-0015].jpg
 /...absPathToRepo.../tests/testdir/gdir/ccc01.[001-120].ass m:[3]
 /...absPathToRepo.../tests/testdir/gdir/ccc02.[001-120].ass m:[51,119]
 
------- Test 146 : testdir ------ lsseq -R -p --onlySequences ------
+------ Test 146 : testdir ------ lsseq -R -p --only-sequences ------
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
 /...absPathToRepo.../tests/testdir/testDirFile.mov
 /...absPathToRepo.../tests/testdir/testDirFile.wmv
@@ -6244,7 +6249,7 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.[100-115].fur z:[100-115]
 -+- Test 146: lsseq returned non-zero error code: 12 -+-
 
------- Test 147 : testdir ------ lsseq -R -p --onlySequences --globalSortByTime ------
+------ Test 147 : testdir ------ lsseq -R -p --only-sequences --global-sort-by-time ------
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.[001-015].ass m:[3], z:[1-2,4-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.[090-105].bgeo.sc z:[90-105]
@@ -6389,13 +6394,13 @@ lsseq: Modify the following environment variables to extend the supported file t
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------- Test 149 : testdir/gdir ------ lsseq --onlyImages ------
+------ Test 149 : testdir/gdir ------ lsseq --only-images ------
 
------- Test 150 : testdir/gdir ------ lsseq --onlyMovies ------
+------ Test 150 : testdir/gdir ------ lsseq --only-movies ------
 xxx01.mov
 xxx02.mov
 
------- Test 151 : testdir/gdir ------ lsseq --onlyCaches ------
+------ Test 151 : testdir/gdir ------ lsseq --only-caches ------
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur

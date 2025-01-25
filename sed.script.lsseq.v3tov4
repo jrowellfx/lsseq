@@ -1,0 +1,39 @@
+1,$ s/--showMissing/--show-missing/g
+1,$ s/--skipMissing/--skip-missing/g
+1,$ s/--showZero/--show-zero/g
+1,$ s/--skipZero/--skip-zero/g
+1,$ s/--showBadFrames/--show-bad-frames/g
+1,$ s/--skipBadFrames/--skip-bad-frames/g
+1,$ s/--goodFrameMinSize/--good-frame-min-size/g
+1,$ s/--showBadPadding/--show-bad-padding/g
+1,$ s/--skipBadPadding/--skip-bad-padding/g
+1,$ s/--combineLists/--combine-lists/g
+1,$ s/--noCombineLists/--no-combine-lists/g
+1,$ s/--noErrorLists/--no-error-lists/g
+1,$ s/--looseNumSeparator/--loose-num-separator/g
+1,$ s/--strictNumSeparator/--strict-num-separator/g
+1,$ s/--onlySequences/--only-sequences/g
+1,$ s/--onlyImages/--only-images/g
+1,$ s/--onlyMovies/--only-movies/g
+1,$ s/--onlyCaches/--only-caches/g
+1,$ s/--imgExt/--img-ext/g
+1,$ s/--prependPathAbs/--prepend-path-abs/g
+1,$ s/--prependPathRel/--prepend-path-rel/g
+1,$ s/--byColumns/--by-columns/g
+1,$ s/--byRows/--by-rows/g
+1,$ s/--sortByTime/--sort-by-time/g
+1,$ s/--onlyShow/--only-show/g
+1,$ s/--globalSortByTime/--global-sort-by-time/g
+
+# These next two lines are to try to help replacing -g
+# and -G which changed for lsseq from v3 to v4.
+# -g is gone and -G is now the short option for
+# --global-sort-by-time. Replacing the OLD short
+# options with their long-option names will catch
+# most cases.  It will miss if someone did something like
+# 'lsseq -lpg' or 'lsseq -gCF', i.e., mixing short options together.
+# These 'bad-padding' options are rarely used so likely not
+# going to show up in someone's script that uses lsseq.
+#
+/lsseq/ s/\([^-]\)-g\([ \t]\)/\1--show-bad-padding\2/g
+/lsseq/ s/\([^-]\)-G\([ \t]\)/\1--skip-bad-padding\2/g

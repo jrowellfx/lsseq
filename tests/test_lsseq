@@ -221,7 +221,7 @@ testdir/cdir lsseq -Z
 testdir/cdir lsseq -R $TEST_DIR/testdir/cdir/ $TEST_DIR/testdir/
 testdir/cdir lsseq -R $TEST_DIR/testdir/cdir/
 testdir/cdir lsseq -Ra
-testdir/cdir lsseq -R -b --goodFrameMinSize 1K
+testdir/cdir lsseq -R -b --good-frame-min-size 1K
 testdir/cdir lsseq -1Rb
 testdir/cdir lsseq -1RbC
 testdir/cdir lsseq -Rbx
@@ -232,48 +232,48 @@ testdir/idir lsseq -R
 testdir/idir lsseq -P *
 testdir/idir lsseq -p *
 testdir/hdir lsseq -t -r -P foo/*/* v001/* v002/* v003/*
-testdir/hdir lsseq --onlyShow before 20150701-1821 -t -r -P foo/*/* v001/* v002/* v003/*
-testdir/hdir lsseq --onlyShow before   150701-1821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/*
-testdir/jdir lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R
-testdir/jdir/beauty/v001 lsseq --showBadPadding --skipMissing --skipZero --skipBadFrames -R
+testdir/hdir lsseq --only-show before 20150701-1821 -t -r -P foo/*/* v001/* v002/* v003/*
+testdir/hdir lsseq --only-show before   150701-1821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/*
+testdir/jdir lsseq --show-bad-padding --skip-missing --skip-zero --skip-bad-frames -R
+testdir/jdir/beauty/v001 lsseq --show-bad-padding --skip-missing --skip-zero --skip-bad-frames -R
 testdir/ndir ls $LS_FULL_TIME -o
 testdir/ndir lsseq
-testdir/ndir lsseq --onlyShow before 20100615-12 --time oldest
-testdir/ndir lsseq --onlyShow before 20100615-12 --time median
-testdir/ndir lsseq --onlyShow before 20100615-12 --time newest
-testdir/ndir lsseq --onlyShow since    100615-12 --time oldest
-testdir/ndir lsseq --onlyShow since    100615-12 --time median
-testdir/ndir lsseq --onlyShow since    100615-12 --time newest
+testdir/ndir lsseq --only-show before 20100615-12 --time oldest
+testdir/ndir lsseq --only-show before 20100615-12 --time median
+testdir/ndir lsseq --only-show before 20100615-12 --time newest
+testdir/ndir lsseq --only-show since    100615-12 --time oldest
+testdir/ndir lsseq --only-show since    100615-12 --time median
+testdir/ndir lsseq --only-show since    100615-12 --time newest
 .            lsseq -i
-testdir/gdir lsseq --onlyImages
-testdir/gdir lsseq --onlyMovies
-testdir/gdir lsseq --onlyCaches
-testdir lsseq --noErrorLists --recursive --prependPathRel -t --time median cdir ndir
-testdir lsseq --noErrorLists --recursive --prependPathRel -t --time oldest cdir ndir
-testdir lsseq --noErrorLists --recursive --prependPathRel -t --time newest cdir ndir
-testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median cdir ndir
-testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest cdir ndir
-testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest cdir ndir
-testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median pdir cdir ndir
-testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest pdir cdir ndir
-testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest pdir cdir ndir
+testdir/gdir lsseq --only-images
+testdir/gdir lsseq --only-movies
+testdir/gdir lsseq --only-caches
+testdir lsseq --no-error-lists --recursive --prepend-path-rel -t --time median cdir ndir
+testdir lsseq --no-error-lists --recursive --prepend-path-rel -t --time oldest cdir ndir
+testdir lsseq --no-error-lists --recursive --prepend-path-rel -t --time newest cdir ndir
+testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median cdir ndir
+testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest cdir ndir
+testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest cdir ndir
+testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median pdir cdir ndir
+testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest pdir cdir ndir
+testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest pdir cdir ndir
 testdir/pdir ls -R $LS_FULL_TIME -o -t -r
-testdir/pdir lsseq --noErrorLists --recursive -t -r --time median
-testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive -t -r --time median
-testdir lsseq --noErrorLists --recursive --prependPathRel -t -r --time median pdir
-testdir lsseq --noErrorLists --recursive --prependPathRel -t -r --time oldest pdir
-testdir lsseq --noErrorLists --recursive --prependPathRel -t -r --time newest pdir
-testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time median
-testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time oldest
-testdir/pdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t -r --time newest
+testdir/pdir lsseq --no-error-lists --recursive -t -r --time median
+testdir/pdir lsseq --global-sort-by-time --no-error-lists --recursive -t -r --time median
+testdir lsseq --no-error-lists --recursive --prepend-path-rel -t -r --time median pdir
+testdir lsseq --no-error-lists --recursive --prepend-path-rel -t -r --time oldest pdir
+testdir lsseq --no-error-lists --recursive --prepend-path-rel -t -r --time newest pdir
+testdir/pdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t -r --time median
+testdir/pdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t -r --time oldest
+testdir/pdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t -r --time newest
 testdir/pdir ls -R $LS_FULL_TIME -t -o
-testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median pdir
-testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest pdir
-testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest pdir
+testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median pdir
+testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest pdir
+testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest pdir
 testdir/qdir ls -R $LS_FULL_TIME -t -o
-testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time median qdir
-testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time oldest qdir
-testdir lsseq --globalSortByTime --noErrorLists --recursive --prependPathRel -t --time newest qdir
+testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median qdir
+testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest qdir
+testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest qdir
 testdir/idir/v002 ls
 testdir/idir/v002 ls foobar
 testdir/idir/v002 lsseq
@@ -303,31 +303,31 @@ testdir/idir/v002 lsseq --silent iii03.*
 testdir/idir/v002 lsseq --silent iii02.* foobar
 testdir/idir/v002 lsseq --silent iii03.* foobar
 testdir/idir/v002 lsseq --silent iii*.* foobar
-testdir/pdir lsseq --recursive --prependPathRel
-testdir/pdir lsseq --recursive --prependPathRel *
-testdir/rdir lsseq --prependPathRel --noErrorLists --recursive
-testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --onlyImages
-testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --onlyMovies
-testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --onlyCaches
-testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format native
-testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format nuke
-testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format rv
-testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format shake
-testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format glob
-testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format mplay
-testdir/rdir lsseq --prependPathRel --noErrorLists --recursive --format houdini
-testdir lsseq -R -P --onlyMovies
-testdir lsseq -R -P --onlyMovies --globalSortByTime
-testdir lsseq -R -P --onlyCaches
-testdir lsseq -R -P --onlyCaches --globalSortByTime
-testdir lsseq -R -P --onlySequences
-testdir lsseq -R -P --onlySequences --globalSortByTime
-testdir lsseq -R -p --onlyMovies
-testdir lsseq -R -p --onlyMovies --globalSortByTime
-testdir lsseq -R -p --onlyCaches
-testdir lsseq -R -p --onlyCaches --globalSortByTime
-testdir lsseq -R -p --onlySequences
-testdir lsseq -R -p --onlySequences --globalSortByTime
+testdir/pdir lsseq --recursive --prepend-path-rel
+testdir/pdir lsseq --recursive --prepend-path-rel *
+testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive
+testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive --only-images
+testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive --only-movies
+testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive --only-caches
+testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive --format native
+testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive --format nuke
+testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive --format rv
+testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive --format shake
+testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive --format glob
+testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive --format mplay
+testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive --format houdini
+testdir lsseq -R -P --only-movies
+testdir lsseq -R -P --only-movies --global-sort-by-time
+testdir lsseq -R -P --only-caches
+testdir lsseq -R -P --only-caches --global-sort-by-time
+testdir lsseq -R -P --only-sequences
+testdir lsseq -R -P --only-sequences --global-sort-by-time
+testdir lsseq -R -p --only-movies
+testdir lsseq -R -p --only-movies --global-sort-by-time
+testdir lsseq -R -p --only-caches
+testdir lsseq -R -p --only-caches --global-sort-by-time
+testdir lsseq -R -p --only-sequences
+testdir lsseq -R -p --only-sequences --global-sort-by-time
 EOF
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME
@@ -361,9 +361,9 @@ export LSSEQ_CACHE_EXTENSION=ass:fur
 
 cat << EOF2 > $tmpArgs
 .            lsseq -i
-testdir/gdir lsseq --onlyImages
-testdir/gdir lsseq --onlyMovies
-testdir/gdir lsseq --onlyCaches
+testdir/gdir lsseq --only-images
+testdir/gdir lsseq --only-movies
+testdir/gdir lsseq --only-caches
 . echo -e \nThere is no way to test lsseq output to stdio if isatty is \nTrue so PLEASE manually run lsseq -R once on testdir to check \nif column-output is correct for the /bin/ls output.
 EOF2
 

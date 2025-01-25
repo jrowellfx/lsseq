@@ -69,7 +69,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "3.0.4"     # Semantic Versioning 2.0.0
+VERSION = "4.0.0"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -164,7 +164,7 @@ gImageExtList = [
     "tpic"
 ]
 
-# List of date formats accepted to set file times with --onlyShow.
+# List of date formats accepted to set file times with --only-show.
 #
 # Note: We MUST list %y before %Y in each case below to make sure
 # that, for example, "200731" get's interpreted as July 31, 2020
@@ -190,7 +190,7 @@ DATE_FORMAT_LIST = [
     ('%Y%m%d%H%M.%S', 15)  # supported, thus not FULLY backward compatible.
 ]
 
-# Support for --globalSortByTime feature.
+# Support for --global-sort-by-time feature.
 #
 gTimeList = []
 gImageDictionary = {}
@@ -1255,7 +1255,7 @@ def main() :
                 <descriptiveName>.<frameNum>.<imgExtension>
 
             where <imgExtension> is drawn from a default list of image extensions
-            (displayed with option --imgExt) or alternatively from the environment
+            (displayed with option --img-ext) or alternatively from the environment
             variable LSSEQ_IMAGE_EXTENSION which should contain a colon separated
             list of image file extensions.
 
@@ -1280,100 +1280,100 @@ def main() :
         'mplay', and 'houdini'.\
         Note that glob prints correct results only if \
         the frame numbers are padded. Further note that reporting of \
-        missing/bad/etc frames (e.g. --showMissing) only happens \
+        missing/bad/etc frames (e.g. --show-missing) only happens \
         with 'native' format")
-    p.add_argument("--showMissing", "-m", action="store_true",
+    p.add_argument("--show-missing", "-m", action="store_true",
         dest="showMissing", default=True,
         help="show list of missing frames as 'm:[<list>]' [default]" )
-    p.add_argument("--skipMissing", "-M", action="store_false",
+    p.add_argument("--skip-missing", "-M", action="store_false",
         dest="showMissing",
         help="do not show list of missing frames" )
-    p.add_argument("--showZero", "-z", action="store_true",
+    p.add_argument("--show-zero", "-z", action="store_true",
         dest="showZero", default=True,
         help="show list of zero length images as 'z:[<list>]' [default]" )
-    p.add_argument("--skipZero", "-Z", action="store_false",
+    p.add_argument("--skip-zero", "-Z", action="store_false",
         dest="showZero",
         help="do not show list of zero length images" )
-    p.add_argument("--showBadFrames", "-b", action="store_true",
+    p.add_argument("--show-bad-frames", "-b", action="store_true",
         dest="showBad", default=False,
         help="lists potentially bad frames based on the \
-        minimum size of a good frame (see --goodFrameMinSize). \
+        minimum size of a good frame (see --good-frame-min-size). \
         Reported as 'b:[<list>]'")
-    p.add_argument("--skipBadFrames", "-B", action="store_false",
+    p.add_argument("--skip-bad-frames", "-B", action="store_false",
         dest="showBad",
         help="do not show list of potentially bad frames [default]" )
-    p.add_argument("--goodFrameMinSize", action="store", type=readByteShortForm,
+    p.add_argument("--good-frame-min-size", action="store", type=readByteShortForm,
         dest="goodFrameMinSize", default=512,
         metavar="BYTES",
         help="any frame size less than BYTES is \
         a bad frame. Short forms for byte sizes are accepted as \
         in '1K' (i.e., 1024) or '1.5K' for example. [default: 512]")
-    p.add_argument("--showBadPadding", "-g", action="store_true",
+    p.add_argument("--show-bad-padding", action="store_true",
         dest="showBadPadding", default=True,
         help="report badly padded frame numbers which occurs when a number is padded \
         but shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]' [default]")
-    p.add_argument("--skipBadPadding", "-G", action="store_false",
+    p.add_argument("--skip-bad-padding", action="store_false",
         dest="showBadPadding",
         help="do not show list of badly padded frames" )
-    p.add_argument("--combineLists", "-c", action="store_true",
+    p.add_argument("--combine-lists", "-c", action="store_true",
         dest="combineErrorFrames", default=False,
         help="combine the lists of zero, missing and bad frames into one list. \
         Reported as 'e:[<list>]'")
-    p.add_argument("--noCombineLists", action="store_false",
+    p.add_argument("--no-combine-lists", action="store_false",
         dest="combineErrorFrames",
         help="Don't combine the error lists")
-    p.add_argument("--noErrorLists", "-n", help = "Skip printing ALL error lists. \
-        Note: Setting --showBadPadding (for example) AFTER this \
+    p.add_argument("--no-error-lists", "-n", help = "Skip printing ALL error lists. \
+        Note: Setting --show-bad-padding (for example) AFTER this \
         option on the command line has the effect of ONLY \
         showing the badPadding error list ", \
         action = store_false_multiple("showMissing", "showZero", "showBad", "showBadPadding"))
-    p.add_argument("--looseNumSeparator", "-l", action="store_false",
+    p.add_argument("--loose-num-separator", "-l", action="store_false",
         dest="strictSeparator",
         help="allow the use of '_' (underscore), in addition to '.' (dot) \
             as a separator between the descriptiveName and frameNumber when \
             looking to interpret filenames as \
             image sequences. i.e., <descriptiveName>_<frameNum>.<imgExtension> \
-            (also see --strictNumSeparator)")
-    p.add_argument("--strictNumSeparator", "-s", action="store_true",
+            (also see --strict-num-separator)")
+    p.add_argument("--strict-num-separator", "-s", action="store_true",
         dest="strictSeparator", default=True,
         help="strictly enforce the use of '.' (dot) as a separator between the \
             descriptiveName and frameNumber when looking to interpret filenames as \
             image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension> \
-            (also see --looseNumSeparator) [default]")
+            (also see --loose-num-separator) [default]")
 
-    p.add_argument("--onlySequences", "-o", action="store_const",
+    p.add_argument("--only-sequences", "-o", action="store_const",
         dest="listWhichFiles", default=LIST_ALLFILES, const=LIST_ONLYSEQS,
         help="only list image sequences, cache sequences and movies")
-    p.add_argument("--onlyImages", "-O", action="store_const",
+    p.add_argument("--only-images", "-O", action="store_const",
         dest="listWhichFiles", const=LIST_ONLYIMGS,
         help="strictly list only image sequences (i.e., no movies or caches)")
-    p.add_argument("--onlyMovies", action="store_const",
+    p.add_argument("--only-movies", action="store_const",
         dest="listWhichFiles", const=LIST_ONLYMOVS,
         help="strictly list only movies (i.e., no images or caches)")
-    p.add_argument("--onlyCaches", action="store_const",
+    p.add_argument("--only-caches", action="store_const",
         dest="listWhichFiles", const=LIST_ONLYCACHES,
         help="strictly list only cache sequences (i.e., no images or movies)")
-    p.add_argument("--imgExt", "-i", action="store_true",
+    p.add_argument("--img-ext", "-i", action="store_true",
         dest="printImgExtensions", default=False,
         help="print list of image, cache and movie file extensions and exit")
 
-    p.add_argument("--prependPathAbs", "-p", action="store_const",
+    p.add_argument("--prepend-path-abs", "-p", action="store_const",
         dest="prependPath", default=PATH_NOPREFIX, const=PATH_ABS,
         help="prepend the absolute path name to the image name. \
-        This option implies the option --onlySequences and also \
+        This option implies the option --only-sequences and also \
         suppresses printing directory name headers when listing \
         directory contents")
-    p.add_argument("--prependPathRel", "-P", action="store_const",
+    p.add_argument("--prepend-path-rel", "-P", action="store_const",
         dest="prependPath", const=PATH_REL,
         help="prepend the relative path name to the image name. \
-        This option implies the option --onlySequences and will also \
+        This option implies the option --only-sequences and will also \
         suppress printing directory name headers when listing \
         directory contents")
     p.add_argument("--extremes", "-e", action="store_true",
         dest="extremes", default=False,
         help="only list the first and last image on a separate line each. \
-        This option implies --prependPathAbs (unless --prependPathRel is \
-        explicitly specified) and --onlySequences")
+        This option implies --prepend-path-abs (unless --prepend-path-rel is \
+        explicitly specified) and --only-sequences")
 
     p.add_argument("--single", "-1", action="store_const",
         dest="byWhat", default=BY_UNSPECIFIED, const=BY_SINGLE,
@@ -1382,10 +1382,10 @@ def main() :
         dest="ignoreDotFiles", default=True,
         help="do not ignore entries starting with '.' \
         while omitting implied '.' and '..' directories (see ls(1) --almost-all)")
-    p.add_argument("--byColumns", "-C", action="store_const",
+    p.add_argument("--by-columns", "-C", action="store_const",
         dest="byWhat", const=BY_COLUMNS,
         help="list non-sequence entries by columns (see ls(1))")
-    p.add_argument("--byRows", "-x", action="store_const",
+    p.add_argument("--by-rows", "-x", action="store_const",
         dest="byWhat", const=BY_ROWS,
         help="list non-sequence entries by lines instead of by columns (see ls(1))")
     p.add_argument("--directory", "-d", action="store_false",
@@ -1401,7 +1401,7 @@ def main() :
     p.add_argument("--recursive", "-R", action="store_true",
         dest="isRecursive", default=False,
         help="list subdirectories recursively")
-    p.add_argument("-t", "--sortByTime", action="store_true",
+    p.add_argument("--sort-by-time", "-t", action="store_true",
         dest="sortByMTime", default=False,
         help="sort by modification time, the default comparison \
         time is between the most recently modified (newest) frames \
@@ -1413,7 +1413,7 @@ def main() :
         for 'FRAME_AGE' are 'oldest', 'median' and 'newest' \
         [default: 'newest']", metavar="FRAME_AGE", default="newest",
         choices=("oldest", "median", "newest"))
-    p.add_argument("--onlyShow", action="store", type=str, nargs=2,
+    p.add_argument("--only-show", action="store", type=str, nargs=2,
         dest="cutoffTime",
         help="where TENSE is either 'before' or 'since'; only list sequences \
         up to (and including) or after (and including) the time specified. The --time argument \
@@ -1422,10 +1422,10 @@ def main() :
         The optional '-hh' (hours), 'mm' (minutes) or 'ss' (seconds) \
         default to zero if not specified.",
         metavar=("TENSE", "[CC]YYMMDD[-hh[mm[ss]]]"))
-    p.add_argument("--globalSortByTime", action="store_true",
+    p.add_argument("--global-sort-by-time", '-G', action="store_true",
         dest="globalSortByTime", default=False,
         help="when using either \
-        --prependPathAbs or --prependPathRel then this option will sort ALL \
+        --prepend-path-abs or --prepend-path-rel then this option will sort ALL \
         sequences by time compared to each other, as opposed to only sorting \
         sequences by time within their common directory. If the above conditions \
         are NOT met, then this option is simply ignored.")
@@ -1536,7 +1536,7 @@ def main() :
         if (args.cutoffTime[0] != 'before') and (args.cutoffTime[0] != 'since') :
             if not args.silent :
                 print(PROG_NAME,
-                    ": error: argument --onlyShow: TENSE must be 'since' or 'before'",
+                    ": error: argument --only-show: TENSE must be 'since' or 'before'",
                     file=sys.stderr, sep='')
             sys.exit(gExitStatus | EXIT_ARGPARSE_ERROR) # Doing our own 'argparse' checks here.
 
@@ -1576,7 +1576,7 @@ def main() :
         if not matchedDate :
             if not args.silent :
                 print(PROG_NAME,
-                    ": error: argument --onlyShow: the time must be of the form [CC]YYMMDD[-hh[mm[ss]]]",
+                    ": error: argument --only-show: the time must be of the form [CC]YYMMDD[-hh[mm[ss]]]",
                     file=sys.stderr, sep='')
             sys.exit(gExitStatus | EXIT_ARGPARSE_ERROR)
 
