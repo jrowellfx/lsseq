@@ -35,5 +35,7 @@
 # These 'bad-padding' options are rarely used so likely not
 # going to show up in someone's script that uses lsseq.
 #
+/lsseq/ s/\([^-]\)-g$/\1--show-bad-padding/g
+/lsseq/ s/\([^-]\)-G$/\1--skip-bad-padding/g
 /lsseq/ s/\([^-]\)-g\([ \t]\)/\1--show-bad-padding\2/g
 /lsseq/ s/\([^-]\)-G\([ \t]\)/\1--skip-bad-padding\2/g
