@@ -1,3 +1,18 @@
+# This sed script contains all the substitutions needed to update
+# any user scripts that call any of jrowellfx's (on github) command-line
+# utilities (such as lsseq, renumseq, ts, etc.) that have had a MAJOR
+# version point release.
+#
+# The MAJOR version point release was made to switch all long-options
+# names to adhere to POSIX standards.
+#
+# It's suggested to install jrowellfx's runsed util on your system,
+# then rename this file to just 'sed.script' at which point you can
+# simply exectute 'runsed' on all your scripts that you want to update.
+# 
+# runsed allows you to view changes and easily undo the changes if
+# need be. See 'runsed --help'.
+
 1,$ s/--asOf/--as-of/g
 1,$ s/--byColumns/--by-columns/g
 1,$ s/--byRows/--by-rows/g
