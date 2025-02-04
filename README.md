@@ -255,12 +255,12 @@ across different directories. This is special to `lsseq` as `/bin/ls` doesn't
 sort by time across directories. Here's how you do it with `lsseq`, the
 description snipped from the output of `lsseq --help`:
 ```
-  --global-sort-by-time    when using either --prepend-path-abs or --prepend-path-rel
-                        then this option will sort ALL sequences by time
-                        compared to each other, as opposed to only sorting
-                        sequences by time within their common directory. If
-                        the above conditions are NOT met, then this option is
-                        simply ignored.
+  --global-sort-by-time  when using either --prepend-path-abs or --prepend-path-rel
+                         then this option will sort ALL sequences by time
+                         compared to each other, as opposed to only sorting
+                         sequences by time within their common directory. If
+                         the above conditions are NOT met, then this option is
+                         simply ignored.
 ```
 
 Please explore the rest of `lsseq's` capabilities by typing:
