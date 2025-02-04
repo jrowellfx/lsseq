@@ -48,10 +48,15 @@ ${0##*/} Run regression tests on lsseq. Must be run in the
 
 Options:
 
- -h, --help         show this help and exit
- --testSystem-lsseq run the regression tests on the version of
-                    lsseq installed on the system. Output test
-                    results to appropriatly named file.
+ -h, --help          show this help and exit
+ --test-system-lsseq run the regression tests on the version of
+                       lsseq installed on the system. Output test
+                       results to appropriatly named file.
+ --timestamp-testdir Not run by default, but needed once when cloning
+                       the lsseq repo for the first time, or having
+                       added new files to the testdir. This will ensure
+                       that diffing a new test run with old output will
+                       only show relevant diffs.
 
 @eof
     fi
@@ -59,6 +64,7 @@ Options:
 }
 
 TEST_SYSTEM_LSSEQ=no
+TIMESTAMP_TEST_DIR=no
 
 #
 # Parse options.  Stop when you get to the file list.
@@ -70,7 +76,11 @@ do
         -h|--help) usage_exit help
         ;;
 
-        --testSystem-lsseq) TEST_SYSTEM_LSSEQ=yes
+        --test-system-lsseq) TEST_SYSTEM_LSSEQ=yes
+             shift
+        ;;
+
+        --timestamp-testdir) TIMESTAMP_TEST_DIR=yes
              shift
         ;;
 
@@ -99,9 +109,14 @@ if [[ `basename $TEST_DIR` != 'tests' ]]; then
     exit 1
 fi
 
+tmpArgs=/tmp/tmpARGS_LSSEQ$$
+tmpfile=/tmp/tmpFILE_LSSEQ$$
+tmptouchfile=/tmp/tmpTOUCH_LSSEQ$$
+
 cleanup() {
     /bin/rm $tmpArgs > /dev/null 2>&1
     /bin/rm $tmpfile > /dev/null 2>&1
+    /bin/rm $tmptouchfile > /dev/null 2>&1
     /bin/rm $TEST_DIR/testdir/jdir/j03/j04.005.jpg > /dev/null 2>&1
     /bin/rm $TEST_DIR/testdir/idir/v002/iii03.0005.jpg > /dev/null 2>&1
     exit 0
@@ -124,22 +139,65 @@ fi
 
 echo "Test is using " `which lsseq`
 
-# NOTE: To make sure the modification times of the testdir/cdir and ndir images are
-# set properly for testing we need to force specific times on to the files
+unalias lsseq > /dev/null 2>&1
+
+# If the following hasn't been performed on the machine that is running
+# these tests, then the timestamps of ALL the regular files in the testdir
+# need to be manually set. (As we cannot rely on git clone to set consistent 
+# timestamps).
+#
+# This will ensure that tests of --global-sort-by-time will be consistent
+# across any clone of this repo.
+#
+# The timestamps of all the files is arbitrarily set to Dec 14, 1971 6am,
+# with each successive file (sorted across dirs by name) one second 
+# older than the previous file.
+#
+if [ "$TIMESTAMP_TEST_DIR" = yes ]; then
+    echo
+    echo Patience please - timestamping entire $TEST_DIR
+    echo 
+
+    cd $TEST_DIR
+    find testdir -type f | sort > $tmptouchfile
+    epochStartDate=61559999
+    lastLine=$(wc -l $tmptouchfile | awk '{ print $1 }')
+
+    j=0
+    for (( i=1; i<=$lastLine; ++i));
+    do
+        filename=$(sed -n -e "$i p" $tmptouchfile)
+        epochDate=$((epochStartDate + i))
+        if [ `uname` = Darwin ]; then
+            touchDate=$(date -r $epochDate '+%Y%m%d%H%M.%S')
+        else
+            touchDate=$(date --date="@$epochDate" '+%Y%m%d%H%M.%S')
+        fi
+        touch -t $touchDate "$filename"
+        j=$((j+1))
+        if [[ $j -ge 50 ]]; then
+            echo $(( lastLine - i )) ""
+            j=0
+        fi
+    done
+    cleanup
+fi
+
+# NOTE: To make sure the modification times of certain testdir/?dir images are
+# set to specficic times we need to force specific timestamps on to the files
 # as we can't rely on git to set these properly for us.
 #
-# How the timestamps were created: (for example)
+# How the customized timestamps were created: (for example)
 # cd tests/testdir/cdir
 # ls ccc*.*.* > list.images
 # vi list.images - then ordered it to be ccc01* ccc03* and ccc02* in the correct frame order
 # initial.image.mtimes < list.images > custom.touch.images
 # vi custom.touch.images - edit the times to make for different "oldest" and "newest" vs "median".
 # source custom.touch.images
+#
 
-unalias lsseq > /dev/null 2>&1
-
-tmpArgs=/tmp/tmpARGS_LSSEQ$$
-tmpfile=/tmp/tmpFILE_LSSEQ$$
+# Now set the custom time-stamps on certain files
+# to verify that lsseq sort-by-time works properly.
 
 cd $TEST_DIR/testdir/cdir
 source custom.touch.images
@@ -149,11 +207,11 @@ cd $TEST_DIR/testdir/pdir
 source custom.touch.images
 cd $TEST_DIR/testdir/qdir
 source custom.touch.images
+cd $TEST_DIR/testdir/hdir
+source custom.touch.files
 cd $TEST_DIR
 
-cd testdir/hdir
-source touch.files
-cd $TEST_DIR
+# Plus create some other 'bad' files to test edge cases.
 
 cd testdir/jdir/j03
 /bin/rm -f j04.005.jpg
@@ -328,6 +386,7 @@ testdir lsseq -R -p --only-caches
 testdir lsseq -R -p --only-caches --global-sort-by-time
 testdir lsseq -R -p --only-sequences
 testdir lsseq -R -p --only-sequences --global-sort-by-time
+testdir lsseq -R -P -G --quiet -r
 EOF
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME

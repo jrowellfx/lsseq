@@ -362,7 +362,7 @@ touch -a -m -t 201507011500 ./foo/v003/hhh03.0037.jpg
 touch -a -m -t 201507011501 ./foo/v003/hhh03.0038.jpg
 touch -a -m -t 201507011502 ./foo/v003/hhh03.0039.jpg
 touch -a -m -t 201507011503 ./foo/v003/hhh03.0040.jpg
-touch -a -m -t 201507011504 ./touch.files
+touch -a -m -t 201507011504 ./custom.touch.files
 touch -a -m -t 201507011505 ./v001
 touch -a -m -t 201507011506 ./v001/hhh01.0001.jpg
 touch -a -m -t 201507011507 ./v001/hhh01.0002.jpg

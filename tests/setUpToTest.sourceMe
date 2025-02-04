@@ -17,4 +17,8 @@ echo '    if [[ ! ":$PATH:" == *":$TEST_DIR:"* ]]; then'
 echo '        export PATH="$TEST_DIR:$PATH"'
 echo '    fi'
 echo
-
+echo NOTE: If this is a freshly cloned repo, or new files have
+echo ' ' been added to $TEST_DIR, then run
+echo '        $ test_lsseq --timestamp-testdir'
+echo ' ' one time before running the test_lsseq normally.
+echo
