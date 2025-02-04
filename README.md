@@ -163,7 +163,7 @@ As you can see above, that information easily pops out when using `lsseq`.
 If you like, you can turn off reporting zero-length and missing frames with some
 command-line options:
 ```
-    $ lsseq --skipMissing --skipZero
+    $ lsseq --skip-missing --skip-zero
     ccc_v01.[0995-1035].exr
     ccc_v02.[0995-1035].exr
     ccc_v03.[0995-1035].exr
@@ -221,13 +221,13 @@ sequences) then lists all the sequences in their condensed form.
 Some useful options have been added, beyond what `/bin/ls` does, that
 extend `lsseq's` capability.
 ```
-    4$ lsseq --prependPathRel *
+    4$ lsseq --prepend-path-rel *
     ccc.[0101].exr
     aaa/aaa.[097-103].tif m:[99]
     bbb/bbx.[0097-0103].tif
     bbb/bby.[0197-0203].tif
 
-    5$ lsseq --prependPathAbs --skipMissing --format rv *
+    5$ lsseq --prepend-path-abs --skip-missing --format rv *
     /user/jrowellfx/test/ccc.0101.exr
     /user/jrowellfx/test/aaa/aaa.97-103@@@.tif
     /user/jrowellfx/test/bbb/bbx.97-103#.tif
@@ -235,7 +235,7 @@ extend `lsseq's` capability.
 ```
 Continuing in our sample directory from the previous example,
 note the two options in commands #4 and #5, namely
-`--prependPathRel` and `--prependPathAbs`. These are both useful when creating
+`--prepend-path-rel` and `--prepend-path-abs`. These are both useful when creating
 lists of sequences to pipe into other scripts.
 
 #### Sorting by modification times
@@ -247,7 +247,7 @@ compare sequences by comparing the `oldest`, `median` or `newest` frames from
 each sequence with the `--time FRAME_AGE` option.
 
 `lsseq` can also limit listing sequences that are created before
-or after a given timestamp with the `--onlyShow TENSE [CC]YYMMDD[-hh[mm[ss]]]` option,
+or after a given timestamp with the `--only-show TENSE [CC]YYMMDD[-hh[mm[ss]]]` option,
 where `TENSE` is either `before` or `since`.
 
 An especially powerful feature of `lsseq` is the ability to sort by time
@@ -255,7 +255,7 @@ across different directories. This is special to `lsseq` as `/bin/ls` doesn't
 sort by time across directories. Here's how you do it with `lsseq`, the
 description snipped from the output of `lsseq --help`:
 ```
-  --globalSortByTime    when using either --prependPathAbs or --prependPathRel
+  --global-sort-by-time    when using either --prepend-path-abs or --prepend-path-rel
                         then this option will sort ALL sequences by time
                         compared to each other, as opposed to only sorting
                         sequences by time within their common directory. If
@@ -309,7 +309,7 @@ so that they are accessible to all users. This works on both MacOS and Linux.
     # ln -s /usr/local/venv/bin/fixseqpadding /usr/local/bin/fixseqpadding
     # exit
     $ lsseq --version
-    3.0.4
+    4.0.0
 ```
 At this point any user should be able to run any of the commands linked in the example above.
 Note that updates are easy now too. Say there's an update to lsseq that you want to install.
