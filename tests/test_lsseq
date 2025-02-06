@@ -138,7 +138,7 @@ else
 fi
 
 echo "Test is using " `which lsseq`
-echo '!!! Note: Run test_lsseq --timestamp-testdir at least once before doing a series of tests !!!'
+echo '!!! Note: Run test_lsseq --timestamp-testdir once before doing tests !!!'
 
 unalias lsseq > /dev/null 2>&1
 
