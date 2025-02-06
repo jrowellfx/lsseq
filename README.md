@@ -356,6 +356,91 @@ This is an easy problem to fix. Delete (or move to a backup location)
 the entire directory `/usr/local/venv` and redo the steps above
 to install lsseq, renumseq, expandseq etc. from scratch.
 
+# Important: latest MAJOR point release of `lsseq`.
+
+`lsseq` and all the utilities provided by jrowellfx github repos
+use "[`Semantic Versioning 2.0.0`](https://semver.org/)" in numbering releases.
+The latest release of `lsseq` upped the `MAJOR` release number
+from `v3.x.x` to `v4.x.x`.
+
+While the functionality and output of `lsseq` has not changed, all the so called
+"long options" have been renamed to adhere to `POSIX` standard naming
+conventions.
+
+That is, prior to `v4.0.0` of lsseq all the long-option names used a "camel case"
+naming convention but as of `v4.0.0` all long-option names have been
+changed to so-called "kebab case".
+
+For example:
+
+```
+--globalSortByTime
+```
+
+has been changed to
+
+```
+--global-sort-by-time
+```
+
+In the event that you have written any scripts that make use of `lsseq` or
+any other of `jrowellfx`'s utils provided [here](https://github.com/jrowellfx) 
+you will need to edit your scripts to be able to update to the lastest versions
+of the utilities.
+
+In this case, in order to assist in switching to the
+current `MAJOR` point release some `sed` scripts have been provided that should make
+the transition quite painless. Especially if you make use
+of [`runsed`](https://github.com/jrowellfx/runsed) which if you haven't used it before,
+now is the time, it's extremely helpful.
+
+There are two files provided at the root-level of the repo, namely:
+`sed.script.jrowellfx.doubleDashToKebab` and `sed.script.lsseq.v3tov4`.
+
+The first one can be used to fix the long-option names for ALL the 
+`MAJOR` point release updates to the long-options in any of `jrowellfx`'s utilities.
+The second one contains only changes needed for the updates to `lsseq`.
+
+## Example `sed.script` usage.
+
+Download one or both of the sed scripts named above. Make sure you have runsed installed
+on your system.
+
+```
+$ cd ~/bin
+$ ls
+myScriptThatUsesLsseq
+$ cat myScriptThatUsesLsseq
+#!/bin/bash
+
+lsseq --globalSortByTime --recursive --prependPathAbs /Volumes/myProjectFiles
+
+$ mv ~/Downloads/sed.script.jrowellfx.doubleDashToKebab sed.script
+$ runsed myScriptThatUsesLsseq
+$ ./.runsed.diff.runsed
++ /usr/bin/diff ./.myScriptThatUsesLsseq.runsed myScriptThatUsesLsseq
+3c3
+< lsseq --globalSortByTime --recursive --prependPathAbs /Volumes/myProjectFiles
+---
+> lsseq --global-sort-by-time --recursive --prepend-path-abs /Volumes/myProjectFiles
+$ cat myScriptThatUsesLsseq
+#!/bin/bash
+
+lsseq --global-sort-by-time --recursive --prepend-path-abs /Volumes/myProjectFiles
+```
+
+Note that if you are unhappy with the changes you can undo them easily with
+
+```
+$ ./.runsed.undo.runsed
+$ cat myScriptThatUsesLsseq
+#!/bin/bash
+
+lsseq --globalSortByTime --recursive --prependPathAbs /Volumes/myProjectFiles
+
+
+```
+
 ## Contact
 
 Please contact `j a m e s <at> a l p h a - e l e v e n . c o m` with any bug
