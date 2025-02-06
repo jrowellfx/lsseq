@@ -367,7 +367,7 @@ While the functionality and output of `lsseq` has not changed, all the so called
 "long options" have been renamed to adhere to `POSIX` standard naming
 conventions.
 
-That is, prior to `v4.0.0` of lsseq all the long-option names used a "camel case"
+That is, prior to `v4.0.0` of `lsseq` all the long-option names used a "camel case"
 naming convention but as of `v4.0.0` all long-option names have been
 changed to so-called "kebab case".
 
