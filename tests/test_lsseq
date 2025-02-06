@@ -39,7 +39,7 @@
 # test_lsseq - Run the lsseq regression tests.
 
 usage_exit() {
-    echo "Usage: ${0##*/} [-h | --help] [--testSystem-lsseq]"
+    echo "Usage: ${0##*/} [-h | --help] [--testSystem-lsseq] [--timestamp-testdir]"
     if [ "$1" = help ]; then
 	cat - <<@eof
 
