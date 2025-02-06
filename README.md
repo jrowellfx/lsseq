@@ -1,10 +1,11 @@
 # About lsseq
 
-`lsseq` is a Unix/Linux/MacOS command-line utility
+`lsseq` is a `Unix/Linux/MacOS` command-line utility
 that lists directory contents like `/bin/ls` with the
 difference that `lsseq` condenses image and cache sequences to one entry each.
 
 Filenames that are part of sequences are assumed to be of the form:
+
 ```
     <descriptiveName>.<frameNum>.<imgExtension>
 ```
@@ -15,6 +16,7 @@ between the `<descriptiveName>` and the `<frameNum>` is an underscore instead of
 
 `lsseq` first lists all non-image-sequence files followed by the
 list of image sequences as such:
+
 ```
     $ lsseq
     [output of /bin/ls minus image sequences]
@@ -22,6 +24,7 @@ list of image sequences as such:
 ```
 
 #### Example:
+
 ```
     $ ls
     aaa.097.tif  aaa.100.tif  aaa.102.tif  bar.pdf
@@ -30,6 +33,7 @@ list of image sequences as such:
     bar.pdf  foo.txt
     aaa.[097-103].tif m:[99]
 ```
+
 What `lsseq` tells us here is
 that this directory contains two non-image files, `bar.pdf` and `foo.txt`,
 plus a sequence of tif files named
@@ -40,6 +44,7 @@ however it can print sequences in a variety of formats useful for `nuke`,
 `houdini` or `rv` as well as a `glob` pattern for use in the shell.
 
 #### Example:
+
 ```
     $ ls
     bbb.097.jpg  bbb.099.jpg  bbb.101.jpg  bbb.103.jpg
@@ -56,16 +61,14 @@ however it can print sequences in a variety of formats useful for `nuke`,
     bbb.[0-9][0-9][0-9].jpg
 ```
 ## Installing lsseq
-```
-    python3 -m pip install lsseq
-```
-If you already have `lsseq` installed, upgrade to newer versions like this:
+
 ```
     python3 -m pip install lsseq --upgrade
 ```
+
 There is additional installation-information below in an
 [addendum](https://github.com/jrowellfx/lsseq#addendum---more-on-installing-command-line-tools)
-with a helpful technique for installing `lsseq` system-wide.
+below with a helpful technique for installing `lsseq` system-wide.
 
 #### Testing installation
 
@@ -73,6 +76,7 @@ To test `lsseq`, `cd` into a directory containing frames from an image
 sequence then `lsseq` the contents of the directory.
 
 If you don't have one handy you can try this to test it.
+
 ```
     $ cd ~
     $ mkdir tmp
@@ -81,6 +85,7 @@ If you don't have one handy you can try this to test it.
     $ lsseq
     aaa.[001-005].tif z:[1-5]
 ```
+
 Note the `z:[1-5]` which is telling you that the frames `aaa.[001-005].tif`
 have zero length.
 
@@ -110,6 +115,7 @@ make you a convert because it reports VERY useful information about sequences
 that are otherwise hard to discover without using `lsseq`.
 
 #### Example:
+
 ```
     $ ls
     ccc_v01.0995.exr  ccc_v01.1029.exr  ccc_v02.1019.exr  ccc_v03.1008.exr
@@ -148,6 +154,7 @@ that are otherwise hard to discover without using `lsseq`.
     ccc_v02.[0995-1035].exr m:[1017]
     ccc_v03.[0995-1035].exr
 ```
+
 This is a typical example of how hard it is to look at the contents of a directory
 containing image sequences without `lsseq`.
 
@@ -162,8 +169,9 @@ As you can see above, that information easily pops out when using `lsseq`.
 
 If you like, you can turn off reporting zero-length and missing frames with some
 command-line options:
+
 ```
-    $ lsseq --skipMissing --skipZero
+    $ lsseq --skip-missing --skip-zero
     ccc_v01.[0995-1035].exr
     ccc_v02.[0995-1035].exr
     ccc_v03.[0995-1035].exr
@@ -180,6 +188,7 @@ look of the output as well as several command-line-arguments are the same
 The following example shows the similarity between the two commands.
 Command #1 and #2 below call `/bin/ls` on a sample directory.
 Then command #3 calls `lsseq` with the same wildcard as #2:
+
 ```
     1$ ls -F
     aaa/  bbb/  ccc.0101.exr  nonImage.file
@@ -210,6 +219,7 @@ Then command #3 calls `lsseq` with the same wildcard as #2:
     bbx.[0097-0103].tif
     bby.[0197-0203].tif
 ```
+
 The first thing to note above is how close `lsseq` is to mimicking `/bin/ls` in
 labelling directories and listing directory contents etc. (compare the
 output of command #2 to #3). The difference being that `lsseq` first lists all
@@ -220,22 +230,24 @@ sequences) then lists all the sequences in their condensed form.
 
 Some useful options have been added, beyond what `/bin/ls` does, that
 extend `lsseq's` capability.
+
 ```
-    4$ lsseq --prependPathRel *
+    4$ lsseq --prepend-path-rel *
     ccc.[0101].exr
     aaa/aaa.[097-103].tif m:[99]
     bbb/bbx.[0097-0103].tif
     bbb/bby.[0197-0203].tif
 
-    5$ lsseq --prependPathAbs --skipMissing --format rv *
+    5$ lsseq --prepend-path-abs --skip-missing --format rv *
     /user/jrowellfx/test/ccc.0101.exr
     /user/jrowellfx/test/aaa/aaa.97-103@@@.tif
     /user/jrowellfx/test/bbb/bbx.97-103#.tif
     /user/jrowellfx/test/bbb/bby.197-203#.tif
 ```
+
 Continuing in our sample directory from the previous example,
 note the two options in commands #4 and #5, namely
-`--prependPathRel` and `--prependPathAbs`. These are both useful when creating
+`--prepend-path-rel` and `--prepend-path-abs`. These are both useful when creating
 lists of sequences to pipe into other scripts.
 
 #### Sorting by modification times
@@ -247,20 +259,21 @@ compare sequences by comparing the `oldest`, `median` or `newest` frames from
 each sequence with the `--time FRAME_AGE` option.
 
 `lsseq` can also limit listing sequences that are created before
-or after a given timestamp with the `--onlyShow TENSE [CC]YYMMDD[-hh[mm[ss]]]` option,
+or after a given timestamp with the `--only-show TENSE [CC]YYMMDD[-hh[mm[ss]]]` option,
 where `TENSE` is either `before` or `since`.
 
 An especially powerful feature of `lsseq` is the ability to sort by time
 across different directories. This is special to `lsseq` as `/bin/ls` doesn't 
 sort by time across directories. Here's how you do it with `lsseq`, the
 description snipped from the output of `lsseq --help`:
+
 ```
-  --globalSortByTime    when using either --prependPathAbs or --prependPathRel
-                        then this option will sort ALL sequences by time
-                        compared to each other, as opposed to only sorting
-                        sequences by time within their common directory. If
-                        the above conditions are NOT met, then this option is
-                        simply ignored.
+  --global-sort-by-time  when using either --prepend-path-abs or --prepend-path-rel
+                         then this option will sort ALL sequences by time
+                         compared to each other, as opposed to only sorting
+                         sequences by time within their common directory. If
+                         the above conditions are NOT met, then this option is
+                         simply ignored.
 ```
 
 Please explore the rest of `lsseq's` capabilities by typing:
@@ -298,10 +311,10 @@ so that they are accessible to all users. This works on both MacOS and Linux.
     # source bin/activate
     # python3 -m pip install --upgrade pip
     # deactivate
-    # bin/pip install lsseq
-    # bin/pip install expandSeq
-    # bin/pip install renumSeq
-    # bin/pip install fixSeqPadding
+    # bin/pip install lsseq --upgrade
+    # bin/pip install expandSeq --upgrade
+    # bin/pip install renumSeq --upgrade
+    # bin/pip install fixSeqPadding --upgrade
     # ln -s /usr/local/venv/bin/lsseq /usr/local/bin/lsseq
     # ln -s /usr/local/venv/bin/expandseq /usr/local/bin/expandseq
     # ln -s /usr/local/venv/bin/condenseseq /usr/local/bin/condenseseq
@@ -309,8 +322,9 @@ so that they are accessible to all users. This works on both MacOS and Linux.
     # ln -s /usr/local/venv/bin/fixseqpadding /usr/local/bin/fixseqpadding
     # exit
     $ lsseq --version
-    3.0.4
+    4.0.0
 ```
+
 At this point any user should be able to run any of the commands linked in the example above.
 Note that updates are easy now too. Say there's an update to lsseq that you want to install.
 
