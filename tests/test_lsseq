@@ -59,6 +59,7 @@ Options:
                        only show relevant diffs.
 
 @eof
+        exit 0
     fi
     exit 1
 }
@@ -106,20 +107,20 @@ export TEST_DIR=`pwd`
 
 if [[ `basename $TEST_DIR` != 'tests' ]]; then
     echo $0: error: not running from tests directory, aborted.
+    cleanup
     exit 1
 fi
 
 tmpArgs=/tmp/tmpARGS_LSSEQ$$
-tmpfile=/tmp/tmpFILE_LSSEQ$$
-tmptouchfile=/tmp/tmpTOUCH_LSSEQ$$
+tmpFile=/tmp/tmpFILE_LSSEQ$$
+tmpTouchFile=/tmp/tmpTOUCH_LSSEQ$$
 
 cleanup() {
     /bin/rm $tmpArgs > /dev/null 2>&1
-    /bin/rm $tmpfile > /dev/null 2>&1
-    /bin/rm $tmptouchfile > /dev/null 2>&1
+    /bin/rm $tmpFile > /dev/null 2>&1
+    /bin/rm $tmpTouchFile > /dev/null 2>&1
     /bin/rm $TEST_DIR/testdir/jdir/j03/j04.005.jpg > /dev/null 2>&1
     /bin/rm $TEST_DIR/testdir/idir/v002/iii03.0005.jpg > /dev/null 2>&1
-    exit 0
 }
 
 TEST_OUT_FILENAME=test_lsseq.out.`uname`.new
@@ -160,14 +161,14 @@ if [ "$TIMESTAMP_TEST_DIR" = yes ]; then
     echo 
 
     cd $TEST_DIR
-    find testdir -type f | sort > $tmptouchfile
+    find testdir -type f | sort > $tmpTouchFile
     epochStartDate=61559999
-    lastLine=$(wc -l $tmptouchfile | awk '{ print $1 }')
+    lastLine=$(wc -l $tmpTouchFile | awk '{ print $1 }')
 
     j=0
     for (( i=1; i<=$lastLine; ++i));
     do
-        filename=$(sed -n -e "$i p" $tmptouchfile)
+        filename=$(sed -n -e "$i p" $tmpTouchFile)
         epochDate=$((epochStartDate + i))
         if [ `uname` = Darwin ]; then
             touchDate=$(date -r $epochDate '+%Y%m%d%H%M.%S')
@@ -182,6 +183,7 @@ if [ "$TIMESTAMP_TEST_DIR" = yes ]; then
         fi
     done
     cleanup
+    exit 0
 fi
 
 # NOTE: To make sure the modification times of certain testdir/?dir images are
@@ -452,7 +454,7 @@ while true; do
 done
 
 sed -e "1,$ s-$TEST_DIR-/...absPathToRepo.../tests-g" < $TEST_DIR/$TEST_OUT_FILENAME | \
-        sed -e "1,$ s/$USER/testUser/g" > $tmpfile
-expand < $tmpfile | sed -e '1,$ s/ *$//' > $TEST_DIR/$TEST_OUT_FILENAME
+        sed -e "1,$ s/$USER/testUser/g" > $tmpFile
+expand < $tmpFile | sed -e '1,$ s/ *$//' > $TEST_DIR/$TEST_OUT_FILENAME
 
 cleanup
