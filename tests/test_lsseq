@@ -38,6 +38,27 @@
 
 # test_lsseq - Run the lsseq regression tests.
 
+tmpArgs=/tmp/tmpARGS_LSSEQ.$$
+tmpTestCmdFileA=/tmp/tmpTESTCMDFILEA_LSSEQ.$$
+tmpTestCmdFileB=/tmp/tmpTESTCMDFILEB_LSSEQ.$$
+tmpFile=/tmp/tmpFILE_LSSEQ.$$
+tmpTouchFile=/tmp/tmpTOUCHFILE_LSSEQ.$$
+tmpLine=/tmp/tmpLINE_RENUM.$$
+#
+cleanupExit() {
+    /bin/rm $tmpArgs > /dev/null 2>&1
+    /bin/rm $tmpTestCmdFileA > /dev/null 2>&1
+    /bin/rm $tmpTestCmdFileB > /dev/null 2>&1
+    /bin/rm $tmpFile > /dev/null 2>&1
+    /bin/rm $tmpTouchFile > /dev/null 2>&1
+    /bin/rm $tmpLine > /dev/null 2>&1
+    # /bin/rm $TEST_DIR/testdir/jdir/j03/j04.005.jpg > /dev/null 2>&1
+    # /bin/rm $TEST_DIR/testdir/idir/v002/iii03.0005.jpg > /dev/null 2>&1
+    exit $1
+}
+
+trap cleanupExit INT
+
 usage_exit() {
     echo "Usage: ${0##*/} [-h | --help] [--test-system-lsseq] [--timestamp-testdir]"
     if [ "$1" = help ]; then
@@ -107,25 +128,12 @@ export TEST_DIR=`pwd`
 
 if [[ `basename $TEST_DIR` != 'tests' ]]; then
     echo $0: error: not running from tests directory, aborted.
-    cleanup
-    exit 1
+    cleanupExit 1
 fi
-
-tmpArgs=/tmp/tmpARGS_LSSEQ$$
-tmpFile=/tmp/tmpFILE_LSSEQ$$
-tmpTouchFile=/tmp/tmpTOUCH_LSSEQ$$
-
-cleanup() {
-    /bin/rm $tmpArgs > /dev/null 2>&1
-    /bin/rm $tmpFile > /dev/null 2>&1
-    /bin/rm $tmpTouchFile > /dev/null 2>&1
-    /bin/rm $TEST_DIR/testdir/jdir/j03/j04.005.jpg > /dev/null 2>&1
-    /bin/rm $TEST_DIR/testdir/idir/v002/iii03.0005.jpg > /dev/null 2>&1
-}
 
 TEST_OUT_FILENAME=test_lsseq.out.`uname`.new
 
-trap cleanup INT
+unalias lsseq > /dev/null 2>&1
 
 if [ "$TEST_SYSTEM_LSSEQ" = no ]; then
     ln -sf ../lsseq/__main__.py  lsseq
@@ -140,8 +148,6 @@ fi
 
 echo "Test is using " `which lsseq`
 echo '!!! Note: Run test_lsseq --timestamp-testdir once before doing tests !!!'
-
-unalias lsseq > /dev/null 2>&1
 
 # If the following hasn't been performed on the machine that is running
 # these tests, then the timestamps of ALL the regular files in the testdir
@@ -165,8 +171,8 @@ if [ "$TIMESTAMP_TEST_DIR" = yes ]; then
     epochStartDate=61559999
     lastLine=$(wc -l $tmpTouchFile | awk '{ print $1 }')
 
-    j=0
-    for (( i=1; i<=$lastLine; ++i));
+    j=0 # For onscreen counter
+    for (( i=1; i<=$lastLine; ++i ));
     do
         filename=$(sed -n -e "$i p" $tmpTouchFile)
         epochDate=$((epochStartDate + i))
@@ -182,8 +188,7 @@ if [ "$TIMESTAMP_TEST_DIR" = yes ]; then
             j=0
         fi
     done
-    cleanup
-    exit 0
+    cleanupExit 0
 fi
 
 # NOTE: To make sure the modification times of certain testdir/?dir images are
@@ -217,12 +222,12 @@ cd $TEST_DIR
 # Plus create some other 'bad' files to test edge cases.
 
 cd testdir/jdir/j03
-/bin/rm -f j04.005.jpg
+/bin/rm -f j04.005.jpg > /dev/null 2>&1
 ln -s missing.jpg j04.005.jpg
 cd $TEST_DIR
 
 cd testdir/idir/v002
-/bin/rm -f iii03.0005.jpg
+/bin/rm -f iii03.0005.jpg > /dev/null 2>&1
 ln -s missing.jpg iii03.0005.jpg
 cd $TEST_DIR
 
@@ -238,10 +243,13 @@ fi
 export COLUMNS=100
 
 # The following are test arguments. One test per line.
-# The first item on a line is the working directory for the test to place in.
-# The rest are args to lsseq.
+# The first item on a line is the directory relative to
+#     $TEST_DIR to run the test in.
+# The second is the command to run.
+# The rest are args to the command.
+# Note: use single quotes (') around args with spaces in the name
 #
-cat << EOF > $tmpArgs
+cat << EOFa > $tmpTestCmdFileA
 . uname
 . lsseq --version
 . lsseq --help
@@ -390,71 +398,135 @@ testdir lsseq -R -p --only-caches --global-sort-by-time
 testdir lsseq -R -p --only-sequences
 testdir lsseq -R -p --only-sequences --global-sort-by-time
 testdir lsseq -R -P -G --quiet -r
-EOF
+EOFa
+
+cat << EOFb > $tmpTestCmdFileB
+.            lsseq -i
+testdir/gdir lsseq --only-images
+testdir/gdir lsseq --only-movies
+testdir/gdir lsseq --only-caches
+. echo -e \nThere is no way to test lsseq output to stdio if isatty is \nTrue so PLEASE manually run lsseq -R once on testdir to check \nif column-output is correct for the /bin/ls output.
+EOFb
+
+export NUM_TESTS_A=`wc -l < $tmpTestCmdFileA`
+export NUM_TESTS_B=`wc -l < $tmpTestCmdFileB`
+export NUM_TESTS=$(( NUM_TESTS_A + NUM_TESTS_B ))
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME
 
 i=1
 while true; do
+    sed -n -e "$i p" $tmpTestCmdFileA | sed -e 's/#.*//' > $tmpLine
+
     set -f # Turn off globbing
-    declare -a args=(`sed -n -e "$i p" $tmpArgs | sed -e 's/#.*//' `)
-    if [ ${#args[@]} -eq 0 ]; then
+    declare -a cmdLine=(`cat $tmpLine`)
+    if [ ${#cmdLine[@]} -eq 0 ]; then
         break;
     fi
-    workingDir=${args[0]}
-    cmd=${args[1]}
-    args=(${args[@]:2})
-    echo "" >> $TEST_DIR/$TEST_OUT_FILENAME
-    echo ------ Test $i ------
-    echo ------ Test $i : $workingDir ------ $cmd ${args[@]} ------ >> $TEST_DIR/$TEST_OUT_FILENAME
-    cd $TEST_DIR/$workingDir
+
+    # Note: Does not properly handle case when "workingDir" has spaces in the name.
+    # Could be fixed, but for now just avoid doing tests with a "workingDir"
+    # with spaces in the name.
+    #
+    workingDir=${cmdLine[0]}
+    cmd=${cmdLine[1]}
+    displayArgs=(${cmdLine[@]:2})
     set +f # Turn globbing back on
-    $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+
+    # Strip out the first two words from $tmpLine to get the test args.
+    #
+    sed -e 's/^\S*\s*\S*\s*//' < $tmpLine > $tmpArgs
+
+    declare -a testArgs="($(< "$tmpArgs"))"
+
+    echo "" >> $TEST_DIR/$TEST_OUT_FILENAME
+    echo --- Test $i of $NUM_TESTS ---
+    set -f
+    echo ----- Test $i -+- dir: $workingDir -+- $cmd ${displayArgs[@]} ----- >> $TEST_DIR/$TEST_OUT_FILENAME
+    set +f
+    cd $TEST_DIR/$workingDir
+
+    # Rewrite $tmpArgs with one arg per line.
+    #
+    cat /dev/null > $tmpArgs
+    NUM_ELEMENTS=${#testArgs[@]}
+    for (( elemIndex=0;elemIndex<$NUM_ELEMENTS;elemIndex++ )); do
+        # DO NOT USE 'echo' NEXT LINE! doesn't handle a '-n' being passed to it.
+        printf '%s\n' "${testArgs[${elemIndex}]}" >> $tmpArgs
+    done
+
+    # Use mapfile to allow us to pass args with spaces in the names to the test $cmd being run.
+    #
+    ### $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+    mapfile -t < "$tmpArgs"
+    $cmd "${MAPFILE[@]}" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo "-+- Test $i: $cmd returned non-zero error code: $retVal -+-" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+        echo "--+-- Test $i: $cmd returned non-zero error code: $retVal  --+--" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     fi
-    i=$(expr $i + 1)
+    i=$((i + 1))
 done
 
 export LSSEQ_IMAGE_EXTENSION=jpg:exr
 export LSSEQ_MOV_EXTENSION=mov
 export LSSEQ_CACHE_EXTENSION=ass:fur
 
-cat << EOF2 > $tmpArgs
-.            lsseq -i
-testdir/gdir lsseq --only-images
-testdir/gdir lsseq --only-movies
-testdir/gdir lsseq --only-caches
-. echo -e \nThere is no way to test lsseq output to stdio if isatty is \nTrue so PLEASE manually run lsseq -R once on testdir to check \nif column-output is correct for the /bin/ls output.
-EOF2
-
 j=1
 while true; do
-    set -f
-    declare -a args=(`sed -n -e "$j p" $tmpArgs | sed -e 's/#.*//' `)
-    if [ ${#args[@]} -eq 0 ]; then
+    sed -n -e "$j p" $tmpTestCmdFileB | sed -e 's/#.*//' > $tmpLine
+
+    set -f # Turn off globbing
+    declare -a cmdLine=(`cat $tmpLine`)
+    if [ ${#cmdLine[@]} -eq 0 ]; then
         break;
     fi
-    workingDir=${args[0]}
-    cmd=${args[1]}
-    args=(${args[@]:2})
+
+    # Note: Does not properly handle case when "workingDir" has spaces in the name.
+    # Could be fixed, but for now just avoid doing tests with a "workingDir"
+    # with spaces in the name.
+    #
+    workingDir=${cmdLine[0]}
+    cmd=${cmdLine[1]}
+    displayArgs=(${cmdLine[@]:2})
+    set +f # Turn globbing back on
+
+    # Strip out the first two words from $tmpLine to get the test args.
+    #
+    sed -e 's/^\S*\s*\S*\s*//' < $tmpLine > $tmpArgs
+
+    declare -a testArgs="($(< "$tmpArgs"))"
+
     echo "" >> $TEST_DIR/$TEST_OUT_FILENAME
-    echo ------ Test $i ------
-    echo ------ Test $i : $workingDir ------ $cmd ${args[@]} ------ >> $TEST_DIR/$TEST_OUT_FILENAME
-    cd $TEST_DIR/$workingDir
+    echo --- Test $i of $NUM_TESTS ---
+    set -f
+    echo ----- Test $i -+- dir: $workingDir -+- $cmd ${displayArgs[@]} ----- >> $TEST_DIR/$TEST_OUT_FILENAME
     set +f
+    cd $TEST_DIR/$workingDir
+
+    # Rewrite $tmpArgs with one arg per line.
+    #
+    cat /dev/null > $tmpArgs
+    NUM_ELEMENTS=${#testArgs[@]}
+    for (( elemIndex=0;elemIndex<$NUM_ELEMENTS;elemIndex++ )); do
+        # DO NOT USE 'echo' NEXT LINE! doesn't handle a '-n' being passed to it.
+        printf '%s\n' "${testArgs[${elemIndex}]}" >> $tmpArgs
+    done
+
+    # Use mapfile to allow us to pass args with spaces in the names to the test $cmd being run.
+    #
     $cmd ${args[@]} >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+    ###mapfile -t < "$tmpArgs"
+    ###$cmd "${MAPFILE[@]}" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     retVal=$?
     if [ $retVal -ne 0 ]; then
-        echo "-+- Test $i: $cmd returned non-zero error code: $retVal -+-" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+        echo "--+-- Test $i: $cmd returned non-zero error code: $retVal  --+--" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     fi
-    i=$(expr $i + 1)
-    j=$(expr $j + 1)
+    i=$((i + 1))
+    j=$((j + 1))
 done
 
 sed -e "1,$ s-$TEST_DIR-/...absPathToRepo.../tests-g" < $TEST_DIR/$TEST_OUT_FILENAME | \
         sed -e "1,$ s/$USER/testUser/g" > $tmpFile
 expand < $tmpFile | sed -e '1,$ s/ *$//' > $TEST_DIR/$TEST_OUT_FILENAME
 
-cleanup
+cleanupExit 0

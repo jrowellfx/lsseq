@@ -1,12 +1,12 @@
 ------ Begin Tests ------
 
------- Test 1 : . ------ uname ------
+----- Test 1 -+- dir: . -+- uname -----
 Linux
 
------- Test 2 : . ------ lsseq --version ------
+----- Test 2 -+- dir: . -+- lsseq --version -----
 4.0.0
 
------- Test 3 : . ------ lsseq --help ------
+----- Test 3 -+- dir: . -+- lsseq --help -----
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
 
 List directory contents like /bin/ls except condense image
@@ -118,7 +118,7 @@ optional arguments:
                         above conditions are NOT met, then this option is simply ignored.
   --silent, --quiet     suppress error and warning messages
 
------- Test 4 : . ------ lsseq -lRFC --quiet testdir ------
+----- Test 4 -+- dir: . -+- lsseq -lRFC --quiet testdir -----
 testdir:
 20592_chevrolet_cruze_reveal/  edir/  ldir/                        mkTestFrames.v02.nk
 adir/                          fdir/  mdir/                        mk_hdir_Frames.v01.nk
@@ -437,9 +437,9 @@ rrr01.mov
 rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
--+- Test 4: lsseq returned non-zero error code: 12 -+-
+--+-- Test 4: lsseq returned non-zero error code: 12  --+--
 
------- Test 5 : . ------ lsseq -lReC --silent testdir ------
+----- Test 5 -+- dir: . -+- lsseq -lReC --silent testdir -----
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
 /...absPathToRepo.../tests/testdir/xxx.000.exr
@@ -647,9 +647,9 @@ rrr03.[100-115].fur z:[100-115]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/r1.015.jpg
 /...absPathToRepo.../tests/testdir/rdir/rSub02/r2.101.jpg
 /...absPathToRepo.../tests/testdir/rdir/rSub02/r2.115.jpg
--+- Test 5: lsseq returned non-zero error code: 12 -+-
+--+-- Test 5: lsseq returned non-zero error code: 12  --+--
 
------- Test 6 : . ------ lsseq -lReoC --silent testdir ------
+----- Test 6 -+- dir: . -+- lsseq -lReoC --silent testdir -----
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
 /...absPathToRepo.../tests/testdir/testDirFile.mov
@@ -901,9 +901,9 @@ rrr03.[100-115].fur z:[100-115]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
--+- Test 6: lsseq returned non-zero error code: 12 -+-
+--+-- Test 6: lsseq returned non-zero error code: 12  --+--
 
------- Test 7 : . ------ lsseq -RePC --quiet testdir ------
+----- Test 7 -+- dir: . -+- lsseq -RePC --quiet testdir -----
 testdir/testDirFile.001.exr
 testdir/testDirFile.012.exr
 testdir/testDirFile.mov
@@ -1147,9 +1147,9 @@ testdir/rdir/rSub02/rrr02.015.ass
 testdir/rdir/rSub02/rrr02.mov
 testdir/rdir/rSub02/rrr03.100.fur
 testdir/rdir/rSub02/rrr03.115.fur
--+- Test 7: lsseq returned non-zero error code: 12 -+-
+--+-- Test 7: lsseq returned non-zero error code: 12  --+--
 
------- Test 8 : . ------ lsseq -lRFC testdir ------
+----- Test 8 -+- dir: . -+- lsseq -lRFC testdir -----
 testdir:
 20592_chevrolet_cruze_reveal/  edir/  ldir/                        mkTestFrames.v02.nk
 adir/                          fdir/  mdir/                        mk_hdir_Frames.v01.nk
@@ -1479,9 +1479,9 @@ rrr01.mov
 rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
--+- Test 8: lsseq returned non-zero error code: 12 -+-
+--+-- Test 8: lsseq returned non-zero error code: 12  --+--
 
------- Test 9 : . ------ lsseq -lReC testdir ------
+----- Test 9 -+- dir: . -+- lsseq -lReC testdir -----
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
 /...absPathToRepo.../tests/testdir/xxx.000.exr
@@ -1700,9 +1700,9 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/r1.015.jpg
 /...absPathToRepo.../tests/testdir/rdir/rSub02/r2.101.jpg
 /...absPathToRepo.../tests/testdir/rdir/rSub02/r2.115.jpg
--+- Test 9: lsseq returned non-zero error code: 12 -+-
+--+-- Test 9: lsseq returned non-zero error code: 12  --+--
 
------- Test 10 : . ------ lsseq -lReoC testdir ------
+----- Test 10 -+- dir: . -+- lsseq -lReoC testdir -----
 /...absPathToRepo.../tests/testdir/testDirFile.001.exr
 /...absPathToRepo.../tests/testdir/testDirFile.012.exr
 /...absPathToRepo.../tests/testdir/testDirFile.mov
@@ -1965,9 +1965,9 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
--+- Test 10: lsseq returned non-zero error code: 12 -+-
+--+-- Test 10: lsseq returned non-zero error code: 12  --+--
 
------- Test 11 : . ------ lsseq -RePC testdir ------
+----- Test 11 -+- dir: . -+- lsseq -RePC testdir -----
 testdir/testDirFile.001.exr
 testdir/testDirFile.012.exr
 testdir/testDirFile.mov
@@ -2222,9 +2222,9 @@ testdir/rdir/rSub02/rrr02.015.ass
 testdir/rdir/rSub02/rrr02.mov
 testdir/rdir/rSub02/rrr03.100.fur
 testdir/rdir/rSub02/rrr03.115.fur
--+- Test 11: lsseq returned non-zero error code: 12 -+-
+--+-- Test 11: lsseq returned non-zero error code: 12  --+--
 
------- Test 12 : testdir ------ lsseq -p ------
+----- Test 12 -+- dir: testdir -+- lsseq -p -----
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
 /...absPathToRepo.../tests/testdir/testDirFile.mov
 /...absPathToRepo.../tests/testdir/testDirFile.wmv
@@ -2233,7 +2233,7 @@ testdir/rdir/rSub02/rrr03.115.fur
 /...absPathToRepo.../tests/testdir/yyy.[0123].tif
 /...absPathToRepo.../tests/testdir/yyy.mov
 
------- Test 13 : testdir ------ lsseq ------
+----- Test 13 -+- dir: testdir -+- lsseq -----
 20592_chevrolet_cruze_reveal
 adir
 bdir
@@ -2270,7 +2270,7 @@ xxx.mov
 yyy.[0123].tif
 yyy.mov
 
------- Test 14 : testdir ------ lsseq * ------
+----- Test 14 -+- dir: testdir -+- lsseq * -----
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -2517,7 +2517,7 @@ rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
------- Test 15 : testdir ------ lsseq -l * ------
+----- Test 15 -+- dir: testdir -+- lsseq -l * -----
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
 mkBlackFrames_HD_10.v01.shk
@@ -2740,7 +2740,7 @@ rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
------- Test 16 : testdir/cdir ------ lsseq ------
+----- Test 16 -+- dir: testdir/cdir -+- lsseq -----
 aaaa
 bbbb
 c_subDir
@@ -2779,7 +2779,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 17 : testdir/cdir ------ lsseq . ------
+----- Test 17 -+- dir: testdir/cdir -+- lsseq . -----
 aaaa
 bbbb
 c_subDir
@@ -2818,7 +2818,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 18 : testdir/cdir ------ lsseq * ------
+----- Test 18 -+- dir: testdir/cdir -+- lsseq * -----
 aaaa
 bbbb
 cccc
@@ -2859,7 +2859,7 @@ ccc03.[80-140].tga
 c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 19 : testdir/cdir ------ lsseq -d * ------
+----- Test 19 -+- dir: testdir/cdir -+- lsseq -d * -----
 aaaa
 bbbb
 c_subDir
@@ -2898,7 +2898,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 20 : testdir/cdir ------ lsseq -c ------
+----- Test 20 -+- dir: testdir/cdir -+- lsseq -c -----
 aaaa
 bbbb
 c_subDir
@@ -2937,7 +2937,7 @@ ccc01.[001-120].exr e:[3,52-55]
 ccc02.[001-120].exr e:[51,119]
 ccc03.[80-140].tga
 
------- Test 21 : testdir/cdir ------ lsseq -e -R ------
+----- Test 21 -+- dir: testdir/cdir -+- lsseq -e -R -----
 /...absPathToRepo.../tests/testdir/cdir/ccc01.001.exr
 /...absPathToRepo.../tests/testdir/cdir/ccc01.120.exr
 /...absPathToRepo.../tests/testdir/cdir/ccc02.001.exr
@@ -2947,7 +2947,7 @@ ccc03.[80-140].tga
 /...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.001.exr
 /...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.120.exr
 
------- Test 22 : testdir/cdir ------ lsseq -e -R -P ------
+----- Test 22 -+- dir: testdir/cdir -+- lsseq -e -R -P -----
 ccc01.001.exr
 ccc01.120.exr
 ccc02.001.exr
@@ -2957,7 +2957,7 @@ ccc03.140.tga
 c_subDir/ccc01.001.exr
 c_subDir/ccc01.120.exr
 
------- Test 23 : testdir/cdir ------ lsseq -fnative ------
+----- Test 23 -+- dir: testdir/cdir -+- lsseq -fnative -----
 aaaa
 bbbb
 c_subDir
@@ -2996,7 +2996,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 24 : testdir/cdir ------ lsseq -f nuke ------
+----- Test 24 -+- dir: testdir/cdir -+- lsseq -f nuke -----
 aaaa
 bbbb
 c_subDir
@@ -3035,7 +3035,7 @@ ccc01.%03d.exr 1-120
 ccc02.%03d.exr 1-120
 ccc03.%02d.tga 80-140
 
------- Test 25 : testdir/cdir ------ lsseq -fshake ------
+----- Test 25 -+- dir: testdir/cdir -+- lsseq -fshake -----
 aaaa
 bbbb
 c_subDir
@@ -3074,7 +3074,7 @@ ccc01.@@@.exr -t 1-120
 ccc02.@@@.exr -t 1-120
 ccc03.@@.tga -t 80-140
 
------- Test 26 : testdir/cdir ------ lsseq -f rv ------
+----- Test 26 -+- dir: testdir/cdir -+- lsseq -f rv -----
 aaaa
 bbbb
 c_subDir
@@ -3113,7 +3113,7 @@ ccc01.1-120@@@.exr
 ccc02.1-120@@@.exr
 ccc03.80-140@@.tga
 
------- Test 27 : testdir/cdir ------ lsseq -fglob ------
+----- Test 27 -+- dir: testdir/cdir -+- lsseq -fglob -----
 aaaa
 bbbb
 c_subDir
@@ -3152,14 +3152,14 @@ ccc01.[0-9][0-9][0-9].exr
 ccc02.[0-9][0-9][0-9].exr
 ccc03.[0-9][0-9].tga
 
------- Test 28 : testdir/cdir ------ lsseq -i ------
+----- Test 28 -+- dir: testdir/cdir -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=alpha:als:anim:ari:arw:arx:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
   export LSSEQ_MOV_EXTENSION=avi:mov:mp4:mpg:mxf:wmv
   export LSSEQ_CACHE_EXTENSION=ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:tx:vdb:vdb.gz:vdb.sc
 
------- Test 29 : testdir/cdir ------ lsseq -M ------
+----- Test 29 -+- dir: testdir/cdir -+- lsseq -M -----
 aaaa
 bbbb
 c_subDir
@@ -3198,24 +3198,24 @@ ccc01.[001-120].exr z:[52-55]
 ccc02.[001-120].exr
 ccc03.[80-140].tga
 
------- Test 30 : testdir/cdir ------ lsseq -o ------
+----- Test 30 -+- dir: testdir/cdir -+- lsseq -o -----
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 31 : testdir/cdir ------ lsseq -p * ------
+----- Test 31 -+- dir: testdir/cdir -+- lsseq -p * -----
 /...absPathToRepo.../tests/testdir/cdir/ccc01.[001-120].exr m:[3], z:[52-55]
 /...absPathToRepo.../tests/testdir/cdir/ccc02.[001-120].exr m:[51,119]
 /...absPathToRepo.../tests/testdir/cdir/ccc03.[80-140].tga
 /...absPathToRepo.../tests/testdir/cdir/c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 32 : testdir/cdir ------ lsseq -P * ------
+----- Test 32 -+- dir: testdir/cdir -+- lsseq -P * -----
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 33 : testdir/cdir ------ lsseq -r ------
+----- Test 33 -+- dir: testdir/cdir -+- lsseq -r -----
 zzzz
 yyyy
 xxxx
@@ -3254,7 +3254,7 @@ ccc03.[80-140].tga
 ccc02.[001-120].exr m:[51,119]
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 34 : testdir/cdir ------ lsseq -t ------
+----- Test 34 -+- dir: testdir/cdir -+- lsseq -t -----
 custom.touch.images
 list.images
 initial.image.mtimes
@@ -3293,7 +3293,7 @@ ccc03.[80-140].tga
 ccc02.[001-120].exr m:[51,119]
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 35 : testdir/cdir ------ lsseq -t --time oldest ------
+----- Test 35 -+- dir: testdir/cdir -+- lsseq -t --time oldest -----
 custom.touch.images
 list.images
 initial.image.mtimes
@@ -3332,7 +3332,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc03.[80-140].tga
 ccc02.[001-120].exr m:[51,119]
 
------- Test 36 : testdir/cdir ------ lsseq -t --time median ------
+----- Test 36 -+- dir: testdir/cdir -+- lsseq -t --time median -----
 custom.touch.images
 list.images
 initial.image.mtimes
@@ -3371,7 +3371,7 @@ ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 37 : testdir/cdir ------ lsseq -Z ------
+----- Test 37 -+- dir: testdir/cdir -+- lsseq -Z -----
 aaaa
 bbbb
 c_subDir
@@ -3410,7 +3410,7 @@ ccc01.[001-120].exr m:[3]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------- Test 38 : testdir/cdir ------ lsseq -R /...absPathToRepo.../tests/testdir/cdir/ /...absPathToRepo.../tests/testdir/ ------
+----- Test 38 -+- dir: testdir/cdir -+- lsseq -R /...absPathToRepo.../tests/testdir/cdir/ /...absPathToRepo.../tests/testdir/ -----
 /...absPathToRepo.../tests/testdir:
 20592_chevrolet_cruze_reveal
 adir
@@ -4044,9 +4044,9 @@ ccc03.[80-140].tga
 
 /...absPathToRepo.../tests/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
--+- Test 38: lsseq returned non-zero error code: 12 -+-
+--+-- Test 38: lsseq returned non-zero error code: 12  --+--
 
------- Test 39 : testdir/cdir ------ lsseq -R /...absPathToRepo.../tests/testdir/cdir/ ------
+----- Test 39 -+- dir: testdir/cdir -+- lsseq -R /...absPathToRepo.../tests/testdir/cdir/ -----
 /...absPathToRepo.../tests/testdir/cdir:
 aaaa
 bbbb
@@ -4089,7 +4089,7 @@ ccc03.[80-140].tga
 /...absPathToRepo.../tests/testdir/cdir/c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 40 : testdir/cdir ------ lsseq -Ra ------
+----- Test 40 -+- dir: testdir/cdir -+- lsseq -Ra -----
 .:
 .aaa
 .bbb
@@ -4139,7 +4139,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55]
 
------- Test 41 : testdir/cdir ------ lsseq -R -b --good-frame-min-size 1K ------
+----- Test 41 -+- dir: testdir/cdir -+- lsseq -R -b --good-frame-min-size 1K -----
 .:
 aaaa
 bbbb
@@ -4182,7 +4182,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95,102]
 
------- Test 42 : testdir/cdir ------ lsseq -1Rb ------
+----- Test 42 -+- dir: testdir/cdir -+- lsseq -1Rb -----
 .:
 aaaa
 bbbb
@@ -4225,7 +4225,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 43 : testdir/cdir ------ lsseq -1RbC ------
+----- Test 43 -+- dir: testdir/cdir -+- lsseq -1RbC -----
 .:
 aaaa                 eeee                  jjjj             nnnn            shake01.02.shk  vvvv
 bbbb                 ffff                  kkkk             oooo            shake01.03.shk  xxxx
@@ -4240,7 +4240,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 44 : testdir/cdir ------ lsseq -Rbx ------
+----- Test 44 -+- dir: testdir/cdir -+- lsseq -Rbx -----
 .:
 aaaa         bbbb  c_subDir         cccc            custom.touch.images   dddd            eeee
 ffff         gggg  hhhh             iiii            initial.image.mtimes  jjjj            kkkk
@@ -4254,7 +4254,7 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 45 : testdir/cdir ------ lsseq -1CRbx ------
+----- Test 45 -+- dir: testdir/cdir -+- lsseq -1CRbx -----
 .:
 aaaa         bbbb  c_subDir         cccc            custom.touch.images   dddd            eeee
 ffff         gggg  hhhh             iiii            initial.image.mtimes  jjjj            kkkk
@@ -4268,17 +4268,17 @@ ccc03.[80-140].tga
 ./c_subDir:
 ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 46 : testdir/cdir ------ lsseq -R -P -p -P -f rv -f glob -f native -C -b ------
+----- Test 46 -+- dir: testdir/cdir -+- lsseq -R -P -p -P -f rv -f glob -f native -C -b -----
 ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 c_subDir/ccc01.[001-120].exr m:[3], z:[52-55], b:[95]
 
------- Test 47 : testdir/idir ------ lsseq ------
+----- Test 47 -+- dir: testdir/idir -+- lsseq -----
 v001
 v002
 
------- Test 48 : testdir/idir ------ lsseq -R ------
+----- Test 48 -+- dir: testdir/idir -+- lsseq -R -----
 .:
 v001
 v002
@@ -4294,9 +4294,9 @@ lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and 
 iii02.[1-10].jpg p:[2-10]
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
--+- Test 48: lsseq returned non-zero error code: 12 -+-
+--+-- Test 48: lsseq returned non-zero error code: 12  --+--
 
------- Test 49 : testdir/idir ------ lsseq -P * ------
+----- Test 49 -+- dir: testdir/idir -+- lsseq -P * -----
 v001/iii01.[0001-0040].jpg
 v001/iii02.[0001-0040].jpg
 v001/iii03.[0001-0040].jpg
@@ -4305,9 +4305,9 @@ lsseq: warning: sequence: v002/iii02, frame 1, has duplicate entries: iii02.1.jp
 v002/iii02.[1-10].jpg p:[2-10]
 lsseq: warning: v002/iii03.0005.jpg is a broken soft link
 v002/iii03.[0001-0010].jpg z:[5]
--+- Test 49: lsseq returned non-zero error code: 12 -+-
+--+-- Test 49: lsseq returned non-zero error code: 12  --+--
 
------- Test 50 : testdir/idir ------ lsseq -p * ------
+----- Test 50 -+- dir: testdir/idir -+- lsseq -p * -----
 /...absPathToRepo.../tests/testdir/idir/v001/iii01.[0001-0040].jpg
 /...absPathToRepo.../tests/testdir/idir/v001/iii02.[0001-0040].jpg
 /...absPathToRepo.../tests/testdir/idir/v001/iii03.[0001-0040].jpg
@@ -4316,9 +4316,9 @@ lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/idir/v002/iii02, fr
 /...absPathToRepo.../tests/testdir/idir/v002/iii02.[1-10].jpg p:[2-10]
 lsseq: warning: /...absPathToRepo.../tests/testdir/idir/v002/iii03.0005.jpg is a broken soft link
 /...absPathToRepo.../tests/testdir/idir/v002/iii03.[0001-0010].jpg z:[5]
--+- Test 50: lsseq returned non-zero error code: 12 -+-
+--+-- Test 50: lsseq returned non-zero error code: 12  --+--
 
------- Test 51 : testdir/hdir ------ lsseq -t -r -P foo/*/* v001/* v002/* v003/* ------
+----- Test 51 -+- dir: testdir/hdir -+- lsseq -t -r -P foo/*/* v001/* v002/* v003/* -----
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -4338,7 +4338,7 @@ v003/hhh01.[0001-0040].jpg
 v003/hhh02.[0001-0040].jpg
 v003/hhh03.[0001-0040].jpg
 
------- Test 52 : testdir/hdir ------ lsseq --only-show before 20150701-1821 -t -r -P foo/*/* v001/* v002/* v003/* ------
+----- Test 52 -+- dir: testdir/hdir -+- lsseq --only-show before 20150701-1821 -t -r -P foo/*/* v001/* v002/* v003/* -----
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -4353,7 +4353,7 @@ v001/hhh02.[0001-0040].jpg
 v001/hhh03.[0001-0040].jpg
 v002/hhh01.[0001-0040].jpg
 
------- Test 53 : testdir/hdir ------ lsseq --only-show before 150701-1821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/* ------
+----- Test 53 -+- dir: testdir/hdir -+- lsseq --only-show before 150701-1821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/* -----
 foo/v001/hhh01.[0001-0040].jpg
 foo/v001/hhh02.[0001-0040].jpg
 foo/v001/hhh03.[0001-0040].jpg
@@ -4369,7 +4369,7 @@ v001/hhh03.[0001-0040].jpg
 v002/hhh01.[0001-0040].jpg
 v002/hhh02.[0001-0040].jpg
 
------- Test 54 : testdir/jdir ------ lsseq --show-bad-padding --skip-missing --skip-zero --skip-bad-frames -R ------
+----- Test 54 -+- dir: testdir/jdir -+- lsseq --show-bad-padding --skip-missing --skip-zero --skip-bad-frames -R -----
 .:
 beauty
 j01
@@ -4408,14 +4408,14 @@ lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.
 j03.[001-009].jpg p:[5]
 lsseq: warning: j04.005.jpg is a broken soft link
 j04.[-10-010].jpg p:[-7,1,10]
--+- Test 54: lsseq returned non-zero error code: 12 -+-
+--+-- Test 54: lsseq returned non-zero error code: 12  --+--
 
------- Test 55 : testdir/jdir/beauty/v001 ------ lsseq --show-bad-padding --skip-missing --skip-zero --skip-bad-frames -R ------
+----- Test 55 -+- dir: testdir/jdir/beauty/v001 -+- lsseq --show-bad-padding --skip-missing --skip-zero --skip-bad-frames -R -----
 .:
 sort.ls
 filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1001]
 
------- Test 56 : testdir/ndir ------ ls --full-time -o ------
+----- Test 56 -+- dir: testdir/ndir -+- ls --full-time -o -----
 total 224
 -rwxrwxrwx. 1 testUser 2360 2010-06-15 10:55:00.000000000 -0500 custom.touch.images
 -rw-rw-rw-. 1 testUser 1139 2010-06-15 10:55:00.000000000 -0500 nnn_v01.0005.jpg
@@ -4474,7 +4474,7 @@ total 224
 -rw-rw-rw-. 1 testUser 1215 2010-06-15 13:04:00.000000000 -0500 nnn_v05.0014.jpg
 -rw-rw-rw-. 1 testUser 1237 2010-06-15 13:05:00.000000000 -0500 nnn_v05.0015.jpg
 
------- Test 57 : testdir/ndir ------ lsseq ------
+----- Test 57 -+- dir: testdir/ndir -+- lsseq -----
 custom.touch.images
 nnn_v01.[0005-0015].jpg
 nnn_v02.[0005-0015].jpg
@@ -4482,60 +4482,60 @@ nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
 
------- Test 58 : testdir/ndir ------ lsseq --only-show before 20100615-12 --time oldest ------
+----- Test 58 -+- dir: testdir/ndir -+- lsseq --only-show before 20100615-12 --time oldest -----
 custom.touch.images
 nnn_v01.[0005-0015].jpg
 nnn_v02.[0005-0015].jpg
 nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 
------- Test 59 : testdir/ndir ------ lsseq --only-show before 20100615-12 --time median ------
+----- Test 59 -+- dir: testdir/ndir -+- lsseq --only-show before 20100615-12 --time median -----
 custom.touch.images
 nnn_v01.[0005-0015].jpg
 nnn_v02.[0005-0015].jpg
 nnn_v03.[0005-0015].jpg
 
------- Test 60 : testdir/ndir ------ lsseq --only-show before 20100615-12 --time newest ------
+----- Test 60 -+- dir: testdir/ndir -+- lsseq --only-show before 20100615-12 --time newest -----
 custom.touch.images
 nnn_v01.[0005-0015].jpg
 
------- Test 61 : testdir/ndir ------ lsseq --only-show since 100615-12 --time oldest ------
+----- Test 61 -+- dir: testdir/ndir -+- lsseq --only-show since 100615-12 --time oldest -----
 custom.touch.images
 nnn_v05.[0005-0015].jpg
 
------- Test 62 : testdir/ndir ------ lsseq --only-show since 100615-12 --time median ------
+----- Test 62 -+- dir: testdir/ndir -+- lsseq --only-show since 100615-12 --time median -----
 custom.touch.images
 nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
 
------- Test 63 : testdir/ndir ------ lsseq --only-show since 100615-12 --time newest ------
+----- Test 63 -+- dir: testdir/ndir -+- lsseq --only-show since 100615-12 --time newest -----
 custom.touch.images
 nnn_v02.[0005-0015].jpg
 nnn_v03.[0005-0015].jpg
 nnn_v04.[0005-0015].jpg
 nnn_v05.[0005-0015].jpg
 
------- Test 64 : . ------ lsseq -i ------
+----- Test 64 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=alpha:als:anim:ari:arw:arx:avif:bmp:btf:bw:cin:cr2:crw:dib:dng:dpx:exr:gfa:gif:giff:heic:heif:icon:iff:img:int:inta:jpe:jpeg:jpg:mask:matte:nef:orf:pct:pct1:pct2:pdb:pdd:pef:pic:piclc:picnc:pict:pix:png:psb:psd:ptx:raf:rat:raw:rdc:rgb:rgba:rle:rmf:rw2:sgi:tga:tif:tiff:tpic
   export LSSEQ_MOV_EXTENSION=avi:mov:mp4:mpg:mxf:wmv
   export LSSEQ_CACHE_EXTENSION=ass:bgeo:bgeo.gz:bgeo.sc:dshd:fur:ifd:ifd.gz:ifd.sc:obj:srf:tx:vdb:vdb.gz:vdb.sc
 
------- Test 65 : testdir/gdir ------ lsseq --only-images ------
+----- Test 65 -+- dir: testdir/gdir -+- lsseq --only-images -----
 
------- Test 66 : testdir/gdir ------ lsseq --only-movies ------
+----- Test 66 -+- dir: testdir/gdir -+- lsseq --only-movies -----
 xxx01.mov
 xxx02.mov
 
------- Test 67 : testdir/gdir ------ lsseq --only-caches ------
+----- Test 67 -+- dir: testdir/gdir -+- lsseq --only-caches -----
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 ggg01.[090-105].bgeo.sc z:[90-105]
 
------- Test 68 : testdir ------ lsseq --no-error-lists --recursive --prepend-path-rel -t --time median cdir ndir ------
+----- Test 68 -+- dir: testdir -+- lsseq --no-error-lists --recursive --prepend-path-rel -t --time median cdir ndir -----
 cdir/ccc02.[001-120].exr
 cdir/ccc03.[80-140].tga
 cdir/ccc01.[001-120].exr
@@ -4546,7 +4546,7 @@ ndir/nnn_v03.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 
------- Test 69 : testdir ------ lsseq --no-error-lists --recursive --prepend-path-rel -t --time oldest cdir ndir ------
+----- Test 69 -+- dir: testdir -+- lsseq --no-error-lists --recursive --prepend-path-rel -t --time oldest cdir ndir -----
 cdir/ccc01.[001-120].exr
 cdir/ccc03.[80-140].tga
 cdir/ccc02.[001-120].exr
@@ -4557,7 +4557,7 @@ ndir/nnn_v03.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 
------- Test 70 : testdir ------ lsseq --no-error-lists --recursive --prepend-path-rel -t --time newest cdir ndir ------
+----- Test 70 -+- dir: testdir -+- lsseq --no-error-lists --recursive --prepend-path-rel -t --time newest cdir ndir -----
 cdir/ccc03.[80-140].tga
 cdir/ccc02.[001-120].exr
 cdir/ccc01.[001-120].exr
@@ -4568,7 +4568,7 @@ ndir/nnn_v03.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 
------- Test 71 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median cdir ndir ------
+----- Test 71 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median cdir ndir -----
 cdir/ccc02.[001-120].exr
 cdir/ccc03.[80-140].tga
 ndir/nnn_v05.[0005-0015].jpg
@@ -4579,7 +4579,7 @@ ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 cdir/c_subDir/ccc01.[001-120].exr
 
------- Test 72 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest cdir ndir ------
+----- Test 72 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest cdir ndir -----
 ndir/nnn_v05.[0005-0015].jpg
 ndir/nnn_v04.[0005-0015].jpg
 ndir/nnn_v03.[0005-0015].jpg
@@ -4590,7 +4590,7 @@ cdir/ccc02.[001-120].exr
 ndir/nnn_v01.[0005-0015].jpg
 cdir/c_subDir/ccc01.[001-120].exr
 
------- Test 73 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest cdir ndir ------
+----- Test 73 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest cdir ndir -----
 cdir/ccc03.[80-140].tga
 cdir/ccc02.[001-120].exr
 cdir/ccc01.[001-120].exr
@@ -4601,7 +4601,7 @@ ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 cdir/c_subDir/ccc01.[001-120].exr
 
------- Test 74 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median pdir cdir ndir ------
+----- Test 74 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median pdir cdir ndir -----
 pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
@@ -4633,7 +4633,7 @@ pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
 pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
 cdir/c_subDir/ccc01.[001-120].exr
 
------- Test 75 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest pdir cdir ndir ------
+----- Test 75 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest pdir cdir ndir -----
 ndir/nnn_v05.[0005-0015].jpg
 ndir/nnn_v04.[0005-0015].jpg
 ndir/nnn_v03.[0005-0015].jpg
@@ -4665,7 +4665,7 @@ pdir/p02_dir/p02_median5_v01.[08-12].jpg
 pdir/p02_dir/p02_median5_v03.[08-12].jpg
 cdir/c_subDir/ccc01.[001-120].exr
 
------- Test 76 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest pdir cdir ndir ------
+----- Test 76 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest pdir cdir ndir -----
 pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
 pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
 pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
@@ -4697,7 +4697,7 @@ ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 cdir/c_subDir/ccc01.[001-120].exr
 
------- Test 77 : testdir/pdir ------ ls -R --full-time -o -t -r ------
+----- Test 77 -+- dir: testdir/pdir -+- ls -R --full-time -o -t -r -----
 .:
 total 20
 -rwxrwxrwx. 1 testUser    0 2010-06-15 08:28:00.000000000 -0500 p_median4_v03.08.jpg
@@ -4832,7 +4832,7 @@ total 0
 -rwxrwxrwx. 1 testUser 0 2010-06-17 15:32:00.000000000 -0500 p02A_median6_v03.12.jpg
 -rwxrwxrwx. 1 testUser 0 2010-06-17 16:32:00.000000000 -0500 p02A_median6_v01.12.jpg
 
------- Test 78 : testdir/pdir ------ lsseq --no-error-lists --recursive -t -r --time median ------
+----- Test 78 -+- dir: testdir/pdir -+- lsseq --no-error-lists --recursive -t -r --time median -----
 .:
 custom.touch.images
 initial.image.mtimes
@@ -4876,7 +4876,7 @@ p02B_median7_v01.[08-12].jpg
 p02B_median7_v02.[08-12].jpg
 p02B_median7_v03.[08-12].jpg
 
------- Test 79 : testdir/pdir ------ lsseq --global-sort-by-time --no-error-lists --recursive -t -r --time median ------
+----- Test 79 -+- dir: testdir/pdir -+- lsseq --global-sort-by-time --no-error-lists --recursive -t -r --time median -----
 .:
 custom.touch.images
 initial.image.mtimes
@@ -4920,7 +4920,7 @@ p02B_median7_v01.[08-12].jpg
 p02B_median7_v02.[08-12].jpg
 p02B_median7_v03.[08-12].jpg
 
------- Test 80 : testdir ------ lsseq --no-error-lists --recursive --prepend-path-rel -t -r --time median pdir ------
+----- Test 80 -+- dir: testdir -+- lsseq --no-error-lists --recursive --prepend-path-rel -t -r --time median pdir -----
 pdir/p_median4_v01.[08-12].jpg
 pdir/p_median4_v02.[08-12].jpg
 pdir/p_median4_v03.[08-12].jpg
@@ -4943,7 +4943,7 @@ pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 
------- Test 81 : testdir ------ lsseq --no-error-lists --recursive --prepend-path-rel -t -r --time oldest pdir ------
+----- Test 81 -+- dir: testdir -+- lsseq --no-error-lists --recursive --prepend-path-rel -t -r --time oldest pdir -----
 pdir/p_median4_v03.[08-12].jpg
 pdir/p_median4_v01.[08-12].jpg
 pdir/p_median4_v02.[08-12].jpg
@@ -4966,7 +4966,7 @@ pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
 
------- Test 82 : testdir ------ lsseq --no-error-lists --recursive --prepend-path-rel -t -r --time newest pdir ------
+----- Test 82 -+- dir: testdir -+- lsseq --no-error-lists --recursive --prepend-path-rel -t -r --time newest pdir -----
 pdir/p_median4_v02.[08-12].jpg
 pdir/p_median4_v03.[08-12].jpg
 pdir/p_median4_v01.[08-12].jpg
@@ -4989,7 +4989,7 @@ pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
 
------- Test 83 : testdir/pdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t -r --time median ------
+----- Test 83 -+- dir: testdir/pdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t -r --time median -----
 p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
 p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
 p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
@@ -5012,7 +5012,7 @@ p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
 p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
 p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 
------- Test 84 : testdir/pdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t -r --time oldest ------
+----- Test 84 -+- dir: testdir/pdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t -r --time oldest -----
 p02_dir/p02_median5_v03.[08-12].jpg
 p02_dir/p02_median5_v01.[08-12].jpg
 p02_dir/p02_median5_v02.[08-12].jpg
@@ -5035,7 +5035,7 @@ p_median4_v03.[08-12].jpg
 p_median4_v01.[08-12].jpg
 p_median4_v02.[08-12].jpg
 
------- Test 85 : testdir/pdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t -r --time newest ------
+----- Test 85 -+- dir: testdir/pdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t -r --time newest -----
 p_median4_v02.[08-12].jpg
 p_median4_v03.[08-12].jpg
 p_median4_v01.[08-12].jpg
@@ -5058,7 +5058,7 @@ p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
 p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
 p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
 
------- Test 86 : testdir/pdir ------ ls -R --full-time -t -o ------
+----- Test 86 -+- dir: testdir/pdir -+- ls -R --full-time -t -o -----
 .:
 total 20
 drwxrwxrwx. 4 testUser 4096 2022-12-07 12:05:00.000000000 -0600 p02_dir
@@ -5193,7 +5193,7 @@ total 0
 -rwxrwxrwx. 1 testUser 0 2010-06-14 09:28:00.000000000 -0500 p01A_median3_v01.08.jpg
 -rwxrwxrwx. 1 testUser 0 2010-06-14 08:28:00.000000000 -0500 p01A_median3_v03.08.jpg
 
------- Test 87 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median pdir ------
+----- Test 87 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median pdir -----
 pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg
 pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg
@@ -5216,7 +5216,7 @@ pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg
 pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg
 pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg
 
------- Test 88 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest pdir ------
+----- Test 88 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest pdir -----
 pdir/p_median4_v02.[08-12].jpg
 pdir/p_median4_v01.[08-12].jpg
 pdir/p_median4_v03.[08-12].jpg
@@ -5239,7 +5239,7 @@ pdir/p02_dir/p02_median5_v02.[08-12].jpg
 pdir/p02_dir/p02_median5_v01.[08-12].jpg
 pdir/p02_dir/p02_median5_v03.[08-12].jpg
 
------- Test 89 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest pdir ------
+----- Test 89 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest pdir -----
 pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
 pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
 pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
@@ -5262,7 +5262,7 @@ pdir/p_median4_v01.[08-12].jpg
 pdir/p_median4_v03.[08-12].jpg
 pdir/p_median4_v02.[08-12].jpg
 
------- Test 90 : testdir/qdir ------ ls -R --full-time -t -o ------
+----- Test 90 -+- dir: testdir/qdir -+- ls -R --full-time -t -o -----
 .:
 total 20
 drwxrwxrwx. 2 testUser 4096 2023-02-10 11:04:00.000000000 -0600 q3Dir
@@ -5295,22 +5295,22 @@ total 0
 -rwxrwxrwx. 1 testUser 0 2023-02-05 11:29:00.000000000 -0600 qqq.002.jpg
 -rwxrwxrwx. 1 testUser 0 2023-02-05 11:28:00.000000000 -0600 qqq.001.jpg
 
------- Test 91 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median qdir ------
+----- Test 91 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median qdir -----
 qdir/q3Dir/qqq.[003-007].jpg
 qdir/q2Dir/qqq.[002-006].jpg
 qdir/q1Dir/qqq.[001-005].jpg
 
------- Test 92 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest qdir ------
+----- Test 92 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest qdir -----
 qdir/q1Dir/qqq.[001-005].jpg
 qdir/q2Dir/qqq.[002-006].jpg
 qdir/q3Dir/qqq.[003-007].jpg
 
------- Test 93 : testdir ------ lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest qdir ------
+----- Test 93 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest qdir -----
 qdir/q2Dir/qqq.[002-006].jpg
 qdir/q3Dir/qqq.[003-007].jpg
 qdir/q1Dir/qqq.[001-005].jpg
 
------- Test 94 : testdir/idir/v002 ------ ls ------
+----- Test 94 -+- dir: testdir/idir/v002 -+- ls -----
 iii01.0002.jpg
 iii01.0003.jpg
 iii01.0004.jpg
@@ -5343,173 +5343,173 @@ iii03.0008.jpg
 iii03.0009.jpg
 iii03.0010.jpg
 
------- Test 95 : testdir/idir/v002 ------ ls foobar ------
+----- Test 95 -+- dir: testdir/idir/v002 -+- ls foobar -----
 ls: cannot access 'foobar': No such file or directory
--+- Test 95: ls returned non-zero error code: 2 -+-
+--+-- Test 95: ls returned non-zero error code: 2  --+--
 
------- Test 96 : testdir/idir/v002 ------ lsseq ------
+----- Test 96 -+- dir: testdir/idir/v002 -+- lsseq -----
 iii01.[01-10].jpg p:[2-10]
 lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
 iii02.[1-10].jpg p:[2-10]
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
--+- Test 96: lsseq returned non-zero error code: 12 -+-
+--+-- Test 96: lsseq returned non-zero error code: 12  --+--
 
------- Test 97 : testdir/idir ------ lsseq v002 ------
+----- Test 97 -+- dir: testdir/idir -+- lsseq v002 -----
 iii01.[01-10].jpg p:[2-10]
 lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
 iii02.[1-10].jpg p:[2-10]
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
--+- Test 97: lsseq returned non-zero error code: 12 -+-
+--+-- Test 97: lsseq returned non-zero error code: 12  --+--
 
------- Test 98 : testdir ------ lsseq idir/v002 ------
+----- Test 98 -+- dir: testdir -+- lsseq idir/v002 -----
 iii01.[01-10].jpg p:[2-10]
 lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
 iii02.[1-10].jpg p:[2-10]
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
--+- Test 98: lsseq returned non-zero error code: 12 -+-
+--+-- Test 98: lsseq returned non-zero error code: 12  --+--
 
------- Test 99 : testdir/idir/v002 ------ lsseq -p ------
+----- Test 99 -+- dir: testdir/idir/v002 -+- lsseq -p -----
 /...absPathToRepo.../tests/testdir/idir/v002/iii01.[01-10].jpg p:[2-10]
 lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/idir/v002/iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
 /...absPathToRepo.../tests/testdir/idir/v002/iii02.[1-10].jpg p:[2-10]
 lsseq: warning: /...absPathToRepo.../tests/testdir/idir/v002/iii03.0005.jpg is a broken soft link
 /...absPathToRepo.../tests/testdir/idir/v002/iii03.[0001-0010].jpg z:[5]
--+- Test 99: lsseq returned non-zero error code: 12 -+-
+--+-- Test 99: lsseq returned non-zero error code: 12  --+--
 
------- Test 100 : testdir/idir/v002 ------ lsseq -P ------
+----- Test 100 -+- dir: testdir/idir/v002 -+- lsseq -P -----
 iii01.[01-10].jpg p:[2-10]
 lsseq: warning: sequence: iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
 iii02.[1-10].jpg p:[2-10]
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
--+- Test 100: lsseq returned non-zero error code: 12 -+-
+--+-- Test 100: lsseq returned non-zero error code: 12  --+--
 
------- Test 101 : testdir/idir ------ lsseq -P v002 ------
+----- Test 101 -+- dir: testdir/idir -+- lsseq -P v002 -----
 v002/iii01.[01-10].jpg p:[2-10]
 lsseq: warning: sequence: v002/iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
 v002/iii02.[1-10].jpg p:[2-10]
 lsseq: warning: v002/iii03.0005.jpg is a broken soft link
 v002/iii03.[0001-0010].jpg z:[5]
--+- Test 101: lsseq returned non-zero error code: 12 -+-
+--+-- Test 101: lsseq returned non-zero error code: 12  --+--
 
------- Test 102 : testdir ------ lsseq -P idir/v002 ------
+----- Test 102 -+- dir: testdir -+- lsseq -P idir/v002 -----
 idir/v002/iii01.[01-10].jpg p:[2-10]
 lsseq: warning: sequence: idir/v002/iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
 idir/v002/iii02.[1-10].jpg p:[2-10]
 lsseq: warning: idir/v002/iii03.0005.jpg is a broken soft link
 idir/v002/iii03.[0001-0010].jpg z:[5]
--+- Test 102: lsseq returned non-zero error code: 12 -+-
+--+-- Test 102: lsseq returned non-zero error code: 12  --+--
 
------- Test 103 : testdir/idir/v002 ------ lsseq iii01.* ------
+----- Test 103 -+- dir: testdir/idir/v002 -+- lsseq iii01.* -----
 iii01.[01-10].jpg p:[2-10]
 
------- Test 104 : testdir/idir/v002 ------ lsseq iii02.* ------
+----- Test 104 -+- dir: testdir/idir/v002 -+- lsseq iii02.* -----
 lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
 iii02.[1-10].jpg p:[2-10]
--+- Test 104: lsseq returned non-zero error code: 8 -+-
+--+-- Test 104: lsseq returned non-zero error code: 8  --+--
 
------- Test 105 : testdir/idir/v002 ------ lsseq iii03.* ------
+----- Test 105 -+- dir: testdir/idir/v002 -+- lsseq iii03.* -----
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
--+- Test 105: lsseq returned non-zero error code: 4 -+-
+--+-- Test 105: lsseq returned non-zero error code: 4  --+--
 
------- Test 106 : testdir/idir/v002 ------ lsseq iii02.* foobar ------
+----- Test 106 -+- dir: testdir/idir/v002 -+- lsseq iii02.* foobar -----
 lsseq : ls: cannot access 'foobar': No such file or directory
 lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
 iii02.[1-10].jpg p:[2-10]
--+- Test 106: lsseq returned non-zero error code: 9 -+-
+--+-- Test 106: lsseq returned non-zero error code: 9  --+--
 
------- Test 107 : testdir/idir/v002 ------ lsseq iii03.* foobar ------
+----- Test 107 -+- dir: testdir/idir/v002 -+- lsseq iii03.* foobar -----
 lsseq : ls: cannot access 'foobar': No such file or directory
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
--+- Test 107: lsseq returned non-zero error code: 5 -+-
+--+-- Test 107: lsseq returned non-zero error code: 5  --+--
 
------- Test 108 : testdir/idir/v002 ------ lsseq iii*.* foobar ------
+----- Test 108 -+- dir: testdir/idir/v002 -+- lsseq iii*.* foobar -----
 lsseq : ls: cannot access 'foobar': No such file or directory
 iii01.[01-10].jpg p:[2-10]
 lsseq: warning: sequence iii02, frame 1, has duplicate entries: iii02.1.jpg and iii02.01.jpg
 iii02.[1-10].jpg p:[2-10]
 lsseq: warning: iii03.0005.jpg is a broken soft link
 iii03.[0001-0010].jpg z:[5]
--+- Test 108: lsseq returned non-zero error code: 13 -+-
+--+-- Test 108: lsseq returned non-zero error code: 13  --+--
 
------- Test 109 : . ------ lsseq /...absPathToRepo.../tests/testdir/idir/v002/iii02.* ------
+----- Test 109 -+- dir: . -+- lsseq /...absPathToRepo.../tests/testdir/idir/v002/iii02.* -----
 lsseq: warning: sequence /...absPathToRepo.../tests/testdir/idir/v002/iii02, frame 1, has duplicate entries: /...absPathToRepo.../tests/testdir/idir/v002/iii02.1.jpg and /...absPathToRepo.../tests/testdir/idir/v002/iii02.01.jpg
 /...absPathToRepo.../tests/testdir/idir/v002/iii02.[1-10].jpg p:[2-10]
--+- Test 109: lsseq returned non-zero error code: 8 -+-
+--+-- Test 109: lsseq returned non-zero error code: 8  --+--
 
------- Test 110 : testdir/idir/v002 ------ lsseq --silent ------
+----- Test 110 -+- dir: testdir/idir/v002 -+- lsseq --silent -----
 iii01.[01-10].jpg p:[2-10]
 iii02.[1-10].jpg p:[2-10]
 iii03.[0001-0010].jpg z:[5]
--+- Test 110: lsseq returned non-zero error code: 12 -+-
+--+-- Test 110: lsseq returned non-zero error code: 12  --+--
 
------- Test 111 : testdir/idir ------ lsseq --silent v002 ------
+----- Test 111 -+- dir: testdir/idir -+- lsseq --silent v002 -----
 iii01.[01-10].jpg p:[2-10]
 iii02.[1-10].jpg p:[2-10]
 iii03.[0001-0010].jpg z:[5]
--+- Test 111: lsseq returned non-zero error code: 12 -+-
+--+-- Test 111: lsseq returned non-zero error code: 12  --+--
 
------- Test 112 : testdir ------ lsseq --silent idir/v002 ------
+----- Test 112 -+- dir: testdir -+- lsseq --silent idir/v002 -----
 iii01.[01-10].jpg p:[2-10]
 iii02.[1-10].jpg p:[2-10]
 iii03.[0001-0010].jpg z:[5]
--+- Test 112: lsseq returned non-zero error code: 12 -+-
+--+-- Test 112: lsseq returned non-zero error code: 12  --+--
 
------- Test 113 : testdir/idir/v002 ------ lsseq --silent -p ------
+----- Test 113 -+- dir: testdir/idir/v002 -+- lsseq --silent -p -----
 /...absPathToRepo.../tests/testdir/idir/v002/iii01.[01-10].jpg p:[2-10]
 /...absPathToRepo.../tests/testdir/idir/v002/iii02.[1-10].jpg p:[2-10]
 /...absPathToRepo.../tests/testdir/idir/v002/iii03.[0001-0010].jpg z:[5]
--+- Test 113: lsseq returned non-zero error code: 12 -+-
+--+-- Test 113: lsseq returned non-zero error code: 12  --+--
 
------- Test 114 : testdir/idir/v002 ------ lsseq --silent -P ------
+----- Test 114 -+- dir: testdir/idir/v002 -+- lsseq --silent -P -----
 iii01.[01-10].jpg p:[2-10]
 iii02.[1-10].jpg p:[2-10]
 iii03.[0001-0010].jpg z:[5]
--+- Test 114: lsseq returned non-zero error code: 12 -+-
+--+-- Test 114: lsseq returned non-zero error code: 12  --+--
 
------- Test 115 : testdir/idir ------ lsseq --silent -P v002 ------
+----- Test 115 -+- dir: testdir/idir -+- lsseq --silent -P v002 -----
 v002/iii01.[01-10].jpg p:[2-10]
 v002/iii02.[1-10].jpg p:[2-10]
 v002/iii03.[0001-0010].jpg z:[5]
--+- Test 115: lsseq returned non-zero error code: 12 -+-
+--+-- Test 115: lsseq returned non-zero error code: 12  --+--
 
------- Test 116 : testdir ------ lsseq --silent -P idir/v002 ------
+----- Test 116 -+- dir: testdir -+- lsseq --silent -P idir/v002 -----
 idir/v002/iii01.[01-10].jpg p:[2-10]
 idir/v002/iii02.[1-10].jpg p:[2-10]
 idir/v002/iii03.[0001-0010].jpg z:[5]
--+- Test 116: lsseq returned non-zero error code: 12 -+-
+--+-- Test 116: lsseq returned non-zero error code: 12  --+--
 
------- Test 117 : testdir/idir/v002 ------ lsseq --silent iii01.* ------
+----- Test 117 -+- dir: testdir/idir/v002 -+- lsseq --silent iii01.* -----
 iii01.[01-10].jpg p:[2-10]
 
------- Test 118 : testdir/idir/v002 ------ lsseq --silent iii02.* ------
+----- Test 118 -+- dir: testdir/idir/v002 -+- lsseq --silent iii02.* -----
 iii02.[1-10].jpg p:[2-10]
--+- Test 118: lsseq returned non-zero error code: 8 -+-
+--+-- Test 118: lsseq returned non-zero error code: 8  --+--
 
------- Test 119 : testdir/idir/v002 ------ lsseq --silent iii03.* ------
+----- Test 119 -+- dir: testdir/idir/v002 -+- lsseq --silent iii03.* -----
 iii03.[0001-0010].jpg z:[5]
--+- Test 119: lsseq returned non-zero error code: 4 -+-
+--+-- Test 119: lsseq returned non-zero error code: 4  --+--
 
------- Test 120 : testdir/idir/v002 ------ lsseq --silent iii02.* foobar ------
+----- Test 120 -+- dir: testdir/idir/v002 -+- lsseq --silent iii02.* foobar -----
 iii02.[1-10].jpg p:[2-10]
--+- Test 120: lsseq returned non-zero error code: 9 -+-
+--+-- Test 120: lsseq returned non-zero error code: 9  --+--
 
------- Test 121 : testdir/idir/v002 ------ lsseq --silent iii03.* foobar ------
+----- Test 121 -+- dir: testdir/idir/v002 -+- lsseq --silent iii03.* foobar -----
 iii03.[0001-0010].jpg z:[5]
--+- Test 121: lsseq returned non-zero error code: 5 -+-
+--+-- Test 121: lsseq returned non-zero error code: 5  --+--
 
------- Test 122 : testdir/idir/v002 ------ lsseq --silent iii*.* foobar ------
+----- Test 122 -+- dir: testdir/idir/v002 -+- lsseq --silent iii*.* foobar -----
 iii01.[01-10].jpg p:[2-10]
 iii02.[1-10].jpg p:[2-10]
 iii03.[0001-0010].jpg z:[5]
--+- Test 122: lsseq returned non-zero error code: 13 -+-
+--+-- Test 122: lsseq returned non-zero error code: 13  --+--
 
------- Test 123 : testdir/pdir ------ lsseq --recursive --prepend-path-rel ------
+----- Test 123 -+- dir: testdir/pdir -+- lsseq --recursive --prepend-path-rel -----
 p_median4_v01.[08-12].jpg z:[8-12]
 p_median4_v02.[08-12].jpg z:[8-12]
 p_median4_v03.[08-12].jpg z:[8-12]
@@ -5532,7 +5532,7 @@ p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg z:[8-12]
 p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg z:[8-12]
 p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg z:[8-12]
 
------- Test 124 : testdir/pdir ------ lsseq --recursive --prepend-path-rel * ------
+----- Test 124 -+- dir: testdir/pdir -+- lsseq --recursive --prepend-path-rel * -----
 p_median4_v01.[08-12].jpg z:[8-12]
 p_median4_v02.[08-12].jpg z:[8-12]
 p_median4_v03.[08-12].jpg z:[8-12]
@@ -5555,7 +5555,7 @@ p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg z:[8-12]
 p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg z:[8-12]
 p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg z:[8-12]
 
------- Test 125 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive ------
+----- Test 125 -+- dir: testdir/rdir -+- lsseq --prepend-path-rel --no-error-lists --recursive -----
 r1.[001-015].jpg
 r2.[101-115].jpg
 rrr01.[001-015].ass
@@ -5581,7 +5581,7 @@ rSub02/rrr02.[001-015].ass
 rSub02/rrr02.mov
 rSub02/rrr03.[100-115].fur
 
------- Test 126 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --only-images ------
+----- Test 126 -+- dir: testdir/rdir -+- lsseq --prepend-path-rel --no-error-lists --recursive --only-images -----
 r1.[001-015].jpg
 r2.[101-115].jpg
 rSub01/r1.[001-015].jpg
@@ -5589,7 +5589,7 @@ rSub01/r2.[101-115].jpg
 rSub02/r1.[001-015].jpg
 rSub02/r2.[101-115].jpg
 
------- Test 127 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --only-movies ------
+----- Test 127 -+- dir: testdir/rdir -+- lsseq --prepend-path-rel --no-error-lists --recursive --only-movies -----
 rrr01.mov
 rrr02.mov
 rSub01/rrr01.mov
@@ -5597,7 +5597,7 @@ rSub01/rrr02.mov
 rSub02/rrr01.mov
 rSub02/rrr02.mov
 
------- Test 128 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --only-caches ------
+----- Test 128 -+- dir: testdir/rdir -+- lsseq --prepend-path-rel --no-error-lists --recursive --only-caches -----
 rrr01.[001-015].ass
 rrr01.[090-105].bgeo.sc
 rrr02.[001-015].ass
@@ -5611,7 +5611,7 @@ rSub02/rrr01.[090-105].bgeo.sc
 rSub02/rrr02.[001-015].ass
 rSub02/rrr03.[100-115].fur
 
------- Test 129 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format native ------
+----- Test 129 -+- dir: testdir/rdir -+- lsseq --prepend-path-rel --no-error-lists --recursive --format native -----
 r1.[001-015].jpg
 r2.[101-115].jpg
 rrr01.[001-015].ass
@@ -5637,7 +5637,7 @@ rSub02/rrr02.[001-015].ass
 rSub02/rrr02.mov
 rSub02/rrr03.[100-115].fur
 
------- Test 130 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format nuke ------
+----- Test 130 -+- dir: testdir/rdir -+- lsseq --prepend-path-rel --no-error-lists --recursive --format nuke -----
 r1.%03d.jpg 1-15
 r2.%03d.jpg 101-115
 rrr01.%03d.ass 1-15
@@ -5663,7 +5663,7 @@ rSub02/rrr02.%03d.ass 1-15
 rSub02/rrr02.mov
 rSub02/rrr03.%03d.fur 100-115
 
------- Test 131 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format rv ------
+----- Test 131 -+- dir: testdir/rdir -+- lsseq --prepend-path-rel --no-error-lists --recursive --format rv -----
 r1.1-15@@@.jpg
 r2.101-115@@@.jpg
 rrr01.1-15@@@.ass
@@ -5689,7 +5689,7 @@ rSub02/rrr02.1-15@@@.ass
 rSub02/rrr02.mov
 rSub02/rrr03.100-115@@@.fur
 
------- Test 132 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format shake ------
+----- Test 132 -+- dir: testdir/rdir -+- lsseq --prepend-path-rel --no-error-lists --recursive --format shake -----
 r1.@@@.jpg -t 1-15
 r2.@@@.jpg -t 101-115
 rrr01.@@@.ass -t 1-15
@@ -5715,7 +5715,7 @@ rSub02/rrr02.@@@.ass -t 1-15
 rSub02/rrr02.mov
 rSub02/rrr03.@@@.fur -t 100-115
 
------- Test 133 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format glob ------
+----- Test 133 -+- dir: testdir/rdir -+- lsseq --prepend-path-rel --no-error-lists --recursive --format glob -----
 r1.[0-9][0-9][0-9].jpg
 r2.[0-9][0-9][0-9].jpg
 rrr01.[0-9][0-9][0-9].ass
@@ -5741,7 +5741,7 @@ rSub02/rrr02.[0-9][0-9][0-9].ass
 rSub02/rrr02.mov
 rSub02/rrr03.[0-9][0-9][0-9].fur
 
------- Test 134 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format mplay ------
+----- Test 134 -+- dir: testdir/rdir -+- lsseq --prepend-path-rel --no-error-lists --recursive --format mplay -----
 r1.\$F3.jpg
 r2.\$F3.jpg
 rrr01.\$F3.ass
@@ -5767,7 +5767,7 @@ rSub02/rrr02.\$F3.ass
 rSub02/rrr02.mov
 rSub02/rrr03.\$F3.fur
 
------- Test 135 : testdir/rdir ------ lsseq --prepend-path-rel --no-error-lists --recursive --format houdini ------
+----- Test 135 -+- dir: testdir/rdir -+- lsseq --prepend-path-rel --no-error-lists --recursive --format houdini -----
 r1.$F3.jpg
 r2.$F3.jpg
 rrr01.$F3.ass
@@ -5793,7 +5793,7 @@ rSub02/rrr02.$F3.ass
 rSub02/rrr02.mov
 rSub02/rrr03.$F3.fur
 
------- Test 136 : testdir ------ lsseq -R -P --only-movies ------
+----- Test 136 -+- dir: testdir -+- lsseq -R -P --only-movies -----
 testDirFile.mov
 testDirFile.wmv
 xxx.mov
@@ -5807,7 +5807,7 @@ rdir/rSub01/rrr02.mov
 rdir/rSub02/rrr01.mov
 rdir/rSub02/rrr02.mov
 
------- Test 137 : testdir ------ lsseq -R -P --only-movies --global-sort-by-time ------
+----- Test 137 -+- dir: testdir -+- lsseq -R -P --only-movies --global-sort-by-time -----
 yyy.mov
 xxx.mov
 testDirFile.wmv
@@ -5821,7 +5821,7 @@ rdir/rSub01/rrr01.mov
 gdir/xxx02.mov
 gdir/xxx01.mov
 
------- Test 138 : testdir ------ lsseq -R -P --only-caches ------
+----- Test 138 -+- dir: testdir -+- lsseq -R -P --only-caches -----
 gdir/ccc01.[001-120].ass m:[3]
 gdir/ccc02.[001-120].ass m:[51,119]
 gdir/ccc03.[80-140].fur
@@ -5839,7 +5839,7 @@ rdir/rSub02/rrr01.[090-105].bgeo.sc z:[90-105]
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
 
------- Test 139 : testdir ------ lsseq -R -P --only-caches --global-sort-by-time ------
+----- Test 139 -+- dir: testdir -+- lsseq -R -P --only-caches --global-sort-by-time -----
 rdir/rrr03.[100-115].fur z:[100-115]
 rdir/rrr02.[001-015].ass z:[1-15]
 rdir/rrr01.[090-105].bgeo.sc z:[90-105]
@@ -5857,7 +5857,7 @@ gdir/ccc03.[80-140].fur
 gdir/ccc02.[001-120].ass m:[51,119]
 gdir/ccc01.[001-120].ass m:[3]
 
------- Test 140 : testdir ------ lsseq -R -P --only-sequences ------
+----- Test 140 -+- dir: testdir -+- lsseq -R -P --only-sequences -----
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -5998,9 +5998,9 @@ rdir/rSub02/rrr01.mov
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr02.mov
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
--+- Test 140: lsseq returned non-zero error code: 12 -+-
+--+-- Test 140: lsseq returned non-zero error code: 12  --+--
 
------- Test 141 : testdir ------ lsseq -R -P --only-sequences --global-sort-by-time ------
+----- Test 141 -+- dir: testdir -+- lsseq -R -P --only-sequences --global-sort-by-time -----
 qdir/q2Dir/qqq.[002-006].jpg z:[2-6]
 qdir/q3Dir/qqq.[003-007].jpg z:[3-7]
 qdir/q1Dir/qqq.[001-005].jpg z:[1-5]
@@ -6141,9 +6141,9 @@ bdir/b b.01.[001-030].exr z:[1-30]
 adir/lrtm01_beauty02.[001-120].exr z:[11]
 adir/aaa.[001-120].exr z:[12,49]
 20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.[0095-0136].exr z:[95-136]
--+- Test 141: lsseq returned non-zero error code: 12 -+-
+--+-- Test 141: lsseq returned non-zero error code: 12  --+--
 
------- Test 142 : testdir ------ lsseq -R -p --only-movies ------
+----- Test 142 -+- dir: testdir -+- lsseq -R -p --only-movies -----
 /...absPathToRepo.../tests/testdir/testDirFile.mov
 /...absPathToRepo.../tests/testdir/testDirFile.wmv
 /...absPathToRepo.../tests/testdir/xxx.mov
@@ -6157,7 +6157,7 @@ adir/aaa.[001-120].exr z:[12,49]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr01.mov
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
 
------- Test 143 : testdir ------ lsseq -R -p --only-movies --global-sort-by-time ------
+----- Test 143 -+- dir: testdir -+- lsseq -R -p --only-movies --global-sort-by-time -----
 /...absPathToRepo.../tests/testdir/yyy.mov
 /...absPathToRepo.../tests/testdir/xxx.mov
 /...absPathToRepo.../tests/testdir/testDirFile.wmv
@@ -6171,7 +6171,7 @@ adir/aaa.[001-120].exr z:[12,49]
 /...absPathToRepo.../tests/testdir/gdir/xxx02.mov
 /...absPathToRepo.../tests/testdir/gdir/xxx01.mov
 
------- Test 144 : testdir ------ lsseq -R -p --only-caches ------
+----- Test 144 -+- dir: testdir -+- lsseq -R -p --only-caches -----
 /...absPathToRepo.../tests/testdir/gdir/ccc01.[001-120].ass m:[3]
 /...absPathToRepo.../tests/testdir/gdir/ccc02.[001-120].ass m:[51,119]
 /...absPathToRepo.../tests/testdir/gdir/ccc03.[80-140].fur
@@ -6189,7 +6189,7 @@ adir/aaa.[001-120].exr z:[12,49]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.[100-115].fur z:[100-115]
 
------- Test 145 : testdir ------ lsseq -R -p --only-caches --global-sort-by-time ------
+----- Test 145 -+- dir: testdir -+- lsseq -R -p --only-caches --global-sort-by-time -----
 /...absPathToRepo.../tests/testdir/rdir/rrr03.[100-115].fur z:[100-115]
 /...absPathToRepo.../tests/testdir/rdir/rrr02.[001-015].ass z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rrr01.[090-105].bgeo.sc z:[90-105]
@@ -6207,7 +6207,7 @@ adir/aaa.[001-120].exr z:[12,49]
 /...absPathToRepo.../tests/testdir/gdir/ccc02.[001-120].ass m:[51,119]
 /...absPathToRepo.../tests/testdir/gdir/ccc01.[001-120].ass m:[3]
 
------- Test 146 : testdir ------ lsseq -R -p --only-sequences ------
+----- Test 146 -+- dir: testdir -+- lsseq -R -p --only-sequences -----
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
 /...absPathToRepo.../tests/testdir/testDirFile.mov
 /...absPathToRepo.../tests/testdir/testDirFile.wmv
@@ -6348,9 +6348,9 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.[100-115].fur z:[100-115]
--+- Test 146: lsseq returned non-zero error code: 12 -+-
+--+-- Test 146: lsseq returned non-zero error code: 12  --+--
 
------- Test 147 : testdir ------ lsseq -R -p --only-sequences --global-sort-by-time ------
+----- Test 147 -+- dir: testdir -+- lsseq -R -p --only-sequences --global-sort-by-time -----
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.[002-006].jpg z:[2-6]
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.[003-007].jpg z:[3-7]
 /...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.[001-005].jpg z:[1-5]
@@ -6491,9 +6491,9 @@ lsseq: warning: sequence: /...absPathToRepo.../tests/testdir/idir/v002/iii02, fr
 /...absPathToRepo.../tests/testdir/adir/lrtm01_beauty02.[001-120].exr z:[11]
 /...absPathToRepo.../tests/testdir/adir/aaa.[001-120].exr z:[12,49]
 /...absPathToRepo.../tests/testdir/20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.[0095-0136].exr z:[95-136]
--+- Test 147: lsseq returned non-zero error code: 12 -+-
+--+-- Test 147: lsseq returned non-zero error code: 12  --+--
 
------- Test 148 : testdir ------ lsseq -R -P -G --quiet -r ------
+----- Test 148 -+- dir: testdir -+- lsseq -R -P -G --quiet -r -----
 20592_chevrolet_cruze_reveal/cg/sequences/sq2000/sh0110/images/comp/2000_0110_comp_v002/2000_0110_comp_v002_l.[0095-0136].exr z:[95-136]
 adir/aaa.[001-120].exr z:[12,49]
 adir/lrtm01_beauty02.[001-120].exr z:[11]
@@ -6623,27 +6623,27 @@ hdir/v003/hhh03.[0001-0040].jpg
 qdir/q1Dir/qqq.[001-005].jpg z:[1-5]
 qdir/q3Dir/qqq.[003-007].jpg z:[3-7]
 qdir/q2Dir/qqq.[002-006].jpg z:[2-6]
--+- Test 148: lsseq returned non-zero error code: 12 -+-
+--+-- Test 148: lsseq returned non-zero error code: 12  --+--
 
------- Test 149 : . ------ lsseq -i ------
+----- Test 149 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------- Test 150 : testdir/gdir ------ lsseq --only-images ------
+----- Test 150 -+- dir: testdir/gdir -+- lsseq --only-images -----
 
------- Test 151 : testdir/gdir ------ lsseq --only-movies ------
+----- Test 151 -+- dir: testdir/gdir -+- lsseq --only-movies -----
 xxx01.mov
 xxx02.mov
 
------- Test 152 : testdir/gdir ------ lsseq --only-caches ------
+----- Test 152 -+- dir: testdir/gdir -+- lsseq --only-caches -----
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------- Test 153 : . ------ echo -e \nThere is no way to test lsseq output to stdio if isatty is \nTrue so PLEASE manually run lsseq -R once on testdir to check \nif column-output is correct for the /bin/ls output. ------
+----- Test 153 -+- dir: . -+- echo -e \nThere is no way to test lsseq output to stdio if isatty is \nTrue so PLEASE manually run lsseq -R once on testdir to check \nif column-output is correct for the /bin/ls output. -----
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check
