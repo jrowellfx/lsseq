@@ -400,22 +400,13 @@ testdir lsseq -R -p --only-sequences --global-sort-by-time
 testdir lsseq -R -P -G --quiet -r
 EOFa
 
-### cat << EOFaDEBUG > $tmpTestCmdFileA
-### testdir/idir lsseq -p *
-### testdir/hdir lsseq -t -r -P foo/*/* v001/* v002/* v003/*
-### EOFaDEBUG
-
 cat << EOFb > $tmpTestCmdFileB
 .            lsseq -i
 testdir/gdir lsseq --only-images
 testdir/gdir lsseq --only-movies
 testdir/gdir lsseq --only-caches
-. echo -e \nThere is no way to test lsseq output to stdio if isatty is \nTrue so PLEASE manually run lsseq -R once on testdir to check \nif column-output is correct for the /bin/ls output.
+. echo -e \\\\nThere is no way to test lsseq output to stdio if isatty is \\\\nTrue so PLEASE manually run lsseq -R once on testdir to check \\\\nif column-output is correct for the /bin/ls output.
 EOFb
-
-### cat << EOFbDEBUG > $tmpTestCmdFileB
-### testdir/gdir lsseq --only-images
-### EOFbDEBUG
 
 export NUM_TESTS_A=`wc -l < $tmpTestCmdFileA`
 export NUM_TESTS_B=`wc -l < $tmpTestCmdFileB`
@@ -427,17 +418,11 @@ i=1
 while true; do
     sed -n -e "$i p" $tmpTestCmdFileA | sed -e 's/#.*//' > $tmpLine
 
-    set -f
-    ### echo DEBUG: $tmpLine: `cat $tmpLine`
-    set +f
-
     set -f # Turn off globbing
-    unset cmdLine
     declare -a cmdLine=(`cat $tmpLine`)
     if [ ${#cmdLine[@]} -eq 0 ]; then
         break;
     fi
-    ### echo DEBUG: \$cmdLine: $cmdLine
 
     # Note: Does not properly handle case when "workingDir" has spaces in the name.
     # Could be fixed, but for now just avoid doing tests with a "workingDir"
@@ -454,7 +439,6 @@ while true; do
     #
     sed -e 's/^\S*\s*\S*\s*//' < $tmpLine > $tmpArgs
 
-    unset testArgs
     declare -a testArgs="($(< "$tmpArgs"))"
 
     echo "" >> $TEST_DIR/$TEST_OUT_FILENAME
@@ -471,34 +455,24 @@ while true; do
         printf '%s\n' "${testArgs[${elemIndex}]}" >> $tmpArgs
     done
 
-    ### echo DEBUG: CMD: $cmd
-    ### echo DEBUG: workingDir: $workingDir
-    ### echo DEBUG: \`pwd\`: `pwd`
-    ### echo DEBUG: NUM_ELEMENTS: $NUM_ELEMENTS
-    ### echo DEBUG: $tmpArgs: `cat $tmpArgs`
-    ### echo DEBUG: testArgs: "${testArgs[${@}]}"
-
     # Use mapfile to allow us to pass args with spaces in the names to the test $cmd being run.
     #
-    unset MAPFILE
-    ### echo DEBUG: \`pwd\` right before mapfile line: `pwd`
     mapfile -t < "$tmpArgs"
-    ### echo DEBUG: MAPFILE: "${MAPFILE[@]}"
     $cmd "${MAPFILE[@]}" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     retVal=$?
     if [ $retVal -ne 0 ]; then
         echo "--+-- Test $i: $cmd returned non-zero error code: $retVal  --+--" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     fi
     i=$((i + 1))
-
-### exit 1 # DEBUG
-
 done
 
 export LSSEQ_IMAGE_EXTENSION=jpg:exr
 export LSSEQ_MOV_EXTENSION=mov
 export LSSEQ_CACHE_EXTENSION=ass:fur
-
+#
+# Continue tests, but with altered env-vars above.
+# Same logic as prior while-loop.
+#
 j=1
 while true; do
     sed -n -e "$j p" $tmpTestCmdFileB | sed -e 's/#.*//' > $tmpLine
@@ -509,10 +483,6 @@ while true; do
         break;
     fi
 
-    # Note: Does not properly handle case when "workingDir" has spaces in the name.
-    # Could be fixed, but for now just avoid doing tests with a "workingDir"
-    # with spaces in the name.
-    #
     workingDir=${cmdLine[0]}
     cmd=${cmdLine[1]}
     displayArgs=(${cmdLine[@]:2})
@@ -542,7 +512,6 @@ while true; do
 
     # Use mapfile to allow us to pass args with spaces in the names to the test $cmd being run.
     #
-    unset MAPFILE
     mapfile -t < "$tmpArgs"
     $cmd "${MAPFILE[@]}" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     retVal=$?
