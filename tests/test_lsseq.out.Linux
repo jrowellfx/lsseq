@@ -4,7 +4,7 @@
 Linux
 
 ----- Test 2 -+- dir: . -+- lsseq --version -----
-4.0.0
+4.0.1
 
 ----- Test 3 -+- dir: . -+- lsseq --help -----
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
@@ -6625,25 +6625,107 @@ qdir/q3Dir/qqq.[003-007].jpg z:[3-7]
 qdir/q2Dir/qqq.[002-006].jpg z:[2-6]
 --+-- Test 148: lsseq returned non-zero error code: 12  --+--
 
------ Test 149 -+- dir: . -+- lsseq -i -----
+----- Test 149 -+- dir: testdir/jdir -+- mkdir j00 -----
+
+----- Test 150 -+- dir: testdir/jdir/j00 -+- mkdir badperm -----
+
+----- Test 151 -+- dir: testdir/jdir/j00 -+- touch badperm/jjj.txt -----
+
+----- Test 152 -+- dir: testdir/jdir/j00 -+- chmod 644 badperm -----
+
+----- Test 153 -+- dir: testdir/jdir/j00 -+- lsseq -R -----
+.:
+badperm
+
+./badperm:
+lsseq: warning: can not descend into /...absPathToRepo.../tests/testdir/jdir/j00/badperm: permission denied, exectute bit not set.
+--+-- Test 153: lsseq returned non-zero error code: 16  --+--
+
+----- Test 154 -+- dir: testdir/jdir/j00 -+- lsseq --recursive --silent -----
+.:
+badperm
+
+./badperm:
+--+-- Test 154: lsseq returned non-zero error code: 16  --+--
+
+----- Test 155 -+- dir: testdir/jdir -+- lsseq -R -----
+.:
+beauty
+j00
+j01
+j02
+j03
+
+./beauty:
+v001
+v002
+
+./beauty/v001:
+sort.ls
+filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1001]
+
+./beauty/v002:
+sort.ls
+filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1002]
+
+./j00:
+badperm
+
+./j00/badperm:
+lsseq: warning: can not descend into /...absPathToRepo.../tests/testdir/jdir/j00/badperm: permission denied, exectute bit not set.
+
+./j01:
+lsseq: warning: sequence j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
+j.[0100-0140].jpg m:[101,134-139], z:[100,102-133,140], p:[102-105,131-133,140]
+
+./j02:
+lsseq: warning: sequence j, frame 108, has duplicate entries: j.108.jpg and j.00108.jpg
+lsseq: warning: sequence j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
+j.[0100-0140].jpg m:[101,134-139], z:[100,102-133,140], p:[102-105,108,119-120,126]
+
+./j03:
+lsseq: warning: sequence j01, frame 9, has duplicate entries: j01.09.jpg and j01.0009.jpg
+j01.[1-9].jpg z:[1-9], p:[2-9]
+lsseq: warning: sequence j02, frame 9, has duplicate entries: j02.09.jpg and j02.0009.jpg
+j02.[001-009].jpg z:[1-9], p:[2,9]
+lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.05.jpg
+lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.005.jpg
+lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.0005.jpg
+j03.[001-009].jpg z:[1-9], p:[5]
+lsseq: warning: j04.005.jpg is a broken soft link
+j04.[-10-010].jpg z:[-10-10], p:[-7,1,10]
+--+-- Test 155: lsseq returned non-zero error code: 28  --+--
+
+----- Test 156 -+- dir: testdir/jdir/j00 -+- chmod 755 badperm -----
+
+----- Test 157 -+- dir: testdir/jdir/j00 -+- lsseq -R -----
+.:
+badperm
+
+./badperm:
+jjj.txt
+
+----- Test 158 -+- dir: testdir/jdir -+- rm -rf j00 -----
+
+----- Test 159 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------ Test 150 -+- dir: testdir/gdir -+- lsseq --only-images -----
+----- Test 160 -+- dir: testdir/gdir -+- lsseq --only-images -----
 
------ Test 151 -+- dir: testdir/gdir -+- lsseq --only-movies -----
+----- Test 161 -+- dir: testdir/gdir -+- lsseq --only-movies -----
 xxx01.mov
 xxx02.mov
 
------ Test 152 -+- dir: testdir/gdir -+- lsseq --only-caches -----
+----- Test 162 -+- dir: testdir/gdir -+- lsseq --only-caches -----
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------ Test 153 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
+----- Test 163 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check

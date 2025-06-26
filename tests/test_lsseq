@@ -134,6 +134,7 @@ fi
 TEST_OUT_FILENAME=test_lsseq.out.`uname`.new
 
 unalias lsseq > /dev/null 2>&1
+unalias rm > /dev/null 2>&1
 
 if [ "$TEST_SYSTEM_LSSEQ" = no ]; then
     ln -sf ../lsseq/__main__.py  lsseq
@@ -398,6 +399,16 @@ testdir lsseq -R -p --only-caches --global-sort-by-time
 testdir lsseq -R -p --only-sequences
 testdir lsseq -R -p --only-sequences --global-sort-by-time
 testdir lsseq -R -P -G --quiet -r
+testdir/jdir mkdir j00
+testdir/jdir/j00 mkdir badperm
+testdir/jdir/j00 touch badperm/jjj.txt
+testdir/jdir/j00 chmod 644 badperm
+testdir/jdir/j00 lsseq -R
+testdir/jdir/j00 lsseq --recursive --silent
+testdir/jdir lsseq -R
+testdir/jdir/j00 chmod 755 badperm
+testdir/jdir/j00 lsseq -R
+testdir/jdir rm -rf j00
 EOFa
 
 cat << EOFb > $tmpTestCmdFileB

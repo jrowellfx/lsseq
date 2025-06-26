@@ -69,7 +69,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "4.0.0"     # Semantic Versioning 2.0.0
+VERSION = "4.0.1"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -200,11 +200,12 @@ gMoviesDictionary = {}
 # EXIT codes, they will be combined bitwise to return 
 # possibly more than one different warning and/or error.
 #
-EXIT_NO_ERROR               = 0 # Clean exit.
-EXIT_LS_ERROR               = 1 # A call to 'ls' returned an error or another internal issue
-EXIT_ARGPARSE_ERROR         = 2 # The default code that argparse exits with if bad option.
-EXIT_LSSEQ_SOFTLINK_WARNING = 4 # warning - broken softlink
-EXIT_LSSEQ_PADDING_WARNING  = 8 # warning - two images with same name, same frame-num, diff padding
+EXIT_NO_ERROR               =  0 # Clean exit.
+EXIT_LS_ERROR               =  1 # A call to 'ls' returned an error or another internal issue
+EXIT_ARGPARSE_ERROR         =  2 # The default code that argparse exits with if bad option.
+EXIT_LSSEQ_SOFTLINK_WARNING =  4 # warning - broken softlink
+EXIT_LSSEQ_PADDING_WARNING  =  8 # warning - two images with same name, same frame-num, diff padding
+EXIT_CD_PERMISSION_WARNING  = 16 # warning - recursive descent blocked - no execute permission on dir
 #
 gExitStatus = EXIT_NO_ERROR
 
@@ -809,7 +810,19 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     # python.
     #
     tmpCWD = os.path.abspath(".")
-    os.chdir(path) # Note: path might be "." if coming from main() 
+    try:
+        os.chdir(path) # Note: path might be "." if coming from main() 
+    except PermissionError:
+        if not args.silent :
+            sys.stdout.flush()
+            sys.stderr.flush()
+            print(PROG_NAME, ": warning: can not descend into ",
+                tmpCWD, "/", path, ": permission denied, exectute bit not set.",
+                sep='', file=sys.stderr)
+            sys.stderr.flush()
+        gExitStatus = gExitStatus | EXIT_CD_PERMISSION_WARNING
+        os.chdir(tmpCWD) # Pop the stack of directories.
+        return
 
     # Following flag set iff something got printed here before reaching
     # printing of subdirs.
