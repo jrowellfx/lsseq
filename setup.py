@@ -15,10 +15,11 @@ setup(
     url             = 'https://github.com/jrowellfx/lsseq',
     author          = 'James Philip Rowell',
     author_email    = 'james@alpha-eleven.com',
+    license         = "BSD-3-Clause",
+    license_files = ["LICENSE"],
 
     classifiers=[
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: BSD License',
         'Operating System :: POSIX',
         'Operating System :: Unix',
         'Operating System :: MacOS',
