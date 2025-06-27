@@ -449,7 +449,12 @@ while true; do
 
     # Strip out the first two words from $tmpLine to get the test args.
     #
-    sed -e 's/^\S*\s*\S*\s*//' < $tmpLine > $tmpArgs
+    # \s  Matches a space character.  This is equivalent to `[[:space:]]'.
+    # \S  Matches a non-space character.  This is equivalent to `[^[:space:]]'.
+    #
+    # sed -E 's/^\S*\s*\S*\s*//' < $tmpLine > $tmpArgs # -E for extended regular expressions
+    #
+    sed -E 's/^[^[:space:]]+[[:space:]]+[^[:space:]]+[[:space:]]*//' < $tmpLine > $tmpArgs # -E for extended regular expressions
 
     declare -a testArgs="($(< "$tmpArgs"))"
 
@@ -513,7 +518,12 @@ while true; do
 
     # Strip out the first two words from $tmpLine to get the test args.
     #
-    sed -e 's/^\S*\s*\S*\s*//' < $tmpLine > $tmpArgs
+    # \s  Matches a space character.  This is equivalent to `[[:space:]]'.
+    # \S  Matches a non-space character.  This is equivalent to `[^[:space:]]'.
+    #
+    # sed -E 's/^\S*\s*\S*\s*//' < $tmpLine > $tmpArgs # -E for extended regular expressions
+    #
+    sed -E 's/^[^[:space:]]+[[:space:]]+[^[:space:]]+[[:space:]]*//' < $tmpLine > $tmpArgs # -E for extended regular expressions
 
     declare -a testArgs="($(< "$tmpArgs"))"
 
