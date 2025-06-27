@@ -294,6 +294,7 @@ EXIT_LS_ERROR               = 1 # A call to 'ls' returned an error code.
 EXIT_ARGPARSE_ERROR         = 2 # A bad option was passed to lsseq. Exit lsseq.
 EXIT_LSSEQ_SOFTLINK_WARNING = 4 # warning - broken softlink found
 EXIT_LSSEQ_PADDING_WARNING  = 8 # warning - two images with same name, same frame-num, but diff padding
+EXIT_CD_PERMISSION_WARNING  = 16 # warning - recursive descent blocked - no execute permission on dir
 ```
 
 ## Addendum - more on installing command-line tools
