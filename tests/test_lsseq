@@ -467,7 +467,9 @@ while true; do
         printf '%s\n' "${testArgs[${elemIndex}]}" >> $tmpArgs
     done
 
-    # Use mapfile to allow us to pass args with spaces in the names to the test $cmd being run.
+    # On Linux, use 'mapfile' to allow us to pass args with spaces in the names
+    # to the test $cmd being run. Otherwise, on MacOS with only bash v3.x
+    # (and no 'mapfile' command) use older technique.
     #
     if [ `uname` = Darwin ]; then
         MAPFILE=()
@@ -529,9 +531,18 @@ while true; do
         printf '%s\n' "${testArgs[${elemIndex}]}" >> $tmpArgs
     done
 
-    # Use mapfile to allow us to pass args with spaces in the names to the test $cmd being run.
+    # On Linux, use 'mapfile' to allow us to pass args with spaces in the names
+    # to the test $cmd being run. Otherwise, on MacOS with only bash v3.x
+    # (and no 'mapfile' command) use older technique.
     #
-    mapfile -t < "$tmpArgs"
+    if [ `uname` = Darwin ]; then
+        MAPFILE=()
+        while IFS= read -r line; do
+            MAPFILE+=("$line")
+        done < "$tmpArgs"
+    else
+        mapfile -t < "$tmpArgs"
+    fi
     $cmd "${MAPFILE[@]}" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     retVal=$?
     if [ $retVal -ne 0 ]; then
