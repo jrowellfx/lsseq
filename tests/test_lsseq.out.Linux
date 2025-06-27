@@ -6707,25 +6707,35 @@ jjj.txt
 
 ----- Test 158 -+- dir: testdir/jdir -+- rm -rf j00 -----
 
------ Test 159 -+- dir: . -+- lsseq -i -----
+----- Test 159 -+- dir: testdir/bdir -+- lsseq --no-error-lists b_subdir 'b_subdir withSpace' -----
+b_subdir:
+b b.01.[001-030].exr
+bbb.02.[008-095].tif
+
+b_subdir withSpace:
+b b.01.[001-030].exr
+bbb.01.[001-120].exr
+bbb.02.[001-120].tif
+
+----- Test 160 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------ Test 160 -+- dir: testdir/gdir -+- lsseq --only-images -----
+----- Test 161 -+- dir: testdir/gdir -+- lsseq --only-images -----
 
------ Test 161 -+- dir: testdir/gdir -+- lsseq --only-movies -----
+----- Test 162 -+- dir: testdir/gdir -+- lsseq --only-movies -----
 xxx01.mov
 xxx02.mov
 
------ Test 162 -+- dir: testdir/gdir -+- lsseq --only-caches -----
+----- Test 163 -+- dir: testdir/gdir -+- lsseq --only-caches -----
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------ Test 163 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
+----- Test 164 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check

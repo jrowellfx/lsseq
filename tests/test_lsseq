@@ -409,6 +409,7 @@ testdir/jdir lsseq -R
 testdir/jdir/j00 chmod 755 badperm
 testdir/jdir/j00 lsseq -R
 testdir/jdir rm -rf j00
+testdir/bdir lsseq --no-error-lists b_subdir 'b_subdir withSpace' 
 EOFa
 
 cat << EOFb > $tmpTestCmdFileB
@@ -468,7 +469,14 @@ while true; do
 
     # Use mapfile to allow us to pass args with spaces in the names to the test $cmd being run.
     #
-    mapfile -t < "$tmpArgs"
+    if [ `uname` = Darwin ]; then
+        MAPFILE=()
+        while IFS= read -r line; do
+            MAPFILE+=("$line")
+        done < "$tmpArgs"
+    else
+        mapfile -t < "$tmpArgs"
+    fi
     $cmd "${MAPFILE[@]}" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     retVal=$?
     if [ $retVal -ne 0 ]; then
