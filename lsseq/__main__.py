@@ -69,7 +69,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "4.0.1"     # Semantic Versioning 2.0.0
+VERSION = "4.1.0"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -500,6 +500,68 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
 
     formatStr = "%0" + str(padding) + "d"
 
+    # Gather up the various lists of problem frames. Prior to v4.0.1 this logic
+    # was under the "native" handling of the printing of the sequences, but in
+    # v4.1.0 was moved here to allow for support of new --split-sequence option
+    # because we need the list of missing frames for ALL formats..
+    #
+    i = minFrame
+    while i <= maxFrame :
+        iMissing = False
+        currFrameData = uniqueFrameList[0]
+        if i != currFrameData[FRAME_NUM] :
+            iMissing = True
+            if args.showMissing :
+                missingFrames.append(i)
+        else :
+            uniqueFrameList.pop(0)
+
+        if not iMissing :
+            if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
+                if not args.silent :
+                    actualFilename = actualImageName(filenameKey, padding, i)
+                    sys.stdout.flush()
+                    sys.stderr.flush()
+                    print(PROG_NAME, ": warning: ",
+                        end='', sep='', file=sys.stderr)
+                    if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+                        print(traversedPath, sep='', end='', file=sys.stderr)
+                        print(os.path.basename(actualFilename),
+                            " is a broken soft link", sep='', file=sys.stderr)
+                    else :
+                        print(actualFilename, " is a broken soft link", sep='', file=sys.stderr)
+                    sys.stderr.flush()
+                gExitStatus = gExitStatus | EXIT_LSSEQ_SOFTLINK_WARNING
+
+        # Only gather up the other lists of problem frames (that is, besides the
+        # missing-frame) when format is "native".
+        #
+        if not iMissing and args.seqFormat == 'native' and \
+                (args.showZero or args.showBad or args.showBadPadding) :
+            if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
+                if args.showZero :
+                    zeroFrames.append(i)
+                elif args.showBad :
+                    badFrames.append(i)
+
+            # File-size issues.
+            #
+            elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
+                zeroFrames.append(i)
+            elif args.showBad and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
+                badFrames.append(i)
+
+            # Bad padding occurs when a number is padded, but shouldn't be,
+            # or isn't padded, but it should be.
+            #
+            if args.showBadPadding and (\
+                    (currFrameData[FRAME_PADDING] > len(str(i)) and \
+                     currFrameData[FRAME_PADDING] > padding) \
+                        or \
+                    currFrameData[FRAME_PADDING] < padding) :
+                badPadFrames.append(i)
+        i += 1
+
     if args.seqFormat == 'nuke' :
         if minFrame == maxFrame :
             fileComponents[1] = (formatStr % minFrame)
@@ -596,62 +658,6 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
         print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
 
     else : # native
-
-        # Gather up the various lists of problem frames.
-        # Only needed in native format listings.
-        #
-        i = minFrame
-        while i <= maxFrame :
-            iMissing = False
-            currFrameData = uniqueFrameList[0]
-            if i != currFrameData[FRAME_NUM] :
-                iMissing = True
-                if args.showMissing :
-                    missingFrames.append(i)
-            else :
-                uniqueFrameList.pop(0)
-
-            if not iMissing :
-                if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
-                    if not args.silent :
-                        actualFilename = actualImageName(filenameKey, padding, i)
-                        sys.stdout.flush()
-                        sys.stderr.flush()
-                        print(PROG_NAME, ": warning: ",
-                            end='', sep='', file=sys.stderr)
-                        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-                            print(traversedPath, sep='', end='', file=sys.stderr)
-                            print(os.path.basename(actualFilename),
-                                " is a broken soft link", sep='', file=sys.stderr)
-                        else :
-                            print(actualFilename, " is a broken soft link", sep='', file=sys.stderr)
-                        sys.stderr.flush()
-                    gExitStatus = gExitStatus | EXIT_LSSEQ_SOFTLINK_WARNING
-
-            if not iMissing and (args.showZero or args.showBad or args.showBadPadding) :
-                if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
-                    if args.showZero :
-                        zeroFrames.append(i)
-                    elif args.showBad :
-                        badFrames.append(i)
-
-                # File-size issues.
-                #
-                elif args.showZero and currFrameData[FRAME_SIZE] == 0 :
-                    zeroFrames.append(i)
-                elif args.showBad and (currFrameData[FRAME_SIZE] < args.goodFrameMinSize) :
-                    badFrames.append(i)
-
-                # Bad padding occurs when a number is padded, but shouldn't be,
-                # or isn't padded, but it should be.
-                #
-                if args.showBadPadding and (\
-                        (currFrameData[FRAME_PADDING] > len(str(i)) and \
-                         currFrameData[FRAME_PADDING] > padding) \
-                            or \
-                        currFrameData[FRAME_PADDING] < padding) :
-                    badPadFrames.append(i)
-            i += 1
 
         if minFrame == maxFrame :
             frameRange = "[" \
@@ -1338,8 +1344,16 @@ def main() :
     p.add_argument("--no-error-lists", "-n", help = "Skip printing ALL error lists. \
         Note: Setting --show-bad-padding (for example) AFTER this \
         option on the command line has the effect of ONLY \
-        showing the badPadding error list ", \
+        showing the bad-padding error list ", \
         action = store_false_multiple("showMissing", "showZero", "showBad", "showBadPadding"))
+
+    p.add_argument("--split-sequence", action="store_true",
+        dest="splitSeq", default=True,
+        help="xxx" )
+    p.add_argument("--no-split-sequence", action="store_false",
+        dest="showZero",
+        help="yyy" )
+
     p.add_argument("--loose-num-separator", "-l", action="store_false",
         dest="strictSeparator",
         help="allow the use of '_' (underscore), in addition to '.' (dot) \
@@ -1512,8 +1526,10 @@ def main() :
     #
 
     if args.printImgExtensions :
-        print(PROG_NAME, ": Modify the following environment variables to extend the supported file types.", sep='')
-        print("       NOTE: ", PROG_NAME, " also recognizes the following extensions when uppercase.", sep='')
+        print(PROG_NAME,
+            ": Modify the following environment variables to extend the supported file types.", sep='')
+        print("       NOTE: ", PROG_NAME,
+            " also recognizes the following extensions when uppercase.", sep='')
         extList = ":".join(gImageExtList)
         print("  export LSSEQ_IMAGE_EXTENSION=", extList, sep='')
         extList = ":".join(gMovieExtList)
