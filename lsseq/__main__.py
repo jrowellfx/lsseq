@@ -405,6 +405,9 @@ def actualImageName(filenameKey, padding, frame) :
 # Prints an individual sequence based on cmd-line-args.
 # frameList comes in sorted from smallest frame number to largest.
 #
+# As of v4.1.0 - also prints an individual sequence as multiple
+# sequences (with the same name) if --split-sequence was invoked.
+#
 def printSeq(filenameKey, frameList, args, traversedPath) :
 
     global gExitStatus
@@ -562,6 +565,40 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                 badPadFrames.append(i)
         i += 1
 
+    # To support `--split-sequence' we need to split one sequence
+    # into multiple sequences based on any missing frames.
+    # 
+    # We will make use of a list of tuples of the form.
+    # (minFrame, maxFrame, missingFrames[], zeroFrames[], badFrames[], badPadFrames[])
+    # 
+    # Unless --split-sequence is active then the list of tuples will only
+    # be one entry long.
+    #
+    # Note: Padding will always be the same for the split-sequences no need to stash
+    #       it per split-sequence.
+    #
+    splitSeqList = [] # The list of tuples.
+    #
+    MINFRAME_IND = 0
+    MAXFRAME_IND = 1
+    MISSING_IND  = 2
+    ZERO_IND     = 3
+    BAD_IND      = 4
+    BADPAD_IND   = 5
+
+    # Nuke format looks like this for example (from nuke read-node dialog):
+    #
+    #     file1.#.ext 10-80
+    #     file2.#.ext 10-80 (10-20 22-80)
+    #
+    # The second sequence as above if frame 21 is missing. Note: nuke ALWAYS
+    # list missing frames as above (so lsseq should also regardless of --skip-missing).
+    # Alternatively if split seq is toggled-on in the nuke read-node dialog
+    # then it would list file2's sequence as follows:
+    #
+    #     file2.#.ext 10-20
+    #     file2.#.ext 22-80
+    #
     if args.seqFormat == 'nuke' :
         if minFrame == maxFrame :
             fileComponents[1] = (formatStr % minFrame)
