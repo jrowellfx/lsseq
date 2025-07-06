@@ -688,216 +688,226 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                 subSeqBadPadFrames ) )
             splitList.pop(0)
 
-    # Nuke format looks like this for example (from nuke read-node dialog):
-    #
-    #     file1.#.ext 10-80
-    #     file2.#.ext 10-80 (10-20 22-80)
-    #
-    # The second sequence as above if frame 21 is missing. Note: nuke ALWAYS
-    # list missing frames as above (so lsseq should also regardless of --skip-missing).
-    # Alternatively if split seq is toggled-on in the nuke read-node dialog
-    # then it would list file2's sequence as follows:
-    #
-    #     file2.#.ext 10-20
-    #     file2.#.ext 22-80
-    #
-    if args.seqFormat == 'nuke' :
-        if minFrame == maxFrame :
-            fileComponents[1] = (formatStr % minFrame)
-        else :
-            fileComponents[1] = "%0" + str(padding) + "d"
-        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-            # Strip off any leading "./" from traversedPath. (added v3.0.1)
-            #
-            if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
-                sys.stdout.write(traversedPath[2:])
+    while len(splitSeqList) > 0 :
+        minFrame      = splitSeqList[0][MINFRAME_IND]
+        maxFrame      = splitSeqList[0][MAXFRAME_IND]
+        missingFrames = splitSeqList[0][MISSING_IND]
+        zeroFrames    = splitSeqList[0][ZERO_IND]
+        badFrames     = splitSeqList[0][BAD_IND]
+        badPadFrames  = splitSeqList[0][BADPAD_IND]
+
+        # Nuke format looks like this for example (from nuke read-node dialog):
+        #
+        #     file1.#.ext 10-80
+        #     file2.#.ext 10-80 (10-20 22-80)
+        #
+        # The second sequence as above if frame 21 is missing. Note: nuke ALWAYS
+        # list missing frames as above (so lsseq should also regardless of --skip-missing).
+        # Alternatively if split seq is toggled-on in the nuke read-node dialog
+        # then it would list file2's sequence as follows:
+        #
+        #     file2.#.ext 10-20
+        #     file2.#.ext 22-80
+        #
+        if args.seqFormat == 'nuke' :
+            if minFrame == maxFrame :
+                fileComponents[1] = (formatStr % minFrame)
             else :
-                sys.stdout.write(traversedPath)
-        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
-        if minFrame == maxFrame :
-            print()
-        else :
-            print(" ", str(minFrame), "-", str(maxFrame), sep='')
-
-    elif args.seqFormat == 'shake' :
-        if minFrame == maxFrame :
-            fileComponents[1] = (formatStr % minFrame)
-        else :
-            if padding == 4 :
-                fileComponents[1] = "#"
-            else :
-                fileComponents[1] = "@"*padding
-
-        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-            # Strip off any leading "./" from traversedPath. (added v3.0.1)
-            #
-            if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
-                sys.stdout.write(traversedPath[2:])
-            else :
-                sys.stdout.write(traversedPath)
-
-        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
-        if minFrame == maxFrame :
-            print("")
-        else :
-            print(" -t ", str(minFrame), "-", str(maxFrame), " ", sep='')
-
-    elif args.seqFormat == 'glob' :
-        if minFrame < 0 :
-            fileComponents[1] = "[\-0-9]"
-        else :
-            fileComponents[1] = "[0-9]"
-        if padding > 1 :
-            fileComponents[1] = fileComponents[1] + "[0-9]"*(padding-1)
-
-        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-            # Strip off any leading "./" from traversedPath. (added v3.0.1)
-            #
-            if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
-                sys.stdout.write(traversedPath[2:])
-            else :
-                sys.stdout.write(traversedPath)
-        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
-
-    elif args.seqFormat == 'houdini' or args.seqFormat == 'mplay' :
-        if minFrame == maxFrame :
-            fileComponents[1] = (formatStr % minFrame)
-        else :
-            fileComponents[1] = "$F"
-            if args.seqFormat == 'mplay' :
-                fileComponents[1] = "\$F"
-            if padding >= 2 :
-                fileComponents[1] += str(padding)
-        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-            # Strip off any leading "./" from traversedPath. (added v3.0.1)
-            #
-            if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
-                sys.stdout.write(traversedPath[2:])
-            else :
-                sys.stdout.write(traversedPath)
-        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
-
-    elif args.seqFormat == 'rv' :
-        if minFrame == maxFrame :
-            frameRange = (formatStr % minFrame)
-        else :
-            padStr = '@' * padding
-            if padding == 4 :
-                padStr = '#'
-            frameRange = str(minFrame) + "-" + str(maxFrame) + padStr
-        fileComponents[1] = frameRange
-
-        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-            # Strip off any leading "./" from traversedPath. (added v3.0.1)
-            #
-            if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
-                sys.stdout.write(traversedPath[2:])
-            else :
-                sys.stdout.write(traversedPath)
-        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
-
-    else : # native
-
-        if minFrame == maxFrame :
-            frameRange = "[" \
-                + (formatStr % minFrame) \
-                + "]"
-        else :
-            frameRange = "[" \
-                + (formatStr % minFrame) \
-                + "-" \
-                + (formatStr % maxFrame) \
-                + "]"
-        fileComponents[1] = frameRange
-
-        if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
-
-            # Strip off any leading "./" from traversedPath. (added v3.0.1)
-            #
-            if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
-                sys.stdout.write(traversedPath[2:])
-            else :
-                sys.stdout.write(traversedPath)
-
-        if args.extremes :
-            fileComponents[1] = formatStr % minFrame
-        print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
-        if minFrame != maxFrame and args.extremes :
-            print()
-            if fileComponents[0][0] != '/' :
+                fileComponents[1] = "%0" + str(padding) + "d"
+            if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
                 # Strip off any leading "./" from traversedPath. (added v3.0.1)
                 #
                 if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
                     sys.stdout.write(traversedPath[2:])
                 else :
                     sys.stdout.write(traversedPath)
-            fileComponents[1] = formatStr % maxFrame
             print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
+            if minFrame == maxFrame :
+                print()
+            else :
+                print(" ", str(minFrame), "-", str(maxFrame), sep='')
 
-        if args.combineErrorFrames :
-            errFrames = missingFrames + zeroFrames + badFrames + badPadFrames
-            frameSeq = seqLister.condenseSeq(errFrames)
-            if len(frameSeq) > 0 :
-                sys.stdout.write(" e:[")
-                doPrintComma = False
-                for f in frameSeq :
-                    if doPrintComma :
-                        sys.stdout.write(",")
-                    sys.stdout.write(f)
-                    doPrintComma = True
-                sys.stdout.write("]")
-            print()
-        else :
-            missingFrameSeq = seqLister.condenseSeq(missingFrames)
-            if len(missingFrameSeq) > 0 :
-                sys.stdout.write(" m:[")
-                doPrintComma = False
-                for f in missingFrameSeq :
-                    if doPrintComma :
-                        sys.stdout.write(",")
-                    sys.stdout.write(f)
-                    doPrintComma = True
-                sys.stdout.write("]")
-            zeroFrameSeq = seqLister.condenseSeq(zeroFrames)
-            if len(zeroFrameSeq) > 0 :
+        elif args.seqFormat == 'shake' :
+            if minFrame == maxFrame :
+                fileComponents[1] = (formatStr % minFrame)
+            else :
+                if padding == 4 :
+                    fileComponents[1] = "#"
+                else :
+                    fileComponents[1] = "@"*padding
+
+            if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+                # Strip off any leading "./" from traversedPath. (added v3.0.1)
+                #
+                if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                    sys.stdout.write(traversedPath[2:])
+                else :
+                    sys.stdout.write(traversedPath)
+
+            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
+            if minFrame == maxFrame :
+                print("")
+            else :
+                print(" -t ", str(minFrame), "-", str(maxFrame), " ", sep='')
+
+        elif args.seqFormat == 'glob' :
+            if minFrame < 0 :
+                fileComponents[1] = "[\-0-9]"
+            else :
+                fileComponents[1] = "[0-9]"
+            if padding > 1 :
+                fileComponents[1] = fileComponents[1] + "[0-9]"*(padding-1)
+
+            if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+                # Strip off any leading "./" from traversedPath. (added v3.0.1)
+                #
+                if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                    sys.stdout.write(traversedPath[2:])
+                else :
+                    sys.stdout.write(traversedPath)
+            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
+
+        elif args.seqFormat == 'houdini' or args.seqFormat == 'mplay' :
+            if minFrame == maxFrame :
+                fileComponents[1] = (formatStr % minFrame)
+            else :
+                fileComponents[1] = "$F"
+                if args.seqFormat == 'mplay' :
+                    fileComponents[1] = "\$F"
+                if padding >= 2 :
+                    fileComponents[1] += str(padding)
+            if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+                # Strip off any leading "./" from traversedPath. (added v3.0.1)
+                #
+                if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                    sys.stdout.write(traversedPath[2:])
+                else :
+                    sys.stdout.write(traversedPath)
+            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
+
+        elif args.seqFormat == 'rv' :
+            if minFrame == maxFrame :
+                frameRange = (formatStr % minFrame)
+            else :
+                padStr = '@' * padding
+                if padding == 4 :
+                    padStr = '#'
+                frameRange = str(minFrame) + "-" + str(maxFrame) + padStr
+            fileComponents[1] = frameRange
+
+            if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+                # Strip off any leading "./" from traversedPath. (added v3.0.1)
+                #
+                if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                    sys.stdout.write(traversedPath[2:])
+                else :
+                    sys.stdout.write(traversedPath)
+            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
+
+        else : # native
+
+            if minFrame == maxFrame :
+                frameRange = "[" \
+                    + (formatStr % minFrame) \
+                    + "]"
+            else :
+                frameRange = "[" \
+                    + (formatStr % minFrame) \
+                    + "-" \
+                    + (formatStr % maxFrame) \
+                    + "]"
+            fileComponents[1] = frameRange
+
+            if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+
+                # Strip off any leading "./" from traversedPath. (added v3.0.1)
+                #
+                if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                    sys.stdout.write(traversedPath[2:])
+                else :
+                    sys.stdout.write(traversedPath)
+
+            if args.extremes :
+                fileComponents[1] = formatStr % minFrame
+            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
+            if minFrame != maxFrame and args.extremes :
+                print()
+                if fileComponents[0][0] != '/' :
+                    # Strip off any leading "./" from traversedPath. (added v3.0.1)
+                    #
+                    if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
+                        sys.stdout.write(traversedPath[2:])
+                    else :
+                        sys.stdout.write(traversedPath)
+                fileComponents[1] = formatStr % maxFrame
+                print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
+
+            if args.combineErrorFrames :
+                errFrames = missingFrames + zeroFrames + badFrames + badPadFrames
+                frameSeq = seqLister.condenseSeq(errFrames)
+                if len(frameSeq) > 0 :
+                    sys.stdout.write(" e:[")
+                    doPrintComma = False
+                    for f in frameSeq :
+                        if doPrintComma :
+                            sys.stdout.write(",")
+                        sys.stdout.write(f)
+                        doPrintComma = True
+                    sys.stdout.write("]")
+                print()
+            else :
+                missingFrameSeq = seqLister.condenseSeq(missingFrames)
                 if len(missingFrameSeq) > 0 :
-                    sys.stdout.write(",")
-                sys.stdout.write(" z:[")
-                doPrintComma = False
-                for f in zeroFrameSeq :
-                    if doPrintComma :
+                    sys.stdout.write(" m:[")
+                    doPrintComma = False
+                    for f in missingFrameSeq :
+                        if doPrintComma :
+                            sys.stdout.write(",")
+                        sys.stdout.write(f)
+                        doPrintComma = True
+                    sys.stdout.write("]")
+                zeroFrameSeq = seqLister.condenseSeq(zeroFrames)
+                if len(zeroFrameSeq) > 0 :
+                    if len(missingFrameSeq) > 0 :
                         sys.stdout.write(",")
-                    sys.stdout.write(f)
-                    doPrintComma = True
-                sys.stdout.write("]")
-            badFrameSeq = seqLister.condenseSeq(badFrames)
-            if len(badFrameSeq) > 0 :
-                if      (len(missingFrameSeq) > 0) or \
-                        (len(zeroFrameSeq) > 0) :
-                    sys.stdout.write(",")
-                sys.stdout.write(" b:[")
-                doPrintComma = False
-                for f in badFrameSeq :
-                    if doPrintComma :
+                    sys.stdout.write(" z:[")
+                    doPrintComma = False
+                    for f in zeroFrameSeq :
+                        if doPrintComma :
+                            sys.stdout.write(",")
+                        sys.stdout.write(f)
+                        doPrintComma = True
+                    sys.stdout.write("]")
+                badFrameSeq = seqLister.condenseSeq(badFrames)
+                if len(badFrameSeq) > 0 :
+                    if      (len(missingFrameSeq) > 0) or \
+                            (len(zeroFrameSeq) > 0) :
                         sys.stdout.write(",")
-                    sys.stdout.write(f)
-                    doPrintComma = True
-                sys.stdout.write("]")
-            badPadFrameSeq = seqLister.condenseSeq(badPadFrames)
-            if len(badPadFrameSeq) > 0 :
-                if      (len(missingFrameSeq) > 0) or \
-                        (len(zeroFrameSeq) > 0) or \
-                        (len(badFrameSeq) > 0) :
-                    sys.stdout.write(",")
-                sys.stdout.write(" p:[")
-                doPrintComma = False
-                for f in badPadFrameSeq :
-                    if doPrintComma :
+                    sys.stdout.write(" b:[")
+                    doPrintComma = False
+                    for f in badFrameSeq :
+                        if doPrintComma :
+                            sys.stdout.write(",")
+                        sys.stdout.write(f)
+                        doPrintComma = True
+                    sys.stdout.write("]")
+                badPadFrameSeq = seqLister.condenseSeq(badPadFrames)
+                if len(badPadFrameSeq) > 0 :
+                    if      (len(missingFrameSeq) > 0) or \
+                            (len(zeroFrameSeq) > 0) or \
+                            (len(badFrameSeq) > 0) :
                         sys.stdout.write(",")
-                    sys.stdout.write(f)
-                    doPrintComma = True
-                sys.stdout.write("]")
-            print()
+                    sys.stdout.write(" p:[")
+                    doPrintComma = False
+                    for f in badPadFrameSeq :
+                        if doPrintComma :
+                            sys.stdout.write(",")
+                        sys.stdout.write(f)
+                        doPrintComma = True
+                    sys.stdout.write("]")
+                print()
+
+        splitSeqList.pop(0)
 
 def stripDotFiles(dirContents, stripIt) :
     if not stripIt :
@@ -1487,7 +1497,7 @@ def main() :
         action = store_false_multiple("showMissing", "showZero", "showBad", "showBadPadding"))
 
     p.add_argument("--split-sequence", action="store_true",
-        dest="splitSeq", default=True,
+        dest="splitSeq", default=False,
         help="xxx" )
     p.add_argument("--no-split-sequence", action="store_false",
         dest="showZero",
