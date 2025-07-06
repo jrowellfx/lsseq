@@ -402,6 +402,81 @@ def actualImageName(filenameKey, padding, frame) :
     formatStr = "{0:0=-" + str(padding) + "d}"
     return fileParts[0] + formatStr.format(frame) + "." + fileParts[2]
 
+# Given the string "seq" then extract two integers for the start
+# and end frames and return them as a two-tuple.
+#
+# seq might be range with neg numbers. Assume N,M >= 0,
+# then there are only 5 seq cases that we need to be
+# concerned with: N, -N, N-M, -N-M, -N--M,
+# where -N or N is always less than or equal to -M or M.
+#
+# Code added in v4.1.0, stolen, then modifed, from renumseq v2.1.0
+#     Furthermore, as of v4.1.0 this function will only ever be
+#     called with output from seqLister.condenseSeqOnes() so
+#     the input arg "seq" will always be a valid sequence string
+#     of the above described form. Note: some exception handling
+#     that existed in the renumseq implementation of this isn't needed.
+#
+def extractStartEnd(seq) :
+
+    negStart = 1
+    negEnd = 1
+    startStr = "0"
+    endStr = "0"
+    frRange = seq.split("-")
+
+    # Invalid syntax will never happen.
+    #
+    # if len(frRange) > 4 :
+        # return (0, 0) # Doesn't matter contents.
+
+    if len(frRange) == 1 : # Just N
+        startStr = frRange[0]
+        endStr = frRange[0]
+
+    elif len(frRange) == 2 : # minus-N OR N-M
+        if frRange[0] == '' : # Leading minus sign.
+            negStart = -1
+            negEnd = -1
+            startStr = frRange[1]
+            endStr = frRange[1]
+        else :
+            startStr = frRange[0]
+            endStr = frRange[1]
+
+    elif len(frRange) == 3 : # neg-N to M
+
+        # Not leading minus sign! Invalid systax.
+        #
+        # if frRange[0] != '' :
+            # Will never happen so doesn't matter
+            # what's returned.
+            # return (0, 0)
+
+        negStart = -1
+        startStr = frRange[1]
+        endStr = frRange[2]
+
+    elif len(frRange) == 4 : # neg-N to neg-M
+
+        # Not leading minus signs! Invalid syntax.
+        #
+        # if frRange[0] != '' or frRange[2] != '' :
+            # Will never happen so doesn't matter
+            # what's returned.
+            # return (0, 0)
+
+        negStart = -1
+        negEnd = -1
+        startStr = frRange[1]
+        endStr = frRange[3]
+
+    start = int(startStr) * negStart
+    end = int(endStr) * negEnd
+
+    return (start, end)
+
+
 # Prints an individual sequence based on cmd-line-args.
 # frameList comes in sorted from smallest frame number to largest.
 #
@@ -571,8 +646,8 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
     # We will make use of a list of tuples of the form.
     # (minFrame, maxFrame, missingFrames[], zeroFrames[], badFrames[], badPadFrames[])
     # 
-    # Unless --split-sequence is active then the list of tuples will only
-    # be one entry long.
+    # Unless --split-sequence is active AND there are actually missing frames
+    # then the list of tuples will only be one entry long.
     #
     # Note: Padding will always be the same for the split-sequences no need to stash
     #       it per split-sequence.
@@ -585,6 +660,33 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
     ZERO_IND     = 3
     BAD_IND      = 4
     BADPAD_IND   = 5
+
+    if not args.splitSeq or len(missingFrames) == 0 :
+        splitSeqList.append((minFrame, maxFrame, missingFrames, zeroFrames, badFrames, badPadFrames))
+    else :
+        zeroFramesSet   = set(zeroFrames)
+        badFramesSet    = set(badFrames)
+        badPadFramesSet = set(badPadFrames)
+
+        splitSet = set(seqLister.expandSeq(str(minFrame)+"-"+str(maxFrame))).difference(set(missingFrames))
+
+        splitList = seqLister.condenseSeqOnes(list(splitSet), 1) # One padding.
+
+        while len(splitList) > 0 :
+            startAndEnd = extractStartEnd(splitList[0])
+            start = startAndEnd[0]
+            end = startAndEnd[1]
+            subSeqSet = set(seqLister.expandSeq(str(start) + "-" + str(end)))
+            subSeqMissingFrames = [] # Always EMPTY by defintion of --split-sequence.
+            subSeqZeroFrames = list(subSeqSet.intersection(zeroFramesSet))
+            subSeqBadFrames = list(subSeqSet.intersection(badFramesSet))
+            subSeqBadPadFrames = list(subSeqSet.intersection(badPadFramesSet))
+            splitSeqList.append( ( start, end,
+                subSeqMissingFrames,
+                subSeqZeroFrames,
+                subSeqBadFrames,
+                subSeqBadPadFrames ) )
+            splitList.pop(0)
 
     # Nuke format looks like this for example (from nuke read-node dialog):
     #
