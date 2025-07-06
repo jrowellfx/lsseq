@@ -4,7 +4,7 @@
 Linux
 
 ----- Test 2 -+- dir: . -+- lsseq --version -----
-4.0.1
+4.1.0
 
 ----- Test 3 -+- dir: . -+- lsseq --help -----
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
@@ -60,7 +60,15 @@ optional arguments:
   --no-combine-lists    Don't combine the error lists
   --no-error-lists, -n  Skip printing ALL error lists. Note: Setting --show-bad-padding (for
                         example) AFTER this option on the command line has the effect of ONLY
-                        showing the badPadding error list
+                        showing the bad-padding error list
+  --split-sequence      prints sequences with missing frames as separate sequences as if there are
+                        multiple sequences with the same name, but with different frame ranges.
+                        Note: this option only affects the printing of a sequence, not in how
+                        sequence times are calculated. In other words, sorting by time might not
+                        produce the results you would expect when splitting sequences with this
+                        option.
+  --no-split-sequence   consider frames with the same name as all being part of the same sequence.
+                        [default]
   --loose-num-separator, -l
                         allow the use of '_' (underscore), in addition to '.' (dot) as a separator
                         between the descriptiveName and frameNumber when looking to interpret
@@ -3031,8 +3039,8 @@ vvvv
 xxxx
 yyyy
 zzzz
-ccc01.%03d.exr 1-120
-ccc02.%03d.exr 1-120
+ccc01.%03d.exr 1-120 (1-2 4-120)
+ccc02.%03d.exr 1-120 (1-50 52-118 120)
 ccc03.%02d.tga 80-140
 
 ----- Test 25 -+- dir: testdir/cdir -+- lsseq -fshake -----
@@ -6717,25 +6725,292 @@ b b.01.[001-030].exr
 bbb.01.[001-120].exr
 bbb.02.[001-120].tif
 
------ Test 160 -+- dir: . -+- lsseq -i -----
+----- Test 160 -+- dir: testdir -+- lsseq --quiet --recursive --prepend-path-rel ?dir -----
+adir/aaa.[001-120].exr z:[12,49]
+adir/lrtm01_beauty02.[001-120].exr z:[11]
+bdir/b b.01.[001-030].exr z:[1-30]
+bdir/bbb.01.[001-120].exr z:[21]
+bdir/bbb.02.[001-120].tif
+bdir/b_subdir/b b.01.[001-030].exr z:[1-30]
+bdir/b_subdir/bbb.02.[008-095].tif
+bdir/b_subdir withSpace/b b.01.[001-030].exr z:[1-30]
+bdir/b_subdir withSpace/bbb.01.[001-120].exr z:[1-120]
+bdir/b_subdir withSpace/bbb.02.[001-120].tif z:[1-120]
+cdir/ccc01.[001-120].exr m:[3], z:[52-55]
+cdir/ccc02.[001-120].exr m:[51,119]
+cdir/ccc03.[80-140].tga
+cdir/c_subDir/ccc01.[001-120].exr m:[3], z:[52-55]
+ddir/dddA.[-010-0017].exr
+ddir/dddB.[-10-17].exr
+ddir/dddC.[-10--3].exr
+fdir/aaa.[-02-002].png
+fdir/bbb.[-009-0010].jpg
+fdir/ccc.[004].jpg
+fdir/ddd.[-08].jpg
+fdir/xxx.[01989-02013].png
+gdir/ccc01.[001-120].ass m:[3]
+gdir/ccc02.[001-120].ass m:[51,119]
+gdir/ccc03.[80-140].fur
+gdir/ggg01.[090-105].bgeo.sc z:[90-105]
+gdir/xxx01.mov
+gdir/xxx02.mov
+hdir/foo/v001/hhh01.[0001-0040].jpg
+hdir/foo/v001/hhh02.[0001-0040].jpg
+hdir/foo/v001/hhh03.[0001-0040].jpg
+hdir/foo/v002/hhh01.[0001-0040].jpg
+hdir/foo/v002/hhh02.[0001-0040].jpg
+hdir/foo/v002/hhh03.[0001-0040].jpg
+hdir/foo/v003/hhh01.[0001-0040].jpg
+hdir/foo/v003/hhh02.[0001-0040].jpg
+hdir/foo/v003/hhh03.[0001-0040].jpg
+hdir/v001/hhh01.[0001-0040].jpg
+hdir/v001/hhh02.[0001-0040].jpg
+hdir/v001/hhh03.[0001-0040].jpg
+hdir/v002/hhh01.[0001-0040].jpg
+hdir/v002/hhh02.[0001-0040].jpg
+hdir/v002/hhh03.[0001-0040].jpg
+hdir/v003/hhh01.[0001-0040].jpg
+hdir/v003/hhh02.[0001-0040].jpg
+hdir/v003/hhh03.[0001-0040].jpg
+idir/v001/iii01.[0001-0040].jpg
+idir/v001/iii02.[0001-0040].jpg
+idir/v001/iii03.[0001-0040].jpg
+idir/v002/iii01.[01-10].jpg p:[2-10]
+idir/v002/iii02.[1-10].jpg p:[2-10]
+idir/v002/iii03.[0001-0010].jpg z:[5]
+jdir/beauty/v001/filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1001]
+jdir/beauty/v002/filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,98,101-102,1000-1002]
+jdir/j01/j.[0100-0140].jpg m:[101,134-139], z:[100,102-133,140], p:[102-105,131-133,140]
+jdir/j02/j.[0100-0140].jpg m:[101,134-139], z:[100,102-133,140], p:[102-105,108,119-120,126]
+jdir/j03/j01.[1-9].jpg z:[1-9], p:[2-9]
+jdir/j03/j02.[001-009].jpg z:[1-9], p:[2,9]
+jdir/j03/j03.[001-009].jpg z:[1-9], p:[5]
+jdir/j03/j04.[-10-010].jpg z:[-10-10], p:[-7,1,10]
+kdir/aaa.0001.exr/parentDirWeird.[001-002].exr z:[1-2]
+kdir/bbb.01.jpg/anotherWeirdParentDir.[09-10].jpg z:[9-10]
+kdir/bbb.02.jpg/handleThis.[07-13].jpg z:[7-13]
+ldir/a.[01-21].JPG m:[9-14]
+ldir/a.[09-14].jpg
+mdir/a.[098-102].avif z:[98-102]
+mdir/b.[098-102].heic z:[98-102]
+mdir/c.[098-102].heif z:[98-102]
+ndir/nnn_v01.[0005-0015].jpg
+ndir/nnn_v02.[0005-0015].jpg
+ndir/nnn_v03.[0005-0015].jpg
+ndir/nnn_v04.[0005-0015].jpg
+ndir/nnn_v05.[0005-0015].jpg
+pdir/p_median4_v01.[08-12].jpg z:[8-12]
+pdir/p_median4_v02.[08-12].jpg z:[8-12]
+pdir/p_median4_v03.[08-12].jpg z:[8-12]
+pdir/p01_dir/p01_median2_v01.[08-12].jpg z:[8-12]
+pdir/p01_dir/p01_median2_v02.[08-12].jpg z:[8-12]
+pdir/p01_dir/p01_median2_v03.[08-12].jpg z:[8-12]
+pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg z:[8-12]
+pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg z:[8-12]
+pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg z:[8-12]
+pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg z:[8-12]
+pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg z:[8-12]
+pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02_median5_v01.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02_median5_v02.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02_median5_v03.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg z:[8-12]
+qdir/q1Dir/qqq.[001-005].jpg z:[1-5]
+qdir/q2Dir/qqq.[002-006].jpg z:[2-6]
+qdir/q3Dir/qqq.[003-007].jpg z:[3-7]
+rdir/r1.[001-015].jpg z:[1-15]
+rdir/r2.[101-115].jpg z:[101-115]
+rdir/rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rdir/rrr01.[090-105].bgeo.sc z:[90-105]
+rdir/rrr01.mov
+rdir/rrr02.[001-015].ass z:[1-15]
+rdir/rrr02.mov
+rdir/rrr03.[100-115].fur z:[100-115]
+rdir/rSub01/r1.[001-015].jpg z:[1-15]
+rdir/rSub01/r2.[101-115].jpg z:[101-115]
+rdir/rSub01/rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rdir/rSub01/rrr01.[090-105].bgeo.sc z:[90-105]
+rdir/rSub01/rrr01.mov
+rdir/rSub01/rrr02.[001-015].ass z:[1-15]
+rdir/rSub01/rrr02.mov
+rdir/rSub01/rrr03.[100-115].fur z:[100-115]
+rdir/rSub02/r1.[001-015].jpg z:[1-15]
+rdir/rSub02/r2.[101-115].jpg z:[101-115]
+rdir/rSub02/rrr01.[001-015].ass m:[3], z:[1-2,4-15]
+rdir/rSub02/rrr01.[090-105].bgeo.sc z:[90-105]
+rdir/rSub02/rrr01.mov
+rdir/rSub02/rrr02.[001-015].ass z:[1-15]
+rdir/rSub02/rrr02.mov
+rdir/rSub02/rrr03.[100-115].fur z:[100-115]
+--+-- Test 160: lsseq returned non-zero error code: 12  --+--
+
+----- Test 161 -+- dir: testdir -+- lsseq --quiet --recursive --prepend-path-rel --split-sequence ?dir -----
+adir/aaa.[001-120].exr z:[12,49]
+adir/lrtm01_beauty02.[001-120].exr z:[11]
+bdir/b b.01.[001-030].exr z:[1-30]
+bdir/bbb.01.[001-120].exr z:[21]
+bdir/bbb.02.[001-120].tif
+bdir/b_subdir/b b.01.[001-030].exr z:[1-30]
+bdir/b_subdir/bbb.02.[008-095].tif
+bdir/b_subdir withSpace/b b.01.[001-030].exr z:[1-30]
+bdir/b_subdir withSpace/bbb.01.[001-120].exr z:[1-120]
+bdir/b_subdir withSpace/bbb.02.[001-120].tif z:[1-120]
+cdir/ccc01.[001-002].exr
+cdir/ccc01.[004-120].exr z:[52-55]
+cdir/ccc02.[001-050].exr
+cdir/ccc02.[052-118].exr
+cdir/ccc02.[120].exr
+cdir/ccc03.[80-140].tga
+cdir/c_subDir/ccc01.[001-002].exr
+cdir/c_subDir/ccc01.[004-120].exr z:[52-55]
+ddir/dddA.[-010-0017].exr
+ddir/dddB.[-10-17].exr
+ddir/dddC.[-10--3].exr
+fdir/aaa.[-02-002].png
+fdir/bbb.[-009-0010].jpg
+fdir/ccc.[004].jpg
+fdir/ddd.[-08].jpg
+fdir/xxx.[01989-02013].png
+gdir/ccc01.[001-002].ass
+gdir/ccc01.[004-120].ass
+gdir/ccc02.[001-050].ass
+gdir/ccc02.[052-118].ass
+gdir/ccc02.[120].ass
+gdir/ccc03.[80-140].fur
+gdir/ggg01.[090-105].bgeo.sc z:[90-105]
+gdir/xxx01.mov
+gdir/xxx02.mov
+hdir/foo/v001/hhh01.[0001-0040].jpg
+hdir/foo/v001/hhh02.[0001-0040].jpg
+hdir/foo/v001/hhh03.[0001-0040].jpg
+hdir/foo/v002/hhh01.[0001-0040].jpg
+hdir/foo/v002/hhh02.[0001-0040].jpg
+hdir/foo/v002/hhh03.[0001-0040].jpg
+hdir/foo/v003/hhh01.[0001-0040].jpg
+hdir/foo/v003/hhh02.[0001-0040].jpg
+hdir/foo/v003/hhh03.[0001-0040].jpg
+hdir/v001/hhh01.[0001-0040].jpg
+hdir/v001/hhh02.[0001-0040].jpg
+hdir/v001/hhh03.[0001-0040].jpg
+hdir/v002/hhh01.[0001-0040].jpg
+hdir/v002/hhh02.[0001-0040].jpg
+hdir/v002/hhh03.[0001-0040].jpg
+hdir/v003/hhh01.[0001-0040].jpg
+hdir/v003/hhh02.[0001-0040].jpg
+hdir/v003/hhh03.[0001-0040].jpg
+idir/v001/iii01.[0001-0040].jpg
+idir/v001/iii02.[0001-0040].jpg
+idir/v001/iii03.[0001-0040].jpg
+idir/v002/iii01.[01-10].jpg p:[2-10]
+idir/v002/iii02.[1-10].jpg p:[2-10]
+idir/v002/iii03.[0001-0010].jpg z:[5]
+jdir/beauty/v001/filename.[0007-0013].jpg z:[7-13], p:[9-10]
+jdir/beauty/v001/filename.[0097-0103].jpg z:[97-103], p:[98,101-102]
+jdir/beauty/v001/filename.[1000-1002].jpg z:[1000-1002], p:[1000-1001]
+jdir/beauty/v002/filename.[0007-0013].jpg z:[7-13], p:[9-10]
+jdir/beauty/v002/filename.[0097-0103].jpg z:[97-103], p:[98,101-102]
+jdir/beauty/v002/filename.[1000-1002].jpg z:[1000-1002], p:[1000-1002]
+jdir/j01/j.[0100].jpg z:[100]
+jdir/j01/j.[0102-0133].jpg z:[102-133], p:[102-105,131-133]
+jdir/j01/j.[0140].jpg z:[140], p:[140]
+jdir/j02/j.[0100].jpg z:[100]
+jdir/j02/j.[0102-0133].jpg z:[102-133], p:[102-105,108,119-120,126]
+jdir/j02/j.[0140].jpg z:[140]
+jdir/j03/j01.[1-9].jpg z:[1-9], p:[2-9]
+jdir/j03/j02.[001-009].jpg z:[1-9], p:[2,9]
+jdir/j03/j03.[001-009].jpg z:[1-9], p:[5]
+jdir/j03/j04.[-10-010].jpg z:[-10-10], p:[-7,1,10]
+kdir/aaa.0001.exr/parentDirWeird.[001-002].exr z:[1-2]
+kdir/bbb.01.jpg/anotherWeirdParentDir.[09-10].jpg z:[9-10]
+kdir/bbb.02.jpg/handleThis.[07-13].jpg z:[7-13]
+ldir/a.[01-08].JPG
+ldir/a.[15-21].JPG
+ldir/a.[09-14].jpg
+mdir/a.[098-102].avif z:[98-102]
+mdir/b.[098-102].heic z:[98-102]
+mdir/c.[098-102].heif z:[98-102]
+ndir/nnn_v01.[0005-0015].jpg
+ndir/nnn_v02.[0005-0015].jpg
+ndir/nnn_v03.[0005-0015].jpg
+ndir/nnn_v04.[0005-0015].jpg
+ndir/nnn_v05.[0005-0015].jpg
+pdir/p_median4_v01.[08-12].jpg z:[8-12]
+pdir/p_median4_v02.[08-12].jpg z:[8-12]
+pdir/p_median4_v03.[08-12].jpg z:[8-12]
+pdir/p01_dir/p01_median2_v01.[08-12].jpg z:[8-12]
+pdir/p01_dir/p01_median2_v02.[08-12].jpg z:[8-12]
+pdir/p01_dir/p01_median2_v03.[08-12].jpg z:[8-12]
+pdir/p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg z:[8-12]
+pdir/p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg z:[8-12]
+pdir/p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg z:[8-12]
+pdir/p01_dir/p02B_dir/p01B_median1_v01.[08-12].jpg z:[8-12]
+pdir/p01_dir/p02B_dir/p01B_median1_v02.[08-12].jpg z:[8-12]
+pdir/p01_dir/p02B_dir/p01B_median1_v03.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02_median5_v01.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02_median5_v02.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02_median5_v03.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02A_dir/p02A_median6_v01.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02A_dir/p02A_median6_v02.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02A_dir/p02A_median6_v03.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02B_dir/p02B_median7_v01.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02B_dir/p02B_median7_v02.[08-12].jpg z:[8-12]
+pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg z:[8-12]
+qdir/q1Dir/qqq.[001-005].jpg z:[1-5]
+qdir/q2Dir/qqq.[002-006].jpg z:[2-6]
+qdir/q3Dir/qqq.[003-007].jpg z:[3-7]
+rdir/r1.[001-015].jpg z:[1-15]
+rdir/r2.[101-115].jpg z:[101-115]
+rdir/rrr01.[001-002].ass z:[1-2]
+rdir/rrr01.[004-015].ass z:[4-15]
+rdir/rrr01.[090-105].bgeo.sc z:[90-105]
+rdir/rrr01.mov
+rdir/rrr02.[001-015].ass z:[1-15]
+rdir/rrr02.mov
+rdir/rrr03.[100-115].fur z:[100-115]
+rdir/rSub01/r1.[001-015].jpg z:[1-15]
+rdir/rSub01/r2.[101-115].jpg z:[101-115]
+rdir/rSub01/rrr01.[001-002].ass z:[1-2]
+rdir/rSub01/rrr01.[004-015].ass z:[4-15]
+rdir/rSub01/rrr01.[090-105].bgeo.sc z:[90-105]
+rdir/rSub01/rrr01.mov
+rdir/rSub01/rrr02.[001-015].ass z:[1-15]
+rdir/rSub01/rrr02.mov
+rdir/rSub01/rrr03.[100-115].fur z:[100-115]
+rdir/rSub02/r1.[001-015].jpg z:[1-15]
+rdir/rSub02/r2.[101-115].jpg z:[101-115]
+rdir/rSub02/rrr01.[001-002].ass z:[1-2]
+rdir/rSub02/rrr01.[004-015].ass z:[4-15]
+rdir/rSub02/rrr01.[090-105].bgeo.sc z:[90-105]
+rdir/rSub02/rrr01.mov
+rdir/rSub02/rrr02.[001-015].ass z:[1-15]
+rdir/rSub02/rrr02.mov
+rdir/rSub02/rrr03.[100-115].fur z:[100-115]
+--+-- Test 161: lsseq returned non-zero error code: 12  --+--
+
+----- Test 162 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------ Test 161 -+- dir: testdir/gdir -+- lsseq --only-images -----
+----- Test 163 -+- dir: testdir/gdir -+- lsseq --only-images -----
 
------ Test 162 -+- dir: testdir/gdir -+- lsseq --only-movies -----
+----- Test 164 -+- dir: testdir/gdir -+- lsseq --only-movies -----
 xxx01.mov
 xxx02.mov
 
------ Test 163 -+- dir: testdir/gdir -+- lsseq --only-caches -----
+----- Test 165 -+- dir: testdir/gdir -+- lsseq --only-caches -----
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------ Test 164 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
+----- Test 166 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check

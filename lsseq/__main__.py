@@ -725,7 +725,23 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
             if minFrame == maxFrame :
                 print()
             else :
-                print(" ", str(minFrame), "-", str(maxFrame), sep='')
+                print(" ", str(minFrame), "-", str(maxFrame), sep='', end='')
+                if len(missingFrames) > 0 :
+                    actualFramesSet \
+                        = set(seqLister.expandSeq(str(minFrame)+"-"+str(maxFrame))).difference(set(missingFrames))
+                    actualFramesList = seqLister.condenseSeqOnes(list(actualFramesSet), 1) # One padding.
+
+                    print(" (", sep='', end='')
+                    firstItem = True
+                    for subSeq in actualFramesList :
+                        if not firstItem :
+                            print(" ", sep='', end='')
+                        firstItem = False
+                        print(subSeq, sep='', end='')
+                    print(")", sep='')
+
+                else :
+                    print()
 
         elif args.seqFormat == 'shake' :
             if minFrame == maxFrame :
@@ -1498,10 +1514,16 @@ def main() :
 
     p.add_argument("--split-sequence", action="store_true",
         dest="splitSeq", default=False,
-        help="xxx" )
+        help="prints sequences with missing frames as separate sequences as if there \
+        are multiple sequences with the same name, but with different frame ranges. \
+        Note: this option only affects the printing of a sequence, not in how sequence \
+        times are calculated. In other words, sorting by time might not produce the results \
+        you would expect when splitting sequences with this option.")
+
     p.add_argument("--no-split-sequence", action="store_false",
         dest="showZero",
-        help="yyy" )
+        help="consider frames with the same name as all being part of the \
+        same sequence. [default]" )
 
     p.add_argument("--loose-num-separator", "-l", action="store_false",
         dest="strictSeparator",

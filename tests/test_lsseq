@@ -410,6 +410,8 @@ testdir/jdir/j00 chmod 755 badperm
 testdir/jdir/j00 lsseq -R
 testdir/jdir rm -rf j00
 testdir/bdir lsseq --no-error-lists b_subdir 'b_subdir withSpace' 
+testdir lsseq --quiet --recursive --prepend-path-rel ?dir
+testdir lsseq --quiet --recursive --prepend-path-rel --split-sequence ?dir
 EOFa
 
 cat << EOFb > $tmpTestCmdFileB
