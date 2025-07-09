@@ -55,7 +55,7 @@ however it can print sequences in a variety of formats useful for `nuke`,
     bbb.97-103@@@.jpg
     $ rv `lsseq -f rv`
     <rv launches with sequence bbb>
-    $ rv -f nuke
+    $ lsseq -f nuke
     bbb.%03d.jpg 97-103
     $ lsseq -f glob
     bbb.[0-9][0-9][0-9].jpg
