@@ -297,6 +297,153 @@ EXIT_LSSEQ_PADDING_WARNING  = 8 # warning - two images with same name, same fram
 EXIT_CD_PERMISSION_WARNING  = 16 # warning - recursive descent blocked - no execute permission on dir
 ```
 
+## `lsseq --help`
+A full listing of all the command-line options follows, as displayed when running `lsseq --help`.
+
+```
+usage: lsseq [-h | --help] [OPTION]... [FILE]...
+
+List directory contents like /bin/ls except condense image
+sequences to one entry each. Filenames that are part of image
+sequences are assumed to be of the form:
+
+    <descriptiveName>.<frameNum>.<imgExtension>
+
+where <imgExtension> is drawn from a default list of image extensions
+(displayed with option --img-ext) or alternatively from the environment
+variable LSSEQ_IMAGE_EXTENSION which should contain a colon separated
+list of image file extensions.
+
+lsseq first lists all non-image-sequence files followed by the
+list of image sequences as such:
+
+    $ lsseq
+    [output of /bin/ls minus image sequences]
+    [list of images sequences]
+
+positional arguments:
+  FILE                  file names
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --format FORMAT, -f FORMAT
+                        list image sequences in various formats. The choices
+                        are 'native' (default), 'nuke', 'rv', 'shake', 'glob',
+                        'mplay', and 'houdini'. Note that glob prints correct
+                        results only if the frame numbers are padded. Further
+                        note that reporting of missing/bad/etc frames (e.g.
+                        --show-missing) only happens with 'native' format
+  --show-missing, -m    show list of missing frames as 'm:[<list>]' [default]
+  --skip-missing, -M    do not show list of missing frames
+  --show-zero, -z       show list of zero length images as 'z:[<list>]'
+                        [default]
+  --skip-zero, -Z       do not show list of zero length images
+  --show-bad-frames, -b
+                        lists potentially bad frames based on the minimum size
+                        of a good frame (see --good-frame-min-size). Reported
+                        as 'b:[<list>]'
+  --skip-bad-frames, -B
+                        do not show list of potentially bad frames [default]
+  --good-frame-min-size BYTES
+                        any frame size less than BYTES is a bad frame. Short
+                        forms for byte sizes are accepted as in '1K' (i.e.,
+                        1024) or '1.5K' for example. [default: 512]
+  --show-bad-padding    report badly padded frame numbers which occurs when a
+                        number is padded but shouldn't be, or isn't padded but
+                        it should be. Reported as 'p:[<list>]' [default]
+  --skip-bad-padding    do not show list of badly padded frames
+  --combine-lists, -c   combine the lists of zero, missing and bad frames into
+                        one list. Reported as 'e:[<list>]'
+  --no-combine-lists    Don't combine the error lists
+  --no-error-lists, -n  Skip printing ALL error lists. Note: Setting --show-
+                        bad-padding (for example) AFTER this option on the
+                        command line has the effect of ONLY showing the bad-
+                        padding error list
+  --split-sequence      prints sequences with missing frames as separate
+                        sequences as if there are multiple sequences with the
+                        same name, but with different frame ranges. Note: this
+                        option only affects the printing of a sequence, not in
+                        how sequence times are calculated. In other words,
+                        sorting by time might not produce the results you
+                        would expect when splitting sequences with this
+                        option.
+  --no-split-sequence   consider frames with the same name as all being part
+                        of the same sequence. [default]
+  --loose-num-separator, -l
+                        allow the use of '_' (underscore), in addition to '.'
+                        (dot) as a separator between the descriptiveName and
+                        frameNumber when looking to interpret filenames as
+                        image sequences. i.e.,
+                        <descriptiveName>_<frameNum>.<imgExtension> (also see
+                        --strict-num-separator)
+  --strict-num-separator, -s
+                        strictly enforce the use of '.' (dot) as a separator
+                        between the descriptiveName and frameNumber when
+                        looking to interpret filenames as image sequences.
+                        i.e., <descriptiveName>.<frameNum>.<imgExtension>
+                        (also see --loose-num-separator) [default]
+  --only-sequences, -o  only list image sequences, cache sequences and movies
+  --only-images, -O     strictly list only image sequences (i.e., no movies or
+                        caches)
+  --only-movies         strictly list only movies (i.e., no images or caches)
+  --only-caches         strictly list only cache sequences (i.e., no images or
+                        movies)
+  --img-ext, -i         print list of image, cache and movie file extensions
+                        and exit
+  --prepend-path-abs, -p
+                        prepend the absolute path name to the image name. This
+                        option implies the option --only-sequences and also
+                        suppresses printing directory name headers when
+                        listing directory contents
+  --prepend-path-rel, -P
+                        prepend the relative path name to the image name. This
+                        option implies the option --only-sequences and will
+                        also suppress printing directory name headers when
+                        listing directory contents
+  --extremes, -e        only list the first and last image on a separate line
+                        each. This option implies --prepend-path-abs (unless
+                        --prepend-path-rel is explicitly specified) and
+                        --only-sequences
+  --single, -1          list one non-sequence entry per line (see ls(1))
+  --all, -a             do not ignore entries starting with '.' while omitting
+                        implied '.' and '..' directories (see ls(1) --almost-
+                        all)
+  --by-columns, -C      list non-sequence entries by columns (see ls(1))
+  --by-rows, -x         list non-sequence entries by lines instead of by
+                        columns (see ls(1))
+  --directory, -d       list directory entries instead of contents, and do not
+                        dereference symbolic links (see ls(1))
+  --classify, -F        append indicator (one of */=>@|) to entries (see
+                        ls(1))
+  --reverse, -r         reverse order while sorting
+  --recursive, -R       list subdirectories recursively
+  --sort-by-time, -t    sort by modification time, the default comparison time
+                        is between the most recently modified (newest) frames
+                        in each sequence. (see --time) (see ls(1))
+  --time FRAME_AGE      which frame in the sequence to use to compare times
+                        between sequences when sorting by time. The possible
+                        values for 'FRAME_AGE' are 'oldest', 'median' and
+                        'newest' [default: 'newest']
+  --only-show TENSE [CC]YYMMDD[-hh[mm[ss]]]
+                        where TENSE is either 'before' or 'since'; only list
+                        sequences up to (and including) or after (and
+                        including) the time specified. The --time argument
+                        specifies which frame to use for the cutoff
+                        comparison. The optional CC (century) defaults to the
+                        current century. The optional '-hh' (hours), 'mm'
+                        (minutes) or 'ss' (seconds) default to zero if not
+                        specified.
+  --global-sort-by-time, -G
+                        when using either --prepend-path-abs or --prepend-
+                        path-rel then this option will sort ALL sequences by
+                        time compared to each other, as opposed to only
+                        sorting sequences by time within their common
+                        directory. If the above conditions are NOT met, then
+                        this option is simply ignored.
+  --silent, --quiet     suppress error and warning messages
+```
+
 ## Addendum - more on installing command-line tools
 
 Here's the process that I've followed to install `lsseq`, as well as my other
