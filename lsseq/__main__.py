@@ -69,7 +69,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "4.1.0"     # Semantic Versioning 2.0.0
+VERSION = "4.2.0"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -219,6 +219,25 @@ PATH_NOPREFIX = 0
 PATH_ABS = 1
 PATH_REL = 2
 
+### JPR - rethink this perhaps like this
+#
+# All           1000 non-sequences (i.e., ls output)
+# Images        0100
+# Movies        0010
+# Caches        0001
+#
+# so...
+# ALLFILES is 1111
+# ONLYSEQS is 0111
+# ONLYIMGs is 0100
+#
+# new ability is:
+# NOTMOVs  is 1101
+# and adding NOTCACHES to that would be
+#             1100
+#
+# ...etc.
+#
 LIST_ALLFILES   = 0
 LIST_ONLYSEQS   = 1 # Images, movies and caches.
 LIST_ONLYIMGS   = 2 # Strictly images.
