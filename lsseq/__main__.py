@@ -238,26 +238,26 @@ PATH_REL = 2
 #     1100
 #
 
-LIST_ALLFILES   = 0
-LIST_ONLYSEQS   = 1 # Do not display regular 'ls' output
-LIST_ONLYIMGS   = 2 # Strictly images.
-LIST_ONLYMOVS   = 3 # Strictly movies.
-LIST_ONLYCACHES = 4 # Strictly caches.
-LIST_NOT_IMGS   = 5 # Omit IMGS from sequence listing
-LIST_NOT_MOVS   = 6 # Omit MOVS from sequence listing
-LIST_NOT_CACHES = 7 # Omit CACHES from sequence listing
+ARG_LIST_ALLFILES   = 0
+ARG_LIST_ONLYSEQS   = 1 # Do not display regular 'ls' output
+ARG_LIST_ONLYIMGS   = 2 # Strictly images.
+ARG_LIST_ONLYMOVS   = 3 # Strictly movies.
+ARG_LIST_ONLYCACHES = 4 # Strictly caches.
+ARG_LIST_NOT_IMGS   = 5 # Omit IMGS from sequence listing
+ARG_LIST_NOT_MOVS   = 6 # Omit MOVS from sequence listing
+ARG_LIST_NOT_CACHES = 7 # Omit CACHES from sequence listing
 
-LIST_NO_OMISSIONS = 0b1111 # Display ALLFILES
-LIST_OTHER        = 0b1000 # Flag for non-sequence files
-LIST_NOT_OTHER    = 0b0111 # For omitting 'ls' output.
-LIST_IMGS         = 0b0100 # Flag for images
-LIST_NOT_IMGS     = 0b1011 # For omitting IMGS as sequences
-LIST_MOVS         = 0b0010 # Flag for movies
-LIST_NOT_MOVS     = 0b1101 # For omitting MOVS as seqs
-LIST_CACHES       = 0b0001 # Flag for caches
-LIST_NOT_CACHES   = 0b1110 # For omitting CACHES as seqs
+LIST_NO_OMISSIONS   = 0b1111 # Display ALLFILES
+LIST_OTHER          = 0b1000 # Flag for non-sequence files
+LIST_NOT_OTHER      = 0b0111 # For omitting 'ls' output.
+LIST_IMGS           = 0b0100 # Flag for images
+LIST_NOT_IMGS       = 0b1011 # For omitting IMGS as sequences
+LIST_MOVS           = 0b0010 # Flag for movies
+LIST_NOT_MOVS       = 0b1101 # For omitting MOVS as seqs
+LIST_CACHES         = 0b0001 # Flag for caches
+LIST_NOT_CACHES     = 0b1110 # For omitting CACHES as seqs
 
-gListWhichFiles   = LIST_NO_OMISSIONS # Default behaviour
+gListWhichFiles     = LIST_NO_OMISSIONS # Default behaviour
 
 # To pass along to 'ls' options.
 #
@@ -1063,7 +1063,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         #
         if os.path.isdir(filename) :
             if (not listSubDirs or not args.listDirContents) \
-                    and gListWhichFiles & LIST_OTHER :
+                    and (gListWhichFiles & LIST_OTHER) :
                 otherFiles.append(filename)
             dirList.append(filename)
 
@@ -1092,6 +1092,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                         # initialiaze dictionary entry.
                         cacheDictionary[fileParts[SEQKEY]] = [
                             (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
+
                 elif gListWhichFiles & LIST_IMGS:
                     if fileParts[SEQKEY] in imageDictionary :
                         # tack on new frame number.
@@ -1115,7 +1116,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
             # sequences) so add it to otherfiles if we need to list those as well.
             #
             elif gListWhichFiles & LIST_OTHER :
-                    otherFiles.append(filename)
+                otherFiles.append(filename)
 
     # Use actual "ls" to print non-image files nicely.
     #
@@ -1444,6 +1445,7 @@ def main() :
     global gMovieExtList
     global gCacheExtList
     global gExitStatus
+    global gListWhichFiles
 
     # To help with argparse.
     #
@@ -1578,30 +1580,30 @@ def main() :
             (also see --loose-num-separator) [default]")
 
     p.add_argument("--only-sequences", "-o", action="append_const",
-        dest="listWhichFiles", default=LIST_ALLFILES, const=LIST_ONLYSEQS,
+        dest="listWhichFiles", default=[ARG_LIST_ALLFILES], const=ARG_LIST_ONLYSEQS,
         help="omit any regular /bin/ls output, only list sequences.")
     p.add_argument("--list-all-files", action="append_const",
-        dest="listWhichFiles", const=LIST_ALLFILES,
+        dest="listWhichFiles", const=ARG_LIST_ALLFILES,
         help="list all sequences plus regular /bin/ls output. [default]")
     p.add_argument("--only-images", "-O", action="append_const",
-        dest="listWhichFiles", const=LIST_ONLYIMGS,
+        dest="listWhichFiles", const=ARG_LIST_ONLYIMGS,
         help="strictly list only image sequences (i.e., no movies or caches).")
     p.add_argument("--not-images", action="append_const",
-        dest="listWhichFiles", const=LIST_NOT_IMGS,
+        dest="listWhichFiles", const=ARG_LIST_NOT_IMGS,
         help="Omit image files from being considered as sequences. \
         Image files will show up in regular /bin/ls output unless \
         --only-sequences has been specified on the command line.")
     p.add_argument("--only-movies", action="append_const",
-        dest="listWhichFiles", const=LIST_ONLYMOVS,
+        dest="listWhichFiles", const=ARG_LIST_ONLYMOVS,
         help="strictly list only movies (i.e., no images or caches).")
     p.add_argument("--not-movies", action="append_const",
-        dest="listWhichFiles", const=LIST_NOT_MOVS,
+        dest="listWhichFiles", const=ARG_LIST_NOT_MOVS,
         help="Omit movies from being considered as sequences.")
     p.add_argument("--only-caches", action="append_const",
-        dest="listWhichFiles", const=LIST_ONLYCACHES,
+        dest="listWhichFiles", const=ARG_LIST_ONLYCACHES,
         help="strictly list only cache sequences (i.e., no images or movies).")
     p.add_argument("--not-caches", action="append_const",
-        dest="listWhichFiles", const=LIST_NOT_CACHES,
+        dest="listWhichFiles", const=ARG_LIST_NOT_CACHES,
         help="Omit caches from being considered as sequences.")
 
     p.add_argument("--img-ext", "-i", action="store_true",
@@ -1767,37 +1769,32 @@ def main() :
     # reset this
     #
     for listOpts in args.listWhichFiles:
-        if   listOpts == LIST_ALLFILES :   # default will ALWAYS appear first (at least)
+        if   listOpts == ARG_LIST_ALLFILES :   # default will ALWAYS appear first (at least)
             gListWhichFiles = LIST_NO_OMISSIONS
 
-        elif listOpts == LIST_ONLYIMGS :   # Reset so only image sequences are listed
+        elif listOpts == ARG_LIST_ONLYIMGS :   # Reset so only image sequences are listed
             gListWhichFiles = LIST_IMGS
 
-        elif listOpts == LIST_ONLYMOVS :   # Reset so only movie sequences are listed
+        elif listOpts == ARG_LIST_ONLYMOVS :   # Reset so only movie sequences are listed
             gListWhichFiles = LIST_MOVS
 
-        elif listOpts == LIST_ONLYCACHES : # Reset so only cache sequences are listed
+        elif listOpts == ARG_LIST_ONLYCACHES : # Reset so only cache sequences are listed
             gListWhichFiles = LIST_CACHES
 
-        elif listOpts == LIST_ONLYSEQS :   # Removes listing /bin/ls output
+        elif listOpts == ARG_LIST_ONLYSEQS :   # Removes listing /bin/ls output
             gListWhichFiles = (gListWhichFiles & LIST_NOT_OTHER)
 
-        elif listOpts == LIST_NOT_IMGS :   # Removes treating images files as sequences.
+        elif listOpts == ARG_LIST_NOT_IMGS :   # Removes treating images files as sequences.
             gListWhichFiles = (gListWhichFiles & LIST_NOT_IMGS)
 
-        elif listOpts == LIST_NOT_MOVS :   # Removes treating movies as sequences.
+        elif listOpts == ARG_LIST_NOT_MOVS :   # Removes treating movies as sequences.
             gListWhichFiles = (gListWhichFiles & LIST_NOT_MOVS)
 
-        elif listOpts == LIST_NOT_CACHES : # Removes treating cache files as sequences.
+        elif listOpts == ARG_LIST_NOT_CACHES : # Removes treating cache files as sequences.
             gListWhichFiles = (gListWhichFiles & LIST_NOT_CACHES)
     
-    if args.prependPath == PATH_REL :
-        if gListWhichFiles == LIST_ALLFILES :
-            gListWhichFiles = LIST_ONLYSEQS
-
-    if args.prependPath == PATH_ABS :
-        if gListWhichFiles == LIST_ALLFILES :
-            gListWhichFiles = LIST_ONLYSEQS
+    if args.prependPath == PATH_REL or args.prependPath == PATH_ABS :
+        gListWhichFiles = (gListWhichFiles & LIST_ONLYSEQS)
 
     if args.extremes :
         if args.prependPath == PATH_NOPREFIX :
@@ -1807,9 +1804,10 @@ def main() :
         args.showBad = False
         args.showBadPadding = False
         args.seqFormat = 'native'
-        # jpr - check this with new behavior - could work with caches too
-        if gListWhichFiles == LIST_ALLFILES :
-            gListWhichFiles = LIST_ONLYIMGS # Strictly only images.
+        #
+        # Strictly list only images and/or caches.
+        #
+        gListWhichFiles = gListWhichFiles & (LIST_IMGS | LIST_CACHES)
 
     if args.cutoffTime != None :
 
@@ -1887,7 +1885,7 @@ def main() :
     #
     if len(args.files) == 0 :
         if not args.listDirContents :
-            if gListWhichFiles == LIST_ALLFILES :
+            if gListWhichFiles & LIST_NO_OMISSIONS :
                 print(".") # Yup, we're done!
         else :
             if args.isRecursive :
