@@ -237,30 +237,24 @@ PATH_REL = 2
 # and adding NOTCACHES to that would be:
 #     1100
 #
-### Old Values ### jpr
-# LIST_ALLFILES   = 0
-# LIST_ONLYSEQS   = 1 # Images, movies and caches.
-# LIST_ONLYIMGS   = 2 # Strictly images.
-# LIST_ONLYMOVS   = 3 # Strictly movies.
-# LIST_ONLYCACHES = 4 # Strictly caches.
-### End Old Values ###
-#
-LIST_ALLFILES   = 0b1111
-LIST_ONLYSEQS   = 0b0111 # Only images, movies and caches.
-#
-LIST_OTHER      = 0b1000 # Flag for non-sequence files
-LIST_IMGS       = 0b0100 # Flag for images also option 'strictly images'.
-LIST_MOVS       = 0b0010 # Flag for movies also option 'strictly movies'.
-LIST_CACHES     = 0b0001 # Flag for caches also option 'strictly caches'.
-#
-# Following constants are used during argument processing to record which
-# sequences the user DOES NOT want to treat as sequences. They are used
-# following the complete processing of comand-line-options using bit-wise logic.
-#
-LIST_NO_OMISSIONS = 0b1111
-LIST_NOT_IMGS     = 0b1011
-LIST_NOT_MOVS     = 0b1101
-LIST_NOT_CACHES   = 0b1110
+
+LIST_ALLFILES   = 0
+LIST_ONLYSEQS   = 1 # Only images, movies and caches.
+LIST_ONLYIMGS   = 2 # Strictly images.
+LIST_ONLYMOVS   = 3 # Strictly movies.
+LIST_ONLYCACHES = 4 # Strictly caches.
+LIST_NOT_IMGS   = 5 # Omit Images from sequence listing
+LIST_NOT_MOVS   = 6 # Omit MOVS from sequence listing
+LIST_NOT_CACHES = 7 # Omit MOVS from sequence listing
+
+LIST_NO_OMISSIONS = 0b1111 # To set displaying ALLFILES
+LIST_OTHER        = 0b1000 # Flag for non-sequence files
+LIST_IMGS         = 0b0100 # Flag for images
+LIST_NOT_IMGS     = 0b1011 # For omitting IMGS as sequences
+LIST_MOVS         = 0b0010 # Flag for movies
+LIST_NOT_MOVS     = 0b1101 # For omitting MOVS
+LIST_CACHES       = 0b0001 # Flag for caches
+LIST_NOT_CACHES   = 0b1110 # For omitting CACHES
 
 BY_UNSPECIFIED = 0
 BY_SINGLE = 1
@@ -1218,6 +1212,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
     # Now actually print the sequences in this directory.
     #
+    # jpr - check this logic
+    #
     if args.listWhichFiles == LIST_IMGS :
         seqKeys = list(imageDictionary.keys())
     elif args.listWhichFiles == LIST_MOVS :
@@ -1580,14 +1576,15 @@ def main() :
         dest="listWhichFiles", default=LIST_ALLFILES, const=LIST_ONLYSEQS,
         help="only list image sequences, cache sequences and movies")
     p.add_argument("--only-images", "-O", action="store_const",
-        dest="listWhichFiles", const=LIST_IMGS,
+        dest="listWhichFiles", const=LIST_ONLYIMGS,
         help="strictly list only image sequences (i.e., no movies or caches)")
     p.add_argument("--only-movies", action="store_const",
-        dest="listWhichFiles", const=LIST_MOVS,
+        dest="listWhichFiles", const=LIST_ONLYMOVS,
         help="strictly list only movies (i.e., no images or caches)")
     p.add_argument("--only-caches", action="store_const",
-        dest="listWhichFiles", const=LIST_CACHES,
+        dest="listWhichFiles", const=LIST_ONLYCACHES,
         help="strictly list only cache sequences (i.e., no images or movies)")
+
     p.add_argument("--img-ext", "-i", action="store_true",
         dest="printImgExtensions", default=False,
         help="print list of image, cache and movie file extensions and exit")
@@ -1746,6 +1743,13 @@ def main() :
         print("  export LSSEQ_CACHE_EXTENSION=", extList, sep='')
         sys.exit(EXIT_NO_ERROR)
 
+    #
+    # jpr - add logic for setting the bit-wise sequences and files to list
+    #       here before any other arg processing since other options might
+    #       reset this
+    #
+    # TBD
+    
     if args.prependPath == PATH_REL :
         if args.listWhichFiles == LIST_ALLFILES :
             args.listWhichFiles = LIST_ONLYSEQS
@@ -1762,8 +1766,9 @@ def main() :
         args.showBad = False
         args.showBadPadding = False
         args.seqFormat = 'native'
+        # jpr - check this with new behavior - could work with caches too
         if args.listWhichFiles == LIST_ALLFILES :
-            args.listWhichFiles = LIST_IMGS # Strictly only images.
+            args.listWhichFiles = LIST_ONLYIMGS # Strictly only images.
 
     if args.cutoffTime != None :
 
