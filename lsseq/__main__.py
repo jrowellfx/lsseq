@@ -229,7 +229,7 @@ PATH_REL = 2
 # so...
 # ALLFILES is 1111
 # ONLYSEQS is 0111
-# ONLYIMGs is 0100
+# ONLYIMGS is 0100
 #
 # Therefor:
 # Not treating movs as sequences is:
@@ -522,6 +522,7 @@ def extractStartEnd(seq) :
 def printSeq(filenameKey, frameList, args, traversedPath) :
 
     global gExitStatus
+    global gListWhichFiles
 
     fileComponents = splitImageName(filenameKey)
 
@@ -1010,6 +1011,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     global gCacheDictionary
     global gMoviesDictionary
     global gExitStatus
+    global gListWhichFiles
 
     # Stash the current working dir, to come back to and the end
     # of this function. I.e.; we need to push and pop the current
@@ -1093,7 +1095,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                         cacheDictionary[fileParts[SEQKEY]] = [
                             (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
 
-                elif gListWhichFiles & LIST_IMGS :
+                elif not isCache(fileParts[SEQKEY]) and (gListWhichFiles & LIST_IMGS) :
                     if fileParts[SEQKEY] in imageDictionary :
                         # tack on new frame number.
                         imageDictionary[fileParts[SEQKEY]].append(
@@ -1220,21 +1222,26 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     # Now actually print the sequences in this directory.
     #
     seqKeys = []
-    ###print(f"DEBUG b{gListWhichFiles:04b}")
+    ### print(f"DEBUG a 0b{gListWhichFiles:04b}")
     if gListWhichFiles & LIST_IMGS :
+        ### print(f"DEBUG a1 in LIST_IMGS")
         imgKeys = list(imageDictionary.keys())
         for k in imgKeys :
             seqKeys.append(k)
 
     if gListWhichFiles & LIST_MOVS :
+        ### print(f"DEBUG a1 in LIST_MOVS")
         movKeys = list(moviesDictionary.keys())
         for k in movKeys :
             seqKeys.append(k)
 
     if gListWhichFiles & LIST_CACHES :
+        ### print(f"DEBUG a1 in LIST_CACHES")
         cacheKeys = list(cacheDictionary.keys())
         for k in cacheKeys :
             seqKeys.append(k)
+
+    ### print("DEBUG b: ", seqKeys) # jpr
 
     # Gather file mod times if needed.
     #
@@ -1379,6 +1386,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         seqKeys.sort()
         if args.reverseListing :
             seqKeys.reverse()
+        ### print("DEBUG c: ", seqKeys) # jpr
         for k in seqKeys :
             if isMovie(k) :
                 if args.prependPath != PATH_NOPREFIX :
@@ -1392,9 +1400,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 somethingWasPrinted = True
 
             elif isCache(k) :
-                ### Test 65 error here JPR DEBUG - Note testdir/gdir contains no images
-                ### and the test is --only-images, so this should gracefully bypass this.
-                ### why doesn't it? Perhaps not dealing with seqKeys being empty?
                 cacheDictionary[k].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
                 printSeq(k, cacheDictionary[k], args, traversedPath)
                 somethingWasPrinted = True
@@ -1598,20 +1603,24 @@ def main() :
     p.add_argument("--not-images", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_NOT_IMGS,
         help="Omit image files from being considered as sequences. \
-        Image files will show up in regular /bin/ls output unless \
+        Image files will be listed with regular /bin/ls output unless \
         --only-sequences has been specified on the command line.")
     p.add_argument("--only-movies", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_ONLYMOVS,
         help="strictly list only movies (i.e., no images or caches).")
     p.add_argument("--not-movies", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_NOT_MOVS,
-        help="Omit movies from being considered as sequences.")
+        help="Omit movies from being considered as sequences. \
+        movie files will be listed with regular /bin/ls output unless \
+        --only-sequences has been specified on the command line.")
     p.add_argument("--only-caches", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_ONLYCACHES,
         help="strictly list only cache sequences (i.e., no images or movies).")
     p.add_argument("--not-caches", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_NOT_CACHES,
-        help="Omit caches from being considered as sequences.")
+        help="Omit caches from being considered as sequences. \
+        cache files will be listed with regular /bin/ls output unless \
+        --only-sequences has been specified on the command line.")
 
     p.add_argument("--img-ext", "-i", action="store_true",
         dest="printImgExtensions", default=False,
@@ -1631,9 +1640,10 @@ def main() :
         directory contents.")
     p.add_argument("--extremes", "-e", action="store_true",
         dest="extremes", default=False,
-        help="only list the first and last image on a separate line each. \
+        help="only list the first and last frame of an image \
+        or cache-sequence on a separate line each. \
         This option implies --prepend-path-abs (unless --prepend-path-rel is \
-        explicitly specified) and --only-sequences.")
+        explicitly specified) as well as --only-sequences and --not-movies.")
 
     p.add_argument("--single", "-1", action="store_const",
         dest="byWhat", default=BY_UNSPECIFIED, const=BY_SINGLE,
