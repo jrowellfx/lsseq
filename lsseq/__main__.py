@@ -219,9 +219,9 @@ PATH_NOPREFIX = 0
 PATH_ABS = 1
 PATH_REL = 2
 
-### JPR - rethink this perhaps like this
+# Bit-wise logic for what files to display as sequences.
 #
-# All           1000 non-sequences (i.e., ls output)
+# Other         1000 non-sequences (i.e., ls output)
 # Images        0100
 # Movies        0010
 # Caches        0001
@@ -231,18 +231,36 @@ PATH_REL = 2
 # ONLYSEQS is 0111
 # ONLYIMGs is 0100
 #
-# new ability is:
-# NOTMOVs  is 1101
-# and adding NOTCACHES to that would be
-#             1100
+# Therefor:
+# Not treating movs as sequences is:
+#     1101
+# and adding NOTCACHES to that would be:
+#     1100
 #
-# ...etc.
+### Old Values ### jpr
+# LIST_ALLFILES   = 0
+# LIST_ONLYSEQS   = 1 # Images, movies and caches.
+# LIST_ONLYIMGS   = 2 # Strictly images.
+# LIST_ONLYMOVS   = 3 # Strictly movies.
+# LIST_ONLYCACHES = 4 # Strictly caches.
+### End Old Values ###
 #
-LIST_ALLFILES   = 0
-LIST_ONLYSEQS   = 1 # Images, movies and caches.
-LIST_ONLYIMGS   = 2 # Strictly images.
-LIST_ONLYMOVS   = 3 # Strictly movies.
-LIST_ONLYCACHES = 4 # Strictly caches.
+LIST_ALLFILES   = 0b1111
+LIST_ONLYSEQS   = 0b0111 # Only images, movies and caches.
+#
+LIST_OTHER      = 0b1000 # Flag for non-sequence files
+LIST_IMGS       = 0b0100 # Flag for images also option 'strictly images'.
+LIST_MOVS       = 0b0010 # Flag for movies also option 'strictly movies'.
+LIST_CACHES     = 0b0001 # Flag for caches also option 'strictly caches'.
+#
+# Following constants are used during argument processing to record which
+# sequences the user DOES NOT want to treat as sequences. They are used
+# following the complete processing of comand-line-options using bit-wise logic.
+#
+LIST_NO_OMISSIONS = 0b1111
+LIST_NOT_IMGS     = 0b1011
+LIST_NOT_MOVS     = 0b1101
+LIST_NOT_CACHES   = 0b1110
 
 BY_UNSPECIFIED = 0
 BY_SINGLE = 1
@@ -1200,11 +1218,11 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
 
     # Now actually print the sequences in this directory.
     #
-    if args.listWhichFiles == LIST_ONLYIMGS :
+    if args.listWhichFiles == LIST_IMGS :
         seqKeys = list(imageDictionary.keys())
-    elif args.listWhichFiles == LIST_ONLYMOVS :
+    elif args.listWhichFiles == LIST_MOVS :
         seqKeys = list(moviesDictionary.keys())
-    elif args.listWhichFiles == LIST_ONLYCACHES :
+    elif args.listWhichFiles == LIST_CACHES :
         seqKeys = list(cacheDictionary.keys())
     else :
         seqKeys = list(imageDictionary.keys())
@@ -1562,13 +1580,13 @@ def main() :
         dest="listWhichFiles", default=LIST_ALLFILES, const=LIST_ONLYSEQS,
         help="only list image sequences, cache sequences and movies")
     p.add_argument("--only-images", "-O", action="store_const",
-        dest="listWhichFiles", const=LIST_ONLYIMGS,
+        dest="listWhichFiles", const=LIST_IMGS,
         help="strictly list only image sequences (i.e., no movies or caches)")
     p.add_argument("--only-movies", action="store_const",
-        dest="listWhichFiles", const=LIST_ONLYMOVS,
+        dest="listWhichFiles", const=LIST_MOVS,
         help="strictly list only movies (i.e., no images or caches)")
     p.add_argument("--only-caches", action="store_const",
-        dest="listWhichFiles", const=LIST_ONLYCACHES,
+        dest="listWhichFiles", const=LIST_CACHES,
         help="strictly list only cache sequences (i.e., no images or movies)")
     p.add_argument("--img-ext", "-i", action="store_true",
         dest="printImgExtensions", default=False,
@@ -1745,7 +1763,7 @@ def main() :
         args.showBadPadding = False
         args.seqFormat = 'native'
         if args.listWhichFiles == LIST_ALLFILES :
-            args.listWhichFiles = LIST_ONLYIMGS # Strictly only images.
+            args.listWhichFiles = LIST_IMGS # Strictly only images.
 
     if args.cutoffTime != None :
 
