@@ -1794,7 +1794,7 @@ def main() :
             gListWhichFiles = (gListWhichFiles & LIST_NOT_CACHES)
     
     if args.prependPath == PATH_REL or args.prependPath == PATH_ABS :
-        gListWhichFiles = (gListWhichFiles & LIST_ONLYSEQS)
+        gListWhichFiles = (gListWhichFiles & LIST_NOT_OTHER)
 
     if args.extremes :
         if args.prependPath == PATH_NOPREFIX :
