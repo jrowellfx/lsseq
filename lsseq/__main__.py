@@ -1093,7 +1093,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                         cacheDictionary[fileParts[SEQKEY]] = [
                             (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
 
-                elif gListWhichFiles & LIST_IMGS:
+                elif gListWhichFiles & LIST_IMGS :
                     if fileParts[SEQKEY] in imageDictionary :
                         # tack on new frame number.
                         imageDictionary[fileParts[SEQKEY]].append(
@@ -1220,6 +1220,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     # Now actually print the sequences in this directory.
     #
     seqKeys = []
+    ###print(f"DEBUG b{gListWhichFiles:04b}")
     if gListWhichFiles & LIST_IMGS :
         imgKeys = list(imageDictionary.keys())
         for k in imgKeys :
@@ -1344,6 +1345,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     imageDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
                     printSeq(seq[DICTKEY], imageDictionary[seq[DICTKEY]], args, traversedPath)
                     somethingWasPrinted = True
+
     elif args.cutoffTime != None :
         timeList.sort(key=itemgetter(DICTKEY)) # Sorts by name.
         if args.reverseListing :
@@ -1388,10 +1390,15 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                         sys.stdout.write(traversedPath)
                 print(k)
                 somethingWasPrinted = True
+
             elif isCache(k) :
+                ### Test 65 error here JPR DEBUG - Note testdir/gdir contains no images
+                ### and the test is --only-images, so this should gracefully bypass this.
+                ### why doesn't it? Perhaps not dealing with seqKeys being empty?
                 cacheDictionary[k].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
                 printSeq(k, cacheDictionary[k], args, traversedPath)
                 somethingWasPrinted = True
+
             else :
                 imageDictionary[k].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
                 printSeq(k, imageDictionary[k], args, traversedPath)
