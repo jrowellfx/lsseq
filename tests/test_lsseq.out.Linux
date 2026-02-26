@@ -427,7 +427,7 @@ testdir/qdir/q3Dir:
 qqq.[003-007].jpg z:[3-7]
 
 testdir/rdir:
-rSub01/  rSub02/
+r0.v01.txt  r0.v02.txt  r0.v03.txt  rSub01/  rSub02/
 r1.[001-015].jpg z:[1-15]
 r2.[101-115].jpg z:[101-115]
 rrr01.[001-015].ass m:[3], z:[1-2,4-15]
@@ -438,6 +438,7 @@ rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
 testdir/rdir/rSub01:
+rrr00.v01.txt*  rrr00.v02.txt*  rrr00.v03.txt*  rrr00.v04.txt*
 r1.[001-015].jpg z:[1-15]
 r2.[101-115].jpg z:[101-115]
 rrr01.[001-015].ass m:[3], z:[1-2,4-15]
@@ -448,6 +449,7 @@ rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
 testdir/rdir/rSub02:
+rrr00.v01.txt*  rrr00.v02.txt*  rrr00.v03.txt*  rrr00.v04.txt*  rrr00.v05.txt*
 r1.[001-015].jpg z:[1-15]
 r2.[101-115].jpg z:[101-115]
 rrr01.[001-015].ass m:[3], z:[1-2,4-15]
@@ -1477,7 +1479,7 @@ testdir/qdir/q3Dir:
 qqq.[003-007].jpg z:[3-7]
 
 testdir/rdir:
-rSub01/  rSub02/
+r0.v01.txt  r0.v02.txt  r0.v03.txt  rSub01/  rSub02/
 r1.[001-015].jpg z:[1-15]
 r2.[101-115].jpg z:[101-115]
 rrr01.[001-015].ass m:[3], z:[1-2,4-15]
@@ -1488,6 +1490,7 @@ rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
 testdir/rdir/rSub01:
+rrr00.v01.txt*  rrr00.v02.txt*  rrr00.v03.txt*  rrr00.v04.txt*
 r1.[001-015].jpg z:[1-15]
 r2.[101-115].jpg z:[101-115]
 rrr01.[001-015].ass m:[3], z:[1-2,4-15]
@@ -1498,6 +1501,7 @@ rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
 testdir/rdir/rSub02:
+rrr00.v01.txt*  rrr00.v02.txt*  rrr00.v03.txt*  rrr00.v04.txt*  rrr00.v05.txt*
 r1.[001-015].jpg z:[1-15]
 r2.[101-115].jpg z:[101-115]
 rrr01.[001-015].ass m:[3], z:[1-2,4-15]
@@ -2541,6 +2545,9 @@ q2Dir
 q3Dir
 
 rdir:
+r0.v01.txt
+r0.v02.txt
+r0.v03.txt
 rSub01
 rSub02
 r1.[001-015].jpg z:[1-15]
@@ -2764,6 +2771,9 @@ q2Dir
 q3Dir
 
 rdir:
+r0.v01.txt
+r0.v02.txt
+r0.v03.txt
 rSub01
 rSub02
 r1.[001-015].jpg z:[1-15]
@@ -4007,6 +4017,9 @@ qqq.[002-006].jpg z:[2-6]
 qqq.[003-007].jpg z:[3-7]
 
 /...absPathToRepo.../tests/testdir/rdir:
+r0.v01.txt
+r0.v02.txt
+r0.v03.txt
 rSub01
 rSub02
 r1.[001-015].jpg z:[1-15]
@@ -4019,6 +4032,10 @@ rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
 /...absPathToRepo.../tests/testdir/rdir/rSub01:
+rrr00.v01.txt
+rrr00.v02.txt
+rrr00.v03.txt
+rrr00.v04.txt
 r1.[001-015].jpg z:[1-15]
 r2.[101-115].jpg z:[101-115]
 rrr01.[001-015].ass m:[3], z:[1-2,4-15]
@@ -4029,6 +4046,11 @@ rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
 /...absPathToRepo.../tests/testdir/rdir/rSub02:
+rrr00.v01.txt
+rrr00.v02.txt
+rrr00.v03.txt
+rrr00.v04.txt
+rrr00.v05.txt
 r1.[001-015].jpg z:[1-15]
 r2.[101-115].jpg z:[101-115]
 rrr01.[001-015].ass m:[3], z:[1-2,4-15]
@@ -7057,25 +7079,190 @@ ccc02.[001-120].exr
 ccc03.[80-140].tga
 ccc02.[001-120].exr
 
------ Test 170 -+- dir: . -+- lsseq -i -----
+----- Test 170 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive -----
+.:
+r0.v01.txt  r0.v02.txt  r0.v03.txt  rSub01  rSub02
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+./rSub01:
+rrr00.v01.txt  rrr00.v02.txt  rrr00.v03.txt  rrr00.v04.txt
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+./rSub02:
+rrr00.v01.txt  rrr00.v02.txt  rrr00.v03.txt  rrr00.v04.txt  rrr00.v05.txt
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+----- Test 171 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences -----
+.:
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+./rSub01:
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+./rSub02:
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+----- Test 172 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --list-all-files -----
+.:
+r0.v01.txt  r0.v02.txt  r0.v03.txt  rSub01  rSub02
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+./rSub01:
+rrr00.v01.txt  rrr00.v02.txt  rrr00.v03.txt  rrr00.v04.txt
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+./rSub02:
+rrr00.v01.txt  rrr00.v02.txt  rrr00.v03.txt  rrr00.v04.txt  rrr00.v05.txt
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+----- Test 173 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-images -----
+.:
+r1.[001-015].jpg
+r2.[101-115].jpg
+
+./rSub01:
+r1.[001-015].jpg
+r2.[101-115].jpg
+
+./rSub02:
+r1.[001-015].jpg
+r2.[101-115].jpg
+
+----- Test 174 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images -----
+.:
+r0.v01.txt  r0.v02.txt  r0.v03.txt  rSub01  rSub02
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+./rSub01:
+rrr00.v01.txt  rrr00.v02.txt  rrr00.v03.txt  rrr00.v04.txt
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+./rSub02:
+rrr00.v01.txt  rrr00.v02.txt  rrr00.v03.txt  rrr00.v04.txt  rrr00.v05.txt
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+----- Test 175 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-images -----
+.:
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+./rSub01:
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+./rSub02:
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+----- Test 176 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------ Test 171 -+- dir: testdir/gdir -+- lsseq --only-images -----
+----- Test 177 -+- dir: testdir/gdir -+- lsseq --only-images -----
 
------ Test 172 -+- dir: testdir/gdir -+- lsseq --only-movies -----
+----- Test 178 -+- dir: testdir/gdir -+- lsseq --only-movies -----
 xxx01.mov
 xxx02.mov
 
------ Test 173 -+- dir: testdir/gdir -+- lsseq --only-caches -----
+----- Test 179 -+- dir: testdir/gdir -+- lsseq --only-caches -----
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------ Test 174 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
+----- Test 180 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check

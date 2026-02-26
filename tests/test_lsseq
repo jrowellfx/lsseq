@@ -460,6 +460,12 @@ testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --global
 testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --only-show since 20100615-1400
 testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --recursive
 testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --recursive --only-show since 20100615-1400
+testdir/rdir lsseq -C --no-error-lists --recursive
+testdir/rdir lsseq -C --no-error-lists --recursive --only-sequences
+testdir/rdir lsseq -C --no-error-lists --recursive --only-sequences --list-all-files
+testdir/rdir lsseq -C --no-error-lists --recursive --only-images
+testdir/rdir lsseq -C --no-error-lists --recursive --not-images
+testdir/rdir lsseq -C --no-error-lists --recursive --only-sequences --not-images
 EOFa
 
 cat << EOFb > $tmpTestCmdFileB
