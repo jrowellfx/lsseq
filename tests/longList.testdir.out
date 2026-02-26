@@ -11,8 +11,8 @@ drwxrwxrwx. 5 jrowell users   4096 1987-06-15 12:00:23 edir
 drwxrwxrwx. 2 jrowell users   4096 1987-06-15 12:00:27 fdir
 drwxrwxrwx. 2 jrowell users  12288 1987-06-15 12:00:28 gdir
 drwxrwxrwx. 6 jrowell users   4096 1987-06-15 12:00:29 hdir
-drwxrwxrwx. 4 jrowell users   4096 1987-06-15 12:00:37 idir
-drwxrwxrwx. 6 jrowell users   4096 2026-02-26 06:10:08 jdir
+drwxrwxrwx. 4 jrowell users   4096 1971-12-14 12:00:00 idir
+drwxrwxrwx. 6 jrowell users   4096 1971-12-14 12:01:00 jdir
 drwxrwxrwx. 7 jrowell users   4096 1987-06-15 12:00:47 kdir
 drwxrwxrwx. 2 jrowell users   4096 1987-06-15 12:00:53 ldir
 drwxrwxrwx. 2 jrowell users   4096 1987-06-15 12:00:54 mdir
@@ -2926,7 +2926,7 @@ total 480
 testdir/idir:
 total 8
 drwxrwxrwx. 2 jrowell users 4096 1987-06-15 12:00:38 v001
-drwxrwxrwx. 2 jrowell users 4096 2026-02-26 06:58:53 v002
+drwxrwxrwx. 2 jrowell users 4096 1971-12-14 12:00:00 v002
 
 testdir/idir/v001:
 total 480
@@ -3078,7 +3078,7 @@ total 120
 -rw-rw-rw-. 1 jrowell users 1717 1971-12-14 09:48:14 iii03.0002.jpg
 -rw-rw-rw-. 1 jrowell users 1720 1971-12-14 09:48:15 iii03.0003.jpg
 -rw-rw-rw-. 1 jrowell users 1704 1971-12-14 09:48:16 iii03.0004.jpg
-lrwxrwxrwx. 1 jrowell users   11 2026-02-26 06:58:53 iii03.0005.jpg -> missing.jpg
+lrwxrwxrwx. 1 jrowell users   11 1971-12-14 09:48:00 iii03.0005.jpg -> missing.jpg
 -rw-rw-rw-. 1 jrowell users 1722 1971-12-14 09:48:17 iii03.0006.jpg
 -rw-rw-rw-. 1 jrowell users 1699 1971-12-14 09:48:18 iii03.0007.jpg
 -rw-rw-rw-. 1 jrowell users 1719 1971-12-14 09:48:19 iii03.0008.jpg
@@ -3090,7 +3090,7 @@ total 16
 drwxrwxrwx. 4 jrowell users 4096 1987-06-15 12:00:41 beauty
 drwxrwxrwx. 2 jrowell users 4096 1987-06-15 12:00:44 j01
 drwxrwxrwx. 2 jrowell users 4096 1987-06-15 12:00:45 j02
-drwxrwxrwx. 2 jrowell users 4096 2026-02-26 06:58:53 j03
+drwxrwxrwx. 2 jrowell users 4096 1971-12-14 12:01:00 j03
 
 testdir/jdir/beauty:
 total 8
@@ -3264,7 +3264,7 @@ total 0
 -rwxrwxrwx. 1 jrowell users  0 1971-12-14 09:50:52 j04.002.jpg
 -rwxrwxrwx. 1 jrowell users  0 1971-12-14 09:50:53 j04.003.jpg
 -rwxrwxrwx. 1 jrowell users  0 1971-12-14 09:50:54 j04.004.jpg
-lrwxrwxrwx. 1 jrowell users 11 2026-02-26 06:58:53 j04.005.jpg -> missing.jpg
+lrwxrwxrwx. 1 jrowell users 11 1971-12-14 12:00:00 j04.005.jpg -> missing.jpg
 -rwxrwxrwx. 1 jrowell users  0 1971-12-14 09:50:55 j04.006.jpg
 -rwxrwxrwx. 1 jrowell users  0 1971-12-14 09:50:56 j04.007.jpg
 -rwxrwxrwx. 1 jrowell users  0 1971-12-14 09:50:57 j04.008.jpg

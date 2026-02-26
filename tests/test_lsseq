@@ -250,11 +250,17 @@ cd $TEST_DIR
 cd testdir/jdir/j03
 /bin/rm -f j04.005.jpg > /dev/null 2>&1
 ln -s missing.jpg j04.005.jpg
+touch --no-dereference -t 197112141200 j04.005.jpg
+touch -t 197112141201 .
+touch -t 197112141201 ..
 cd $TEST_DIR
 
 cd testdir/idir/v002
 /bin/rm -f iii03.0005.jpg > /dev/null 2>&1
 ln -s missing.jpg iii03.0005.jpg
+touch --no-dereference -t 197112140948 iii03.0005.jpg
+touch -t 197112141200 .
+touch -t 197112141200 ..
 cd $TEST_DIR
 
 if [ `uname` = Darwin ]; then
