@@ -1225,26 +1225,20 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     # Now actually print the sequences in this directory.
     #
     seqKeys = []
-    ### print(f"DEBUG a 0b{gListWhichFiles:04b}")
     if gListWhichFiles & LIST_IMGS :
-        ### print(f"DEBUG a1 in LIST_IMGS")
         imgKeys = list(imageDictionary.keys())
         for k in imgKeys :
             seqKeys.append(k)
 
     if gListWhichFiles & LIST_MOVS :
-        ### print(f"DEBUG a1 in LIST_MOVS")
         movKeys = list(moviesDictionary.keys())
         for k in movKeys :
             seqKeys.append(k)
 
     if gListWhichFiles & LIST_CACHES :
-        ### print(f"DEBUG a1 in LIST_CACHES")
         cacheKeys = list(cacheDictionary.keys())
         for k in cacheKeys :
             seqKeys.append(k)
-
-    ### print("DEBUG b: ", seqKeys) # jpr
 
     # Gather file mod times if needed.
     #
@@ -1389,7 +1383,6 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         seqKeys.sort()
         if args.reverseListing :
             seqKeys.reverse()
-        ### print("DEBUG c: ", seqKeys) # jpr
         for k in seqKeys :
             if isMovie(k) :
                 if args.prependPath != PATH_NOPREFIX :
