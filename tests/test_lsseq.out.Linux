@@ -7193,7 +7193,11 @@ r2.[101-115].jpg
 
 ----- Test 174 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images -----
 .:
-r0.v01.txt  r0.v02.txt  r0.v03.txt  rSub01  rSub02
+r0.v01.txt  r1.003.jpg  r1.008.jpg  r1.013.jpg  r2.103.jpg  r2.108.jpg  r2.113.jpg
+r0.v02.txt  r1.004.jpg  r1.009.jpg  r1.014.jpg  r2.104.jpg  r2.109.jpg  r2.114.jpg
+r0.v03.txt  r1.005.jpg  r1.010.jpg  r1.015.jpg  r2.105.jpg  r2.110.jpg  r2.115.jpg
+r1.001.jpg  r1.006.jpg  r1.011.jpg  r2.101.jpg  r2.106.jpg  r2.111.jpg  rSub01
+r1.002.jpg  r1.007.jpg  r1.012.jpg  r2.102.jpg  r2.107.jpg  r2.112.jpg  rSub02
 rrr01.[001-015].ass
 rrr01.[090-105].bgeo.sc
 rrr01.mov
@@ -7202,7 +7206,11 @@ rrr02.mov
 rrr03.[100-115].fur
 
 ./rSub01:
-rrr00.v01.txt  rrr00.v02.txt  rrr00.v03.txt  rrr00.v04.txt
+r1.001.jpg  r1.006.jpg  r1.011.jpg  r2.101.jpg  r2.106.jpg  r2.111.jpg  rrr00.v01.txt
+r1.002.jpg  r1.007.jpg  r1.012.jpg  r2.102.jpg  r2.107.jpg  r2.112.jpg  rrr00.v02.txt
+r1.003.jpg  r1.008.jpg  r1.013.jpg  r2.103.jpg  r2.108.jpg  r2.113.jpg  rrr00.v03.txt
+r1.004.jpg  r1.009.jpg  r1.014.jpg  r2.104.jpg  r2.109.jpg  r2.114.jpg  rrr00.v04.txt
+r1.005.jpg  r1.010.jpg  r1.015.jpg  r2.105.jpg  r2.110.jpg  r2.115.jpg
 rrr01.[001-015].ass
 rrr01.[090-105].bgeo.sc
 rrr01.mov
@@ -7211,7 +7219,11 @@ rrr02.mov
 rrr03.[100-115].fur
 
 ./rSub02:
-rrr00.v01.txt  rrr00.v02.txt  rrr00.v03.txt  rrr00.v04.txt  rrr00.v05.txt
+r1.001.jpg  r1.006.jpg  r1.011.jpg  r2.101.jpg  r2.106.jpg  r2.111.jpg  rrr00.v01.txt
+r1.002.jpg  r1.007.jpg  r1.012.jpg  r2.102.jpg  r2.107.jpg  r2.112.jpg  rrr00.v02.txt
+r1.003.jpg  r1.008.jpg  r1.013.jpg  r2.103.jpg  r2.108.jpg  r2.113.jpg  rrr00.v03.txt
+r1.004.jpg  r1.009.jpg  r1.014.jpg  r2.104.jpg  r2.109.jpg  r2.114.jpg  rrr00.v04.txt
+r1.005.jpg  r1.010.jpg  r1.015.jpg  r2.105.jpg  r2.110.jpg  r2.115.jpg  rrr00.v05.txt
 rrr01.[001-015].ass
 rrr01.[090-105].bgeo.sc
 rrr01.mov
@@ -7244,25 +7256,550 @@ rrr02.[001-015].ass
 rrr02.mov
 rrr03.[100-115].fur
 
------ Test 176 -+- dir: . -+- lsseq -i -----
+----- Test 176 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-caches -----
+.:
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+./rSub01:
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+./rSub02:
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+----- Test 177 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-caches -----
+.:
+r0.v01.txt     rrr01.011.ass      rrr01.099.bgeo.sc  rrr02.008.ass  rrr03.106.fur
+r0.v02.txt     rrr01.012.ass      rrr01.100.bgeo.sc  rrr02.009.ass  rrr03.107.fur
+r0.v03.txt     rrr01.013.ass      rrr01.101.bgeo.sc  rrr02.010.ass  rrr03.108.fur
+rSub01         rrr01.014.ass      rrr01.102.bgeo.sc  rrr02.011.ass  rrr03.109.fur
+rSub02         rrr01.015.ass      rrr01.103.bgeo.sc  rrr02.012.ass  rrr03.110.fur
+rrr01.001.ass  rrr01.090.bgeo.sc  rrr01.104.bgeo.sc  rrr02.013.ass  rrr03.111.fur
+rrr01.002.ass  rrr01.091.bgeo.sc  rrr01.105.bgeo.sc  rrr02.014.ass  rrr03.112.fur
+rrr01.004.ass  rrr01.092.bgeo.sc  rrr02.001.ass      rrr02.015.ass  rrr03.113.fur
+rrr01.005.ass  rrr01.093.bgeo.sc  rrr02.002.ass      rrr03.100.fur  rrr03.114.fur
+rrr01.006.ass  rrr01.094.bgeo.sc  rrr02.003.ass      rrr03.101.fur  rrr03.115.fur
+rrr01.007.ass  rrr01.095.bgeo.sc  rrr02.004.ass      rrr03.102.fur
+rrr01.008.ass  rrr01.096.bgeo.sc  rrr02.005.ass      rrr03.103.fur
+rrr01.009.ass  rrr01.097.bgeo.sc  rrr02.006.ass      rrr03.104.fur
+rrr01.010.ass  rrr01.098.bgeo.sc  rrr02.007.ass      rrr03.105.fur
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.mov
+rrr02.mov
+
+./rSub01:
+rrr00.v01.txt  rrr01.011.ass      rrr01.098.bgeo.sc  rrr02.006.ass  rrr03.103.fur
+rrr00.v02.txt  rrr01.012.ass      rrr01.099.bgeo.sc  rrr02.007.ass  rrr03.104.fur
+rrr00.v03.txt  rrr01.013.ass      rrr01.100.bgeo.sc  rrr02.008.ass  rrr03.105.fur
+rrr00.v04.txt  rrr01.014.ass      rrr01.101.bgeo.sc  rrr02.009.ass  rrr03.106.fur
+rrr01.001.ass  rrr01.015.ass      rrr01.102.bgeo.sc  rrr02.010.ass  rrr03.107.fur
+rrr01.002.ass  rrr01.090.bgeo.sc  rrr01.103.bgeo.sc  rrr02.011.ass  rrr03.108.fur
+rrr01.004.ass  rrr01.091.bgeo.sc  rrr01.104.bgeo.sc  rrr02.012.ass  rrr03.109.fur
+rrr01.005.ass  rrr01.092.bgeo.sc  rrr01.105.bgeo.sc  rrr02.013.ass  rrr03.110.fur
+rrr01.006.ass  rrr01.093.bgeo.sc  rrr02.001.ass      rrr02.014.ass  rrr03.111.fur
+rrr01.007.ass  rrr01.094.bgeo.sc  rrr02.002.ass      rrr02.015.ass  rrr03.112.fur
+rrr01.008.ass  rrr01.095.bgeo.sc  rrr02.003.ass      rrr03.100.fur  rrr03.113.fur
+rrr01.009.ass  rrr01.096.bgeo.sc  rrr02.004.ass      rrr03.101.fur  rrr03.114.fur
+rrr01.010.ass  rrr01.097.bgeo.sc  rrr02.005.ass      rrr03.102.fur  rrr03.115.fur
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.mov
+rrr02.mov
+
+./rSub02:
+rrr00.v01.txt  rrr01.011.ass      rrr01.099.bgeo.sc  rrr02.008.ass  rrr03.106.fur
+rrr00.v02.txt  rrr01.012.ass      rrr01.100.bgeo.sc  rrr02.009.ass  rrr03.107.fur
+rrr00.v03.txt  rrr01.013.ass      rrr01.101.bgeo.sc  rrr02.010.ass  rrr03.108.fur
+rrr00.v04.txt  rrr01.014.ass      rrr01.102.bgeo.sc  rrr02.011.ass  rrr03.109.fur
+rrr00.v05.txt  rrr01.015.ass      rrr01.103.bgeo.sc  rrr02.012.ass  rrr03.110.fur
+rrr01.001.ass  rrr01.090.bgeo.sc  rrr01.104.bgeo.sc  rrr02.013.ass  rrr03.111.fur
+rrr01.002.ass  rrr01.091.bgeo.sc  rrr01.105.bgeo.sc  rrr02.014.ass  rrr03.112.fur
+rrr01.004.ass  rrr01.092.bgeo.sc  rrr02.001.ass      rrr02.015.ass  rrr03.113.fur
+rrr01.005.ass  rrr01.093.bgeo.sc  rrr02.002.ass      rrr03.100.fur  rrr03.114.fur
+rrr01.006.ass  rrr01.094.bgeo.sc  rrr02.003.ass      rrr03.101.fur  rrr03.115.fur
+rrr01.007.ass  rrr01.095.bgeo.sc  rrr02.004.ass      rrr03.102.fur
+rrr01.008.ass  rrr01.096.bgeo.sc  rrr02.005.ass      rrr03.103.fur
+rrr01.009.ass  rrr01.097.bgeo.sc  rrr02.006.ass      rrr03.104.fur
+rrr01.010.ass  rrr01.098.bgeo.sc  rrr02.007.ass      rrr03.105.fur
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.mov
+rrr02.mov
+
+----- Test 178 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-caches -----
+.:
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.mov
+rrr02.mov
+
+./rSub01:
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.mov
+rrr02.mov
+
+./rSub02:
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.mov
+rrr02.mov
+
+----- Test 179 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-movies -----
+.:
+rrr01.mov
+rrr02.mov
+
+./rSub01:
+rrr01.mov
+rrr02.mov
+
+./rSub02:
+rrr01.mov
+rrr02.mov
+
+----- Test 180 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-movies -----
+.:
+r0.v01.txt  r0.v02.txt  r0.v03.txt  rSub01  rSub02  rrr01.mov  rrr02.mov
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+./rSub01:
+rrr00.v01.txt  rrr00.v02.txt  rrr00.v03.txt  rrr00.v04.txt  rrr01.mov  rrr02.mov
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+./rSub02:
+rrr00.v01.txt  rrr00.v02.txt  rrr00.v03.txt  rrr00.v04.txt  rrr00.v05.txt  rrr01.mov  rrr02.mov
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+----- Test 181 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-movies -----
+.:
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+./rSub01:
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+./rSub02:
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+----- Test 182 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images --not-caches -----
+.:
+r0.v01.txt  r1.014.jpg  r2.115.jpg     rrr01.015.ass      rrr01.105.bgeo.sc  rrr03.100.fur
+r0.v02.txt  r1.015.jpg  rSub01         rrr01.090.bgeo.sc  rrr02.001.ass      rrr03.101.fur
+r0.v03.txt  r2.101.jpg  rSub02         rrr01.091.bgeo.sc  rrr02.002.ass      rrr03.102.fur
+r1.001.jpg  r2.102.jpg  rrr01.001.ass  rrr01.092.bgeo.sc  rrr02.003.ass      rrr03.103.fur
+r1.002.jpg  r2.103.jpg  rrr01.002.ass  rrr01.093.bgeo.sc  rrr02.004.ass      rrr03.104.fur
+r1.003.jpg  r2.104.jpg  rrr01.004.ass  rrr01.094.bgeo.sc  rrr02.005.ass      rrr03.105.fur
+r1.004.jpg  r2.105.jpg  rrr01.005.ass  rrr01.095.bgeo.sc  rrr02.006.ass      rrr03.106.fur
+r1.005.jpg  r2.106.jpg  rrr01.006.ass  rrr01.096.bgeo.sc  rrr02.007.ass      rrr03.107.fur
+r1.006.jpg  r2.107.jpg  rrr01.007.ass  rrr01.097.bgeo.sc  rrr02.008.ass      rrr03.108.fur
+r1.007.jpg  r2.108.jpg  rrr01.008.ass  rrr01.098.bgeo.sc  rrr02.009.ass      rrr03.109.fur
+r1.008.jpg  r2.109.jpg  rrr01.009.ass  rrr01.099.bgeo.sc  rrr02.010.ass      rrr03.110.fur
+r1.009.jpg  r2.110.jpg  rrr01.010.ass  rrr01.100.bgeo.sc  rrr02.011.ass      rrr03.111.fur
+r1.010.jpg  r2.111.jpg  rrr01.011.ass  rrr01.101.bgeo.sc  rrr02.012.ass      rrr03.112.fur
+r1.011.jpg  r2.112.jpg  rrr01.012.ass  rrr01.102.bgeo.sc  rrr02.013.ass      rrr03.113.fur
+r1.012.jpg  r2.113.jpg  rrr01.013.ass  rrr01.103.bgeo.sc  rrr02.014.ass      rrr03.114.fur
+r1.013.jpg  r2.114.jpg  rrr01.014.ass  rrr01.104.bgeo.sc  rrr02.015.ass      rrr03.115.fur
+rrr01.mov
+rrr02.mov
+
+./rSub01:
+r1.001.jpg  r2.102.jpg     rrr00.v03.txt  rrr01.090.bgeo.sc  rrr02.001.ass  rrr03.101.fur
+r1.002.jpg  r2.103.jpg     rrr00.v04.txt  rrr01.091.bgeo.sc  rrr02.002.ass  rrr03.102.fur
+r1.003.jpg  r2.104.jpg     rrr01.001.ass  rrr01.092.bgeo.sc  rrr02.003.ass  rrr03.103.fur
+r1.004.jpg  r2.105.jpg     rrr01.002.ass  rrr01.093.bgeo.sc  rrr02.004.ass  rrr03.104.fur
+r1.005.jpg  r2.106.jpg     rrr01.004.ass  rrr01.094.bgeo.sc  rrr02.005.ass  rrr03.105.fur
+r1.006.jpg  r2.107.jpg     rrr01.005.ass  rrr01.095.bgeo.sc  rrr02.006.ass  rrr03.106.fur
+r1.007.jpg  r2.108.jpg     rrr01.006.ass  rrr01.096.bgeo.sc  rrr02.007.ass  rrr03.107.fur
+r1.008.jpg  r2.109.jpg     rrr01.007.ass  rrr01.097.bgeo.sc  rrr02.008.ass  rrr03.108.fur
+r1.009.jpg  r2.110.jpg     rrr01.008.ass  rrr01.098.bgeo.sc  rrr02.009.ass  rrr03.109.fur
+r1.010.jpg  r2.111.jpg     rrr01.009.ass  rrr01.099.bgeo.sc  rrr02.010.ass  rrr03.110.fur
+r1.011.jpg  r2.112.jpg     rrr01.010.ass  rrr01.100.bgeo.sc  rrr02.011.ass  rrr03.111.fur
+r1.012.jpg  r2.113.jpg     rrr01.011.ass  rrr01.101.bgeo.sc  rrr02.012.ass  rrr03.112.fur
+r1.013.jpg  r2.114.jpg     rrr01.012.ass  rrr01.102.bgeo.sc  rrr02.013.ass  rrr03.113.fur
+r1.014.jpg  r2.115.jpg     rrr01.013.ass  rrr01.103.bgeo.sc  rrr02.014.ass  rrr03.114.fur
+r1.015.jpg  rrr00.v01.txt  rrr01.014.ass  rrr01.104.bgeo.sc  rrr02.015.ass  rrr03.115.fur
+r2.101.jpg  rrr00.v02.txt  rrr01.015.ass  rrr01.105.bgeo.sc  rrr03.100.fur
+rrr01.mov
+rrr02.mov
+
+./rSub02:
+r1.001.jpg  r2.102.jpg     rrr00.v03.txt  rrr01.015.ass      rrr01.105.bgeo.sc  rrr03.100.fur
+r1.002.jpg  r2.103.jpg     rrr00.v04.txt  rrr01.090.bgeo.sc  rrr02.001.ass      rrr03.101.fur
+r1.003.jpg  r2.104.jpg     rrr00.v05.txt  rrr01.091.bgeo.sc  rrr02.002.ass      rrr03.102.fur
+r1.004.jpg  r2.105.jpg     rrr01.001.ass  rrr01.092.bgeo.sc  rrr02.003.ass      rrr03.103.fur
+r1.005.jpg  r2.106.jpg     rrr01.002.ass  rrr01.093.bgeo.sc  rrr02.004.ass      rrr03.104.fur
+r1.006.jpg  r2.107.jpg     rrr01.004.ass  rrr01.094.bgeo.sc  rrr02.005.ass      rrr03.105.fur
+r1.007.jpg  r2.108.jpg     rrr01.005.ass  rrr01.095.bgeo.sc  rrr02.006.ass      rrr03.106.fur
+r1.008.jpg  r2.109.jpg     rrr01.006.ass  rrr01.096.bgeo.sc  rrr02.007.ass      rrr03.107.fur
+r1.009.jpg  r2.110.jpg     rrr01.007.ass  rrr01.097.bgeo.sc  rrr02.008.ass      rrr03.108.fur
+r1.010.jpg  r2.111.jpg     rrr01.008.ass  rrr01.098.bgeo.sc  rrr02.009.ass      rrr03.109.fur
+r1.011.jpg  r2.112.jpg     rrr01.009.ass  rrr01.099.bgeo.sc  rrr02.010.ass      rrr03.110.fur
+r1.012.jpg  r2.113.jpg     rrr01.010.ass  rrr01.100.bgeo.sc  rrr02.011.ass      rrr03.111.fur
+r1.013.jpg  r2.114.jpg     rrr01.011.ass  rrr01.101.bgeo.sc  rrr02.012.ass      rrr03.112.fur
+r1.014.jpg  r2.115.jpg     rrr01.012.ass  rrr01.102.bgeo.sc  rrr02.013.ass      rrr03.113.fur
+r1.015.jpg  rrr00.v01.txt  rrr01.013.ass  rrr01.103.bgeo.sc  rrr02.014.ass      rrr03.114.fur
+r2.101.jpg  rrr00.v02.txt  rrr01.014.ass  rrr01.104.bgeo.sc  rrr02.015.ass      rrr03.115.fur
+rrr01.mov
+rrr02.mov
+
+----- Test 183 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-images --not-caches -----
+.:
+rrr01.mov
+rrr02.mov
+
+./rSub01:
+rrr01.mov
+rrr02.mov
+
+./rSub02:
+rrr01.mov
+rrr02.mov
+
+----- Test 184 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images --not-movies -----
+.:
+r0.v01.txt  r1.003.jpg  r1.008.jpg  r1.013.jpg  r2.103.jpg  r2.108.jpg  r2.113.jpg  rrr01.mov
+r0.v02.txt  r1.004.jpg  r1.009.jpg  r1.014.jpg  r2.104.jpg  r2.109.jpg  r2.114.jpg  rrr02.mov
+r0.v03.txt  r1.005.jpg  r1.010.jpg  r1.015.jpg  r2.105.jpg  r2.110.jpg  r2.115.jpg
+r1.001.jpg  r1.006.jpg  r1.011.jpg  r2.101.jpg  r2.106.jpg  r2.111.jpg  rSub01
+r1.002.jpg  r1.007.jpg  r1.012.jpg  r2.102.jpg  r2.107.jpg  r2.112.jpg  rSub02
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+./rSub01:
+r1.001.jpg  r1.006.jpg  r1.011.jpg  r2.101.jpg  r2.106.jpg  r2.111.jpg  rrr00.v01.txt  rrr02.mov
+r1.002.jpg  r1.007.jpg  r1.012.jpg  r2.102.jpg  r2.107.jpg  r2.112.jpg  rrr00.v02.txt
+r1.003.jpg  r1.008.jpg  r1.013.jpg  r2.103.jpg  r2.108.jpg  r2.113.jpg  rrr00.v03.txt
+r1.004.jpg  r1.009.jpg  r1.014.jpg  r2.104.jpg  r2.109.jpg  r2.114.jpg  rrr00.v04.txt
+r1.005.jpg  r1.010.jpg  r1.015.jpg  r2.105.jpg  r2.110.jpg  r2.115.jpg  rrr01.mov
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+./rSub02:
+r1.001.jpg  r1.006.jpg  r1.011.jpg  r2.101.jpg  r2.106.jpg  r2.111.jpg  rrr00.v01.txt  rrr01.mov
+r1.002.jpg  r1.007.jpg  r1.012.jpg  r2.102.jpg  r2.107.jpg  r2.112.jpg  rrr00.v02.txt  rrr02.mov
+r1.003.jpg  r1.008.jpg  r1.013.jpg  r2.103.jpg  r2.108.jpg  r2.113.jpg  rrr00.v03.txt
+r1.004.jpg  r1.009.jpg  r1.014.jpg  r2.104.jpg  r2.109.jpg  r2.114.jpg  rrr00.v04.txt
+r1.005.jpg  r1.010.jpg  r1.015.jpg  r2.105.jpg  r2.110.jpg  r2.115.jpg  rrr00.v05.txt
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+----- Test 185 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-images --not-movies -----
+.:
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+./rSub01:
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+./rSub02:
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+----- Test 186 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-caches --not-movies -----
+.:
+r0.v01.txt     rrr01.009.ass      rrr01.095.bgeo.sc  rrr02.001.ass  rrr02.013.ass  rrr03.108.fur
+r0.v02.txt     rrr01.010.ass      rrr01.096.bgeo.sc  rrr02.002.ass  rrr02.014.ass  rrr03.109.fur
+r0.v03.txt     rrr01.011.ass      rrr01.097.bgeo.sc  rrr02.003.ass  rrr02.015.ass  rrr03.110.fur
+rSub01         rrr01.012.ass      rrr01.098.bgeo.sc  rrr02.004.ass  rrr02.mov      rrr03.111.fur
+rSub02         rrr01.013.ass      rrr01.099.bgeo.sc  rrr02.005.ass  rrr03.100.fur  rrr03.112.fur
+rrr01.001.ass  rrr01.014.ass      rrr01.100.bgeo.sc  rrr02.006.ass  rrr03.101.fur  rrr03.113.fur
+rrr01.002.ass  rrr01.015.ass      rrr01.101.bgeo.sc  rrr02.007.ass  rrr03.102.fur  rrr03.114.fur
+rrr01.004.ass  rrr01.090.bgeo.sc  rrr01.102.bgeo.sc  rrr02.008.ass  rrr03.103.fur  rrr03.115.fur
+rrr01.005.ass  rrr01.091.bgeo.sc  rrr01.103.bgeo.sc  rrr02.009.ass  rrr03.104.fur
+rrr01.006.ass  rrr01.092.bgeo.sc  rrr01.104.bgeo.sc  rrr02.010.ass  rrr03.105.fur
+rrr01.007.ass  rrr01.093.bgeo.sc  rrr01.105.bgeo.sc  rrr02.011.ass  rrr03.106.fur
+rrr01.008.ass  rrr01.094.bgeo.sc  rrr01.mov          rrr02.012.ass  rrr03.107.fur
+r1.[001-015].jpg
+r2.[101-115].jpg
+
+./rSub01:
+rrr00.v01.txt  rrr01.010.ass      rrr01.096.bgeo.sc  rrr02.002.ass  rrr02.014.ass  rrr03.109.fur
+rrr00.v02.txt  rrr01.011.ass      rrr01.097.bgeo.sc  rrr02.003.ass  rrr02.015.ass  rrr03.110.fur
+rrr00.v03.txt  rrr01.012.ass      rrr01.098.bgeo.sc  rrr02.004.ass  rrr02.mov      rrr03.111.fur
+rrr00.v04.txt  rrr01.013.ass      rrr01.099.bgeo.sc  rrr02.005.ass  rrr03.100.fur  rrr03.112.fur
+rrr01.001.ass  rrr01.014.ass      rrr01.100.bgeo.sc  rrr02.006.ass  rrr03.101.fur  rrr03.113.fur
+rrr01.002.ass  rrr01.015.ass      rrr01.101.bgeo.sc  rrr02.007.ass  rrr03.102.fur  rrr03.114.fur
+rrr01.004.ass  rrr01.090.bgeo.sc  rrr01.102.bgeo.sc  rrr02.008.ass  rrr03.103.fur  rrr03.115.fur
+rrr01.005.ass  rrr01.091.bgeo.sc  rrr01.103.bgeo.sc  rrr02.009.ass  rrr03.104.fur
+rrr01.006.ass  rrr01.092.bgeo.sc  rrr01.104.bgeo.sc  rrr02.010.ass  rrr03.105.fur
+rrr01.007.ass  rrr01.093.bgeo.sc  rrr01.105.bgeo.sc  rrr02.011.ass  rrr03.106.fur
+rrr01.008.ass  rrr01.094.bgeo.sc  rrr01.mov          rrr02.012.ass  rrr03.107.fur
+rrr01.009.ass  rrr01.095.bgeo.sc  rrr02.001.ass      rrr02.013.ass  rrr03.108.fur
+r1.[001-015].jpg
+r2.[101-115].jpg
+
+./rSub02:
+rrr00.v01.txt  rrr01.009.ass      rrr01.095.bgeo.sc  rrr02.001.ass  rrr02.013.ass  rrr03.108.fur
+rrr00.v02.txt  rrr01.010.ass      rrr01.096.bgeo.sc  rrr02.002.ass  rrr02.014.ass  rrr03.109.fur
+rrr00.v03.txt  rrr01.011.ass      rrr01.097.bgeo.sc  rrr02.003.ass  rrr02.015.ass  rrr03.110.fur
+rrr00.v04.txt  rrr01.012.ass      rrr01.098.bgeo.sc  rrr02.004.ass  rrr02.mov      rrr03.111.fur
+rrr00.v05.txt  rrr01.013.ass      rrr01.099.bgeo.sc  rrr02.005.ass  rrr03.100.fur  rrr03.112.fur
+rrr01.001.ass  rrr01.014.ass      rrr01.100.bgeo.sc  rrr02.006.ass  rrr03.101.fur  rrr03.113.fur
+rrr01.002.ass  rrr01.015.ass      rrr01.101.bgeo.sc  rrr02.007.ass  rrr03.102.fur  rrr03.114.fur
+rrr01.004.ass  rrr01.090.bgeo.sc  rrr01.102.bgeo.sc  rrr02.008.ass  rrr03.103.fur  rrr03.115.fur
+rrr01.005.ass  rrr01.091.bgeo.sc  rrr01.103.bgeo.sc  rrr02.009.ass  rrr03.104.fur
+rrr01.006.ass  rrr01.092.bgeo.sc  rrr01.104.bgeo.sc  rrr02.010.ass  rrr03.105.fur
+rrr01.007.ass  rrr01.093.bgeo.sc  rrr01.105.bgeo.sc  rrr02.011.ass  rrr03.106.fur
+rrr01.008.ass  rrr01.094.bgeo.sc  rrr01.mov          rrr02.012.ass  rrr03.107.fur
+r1.[001-015].jpg
+r2.[101-115].jpg
+
+----- Test 187 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-caches --not-movies -----
+.:
+r1.[001-015].jpg
+r2.[101-115].jpg
+
+./rSub01:
+r1.[001-015].jpg
+r2.[101-115].jpg
+
+./rSub02:
+r1.[001-015].jpg
+r2.[101-115].jpg
+
+----- Test 188 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images --not-caches --not-movies -----
+.:
+r0.v01.txt  r1.015.jpg  rSub02             rrr01.092.bgeo.sc  rrr02.003.ass  rrr03.103.fur
+r0.v02.txt  r2.101.jpg  rrr01.001.ass      rrr01.093.bgeo.sc  rrr02.004.ass  rrr03.104.fur
+r0.v03.txt  r2.102.jpg  rrr01.002.ass      rrr01.094.bgeo.sc  rrr02.005.ass  rrr03.105.fur
+r1.001.jpg  r2.103.jpg  rrr01.004.ass      rrr01.095.bgeo.sc  rrr02.006.ass  rrr03.106.fur
+r1.002.jpg  r2.104.jpg  rrr01.005.ass      rrr01.096.bgeo.sc  rrr02.007.ass  rrr03.107.fur
+r1.003.jpg  r2.105.jpg  rrr01.006.ass      rrr01.097.bgeo.sc  rrr02.008.ass  rrr03.108.fur
+r1.004.jpg  r2.106.jpg  rrr01.007.ass      rrr01.098.bgeo.sc  rrr02.009.ass  rrr03.109.fur
+r1.005.jpg  r2.107.jpg  rrr01.008.ass      rrr01.099.bgeo.sc  rrr02.010.ass  rrr03.110.fur
+r1.006.jpg  r2.108.jpg  rrr01.009.ass      rrr01.100.bgeo.sc  rrr02.011.ass  rrr03.111.fur
+r1.007.jpg  r2.109.jpg  rrr01.010.ass      rrr01.101.bgeo.sc  rrr02.012.ass  rrr03.112.fur
+r1.008.jpg  r2.110.jpg  rrr01.011.ass      rrr01.102.bgeo.sc  rrr02.013.ass  rrr03.113.fur
+r1.009.jpg  r2.111.jpg  rrr01.012.ass      rrr01.103.bgeo.sc  rrr02.014.ass  rrr03.114.fur
+r1.010.jpg  r2.112.jpg  rrr01.013.ass      rrr01.104.bgeo.sc  rrr02.015.ass  rrr03.115.fur
+r1.011.jpg  r2.113.jpg  rrr01.014.ass      rrr01.105.bgeo.sc  rrr02.mov
+r1.012.jpg  r2.114.jpg  rrr01.015.ass      rrr01.mov          rrr03.100.fur
+r1.013.jpg  r2.115.jpg  rrr01.090.bgeo.sc  rrr02.001.ass      rrr03.101.fur
+r1.014.jpg  rSub01      rrr01.091.bgeo.sc  rrr02.002.ass      rrr03.102.fur
+
+./rSub01:
+r1.001.jpg  r2.103.jpg     rrr01.001.ass      rrr01.093.bgeo.sc  rrr02.004.ass  rrr03.104.fur
+r1.002.jpg  r2.104.jpg     rrr01.002.ass      rrr01.094.bgeo.sc  rrr02.005.ass  rrr03.105.fur
+r1.003.jpg  r2.105.jpg     rrr01.004.ass      rrr01.095.bgeo.sc  rrr02.006.ass  rrr03.106.fur
+r1.004.jpg  r2.106.jpg     rrr01.005.ass      rrr01.096.bgeo.sc  rrr02.007.ass  rrr03.107.fur
+r1.005.jpg  r2.107.jpg     rrr01.006.ass      rrr01.097.bgeo.sc  rrr02.008.ass  rrr03.108.fur
+r1.006.jpg  r2.108.jpg     rrr01.007.ass      rrr01.098.bgeo.sc  rrr02.009.ass  rrr03.109.fur
+r1.007.jpg  r2.109.jpg     rrr01.008.ass      rrr01.099.bgeo.sc  rrr02.010.ass  rrr03.110.fur
+r1.008.jpg  r2.110.jpg     rrr01.009.ass      rrr01.100.bgeo.sc  rrr02.011.ass  rrr03.111.fur
+r1.009.jpg  r2.111.jpg     rrr01.010.ass      rrr01.101.bgeo.sc  rrr02.012.ass  rrr03.112.fur
+r1.010.jpg  r2.112.jpg     rrr01.011.ass      rrr01.102.bgeo.sc  rrr02.013.ass  rrr03.113.fur
+r1.011.jpg  r2.113.jpg     rrr01.012.ass      rrr01.103.bgeo.sc  rrr02.014.ass  rrr03.114.fur
+r1.012.jpg  r2.114.jpg     rrr01.013.ass      rrr01.104.bgeo.sc  rrr02.015.ass  rrr03.115.fur
+r1.013.jpg  r2.115.jpg     rrr01.014.ass      rrr01.105.bgeo.sc  rrr02.mov
+r1.014.jpg  rrr00.v01.txt  rrr01.015.ass      rrr01.mov          rrr03.100.fur
+r1.015.jpg  rrr00.v02.txt  rrr01.090.bgeo.sc  rrr02.001.ass      rrr03.101.fur
+r2.101.jpg  rrr00.v03.txt  rrr01.091.bgeo.sc  rrr02.002.ass      rrr03.102.fur
+r2.102.jpg  rrr00.v04.txt  rrr01.092.bgeo.sc  rrr02.003.ass      rrr03.103.fur
+
+./rSub02:
+r1.001.jpg  r2.103.jpg     rrr00.v05.txt      rrr01.092.bgeo.sc  rrr02.003.ass  rrr03.103.fur
+r1.002.jpg  r2.104.jpg     rrr01.001.ass      rrr01.093.bgeo.sc  rrr02.004.ass  rrr03.104.fur
+r1.003.jpg  r2.105.jpg     rrr01.002.ass      rrr01.094.bgeo.sc  rrr02.005.ass  rrr03.105.fur
+r1.004.jpg  r2.106.jpg     rrr01.004.ass      rrr01.095.bgeo.sc  rrr02.006.ass  rrr03.106.fur
+r1.005.jpg  r2.107.jpg     rrr01.005.ass      rrr01.096.bgeo.sc  rrr02.007.ass  rrr03.107.fur
+r1.006.jpg  r2.108.jpg     rrr01.006.ass      rrr01.097.bgeo.sc  rrr02.008.ass  rrr03.108.fur
+r1.007.jpg  r2.109.jpg     rrr01.007.ass      rrr01.098.bgeo.sc  rrr02.009.ass  rrr03.109.fur
+r1.008.jpg  r2.110.jpg     rrr01.008.ass      rrr01.099.bgeo.sc  rrr02.010.ass  rrr03.110.fur
+r1.009.jpg  r2.111.jpg     rrr01.009.ass      rrr01.100.bgeo.sc  rrr02.011.ass  rrr03.111.fur
+r1.010.jpg  r2.112.jpg     rrr01.010.ass      rrr01.101.bgeo.sc  rrr02.012.ass  rrr03.112.fur
+r1.011.jpg  r2.113.jpg     rrr01.011.ass      rrr01.102.bgeo.sc  rrr02.013.ass  rrr03.113.fur
+r1.012.jpg  r2.114.jpg     rrr01.012.ass      rrr01.103.bgeo.sc  rrr02.014.ass  rrr03.114.fur
+r1.013.jpg  r2.115.jpg     rrr01.013.ass      rrr01.104.bgeo.sc  rrr02.015.ass  rrr03.115.fur
+r1.014.jpg  rrr00.v01.txt  rrr01.014.ass      rrr01.105.bgeo.sc  rrr02.mov
+r1.015.jpg  rrr00.v02.txt  rrr01.015.ass      rrr01.mov          rrr03.100.fur
+r2.101.jpg  rrr00.v03.txt  rrr01.090.bgeo.sc  rrr02.001.ass      rrr03.101.fur
+r2.102.jpg  rrr00.v04.txt  rrr01.091.bgeo.sc  rrr02.002.ass      rrr03.102.fur
+
+----- Test 189 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-images --not-caches --not-movies -----
+.:
+./rSub01:
+
+./rSub02:
+
+----- Test 190 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-images -----
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+rSub01/rrr01.[001-015].ass
+rSub01/rrr01.[090-105].bgeo.sc
+rSub01/rrr01.mov
+rSub01/rrr02.[001-015].ass
+rSub01/rrr02.mov
+rSub01/rrr03.[100-115].fur
+rSub02/rrr01.[001-015].ass
+rSub02/rrr01.[090-105].bgeo.sc
+rSub02/rrr01.mov
+rSub02/rrr02.[001-015].ass
+rSub02/rrr02.mov
+rSub02/rrr03.[100-115].fur
+
+----- Test 191 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-caches -----
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.mov
+rrr02.mov
+rSub01/r1.[001-015].jpg
+rSub01/r2.[101-115].jpg
+rSub01/rrr01.mov
+rSub01/rrr02.mov
+rSub02/r1.[001-015].jpg
+rSub02/r2.[101-115].jpg
+rSub02/rrr01.mov
+rSub02/rrr02.mov
+
+----- Test 192 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-movies -----
+r1.[001-015].jpg
+r2.[101-115].jpg
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+rSub01/r1.[001-015].jpg
+rSub01/r2.[101-115].jpg
+rSub01/rrr01.[001-015].ass
+rSub01/rrr01.[090-105].bgeo.sc
+rSub01/rrr02.[001-015].ass
+rSub01/rrr03.[100-115].fur
+rSub02/r1.[001-015].jpg
+rSub02/r2.[101-115].jpg
+rSub02/rrr01.[001-015].ass
+rSub02/rrr01.[090-105].bgeo.sc
+rSub02/rrr02.[001-015].ass
+rSub02/rrr03.[100-115].fur
+
+----- Test 193 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-images --global-sort-by-time -r -----
+rSub01/rrr01.[001-015].ass
+rSub01/rrr01.[090-105].bgeo.sc
+rSub01/rrr01.mov
+rSub01/rrr02.[001-015].ass
+rSub01/rrr02.mov
+rSub01/rrr03.[100-115].fur
+rSub02/rrr01.[001-015].ass
+rSub02/rrr01.[090-105].bgeo.sc
+rSub02/rrr01.mov
+rSub02/rrr02.[001-015].ass
+rSub02/rrr02.mov
+rSub02/rrr03.[100-115].fur
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr01.mov
+rrr02.[001-015].ass
+rrr02.mov
+rrr03.[100-115].fur
+
+----- Test 194 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-caches --global-sort-by-time -r -----
+r1.[001-015].jpg
+r2.[101-115].jpg
+rSub01/r1.[001-015].jpg
+rSub01/r2.[101-115].jpg
+rSub01/rrr01.mov
+rSub01/rrr02.mov
+rSub02/r1.[001-015].jpg
+rSub02/r2.[101-115].jpg
+rSub02/rrr01.mov
+rSub02/rrr02.mov
+rrr01.mov
+rrr02.mov
+
+----- Test 195 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-movies --global-sort-by-time -r -----
+r1.[001-015].jpg
+r2.[101-115].jpg
+rSub01/r1.[001-015].jpg
+rSub01/r2.[101-115].jpg
+rSub01/rrr01.[001-015].ass
+rSub01/rrr01.[090-105].bgeo.sc
+rSub01/rrr02.[001-015].ass
+rSub01/rrr03.[100-115].fur
+rSub02/r1.[001-015].jpg
+rSub02/r2.[101-115].jpg
+rSub02/rrr01.[001-015].ass
+rSub02/rrr01.[090-105].bgeo.sc
+rSub02/rrr02.[001-015].ass
+rSub02/rrr03.[100-115].fur
+rrr01.[001-015].ass
+rrr01.[090-105].bgeo.sc
+rrr02.[001-015].ass
+rrr03.[100-115].fur
+
+----- Test 196 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------ Test 177 -+- dir: testdir/gdir -+- lsseq --only-images -----
+----- Test 197 -+- dir: testdir/gdir -+- lsseq --only-images -----
 
------ Test 178 -+- dir: testdir/gdir -+- lsseq --only-movies -----
+----- Test 198 -+- dir: testdir/gdir -+- lsseq --only-movies -----
 xxx01.mov
 xxx02.mov
 
------ Test 179 -+- dir: testdir/gdir -+- lsseq --only-caches -----
+----- Test 199 -+- dir: testdir/gdir -+- lsseq --only-caches -----
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------ Test 180 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
+----- Test 200 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check

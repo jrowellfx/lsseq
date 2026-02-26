@@ -1072,6 +1072,9 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         else :
 
             fileParts = seqSplit(filename, args)
+
+            # Note: (len(fileParts) == 2) means file is an image or cache.
+
             if len(fileParts) == 2 : # Means file is an image or cache.
                 newFrameNum = int(fileParts[FRAMENUM])
                 newPaddingSize = len(fileParts[FRAMENUM])
@@ -1085,25 +1088,25 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                     newFrameSize = os.path.getsize(realFilename)
                     newFrameMTime = os.path.getmtime(realFilename)
 
-                if isCache(fileParts[SEQKEY]) and (gListWhichFiles & LIST_CACHES):
-                    if fileParts[SEQKEY] in cacheDictionary :
-                        # tack on new frame number.
-                        cacheDictionary[fileParts[SEQKEY]].append(
-                            (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
-                    else :
-                        # initialiaze dictionary entry.
-                        cacheDictionary[fileParts[SEQKEY]] = [
-                            (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
+            if len(fileParts) == 2 and isCache(fileParts[SEQKEY]) and (gListWhichFiles & LIST_CACHES):
+                if fileParts[SEQKEY] in cacheDictionary :
+                    # tack on new frame number.
+                    cacheDictionary[fileParts[SEQKEY]].append(
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
+                else :
+                    # initialiaze dictionary entry.
+                    cacheDictionary[fileParts[SEQKEY]] = [
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
 
-                elif not isCache(fileParts[SEQKEY]) and (gListWhichFiles & LIST_IMGS) :
-                    if fileParts[SEQKEY] in imageDictionary :
-                        # tack on new frame number.
-                        imageDictionary[fileParts[SEQKEY]].append(
-                            (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
-                    else :
-                        # initialiaze dictionary entry.
-                        imageDictionary[fileParts[SEQKEY]] = [
-                            (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
+            elif len(fileParts) == 2 and not isCache(fileParts[SEQKEY]) and (gListWhichFiles & LIST_IMGS) :
+                if fileParts[SEQKEY] in imageDictionary :
+                    # tack on new frame number.
+                    imageDictionary[fileParts[SEQKEY]].append(
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
+                else :
+                    # initialiaze dictionary entry.
+                    imageDictionary[fileParts[SEQKEY]] = [
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
 
             elif isMovie(filename) and (gListWhichFiles & LIST_MOVS):
                 # Check to see if file exists - might be broken soft link.

@@ -466,6 +466,26 @@ testdir/rdir lsseq -C --no-error-lists --recursive --only-sequences --list-all-f
 testdir/rdir lsseq -C --no-error-lists --recursive --only-images
 testdir/rdir lsseq -C --no-error-lists --recursive --not-images
 testdir/rdir lsseq -C --no-error-lists --recursive --only-sequences --not-images
+testdir/rdir lsseq -C --no-error-lists --recursive --only-caches
+testdir/rdir lsseq -C --no-error-lists --recursive --not-caches
+testdir/rdir lsseq -C --no-error-lists --recursive --only-sequences --not-caches
+testdir/rdir lsseq -C --no-error-lists --recursive --only-movies
+testdir/rdir lsseq -C --no-error-lists --recursive --not-movies
+testdir/rdir lsseq -C --no-error-lists --recursive --only-sequences --not-movies
+testdir/rdir lsseq -C --no-error-lists --recursive --not-images --not-caches
+testdir/rdir lsseq -C --no-error-lists --recursive --only-sequences --not-images --not-caches
+testdir/rdir lsseq -C --no-error-lists --recursive --not-images --not-movies
+testdir/rdir lsseq -C --no-error-lists --recursive --only-sequences --not-images --not-movies
+testdir/rdir lsseq -C --no-error-lists --recursive --not-caches --not-movies
+testdir/rdir lsseq -C --no-error-lists --recursive --only-sequences --not-caches --not-movies
+testdir/rdir lsseq -C --no-error-lists --recursive --not-images --not-caches --not-movies
+testdir/rdir lsseq -C --no-error-lists --recursive --only-sequences --not-images --not-caches --not-movies
+testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-images
+testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-caches
+testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-movies
+testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-images --global-sort-by-time -r
+testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-caches --global-sort-by-time -r
+testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-movies --global-sort-by-time -r
 EOFa
 
 cat << EOFb > $tmpTestCmdFileB
