@@ -263,18 +263,20 @@ touch -t 197112141200 .
 touch -t 197112141200 ..
 cd $TEST_DIR
 
+# To help double check that the file-times of the test-files have been
+# set correctly across clones of this repo, or to catch if/when new
+# test-files have been added.
+#
+# Diffing the checked-in longList.testdir.out.* with the new one will
+# bring any changes to light.
+#
 if [ `uname` = Darwin ]; then
-    # LS_FULL_TIME='-T'
     LS_FULL_TIME='-l -D "+%Y-%m-%d %H:%M:%S"' # TZ is set to GMT above
+    ls -R -l           -D "+%Y-%m-%d %H:%M:%S" testdir > longList.testdir.out.`uname`.new
 else
-    # LS_FULL_TIME='--full-time'
-    # LS_FULL_TIME='-l --time-style="+%Y-%m-%d %H:%M:%S %z"'
     LS_FULL_TIME='-l --time-style="+%Y-%m-%d %H:%M:%S"' # TZ is set to GMT above
+    ls -R -l --time-style="+%Y-%m-%d %H:%M:%S" testdir > longList.testdir.out.`uname`.new
 fi
-
-# Make sure time-stamp is installed from https://github.com/jrowellfx/vfxTdUtils
-
-ls -R -l --time-style="+%Y-%m-%d %H:%M:%S" testdir > longList.testdir.`time-stamp`.out
 
 # Set as env-var for 'ls -C' and 'ls -x'.
 # Also will be interpreted as width of tty
