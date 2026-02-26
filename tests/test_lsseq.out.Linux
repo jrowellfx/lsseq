@@ -4450,64 +4450,64 @@ j04.[-10-010].jpg p:[-7,1,10]
 sort.ls
 filename.[0007-1002].jpg p:[9-10,98,101-102,1000-1001]
 
------ Test 56 -+- dir: testdir/ndir -+- ls --full-time -o -----
+----- Test 56 -+- dir: testdir/ndir -+- ls -l --time-style="+%Y-%m-%d %H:%M:%S" -o -----
 total 224
--rwxrwxrwx. 1 testUser 2360 2010-06-15 10:55:00.000000000 -0500 custom.touch.images
--rw-rw-rw-. 1 testUser 1139 2010-06-15 10:55:00.000000000 -0500 nnn_v01.0005.jpg
--rw-rw-rw-. 1 testUser 1146 2010-06-15 10:56:00.000000000 -0500 nnn_v01.0006.jpg
--rw-rw-rw-. 1 testUser 1112 2010-06-15 10:57:00.000000000 -0500 nnn_v01.0007.jpg
--rw-rw-rw-. 1 testUser 1150 2010-06-15 10:58:00.000000000 -0500 nnn_v01.0008.jpg
--rw-rw-rw-. 1 testUser 1140 2010-06-15 10:59:00.000000000 -0500 nnn_v01.0009.jpg
--rw-rw-rw-. 1 testUser 1238 2010-06-15 11:00:00.000000000 -0500 nnn_v01.0010.jpg
--rw-rw-rw-. 1 testUser 1219 2010-06-15 11:01:00.000000000 -0500 nnn_v01.0011.jpg
--rw-rw-rw-. 1 testUser 1221 2010-06-15 11:02:00.000000000 -0500 nnn_v01.0012.jpg
--rw-rw-rw-. 1 testUser 1232 2010-06-15 11:03:00.000000000 -0500 nnn_v01.0013.jpg
--rw-rw-rw-. 1 testUser 1215 2010-06-15 11:04:00.000000000 -0500 nnn_v01.0014.jpg
--rw-rw-rw-. 1 testUser 1237 2010-06-15 11:05:00.000000000 -0500 nnn_v01.0015.jpg
--rw-rw-rw-. 1 testUser 1139 2010-06-15 11:52:00.000000000 -0500 nnn_v02.0005.jpg
--rw-rw-rw-. 1 testUser 1146 2010-06-15 11:53:00.000000000 -0500 nnn_v02.0006.jpg
--rw-rw-rw-. 1 testUser 1112 2010-06-15 11:54:00.000000000 -0500 nnn_v02.0007.jpg
--rw-rw-rw-. 1 testUser 1150 2010-06-15 11:55:00.000000000 -0500 nnn_v02.0008.jpg
--rw-rw-rw-. 1 testUser 1140 2010-06-15 11:56:00.000000000 -0500 nnn_v02.0009.jpg
--rw-rw-rw-. 1 testUser 1238 2010-06-15 11:57:00.000000000 -0500 nnn_v02.0010.jpg
--rw-rw-rw-. 1 testUser 1219 2010-06-15 11:58:00.000000000 -0500 nnn_v02.0011.jpg
--rw-rw-rw-. 1 testUser 1221 2010-06-15 11:59:00.000000000 -0500 nnn_v02.0012.jpg
--rw-rw-rw-. 1 testUser 1232 2010-06-15 12:00:00.000000000 -0500 nnn_v02.0013.jpg
--rw-rw-rw-. 1 testUser 1215 2010-06-15 12:01:00.000000000 -0500 nnn_v02.0014.jpg
--rw-rw-rw-. 1 testUser 1237 2010-06-15 12:02:00.000000000 -0500 nnn_v02.0015.jpg
--rw-rw-rw-. 1 testUser 1139 2010-06-15 11:55:00.000000000 -0500 nnn_v03.0005.jpg
--rw-rw-rw-. 1 testUser 1146 2010-06-15 11:56:00.000000000 -0500 nnn_v03.0006.jpg
--rw-rw-rw-. 1 testUser 1112 2010-06-15 11:57:00.000000000 -0500 nnn_v03.0007.jpg
--rw-rw-rw-. 1 testUser 1150 2010-06-15 11:58:00.000000000 -0500 nnn_v03.0008.jpg
--rw-rw-rw-. 1 testUser 1140 2010-06-15 11:59:00.000000000 -0500 nnn_v03.0009.jpg
--rw-rw-rw-. 1 testUser 1238 2010-06-15 12:00:00.000000000 -0500 nnn_v03.0010.jpg
--rw-rw-rw-. 1 testUser 1219 2010-06-15 12:01:00.000000000 -0500 nnn_v03.0011.jpg
--rw-rw-rw-. 1 testUser 1221 2010-06-15 12:02:00.000000000 -0500 nnn_v03.0012.jpg
--rw-rw-rw-. 1 testUser 1232 2010-06-15 12:03:00.000000000 -0500 nnn_v03.0013.jpg
--rw-rw-rw-. 1 testUser 1215 2010-06-15 12:04:00.000000000 -0500 nnn_v03.0014.jpg
--rw-rw-rw-. 1 testUser 1237 2010-06-15 12:05:00.000000000 -0500 nnn_v03.0015.jpg
--rw-rw-rw-. 1 testUser 1139 2010-06-15 11:58:00.000000000 -0500 nnn_v04.0005.jpg
--rw-rw-rw-. 1 testUser 1146 2010-06-15 11:59:00.000000000 -0500 nnn_v04.0006.jpg
--rw-rw-rw-. 1 testUser 1112 2010-06-15 12:00:00.000000000 -0500 nnn_v04.0007.jpg
--rw-rw-rw-. 1 testUser 1150 2010-06-15 12:01:00.000000000 -0500 nnn_v04.0008.jpg
--rw-rw-rw-. 1 testUser 1140 2010-06-15 12:02:00.000000000 -0500 nnn_v04.0009.jpg
--rw-rw-rw-. 1 testUser 1238 2010-06-15 12:03:00.000000000 -0500 nnn_v04.0010.jpg
--rw-rw-rw-. 1 testUser 1219 2010-06-15 12:04:00.000000000 -0500 nnn_v04.0011.jpg
--rw-rw-rw-. 1 testUser 1221 2010-06-15 12:05:00.000000000 -0500 nnn_v04.0012.jpg
--rw-rw-rw-. 1 testUser 1232 2010-06-15 12:06:00.000000000 -0500 nnn_v04.0013.jpg
--rw-rw-rw-. 1 testUser 1215 2010-06-15 12:07:00.000000000 -0500 nnn_v04.0014.jpg
--rw-rw-rw-. 1 testUser 1237 2010-06-15 12:08:00.000000000 -0500 nnn_v04.0015.jpg
--rw-rw-rw-. 1 testUser 1139 2010-06-15 12:55:00.000000000 -0500 nnn_v05.0005.jpg
--rw-rw-rw-. 1 testUser 1146 2010-06-15 12:56:00.000000000 -0500 nnn_v05.0006.jpg
--rw-rw-rw-. 1 testUser 1112 2010-06-15 12:57:00.000000000 -0500 nnn_v05.0007.jpg
--rw-rw-rw-. 1 testUser 1150 2010-06-15 12:58:00.000000000 -0500 nnn_v05.0008.jpg
--rw-rw-rw-. 1 testUser 1140 2010-06-15 12:59:00.000000000 -0500 nnn_v05.0009.jpg
--rw-rw-rw-. 1 testUser 1238 2010-06-15 13:00:00.000000000 -0500 nnn_v05.0010.jpg
--rw-rw-rw-. 1 testUser 1219 2010-06-15 13:01:00.000000000 -0500 nnn_v05.0011.jpg
--rw-rw-rw-. 1 testUser 1221 2010-06-15 13:02:00.000000000 -0500 nnn_v05.0012.jpg
--rw-rw-rw-. 1 testUser 1232 2010-06-15 13:03:00.000000000 -0500 nnn_v05.0013.jpg
--rw-rw-rw-. 1 testUser 1215 2010-06-15 13:04:00.000000000 -0500 nnn_v05.0014.jpg
--rw-rw-rw-. 1 testUser 1237 2010-06-15 13:05:00.000000000 -0500 nnn_v05.0015.jpg
+-rwxrwxrwx. 1 testUser 2360 2010-06-15 10:55:00 custom.touch.images
+-rw-rw-rw-. 1 testUser 1139 2010-06-15 10:55:00 nnn_v01.0005.jpg
+-rw-rw-rw-. 1 testUser 1146 2010-06-15 10:56:00 nnn_v01.0006.jpg
+-rw-rw-rw-. 1 testUser 1112 2010-06-15 10:57:00 nnn_v01.0007.jpg
+-rw-rw-rw-. 1 testUser 1150 2010-06-15 10:58:00 nnn_v01.0008.jpg
+-rw-rw-rw-. 1 testUser 1140 2010-06-15 10:59:00 nnn_v01.0009.jpg
+-rw-rw-rw-. 1 testUser 1238 2010-06-15 11:00:00 nnn_v01.0010.jpg
+-rw-rw-rw-. 1 testUser 1219 2010-06-15 11:01:00 nnn_v01.0011.jpg
+-rw-rw-rw-. 1 testUser 1221 2010-06-15 11:02:00 nnn_v01.0012.jpg
+-rw-rw-rw-. 1 testUser 1232 2010-06-15 11:03:00 nnn_v01.0013.jpg
+-rw-rw-rw-. 1 testUser 1215 2010-06-15 11:04:00 nnn_v01.0014.jpg
+-rw-rw-rw-. 1 testUser 1237 2010-06-15 11:05:00 nnn_v01.0015.jpg
+-rw-rw-rw-. 1 testUser 1139 2010-06-15 11:52:00 nnn_v02.0005.jpg
+-rw-rw-rw-. 1 testUser 1146 2010-06-15 11:53:00 nnn_v02.0006.jpg
+-rw-rw-rw-. 1 testUser 1112 2010-06-15 11:54:00 nnn_v02.0007.jpg
+-rw-rw-rw-. 1 testUser 1150 2010-06-15 11:55:00 nnn_v02.0008.jpg
+-rw-rw-rw-. 1 testUser 1140 2010-06-15 11:56:00 nnn_v02.0009.jpg
+-rw-rw-rw-. 1 testUser 1238 2010-06-15 11:57:00 nnn_v02.0010.jpg
+-rw-rw-rw-. 1 testUser 1219 2010-06-15 11:58:00 nnn_v02.0011.jpg
+-rw-rw-rw-. 1 testUser 1221 2010-06-15 11:59:00 nnn_v02.0012.jpg
+-rw-rw-rw-. 1 testUser 1232 2010-06-15 12:00:00 nnn_v02.0013.jpg
+-rw-rw-rw-. 1 testUser 1215 2010-06-15 12:01:00 nnn_v02.0014.jpg
+-rw-rw-rw-. 1 testUser 1237 2010-06-15 12:02:00 nnn_v02.0015.jpg
+-rw-rw-rw-. 1 testUser 1139 2010-06-15 11:55:00 nnn_v03.0005.jpg
+-rw-rw-rw-. 1 testUser 1146 2010-06-15 11:56:00 nnn_v03.0006.jpg
+-rw-rw-rw-. 1 testUser 1112 2010-06-15 11:57:00 nnn_v03.0007.jpg
+-rw-rw-rw-. 1 testUser 1150 2010-06-15 11:58:00 nnn_v03.0008.jpg
+-rw-rw-rw-. 1 testUser 1140 2010-06-15 11:59:00 nnn_v03.0009.jpg
+-rw-rw-rw-. 1 testUser 1238 2010-06-15 12:00:00 nnn_v03.0010.jpg
+-rw-rw-rw-. 1 testUser 1219 2010-06-15 12:01:00 nnn_v03.0011.jpg
+-rw-rw-rw-. 1 testUser 1221 2010-06-15 12:02:00 nnn_v03.0012.jpg
+-rw-rw-rw-. 1 testUser 1232 2010-06-15 12:03:00 nnn_v03.0013.jpg
+-rw-rw-rw-. 1 testUser 1215 2010-06-15 12:04:00 nnn_v03.0014.jpg
+-rw-rw-rw-. 1 testUser 1237 2010-06-15 12:05:00 nnn_v03.0015.jpg
+-rw-rw-rw-. 1 testUser 1139 2010-06-15 11:58:00 nnn_v04.0005.jpg
+-rw-rw-rw-. 1 testUser 1146 2010-06-15 11:59:00 nnn_v04.0006.jpg
+-rw-rw-rw-. 1 testUser 1112 2010-06-15 12:00:00 nnn_v04.0007.jpg
+-rw-rw-rw-. 1 testUser 1150 2010-06-15 12:01:00 nnn_v04.0008.jpg
+-rw-rw-rw-. 1 testUser 1140 2010-06-15 12:02:00 nnn_v04.0009.jpg
+-rw-rw-rw-. 1 testUser 1238 2010-06-15 12:03:00 nnn_v04.0010.jpg
+-rw-rw-rw-. 1 testUser 1219 2010-06-15 12:04:00 nnn_v04.0011.jpg
+-rw-rw-rw-. 1 testUser 1221 2010-06-15 12:05:00 nnn_v04.0012.jpg
+-rw-rw-rw-. 1 testUser 1232 2010-06-15 12:06:00 nnn_v04.0013.jpg
+-rw-rw-rw-. 1 testUser 1215 2010-06-15 12:07:00 nnn_v04.0014.jpg
+-rw-rw-rw-. 1 testUser 1237 2010-06-15 12:08:00 nnn_v04.0015.jpg
+-rw-rw-rw-. 1 testUser 1139 2010-06-15 12:55:00 nnn_v05.0005.jpg
+-rw-rw-rw-. 1 testUser 1146 2010-06-15 12:56:00 nnn_v05.0006.jpg
+-rw-rw-rw-. 1 testUser 1112 2010-06-15 12:57:00 nnn_v05.0007.jpg
+-rw-rw-rw-. 1 testUser 1150 2010-06-15 12:58:00 nnn_v05.0008.jpg
+-rw-rw-rw-. 1 testUser 1140 2010-06-15 12:59:00 nnn_v05.0009.jpg
+-rw-rw-rw-. 1 testUser 1238 2010-06-15 13:00:00 nnn_v05.0010.jpg
+-rw-rw-rw-. 1 testUser 1219 2010-06-15 13:01:00 nnn_v05.0011.jpg
+-rw-rw-rw-. 1 testUser 1221 2010-06-15 13:02:00 nnn_v05.0012.jpg
+-rw-rw-rw-. 1 testUser 1232 2010-06-15 13:03:00 nnn_v05.0013.jpg
+-rw-rw-rw-. 1 testUser 1215 2010-06-15 13:04:00 nnn_v05.0014.jpg
+-rw-rw-rw-. 1 testUser 1237 2010-06-15 13:05:00 nnn_v05.0015.jpg
 
 ----- Test 57 -+- dir: testdir/ndir -+- lsseq -----
 custom.touch.images
@@ -4732,140 +4732,140 @@ ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
 cdir/c_subDir/ccc01.[001-120].exr
 
------ Test 77 -+- dir: testdir/pdir -+- ls -R --full-time -o -t -r -----
+----- Test 77 -+- dir: testdir/pdir -+- ls -R -l --time-style="+%Y-%m-%d %H:%M:%S" -o -t -r -----
 .:
 total 20
--rwxrwxrwx. 1 testUser    0 2010-06-15 08:28:00.000000000 -0500 p_median4_v03.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 09:28:00.000000000 -0500 p_median4_v01.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 10:28:00.000000000 -0500 p_median4_v02.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 11:29:00.000000000 -0500 p_median4_v01.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 11:30:00.000000000 -0500 p_median4_v01.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 11:31:00.000000000 -0500 p_median4_v01.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 12:29:00.000000000 -0500 p_median4_v02.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 12:30:00.000000000 -0500 p_median4_v02.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 12:31:00.000000000 -0500 p_median4_v02.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 13:29:00.000000000 -0500 p_median4_v03.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 13:30:00.000000000 -0500 p_median4_v03.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 13:31:00.000000000 -0500 p_median4_v03.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 14:32:00.000000000 -0500 p_median4_v02.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 15:32:00.000000000 -0500 p_median4_v03.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 16:32:00.000000000 -0500 p_median4_v01.12.jpg
--rwxrwxrwx. 1 testUser 7072 2022-12-07 12:00:00.000000000 -0600 custom.touch.images
--rwxrwxrwx. 1 testUser  863 2022-12-07 12:01:00.000000000 -0600 initial.image.mtimes
-drwxrwxrwx. 4 testUser 4096 2022-12-07 12:02:00.000000000 -0600 p01_dir
-drwxrwxrwx. 4 testUser 4096 2022-12-07 12:05:00.000000000 -0600 p02_dir
+-rwxrwxrwx. 1 testUser    0 2010-06-15 08:28:00 p_median4_v03.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 09:28:00 p_median4_v01.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 10:28:00 p_median4_v02.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 11:29:00 p_median4_v01.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 11:30:00 p_median4_v01.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 11:31:00 p_median4_v01.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 12:29:00 p_median4_v02.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 12:30:00 p_median4_v02.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 12:31:00 p_median4_v02.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 13:29:00 p_median4_v03.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 13:30:00 p_median4_v03.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 13:31:00 p_median4_v03.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 14:32:00 p_median4_v02.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 15:32:00 p_median4_v03.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 16:32:00 p_median4_v01.12.jpg
+-rwxrwxrwx. 1 testUser 7072 2022-12-07 12:00:00 custom.touch.images
+-rwxrwxrwx. 1 testUser  863 2022-12-07 12:01:00 initial.image.mtimes
+drwxrwxrwx. 4 testUser 4096 2022-12-07 12:02:00 p01_dir
+drwxrwxrwx. 4 testUser 4096 2022-12-07 12:05:00 p02_dir
 
 ./p01_dir:
 total 8
--rwxrwxrwx. 1 testUser    0 2010-06-13 08:28:00.000000000 -0500 p01_median2_v03.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 09:28:00.000000000 -0500 p01_median2_v01.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 10:28:00.000000000 -0500 p01_median2_v02.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 11:29:00.000000000 -0500 p01_median2_v01.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 11:30:00.000000000 -0500 p01_median2_v01.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 11:31:00.000000000 -0500 p01_median2_v01.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 12:29:00.000000000 -0500 p01_median2_v02.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 12:30:00.000000000 -0500 p01_median2_v02.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 12:31:00.000000000 -0500 p01_median2_v02.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 13:29:00.000000000 -0500 p01_median2_v03.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 13:30:00.000000000 -0500 p01_median2_v03.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 13:31:00.000000000 -0500 p01_median2_v03.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-07-13 14:32:00.000000000 -0500 p01_median2_v02.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-07-13 15:32:00.000000000 -0500 p01_median2_v03.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-07-13 16:32:00.000000000 -0500 p01_median2_v01.12.jpg
-drwxrwxrwx. 2 testUser 4096 2022-12-07 12:03:00.000000000 -0600 p01A_dir
-drwxrwxrwx. 2 testUser 4096 2022-12-07 12:04:00.000000000 -0600 p02B_dir
+-rwxrwxrwx. 1 testUser    0 2010-06-13 08:28:00 p01_median2_v03.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 09:28:00 p01_median2_v01.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 10:28:00 p01_median2_v02.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 11:29:00 p01_median2_v01.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 11:30:00 p01_median2_v01.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 11:31:00 p01_median2_v01.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 12:29:00 p01_median2_v02.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 12:30:00 p01_median2_v02.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 12:31:00 p01_median2_v02.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 13:29:00 p01_median2_v03.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 13:30:00 p01_median2_v03.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 13:31:00 p01_median2_v03.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-07-13 14:32:00 p01_median2_v02.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-07-13 15:32:00 p01_median2_v03.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-07-13 16:32:00 p01_median2_v01.12.jpg
+drwxrwxrwx. 2 testUser 4096 2022-12-07 12:03:00 p01A_dir
+drwxrwxrwx. 2 testUser 4096 2022-12-07 12:04:00 p02B_dir
 
 ./p01_dir/p01A_dir:
 total 0
--rwxrwxrwx. 1 testUser 0 2010-06-14 08:28:00.000000000 -0500 p01A_median3_v03.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 09:28:00.000000000 -0500 p01A_median3_v01.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 10:28:00.000000000 -0500 p01A_median3_v02.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 11:29:00.000000000 -0500 p01A_median3_v01.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 11:30:00.000000000 -0500 p01A_median3_v01.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 11:31:00.000000000 -0500 p01A_median3_v01.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 12:29:00.000000000 -0500 p01A_median3_v02.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 12:30:00.000000000 -0500 p01A_median3_v02.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 12:31:00.000000000 -0500 p01A_median3_v02.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 13:29:00.000000000 -0500 p01A_median3_v03.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 13:30:00.000000000 -0500 p01A_median3_v03.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 13:31:00.000000000 -0500 p01A_median3_v03.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-07-14 14:32:00.000000000 -0500 p01A_median3_v02.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-07-14 15:32:00.000000000 -0500 p01A_median3_v03.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-07-14 16:32:00.000000000 -0500 p01A_median3_v01.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 08:28:00 p01A_median3_v03.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 09:28:00 p01A_median3_v01.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 10:28:00 p01A_median3_v02.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 11:29:00 p01A_median3_v01.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 11:30:00 p01A_median3_v01.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 11:31:00 p01A_median3_v01.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 12:29:00 p01A_median3_v02.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 12:30:00 p01A_median3_v02.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 12:31:00 p01A_median3_v02.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 13:29:00 p01A_median3_v03.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 13:30:00 p01A_median3_v03.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 13:31:00 p01A_median3_v03.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-07-14 14:32:00 p01A_median3_v02.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-07-14 15:32:00 p01A_median3_v03.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-07-14 16:32:00 p01A_median3_v01.12.jpg
 
 ./p01_dir/p02B_dir:
 total 0
--rwxrwxrwx. 1 testUser 0 2010-06-12 08:28:00.000000000 -0500 p01B_median1_v03.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 09:28:00.000000000 -0500 p01B_median1_v01.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 10:28:00.000000000 -0500 p01B_median1_v02.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 11:29:00.000000000 -0500 p01B_median1_v01.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 11:30:00.000000000 -0500 p01B_median1_v01.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 11:31:00.000000000 -0500 p01B_median1_v01.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 12:29:00.000000000 -0500 p01B_median1_v02.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 12:30:00.000000000 -0500 p01B_median1_v02.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 12:31:00.000000000 -0500 p01B_median1_v02.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 13:29:00.000000000 -0500 p01B_median1_v03.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 13:30:00.000000000 -0500 p01B_median1_v03.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 13:31:00.000000000 -0500 p01B_median1_v03.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-07-12 14:32:00.000000000 -0500 p01B_median1_v02.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-07-12 15:32:00.000000000 -0500 p01B_median1_v03.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-07-12 16:32:00.000000000 -0500 p01B_median1_v01.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 08:28:00 p01B_median1_v03.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 09:28:00 p01B_median1_v01.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 10:28:00 p01B_median1_v02.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 11:29:00 p01B_median1_v01.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 11:30:00 p01B_median1_v01.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 11:31:00 p01B_median1_v01.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 12:29:00 p01B_median1_v02.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 12:30:00 p01B_median1_v02.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 12:31:00 p01B_median1_v02.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 13:29:00 p01B_median1_v03.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 13:30:00 p01B_median1_v03.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 13:31:00 p01B_median1_v03.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-07-12 14:32:00 p01B_median1_v02.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-07-12 15:32:00 p01B_median1_v03.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-07-12 16:32:00 p01B_median1_v01.12.jpg
 
 ./p02_dir:
 total 8
--rwxrwxrwx. 1 testUser    0 2010-05-16 08:28:00.000000000 -0500 p02_median5_v03.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-05-16 09:28:00.000000000 -0500 p02_median5_v01.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-05-16 10:28:00.000000000 -0500 p02_median5_v02.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 11:29:00.000000000 -0500 p02_median5_v01.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 11:30:00.000000000 -0500 p02_median5_v01.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 11:31:00.000000000 -0500 p02_median5_v01.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 12:29:00.000000000 -0500 p02_median5_v02.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 12:30:00.000000000 -0500 p02_median5_v02.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 12:31:00.000000000 -0500 p02_median5_v02.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 13:29:00.000000000 -0500 p02_median5_v03.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 13:30:00.000000000 -0500 p02_median5_v03.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 13:31:00.000000000 -0500 p02_median5_v03.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 14:32:00.000000000 -0500 p02_median5_v02.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 15:32:00.000000000 -0500 p02_median5_v03.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 16:32:00.000000000 -0500 p02_median5_v01.12.jpg
-drwxrwxrwx. 2 testUser 4096 2022-12-07 12:06:00.000000000 -0600 p02B_dir
-drwxrwxrwx. 2 testUser 4096 2022-12-07 12:07:00.000000000 -0600 p02A_dir
+-rwxrwxrwx. 1 testUser    0 2010-05-16 08:28:00 p02_median5_v03.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-05-16 09:28:00 p02_median5_v01.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-05-16 10:28:00 p02_median5_v02.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 11:29:00 p02_median5_v01.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 11:30:00 p02_median5_v01.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 11:31:00 p02_median5_v01.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 12:29:00 p02_median5_v02.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 12:30:00 p02_median5_v02.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 12:31:00 p02_median5_v02.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 13:29:00 p02_median5_v03.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 13:30:00 p02_median5_v03.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 13:31:00 p02_median5_v03.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 14:32:00 p02_median5_v02.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 15:32:00 p02_median5_v03.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 16:32:00 p02_median5_v01.12.jpg
+drwxrwxrwx. 2 testUser 4096 2022-12-07 12:06:00 p02B_dir
+drwxrwxrwx. 2 testUser 4096 2022-12-07 12:07:00 p02A_dir
 
 ./p02_dir/p02B_dir:
 total 0
--rwxrwxrwx. 1 testUser 0 2010-05-18 08:28:00.000000000 -0500 p02B_median7_v03.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-05-18 09:28:00.000000000 -0500 p02B_median7_v01.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-05-18 10:28:00.000000000 -0500 p02B_median7_v02.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 11:29:00.000000000 -0500 p02B_median7_v01.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 11:30:00.000000000 -0500 p02B_median7_v01.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 11:31:00.000000000 -0500 p02B_median7_v01.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 12:29:00.000000000 -0500 p02B_median7_v02.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 12:30:00.000000000 -0500 p02B_median7_v02.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 12:31:00.000000000 -0500 p02B_median7_v02.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 13:29:00.000000000 -0500 p02B_median7_v03.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 13:30:00.000000000 -0500 p02B_median7_v03.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 13:31:00.000000000 -0500 p02B_median7_v03.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 14:32:00.000000000 -0500 p02B_median7_v02.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 15:32:00.000000000 -0500 p02B_median7_v03.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 16:32:00.000000000 -0500 p02B_median7_v01.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-05-18 08:28:00 p02B_median7_v03.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-05-18 09:28:00 p02B_median7_v01.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-05-18 10:28:00 p02B_median7_v02.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 11:29:00 p02B_median7_v01.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 11:30:00 p02B_median7_v01.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 11:31:00 p02B_median7_v01.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 12:29:00 p02B_median7_v02.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 12:30:00 p02B_median7_v02.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 12:31:00 p02B_median7_v02.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 13:29:00 p02B_median7_v03.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 13:30:00 p02B_median7_v03.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 13:31:00 p02B_median7_v03.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 14:32:00 p02B_median7_v02.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 15:32:00 p02B_median7_v03.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 16:32:00 p02B_median7_v01.12.jpg
 
 ./p02_dir/p02A_dir:
 total 0
--rwxrwxrwx. 1 testUser 0 2010-05-17 08:28:00.000000000 -0500 p02A_median6_v03.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-05-17 09:28:00.000000000 -0500 p02A_median6_v01.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-05-17 10:28:00.000000000 -0500 p02A_median6_v02.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 11:29:00.000000000 -0500 p02A_median6_v01.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 11:30:00.000000000 -0500 p02A_median6_v01.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 11:31:00.000000000 -0500 p02A_median6_v01.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 12:29:00.000000000 -0500 p02A_median6_v02.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 12:30:00.000000000 -0500 p02A_median6_v02.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 12:31:00.000000000 -0500 p02A_median6_v02.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 13:29:00.000000000 -0500 p02A_median6_v03.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 13:30:00.000000000 -0500 p02A_median6_v03.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 13:31:00.000000000 -0500 p02A_median6_v03.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 14:32:00.000000000 -0500 p02A_median6_v02.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 15:32:00.000000000 -0500 p02A_median6_v03.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 16:32:00.000000000 -0500 p02A_median6_v01.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-05-17 08:28:00 p02A_median6_v03.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-05-17 09:28:00 p02A_median6_v01.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-05-17 10:28:00 p02A_median6_v02.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 11:29:00 p02A_median6_v01.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 11:30:00 p02A_median6_v01.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 11:31:00 p02A_median6_v01.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 12:29:00 p02A_median6_v02.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 12:30:00 p02A_median6_v02.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 12:31:00 p02A_median6_v02.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 13:29:00 p02A_median6_v03.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 13:30:00 p02A_median6_v03.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 13:31:00 p02A_median6_v03.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 14:32:00 p02A_median6_v02.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 15:32:00 p02A_median6_v03.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 16:32:00 p02A_median6_v01.12.jpg
 
 ----- Test 78 -+- dir: testdir/pdir -+- lsseq --no-error-lists --recursive -t -r --time median -----
 .:
@@ -5093,140 +5093,140 @@ p01_dir/p01A_dir/p01A_median3_v02.[08-12].jpg
 p01_dir/p01A_dir/p01A_median3_v03.[08-12].jpg
 p01_dir/p01A_dir/p01A_median3_v01.[08-12].jpg
 
------ Test 86 -+- dir: testdir/pdir -+- ls -R --full-time -t -o -----
+----- Test 86 -+- dir: testdir/pdir -+- ls -R -l --time-style="+%Y-%m-%d %H:%M:%S" -t -o -----
 .:
 total 20
-drwxrwxrwx. 4 testUser 4096 2022-12-07 12:05:00.000000000 -0600 p02_dir
-drwxrwxrwx. 4 testUser 4096 2022-12-07 12:02:00.000000000 -0600 p01_dir
--rwxrwxrwx. 1 testUser  863 2022-12-07 12:01:00.000000000 -0600 initial.image.mtimes
--rwxrwxrwx. 1 testUser 7072 2022-12-07 12:00:00.000000000 -0600 custom.touch.images
--rwxrwxrwx. 1 testUser    0 2010-06-15 16:32:00.000000000 -0500 p_median4_v01.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 15:32:00.000000000 -0500 p_median4_v03.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 14:32:00.000000000 -0500 p_median4_v02.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 13:31:00.000000000 -0500 p_median4_v03.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 13:30:00.000000000 -0500 p_median4_v03.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 13:29:00.000000000 -0500 p_median4_v03.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 12:31:00.000000000 -0500 p_median4_v02.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 12:30:00.000000000 -0500 p_median4_v02.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 12:29:00.000000000 -0500 p_median4_v02.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 11:31:00.000000000 -0500 p_median4_v01.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 11:30:00.000000000 -0500 p_median4_v01.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 11:29:00.000000000 -0500 p_median4_v01.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 10:28:00.000000000 -0500 p_median4_v02.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 09:28:00.000000000 -0500 p_median4_v01.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-15 08:28:00.000000000 -0500 p_median4_v03.08.jpg
+drwxrwxrwx. 4 testUser 4096 2022-12-07 12:05:00 p02_dir
+drwxrwxrwx. 4 testUser 4096 2022-12-07 12:02:00 p01_dir
+-rwxrwxrwx. 1 testUser  863 2022-12-07 12:01:00 initial.image.mtimes
+-rwxrwxrwx. 1 testUser 7072 2022-12-07 12:00:00 custom.touch.images
+-rwxrwxrwx. 1 testUser    0 2010-06-15 16:32:00 p_median4_v01.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 15:32:00 p_median4_v03.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 14:32:00 p_median4_v02.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 13:31:00 p_median4_v03.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 13:30:00 p_median4_v03.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 13:29:00 p_median4_v03.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 12:31:00 p_median4_v02.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 12:30:00 p_median4_v02.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 12:29:00 p_median4_v02.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 11:31:00 p_median4_v01.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 11:30:00 p_median4_v01.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 11:29:00 p_median4_v01.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 10:28:00 p_median4_v02.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 09:28:00 p_median4_v01.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-15 08:28:00 p_median4_v03.08.jpg
 
 ./p02_dir:
 total 8
-drwxrwxrwx. 2 testUser 4096 2022-12-07 12:07:00.000000000 -0600 p02A_dir
-drwxrwxrwx. 2 testUser 4096 2022-12-07 12:06:00.000000000 -0600 p02B_dir
--rwxrwxrwx. 1 testUser    0 2010-06-16 16:32:00.000000000 -0500 p02_median5_v01.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 15:32:00.000000000 -0500 p02_median5_v03.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 14:32:00.000000000 -0500 p02_median5_v02.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 13:31:00.000000000 -0500 p02_median5_v03.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 13:30:00.000000000 -0500 p02_median5_v03.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 13:29:00.000000000 -0500 p02_median5_v03.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 12:31:00.000000000 -0500 p02_median5_v02.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 12:30:00.000000000 -0500 p02_median5_v02.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 12:29:00.000000000 -0500 p02_median5_v02.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 11:31:00.000000000 -0500 p02_median5_v01.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 11:30:00.000000000 -0500 p02_median5_v01.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-16 11:29:00.000000000 -0500 p02_median5_v01.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-05-16 10:28:00.000000000 -0500 p02_median5_v02.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-05-16 09:28:00.000000000 -0500 p02_median5_v01.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-05-16 08:28:00.000000000 -0500 p02_median5_v03.08.jpg
+drwxrwxrwx. 2 testUser 4096 2022-12-07 12:07:00 p02A_dir
+drwxrwxrwx. 2 testUser 4096 2022-12-07 12:06:00 p02B_dir
+-rwxrwxrwx. 1 testUser    0 2010-06-16 16:32:00 p02_median5_v01.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 15:32:00 p02_median5_v03.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 14:32:00 p02_median5_v02.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 13:31:00 p02_median5_v03.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 13:30:00 p02_median5_v03.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 13:29:00 p02_median5_v03.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 12:31:00 p02_median5_v02.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 12:30:00 p02_median5_v02.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 12:29:00 p02_median5_v02.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 11:31:00 p02_median5_v01.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 11:30:00 p02_median5_v01.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-16 11:29:00 p02_median5_v01.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-05-16 10:28:00 p02_median5_v02.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-05-16 09:28:00 p02_median5_v01.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-05-16 08:28:00 p02_median5_v03.08.jpg
 
 ./p02_dir/p02A_dir:
 total 0
--rwxrwxrwx. 1 testUser 0 2010-06-17 16:32:00.000000000 -0500 p02A_median6_v01.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 15:32:00.000000000 -0500 p02A_median6_v03.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 14:32:00.000000000 -0500 p02A_median6_v02.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 13:31:00.000000000 -0500 p02A_median6_v03.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 13:30:00.000000000 -0500 p02A_median6_v03.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 13:29:00.000000000 -0500 p02A_median6_v03.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 12:31:00.000000000 -0500 p02A_median6_v02.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 12:30:00.000000000 -0500 p02A_median6_v02.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 12:29:00.000000000 -0500 p02A_median6_v02.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 11:31:00.000000000 -0500 p02A_median6_v01.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 11:30:00.000000000 -0500 p02A_median6_v01.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-17 11:29:00.000000000 -0500 p02A_median6_v01.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-05-17 10:28:00.000000000 -0500 p02A_median6_v02.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-05-17 09:28:00.000000000 -0500 p02A_median6_v01.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-05-17 08:28:00.000000000 -0500 p02A_median6_v03.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 16:32:00 p02A_median6_v01.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 15:32:00 p02A_median6_v03.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 14:32:00 p02A_median6_v02.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 13:31:00 p02A_median6_v03.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 13:30:00 p02A_median6_v03.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 13:29:00 p02A_median6_v03.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 12:31:00 p02A_median6_v02.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 12:30:00 p02A_median6_v02.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 12:29:00 p02A_median6_v02.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 11:31:00 p02A_median6_v01.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 11:30:00 p02A_median6_v01.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-17 11:29:00 p02A_median6_v01.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-05-17 10:28:00 p02A_median6_v02.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-05-17 09:28:00 p02A_median6_v01.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-05-17 08:28:00 p02A_median6_v03.08.jpg
 
 ./p02_dir/p02B_dir:
 total 0
--rwxrwxrwx. 1 testUser 0 2010-06-18 16:32:00.000000000 -0500 p02B_median7_v01.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 15:32:00.000000000 -0500 p02B_median7_v03.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 14:32:00.000000000 -0500 p02B_median7_v02.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 13:31:00.000000000 -0500 p02B_median7_v03.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 13:30:00.000000000 -0500 p02B_median7_v03.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 13:29:00.000000000 -0500 p02B_median7_v03.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 12:31:00.000000000 -0500 p02B_median7_v02.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 12:30:00.000000000 -0500 p02B_median7_v02.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 12:29:00.000000000 -0500 p02B_median7_v02.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 11:31:00.000000000 -0500 p02B_median7_v01.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 11:30:00.000000000 -0500 p02B_median7_v01.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-18 11:29:00.000000000 -0500 p02B_median7_v01.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-05-18 10:28:00.000000000 -0500 p02B_median7_v02.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-05-18 09:28:00.000000000 -0500 p02B_median7_v01.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-05-18 08:28:00.000000000 -0500 p02B_median7_v03.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 16:32:00 p02B_median7_v01.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 15:32:00 p02B_median7_v03.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 14:32:00 p02B_median7_v02.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 13:31:00 p02B_median7_v03.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 13:30:00 p02B_median7_v03.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 13:29:00 p02B_median7_v03.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 12:31:00 p02B_median7_v02.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 12:30:00 p02B_median7_v02.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 12:29:00 p02B_median7_v02.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 11:31:00 p02B_median7_v01.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 11:30:00 p02B_median7_v01.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-18 11:29:00 p02B_median7_v01.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-05-18 10:28:00 p02B_median7_v02.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-05-18 09:28:00 p02B_median7_v01.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-05-18 08:28:00 p02B_median7_v03.08.jpg
 
 ./p01_dir:
 total 8
-drwxrwxrwx. 2 testUser 4096 2022-12-07 12:04:00.000000000 -0600 p02B_dir
-drwxrwxrwx. 2 testUser 4096 2022-12-07 12:03:00.000000000 -0600 p01A_dir
--rwxrwxrwx. 1 testUser    0 2010-07-13 16:32:00.000000000 -0500 p01_median2_v01.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-07-13 15:32:00.000000000 -0500 p01_median2_v03.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-07-13 14:32:00.000000000 -0500 p01_median2_v02.12.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 13:31:00.000000000 -0500 p01_median2_v03.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 13:30:00.000000000 -0500 p01_median2_v03.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 13:29:00.000000000 -0500 p01_median2_v03.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 12:31:00.000000000 -0500 p01_median2_v02.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 12:30:00.000000000 -0500 p01_median2_v02.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 12:29:00.000000000 -0500 p01_median2_v02.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 11:31:00.000000000 -0500 p01_median2_v01.11.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 11:30:00.000000000 -0500 p01_median2_v01.10.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 11:29:00.000000000 -0500 p01_median2_v01.09.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 10:28:00.000000000 -0500 p01_median2_v02.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 09:28:00.000000000 -0500 p01_median2_v01.08.jpg
--rwxrwxrwx. 1 testUser    0 2010-06-13 08:28:00.000000000 -0500 p01_median2_v03.08.jpg
+drwxrwxrwx. 2 testUser 4096 2022-12-07 12:04:00 p02B_dir
+drwxrwxrwx. 2 testUser 4096 2022-12-07 12:03:00 p01A_dir
+-rwxrwxrwx. 1 testUser    0 2010-07-13 16:32:00 p01_median2_v01.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-07-13 15:32:00 p01_median2_v03.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-07-13 14:32:00 p01_median2_v02.12.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 13:31:00 p01_median2_v03.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 13:30:00 p01_median2_v03.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 13:29:00 p01_median2_v03.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 12:31:00 p01_median2_v02.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 12:30:00 p01_median2_v02.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 12:29:00 p01_median2_v02.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 11:31:00 p01_median2_v01.11.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 11:30:00 p01_median2_v01.10.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 11:29:00 p01_median2_v01.09.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 10:28:00 p01_median2_v02.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 09:28:00 p01_median2_v01.08.jpg
+-rwxrwxrwx. 1 testUser    0 2010-06-13 08:28:00 p01_median2_v03.08.jpg
 
 ./p01_dir/p02B_dir:
 total 0
--rwxrwxrwx. 1 testUser 0 2010-07-12 16:32:00.000000000 -0500 p01B_median1_v01.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-07-12 15:32:00.000000000 -0500 p01B_median1_v03.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-07-12 14:32:00.000000000 -0500 p01B_median1_v02.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 13:31:00.000000000 -0500 p01B_median1_v03.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 13:30:00.000000000 -0500 p01B_median1_v03.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 13:29:00.000000000 -0500 p01B_median1_v03.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 12:31:00.000000000 -0500 p01B_median1_v02.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 12:30:00.000000000 -0500 p01B_median1_v02.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 12:29:00.000000000 -0500 p01B_median1_v02.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 11:31:00.000000000 -0500 p01B_median1_v01.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 11:30:00.000000000 -0500 p01B_median1_v01.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 11:29:00.000000000 -0500 p01B_median1_v01.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 10:28:00.000000000 -0500 p01B_median1_v02.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 09:28:00.000000000 -0500 p01B_median1_v01.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-12 08:28:00.000000000 -0500 p01B_median1_v03.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-07-12 16:32:00 p01B_median1_v01.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-07-12 15:32:00 p01B_median1_v03.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-07-12 14:32:00 p01B_median1_v02.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 13:31:00 p01B_median1_v03.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 13:30:00 p01B_median1_v03.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 13:29:00 p01B_median1_v03.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 12:31:00 p01B_median1_v02.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 12:30:00 p01B_median1_v02.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 12:29:00 p01B_median1_v02.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 11:31:00 p01B_median1_v01.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 11:30:00 p01B_median1_v01.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 11:29:00 p01B_median1_v01.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 10:28:00 p01B_median1_v02.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 09:28:00 p01B_median1_v01.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-12 08:28:00 p01B_median1_v03.08.jpg
 
 ./p01_dir/p01A_dir:
 total 0
--rwxrwxrwx. 1 testUser 0 2010-07-14 16:32:00.000000000 -0500 p01A_median3_v01.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-07-14 15:32:00.000000000 -0500 p01A_median3_v03.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-07-14 14:32:00.000000000 -0500 p01A_median3_v02.12.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 13:31:00.000000000 -0500 p01A_median3_v03.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 13:30:00.000000000 -0500 p01A_median3_v03.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 13:29:00.000000000 -0500 p01A_median3_v03.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 12:31:00.000000000 -0500 p01A_median3_v02.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 12:30:00.000000000 -0500 p01A_median3_v02.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 12:29:00.000000000 -0500 p01A_median3_v02.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 11:31:00.000000000 -0500 p01A_median3_v01.11.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 11:30:00.000000000 -0500 p01A_median3_v01.10.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 11:29:00.000000000 -0500 p01A_median3_v01.09.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 10:28:00.000000000 -0500 p01A_median3_v02.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 09:28:00.000000000 -0500 p01A_median3_v01.08.jpg
--rwxrwxrwx. 1 testUser 0 2010-06-14 08:28:00.000000000 -0500 p01A_median3_v03.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-07-14 16:32:00 p01A_median3_v01.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-07-14 15:32:00 p01A_median3_v03.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-07-14 14:32:00 p01A_median3_v02.12.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 13:31:00 p01A_median3_v03.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 13:30:00 p01A_median3_v03.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 13:29:00 p01A_median3_v03.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 12:31:00 p01A_median3_v02.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 12:30:00 p01A_median3_v02.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 12:29:00 p01A_median3_v02.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 11:31:00 p01A_median3_v01.11.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 11:30:00 p01A_median3_v01.10.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 11:29:00 p01A_median3_v01.09.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 10:28:00 p01A_median3_v02.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 09:28:00 p01A_median3_v01.08.jpg
+-rwxrwxrwx. 1 testUser 0 2010-06-14 08:28:00 p01A_median3_v03.08.jpg
 
 ----- Test 87 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median pdir -----
 pdir/p02_dir/p02B_dir/p02B_median7_v03.[08-12].jpg
@@ -5297,38 +5297,38 @@ pdir/p_median4_v01.[08-12].jpg
 pdir/p_median4_v03.[08-12].jpg
 pdir/p_median4_v02.[08-12].jpg
 
------ Test 90 -+- dir: testdir/qdir -+- ls -R --full-time -t -o -----
+----- Test 90 -+- dir: testdir/qdir -+- ls -R -l --time-style="+%Y-%m-%d %H:%M:%S" -t -o -----
 .:
 total 20
-drwxrwxrwx. 2 testUser 4096 2023-02-10 11:04:00.000000000 -0600 q3Dir
-drwxrwxrwx. 2 testUser 4096 2023-02-10 11:03:00.000000000 -0600 q2Dir
-drwxrwxrwx. 2 testUser 4096 2023-02-10 11:02:00.000000000 -0600 q1Dir
--rwxrwxrwx. 1 testUser  627 2023-02-10 11:01:00.000000000 -0600 initial.image.mtimes
--rwxrwxrwx. 1 testUser  892 2023-02-10 11:00:00.000000000 -0600 custom.touch.images
+drwxrwxrwx. 2 testUser 4096 2023-02-10 11:04:00 q3Dir
+drwxrwxrwx. 2 testUser 4096 2023-02-10 11:03:00 q2Dir
+drwxrwxrwx. 2 testUser 4096 2023-02-10 11:02:00 q1Dir
+-rwxrwxrwx. 1 testUser  627 2023-02-10 11:01:00 initial.image.mtimes
+-rwxrwxrwx. 1 testUser  892 2023-02-10 11:00:00 custom.touch.images
 
 ./q3Dir:
 total 0
--rwxrwxrwx. 1 testUser 0 2023-02-05 13:32:00.000000000 -0600 qqq.007.jpg
--rwxrwxrwx. 1 testUser 0 2023-02-05 13:31:00.000000000 -0600 qqq.006.jpg
--rwxrwxrwx. 1 testUser 0 2023-02-05 13:30:00.000000000 -0600 qqq.005.jpg
--rwxrwxrwx. 1 testUser 0 2023-02-05 13:29:00.000000000 -0600 qqq.004.jpg
--rwxrwxrwx. 1 testUser 0 2023-02-05 09:28:00.000000000 -0600 qqq.003.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 13:32:00 qqq.007.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 13:31:00 qqq.006.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 13:30:00 qqq.005.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 13:29:00 qqq.004.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 09:28:00 qqq.003.jpg
 
 ./q2Dir:
 total 0
--rwxrwxrwx. 1 testUser 0 2023-02-05 14:32:00.000000000 -0600 qqq.006.jpg
--rwxrwxrwx. 1 testUser 0 2023-02-05 12:31:00.000000000 -0600 qqq.005.jpg
--rwxrwxrwx. 1 testUser 0 2023-02-05 12:30:00.000000000 -0600 qqq.004.jpg
--rwxrwxrwx. 1 testUser 0 2023-02-05 12:29:00.000000000 -0600 qqq.003.jpg
--rwxrwxrwx. 1 testUser 0 2023-02-05 10:28:00.000000000 -0600 qqq.002.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 14:32:00 qqq.006.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 12:31:00 qqq.005.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 12:30:00 qqq.004.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 12:29:00 qqq.003.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 10:28:00 qqq.002.jpg
 
 ./q1Dir:
 total 0
--rwxrwxrwx. 1 testUser 0 2023-02-05 11:32:00.000000000 -0600 qqq.005.jpg
--rwxrwxrwx. 1 testUser 0 2023-02-05 11:31:00.000000000 -0600 qqq.004.jpg
--rwxrwxrwx. 1 testUser 0 2023-02-05 11:30:00.000000000 -0600 qqq.003.jpg
--rwxrwxrwx. 1 testUser 0 2023-02-05 11:29:00.000000000 -0600 qqq.002.jpg
--rwxrwxrwx. 1 testUser 0 2023-02-05 11:28:00.000000000 -0600 qqq.001.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 11:32:00 qqq.005.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 11:31:00 qqq.004.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 11:30:00 qqq.003.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 11:29:00 qqq.002.jpg
+-rwxrwxrwx. 1 testUser 0 2023-02-05 11:28:00 qqq.001.jpg
 
 ----- Test 91 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median qdir -----
 qdir/q3Dir/qqq.[003-007].jpg
@@ -7019,25 +7019,63 @@ rdir/rSub02/rrr02.mov
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
 --+-- Test 161: lsseq returned non-zero error code: 12  --+--
 
------ Test 162 -+- dir: . -+- lsseq -i -----
+----- Test 162 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse -----
+ccc01.[001-120].exr
+ccc03.[80-140].tga
+ccc02.[001-120].exr
+
+----- Test 163 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse --only-show since 20100615-1400 -----
+ccc03.[80-140].tga
+ccc02.[001-120].exr
+
+----- Test 164 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse --recursive -----
+ccc01.[001-120].exr
+ccc03.[80-140].tga
+ccc02.[001-120].exr
+c_subDir/ccc01.[001-120].exr
+
+----- Test 165 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse --recursive --only-show since 20100615-1400 -----
+ccc03.[80-140].tga
+ccc02.[001-120].exr
+
+----- Test 166 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse -----
+ccc01.[001-120].exr
+ccc03.[80-140].tga
+ccc02.[001-120].exr
+
+----- Test 167 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --only-show since 20100615-1400 -----
+ccc03.[80-140].tga
+ccc02.[001-120].exr
+
+----- Test 168 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --recursive -----
+c_subDir/ccc01.[001-120].exr
+ccc01.[001-120].exr
+ccc03.[80-140].tga
+ccc02.[001-120].exr
+
+----- Test 169 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --recursive --only-show since 20100615-1400 -----
+ccc03.[80-140].tga
+ccc02.[001-120].exr
+
+----- Test 170 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------ Test 163 -+- dir: testdir/gdir -+- lsseq --only-images -----
+----- Test 171 -+- dir: testdir/gdir -+- lsseq --only-images -----
 
------ Test 164 -+- dir: testdir/gdir -+- lsseq --only-movies -----
+----- Test 172 -+- dir: testdir/gdir -+- lsseq --only-movies -----
 xxx01.mov
 xxx02.mov
 
------ Test 165 -+- dir: testdir/gdir -+- lsseq --only-caches -----
+----- Test 173 -+- dir: testdir/gdir -+- lsseq --only-caches -----
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------ Test 166 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
+----- Test 174 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check

@@ -113,7 +113,8 @@ do
     esac
 done
 
-export LC_ALL=POSIX
+export LC_COLLATE=POSIX
+export TZ=GMT # To help guarantee consistent treatment of dates regarless of locale
 unset OIC_IMAGE_EXTENSION
 unset OIC_MOV_EXTENSION
 unset OIC_CACHE_EXTENSION
@@ -169,10 +170,35 @@ if [ "$TIMESTAMP_TEST_DIR" = yes ]; then
 
     cd $TEST_DIR
     find testdir -type f | sort > $tmpTouchFile
-    epochStartDate=61559999
+    epochStartDate=61549200 # GMT: Wednesday, December 14, 1971 at 9:00:00 AM
     lastLine=$(wc -l $tmpTouchFile | awk '{ print $1 }')
 
     j=0 # For onscreen counter
+    echo Time-stamping regular files
+    for (( i=1; i<=$lastLine; ++i ));
+    do
+        filename=$(sed -n -e "$i p" $tmpTouchFile)
+        epochDate=$((epochStartDate + i))
+        if [ `uname` = Darwin ]; then
+            touchDate=$(date -r $epochDate '+%Y%m%d%H%M.%S')
+        else
+            touchDate=$(date --date="@$epochDate" '+%Y%m%d%H%M.%S')
+        fi
+        touch -t $touchDate "$filename"
+        j=$((j+1))
+        if [[ $j -ge 50 ]]; then
+            echo $(( lastLine - i )) ""
+            j=0
+        fi
+    done
+
+    cd $TEST_DIR
+    find testdir -type d | sort > $tmpTouchFile
+    epochStartDate=550756800 # GMT: Tuesday, June 15, 1987 at 12:00:00 PM
+    lastLine=$(wc -l $tmpTouchFile | awk '{ print $1 }')
+
+    j=0 # For onscreen counter
+    echo Time-stamping directories 
     for (( i=1; i<=$lastLine; ++i ));
     do
         filename=$(sed -n -e "$i p" $tmpTouchFile)
@@ -203,7 +229,6 @@ fi
 # initial.image.mtimes < list.images > custom.touch.images
 # vi custom.touch.images - edit the times to make for different "oldest" and "newest" vs "median".
 # source custom.touch.images
-#
 
 # Now set the custom time-stamps on certain files
 # to verify that lsseq sort-by-time works properly.
@@ -233,10 +258,17 @@ ln -s missing.jpg iii03.0005.jpg
 cd $TEST_DIR
 
 if [ `uname` = Darwin ]; then
-    LS_FULL_TIME='-T'
+    # LS_FULL_TIME='-T'
+    LS_FULL_TIME='-l -D "+%Y-%m-%d %H:%M:%S"' # TZ is set to GMT above
 else
-    LS_FULL_TIME='--full-time'
+    # LS_FULL_TIME='--full-time'
+    # LS_FULL_TIME='-l --time-style="+%Y-%m-%d %H:%M:%S %z"'
+    LS_FULL_TIME='-l --time-style="+%Y-%m-%d %H:%M:%S"' # TZ is set to GMT above
 fi
+
+# Make sure time-stamp is installed from https://github.com/jrowellfx/vfxTdUtils
+
+ls -R -l --time-style="+%Y-%m-%d %H:%M:%S" testdir > longList.testdir.`time-stamp`.out
 
 # Set as env-var for 'ls -C' and 'ls -x'.
 # Also will be interpreted as width of tty
@@ -412,6 +444,14 @@ testdir/jdir rm -rf j00
 testdir/bdir lsseq --no-error-lists b_subdir 'b_subdir withSpace' 
 testdir lsseq --quiet --recursive --prepend-path-rel ?dir
 testdir lsseq --quiet --recursive --prepend-path-rel --split-sequence ?dir
+testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse
+testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse --only-show since 20100615-1400
+testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse --recursive
+testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse --recursive --only-show since 20100615-1400
+testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse
+testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --only-show since 20100615-1400
+testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --recursive
+testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --recursive --only-show since 20100615-1400
 EOFa
 
 cat << EOFb > $tmpTestCmdFileB
