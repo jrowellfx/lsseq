@@ -247,10 +247,16 @@ cd $TEST_DIR
 
 # Plus create some other 'bad' files to test edge cases.
 
+if [ `uname` = Darwin ]; then
+    NO_DEREF_OPTION=-h
+else
+    NO_DEREF_OPTION=--no-dereference
+fi
+
 cd testdir/jdir/j03
 /bin/rm -f j04.005.jpg > /dev/null 2>&1
 ln -s missing.jpg j04.005.jpg
-touch --no-dereference -t 197112141200 j04.005.jpg
+touch $NO_DEREF_OPTION -t 197112141200 j04.005.jpg
 touch -t 197112141201 .
 touch -t 197112141201 ..
 cd $TEST_DIR
@@ -258,7 +264,7 @@ cd $TEST_DIR
 cd testdir/idir/v002
 /bin/rm -f iii03.0005.jpg > /dev/null 2>&1
 ln -s missing.jpg iii03.0005.jpg
-touch --no-dereference -t 197112140948 iii03.0005.jpg
+touch $NO_DEREF_OPTION -t 197112140948 iii03.0005.jpg
 touch -t 197112141200 .
 touch -t 197112141200 ..
 cd $TEST_DIR
@@ -271,8 +277,8 @@ cd $TEST_DIR
 # bring any changes to light.
 #
 if [ `uname` = Darwin ]; then
-    LS_FULL_TIME='-l -D "+%Y-%m-%d %H:%M:%S"' # TZ is set to GMT above
-    ls -R -l           -D "+%Y-%m-%d %H:%M:%S" testdir > longList.testdir.out.`uname`.new
+    LS_FULL_TIME='-l -D "%Y-%m-%d %H:%M:%S"' # TZ is set to GMT above
+    ls -R -l           -D "%Y-%m-%d %H:%M:%S" testdir | sed -e '1,$ s/staff/users/' > longList.testdir.out.`uname`.new
 else
     LS_FULL_TIME='-l --time-style="+%Y-%m-%d %H:%M:%S"' # TZ is set to GMT above
     ls -R -l --time-style="+%Y-%m-%d %H:%M:%S" testdir > longList.testdir.out.`uname`.new
