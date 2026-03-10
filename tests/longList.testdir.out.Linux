@@ -1,5 +1,5 @@
 testdir:
-total 952
+total 956
 drwxrwxrwx. 3 jrowell users   4096 1987-06-15 12:00:02 20592_chevrolet_cruze_reveal
 drwxrwxrwx. 2 jrowell users  12288 1987-06-15 12:00:10 adir
 drwxrwxrwx. 4 jrowell users  12288 1987-06-15 12:00:11 bdir
@@ -27,32 +27,33 @@ drwxrwxrwx. 2 jrowell users   4096 1987-06-15 12:00:55 ndir
 drwxrwxrwx. 4 jrowell users   4096 1987-06-15 12:00:56 pdir
 drwxrwxrwx. 5 jrowell users   4096 1987-06-15 12:01:03 qdir
 drwxrwxrwx. 4 jrowell users   4096 1987-06-15 12:01:07 rdir
--rw-rw-rw-. 1 jrowell users  13762 1971-12-14 09:59:51 testDirFile.001.exr
--rw-rw-rw-. 1 jrowell users  15387 1971-12-14 09:59:52 testDirFile.002.exr
--rw-rw-rw-. 1 jrowell users  14739 1971-12-14 09:59:53 testDirFile.004.exr
--rw-rw-rw-. 1 jrowell users  15620 1971-12-14 09:59:54 testDirFile.005.exr
--rw-rw-rw-. 1 jrowell users  16053 1971-12-14 09:59:55 testDirFile.006.exr
--rw-rw-rw-. 1 jrowell users  14335 1971-12-14 09:59:56 testDirFile.007.exr
--rw-rw-rw-. 1 jrowell users  15962 1971-12-14 09:59:57 testDirFile.008.exr
--rw-rw-rw-. 1 jrowell users  16134 1971-12-14 09:59:58 testDirFile.009.exr
--rw-rw-rw-. 1 jrowell users  19837 1971-12-14 09:59:59 testDirFile.010.exr
--rw-rw-rw-. 1 jrowell users  16950 1971-12-14 10:00:00 testDirFile.011.exr
--rw-rw-rw-. 1 jrowell users  19287 1971-12-14 10:00:01 testDirFile.012.exr
--rw-rw-rw-. 1 jrowell users 136738 1971-12-14 10:00:02 testDirFile.mov
--rw-rw-rw-. 1 jrowell users      0 1971-12-14 10:00:03 testDirFile.wmv
--rw-rw-rw-. 1 jrowell users      0 1971-12-14 10:00:04 www..exr
--rw-rw-rw-. 1 jrowell users  24212 1971-12-14 10:00:05 xxx.000.exr
--rw-rw-rw-. 1 jrowell users  22291 1971-12-14 10:00:06 xxx.002.exr
--rw-rw-rw-. 1 jrowell users  21031 1971-12-14 10:00:07 xxx.004.exr
--rw-rw-rw-. 1 jrowell users  23956 1971-12-14 10:00:08 xxx.006.exr
--rw-rw-rw-. 1 jrowell users  23841 1971-12-14 10:00:09 xxx.008.exr
--rw-rw-rw-. 1 jrowell users  31282 1971-12-14 10:00:10 xxx.010.exr
--rw-rw-rw-. 1 jrowell users  29824 1971-12-14 10:00:11 xxx.012.exr
--rw-rw-rw-. 1 jrowell users  28038 1971-12-14 10:00:12 xxx.014.exr
--rw-rw-rw-. 1 jrowell users  30888 1971-12-14 10:00:13 xxx.016.exr
--rw-rw-rw-. 1 jrowell users 195675 1971-12-14 10:00:14 xxx.mov
--rw-rw-rw-. 1 jrowell users  20534 1971-12-14 10:00:15 yyy.0123.tif
--rw-rw-rw-. 1 jrowell users  14877 1971-12-14 10:00:16 yyy.mov
+drwxrwxrwx. 4 jrowell users   4096 1987-06-15 12:01:10 symdir
+-rw-rw-rw-. 1 jrowell users  13762 1971-12-14 10:00:38 testDirFile.001.exr
+-rw-rw-rw-. 1 jrowell users  15387 1971-12-14 10:00:39 testDirFile.002.exr
+-rw-rw-rw-. 1 jrowell users  14739 1971-12-14 10:00:40 testDirFile.004.exr
+-rw-rw-rw-. 1 jrowell users  15620 1971-12-14 10:00:41 testDirFile.005.exr
+-rw-rw-rw-. 1 jrowell users  16053 1971-12-14 10:00:42 testDirFile.006.exr
+-rw-rw-rw-. 1 jrowell users  14335 1971-12-14 10:00:43 testDirFile.007.exr
+-rw-rw-rw-. 1 jrowell users  15962 1971-12-14 10:00:44 testDirFile.008.exr
+-rw-rw-rw-. 1 jrowell users  16134 1971-12-14 10:00:45 testDirFile.009.exr
+-rw-rw-rw-. 1 jrowell users  19837 1971-12-14 10:00:46 testDirFile.010.exr
+-rw-rw-rw-. 1 jrowell users  16950 1971-12-14 10:00:47 testDirFile.011.exr
+-rw-rw-rw-. 1 jrowell users  19287 1971-12-14 10:00:48 testDirFile.012.exr
+-rw-rw-rw-. 1 jrowell users 136738 1971-12-14 10:00:49 testDirFile.mov
+-rw-rw-rw-. 1 jrowell users      0 1971-12-14 10:00:50 testDirFile.wmv
+-rw-rw-rw-. 1 jrowell users      0 1971-12-14 10:00:51 www..exr
+-rw-rw-rw-. 1 jrowell users  24212 1971-12-14 10:00:52 xxx.000.exr
+-rw-rw-rw-. 1 jrowell users  22291 1971-12-14 10:00:53 xxx.002.exr
+-rw-rw-rw-. 1 jrowell users  21031 1971-12-14 10:00:54 xxx.004.exr
+-rw-rw-rw-. 1 jrowell users  23956 1971-12-14 10:00:55 xxx.006.exr
+-rw-rw-rw-. 1 jrowell users  23841 1971-12-14 10:00:56 xxx.008.exr
+-rw-rw-rw-. 1 jrowell users  31282 1971-12-14 10:00:57 xxx.010.exr
+-rw-rw-rw-. 1 jrowell users  29824 1971-12-14 10:00:58 xxx.012.exr
+-rw-rw-rw-. 1 jrowell users  28038 1971-12-14 10:00:59 xxx.014.exr
+-rw-rw-rw-. 1 jrowell users  30888 1971-12-14 10:01:00 xxx.016.exr
+-rw-rw-rw-. 1 jrowell users 195675 1971-12-14 10:01:01 xxx.mov
+-rw-rw-rw-. 1 jrowell users  20534 1971-12-14 10:01:02 yyy.0123.tif
+-rw-rw-rw-. 1 jrowell users  14877 1971-12-14 10:01:03 yyy.mov
 
 testdir/20592_chevrolet_cruze_reveal:
 total 4
@@ -3874,3 +3875,108 @@ total 0
 -rw-rw-rw-. 1 jrowell users 0 1971-12-14 09:58:45 rrr03.113.fur
 -rw-rw-rw-. 1 jrowell users 0 1971-12-14 09:58:46 rrr03.114.fur
 -rw-rw-rw-. 1 jrowell users 0 1971-12-14 09:58:47 rrr03.115.fur
+
+testdir/symdir:
+total 12
+drwxrwxrwx. 4 jrowell users 4096 1987-06-15 12:01:11 aaa
+drwxrwxrwx. 4 jrowell users 4096 1987-06-15 12:01:14 bbb
+lrwxrwxrwx. 1 jrowell users    3 2026-03-10 01:16:52 ccc -> aaa
+-rw-rw-rw-. 1 jrowell users   54 1971-12-14 10:00:37 foo.00.txt
+lrwxrwxrwx. 1 jrowell users   10 2026-03-10 01:16:52 foobar.00.txt -> foo.00.txt
+
+testdir/symdir/aaa:
+total 96
+-rw-rw-rw-. 1 jrowell users 5165 1971-12-14 09:59:51 aaa.001.exr
+-rw-rw-rw-. 1 jrowell users 7249 1971-12-14 09:59:52 aaa.002.exr
+-rw-rw-rw-. 1 jrowell users 7455 1971-12-14 09:59:53 aaa.003.exr
+-rw-rw-rw-. 1 jrowell users 6489 1971-12-14 09:59:54 aaa.004.exr
+-rw-rw-rw-. 1 jrowell users 7146 1971-12-14 09:59:55 aaa.005.exr
+-rw-rw-rw-. 1 jrowell users 7974 1971-12-14 09:59:56 aaa.006.exr
+-rw-rw-rw-. 1 jrowell users 6456 1971-12-14 09:59:57 aaa.007.exr
+-rw-rw-rw-. 1 jrowell users 8105 1971-12-14 09:59:58 aaa.008.exr
+-rw-rw-rw-. 1 jrowell users 7825 1971-12-14 09:59:59 aaa.009.exr
+-rw-rw-rw-. 1 jrowell users 8702 1971-12-14 10:00:00 aaa.010.exr
+drwxrwxrwx. 2 jrowell users 4096 1987-06-15 12:01:12 aaa_aaa
+drwxrwxrwx. 2 jrowell users 4096 1987-06-15 12:01:13 aaa_bbb
+lrwxrwxrwx. 1 jrowell users    7 2026-03-10 01:16:52 aaa_ccc -> aaa_aaa
+-rw-rw-rw-. 1 jrowell users   34 1971-12-14 10:00:23 foo.01.txt
+lrwxrwxrwx. 1 jrowell users   10 2026-03-10 01:16:52 foobar.01.txt -> foo.01.txt
+
+testdir/symdir/aaa/aaa_aaa:
+total 88
+-rw-rw-rw-. 1 jrowell users 5165 1971-12-14 10:00:01 aaa_aaa.001.exr
+-rw-rw-rw-. 1 jrowell users 7249 1971-12-14 10:00:02 aaa_aaa.002.exr
+-rw-rw-rw-. 1 jrowell users 7455 1971-12-14 10:00:03 aaa_aaa.003.exr
+-rw-rw-rw-. 1 jrowell users 6489 1971-12-14 10:00:04 aaa_aaa.004.exr
+-rw-rw-rw-. 1 jrowell users 7146 1971-12-14 10:00:05 aaa_aaa.005.exr
+-rw-rw-rw-. 1 jrowell users 7974 1971-12-14 10:00:06 aaa_aaa.006.exr
+-rw-rw-rw-. 1 jrowell users 6456 1971-12-14 10:00:07 aaa_aaa.007.exr
+-rw-rw-rw-. 1 jrowell users 8105 1971-12-14 10:00:08 aaa_aaa.008.exr
+-rw-rw-rw-. 1 jrowell users 7825 1971-12-14 10:00:09 aaa_aaa.009.exr
+-rw-rw-rw-. 1 jrowell users 8702 1971-12-14 10:00:10 aaa_aaa.010.exr
+-rw-rw-rw-. 1 jrowell users   24 1971-12-14 10:00:11 foo.02.txt
+lrwxrwxrwx. 1 jrowell users   10 2026-03-10 01:16:52 foobar.02.txt -> foo.02.txt
+
+testdir/symdir/aaa/aaa_bbb:
+total 88
+-rw-rw-rw-. 1 jrowell users 5165 1971-12-14 10:00:12 aaa_bbb.001.exr
+-rw-rw-rw-. 1 jrowell users 7249 1971-12-14 10:00:13 aaa_bbb.002.exr
+-rw-rw-rw-. 1 jrowell users 7455 1971-12-14 10:00:14 aaa_bbb.003.exr
+-rw-rw-rw-. 1 jrowell users 6489 1971-12-14 10:00:15 aaa_bbb.004.exr
+-rw-rw-rw-. 1 jrowell users 7146 1971-12-14 10:00:16 aaa_bbb.005.exr
+-rw-rw-rw-. 1 jrowell users 7974 1971-12-14 10:00:17 aaa_bbb.006.exr
+-rw-rw-rw-. 1 jrowell users 6456 1971-12-14 10:00:18 aaa_bbb.007.exr
+-rw-rw-rw-. 1 jrowell users 8105 1971-12-14 10:00:19 aaa_bbb.008.exr
+-rw-rw-rw-. 1 jrowell users 7825 1971-12-14 10:00:20 aaa_bbb.009.exr
+-rw-rw-rw-. 1 jrowell users 8702 1971-12-14 10:00:21 aaa_bbb.010.exr
+-rw-rw-rw-. 1 jrowell users   49 1971-12-14 10:00:22 foo.03.txt
+lrwxrwxrwx. 1 jrowell users   10 2026-03-10 01:16:52 foobar.03.txt -> foo.03.txt
+
+testdir/symdir/bbb:
+total 96
+-rw-rw-rw-. 1 jrowell users 5165 1971-12-14 10:00:24 bbb.001.exr
+-rw-rw-rw-. 1 jrowell users 7249 1971-12-14 10:00:25 bbb.002.exr
+-rw-rw-rw-. 1 jrowell users 7455 1971-12-14 10:00:26 bbb.003.exr
+-rw-rw-rw-. 1 jrowell users 6489 1971-12-14 10:00:27 bbb.004.exr
+-rw-rw-rw-. 1 jrowell users 7146 1971-12-14 10:00:28 bbb.005.exr
+-rw-rw-rw-. 1 jrowell users 7974 1971-12-14 10:00:29 bbb.006.exr
+-rw-rw-rw-. 1 jrowell users 6456 1971-12-14 10:00:30 bbb.007.exr
+-rw-rw-rw-. 1 jrowell users 8105 1971-12-14 10:00:31 bbb.008.exr
+-rw-rw-rw-. 1 jrowell users 7825 1971-12-14 10:00:32 bbb.009.exr
+-rw-rw-rw-. 1 jrowell users 8702 1971-12-14 10:00:33 bbb.010.exr
+drwxrwxrwx. 2 jrowell users 4096 1987-06-15 12:01:15 bbb_aaa
+drwxrwxrwx. 2 jrowell users 4096 1987-06-15 12:01:16 bbb_bbb
+lrwxrwxrwx. 1 jrowell users    6 2026-03-10 01:16:52 bbb_ccc -> ../aaa
+-rw-rw-rw-. 1 jrowell users   95 1971-12-14 10:00:36 foo.04.txt
+lrwxrwxrwx. 1 jrowell users   10 2026-03-10 01:16:52 foobar.04.txt -> foo.04.txt
+
+testdir/symdir/bbb/bbb_aaa:
+total 4
+lrwxrwxrwx. 1 jrowell users  14 2026-03-10 01:16:52 bbb_aaa.001.exr -> ../bbb.001.exr
+lrwxrwxrwx. 1 jrowell users  14 2026-03-10 01:16:52 bbb_aaa.002.exr -> ../bbb.002.exr
+lrwxrwxrwx. 1 jrowell users  14 2026-03-10 01:16:52 bbb_aaa.003.exr -> ../bbb.003.exr
+lrwxrwxrwx. 1 jrowell users  14 2026-03-10 01:16:52 bbb_aaa.004.exr -> ../bbb.004.exr
+lrwxrwxrwx. 1 jrowell users  14 2026-03-10 01:16:52 bbb_aaa.005.exr -> ../bbb.005.exr
+lrwxrwxrwx. 1 jrowell users  14 2026-03-10 01:16:52 bbb_aaa.006.exr -> ../bbb.006.exr
+lrwxrwxrwx. 1 jrowell users  14 2026-03-10 01:16:52 bbb_aaa.007.exr -> ../bbb.007.exr
+lrwxrwxrwx. 1 jrowell users  14 2026-03-10 01:16:52 bbb_aaa.008.exr -> ../bbb.008.exr
+lrwxrwxrwx. 1 jrowell users  14 2026-03-10 01:16:52 bbb_aaa.009.exr -> ../bbb.009.exr
+lrwxrwxrwx. 1 jrowell users  14 2026-03-10 01:16:52 bbb_aaa.010.exr -> ../bbb.010.exr
+-rw-rw-rw-. 1 jrowell users 146 1971-12-14 10:00:34 foo.05.txt
+lrwxrwxrwx. 1 jrowell users  10 2026-03-10 01:16:52 foobar.05.txt -> foo.05.txt
+
+testdir/symdir/bbb/bbb_bbb:
+total 4
+lrwxrwxrwx. 1 jrowell users  33 2026-03-10 01:16:52 bbb_bbb.001.exr -> ../../aaa/aaa_aaa/aaa_aaa.001.exr
+lrwxrwxrwx. 1 jrowell users  33 2026-03-10 01:16:52 bbb_bbb.002.exr -> ../../aaa/aaa_aaa/aaa_aaa.002.exr
+lrwxrwxrwx. 1 jrowell users  33 2026-03-10 01:16:52 bbb_bbb.003.exr -> ../../aaa/aaa_aaa/aaa_aaa.003.exr
+lrwxrwxrwx. 1 jrowell users  33 2026-03-10 01:16:52 bbb_bbb.004.exr -> ../../aaa/aaa_aaa/aaa_aaa.004.exr
+lrwxrwxrwx. 1 jrowell users  33 2026-03-10 01:16:52 bbb_bbb.005.exr -> ../../aaa/aaa_aaa/aaa_aaa.005.exr
+lrwxrwxrwx. 1 jrowell users  33 2026-03-10 01:16:52 bbb_bbb.006.exr -> ../../aaa/aaa_aaa/aaa_aaa.006.exr
+lrwxrwxrwx. 1 jrowell users  33 2026-03-10 01:16:52 bbb_bbb.007.exr -> ../../aaa/aaa_aaa/aaa_aaa.007.exr
+lrwxrwxrwx. 1 jrowell users  33 2026-03-10 01:16:52 bbb_bbb.008.exr -> ../../aaa/aaa_aaa/aaa_aaa.008.exr
+lrwxrwxrwx. 1 jrowell users  33 2026-03-10 01:16:52 bbb_bbb.009.exr -> ../../aaa/aaa_aaa/aaa_aaa.009.exr
+lrwxrwxrwx. 1 jrowell users  33 2026-03-10 01:16:52 bbb_bbb.010.exr -> ../../aaa/aaa_aaa/aaa_aaa.010.exr
+lrwxrwxrwx. 1 jrowell users   9 2026-03-10 01:16:52 bbb_bbb_ccc -> ../../aaa
+-rw-rw-rw-. 1 jrowell users 111 1971-12-14 10:00:35 foo.06.txt
+lrwxrwxrwx. 1 jrowell users  16 2026-03-10 01:16:52 foobar.06.txt -> ../../foo.00.txt
