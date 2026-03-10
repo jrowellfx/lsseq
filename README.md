@@ -66,7 +66,7 @@ however it can print sequences in a variety of formats useful for `nuke`,
     python3 -m pip install lsseq --upgrade
 ```
 
-There is additional installation-information below in an
+There is additional installation-information in an
 [addendum](https://github.com/jrowellfx/lsseq#addendum---more-on-installing-command-line-tools)
 below with a helpful technique for installing `lsseq` system-wide.
 
