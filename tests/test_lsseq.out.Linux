@@ -4,7 +4,7 @@
 Linux
 
 ----- Test 2 -+- dir: . -+- lsseq --version -----
-4.2.0
+4.3.0
 
 ----- Test 3 -+- dir: . -+- lsseq --help -----
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
