@@ -77,7 +77,7 @@ Error-frames display:
   --skip-bad-padding    do not show list of badly padded frames.
   --combine-lists, -c   combine the lists of zero, missing and bad frames into
                         one list. Reported as 'e:[<list>]'
-  --no-combine-lists    Don't combine the error lists.
+  --no-combine-lists    Don't combine the error lists. [default]
   --no-error-lists, -n  Skip printing ALL error lists. Note: Setting --show-
                         bad-padding (for example) AFTER this option on the
                         command line has the effect of ONLY showing the bad-
@@ -113,7 +113,7 @@ Sequence Display-Modifiers
                         are 'native' (default), 'nuke', 'rv', 'shake', 'glob',
                         'mplay', and 'houdini'. Note that glob prints correct
                         results only if the frame numbers are padded. Further
-                        note that reporting of missing/bad/etc frames (e.g.
+                        note that reporting of missing/zero/etc frames (e.g.
                         --show-missing) only happens with 'native' format.
   --prepend-path-abs, -p
                         prepend the absolute path name to the image name. This
@@ -159,13 +159,22 @@ Sequence sorting and display:
                         specified.
 
 Symbolic link handling:
-  lsseq will always dereference symbolic links to files comprising sequences,
-  however the following options allow control on how to handle sym-links to directories.
-
   --dereference-command-line, -H
-                        follow symbolic links of directories listed on the command line [default]
-  --dereference, -L     follow all symbolic links to directories.
-  --no-dereference      Do not follow any symbolic links to directories.
+                        Only follow symbolic links of files and directories listed on the command line [default]
+  --dereference, -L     Follow all symbolic links to the final target of files and directories.
+  --no-dereference      Do not follow any symbolic links.
+
+  --dereference-command-line-symlink-to-dir
+                        Follow each command line symbolic link that points to a directory.
+  --dereference-symlink-to-dir
+                        Follow all symbolic links that point to directories.
+  --no-dereference-dir  Do not follow any symbolic links to directories.
+
+  --dereference-command-line-symlink-to-file
+                        Follow each command line symbolic link that points to a regular file.
+  --dereference-symlink-to-file
+                        Follow all symbolic links that point to regular files.
+  --no-dereference-file Do not follow any symbolic links to regular files.
 
        ### Note: should use same kind of logic in argparser as --only-images,
        ### --not-images, etc. to track which of the above new options is LAST in the list.
