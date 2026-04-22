@@ -311,7 +311,8 @@ cd $TEST_DIR
 if [ "$RECORD_TIMESTAMPS" = yes ]; then
     cd $TEST_DIR/testdir
     find . | sed -e '1,$ s/..//' | sort > $tmpTouchFile
-    cat /dev/null > $TEST_DIR/longList.testdir.out.`uname`.new
+    # cat /dev/null > $TEST_DIR/longList.testdir.out.`uname`.new
+    cat /dev/null > $tmpFile
     lastLine=$(wc -l $tmpTouchFile | awk '{ print $1 }')
     j=0 # For onscreen counter
     echo Recording time-stamps for testdir
@@ -319,9 +320,13 @@ if [ "$RECORD_TIMESTAMPS" = yes ]; then
     do
         filename=$(sed -n -e "$i p" $tmpTouchFile)
         if [ `uname` = Darwin ]; then
-            ls -d -l -D "%Y-%m-%d %H:%M:%S" "$filename" | sed -e '1,$ s/staff/users/' >> $TEST_DIR/longList.testdir.out.`uname`.new
+            ls -d -l -D "%Y-%m-%d %H:%M:%S" "$filename" \
+                | sed -E 's/^([^ ]+ ){5}//' \
+                >> $tmpFile
         else
-            ls -d -l --time-style="+%Y-%m-%d %H:%M:%S" "$filename" >> $TEST_DIR/longList.testdir.out.`uname`.new
+            ls -d -l --time-style="+%Y-%m-%d %H:%M:%S" "$filename" \
+                | sed -E 's/^([^ ]+ ){5}//' \
+                >> $tmpFile
         fi
         j=$((j+1))
         if [[ $j -ge 50 ]]; then
@@ -329,6 +334,7 @@ if [ "$RECORD_TIMESTAMPS" = yes ]; then
             j=0
         fi
     done
+    sort < $tmpFile > $TEST_DIR/longList.testdir.out.`uname`.new
 
     cleanupExit 0
 fi
