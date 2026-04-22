@@ -321,7 +321,7 @@ if [ "$RECORD_TIMESTAMPS" = yes ]; then
         filename=$(sed -n -e "$i p" $tmpTouchFile)
         if [ `uname` = Darwin ]; then
             ls -d -l -D "%Y-%m-%d %H:%M:%S" "$filename" \
-                | sed -E 's/^([^ ]+ ){5}//' \
+                | sed -E 's/^([^ ]+ +){5}//' \
                 >> $tmpFile
         else
             ls -d -l --time-style="+%Y-%m-%d %H:%M:%S" "$filename" \
