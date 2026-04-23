@@ -259,6 +259,23 @@ LIST_NOT_CACHES     = 0b1110 # For omitting CACHES as seqs
 
 gListWhichFiles     = LIST_NO_OMISSIONS # Default behaviour
 
+ARG_LIST_DEREF_ALL_CMDLINE   = 0 # --dereference-command-line, -H
+ARG_LIST_DEREF_ALL           = 1 # --dereference
+ARG_LIST_NO_DEREF_ALL        = 2 # --no-dereference
+ARG_LIST_DEREF_DIR_CMDLINE   = 3 # --dereference-command-line-symlink-to-dir
+ARG_LIST_DEREF_DIR           = 4 # --dereference-symlink-to-dir
+ARG_LIST_NO_DEREF_DIR        = 5 # --no-dereference-dir
+ARG_LIST_DEREF_FILE_CMDLINE  = 6 # --dereference-command-line-symlink-to-file
+ARG_LIST_DEREF_FILE          = 7 # --dereference-symlink-to-file
+ARG_LIST_NO_DEREF_FILE       = 8 # --no-dereference-file
+
+DEREF_ALL                    = 0b0000 # Always follow links - or clear deref flags
+DEREF_CMD_LINE_ONLY          = 0b0100 # Flag to check if ONLY following links on cmd-line
+DEREF_DIRS                   = 0b0010 # Flag to check for following links to directories
+DEREF_FILES                  = 0b0001 # Flag to check for following links to regular-files
+
+gDeRefWhichFiles             = 0b0111 # Default behaviour '-H' flag
+
 # To pass along to 'ls' options.
 #
 BY_UNSPECIFIED = 0
