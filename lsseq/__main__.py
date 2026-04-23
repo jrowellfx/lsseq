@@ -1587,12 +1587,17 @@ def main() :
     group.add_argument("--img-ext", "-i", action="store_true",
         dest="printImgExtensions", default=False,
         help="print list of image, cache and movie file extensions and exit.")
-    group.add_argument("--only-sequences", "-o", action="append_const",
-        dest="listWhichFiles", default=[ARG_LIST_ALLFILES], const=ARG_LIST_ONLYSEQS,
-        help="omit any regular /bin/ls output, only list sequences.")
-    group.add_argument("--list-all-files", action="append_const",
-        dest="listWhichFiles", const=ARG_LIST_ALLFILES,
+    group.add_argument("--list-all-files",
+        action="append_const",
+        dest="listWhichFiles",
+        default=[ARG_LIST_ALLFILES],
+        const=ARG_LIST_ALLFILES,
         help="list all sequences plus regular /bin/ls output. [default]")
+    group.add_argument("--only-sequences", "-o",
+        action="append_const",
+        dest="listWhichFiles",
+        const=ARG_LIST_ONLYSEQS,
+        help="omit any regular /bin/ls output, only list sequences.")
     group.add_argument("--only-images", "-O", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_ONLYIMGS,
         help="strictly list only image sequences (i.e., no movies or caches).")

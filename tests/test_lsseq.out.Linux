@@ -83,8 +83,8 @@ display of error frames:
 
 sequence-category filters:
   --img-ext, -i         print list of image, cache and movie file extensions and exit.
-  --only-sequences, -o  omit any regular /bin/ls output, only list sequences.
   --list-all-files      list all sequences plus regular /bin/ls output. [default]
+  --only-sequences, -o  omit any regular /bin/ls output, only list sequences.
   --only-images, -O     strictly list only image sequences (i.e., no movies or caches).
   --not-images          Omit image files from being considered as sequences. Image files will be
                         listed with regular /bin/ls output unless --only-sequences has been
