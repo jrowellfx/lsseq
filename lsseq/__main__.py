@@ -1480,8 +1480,8 @@ def main() :
         prog=PROG_NAME,
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=textwrap.dedent('''\
-            List directory contents like /bin/ls except condense image
-            sequences to one entry each. Filenames that are part of image
+            List directory contents like /bin/ls (see LS(1)) except condense
+            image sequences to one entry each. Filenames that are part of image
             sequences are assumed to be of the form:
 
                 <descriptiveName>.<frameNum>.<imgExtension>
@@ -1498,11 +1498,128 @@ def main() :
                 [output of /bin/ls minus image sequences]
                 [list of images sequences]
             '''),
-        usage="%(prog)s [-h | --help] [OPTION]... [FILE]...")
+        usage="%(prog)s [-h | --help] [OPTION]... [FILE]...",
+        add_help=False)
 
-    p.add_argument("--version", action="version", version=VERSION)
+    group = p.add_argument_group('miscellaneous options')
+    group.add_argument('--help', '-h', action='help', help='show this help message and exit')
+    group.add_argument("--version", action="version", version=VERSION)
+    group.add_argument("--silent", "--quiet", action="store_true",
+        dest="silent", default=False,
+        help="suppress error and warning messages.")
+    group.add_argument('--', dest='end_of_options', action='store_true', 
+        help='end of options, all subsequent arguments are positional arguments.')
 
-    p.add_argument("--format", "-f", action="store", type=str,
+    group = p.add_argument_group('sequence interpretation')
+    group.add_argument("--split-sequence", action="store_true",
+        dest="splitSeq", default=False,
+        help="prints sequences with missing frames as separate sequences as if there \
+        are multiple sequences with the same name, but with different frame ranges. \
+        Note: this option only affects the printing of a sequence, not in how sequence \
+        times are calculated. In other words, sorting by time might not produce the results \
+        you would expect when splitting sequences with this option.")
+    group.add_argument("--no-split-sequence", action="store_false",
+        dest="showZero",
+        help="consider frames with the same name as all being part of the \
+        same sequence. [default]" )
+    group.add_argument("--strict-num-separator", "-s", action="store_true",
+        dest="strictSeparator", default=True,
+        help="strictly enforce the use of '.' (dot) as a separator between the \
+            descriptiveName and frameNumber when looking to interpret filenames as \
+            image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension> \
+            (also see --loose-num-separator) [default]")
+    group.add_argument("--loose-num-separator", "-l", action="store_false",
+        dest="strictSeparator",
+        help="allow the use of '_' (underscore), in addition to '.' (dot) \
+            as a separator between the descriptiveName and frameNumber when \
+            looking to interpret filenames as \
+            image sequences. i.e., <descriptiveName>_<frameNum>.<imgExtension> \
+            (also see --strict-num-separator)")
+
+    group = p.add_argument_group('display of error frames')
+    group.add_argument("--show-missing", "-m", action="store_true",
+        dest="showMissing", default=True,
+        help="show list of missing frames as 'm:[<list>]' [default]" )
+    group.add_argument("--skip-missing", "-M", action="store_false",
+        dest="showMissing",
+        help="do not show list of missing frames." )
+    group.add_argument("--show-zero", "-z", action="store_true",
+        dest="showZero", default=True,
+        help="show list of zero length images as 'z:[<list>]' [default]" )
+    group.add_argument("--skip-zero", "-Z", action="store_false",
+        dest="showZero",
+        help="do not show list of zero length images." )
+    group.add_argument("--show-bad-frames", "-b", action="store_true",
+        dest="showBad", default=False,
+        help="lists potentially bad frames based on the \
+        minimum size of a good frame (see --good-frame-min-size). \
+        Reported as 'b:[<list>]'")
+    group.add_argument("--skip-bad-frames", "-B", action="store_false",
+        dest="showBad",
+        help="do not show list of potentially bad frames. [default]" )
+    group.add_argument("--good-frame-min-size", action="store", type=readByteShortForm,
+        dest="goodFrameMinSize", default=512,
+        metavar="BYTES",
+        help="any frame size less than BYTES is \
+        a bad frame. Short forms for byte sizes are accepted as \
+        in '1K' (i.e., 1024) or '1.5K' for example. [default: 512]")
+    group.add_argument("--show-bad-padding", action="store_true",
+        dest="showBadPadding", default=True,
+        help="report badly padded frame numbers which occurs when a number is padded \
+        but shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]' [default]")
+    group.add_argument("--skip-bad-padding", action="store_false",
+        dest="showBadPadding",
+        help="do not show list of badly padded frames." )
+    group.add_argument("--combine-lists", "-c", action="store_true",
+        dest="combineErrorFrames", default=False,
+        help="combine the lists of zero, missing and bad frames into one list. \
+        Reported as 'e:[<list>]'")
+    group.add_argument("--no-combine-lists", action="store_false",
+        dest="combineErrorFrames",
+        help="Don't combine the error lists [default].")
+    group.add_argument("--no-error-lists", "-n", help = "Skip printing ALL error lists. \
+        Note: Setting --show-bad-padding (for example) AFTER this \
+        option on the command line has the effect of ONLY \
+        showing the bad-padding error list ", \
+        action = store_false_multiple("showMissing", "showZero", "showBad", "showBadPadding"))
+
+    group = p.add_argument_group('sequence-category filters')
+    group.add_argument("--img-ext", "-i", action="store_true",
+        dest="printImgExtensions", default=False,
+        help="print list of image, cache and movie file extensions and exit.")
+    group.add_argument("--only-sequences", "-o", action="append_const",
+        dest="listWhichFiles", default=[ARG_LIST_ALLFILES], const=ARG_LIST_ONLYSEQS,
+        help="omit any regular /bin/ls output, only list sequences.")
+    group.add_argument("--list-all-files", action="append_const",
+        dest="listWhichFiles", const=ARG_LIST_ALLFILES,
+        help="list all sequences plus regular /bin/ls output. [default]")
+    group.add_argument("--only-images", "-O", action="append_const",
+        dest="listWhichFiles", const=ARG_LIST_ONLYIMGS,
+        help="strictly list only image sequences (i.e., no movies or caches).")
+    group.add_argument("--not-images", action="append_const",
+        dest="listWhichFiles", const=ARG_LIST_NOT_IMGS,
+        help="Omit image files from being considered as sequences. \
+        Image files will be listed with regular /bin/ls output unless \
+        --only-sequences has been specified on the command line.")
+    group.add_argument("--only-movies", action="append_const",
+        dest="listWhichFiles", const=ARG_LIST_ONLYMOVS,
+        help="strictly list only movies (i.e., no images or caches).")
+    group.add_argument("--not-movies", action="append_const",
+        dest="listWhichFiles", const=ARG_LIST_NOT_MOVS,
+        help="Omit movies from being considered as sequences. \
+        movie files will be listed with regular /bin/ls output unless \
+        --only-sequences has been specified on the command line.")
+    group.add_argument("--only-caches", action="append_const",
+        dest="listWhichFiles", const=ARG_LIST_ONLYCACHES,
+        help="strictly list only cache sequences (i.e., no images or movies).")
+    group.add_argument("--not-caches", action="append_const",
+        dest="listWhichFiles", const=ARG_LIST_NOT_CACHES,
+        help="Omit caches from being considered as sequences. \
+        cache files will be listed with regular /bin/ls output unless \
+        --only-sequences has been specified on the command line.")
+
+    group = p.add_argument_group('sequence display-modifiers')
+    group.add_argument("--format", "-f", action="store", type=str,
         choices=("native", "nuke", "rv", "shake", "glob", "mplay", "houdini"),
         dest="seqFormat",
         metavar="FORMAT",
@@ -1512,174 +1629,54 @@ def main() :
         'mplay', and 'houdini'.\
         Note that glob prints correct results only if \
         the frame numbers are padded. Further note that reporting of \
-        missing/bad/etc frames (e.g. --show-missing) only happens \
+        missing/zero/bad/etc. frames (e.g. --show-missing) only happens \
         with 'native' format.")
-    p.add_argument("--show-missing", "-m", action="store_true",
-        dest="showMissing", default=True,
-        help="show list of missing frames as 'm:[<list>]' [default]" )
-    p.add_argument("--skip-missing", "-M", action="store_false",
-        dest="showMissing",
-        help="do not show list of missing frames." )
-    p.add_argument("--show-zero", "-z", action="store_true",
-        dest="showZero", default=True,
-        help="show list of zero length images as 'z:[<list>]' [default]" )
-    p.add_argument("--skip-zero", "-Z", action="store_false",
-        dest="showZero",
-        help="do not show list of zero length images." )
-    p.add_argument("--show-bad-frames", "-b", action="store_true",
-        dest="showBad", default=False,
-        help="lists potentially bad frames based on the \
-        minimum size of a good frame (see --good-frame-min-size). \
-        Reported as 'b:[<list>]'")
-    p.add_argument("--skip-bad-frames", "-B", action="store_false",
-        dest="showBad",
-        help="do not show list of potentially bad frames. [default]" )
-    p.add_argument("--good-frame-min-size", action="store", type=readByteShortForm,
-        dest="goodFrameMinSize", default=512,
-        metavar="BYTES",
-        help="any frame size less than BYTES is \
-        a bad frame. Short forms for byte sizes are accepted as \
-        in '1K' (i.e., 1024) or '1.5K' for example. [default: 512]")
-    p.add_argument("--show-bad-padding", action="store_true",
-        dest="showBadPadding", default=True,
-        help="report badly padded frame numbers which occurs when a number is padded \
-        but shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]' [default]")
-    p.add_argument("--skip-bad-padding", action="store_false",
-        dest="showBadPadding",
-        help="do not show list of badly padded frames." )
-    p.add_argument("--combine-lists", "-c", action="store_true",
-        dest="combineErrorFrames", default=False,
-        help="combine the lists of zero, missing and bad frames into one list. \
-        Reported as 'e:[<list>]'")
-    p.add_argument("--no-combine-lists", action="store_false",
-        dest="combineErrorFrames",
-        help="Don't combine the error lists.")
-    p.add_argument("--no-error-lists", "-n", help = "Skip printing ALL error lists. \
-        Note: Setting --show-bad-padding (for example) AFTER this \
-        option on the command line has the effect of ONLY \
-        showing the bad-padding error list ", \
-        action = store_false_multiple("showMissing", "showZero", "showBad", "showBadPadding"))
-
-    p.add_argument("--split-sequence", action="store_true",
-        dest="splitSeq", default=False,
-        help="prints sequences with missing frames as separate sequences as if there \
-        are multiple sequences with the same name, but with different frame ranges. \
-        Note: this option only affects the printing of a sequence, not in how sequence \
-        times are calculated. In other words, sorting by time might not produce the results \
-        you would expect when splitting sequences with this option.")
-
-    p.add_argument("--no-split-sequence", action="store_false",
-        dest="showZero",
-        help="consider frames with the same name as all being part of the \
-        same sequence. [default]" )
-
-    p.add_argument("--loose-num-separator", "-l", action="store_false",
-        dest="strictSeparator",
-        help="allow the use of '_' (underscore), in addition to '.' (dot) \
-            as a separator between the descriptiveName and frameNumber when \
-            looking to interpret filenames as \
-            image sequences. i.e., <descriptiveName>_<frameNum>.<imgExtension> \
-            (also see --strict-num-separator)")
-    p.add_argument("--strict-num-separator", "-s", action="store_true",
-        dest="strictSeparator", default=True,
-        help="strictly enforce the use of '.' (dot) as a separator between the \
-            descriptiveName and frameNumber when looking to interpret filenames as \
-            image sequences. i.e., <descriptiveName>.<frameNum>.<imgExtension> \
-            (also see --loose-num-separator) [default]")
-
-    p.add_argument("--only-sequences", "-o", action="append_const",
-        dest="listWhichFiles", default=[ARG_LIST_ALLFILES], const=ARG_LIST_ONLYSEQS,
-        help="omit any regular /bin/ls output, only list sequences.")
-    p.add_argument("--list-all-files", action="append_const",
-        dest="listWhichFiles", const=ARG_LIST_ALLFILES,
-        help="list all sequences plus regular /bin/ls output. [default]")
-    p.add_argument("--only-images", "-O", action="append_const",
-        dest="listWhichFiles", const=ARG_LIST_ONLYIMGS,
-        help="strictly list only image sequences (i.e., no movies or caches).")
-    p.add_argument("--not-images", action="append_const",
-        dest="listWhichFiles", const=ARG_LIST_NOT_IMGS,
-        help="Omit image files from being considered as sequences. \
-        Image files will be listed with regular /bin/ls output unless \
-        --only-sequences has been specified on the command line.")
-    p.add_argument("--only-movies", action="append_const",
-        dest="listWhichFiles", const=ARG_LIST_ONLYMOVS,
-        help="strictly list only movies (i.e., no images or caches).")
-    p.add_argument("--not-movies", action="append_const",
-        dest="listWhichFiles", const=ARG_LIST_NOT_MOVS,
-        help="Omit movies from being considered as sequences. \
-        movie files will be listed with regular /bin/ls output unless \
-        --only-sequences has been specified on the command line.")
-    p.add_argument("--only-caches", action="append_const",
-        dest="listWhichFiles", const=ARG_LIST_ONLYCACHES,
-        help="strictly list only cache sequences (i.e., no images or movies).")
-    p.add_argument("--not-caches", action="append_const",
-        dest="listWhichFiles", const=ARG_LIST_NOT_CACHES,
-        help="Omit caches from being considered as sequences. \
-        cache files will be listed with regular /bin/ls output unless \
-        --only-sequences has been specified on the command line.")
-
-    p.add_argument("--img-ext", "-i", action="store_true",
-        dest="printImgExtensions", default=False,
-        help="print list of image, cache and movie file extensions and exit.")
-
-    p.add_argument("--prepend-path-abs", "-p", action="store_const",
+    group.add_argument("--prepend-path-abs", "-p", action="store_const",
         dest="prependPath", default=PATH_NOPREFIX, const=PATH_ABS,
         help="prepend the absolute path name to the image name. \
         This option implies the option --only-sequences and also \
         suppresses printing directory name headers when listing \
         directory contents.")
-    p.add_argument("--prepend-path-rel", "-P", action="store_const",
+    group.add_argument("--prepend-path-rel", "-P", action="store_const",
         dest="prependPath", const=PATH_REL,
         help="prepend the relative path name to the image name. \
         This option implies the option --only-sequences and will also \
         suppress printing directory name headers when listing \
         directory contents.")
-    p.add_argument("--extremes", "-e", action="store_true",
+    group.add_argument("--extremes", "-e", action="store_true",
         dest="extremes", default=False,
         help="only list the first and last frame of an image \
         or cache-sequence on a separate line each. \
         This option implies --prepend-path-abs (unless --prepend-path-rel is \
         explicitly specified) as well as --only-sequences and --not-movies.")
 
-    p.add_argument("--single", "-1", action="store_const",
-        dest="byWhat", default=BY_UNSPECIFIED, const=BY_SINGLE,
-        help="list one non-sequence entry per line (see ls(1))")
-    p.add_argument("--all", "-a", action="store_false",
-        dest="ignoreDotFiles", default=True,
-        help="do not ignore entries starting with '.' \
-        while omitting implied '.' and '..' directories (see ls(1) --almost-all)")
-    p.add_argument("--by-columns", "-C", action="store_const",
-        dest="byWhat", const=BY_COLUMNS,
-        help="list non-sequence entries by columns (see ls(1))")
-    p.add_argument("--by-rows", "-x", action="store_const",
-        dest="byWhat", const=BY_ROWS,
-        help="list non-sequence entries by lines instead of by columns (see ls(1))")
-    p.add_argument("--directory", "-d", action="store_false",
-        dest="listDirContents", default=True,
-        help="list directory entries instead of contents, \
-        and do not dereference symbolic links (see ls(1))")
-    p.add_argument("--classify", "-F", action="store_true",
-        dest="classify", default=False,
-        help="append indicator (one of */=>@|) to entries (see ls(1))")
-    p.add_argument("--reverse", "-r", action="store_true",
-        dest="reverseListing", default=False,
-        help="reverse order while sorting.")
-    p.add_argument("--recursive", "-R", action="store_true",
+    group = p.add_argument_group('sequence sorting and display')
+    group.add_argument("--recursive", "-R", action="store_true",
         dest="isRecursive", default=False,
         help="list subdirectories recursively.")
-    p.add_argument("--sort-by-time", "-t", action="store_true",
+    group.add_argument("--reverse", "-r", action="store_true",
+        dest="reverseListing", default=False,
+        help="reverse order while sorting.")
+    group.add_argument("--sort-by-time", "-t", action="store_true",
         dest="sortByMTime", default=False,
         help="sort by modification time, the default comparison \
         time is between the most recently modified (newest) frames \
-        in each sequence. (see --time) (see ls(1))")
-    p.add_argument("--time", action="store", type=str,
+        in each sequence. (see --time) (see LS(1))")
+    group.add_argument("--time", action="store", type=str,
         dest="timeCompare",
         help="which frame in the sequence to use to compare times \
         between sequences when sorting by time. The possible values \
         for 'FRAME_AGE' are 'oldest', 'median' and 'newest'. \
         [default: 'newest']", metavar="FRAME_AGE", default="newest",
         choices=("oldest", "median", "newest"))
-    p.add_argument("--only-show", action="store", type=str, nargs=2,
+    group.add_argument("--global-sort-by-time", '-G', action="store_true",
+        dest="globalSortByTime", default=False,
+        help="when using either \
+        --prepend-path-abs or --prepend-path-rel then this option will sort ALL \
+        sequences by time compared to each other, as opposed to only sorting \
+        sequences by time within their common directory. If the above conditions \
+        are NOT met, then this option is simply ignored.")
+    group.add_argument("--only-show", action="store", type=str, nargs=2,
         dest="cutoffTime",
         help="where TENSE is either 'before' or 'since'; only list sequences \
         up to (and including) or after (and including) the time specified. The --time argument \
@@ -1688,16 +1685,28 @@ def main() :
         The optional '-hh' (hours), 'mm' (minutes) or 'ss' (seconds) \
         default to zero if not specified.",
         metavar=("TENSE", "[CC]YYMMDD[-hh[mm[ss]]]"))
-    p.add_argument("--global-sort-by-time", '-G', action="store_true",
-        dest="globalSortByTime", default=False,
-        help="when using either \
-        --prepend-path-abs or --prepend-path-rel then this option will sort ALL \
-        sequences by time compared to each other, as opposed to only sorting \
-        sequences by time within their common directory. If the above conditions \
-        are NOT met, then this option is simply ignored.")
-    p.add_argument("--silent", "--quiet", action="store_true",
-        dest="silent", default=False,
-        help="suppress error and warning messages.")
+
+    group = p.add_argument_group('LS(1) control for non-sequences')
+    group.add_argument("--single", "-1", action="store_const",
+        dest="byWhat", default=BY_UNSPECIFIED, const=BY_SINGLE,
+        help="list one non-sequence entry per line (see LS(1))")
+    group.add_argument("--all", "-a", action="store_false",
+        dest="ignoreDotFiles", default=True,
+        help="do not ignore entries starting with '.' \
+        while omitting implied '.' and '..' directories (see LS(1) --almost-all)")
+    group.add_argument("--by-columns", "-C", action="store_const",
+        dest="byWhat", const=BY_COLUMNS,
+        help="list non-sequence entries by columns (see LS(1))")
+    group.add_argument("--by-rows", "-x", action="store_const",
+        dest="byWhat", const=BY_ROWS,
+        help="list non-sequence entries by lines instead of by columns (see LS(1))")
+    group.add_argument("--directory", "-d", action="store_false",
+        dest="listDirContents", default=True,
+        help="list directory entries instead of contents, \
+        and do not dereference symbolic links (see LS(1))")
+    group.add_argument("--classify", "-F", action="store_true",
+        dest="classify", default=False,
+        help="append indicator (one of */=>@|) to entries (see LS(1))")
 
     p.add_argument("files", metavar="FILE", nargs="*",
         help="file names")
