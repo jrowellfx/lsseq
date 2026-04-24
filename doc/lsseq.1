@@ -1,0 +1,232 @@
+.TH LSSEQ 1 "April 2026" "lsseq" "User Commands"
+.SH NAME
+lsseq \- list directory contents while condensing image sequences
+
+.SH SYNOPSIS
+.B lsseq
+.RI [ OPTION ]... " [FILE]..."
+
+.SH DESCRIPTION
+.B lsseq
+lists directory contents similar to
+.BR ls (1),
+but condenses image sequences into a single entry.
+
+Filenames that are part of image sequences are assumed to be of the form:
+.PP
+    <descriptiveName>.<frameNum>.<imgExtension>
+.PP
+where <imgExtension> is drawn from a default list of image extensions
+(displayed with
+.BR --img-ext )
+or from the environment variable
+.B LSSEQ_IMAGE_EXTENSION,
+which should contain a colon-separated list.
+
+.PP
+Output consists of all non-image-sequence files followed by detected
+image sequences.
+
+.SH ARGUMENTS
+.TP
+.B FILE
+File names.
+
+.SH OPTIONS
+.SS Miscellaneous Options
+.TP
+.BR -h ", " --help
+Show help message and exit.
+.TP
+.B --version
+Show program version and exit.
+.TP
+.BR --silent ", " --quiet
+Suppress error and warning messages.
+.TP
+.B --
+End of options.
+All following arguments are treated as positional.
+
+.SS Sequence Interpretation
+.TP
+.B --split-sequence
+Split sequences with missing frames into multiple sequences.
+.TP
+.B --no-split-sequence
+Treat all frames with the same name as one sequence (default).
+.TP
+.BR -s ", " --strict-num-separator
+Require '.' as separator between name and frame number (default).
+.TP
+.BR -l ", " --loose-num-separator
+Allow '_' as an additional separator.
+
+.SS Display of Error Frames
+.TP
+.BR -m ", " --show-missing
+Show missing frames (default).
+.TP
+.BR -M ", " --skip-missing
+Do not show missing frames.
+.TP
+.BR -z ", " --show-zero
+Show zero-length frames (default).
+.TP
+.BR -Z ", " --skip-zero
+Do not show zero-length frames.
+.TP
+.BR -b ", " --show-bad-frames
+Show potentially bad frames.
+.TP
+.BR -B ", " --skip-bad-frames
+Do not show bad frames (default).
+.TP
+.BI --good-frame-min-size " BYTES"
+Minimum size for a valid frame (default: 512).
+.TP
+.B --show-bad-padding
+Report incorrectly padded frame numbers (default).
+.TP
+.B --skip-bad-padding
+Do not report padding issues.
+.TP
+.BR -c ", " --combine-lists
+Combine all error lists.
+.TP
+.B --no-combine-lists
+Do not combine error lists (default).
+.TP
+.BR -n ", " --no-error-lists
+Suppress all error lists.
+
+.SS Sequence Category Filters
+.TP
+.BR -i ", " --img-ext
+List recognized file extensions and exit.
+.TP
+.B --list-all-files
+List sequences and regular files (default).
+.TP
+.BR -o ", " --only-sequences
+List only sequences.
+.TP
+.BR -O ", " --only-images
+List only image sequences.
+.TP
+.B --not-images
+Exclude images from sequences.
+.TP
+.B --only-movies
+List only movie sequences.
+.TP
+.B --not-movies
+Exclude movies from sequences.
+.TP
+.B --only-caches
+List only cache sequences.
+.TP
+.B --not-caches
+Exclude caches from sequences.
+
+.SS Sequence Display Modifiers
+.TP
+.BI -f ", " --format " FORMAT"
+Output format (native, nuke, rv, shake, glob, mplay, houdini).
+.TP
+.BR -p ", " --prepend-path-abs
+Prepend absolute paths; implies --only-sequences.
+.TP
+.BR -P ", " --prepend-path-rel
+Prepend relative paths; implies --only-sequences.
+.TP
+.BR -e ", " --extremes
+Show only first and last frame; implies multiple options.
+
+.SS Sorting and Display
+.TP
+.BR -R ", " --recursive
+Recurse into subdirectories.
+.TP
+.BR -r ", " --reverse
+Reverse sort order.
+.TP
+.BR -t ", " --sort-by-time
+Sort by modification time.
+.TP
+.BI --time " FRAME_AGE"
+Frame selection for time comparison (oldest, median, newest).
+.TP
+.BR -G ", " --global-sort-by-time
+Sort sequences globally by time.
+.TP
+.BI --only-show " TENSE TIME"
+Filter sequences by time.
+
+.SS Symbolic Link Handling
+.TP
+.BR -H ", " --dereference-command-line
+Follow symlinks on command line (default).
+.TP
+.BR -L ", " --dereference
+Follow all symbolic links.
+.TP
+.B --no-dereference
+Do not follow symbolic links.
+.TP
+.B --dereference-command-line-symlink-to-dir
+Follow command-line symlinks to directories.
+.TP
+.B --dereference-symlink-to-dir
+Follow all symlinks to directories.
+.TP
+.B --no-dereference-dir
+Do not follow directory symlinks.
+.TP
+.B --dereference-command-line-symlink-to-file
+Follow command-line symlinks to files.
+.TP
+.B --dereference-symlink-to-file
+Follow all symlinks to files.
+.TP
+.B --no-dereference-file
+Do not follow file symlinks.
+
+.SS LS(1) Compatibility Options
+.TP
+.BR -1 ", " --single
+One entry per line.
+.TP
+.BR -a ", " --all
+Include hidden files.
+.TP
+.BR -C ", " --by-columns
+List by columns.
+.TP
+.BR -x ", " --by-rows
+List by rows.
+.TP
+.BR -d ", " --directory
+List directories themselves, not contents.
+.TP
+.BR -F ", " --classify
+Append file type indicators.
+
+.SH ENVIRONMENT
+.TP
+.B LSSEQ_IMAGE_EXTENSION
+Colon-separated list of image extensions.
+
+.SH SEE ALSO
+.BR ls (1)
+
+.SH AUTHOR
+Written by the James Philip Rowell. 
+
+.SH COPYRIGHT
+3-Clause BSD License
+
+Copyright (c) 2008-2026, James Philip Rowell,
+Alpha Eleven Incorporated
+www.alpha-eleven.com
+All rights reserved.
