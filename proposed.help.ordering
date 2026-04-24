@@ -160,20 +160,20 @@ Sequence sorting and display:
 
 Symbolic link handling:
   --dereference-command-line, -H
-                        Only follow symbolic links of files and directories listed on the command line [default]
-  --dereference, -L     Follow all symbolic links to the final target of files and directories.
-  --no-dereference      Do not follow any symbolic links.
+                        only follow symbolic links of files and directories listed on the command line [default]
+  --dereference, -L     follow all symbolic links to the final target of files and directories.
+  --no-dereference      do not follow any symbolic links.
 
   --dereference-command-line-symlink-to-dir
-                        Follow each command line symbolic link that points to a directory.
+                        follow each command line symbolic link that points to a directory.
   --dereference-symlink-to-dir
-                        Follow all symbolic links that point to directories.
-  --no-dereference-dir  Do not follow any symbolic links to directories.
+                        follow all symbolic links that point to directories.
+  --no-dereference-dir  do not follow any symbolic links to directories.
 
   --dereference-command-line-symlink-to-file
-                        Follow each command line symbolic link that points to a regular file.
+                        follow each command line symbolic link that points to a regular file.
   --dereference-symlink-to-file
-                        Follow all symbolic links that point to regular files.
+                        follow all symbolic links that point to regular files.
   --no-dereference-file Do not follow any symbolic links to regular files.
 
        ### Note: should use same kind of logic in argparser as --only-images,

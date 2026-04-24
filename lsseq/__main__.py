@@ -1169,7 +1169,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         # so 'ls' doesn't understand if lsseq's stdout is connected to stdout or not.
         # Now we need to duplicate ls's internal logic ourselves to set the output
         # correctly. We will set an env-var "COLUMNS" as used by 'ls' to acheive this.
-        
+
         # "COLUMNS" is a variable that is used by 'ls' on BOTH Linux AND Darwin,
         # for setting the width for both '-C' and '-x', but its use is only
         # documented on Darwin (see man ls(1)).
@@ -1593,7 +1593,7 @@ def main() :
         Reported as 'e:[<list>]'")
     group.add_argument("--no-combine-lists", action="store_false",
         dest="combineErrorFrames",
-        help="Don't combine the error lists [default].")
+        help="don't combine the error lists [default].")
     group.add_argument("--no-error-lists", "-n", help = "Skip printing ALL error lists. \
         Note: Setting --show-bad-padding (for example) AFTER this \
         option on the command line has the effect of ONLY \
@@ -1620,7 +1620,7 @@ def main() :
         help="strictly list only image sequences (i.e., no movies or caches).")
     group.add_argument("--not-images", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_NOT_IMGS,
-        help="Omit image files from being considered as sequences. \
+        help="omit image files from being considered as sequences. \
         Image files will be listed with regular /bin/ls output unless \
         --only-sequences has been specified on the command line.")
     group.add_argument("--only-movies", action="append_const",
@@ -1628,7 +1628,7 @@ def main() :
         help="strictly list only movies (i.e., no images or caches).")
     group.add_argument("--not-movies", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_NOT_MOVS,
-        help="Omit movies from being considered as sequences. \
+        help="omit movies from being considered as sequences. \
         movie files will be listed with regular /bin/ls output unless \
         --only-sequences has been specified on the command line.")
     group.add_argument("--only-caches", action="append_const",
@@ -1636,7 +1636,7 @@ def main() :
         help="strictly list only cache sequences (i.e., no images or movies).")
     group.add_argument("--not-caches", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_NOT_CACHES,
-        help="Omit caches from being considered as sequences. \
+        help="omit caches from being considered as sequences. \
         cache files will be listed with regular /bin/ls output unless \
         --only-sequences has been specified on the command line.")
 
@@ -1707,6 +1707,56 @@ def main() :
         The optional '-hh' (hours), 'mm' (minutes) or 'ss' (seconds) \
         default to zero if not specified.",
         metavar=("TENSE", "[CC]YYMMDD[-hh[mm[ss]]]"))
+
+    group = p.add_argument_group('symbolic-link handling')
+    group.add_argument("--dereference-command-line", "-H",
+        action="append_const",
+        dest="deRef",
+        default=[ARG_LIST_DEREF_ALL_CMDLINE],
+        const=ARG_LIST_DEREF_ALL_CMDLINE,
+        help="only follow symbolic links of files and directories listed \
+            on the command line [default]")
+    group.add_argument("--dereference", "-L",
+        action="append_const",
+        dest="deRef",
+        const=ARG_LIST_DEREF_ALL,
+        help="follow all symbolic links to the final target of files \
+            and directories.")
+    group.add_argument("--no-dereference",
+        action="append_const",
+        dest="deRef",
+        const=ARG_LIST_NO_DEREF_ALL,
+        help="do not follow any symbolic links.")
+    group.add_argument("--dereference-command-line-symlink-to-dir",
+        action="append_const",
+        dest="deRef",
+        const=ARG_LIST_DEREF_DIR_CMDLINE,
+        help="follow each command line symbolic link that points to a directory.")
+    group.add_argument("--dereference-symlink-to-dir",
+        action="append_const",
+        dest="deRef",
+        const=ARG_LIST_DEREF_DIR,
+        help="follow all symbolic links that point to directories.")
+    group.add_argument("--no-dereference-dir",
+        action="append_const",
+        dest="deRef",
+        const=ARG_LIST_NO_DEREF_DIR,
+        help="do not follow any symbolic links to directories.")
+    group.add_argument("--dereference-command-line-symlink-to-file",
+        action="append_const",
+        dest="deRef",
+        const=ARG_LIST_DEREF_FILE_CMDLINE,
+        help="follow each command line symbolic link that points to a regular file.")
+    group.add_argument("--dereference-symlink-to-file",
+        action="append_const",
+        dest="deRef",
+        const=ARG_LIST_DEREF_FILE,
+        help="follow all symbolic links that point to regular files.")
+    group.add_argument("--no-dereference-file",
+        action="append_const",
+        dest="deRef",
+        const=ARG_LIST_NO_DEREF_FILE,
+        help="do not follow any symbolic links to regular files.")
 
     group = p.add_argument_group('LS(1) control for non-sequences')
     group.add_argument("--single", "-1", action="store_const",
@@ -1836,7 +1886,7 @@ def main() :
 
         elif listOpts == ARG_LIST_NOT_CACHES : # Removes treating cache files as sequences.
             gListWhichFiles = (gListWhichFiles & LIST_NOT_CACHES)
-    
+
     if args.prependPath == PATH_REL or args.prependPath == PATH_ABS :
         gListWhichFiles = (gListWhichFiles & LIST_NOT_OTHER)
 
