@@ -76,7 +76,7 @@ display of error frames:
   --skip-bad-padding    do not show list of badly padded frames.
   --combine-lists, -c   combine the lists of zero, missing and bad frames into one list. Reported
                         as 'e:[<list>]'
-  --no-combine-lists    Don't combine the error lists [default].
+  --no-combine-lists    don't combine the error lists [default].
   --no-error-lists, -n  Skip printing ALL error lists. Note: Setting --show-bad-padding (for
                         example) AFTER this option on the command line has the effect of ONLY
                         showing the bad-padding error list
@@ -86,15 +86,15 @@ sequence-category filters:
   --list-all-files      list all sequences plus regular /bin/ls output. [default]
   --only-sequences, -o  omit any regular /bin/ls output, only list sequences.
   --only-images, -O     strictly list only image sequences (i.e., no movies or caches).
-  --not-images          Omit image files from being considered as sequences. Image files will be
+  --not-images          omit image files from being considered as sequences. Image files will be
                         listed with regular /bin/ls output unless --only-sequences has been
                         specified on the command line.
   --only-movies         strictly list only movies (i.e., no images or caches).
-  --not-movies          Omit movies from being considered as sequences. movie files will be listed
+  --not-movies          omit movies from being considered as sequences. movie files will be listed
                         with regular /bin/ls output unless --only-sequences has been specified on
                         the command line.
   --only-caches         strictly list only cache sequences (i.e., no images or movies).
-  --not-caches          Omit caches from being considered as sequences. cache files will be listed
+  --not-caches          omit caches from being considered as sequences. cache files will be listed
                         with regular /bin/ls output unless --only-sequences has been specified on
                         the command line.
 
@@ -139,6 +139,24 @@ sequence sorting and display:
                         optional CC (century) defaults to the current century. The optional '-hh'
                         (hours), 'mm' (minutes) or 'ss' (seconds) default to zero if not
                         specified.
+
+symbolic-link handling:
+  --dereference-command-line, -H
+                        only follow symbolic links of files and directories listed on the command
+                        line [default]
+  --dereference, -L     follow all symbolic links to the final target of files and directories.
+  --no-dereference      do not follow any symbolic links.
+  --dereference-command-line-symlink-to-dir
+                        follow each command line symbolic link that points to a directory.
+  --dereference-symlink-to-dir
+                        follow all symbolic links that point to directories.
+  --no-dereference-dir  do not follow any symbolic links to directories.
+  --dereference-command-line-symlink-to-file
+                        follow each command line symbolic link that points to a regular file.
+  --dereference-symlink-to-file
+                        follow all symbolic links that point to regular files.
+  --no-dereference-file
+                        do not follow any symbolic links to regular files.
 
 LS(1) control for non-sequences:
   --single, -1          list one non-sequence entry per line (see LS(1))
