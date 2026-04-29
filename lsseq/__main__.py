@@ -269,8 +269,9 @@ ARG_LIST_DEREF_FILE_CMDLINE  = 6 # --dereference-command-line-symlink-to-file
 ARG_LIST_DEREF_FILE          = 7 # --dereference-symlink-to-file
 ARG_LIST_NO_DEREF_FILE       = 8 # --no-dereference-file
 
-DEREF_ALL                    = 0b0000 # Always follow links - or clear deref flags
-DEREF_CMD_LINE_ONLY          = 0b0100 # Flag to check if ONLY following links on cmd-line
+DEREF_NONE                   = 0b0000
+DEREF_ALL                    = 0b1000 # Flag to check if following links cmd-line or not
+DEREF_CMD_LINE               = 0b0100 # Flag to check if ONLY following links on cmd-line
 DEREF_DIRS                   = 0b0010 # Flag to check for following links to directories
 DEREF_FILES                  = 0b0001 # Flag to check for following links to regular-files
 
@@ -540,6 +541,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
 
     global gExitStatus
     global gListWhichFiles
+    global gDeRefWhichFiles
 
     fileComponents = splitImageName(filenameKey)
 
@@ -1029,6 +1031,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
     global gMoviesDictionary
     global gExitStatus
     global gListWhichFiles
+    global gDeRefWhichFiles
 
     # Stash the current working dir, to come back to and the end
     # of this function. I.e.; we need to push and pop the current
@@ -1471,6 +1474,7 @@ def main() :
     global gCacheExtList
     global gExitStatus
     global gListWhichFiles
+    global gDeRefWhichFiles
 
     # To help with argparse.
     #
@@ -1886,6 +1890,37 @@ def main() :
 
         elif listOpts == ARG_LIST_NOT_CACHES : # Removes treating cache files as sequences.
             gListWhichFiles = (gListWhichFiles & LIST_NOT_CACHES)
+
+    # logic for setting the bit-wise values to dereference files and/or dirs
+    #
+    for listOpts in args.deRef:
+        if   listOpts == ARG_LIST_DEREF_ALL_CMDLINE : # default will ALWAYS appear first (at least)
+            gDeRefWhichFiles = DEREF_CMD_LINE | DEREF_DIRS | DEREF_FILES # Bitwise "OR"
+
+        elif listOpts == ARG_LIST_DEREF_ALL:
+            gDeRefWhichFiles = DEREF_ALL | DEREF_CMD_LINE | DEREF_DIRS | DEREF_FILES
+
+        elif listOpts == ARG_LIST_NO_DEREF_ALL:
+            gDeRefWhichFiles = DEREF_NONE
+
+        elif listOpts == ARG_LIST_DEREF_DIR_CMDLINE:
+            gDeRefWhichFiles = DEREF_CMD_LINE | DEREF_DIRS
+
+        elif listOpts == ARG_LIST_DEREF_DIR:
+            gDeRefWhichFiles = DEREF_ALL | DEREF_CMD_LINE | DEREF_DIRS
+
+        elif listOpts == ARG_LIST_NO_DEREF_DIR:
+            gDeRefWhichFiles = (gListWhichFiles & (0b1111 ^ DEREF_DIRS))
+
+        elif listOpts == ARG_LIST_DEREF_FILE_CMDLINE:
+            gDeRefWhichFiles = DEREF_CMD_LINE | DEREF_FILES
+
+        elif listOpts == ARG_LIST_DEREF_FILE:
+            gDeRefWhichFiles = DEREF_ALL | DEREF_CMD_LINE | DEREF_FILES
+
+        elif listOpts == ARG_LIST_NO_DEREF_FILE:
+            gDeRefWhichFiles = (gListWhichFiles & (0b1111 ^ DEREF_FILES))
+
 
     if args.prependPath == PATH_REL or args.prependPath == PATH_ABS :
         gListWhichFiles = (gListWhichFiles & LIST_NOT_OTHER)
