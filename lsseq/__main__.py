@@ -1721,22 +1721,23 @@ def main() :
         default to zero if not specified.",
         metavar=("TENSE", "[CC]YYMMDD[-hh[mm[ss]]]"))
 
-    group = p.add_argument_group('symbolic-link handling')
+    symLinkHelpMsg = "Control for whether or not to follow symbolic links to" + '\n' + \
+        "the final target of files and/or directories. Regardless," + '\n' + \
+        "lsseq shall always write the name of the link itself and" + '\n' + \
+        "not the file referenced by the link."
+    group = p.add_argument_group('symbolic-link handling', symLinkHelpMsg)
     group.add_argument("--dereference-command-line", "-H",
         action="append_const",
         dest="deRef",
         default=[ARG_LIST_DEREF_ALL_CMDLINE],
         const=ARG_LIST_DEREF_ALL_CMDLINE,
         help="only follow symbolic links of files and directories listed \
-            on the command line, however, lsseq shall write the name of the \
-            link itself and not the file referenced by the link [default]")
+            on the command line. [default]")
     group.add_argument("--dereference", "-L",
         action="append_const",
         dest="deRef",
         const=ARG_LIST_DEREF_ALL,
-        help="follow all symbolic links to the final target of files \
-            and directories, however, lsseq shall write the name of the \
-            link itself and not the file referenced by the link.")
+        help="follow all symbolic links to the final target of files and directories.")
     group.add_argument("--no-dereference",
         action="append_const",
         dest="deRef",
@@ -1746,12 +1747,14 @@ def main() :
         action="append_const",
         dest="deRef",
         const=ARG_LIST_DEREF_DIR_CMDLINE,
-        help="follow each command line symbolic link that points to a directory.")
+        help="only follow each command line symbolic link that points to a directory, \
+            (i.e. do not follow links to files).")
     group.add_argument("--dereference-symlink-to-dir",
         action="append_const",
         dest="deRef",
         const=ARG_LIST_DEREF_DIR,
-        help="follow all symbolic links that point to directories.")
+        help="only follow all symbolic links that point to directories, \
+            (i.e. do not follow links to files).")
     group.add_argument("--no-dereference-dir",
         action="append_const",
         dest="deRef",
@@ -1761,12 +1764,14 @@ def main() :
         action="append_const",
         dest="deRef",
         const=ARG_LIST_DEREF_FILE_CMDLINE,
-        help="follow each command line symbolic link that points to a regular file.")
+        help="only follow each command line symbolic link that points to a regular file, \
+            (i.e. do not follow links to directories).")
     group.add_argument("--dereference-symlink-to-file",
         action="append_const",
         dest="deRef",
         const=ARG_LIST_DEREF_FILE,
-        help="follow all symbolic links that point to regular files.")
+        help="only follow all symbolic links that point to regular files, \
+            (i.e. do not follow links to directories).")
     group.add_argument("--no-dereference-file",
         action="append_const",
         dest="deRef",
@@ -1790,7 +1795,7 @@ def main() :
     group.add_argument("--directory", "-d", action="store_false",
         dest="listDirContents", default=True,
         help="list directory entries instead of contents, \
-        and do not dereference symbolic links (see LS(1))")
+        and do not follow symbolic links (see LS(1))")
     group.add_argument("--classify", "-F", action="store_true",
         dest="classify", default=False,
         help="append indicator (one of */=>@|) to entries, and \

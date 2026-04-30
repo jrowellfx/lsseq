@@ -141,23 +141,29 @@ sequence sorting and display:
                         specified.
 
 symbolic-link handling:
+  Control for whether or not to follow symbolic links to
+  the final target of files and/or directories. Regardless,
+  lsseq shall always write the name of the link itself and
+  not the file referenced by the link.
+
   --dereference-command-line, -H
                         only follow symbolic links of files and directories listed on the command
-                        line, however, lsseq shall write the name of the link itself and not the
-                        file referenced by the link [default]
-  --dereference, -L     follow all symbolic links to the final target of files and directories,
-                        however, lsseq shall write the name of the link itself and not the file
-                        referenced by the link.
+                        line. [default]
+  --dereference, -L     follow all symbolic links to the final target of files and directories.
   --no-dereference      do not follow any symbolic links.
   --dereference-command-line-symlink-to-dir
-                        follow each command line symbolic link that points to a directory.
+                        only follow each command line symbolic link that points to a directory,
+                        (i.e. do not follow links to files).
   --dereference-symlink-to-dir
-                        follow all symbolic links that point to directories.
+                        only follow all symbolic links that point to directories, (i.e. do not
+                        follow links to files).
   --no-dereference-dir  do not follow any symbolic links to directories.
   --dereference-command-line-symlink-to-file
-                        follow each command line symbolic link that points to a regular file.
+                        only follow each command line symbolic link that points to a regular file,
+                        (i.e. do not follow links to directories).
   --dereference-symlink-to-file
-                        follow all symbolic links that point to regular files.
+                        only follow all symbolic links that point to regular files, (i.e. do not
+                        follow links to directories).
   --no-dereference-file
                         do not follow any symbolic links to regular files.
 
@@ -167,8 +173,8 @@ LS(1) control for non-sequences:
                         '..' directories (see LS(1) --almost-all)
   --by-columns, -C      list non-sequence entries by columns (see LS(1))
   --by-rows, -x         list non-sequence entries by lines instead of by columns (see LS(1))
-  --directory, -d       list directory entries instead of contents, and do not dereference
-                        symbolic links (see LS(1))
+  --directory, -d       list directory entries instead of contents, and do not follow symbolic
+                        links (see LS(1))
   --classify, -F        append indicator (one of */=>@|) to entries, and do not follow symbolic
                         links. (see LS(1))
 
