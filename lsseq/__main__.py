@@ -2051,24 +2051,24 @@ def main() :
             if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
+            if (gDeRefWhichFiles & DEREF_CMD_LINE) : # Since nothing on cmd-line, don't follow links.
+                gDeRefWhichFiles = DEREF_NONE
             listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), ".", False, args, passedPath)
-
-    # jpr: Note example: 'ls -F ccc' in the case that ccc is a symlink to a dir
-    # will force it not to dereference the 'ccc'.
-    # Similarly using the -P option on macos which means list the link itself.
-    # so matches our --no-dereference option.
 
     # We are being asked to list a specific directory, so we don't need
     # to print the directory name before listing the contents (unless
     # it is a recursive listing).  (/bin/ls behavior.)
     #
+    #
+    # JPR - Need to flesh out new sym-link logic here.
+    #
     elif len(args.files) == 1 and os.path.isdir(args.files[0]) and args.prependPath != PATH_ABS :
         arg0 = args.files[0]
         # Strip out trailing "/" that may have been tacked on by
         # file completion.  (/bin/ls does not do this - but it's
-        # cleaner looking.)
+        # cleaner looking.) But don't strip off if root!
         #
-        if args.files[0][-1] == "/" :
+        if args.files[0][-1] == "/" and len(args.files[0]) > 1:
             arg0 = args.files[0][:-1]
 
         if not args.listDirContents :

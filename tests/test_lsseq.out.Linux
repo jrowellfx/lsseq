@@ -8462,3 +8462,26 @@ ccc03.[80-140].fur
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check
 if column-output is correct for the /bin/ls output.
+
+----- Test 201 -+- dir: testdir/cdir -+- lsseq / -----
+bin
+boot
+dev
+eno
+etc
+home
+lib
+lib64
+media
+mnt
+opt
+proc
+root
+run
+sbin
+snap
+srv
+sys
+tmp
+usr
+var

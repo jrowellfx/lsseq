@@ -563,6 +563,7 @@ testdir/gdir lsseq --only-images
 testdir/gdir lsseq --only-movies
 testdir/gdir lsseq --only-caches
 . echo -e \\\\nThere is no way to test lsseq output to stdio if isatty is \\\\nTrue so PLEASE manually run lsseq -R once on testdir to check \\\\nif column-output is correct for the /bin/ls output.
+testdir/cdir lsseq /
 EOFb
 
 export NUM_TESTS_A=`wc -l < $tmpTestCmdFileA`
