@@ -143,8 +143,11 @@ sequence sorting and display:
 symbolic-link handling:
   --dereference-command-line, -H
                         only follow symbolic links of files and directories listed on the command
-                        line [default]
-  --dereference, -L     follow all symbolic links to the final target of files and directories.
+                        line, however, lsseq shall write the name of the link itself and not the
+                        file referenced by the link [default]
+  --dereference, -L     follow all symbolic links to the final target of files and directories,
+                        however, lsseq shall write the name of the link itself and not the file
+                        referenced by the link.
   --no-dereference      do not follow any symbolic links.
   --dereference-command-line-symlink-to-dir
                         follow each command line symbolic link that points to a directory.
@@ -166,7 +169,8 @@ LS(1) control for non-sequences:
   --by-rows, -x         list non-sequence entries by lines instead of by columns (see LS(1))
   --directory, -d       list directory entries instead of contents, and do not dereference
                         symbolic links (see LS(1))
-  --classify, -F        append indicator (one of */=>@|) to entries (see LS(1))
+  --classify, -F        append indicator (one of */=>@|) to entries, and do not follow symbolic
+                        links. (see LS(1))
 
 ----- Test 4 -+- dir: . -+- lsseq -lRFC --quiet testdir -----
 testdir:

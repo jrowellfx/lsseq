@@ -1219,6 +1219,15 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
         if args.byWhat == BY_UNSPECIFIED and sys.stdout.isatty():
             extra_ls_options.append("-C")
 
+        # Note the MANDADORY use of the '-d' option, this will ensure
+        # that the call to 'ls' does not follow links, nor try to
+        # list directories passed to it.
+        #
+        # Also the use of the '--' guarantees that any files appearing
+        # first in the list which might start with a '-' (minus) don't
+        # get interpreted as an option to 'ls'.
+        # 
+        #
         extra_ls_options.append("--")
         lsCmd = ["ls", "-d"] + extra_ls_options + otherFiles
 
@@ -1719,13 +1728,15 @@ def main() :
         default=[ARG_LIST_DEREF_ALL_CMDLINE],
         const=ARG_LIST_DEREF_ALL_CMDLINE,
         help="only follow symbolic links of files and directories listed \
-            on the command line [default]")
+            on the command line, however, lsseq shall write the name of the \
+            link itself and not the file referenced by the link [default]")
     group.add_argument("--dereference", "-L",
         action="append_const",
         dest="deRef",
         const=ARG_LIST_DEREF_ALL,
         help="follow all symbolic links to the final target of files \
-            and directories.")
+            and directories, however, lsseq shall write the name of the \
+            link itself and not the file referenced by the link.")
     group.add_argument("--no-dereference",
         action="append_const",
         dest="deRef",
@@ -1782,7 +1793,8 @@ def main() :
         and do not dereference symbolic links (see LS(1))")
     group.add_argument("--classify", "-F", action="store_true",
         dest="classify", default=False,
-        help="append indicator (one of */=>@|) to entries (see LS(1))")
+        help="append indicator (one of */=>@|) to entries, and \
+            do not follow symbolic links. (see LS(1))")
 
     p.add_argument("files", metavar="FILE", nargs="*",
         help="file names")
@@ -1922,6 +1934,14 @@ def main() :
             gDeRefWhichFiles = (gListWhichFiles & (0b1111 ^ DEREF_FILES))
 
 
+    # Do not want to follow symbolic links if --classify/-F or
+    # --directory/-d invoked on the command line.
+    # Note the use of these options TRUMPS any of the prior options
+    # for whether or not to follow sym-links.
+    #
+    if args.classify or args.listDirContents :
+        gDeRefWhichFiles = DEREF_NONE
+
     if args.prependPath == PATH_REL or args.prependPath == PATH_ABS :
         gListWhichFiles = (gListWhichFiles & LIST_NOT_OTHER)
 
@@ -2027,6 +2047,11 @@ def main() :
                 passedPath = os.getcwd() + "/"
 
             listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), ".", False, args, passedPath)
+
+    # jpr: Note example: 'ls -F ccc' in the case that ccc is a symlink to a dir
+    # will force it not to dereference the 'ccc'.
+    # Similarly using the -P option on macos which means list the link itself.
+    # so matches our --no-dereference option.
 
     # We are being asked to list a specific directory, so we don't need
     # to print the directory name before listing the contents (unless

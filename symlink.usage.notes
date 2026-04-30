@@ -1,0 +1,140 @@
+--- lsseq --- (proposed)
+
+       -H, --dereference-command-line ### [DEFAULT]
+              follow symbolic links listed on the command line
+
+       -L, --dereference ### (old "buggy" lsseq behavior)
+              when showing file information for a symbolic link, show information for the
+              file the link references rather than for the link itself
+
+     --no-dereference ### -P on Darwin, but lsseq already uses -P shortcut
+             If argument is a symbolic link, list the link itself rather than the object
+             the link references.  This option cancels the -H and -L options.
+
+       ### NOT NEEDED --dereference-command-line-symlink-to-dir 
+       # because it only really matters about how we treat directories
+       # and is harmless to treat non-directory symlinks on the command
+       # line as dereferences, as lsseq ignores whether an image sequence is
+       # a reference or not, plus since long-listings aren't supported,
+       # it doesn't matter about "other" files that are not directories
+       #####
+       #
+       # Revised note: Perhaps this IS needed, as we could consider the times of the 
+       # links (instead of the dereferenced file) for sorting by time. That is,
+       # if using THIS option then the directories are dereferenced, but files are not
+       #####
+
+       ### Note: should use same kind of logic in argparser as --only-images,
+       ### --not-images, etc. to track which of the above new options is LAST in the list.
+
+--- ls --- (Linux)
+
+       -H, --dereference-command-line
+              follow symbolic links listed on the command line
+
+       --dereference-command-line-symlink-to-dir
+              follow each command line symbolic link
+              that points to a directory
+
+       -L, --dereference
+              when showing file information for a symbolic link, show information for the
+              file the link references rather than for the link itself
+
+--- ls --- (Darwin)
+
+     -F      Display a slash (‘/’) immediately after each pathname that is a directory,
+             an asterisk (‘*’) after each that is executable, an at sign (‘@’) after
+             each symbolic link, an equals sign (‘=’) after each socket, a percent sign
+             (‘%’) after each whiteout, and a vertical bar (‘|’) after each that is a
+             FIFO.
+
+     -H      Symbolic links on the command line are followed.  This option is assumed if
+             none of the -F, -d, or -l options are specified.
+
+     -L      Follow all symbolic links to final target and list the file or directory
+             the link references rather than the link itself.  This option cancels the
+             -P option.
+
+     -P      If argument is a symbolic link, list the link itself rather than the object
+             the link references.  This option cancels the -H and -L options.
+
+--- POSIX ls  --- 
+
+https://pubs.opengroup.org/onlinepubs/9699919799/utilities/ls.html
+
+-F           Do not follow symbolic links named as operands unless the -H or -L options
+            are specified. Write a <slash> ( '/' ) immediately after each pathname that
+            is a directory, an <asterisk> ( '*' ) after each that is executable,
+            a <vertical-line> ( '|' ) after each that is a FIFO, and an at-sign ( '@' )
+            after each that is a symbolic link.
+            For other file types, other symbols may be written.
+
+-H          Evaluate the file information and file type for symbolic links specified
+            on the command line to be those of the file referenced by the link, and not
+            the link itself; however, ls shall write the name of the link itself and
+            not the file referenced by the link.
+
+-L          Evaluate the file information and file type for all symbolic links (whether
+            named on the command line or encountered in a file hierarchy) to be those of
+            the file referenced by the link, and not the link itself; however, ls shall
+            write the name of the link itself and not the file referenced by the link.
+            When -L is used with -l, write the contents of symbolic links in the long
+            format (see the STDOUT section).
+
+-R          Recursively list subdirectories encountered. When a symbolic link to a
+            directory is encountered, the directory shall not be recursively listed
+            unless the -L option is specified. The use of -R with -d or -f
+            produces unspecified results.
+
+-d          Do not follow symbolic links named as operands unless the -H or -L options
+            are specified. Do not treat directories differently than other types of files.
+            The use of -d with -R or -f produces unspecified results.
+
+
+--- touch --- 
+
+       -h, --no-dereference
+              affect each symbolic link instead of any referenced file (useful only  on  systems  that  can
+              change the timestamps of a symlink)
+
+
+--- grep ---
+
+       -r, --recursive
+              Read all files under each directory, recursively, following symbolic  links
+              only  if  they  are  on  the command line.  Note that if no file operand is
+              given, grep searches the working directory.  This is equivalent to  the  -d
+              recurse option.
+
+       -R, --dereference-recursive
+              Read  all  files  under  each  directory, recursively.  Follow all symbolic
+              links, unlike -r.
+
+--- du ---
+
+
+       -D, --dereference-args
+              dereference only symlinks that are listed on the command line
+
+       -L, --dereference
+              dereference all symbolic links
+
+--- chown ---
+
+       --dereference
+              affect the referent of each symbolic link (this  is  the  default),  rather
+              than the symbolic link itself
+
+       -h, --no-dereference
+              affect  symbolic  links instead of any referenced file (useful only on sys‐
+              tems that can change the ownership of a symlink)
+
+--- cp ---
+
+       -H     follow command-line symbolic links in SOURCE
+
+       -L, --dereference
+              always follow symbolic links in SOURCE
+
+       -P, --no-dereference
+              never follow symbolic links in SOURCE
