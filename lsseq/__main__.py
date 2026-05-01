@@ -993,15 +993,32 @@ def stripDotFiles(dirContents, stripIt) :
 
 def deRefDirs(isCmdLine) :
     global gDeRefWhichFiles
-    ### JPR DEBUG print(bin(gDeRefWhichFiles))
-    return (isCmdLine and (gDeRefWhichFiles & (DEREF_CMD_LINE | DEREF_DIRS))) \
-        or                (gDeRefWhichFiles & (DEREF_ALL | DEREF_DIRS))
+    ### JPR_DEBUG print(f"{gDeRefWhichFiles:#06b}")
+    if isCmdLine :
+        if gDeRefWhichFiles & (DEREF_CMD_LINE | DEREF_ALL) :
+            return bool(gDeRefWhichFiles & DEREF_DIRS)
+        else :
+            return False
+    else :
+        if gDeRefWhichFiles &  DEREF_ALL :
+            return bool(gDeRefWhichFiles & DEREF_DIRS)
+        else :
+            return False
+
 
 def deRefFiles(isCmdLine) :
     global gDeRefWhichFiles
-    ### JPR DEBUG print(bin(gDeRefWhichFiles))
-    return (isCmdLine and (gDeRefWhichFiles & (DEREF_CMD_LINE | DEREF_FILES))) \
-        or                (gDeRefWhichFiles & (DEREF_ALL | DEREF_FILES))
+    ### JPR_DEBUG print(f"{gDeRefWhichFiles:#06b}")
+    if isCmdLine :
+        if gDeRefWhichFiles & (DEREF_CMD_LINE | DEREF_ALL) :
+            return bool(gDeRefWhichFiles & DEREF_FILES)
+        else :
+            return False
+    else :
+        if gDeRefWhichFiles &  DEREF_ALL :
+            return bool(gDeRefWhichFiles & DEREF_FILES)
+        else :
+            return False
 
 # This function is recursive and lists the contents passed to it
 # via the first argument. Those contents MAY or MAY-NOT be
@@ -1106,9 +1123,11 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath, isCmdLine=Fa
             if (not listSubDirs or not args.listDirContents) \
                     and (gListWhichFiles & LIST_OTHER) :
                 otherFiles.append(filename)
+                ### JPR_DEBUG print("in listSeqDir 1:", f"{gDeRefWhichFiles:#06b}")
+
             if not os.path.islink(filename) or deRefDirs(isCmdLine) :
                 dirList.append(filename)
-            else :
+            elif listSubDirs :
                 otherFiles.append(filename)
 
         else :
@@ -1960,7 +1979,7 @@ def main() :
         elif listOpts == ARG_LIST_NO_DEREF_FILE:
             gDeRefWhichFiles = (gListWhichFiles & (0b1111 ^ DEREF_FILES))
 
-    ### JPR DEBUG: print("In Main:", bin(gDeRefWhichFiles))
+    ### JPR_DEBUG: print("in main 1:", f"{gDeRefWhichFiles:#06b}")
 
     # Do not want to follow symbolic links if --classify/-F or
     # --directory/-d invoked on the command line.
@@ -1969,6 +1988,8 @@ def main() :
     #
     if args.classify or not args.listDirContents :
         gDeRefWhichFiles = DEREF_NONE
+
+    ### JPR_DEBUG: print("in main 2:", f"{gDeRefWhichFiles:#06b}")
 
     if args.prependPath == PATH_REL or args.prependPath == PATH_ABS :
         gListWhichFiles = (gListWhichFiles & LIST_NOT_OTHER)
@@ -2058,7 +2079,7 @@ def main() :
     # The following logic attempts to mimic the behavior
     # of /bin/ls as closely as possible.
 
-    # No args means list the current directory.
+    # No args.files means list the current directory.
     #
     if len(args.files) == 0 :
         if not args.listDirContents :
@@ -2074,16 +2095,13 @@ def main() :
             if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
-            gDeRefWhichFiles = DEREF_NONE
+            ### JPR_DEBUG: print("in main 3:", f"{gDeRefWhichFiles:#06b}")
             listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), ".",
-                False, args, passedPath, True)
+                False, args, passedPath, False)
 
     # We are being asked to list a specific directory, so we don't need
     # to print the directory name before listing the contents (unless
     # it is a recursive listing).  (/bin/ls behavior.)
-    #
-    #
-    # JPR - Need to flesh out new sym-link logic starting here (at least)
     #
     elif len(args.files) == 1 and os.path.isdir(args.files[0]) and args.prependPath != PATH_ABS :
         arg0 = args.files[0]
