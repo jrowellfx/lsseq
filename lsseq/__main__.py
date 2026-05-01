@@ -1011,7 +1011,7 @@ def stripDotFiles(dirContents, stripIt) :
 #                 OR generated from a recursive descent into a directory.
 #          path - The directory we need to descend into, and pop out of.
 #                 (Might be trivially "." if called from main())
-#   listSubDirs - Boolean. ONLY ever True if called from main() .
+#   listSubDirs - Boolean. Possibly True if called from main() only.
 #                 This arg allows us to get ONE LEVEL of recursion only.
 #                 unless args.isRecursive is also True in which
 #                 case we may descend further if need be.
@@ -1020,8 +1020,11 @@ def stripDotFiles(dirContents, stripIt) :
 #                 used to print the directory-title. Also note that
 #                 traversedPath will always have a '/' as the last
 #                 character in the string.
+# isCmdLine     - Only True when called from main(), so we can know
+#                 what do to given the settings of the gDeRefWhichFiles
+#                 global var.
 # 
-def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
+def listSeqDir(dirContents, path, listSubDirs, args, traversedPath, isCmdLine=False) :
 
     # Declare global variables since they might be modified by this function.
     #
@@ -1458,7 +1461,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath) :
                 passedPath = traversedPath + d + "/"
 
             listSeqDir(stripDotFiles(os.listdir(d), args.ignoreDotFiles),
-                d, False, args, passedPath)
+                d, False, args, passedPath, False)
 
     os.chdir(tmpCWD) # Pop the stack of directories.
 
@@ -2051,16 +2054,16 @@ def main() :
             if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
-            if (gDeRefWhichFiles & DEREF_CMD_LINE) : # Since nothing on cmd-line, don't follow links.
-                gDeRefWhichFiles = DEREF_NONE
-            listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), ".", False, args, passedPath)
+            gDeRefWhichFiles = DEREF_NONE
+            listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), ".",
+                False, args, passedPath, True)
 
     # We are being asked to list a specific directory, so we don't need
     # to print the directory name before listing the contents (unless
     # it is a recursive listing).  (/bin/ls behavior.)
     #
     #
-    # JPR - Need to flesh out new sym-link logic here.
+    # JPR - Need to flesh out new sym-link logic starting here (at least)
     #
     elif len(args.files) == 1 and os.path.isdir(args.files[0]) and args.prependPath != PATH_ABS :
         arg0 = args.files[0]
@@ -2096,19 +2099,19 @@ def main() :
             if arg0[0] == "/" :
                 passedPath = arg0 + "/"
 
-            listSeqDir(stripDotFiles(os.listdir(arg0), args.ignoreDotFiles), arg0, False, args, passedPath)
+            listSeqDir(stripDotFiles(os.listdir(arg0), args.ignoreDotFiles), arg0,
+                False, args, passedPath, True)
 
-    # List all the arguments on the command line and unless prevented by
-    # the "-d" option, it will also list the contents of all the directories
-    # entered on the command line. (Facilitated by the 3rd arg 'True' below.)
-    # This 3rd boolean argument is a way of getting only one level of descent.
-    # This is the ONLY place that True is passed listSeqDir().
+    # List all the arguments on the command line (unless prevented by
+    # the "-d" option). listSeqDir() will also list the contents of all the directories
+    # entered on the command line, facilitated by the 3rd arg 'True' below,
+    # and is the ONLY place in this code that True is passed to this parameter.
     #
     else :
         passedPath = ""
         if args.prependPath == PATH_ABS :
             passedPath = os.getcwd() + "/"
-        listSeqDir(args.files, ".", True, args, passedPath)
+        listSeqDir(args.files, ".", True, args, passedPath, True)
 
 
     # If we need to print the sequences globally sorted by time,
