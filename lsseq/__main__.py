@@ -991,6 +991,18 @@ def stripDotFiles(dirContents, stripIt) :
                 strippedDirContents.append(f)
         return strippedDirContents
 
+def deRefDirs(isCmdLine) :
+    global gDeRefWhichFiles
+    ### JPR DEBUG print(bin(gDeRefWhichFiles))
+    return (isCmdLine and (gDeRefWhichFiles & (DEREF_CMD_LINE | DEREF_DIRS))) \
+        or                (gDeRefWhichFiles & (DEREF_ALL | DEREF_DIRS))
+
+def deRefFiles(isCmdLine) :
+    global gDeRefWhichFiles
+    ### JPR DEBUG print(bin(gDeRefWhichFiles))
+    return (isCmdLine and (gDeRefWhichFiles & (DEREF_CMD_LINE | DEREF_FILES))) \
+        or                (gDeRefWhichFiles & (DEREF_ALL | DEREF_FILES))
+
 # This function is recursive and lists the contents passed to it
 # via the first argument. Those contents MAY or MAY-NOT be
 # all contained in the current working directory. That list will likely
@@ -1011,11 +1023,15 @@ def stripDotFiles(dirContents, stripIt) :
 #                 OR generated from a recursive descent into a directory.
 #          path - The directory we need to descend into, and pop out of.
 #                 (Might be trivially "." if called from main())
-#   listSubDirs - Boolean. Possibly True if called from main() only.
-#                 This arg allows us to get ONE LEVEL of recursion only.
+#   listSubDirs - Boolean. Only possibly True if called from main().
+#                 This arg allows us to get ONE LEVEL of recursion only
 #                 unless args.isRecursive is also True in which
 #                 case we may descend further if need be.
-#          args - The all the args set on the command line.
+#                 "recursion" in this context means printing subdirs,
+#                 and in the case of calling (for example) 'lsseq dir1 dir2' we
+#                 need to call this function on dir1 then dir2, but no deeper
+#                 in each case.
+#          args - The all the options set on the command line.
 # traversedPath - The path descended so far to get to this level
 #                 used to print the directory-title. Also note that
 #                 traversedPath will always have a '/' as the last
@@ -1056,8 +1072,8 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath, isCmdLine=Fa
         os.chdir(tmpCWD) # Pop the stack of directories.
         return
 
-    # Following flag set iff something got printed here before reaching
-    # printing of subdirs.
+    # Following flag set iff something gets printed below before
+    # the printing of subdirs.
     #
     somethingWasPrinted = False
 
@@ -1090,7 +1106,10 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath, isCmdLine=Fa
             if (not listSubDirs or not args.listDirContents) \
                     and (gListWhichFiles & LIST_OTHER) :
                 otherFiles.append(filename)
-            dirList.append(filename)
+            if not os.path.islink(filename) or deRefDirs(isCmdLine) :
+                dirList.append(filename)
+            else :
+                otherFiles.append(filename)
 
         else :
 
@@ -1941,13 +1960,14 @@ def main() :
         elif listOpts == ARG_LIST_NO_DEREF_FILE:
             gDeRefWhichFiles = (gListWhichFiles & (0b1111 ^ DEREF_FILES))
 
+    ### JPR DEBUG: print("In Main:", bin(gDeRefWhichFiles))
 
     # Do not want to follow symbolic links if --classify/-F or
     # --directory/-d invoked on the command line.
     # Note the use of these options TRUMPS any of the prior options
     # for whether or not to follow sym-links.
     #
-    if args.classify or args.listDirContents :
+    if args.classify or not args.listDirContents :
         gDeRefWhichFiles = DEREF_NONE
 
     if args.prependPath == PATH_REL or args.prependPath == PATH_ABS :
