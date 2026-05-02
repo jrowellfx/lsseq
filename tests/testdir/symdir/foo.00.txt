@@ -1,1 +1,36 @@
-0: Vinz, you said before you were waiting for a sign.
+ls    -C * > ~/f.1
+lsseq -C * > ~/f.2
+gdiff ~/f.[12]
+
+ls    -C -R > ~/f.1
+lsseq -C -R > ~/f.2
+gdiff ~/f.[12]
+
+ls    -C -R * > ~/f.1
+lsseq -C -R * > ~/f.2
+gdiff ~/f.[12]
+
+ls    -C -R -F > ~/f.1
+lsseq -C -R -F > ~/f.2
+gdiff ~/f.[12]
+
+ls    -C -R -L > ~/f.1
+lsseq -C -R -L > ~/f.2
+gdiff ~/f.[12]
+
+ls    -C aaa/aaa_ccc > ~/f.1
+lsseq -C aaa/aaa_ccc > ~/f.2
+gdiff ~/f.[12]
+
+ls    -C -F aaa/aaa_ccc > ~/f.1
+lsseq -C -F aaa/aaa_ccc > ~/f.2
+gdiff ~/f.[12]
+
+ls    -C -R aaa > ~/f.1
+lsseq -C -R aaa > ~/f.2
+gdiff ~/f.[12]
+
+ls    -C -R -F aaa > ~/f.1
+lsseq -C -R -F aaa > ~/f.2
+gdiff ~/f.[12]
+
