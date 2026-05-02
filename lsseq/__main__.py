@@ -1053,7 +1053,7 @@ def deRefFiles(isCmdLine) :
 #                 used to print the directory-title. Also note that
 #                 traversedPath will always have a '/' as the last
 #                 character in the string.
-# isCmdLine     - Only True when called from main(), so we can know
+# isCmdLine     - Only True if called from main(), so we can know
 #                 what do to given the settings of the gDeRefWhichFiles
 #                 global var.
 # 
@@ -2096,12 +2096,20 @@ def main() :
                 passedPath = os.getcwd() + "/"
 
             ### JPR_DEBUG: print("in main 3:", f"{gDeRefWhichFiles:#06b}")
+            # Note: We're passing "False" to the last parameter (i.e., isCmdLine)
+            # because in this case don't want listSeqDir() to interpret the
+            # list of files a coming from the command line.
+            # 
             listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), ".",
                 False, args, passedPath, False)
 
     # We are being asked to list a specific directory, so we don't need
     # to print the directory name before listing the contents (unless
     # it is a recursive listing).  (/bin/ls behavior.)
+    #
+    #
+    # Let the next "else" section of the code handle args.prependPath == PATH_REL or PATH_ABS
+    ### elif len(args.files) == 1 and os.path.isdir(args.files[0]) and args.prependPath == PATH_NOPREFIX :
     #
     elif len(args.files) == 1 and os.path.isdir(args.files[0]) and args.prependPath != PATH_ABS :
         arg0 = args.files[0]
@@ -2127,8 +2135,8 @@ def main() :
             if args.prependPath == PATH_REL :
                 passedPath = arg0 + "/"
 
-            if args.prependPath == PATH_ABS :
-                passedPath = os.getcwd() + "/"
+            # if args.prependPath == PATH_ABS :
+            #     passedPath = os.getcwd() + "/"
 
             # Here's a case where we're being asked to list a directory that we might
             # not even be in, i.e., it's an absolute path to another directory than

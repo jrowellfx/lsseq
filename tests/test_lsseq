@@ -555,6 +555,24 @@ testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-movies
 testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-images --global-sort-by-time -r
 testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-caches --global-sort-by-time -r
 testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-movies --global-sort-by-time -r
+testdir/symdir ls -C *
+testdir/symdir lsseq -C *
+testdir/symdir ls -C -R
+testdir/symdir lsseq -C -R
+testdir/symdir ls -C -R -F
+testdir/symdir lsseq -C -R -F
+testdir/symdir ls -C -R -L
+testdir/symdir lsseq -C -R -L
+testdir/symdir ls $TEST_DIR/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
+testdir/symdir lsseq $TEST_DIR/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
+testdir/symdir ls -C aaa/aaa_ccc
+testdir/symdir lsseq -C aaa/aaa_ccc
+testdir/symdir ls -C -F aaa/aaa_ccc    ### Buggy
+testdir/symdir lsseq -C -F aaa/aaa_ccc
+testdir/symdir/bbb lsseq -C -P ../aaa/
+testdir/symdir/bbb lsseq -C -p ../aaa/
+testdir/symdir lsseq -C -R aaa         ### Buggy
+testdir/symdir lsseq -C -R -F aaa      ### NOT Buggy! Huh....
 EOFa
 
 cat << EOFb > $tmpTestCmdFileB
