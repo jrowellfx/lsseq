@@ -991,10 +991,10 @@ def stripDotFiles(dirContents, stripIt) :
                 strippedDirContents.append(f)
         return strippedDirContents
 
-def deRefDirs(isCmdLine) :
+def deRefDirs(isCmdLineArg) :
     global gDeRefWhichFiles
     ### JPR_DEBUG print(f"{gDeRefWhichFiles:#06b}")
-    if isCmdLine :
+    if isCmdLineArg :
         if gDeRefWhichFiles & (DEREF_CMD_LINE | DEREF_ALL) :
             return bool(gDeRefWhichFiles & DEREF_DIRS)
         else :
@@ -1005,10 +1005,10 @@ def deRefDirs(isCmdLine) :
         else :
             return False
 
-def deRefFiles(isCmdLine) :
+def deRefFiles(isCmdLineArg) :
     global gDeRefWhichFiles
     ### JPR_DEBUG print(f"{gDeRefWhichFiles:#06b}")
-    if isCmdLine :
+    if isCmdLineArg :
         if gDeRefWhichFiles & (DEREF_CMD_LINE | DEREF_ALL) :
             return bool(gDeRefWhichFiles & DEREF_FILES)
         else :
@@ -1039,7 +1039,7 @@ def deRefFiles(isCmdLine) :
 #                 OR generated from a recursive descent into a directory.
 #          path - The directory we need to descend into, and pop out of.
 #                 (Might be trivially "." if called from main())
-#   listSubDirs - Boolean. Only possibly True if called from main().
+#   isCmdLineArg - Boolean. Only possibly True if called from main().
 #                 This arg allows us to get ONE LEVEL of recursion only
 #                 unless args.isRecursive is also True in which
 #                 case we may descend further if need be.
@@ -1052,13 +1052,8 @@ def deRefFiles(isCmdLine) :
 #                 used to print the directory-title. Also note that
 #                 traversedPath will always have a '/' as the last
 #                 character in the string.
-# isCmdLine     - Only True if called from main(), so we can know
-#                 what do to given the settings of the gDeRefWhichFiles
-#                 global var.
-#
-# 20260502 - Should merge listSubDirs and isCmdLine - should only isCmdLine
 # 
-def listSeqDir(dirContents, path, listSubDirs, args, traversedPath, isCmdLine=False) :
+def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
 
     # Declare global variables since they might be modified by this function.
     #
@@ -1121,14 +1116,14 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath, isCmdLine=Fa
         # then CLEARLY it is NOT part of an image sequence.
         #
         if os.path.isdir(filename) :
-            if (not listSubDirs or not args.listDirContents) \
+            if (not isCmdLineArg or not args.listDirContents) \
                     and (gListWhichFiles & LIST_OTHER) :
                 otherFiles.append(filename)
                 ### JPR_DEBUG print("in listSeqDir 1:", f"{gDeRefWhichFiles:#06b}")
 
-            if not os.path.islink(filename) or deRefDirs(isCmdLine) :
+            if not os.path.islink(filename) or deRefDirs(isCmdLineArg) :
                 dirList.append(filename)
-            elif listSubDirs :
+            elif isCmdLineArg :
                 otherFiles.append(filename)
 
         else :
@@ -1480,7 +1475,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath, isCmdLine=Fa
     #         Somewhat mimics the calls up in main().
     #
     firstDir = True
-    if (listSubDirs or args.isRecursive) and args.listDirContents :
+    if (isCmdLineArg or args.isRecursive) and args.listDirContents :
         dirList.sort()
         for d in dirList :
             if d[-1] == "/" :
@@ -1500,7 +1495,7 @@ def listSeqDir(dirContents, path, listSubDirs, args, traversedPath, isCmdLine=Fa
                 passedPath = traversedPath + d + "/"
 
             listSeqDir(stripDotFiles(os.listdir(d), args.ignoreDotFiles),
-                d, False, args, passedPath, False)
+                d, False, args, passedPath)
 
     os.chdir(tmpCWD) # Pop the stack of directories.
 
@@ -2097,12 +2092,12 @@ def main() :
                 passedPath = os.getcwd() + "/"
 
             ### JPR_DEBUG: print("in main 3:", f"{gDeRefWhichFiles:#06b}")
-            # Note: We're passing "False" to the last parameter (i.e., isCmdLine)
-            # because in this case don't want listSeqDir() to interpret the
+            # Note: We're passing "False" to the parameter isCmdLineArg
+            # because we don't want listSeqDir() to interpret the
             # list of files a coming from the command line.
             # 
             listSeqDir(stripDotFiles(os.listdir("."), args.ignoreDotFiles), ".",
-                False, args, passedPath, False)
+                False, args, passedPath)
 
     # We are being asked to list a specific directory, so we don't need
     # to print the directory name before listing the contents (unless
@@ -2150,7 +2145,7 @@ def main() :
                 passedPath = arg0 + "/"
 
             listSeqDir(stripDotFiles(os.listdir(arg0), args.ignoreDotFiles), arg0,
-                False, args, passedPath, False)
+                False, args, passedPath)
 
     # List all the arguments on the command line (unless prevented by
     # the "-d" option). listSeqDir() will also list the contents of all the directories
@@ -2161,7 +2156,7 @@ def main() :
         passedPath = ""
         if args.prependPath == PATH_ABS :
             passedPath = os.getcwd() + "/"
-        listSeqDir(args.files, ".", True, args, passedPath, True)
+        listSeqDir(args.files, ".", True, args, passedPath)
 
 
     # If we need to print the sequences globally sorted by time,

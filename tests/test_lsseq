@@ -579,6 +579,11 @@ testdir/symdir ls    $TEST_DIR/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
 testdir/symdir lsseq $TEST_DIR/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
 testdir/symdir/bbb lsseq -C -P ../aaa/
 testdir/symdir/bbb lsseq -C -p ../aaa/
+testdir/symdir lsseq -C --no-dereference *
+testdir/symdir lsseq -C --no-dereference -R
+testdir/symdir lsseq -C --no-dereference --dereference-command-line *
+testdir/symdir lsseq -C --dereference-command-line-symlink-to-file *
+testdir/symdir lsseq -C -R --dereference-command-line-symlink-to-file *
 EOFa
 
 cat << EOFb > $tmpTestCmdFileB
