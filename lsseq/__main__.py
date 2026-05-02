@@ -1005,7 +1005,6 @@ def deRefDirs(isCmdLine) :
         else :
             return False
 
-
 def deRefFiles(isCmdLine) :
     global gDeRefWhichFiles
     ### JPR_DEBUG print(f"{gDeRefWhichFiles:#06b}")
@@ -1056,6 +1055,8 @@ def deRefFiles(isCmdLine) :
 # isCmdLine     - Only True if called from main(), so we can know
 #                 what do to given the settings of the gDeRefWhichFiles
 #                 global var.
+#
+# 20260502 - Should merge listSubDirs and isCmdLine - should only isCmdLine
 # 
 def listSeqDir(dirContents, path, listSubDirs, args, traversedPath, isCmdLine=False) :
 
@@ -2111,7 +2112,10 @@ def main() :
     # Let the next "else" section of the code handle args.prependPath == PATH_REL or PATH_ABS
     ### elif len(args.files) == 1 and os.path.isdir(args.files[0]) and args.prependPath == PATH_NOPREFIX :
     #
-    elif len(args.files) == 1 and os.path.isdir(args.files[0]) and args.prependPath != PATH_ABS :
+    elif len(args.files) == 1 \
+            and (  (os.path.isdir(args.files[0]) and not os.path.islink(args.files[0])) \
+                or (os.path.isdir(args.files[0]) and os.path.islink(args.files[0])) and deRefDirs(True))\
+            and args.prependPath != PATH_ABS :
         arg0 = args.files[0]
         # Strip out trailing "/" that may have been tacked on by
         # file completion.  (/bin/ls does not do this - but it's
@@ -2146,7 +2150,7 @@ def main() :
                 passedPath = arg0 + "/"
 
             listSeqDir(stripDotFiles(os.listdir(arg0), args.ignoreDotFiles), arg0,
-                False, args, passedPath, True)
+                False, args, passedPath, False)
 
     # List all the arguments on the command line (unless prevented by
     # the "-d" option). listSeqDir() will also list the contents of all the directories

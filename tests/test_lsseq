@@ -567,12 +567,12 @@ testdir/symdir ls $TEST_DIR/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
 testdir/symdir lsseq $TEST_DIR/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
 testdir/symdir ls -C aaa/aaa_ccc
 testdir/symdir lsseq -C aaa/aaa_ccc
-testdir/symdir ls -C -F aaa/aaa_ccc    ### Buggy
+testdir/symdir ls -C -F aaa/aaa_ccc
 testdir/symdir lsseq -C -F aaa/aaa_ccc
 testdir/symdir/bbb lsseq -C -P ../aaa/
 testdir/symdir/bbb lsseq -C -p ../aaa/
-testdir/symdir lsseq -C -R aaa         ### Buggy
-testdir/symdir lsseq -C -R -F aaa      ### NOT Buggy! Huh....
+testdir/symdir lsseq -C -R aaa
+testdir/symdir lsseq -C -R -F aaa
 EOFa
 
 cat << EOFb > $tmpTestCmdFileB
