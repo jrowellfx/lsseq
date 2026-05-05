@@ -73,6 +73,8 @@ VERSION = "4.3.0"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
+# Supported sequences.
+#
 gCacheExtList = [
     "ass",
     "bgeo",
@@ -195,17 +197,38 @@ DATE_FORMAT_LIST = [
 gTimeList = []
 gImageDictionary = {}
 gCacheDictionary = {}
-gMoviesDictionary = {}
+gMovieDictionary = {}
+
+# Array indices for the data list within the image and cache dictionaries.
+#
+FRAME_NUM        = 0
+FRAME_SIZE       = 1
+FRAME_MTIME      = 2
+FRAME_PADDING    = 3
+FRAME_ISSYMLINK  = 4
+
+# Array indices for the tuple stored in the movies dictionary.
+#
+MOVIE_SIZE       = 0
+MOVIE_ISSYMLINK  = 1
+
+# Since the following value is stored with the mtime of a frame (or movie)
+# it actually means -1 second before January 1, 1970, 00:00:00 (UTC)
+# That is, the last second of 1969 before midnight. :-) So if a file happens
+# to have this mtime (ha!) then it's going to report as a broken link. Sorry!
+#
+FILE_BROKENLINK = -1
 
 # EXIT codes, they will be combined bitwise to return 
 # possibly more than one different warning and/or error.
 #
-EXIT_NO_ERROR               =  0 # Clean exit.
-EXIT_LS_ERROR               =  1 # A call to 'ls' returned an error or another internal issue
-EXIT_ARGPARSE_ERROR         =  2 # The default code that argparse exits with if bad option.
-EXIT_LSSEQ_SOFTLINK_WARNING =  4 # warning - broken softlink
-EXIT_LSSEQ_PADDING_WARNING  =  8 # warning - two images with same name, same frame-num, diff padding
-EXIT_CD_PERMISSION_WARNING  = 16 # warning - recursive descent blocked - no execute permission on dir
+EXIT_NO_ERROR                 =  0 # Clean exit.
+EXIT_LS_WARNING               =  1 # A call to 'ls' returned an error or another internal issue
+EXIT_ARGPARSE_ERROR           =  2 # The default code that argparse exits with if bad option.
+EXIT_LSSEQ_SOFTLINK_WARNING   =  4 # warning - broken softlink
+EXIT_LSSEQ_PADDING_WARNING    =  8 # warning - two images with same name, same frame-num, diff padding
+EXIT_CD_PERMISSION_WARNING    = 16 # warning - recursive descent blocked - no execute permission on dir
+EXIT_LSSEQ_NOSUCHFILE_WARNING = 32 # A non-existent sequence-file was listed on the command line.
 #
 gExitStatus = EXIT_NO_ERROR
 
@@ -215,6 +238,8 @@ DICTKEY = 0
 MTIME = 1
 TRAVERSEDPATH = 2
 
+# For --prepend-path-abs and --prepend-path-rel support.
+#
 PATH_NOPREFIX = 0
 PATH_ABS = 1
 PATH_REL = 2
@@ -237,7 +262,6 @@ PATH_REL = 2
 # and adding NOTCACHES to that would be:
 #     1100
 #
-
 ARG_LIST_ALLFILES   = 0
 ARG_LIST_ONLYSEQS   = 1 # Do not display regular 'ls' output
 ARG_LIST_ONLYIMGS   = 2 # Strictly images.
@@ -259,6 +283,8 @@ LIST_NOT_CACHES     = 0b1110 # For omitting CACHES as seqs
 
 gListWhichFiles     = LIST_NO_OMISSIONS # Default behaviour
 
+# For support of the treatment of sym-links.
+#
 ARG_LIST_DEREF_ALL_CMDLINE   = 0 # --dereference-command-line, -H
 ARG_LIST_DEREF_ALL           = 1 # --dereference
 ARG_LIST_NO_DEREF_ALL        = 2 # --no-dereference
@@ -283,15 +309,6 @@ BY_UNSPECIFIED = 0
 BY_SINGLE = 1
 BY_COLUMNS = 2
 BY_ROWS = 3
-
-# Array indices for the data list within the image dictionary.
-#
-FRAME_NUM = 0
-FRAME_SIZE = 1
-FRAME_MTIME = 2
-FRAME_PADDING = 3
-
-FRAME_BROKENLINK = -1
 
 # Array indices for results of the "seqSplit()" function.
 #
@@ -651,7 +668,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
             uniqueFrameList.pop(0)
 
         if not iMissing :
-            if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
+            if currFrameData[FRAME_MTIME] == FILE_BROKENLINK :
                 if not args.silent :
                     actualFilename = actualImageName(filenameKey, padding, i)
                     sys.stdout.flush()
@@ -672,7 +689,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
         #
         if not iMissing and args.seqFormat == 'native' and \
                 (args.showZero or args.showBad or args.showBadPadding) :
-            if currFrameData[FRAME_MTIME] == FRAME_BROKENLINK :
+            if currFrameData[FRAME_MTIME] == FILE_BROKENLINK :
                 if args.showZero :
                     zeroFrames.append(i)
                 elif args.showBad :
@@ -1060,7 +1077,7 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
     global gTimeList
     global gImageDictionary
     global gCacheDictionary
-    global gMoviesDictionary
+    global gMovieDictionary
     global gExitStatus
     global gListWhichFiles
     global gDeRefWhichFiles
@@ -1092,18 +1109,23 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
 
     # The 'imageDictionary' (and 'cacheDictionary') has <imageName>..<ext>
     # (or <imageName>_.<ext>), i.e., name without the frame number, as the
-    # key for each entry.  Each entry is a list containing four-tuples,
+    # key for each entry.  Each entry is a list containing five-tuples,
     # namely:
     #
-    #     [ (frameNum, fileSize, mtime, padding), ... ]
+    #     [ (frameNum, fileSize, mtime, padding, isSymLink), ... ]
     #
-    # The 'moviesDictionary' has the movie file name as the key, and the
-    # file size as the data stored.  It stores -1 for the file size if the
-    # file is invalid.
+    # The 'movieDictionary' has the movie file name as the key, and
+    # the data stored is a two-tuple containing
+    #
+    #     (fileSize, isSymLink)
+    #
+    # The boolean "isSymLink" is true if the file is a sym-link.
+    # It stores -1 for the file size if the sym-link points to
+    # a non-existent file.
     #
     imageDictionary = {}
     cacheDictionary = {}
-    moviesDictionary = {}
+    movieDictionary = {}
     otherFiles = []
     dirList = []
 
@@ -1131,15 +1153,27 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
             fileParts = seqSplit(filename, args)
 
             # Note: (len(fileParts) == 2) means file is an image or cache.
-
+            #
             if len(fileParts) == 2 : # Means file is an image or cache.
                 newFrameNum = int(fileParts[FRAMENUM])
                 newPaddingSize = len(fileParts[FRAMENUM])
 
                 # Check to see if file exists - might be broken soft link.
+                #
+                #### BUG FOUND : 2026-05-02: 
+                ####     $ ls xxx.001.exr
+                ####     ls: cannot access 'xxx.001.exr': No such file or directory
+                ####     $ lsseq xxx.001.exr
+                ####     lsseq: warning: xxx.001.exr is a broken soft link
+                ####
+                #### Test lsseq on existing sequence that is missing a frame, but
+                #### explicitly list all of them on the command line. See what it does,
+                #### The missing frame should get reported here, but should show up in
+                #### the missing error list. ...unless it's either the first or last?
+                # 
                 if not os.path.exists(filename) :
                     newFrameSize = 0
-                    newFrameMTime = FRAME_BROKENLINK
+                    newFrameMTime = FILE_BROKENLINK
                 else :
                     realFilename = os.path.realpath(filename)
                     newFrameSize = os.path.getsize(realFilename)
@@ -1149,29 +1183,32 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                 if fileParts[SEQKEY] in cacheDictionary :
                     # tack on new frame number.
                     cacheDictionary[fileParts[SEQKEY]].append(
-                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize, False))
                 else :
                     # initialiaze dictionary entry.
                     cacheDictionary[fileParts[SEQKEY]] = [
-                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize, False)]
 
             elif len(fileParts) == 2 and not isCache(fileParts[SEQKEY]) and (gListWhichFiles & LIST_IMGS) :
                 if fileParts[SEQKEY] in imageDictionary :
                     # tack on new frame number.
                     imageDictionary[fileParts[SEQKEY]].append(
-                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize))
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize, False))
                 else :
                     # initialiaze dictionary entry.
                     imageDictionary[fileParts[SEQKEY]] = [
-                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize)]
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize, False)]
 
             elif isMovie(filename) and (gListWhichFiles & LIST_MOVS):
                 # Check to see if file exists - might be broken soft link.
+                #
+                #### JPR BUG - same as discovered above for image/cache seqs
+                #
                 if not os.path.exists(filename) :
-                    moviesDictionary[filename] = FRAME_BROKENLINK
+                    movieDictionary[filename] = (FILE_BROKENLINK, False) # JPR flesh out logic !! TBD
                 else :
                     realFilename = os.path.realpath(filename)
-                    moviesDictionary[filename] = os.path.getmtime(realFilename)
+                    movieDictionary[filename] = (os.path.getmtime(realFilename), False)
 
             # filename is neither part of an image sequence, NOR a movie file
             # NOR a cache, (or the user has specified to not treat those as
@@ -1281,7 +1318,7 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
             # Don't actually exit - but like 'ls', finish doing the work
             # but exit with non-zero exit-status at the end of the program.
             #
-            gExitStatus = gExitStatus | EXIT_LS_ERROR
+            gExitStatus = gExitStatus | EXIT_LS_WARNING
 
         if len(lsResult.stdout) > 0 :
             print(lsResult.stdout, end='') # ls output contains newlines
@@ -1297,7 +1334,7 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
             seqKeys.append(k)
 
     if gListWhichFiles & LIST_MOVS :
-        movKeys = list(moviesDictionary.keys())
+        movKeys = list(movieDictionary.keys())
         for k in movKeys :
             seqKeys.append(k)
 
@@ -1313,13 +1350,12 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
         for k in seqKeys :
 
             if isMovie(k) :
-                # Note: only thing stored in "moviesDictionary" is the mod-time of the file.
-                timeList.append((k, int(moviesDictionary[k])))
+                timeList.append((k, int(movieDictionary[k][MOVIE_SIZE])))
 
             elif isCache(k) :
                 validTimes = []
                 for im in cacheDictionary[k] :
-                    if im[FRAME_MTIME] != FRAME_BROKENLINK :
+                    if im[FRAME_MTIME] != FILE_BROKENLINK :
                         validTimes.append(im[FRAME_MTIME])
                 validTimes.sort()
                 time = 0
@@ -1342,7 +1378,7 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
             else : # key is an image.
                 validTimes = []
                 for im in imageDictionary[k] :
-                    if im[FRAME_MTIME] != FRAME_BROKENLINK :
+                    if im[FRAME_MTIME] != FILE_BROKENLINK :
                         validTimes.append(im[FRAME_MTIME])
                 validTimes.sort()
                 time = 0
@@ -1365,21 +1401,21 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
     if args.sortByMTime :
         if args.globalSortByTime :
             #
-            # Append sequences to the global list for later printing.
-            # then print nothing and continue below (recursive descent,
-            # or processing other directory contents). Need to extend
-            # the tuple in gTimeList to include "traversedPath" since
-            # that string won't be availabe when we finally emerge from
-            # listSeqDir() in main(). Also need copies of the dictionaries 
-            # saved globally for use in main(), but the key needs to 
-            # be extended to include traversedPath to get unique keys
-            # globally.
+            # Append sequences to the global-lists then print nothing and continue
+            # below with any recursive descent or processing other directory contents.
+            #
+            # We need the entries of the dictionaries added to a corresponding
+            # global dictionary for use in main(), but the key needs to be extended
+            # to include traversedPath to get unique keys globally.
+            #
+            # Thus gTimeList includes the sequence-keys and the traversedPath
+            # to be able to construct the global-keys back in main().
             #
             for seq in timeList :
                 gTimeList.append( (seq[DICTKEY], seq[MTIME], traversedPath) )
                 gDictKey = traversedPath + '/' + seq[DICTKEY]
                 if isMovie(seq[DICTKEY]) :
-                    gMoviesDictionary[gDictKey] = moviesDictionary[seq[DICTKEY]]
+                    gMovieDictionary[gDictKey] = movieDictionary[seq[DICTKEY]]
                 elif isCache(seq[DICTKEY]) :
                     gCacheDictionary[gDictKey] = cacheDictionary[seq[DICTKEY]]
                 else :
