@@ -1142,15 +1142,22 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
         # If the file is a directory, regardless of what it is called,
         # then CLEARLY it is NOT part of an image sequence.
         #
-        if os.path.isdir(filename) :
+        if os.path.isdir(filename) : # Note: this also means filename exists.
             if (not isCmdLineArg or not args.listDirContents) \
                     and (gListWhichFiles & LIST_OTHER) :
                 otherFiles.append(filename)
-                ### JPR_DEBUG print("in listSeqDir 1:", f"{gDeRefWhichFiles:#06b}")
 
             if not os.path.islink(filename) or deRefDirs(isCmdLineArg) :
                 dirList.append(filename)
-            elif isCmdLineArg :
+
+            # Need "and (gListWhichFiles & LIST_OTHER)", for example,
+            # to prevent printing 'ccc' when 'ccc' is a sym-linked dir
+            # in the cwd:
+            #
+            #     lsseq --no-dereference --only-sequences ccc
+            #     <should print nothing>
+            #
+            elif isCmdLineArg and (gListWhichFiles & LIST_OTHER) :
                 otherFiles.append(filename)
 
         else :
@@ -1176,6 +1183,11 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                 #### The missing frame should get reported here, but should show up in
                 #### the missing error list. ...unless it's either the first or last?
                 # 
+
+                ### JPR --- if os.path.lexists(filename) :
+                ### else :
+
+
                 if not os.path.exists(filename) :
                     newFrameSize = 0
                     newFrameMTime = FILE_BROKENLINK
