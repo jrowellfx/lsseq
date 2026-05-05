@@ -506,7 +506,7 @@ aaa/  bbb/  ccc@  foo.00.txt  foobar.00.txt@
 
 testdir/symdir/aaa:
 aaa_aaa/  aaa_bbb/  aaa_ccc@  foo.01.txt  foobar.01.txt@
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 testdir/symdir/aaa/aaa_aaa:
 foo.02.txt  foobar.02.txt@
@@ -770,7 +770,7 @@ bbb_bbb.[001-010].exr
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.010.exr
+/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.013.exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.001.exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.010.exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.001.exr
@@ -1024,7 +1024,7 @@ bbb_bbb.[001-010].exr
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.010.exr
+/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.013.exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.001.exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.010.exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.001.exr
@@ -1270,7 +1270,7 @@ testdir/rdir/rSub02/rrr02.015.ass
 testdir/rdir/rSub02/rrr03.100.fur
 testdir/rdir/rSub02/rrr03.115.fur
 testdir/symdir/aaa/aaa.001.exr
-testdir/symdir/aaa/aaa.010.exr
+testdir/symdir/aaa/aaa.013.exr
 testdir/symdir/aaa/aaa_aaa/aaa_aaa.001.exr
 testdir/symdir/aaa/aaa_aaa/aaa_aaa.010.exr
 testdir/symdir/aaa/aaa_bbb/aaa_bbb.001.exr
@@ -1622,7 +1622,7 @@ aaa/  bbb/  ccc@  foo.00.txt  foobar.00.txt@
 
 testdir/symdir/aaa:
 aaa_aaa/  aaa_bbb/  aaa_ccc@  foo.01.txt  foobar.01.txt@
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 testdir/symdir/aaa/aaa_aaa:
 foo.02.txt  foobar.02.txt@
@@ -1897,7 +1897,7 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.010.exr
+/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.013.exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.001.exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.010.exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.001.exr
@@ -2162,7 +2162,7 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.010.exr
+/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.013.exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.001.exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.010.exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.001.exr
@@ -2419,7 +2419,7 @@ testdir/rdir/rSub02/rrr02.015.ass
 testdir/rdir/rSub02/rrr03.100.fur
 testdir/rdir/rSub02/rrr03.115.fur
 testdir/symdir/aaa/aaa.001.exr
-testdir/symdir/aaa/aaa.010.exr
+testdir/symdir/aaa/aaa.013.exr
 testdir/symdir/aaa/aaa_aaa/aaa_aaa.001.exr
 testdir/symdir/aaa/aaa_aaa/aaa_aaa.010.exr
 testdir/symdir/aaa/aaa_bbb/aaa_bbb.001.exr
@@ -4258,7 +4258,7 @@ aaa_bbb
 aaa_ccc
 foo.01.txt
 foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa:
 foo.02.txt
@@ -6284,7 +6284,7 @@ rdir/rSub02/rrr01.mov
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr02.mov
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
-symdir/aaa/aaa.[001-010].exr
+symdir/aaa/aaa.[001-013].exr m:[12]
 symdir/aaa/aaa_aaa/aaa_aaa.[001-010].exr
 symdir/aaa/aaa_bbb/aaa_bbb.[001-010].exr
 symdir/bbb/bbb.[001-010].exr
@@ -6355,7 +6355,7 @@ symdir/bbb/bbb.[001-010].exr
 symdir/aaa/aaa_bbb/aaa_bbb.[001-010].exr
 symdir/bbb/bbb_bbb/bbb_bbb.[001-010].exr
 symdir/aaa/aaa_aaa/aaa_aaa.[001-010].exr
-symdir/aaa/aaa.[001-010].exr
+symdir/aaa/aaa.[001-013].exr m:[12]
 rdir/rrr03.[100-115].fur z:[100-115]
 rdir/rrr02.mov
 rdir/rrr02.[001-015].ass z:[1-15]
@@ -6646,7 +6646,7 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.[100-115].fur z:[100-115]
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.[001-013].exr m:[12]
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.[001-010].exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.[001-010].exr
 /...absPathToRepo.../tests/testdir/symdir/bbb/bbb.[001-010].exr
@@ -6717,7 +6717,7 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.[001-010].exr
 /...absPathToRepo.../tests/testdir/symdir/bbb/bbb_bbb/bbb_bbb.[001-010].exr
 /...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.[001-010].exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.[001-013].exr m:[12]
 /...absPathToRepo.../tests/testdir/rdir/rrr03.[100-115].fur z:[100-115]
 /...absPathToRepo.../tests/testdir/rdir/rrr02.mov
 /...absPathToRepo.../tests/testdir/rdir/rrr02.[001-015].ass z:[1-15]
@@ -6876,7 +6876,7 @@ rdir/rrr01.mov
 rdir/rrr02.[001-015].ass z:[1-15]
 rdir/rrr02.mov
 rdir/rrr03.[100-115].fur z:[100-115]
-symdir/aaa/aaa.[001-010].exr
+symdir/aaa/aaa.[001-013].exr m:[12]
 symdir/aaa/aaa_aaa/aaa_aaa.[001-010].exr
 symdir/bbb/bbb_bbb/bbb_bbb.[001-010].exr
 symdir/aaa/aaa_bbb/aaa_bbb.[001-010].exr
@@ -8044,23 +8044,25 @@ rrr03.[100-115].fur
 foo.00.txt  foobar.00.txt
 
 aaa:
-aaa.001.exr  aaa.003.exr  aaa.005.exr  aaa.007.exr  aaa.009.exr  aaa_aaa  aaa_ccc     foobar.01.txt
-aaa.002.exr  aaa.004.exr  aaa.006.exr  aaa.008.exr  aaa.010.exr  aaa_bbb  foo.01.txt
+aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_aaa  foo.01.txt
+aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr  aaa_bbb  foobar.01.txt
+aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr  aaa_ccc
 
 bbb:
 bbb.001.exr  bbb.003.exr  bbb.005.exr  bbb.007.exr  bbb.009.exr  bbb_aaa  bbb_ccc     foobar.04.txt
 bbb.002.exr  bbb.004.exr  bbb.006.exr  bbb.008.exr  bbb.010.exr  bbb_bbb  foo.04.txt
 
 ccc:
-aaa.001.exr  aaa.003.exr  aaa.005.exr  aaa.007.exr  aaa.009.exr  aaa_aaa  aaa_ccc     foobar.01.txt
-aaa.002.exr  aaa.004.exr  aaa.006.exr  aaa.008.exr  aaa.010.exr  aaa_bbb  foo.01.txt
+aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_aaa  foo.01.txt
+aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr  aaa_bbb  foobar.01.txt
+aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr  aaa_ccc
 
 ----- Test 197 -+- dir: testdir/symdir -+- lsseq -C * -----
 foo.00.txt  foobar.00.txt
 
 aaa:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 bbb:
 bbb_aaa  bbb_bbb  bbb_ccc  foo.04.txt  foobar.04.txt
@@ -8068,15 +8070,16 @@ bbb.[001-010].exr
 
 ccc:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 ----- Test 198 -+- dir: testdir/symdir -+- ls -C -R -----
 .:
 aaa  bbb  ccc  foo.00.txt  foobar.00.txt
 
 ./aaa:
-aaa.001.exr  aaa.003.exr  aaa.005.exr  aaa.007.exr  aaa.009.exr  aaa_aaa  aaa_ccc     foobar.01.txt
-aaa.002.exr  aaa.004.exr  aaa.006.exr  aaa.008.exr  aaa.010.exr  aaa_bbb  foo.01.txt
+aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_aaa  foo.01.txt
+aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr  aaa_bbb  foobar.01.txt
+aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr  aaa_ccc
 
 ./aaa/aaa_aaa:
 aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.exr  foo.02.txt
@@ -8105,7 +8108,7 @@ aaa  bbb  ccc  foo.00.txt  foobar.00.txt
 
 ./aaa:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 ./aaa/aaa_aaa:
 foo.02.txt  foobar.02.txt
@@ -8131,8 +8134,9 @@ bbb_bbb.[001-010].exr
 foo.00.txt  foobar.00.txt
 
 aaa:
-aaa.001.exr  aaa.003.exr  aaa.005.exr  aaa.007.exr  aaa.009.exr  aaa_aaa  aaa_ccc     foobar.01.txt
-aaa.002.exr  aaa.004.exr  aaa.006.exr  aaa.008.exr  aaa.010.exr  aaa_bbb  foo.01.txt
+aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_aaa  foo.01.txt
+aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr  aaa_bbb  foobar.01.txt
+aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr  aaa_ccc
 
 aaa/aaa_aaa:
 aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.exr  foo.02.txt
@@ -8156,8 +8160,9 @@ bbb_bbb.002.exr  bbb_bbb.005.exr  bbb_bbb.008.exr  bbb_bbb_ccc
 bbb_bbb.003.exr  bbb_bbb.006.exr  bbb_bbb.009.exr  foo.06.txt
 
 ccc:
-aaa.001.exr  aaa.003.exr  aaa.005.exr  aaa.007.exr  aaa.009.exr  aaa_aaa  aaa_ccc     foobar.01.txt
-aaa.002.exr  aaa.004.exr  aaa.006.exr  aaa.008.exr  aaa.010.exr  aaa_bbb  foo.01.txt
+aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_aaa  foo.01.txt
+aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr  aaa_bbb  foobar.01.txt
+aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr  aaa_ccc
 
 ccc/aaa_aaa:
 aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.exr  foo.02.txt
@@ -8172,7 +8177,7 @@ foo.00.txt  foobar.00.txt
 
 aaa:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 aaa/aaa_aaa:
 foo.02.txt  foobar.02.txt
@@ -8196,7 +8201,7 @@ bbb_bbb.[001-010].exr
 
 ccc:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 ccc/aaa_aaa:
 foo.02.txt  foobar.02.txt
@@ -8211,9 +8216,9 @@ aaa_bbb.[001-010].exr
 aaa/  bbb/  ccc@  foo.00.txt  foobar.00.txt@
 
 ./aaa:
-aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_ccc@
-aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa_aaa/     foo.01.txt
-aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa_bbb/     foobar.01.txt@
+aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr   aaa_aaa/  foo.01.txt
+aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr*  aaa_bbb/  foobar.01.txt@
+aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr*  aaa_ccc@
 
 ./aaa/aaa_aaa:
 aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.exr  foo.02.txt
@@ -8244,7 +8249,7 @@ aaa/  bbb/  ccc@  foo.00.txt  foobar.00.txt@
 
 ./aaa:
 aaa_aaa/  aaa_bbb/  aaa_ccc@  foo.01.txt  foobar.01.txt@
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 ./aaa/aaa_aaa:
 foo.02.txt  foobar.02.txt@
@@ -8271,8 +8276,9 @@ bbb_bbb.[001-010].exr
 aaa  bbb  ccc  foo.00.txt  foobar.00.txt
 
 ./aaa:
-aaa.001.exr  aaa.003.exr  aaa.005.exr  aaa.007.exr  aaa.009.exr  aaa_aaa  aaa_ccc     foobar.01.txt
-aaa.002.exr  aaa.004.exr  aaa.006.exr  aaa.008.exr  aaa.010.exr  aaa_bbb  foo.01.txt
+aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_aaa  foo.01.txt
+aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr  aaa_bbb  foobar.01.txt
+aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr  aaa_ccc
 
 ./aaa/aaa_aaa:
 aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.exr  foo.02.txt
@@ -8300,8 +8306,9 @@ bbb_bbb.002.exr  bbb_bbb.005.exr  bbb_bbb.008.exr  bbb_bbb_ccc
 bbb_bbb.003.exr  bbb_bbb.006.exr  bbb_bbb.009.exr  foo.06.txt
 
 ./bbb/bbb_bbb/bbb_bbb_ccc:
-aaa.001.exr  aaa.003.exr  aaa.005.exr  aaa.007.exr  aaa.009.exr  aaa_aaa  aaa_ccc     foobar.01.txt
-aaa.002.exr  aaa.004.exr  aaa.006.exr  aaa.008.exr  aaa.010.exr  aaa_bbb  foo.01.txt
+aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_aaa  foo.01.txt
+aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr  aaa_bbb  foobar.01.txt
+aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr  aaa_ccc
 
 ./bbb/bbb_bbb/bbb_bbb_ccc/aaa_aaa:
 aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.exr  foo.02.txt
@@ -8316,8 +8323,9 @@ aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.
 aaa_aaa.002.exr  aaa_aaa.004.exr  aaa_aaa.006.exr  aaa_aaa.008.exr  aaa_aaa.010.exr  foobar.02.txt
 
 ./bbb/bbb_ccc:
-aaa.001.exr  aaa.003.exr  aaa.005.exr  aaa.007.exr  aaa.009.exr  aaa_aaa  aaa_ccc     foobar.01.txt
-aaa.002.exr  aaa.004.exr  aaa.006.exr  aaa.008.exr  aaa.010.exr  aaa_bbb  foo.01.txt
+aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_aaa  foo.01.txt
+aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr  aaa_bbb  foobar.01.txt
+aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr  aaa_ccc
 
 ./bbb/bbb_ccc/aaa_aaa:
 aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.exr  foo.02.txt
@@ -8332,8 +8340,9 @@ aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.
 aaa_aaa.002.exr  aaa_aaa.004.exr  aaa_aaa.006.exr  aaa_aaa.008.exr  aaa_aaa.010.exr  foobar.02.txt
 
 ./ccc:
-aaa.001.exr  aaa.003.exr  aaa.005.exr  aaa.007.exr  aaa.009.exr  aaa_aaa  aaa_ccc     foobar.01.txt
-aaa.002.exr  aaa.004.exr  aaa.006.exr  aaa.008.exr  aaa.010.exr  aaa_bbb  foo.01.txt
+aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_aaa  foo.01.txt
+aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr  aaa_bbb  foobar.01.txt
+aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr  aaa_ccc
 
 ./ccc/aaa_aaa:
 aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.exr  foo.02.txt
@@ -8353,7 +8362,7 @@ aaa  bbb  ccc  foo.00.txt  foobar.00.txt
 
 ./aaa:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 ./aaa/aaa_aaa:
 foo.02.txt  foobar.02.txt
@@ -8381,7 +8390,7 @@ bbb_bbb.[001-010].exr
 
 ./bbb/bbb_bbb/bbb_bbb_ccc:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 ./bbb/bbb_bbb/bbb_bbb_ccc/aaa_aaa:
 foo.02.txt  foobar.02.txt
@@ -8397,7 +8406,7 @@ aaa_aaa.[001-010].exr
 
 ./bbb/bbb_ccc:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 ./bbb/bbb_ccc/aaa_aaa:
 foo.02.txt  foobar.02.txt
@@ -8413,7 +8422,7 @@ aaa_aaa.[001-010].exr
 
 ./ccc:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 ./ccc/aaa_aaa:
 foo.02.txt  foobar.02.txt
@@ -8443,8 +8452,9 @@ aaa/aaa_ccc@
 
 ----- Test 210 -+- dir: testdir/symdir -+- ls -C -R aaa -----
 aaa:
-aaa.001.exr  aaa.003.exr  aaa.005.exr  aaa.007.exr  aaa.009.exr  aaa_aaa  aaa_ccc     foobar.01.txt
-aaa.002.exr  aaa.004.exr  aaa.006.exr  aaa.008.exr  aaa.010.exr  aaa_bbb  foo.01.txt
+aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_aaa  foo.01.txt
+aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr  aaa_bbb  foobar.01.txt
+aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr  aaa_ccc
 
 aaa/aaa_aaa:
 aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.exr  foo.02.txt
@@ -8457,7 +8467,7 @@ aaa_bbb.002.exr  aaa_bbb.004.exr  aaa_bbb.006.exr  aaa_bbb.008.exr  aaa_bbb.010.
 ----- Test 211 -+- dir: testdir/symdir -+- lsseq -C -R aaa -----
 aaa:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 aaa/aaa_aaa:
 foo.02.txt  foobar.02.txt
@@ -8469,9 +8479,9 @@ aaa_bbb.[001-010].exr
 
 ----- Test 212 -+- dir: testdir/symdir -+- ls -C -R -F aaa -----
 aaa:
-aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_ccc@
-aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa_aaa/     foo.01.txt
-aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa_bbb/     foobar.01.txt@
+aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr   aaa_aaa/  foo.01.txt
+aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr*  aaa_bbb/  foobar.01.txt@
+aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr*  aaa_ccc@
 
 aaa/aaa_aaa:
 aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.exr  foo.02.txt
@@ -8484,7 +8494,7 @@ aaa_bbb.002.exr  aaa_bbb.004.exr  aaa_bbb.006.exr  aaa_bbb.008.exr  aaa_bbb.010.
 ----- Test 213 -+- dir: testdir/symdir -+- lsseq -C -R -F aaa -----
 aaa:
 aaa_aaa/  aaa_bbb/  aaa_ccc@  foo.01.txt  foobar.01.txt@
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 aaa/aaa_aaa:
 foo.02.txt  foobar.02.txt@
@@ -8542,17 +8552,17 @@ gdiff ~/f.[12]
 /...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.[001].exr
 
 ----- Test 218 -+- dir: testdir/symdir/bbb -+- lsseq -C -P ../aaa/ -----
-../aaa/aaa.[001-010].exr
+../aaa/aaa.[001-013].exr m:[12]
 
 ----- Test 219 -+- dir: testdir/symdir/bbb -+- lsseq -C -p ../aaa/ -----
-/...absPathToRepo.../tests/testdir/symdir/bbb/../aaa/aaa.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdir/bbb/../aaa/aaa.[001-013].exr m:[12]
 
 ----- Test 220 -+- dir: testdir/symdir -+- lsseq -C --no-dereference * -----
 ccc  foo.00.txt  foobar.00.txt
 
 aaa:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 bbb:
 bbb_aaa  bbb_bbb  bbb_ccc  foo.04.txt  foobar.04.txt
@@ -8564,7 +8574,7 @@ aaa  bbb  ccc  foo.00.txt  foobar.00.txt
 
 ./aaa:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 ./aaa/aaa_aaa:
 foo.02.txt  foobar.02.txt
@@ -8591,7 +8601,7 @@ foo.00.txt  foobar.00.txt
 
 aaa:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 bbb:
 bbb_aaa  bbb_bbb  bbb_ccc  foo.04.txt  foobar.04.txt
@@ -8599,14 +8609,14 @@ bbb.[001-010].exr
 
 ccc:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 ----- Test 223 -+- dir: testdir/symdir -+- lsseq -C --dereference-command-line-symlink-to-file * -----
 ccc  foo.00.txt  foobar.00.txt
 
 aaa:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 bbb:
 bbb_aaa  bbb_bbb  bbb_ccc  foo.04.txt  foobar.04.txt
@@ -8617,7 +8627,7 @@ ccc  foo.00.txt  foobar.00.txt
 
 aaa:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
-aaa.[001-010].exr
+aaa.[001-013].exr m:[12]
 
 aaa/aaa_aaa:
 foo.02.txt  foobar.02.txt
@@ -8640,35 +8650,41 @@ bbb_bbb_ccc  foo.06.txt  foobar.06.txt
 bbb_bbb.[001-010].exr
 
 ----- Test 225 -+- dir: testdir -+- lsseq xxx.001.exr -----
-lsseq: warning: xxx.001.exr is a broken soft link
-xxx.[001].exr z:[1]
---+-- Test 225: lsseq returned non-zero error code: 4  --+--
+lsseq: warning: cannot access 'xxx.001.exr': No such file.
+--+-- Test 225: lsseq returned non-zero error code: 32  --+--
 
------ Test 226 -+- dir: . -+- lsseq -i -----
+----- Test 226 -+- dir: testdir/symdir/aaa -+- lsseq aaa.001.exr aaa.002.exr aaa.003.exr aaa.004.exr aaa.005.exr aaa.006.exr aaa.007.exr aaa.008.exr aaa.009.exr aaa.010.exr aaa.011.exr aaa.012.exr aaa.013.exr -----
+lsseq: warning: cannot access 'aaa.012.exr': No such file.
+aaa.[001-013].exr m:[12]
+--+-- Test 226: lsseq returned non-zero error code: 32  --+--
+
+----- Test 227 -+- dir: testdir/symdir -+- lsseq --no-dereference --only-sequences ccc -----
+
+----- Test 228 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------ Test 227 -+- dir: testdir/gdir -+- lsseq --only-images -----
+----- Test 229 -+- dir: testdir/gdir -+- lsseq --only-images -----
 
------ Test 228 -+- dir: testdir/gdir -+- lsseq --only-movies -----
+----- Test 230 -+- dir: testdir/gdir -+- lsseq --only-movies -----
 xxx01.mov
 xxx02.mov
 
------ Test 229 -+- dir: testdir/gdir -+- lsseq --only-caches -----
+----- Test 231 -+- dir: testdir/gdir -+- lsseq --only-caches -----
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------ Test 230 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
+----- Test 232 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check
 if column-output is correct for the /bin/ls output.
 
------ Test 231 -+- dir: testdir/cdir -+- lsseq / -----
+----- Test 233 -+- dir: testdir/cdir -+- lsseq / -----
 bin
 boot
 dev

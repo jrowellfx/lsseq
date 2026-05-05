@@ -1087,7 +1087,7 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
     global gListWhichFiles
     global gDeRefWhichFiles
 
-    # Stash the current working dir, to come back to and the end
+    # Stash the current working dir to come back to and the end
     # of this function. I.e.; we need to push and pop the current
     # working directory ourselves since it has global scope in
     # python.
@@ -1112,7 +1112,7 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
     #
     somethingWasPrinted = False
 
-    # The 'imageDictionary' (and 'cacheDictionary') has <imageName>..<ext>
+    # The 'imageDictionary' and 'cacheDictionary' has <imageName>..<ext>
     # (or <imageName>_.<ext>), i.e., name without the frame number, as the
     # key for each entry.  Each entry is a list containing five-tuples,
     # namely:
@@ -1124,9 +1124,9 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
     #
     #     (fileSize, isSymLink)
     #
-    # The boolean "isSymLink" is true if the file is a sym-link.
-    # It stores -1 for the file size if the sym-link points to
-    # a non-existent file.
+    # In both of the above cases the boolean "isSymLink" is true iff the
+    # file is a sym-link. It stores -1 for the file size if the sym-link
+    # points to a non-existent file.
     #
     imageDictionary = {}
     cacheDictionary = {}
@@ -1134,13 +1134,14 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
     otherFiles = []
     dirList = []
 
-    # Go through the directory contents sifting out the various file types,
-    # collect the names into various lists for printing after this is done.
+    # Go through the directory contents sifting the files into the
+    # appropriate dictionaries and lists for printing after this is done.
     #
     for filename in dirContents :
 
-        # If the file is a directory, regardless of what it is called,
-        # then CLEARLY it is NOT part of an image sequence.
+        # If the file is a directory, regardless of what it is called, (for
+        # example, what if the directory is called aaa.001.exr for some strange
+        # reason?) then CLEARLY it is NOT part of an image sequence.
         #
         if os.path.isdir(filename) : # Note: this also means filename exists.
             if (not isCmdLineArg or not args.listDirContents) \
@@ -1150,9 +1151,9 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
             if not os.path.islink(filename) or deRefDirs(isCmdLineArg) :
                 dirList.append(filename)
 
-            # Need "and (gListWhichFiles & LIST_OTHER)", for example,
-            # to prevent printing 'ccc' when 'ccc' is a sym-linked dir
-            # in the cwd:
+            # Need "and (gListWhichFiles & LIST_OTHER)" in this
+            # test to prevent printing a sym-linked dir. For eg.
+            # if 'ccc' is a sym-linked dir in the cwd:
             #
             #     lsseq --no-dereference --only-sequences ccc
             #     <should print nothing>
@@ -1179,22 +1180,45 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                 ####     lsseq: warning: xxx.001.exr is a broken soft link
                 ####
                 #### Test lsseq on existing sequence that is missing a frame, but
-                #### explicitly list all of them on the command line. See what it does,
-                #### The missing frame should get reported here, but should show up in
-                #### the missing error list. ...unless it's either the first or last?
+                #### explicitly list all of them on the command line.
+                #### The missing frame should get reported in the missing frame list,
+                #### as well as get reported here with a warning. Unless it's either
+                #### the first or last frame in which case it will not be noted as missing.
                 # 
+                # if not os.path.exists(filename) :
+                #     newFrameSize = 0
+                #     newFrameMTime = FILE_BROKENLINK
+                # else :
+                #     realFilename = os.path.realpath(filename)
+                #     newFrameSize = os.path.getsize(realFilename)
+                #     newFrameMTime = os.path.getmtime(realFilename)
+                #
+                # Old code ^^^^ prior to v4.3.0
 
-                ### JPR --- if os.path.lexists(filename) :
-                ### else :
+                # Strict test for file existence regardless of if a broken sym-link.
+                #
+                if os.path.lexists(filename) :
 
+                    # Next test will ONLY be True in the case of broken sym-link.
+                    #
+                    if not os.path.exists(filename) :
+                        newFrameSize = 0
+                        newFrameMTime = FILE_BROKENLINK
+                    else :
+                        realFilename = os.path.realpath(filename)
+                        newFrameSize = os.path.getsize(realFilename)
+                        newFrameMTime = os.path.getmtime(realFilename)
 
-                if not os.path.exists(filename) :
-                    newFrameSize = 0
-                    newFrameMTime = FILE_BROKENLINK
-                else :
-                    realFilename = os.path.realpath(filename)
-                    newFrameSize = os.path.getsize(realFilename)
-                    newFrameMTime = os.path.getmtime(realFilename)
+                else : # File does not exist. Print warning and skip to next file.
+                    if not args.silent :
+                        sys.stdout.flush()
+                        sys.stderr.flush()
+                        print(PROG_NAME, ": warning: cannot access '", filename,
+                            "': No such file.", sep='', file=sys.stderr)
+                        sys.stderr.flush()
+                    gExitStatus = gExitStatus | EXIT_LSSEQ_NOSUCHFILE_WARNING
+                    continue
+
 
             if len(fileParts) == 2 and isCache(fileParts[SEQKEY]) and (gListWhichFiles & LIST_CACHES):
                 if fileParts[SEQKEY] in cacheDictionary :

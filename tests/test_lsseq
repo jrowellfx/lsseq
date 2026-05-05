@@ -585,6 +585,7 @@ testdir/symdir lsseq -C --no-dereference --dereference-command-line *
 testdir/symdir lsseq -C --dereference-command-line-symlink-to-file *
 testdir/symdir lsseq -C -R --dereference-command-line-symlink-to-file *
 testdir        lsseq xxx.001.exr
+testdir/symdir/aaa lsseq aaa.001.exr aaa.002.exr aaa.003.exr aaa.004.exr aaa.005.exr aaa.006.exr aaa.007.exr aaa.008.exr aaa.009.exr aaa.010.exr aaa.011.exr aaa.012.exr aaa.013.exr
 testdir/symdir lsseq --no-dereference --only-sequences ccc # Should return nothing.
 EOFa
 
