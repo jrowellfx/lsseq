@@ -551,6 +551,11 @@ def extractStartEnd(seq) :
 # Prints an individual sequence based on cmd-line-args.
 # frameList comes in sorted from smallest frame number to largest.
 #
+# Reminder: frameList is a list of five-tuples as described in
+# listSeqDir comments:
+#
+#     [ (frameNum, fileSize, mtime, padding, isSymLink), ... ]
+#
 # As of v4.1.0 - also prints an individual sequence as multiple
 # sequences (with the same name) if --split-sequence was invoked.
 #

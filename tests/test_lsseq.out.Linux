@@ -8639,31 +8639,36 @@ bbb/bbb_bbb:
 bbb_bbb_ccc  foo.06.txt  foobar.06.txt
 bbb_bbb.[001-010].exr
 
------ Test 225 -+- dir: . -+- lsseq -i -----
+----- Test 225 -+- dir: testdir -+- lsseq xxx.001.exr -----
+lsseq: warning: xxx.001.exr is a broken soft link
+xxx.[001].exr z:[1]
+--+-- Test 225: lsseq returned non-zero error code: 4  --+--
+
+----- Test 226 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------ Test 226 -+- dir: testdir/gdir -+- lsseq --only-images -----
+----- Test 227 -+- dir: testdir/gdir -+- lsseq --only-images -----
 
------ Test 227 -+- dir: testdir/gdir -+- lsseq --only-movies -----
+----- Test 228 -+- dir: testdir/gdir -+- lsseq --only-movies -----
 xxx01.mov
 xxx02.mov
 
------ Test 228 -+- dir: testdir/gdir -+- lsseq --only-caches -----
+----- Test 229 -+- dir: testdir/gdir -+- lsseq --only-caches -----
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------ Test 229 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
+----- Test 230 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check
 if column-output is correct for the /bin/ls output.
 
------ Test 230 -+- dir: testdir/cdir -+- lsseq / -----
+----- Test 231 -+- dir: testdir/cdir -+- lsseq / -----
 bin
 boot
 dev
