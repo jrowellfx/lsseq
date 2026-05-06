@@ -1197,8 +1197,14 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                         # it might be helpful to know when a linked-sequence
                         # was made compared to other sequences.
                         #
+                        ### JPR DEBUG
+                        ### print("Debug 01: filename: ", filename,
+                        ###     ", isFileLink: ",
+                        ###     bool(isFileLink),
+                        ###     ", not deRefFiles: ",
+                        ###     bool(not deRefFiles(isCmdLineArg)), sep='')
                         if isFileLink and not deRefFiles(isCmdLineArg):
-                            newFrameMTime = os.path.getmtime(filename)
+                            newFrameMTime = os.lstat(filename).st_mtime
                         else :
                             newFrameMTime = os.path.getmtime(realFilename)
 
@@ -1247,7 +1253,7 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                         isFileLink = os.path.islink(filename)
 
                         if isFileLink and not deRefFiles(isCmdLineArg):
-                            movieMTime = os.path.getmtime(filename)
+                            movieMTime = os.lstat(filename).st_mtime
                         else :
                             movieMTime = os.path.getmtime(realFilename)
 
@@ -1474,7 +1480,7 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                 else :
                     gImageDictionary[gDictKey] = imageDictionary[seq[DICTKEY]]
         else :
-            timeList.sort(key=itemgetter(MTIME)) # Sorts by time.
+            timeList.sort(key=itemgetter(MTIME, DICTKEY)) # Sorts by time, 2nd by key.
             # Note: ls -t prints newest first; ls -tr is newest last.
             if not args.reverseListing :
                 timeList.reverse()
@@ -2249,10 +2255,41 @@ def main() :
     # since this option is turned OFF if this is not the case.
     #
     if args.globalSortByTime :
-        gTimeList.sort(key=itemgetter(MTIME)) # Sorts by time.
-        # Note: ls -t prints newest first; ls -tr is newest last.
-        if not args.reverseListing :
-            gTimeList.reverse()
+
+        ### gTimeList.sort(key=itemgetter(MTIME)) # Sorts by time.
+        ### if not args.reverseListing :
+        ###     gTimeList.reverse()
+
+        # Note:
+        #
+        #   '/bin/ls -t'  prints newest first;
+        #   '/bin/ls -tr' prints newest last.
+        #
+        # Therefor we DO NOT want to reverse the sort order
+        # of python's list.sort() when --reverse is invoked.
+        # Otherwise we DO want to reverse the sort.
+        #
+        # Further note: Since Python's list sort is stable, i.e.,
+        # meaning it preserves the original order of elements with
+        # equal keys, we start sorting with the least significant keys.
+        #
+        # Then the following logic reproduces how /bin/ls sorts entries
+        # with equal times.
+        #
+        # Lastly this careful attention detail will likely ONLY be apparent
+        # when globally sorting a bunch of sym-linked sequences that happen
+        # to point to the same target files and --dereference is invoked.
+        # (I expect very rare except in my test code.)
+        #
+        if args.reverseListing :
+            gTimeList.sort(key=itemgetter(DICTKEY), reverse=True) # Sort by DICTKEY
+            gTimeList.sort(key=itemgetter(TRAVERSEDPATH), reverse=True) # then by TRAVERSEDPATH
+            gTimeList.sort(key=itemgetter(MTIME), reverse=False) # Last, and mainly, MTIME.
+        else :
+            gTimeList.sort(key=itemgetter(DICTKEY), reverse=False) # Sort by DICTKEY
+            gTimeList.sort(key=itemgetter(TRAVERSEDPATH), reverse=False) # then by TRAVERSEDPATH
+            gTimeList.sort(key=itemgetter(MTIME), reverse=True) # Last, and mainly, MTIME.
+
         for seq in gTimeList :
             if args.cutoffTime != None :
                 if args.cutoffTime[0] == 'before' :

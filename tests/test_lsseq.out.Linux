@@ -183,7 +183,7 @@ testdir:
 20592_chevrolet_cruze_reveal/  fdir/  mkAnimFrames.v01.shk         pdir/
 adir/                          gdir/  mkAnimFrames.v02.shk         qdir/
 bdir/                          hdir/  mkBlackFrames_HD_10.v01.shk  rdir/
-blackFrames/                   idir/  mkBlackFrames_HD_2.v01.shk   symdir/
+blackFrames/                   idir/  mkBlackFrames_HD_2.v01.shk   symdirA/
 cdir/                          jdir/  mkTestFrames.v01.nk          www..exr
 ddir/                          kdir/  mkTestFrames.v02.nk
 e01_sh0001_globalFX/           ldir/  mk_hdir_Frames.v01.nk
@@ -501,30 +501,30 @@ rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
-testdir/symdir:
+testdir/symdirA:
 aaa/  bbb/  ccc@  foo.00.txt  foobar.00.txt@
 
-testdir/symdir/aaa:
+testdir/symdirA/aaa:
 aaa_aaa/  aaa_bbb/  aaa_ccc@  foo.01.txt  foobar.01.txt@
 aaa.[001-013].exr m:[12]
 
-testdir/symdir/aaa/aaa_aaa:
+testdir/symdirA/aaa/aaa_aaa:
 foo.02.txt  foobar.02.txt@
 aaa_aaa.[001-010].exr
 
-testdir/symdir/aaa/aaa_bbb:
+testdir/symdirA/aaa/aaa_bbb:
 foo.03.txt  foobar.03.txt@
 aaa_bbb.[001-010].exr
 
-testdir/symdir/bbb:
+testdir/symdirA/bbb:
 bbb_aaa/  bbb_bbb/  bbb_ccc@  foo.04.txt  foobar.04.txt@
 bbb.[001-010].exr
 
-testdir/symdir/bbb/bbb_aaa:
+testdir/symdirA/bbb/bbb_aaa:
 foo.05.txt  foobar.05.txt@
 bbb_aaa.[001-010].exr
 
-testdir/symdir/bbb/bbb_bbb:
+testdir/symdirA/bbb/bbb_bbb:
 bbb_bbb_ccc@  foo.06.txt  foobar.06.txt@
 bbb_bbb.[001-010].exr
 --+-- Test 4: lsseq returned non-zero error code: 12  --+--
@@ -769,18 +769,18 @@ bbb_bbb.[001-010].exr
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.015.ass
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.013.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.010.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.010.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb.001.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb.010.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.010.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_bbb/bbb_bbb.001.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_bbb/bbb_bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.013.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_bbb/aaa_bbb.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_bbb/aaa_bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.010.exr
 --+-- Test 5: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 6 -+- dir: . -+- lsseq -lReoC --silent testdir -----
@@ -1023,18 +1023,18 @@ bbb_bbb.[001-010].exr
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.015.ass
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.013.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.010.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.010.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb.001.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb.010.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.010.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_bbb/bbb_bbb.001.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_bbb/bbb_bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.013.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_bbb/aaa_bbb.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_bbb/aaa_bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.010.exr
 --+-- Test 6: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 7 -+- dir: . -+- lsseq -RePC --quiet testdir -----
@@ -1269,18 +1269,18 @@ testdir/rdir/rSub02/rrr02.001.ass
 testdir/rdir/rSub02/rrr02.015.ass
 testdir/rdir/rSub02/rrr03.100.fur
 testdir/rdir/rSub02/rrr03.115.fur
-testdir/symdir/aaa/aaa.001.exr
-testdir/symdir/aaa/aaa.013.exr
-testdir/symdir/aaa/aaa_aaa/aaa_aaa.001.exr
-testdir/symdir/aaa/aaa_aaa/aaa_aaa.010.exr
-testdir/symdir/aaa/aaa_bbb/aaa_bbb.001.exr
-testdir/symdir/aaa/aaa_bbb/aaa_bbb.010.exr
-testdir/symdir/bbb/bbb.001.exr
-testdir/symdir/bbb/bbb.010.exr
-testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
-testdir/symdir/bbb/bbb_aaa/bbb_aaa.010.exr
-testdir/symdir/bbb/bbb_bbb/bbb_bbb.001.exr
-testdir/symdir/bbb/bbb_bbb/bbb_bbb.010.exr
+testdir/symdirA/aaa/aaa.001.exr
+testdir/symdirA/aaa/aaa.013.exr
+testdir/symdirA/aaa/aaa_aaa/aaa_aaa.001.exr
+testdir/symdirA/aaa/aaa_aaa/aaa_aaa.010.exr
+testdir/symdirA/aaa/aaa_bbb/aaa_bbb.001.exr
+testdir/symdirA/aaa/aaa_bbb/aaa_bbb.010.exr
+testdir/symdirA/bbb/bbb.001.exr
+testdir/symdirA/bbb/bbb.010.exr
+testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr
+testdir/symdirA/bbb/bbb_aaa/bbb_aaa.010.exr
+testdir/symdirA/bbb/bbb_bbb/bbb_bbb.001.exr
+testdir/symdirA/bbb/bbb_bbb/bbb_bbb.010.exr
 --+-- Test 7: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 8 -+- dir: . -+- lsseq -lRFC testdir -----
@@ -1288,7 +1288,7 @@ testdir:
 20592_chevrolet_cruze_reveal/  fdir/  mkAnimFrames.v01.shk         pdir/
 adir/                          gdir/  mkAnimFrames.v02.shk         qdir/
 bdir/                          hdir/  mkBlackFrames_HD_10.v01.shk  rdir/
-blackFrames/                   idir/  mkBlackFrames_HD_2.v01.shk   symdir/
+blackFrames/                   idir/  mkBlackFrames_HD_2.v01.shk   symdirA/
 cdir/                          jdir/  mkTestFrames.v01.nk          www..exr
 ddir/                          kdir/  mkTestFrames.v02.nk
 e01_sh0001_globalFX/           ldir/  mk_hdir_Frames.v01.nk
@@ -1617,30 +1617,30 @@ rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
-testdir/symdir:
+testdir/symdirA:
 aaa/  bbb/  ccc@  foo.00.txt  foobar.00.txt@
 
-testdir/symdir/aaa:
+testdir/symdirA/aaa:
 aaa_aaa/  aaa_bbb/  aaa_ccc@  foo.01.txt  foobar.01.txt@
 aaa.[001-013].exr m:[12]
 
-testdir/symdir/aaa/aaa_aaa:
+testdir/symdirA/aaa/aaa_aaa:
 foo.02.txt  foobar.02.txt@
 aaa_aaa.[001-010].exr
 
-testdir/symdir/aaa/aaa_bbb:
+testdir/symdirA/aaa/aaa_bbb:
 foo.03.txt  foobar.03.txt@
 aaa_bbb.[001-010].exr
 
-testdir/symdir/bbb:
+testdir/symdirA/bbb:
 bbb_aaa/  bbb_bbb/  bbb_ccc@  foo.04.txt  foobar.04.txt@
 bbb.[001-010].exr
 
-testdir/symdir/bbb/bbb_aaa:
+testdir/symdirA/bbb/bbb_aaa:
 foo.05.txt  foobar.05.txt@
 bbb_aaa.[001-010].exr
 
-testdir/symdir/bbb/bbb_bbb:
+testdir/symdirA/bbb/bbb_bbb:
 bbb_bbb_ccc@  foo.06.txt  foobar.06.txt@
 bbb_bbb.[001-010].exr
 --+-- Test 8: lsseq returned non-zero error code: 12  --+--
@@ -1896,18 +1896,18 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.015.ass
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.013.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.010.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.010.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb.001.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb.010.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.010.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_bbb/bbb_bbb.001.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_bbb/bbb_bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.013.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_bbb/aaa_bbb.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_bbb/aaa_bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.010.exr
 --+-- Test 9: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 10 -+- dir: . -+- lsseq -lReoC testdir -----
@@ -2161,18 +2161,18 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.015.ass
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.013.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.010.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.001.exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.010.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb.001.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb.010.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.010.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_bbb/bbb_bbb.001.exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_bbb/bbb_bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.013.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_bbb/aaa_bbb.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_bbb/aaa_bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.010.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.001.exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.010.exr
 --+-- Test 10: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 11 -+- dir: . -+- lsseq -RePC testdir -----
@@ -2418,18 +2418,18 @@ testdir/rdir/rSub02/rrr02.001.ass
 testdir/rdir/rSub02/rrr02.015.ass
 testdir/rdir/rSub02/rrr03.100.fur
 testdir/rdir/rSub02/rrr03.115.fur
-testdir/symdir/aaa/aaa.001.exr
-testdir/symdir/aaa/aaa.013.exr
-testdir/symdir/aaa/aaa_aaa/aaa_aaa.001.exr
-testdir/symdir/aaa/aaa_aaa/aaa_aaa.010.exr
-testdir/symdir/aaa/aaa_bbb/aaa_bbb.001.exr
-testdir/symdir/aaa/aaa_bbb/aaa_bbb.010.exr
-testdir/symdir/bbb/bbb.001.exr
-testdir/symdir/bbb/bbb.010.exr
-testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
-testdir/symdir/bbb/bbb_aaa/bbb_aaa.010.exr
-testdir/symdir/bbb/bbb_bbb/bbb_bbb.001.exr
-testdir/symdir/bbb/bbb_bbb/bbb_bbb.010.exr
+testdir/symdirA/aaa/aaa.001.exr
+testdir/symdirA/aaa/aaa.013.exr
+testdir/symdirA/aaa/aaa_aaa/aaa_aaa.001.exr
+testdir/symdirA/aaa/aaa_aaa/aaa_aaa.010.exr
+testdir/symdirA/aaa/aaa_bbb/aaa_bbb.001.exr
+testdir/symdirA/aaa/aaa_bbb/aaa_bbb.010.exr
+testdir/symdirA/bbb/bbb.001.exr
+testdir/symdirA/bbb/bbb.010.exr
+testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr
+testdir/symdirA/bbb/bbb_aaa/bbb_aaa.010.exr
+testdir/symdirA/bbb/bbb_bbb/bbb_bbb.001.exr
+testdir/symdirA/bbb/bbb_bbb/bbb_bbb.010.exr
 --+-- Test 11: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 12 -+- dir: testdir -+- lsseq -p -----
@@ -2469,7 +2469,7 @@ ndir
 pdir
 qdir
 rdir
-symdir
+symdirA
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -2729,7 +2729,7 @@ rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
-symdir:
+symdirA:
 aaa
 bbb
 ccc
@@ -2962,7 +2962,7 @@ rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
-symdir:
+symdirA:
 aaa
 bbb
 ccc
@@ -3668,7 +3668,7 @@ ndir
 pdir
 qdir
 rdir
-symdir
+symdirA
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -4245,14 +4245,14 @@ rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
-/...absPathToRepo.../tests/testdir/symdir:
+/...absPathToRepo.../tests/testdir/symdirA:
 aaa
 bbb
 ccc
 foo.00.txt
 foobar.00.txt
 
-/...absPathToRepo.../tests/testdir/symdir/aaa:
+/...absPathToRepo.../tests/testdir/symdirA/aaa:
 aaa_aaa
 aaa_bbb
 aaa_ccc
@@ -4260,17 +4260,17 @@ foo.01.txt
 foobar.01.txt
 aaa.[001-013].exr m:[12]
 
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa:
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa:
 foo.02.txt
 foobar.02.txt
 aaa_aaa.[001-010].exr
 
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb:
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_bbb:
 foo.03.txt
 foobar.03.txt
 aaa_bbb.[001-010].exr
 
-/...absPathToRepo.../tests/testdir/symdir/bbb:
+/...absPathToRepo.../tests/testdir/symdirA/bbb:
 bbb_aaa
 bbb_bbb
 bbb_ccc
@@ -4278,12 +4278,12 @@ foo.04.txt
 foobar.04.txt
 bbb.[001-010].exr
 
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa:
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa:
 foo.05.txt
 foobar.05.txt
 bbb_aaa.[001-010].exr
 
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_bbb:
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb:
 bbb_bbb_ccc
 foo.06.txt
 foobar.06.txt
@@ -4857,8 +4857,8 @@ ndir/nnn_v01.[0005-0015].jpg
 ----- Test 71 -+- dir: testdir -+- lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median cdir ndir -----
 cdir/ccc02.[001-120].exr
 cdir/ccc03.[80-140].tga
-ndir/nnn_v05.[0005-0015].jpg
 cdir/ccc01.[001-120].exr
+ndir/nnn_v05.[0005-0015].jpg
 ndir/nnn_v04.[0005-0015].jpg
 ndir/nnn_v03.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
@@ -4900,8 +4900,8 @@ pdir/p02_dir/p02_median5_v01.[08-12].jpg
 cdir/ccc02.[001-120].exr
 cdir/ccc03.[80-140].tga
 pdir/p_median4_v03.[08-12].jpg
-ndir/nnn_v05.[0005-0015].jpg
 cdir/ccc01.[001-120].exr
+ndir/nnn_v05.[0005-0015].jpg
 pdir/p_median4_v02.[08-12].jpg
 ndir/nnn_v04.[0005-0015].jpg
 ndir/nnn_v03.[0005-0015].jpg
@@ -6284,12 +6284,12 @@ rdir/rSub02/rrr01.mov
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr02.mov
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
-symdir/aaa/aaa.[001-013].exr m:[12]
-symdir/aaa/aaa_aaa/aaa_aaa.[001-010].exr
-symdir/aaa/aaa_bbb/aaa_bbb.[001-010].exr
-symdir/bbb/bbb.[001-010].exr
-symdir/bbb/bbb_aaa/bbb_aaa.[001-010].exr
-symdir/bbb/bbb_bbb/bbb_bbb.[001-010].exr
+symdirA/aaa/aaa.[001-013].exr m:[12]
+symdirA/aaa/aaa_aaa/aaa_aaa.[001-010].exr
+symdirA/aaa/aaa_bbb/aaa_bbb.[001-010].exr
+symdirA/bbb/bbb.[001-010].exr
+symdirA/bbb/bbb_aaa/bbb_aaa.[001-010].exr
+symdirA/bbb/bbb_bbb/bbb_bbb.[001-010].exr
 --+-- Test 140: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 141 -+- dir: testdir -+- lsseq -R -P --only-sequences --global-sort-by-time -----
@@ -6343,6 +6343,8 @@ ndir/nnn_v04.[0005-0015].jpg
 ndir/nnn_v03.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v01.[0005-0015].jpg
+symdirA/bbb/bbb_bbb/bbb_bbb.[001-010].exr
+symdirA/bbb/bbb_aaa/bbb_aaa.[001-010].exr
 yyy.mov
 yyy.[0123].tif
 xxx.mov
@@ -6350,12 +6352,10 @@ xxx.[000-016].exr m:[1-15x2]
 testDirFile.wmv
 testDirFile.mov
 testDirFile.[001-012].exr m:[3]
-symdir/bbb/bbb_aaa/bbb_aaa.[001-010].exr
-symdir/bbb/bbb.[001-010].exr
-symdir/aaa/aaa_bbb/aaa_bbb.[001-010].exr
-symdir/bbb/bbb_bbb/bbb_bbb.[001-010].exr
-symdir/aaa/aaa_aaa/aaa_aaa.[001-010].exr
-symdir/aaa/aaa.[001-013].exr m:[12]
+symdirA/bbb/bbb.[001-010].exr
+symdirA/aaa/aaa_bbb/aaa_bbb.[001-010].exr
+symdirA/aaa/aaa_aaa/aaa_aaa.[001-010].exr
+symdirA/aaa/aaa.[001-013].exr m:[12]
 rdir/rrr03.[100-115].fur z:[100-115]
 rdir/rrr02.mov
 rdir/rrr02.[001-015].ass z:[1-15]
@@ -6646,12 +6646,12 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.[100-115].fur z:[100-115]
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.[001-013].exr m:[12]
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.[001-010].exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.[001-010].exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb.[001-010].exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.[001-010].exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_bbb/bbb_bbb.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.[001-013].exr m:[12]
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_bbb/aaa_bbb.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.[001-010].exr
 --+-- Test 146: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 147 -+- dir: testdir -+- lsseq -R -p --only-sequences --global-sort-by-time -----
@@ -6705,6 +6705,8 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/ndir/nnn_v03.[0005-0015].jpg
 /...absPathToRepo.../tests/testdir/ndir/nnn_v02.[0005-0015].jpg
 /...absPathToRepo.../tests/testdir/ndir/nnn_v01.[0005-0015].jpg
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.[001-010].exr
 /...absPathToRepo.../tests/testdir/yyy.mov
 /...absPathToRepo.../tests/testdir/yyy.[0123].tif
 /...absPathToRepo.../tests/testdir/xxx.mov
@@ -6712,12 +6714,10 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/testDirFile.wmv
 /...absPathToRepo.../tests/testdir/testDirFile.mov
 /...absPathToRepo.../tests/testdir/testDirFile.[001-012].exr m:[3]
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.[001-010].exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb.[001-010].exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_bbb/aaa_bbb.[001-010].exr
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_bbb/bbb_bbb.[001-010].exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa_aaa/aaa_aaa.[001-010].exr
-/...absPathToRepo.../tests/testdir/symdir/aaa/aaa.[001-013].exr m:[12]
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_bbb/aaa_bbb.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.[001-013].exr m:[12]
 /...absPathToRepo.../tests/testdir/rdir/rrr03.[100-115].fur z:[100-115]
 /...absPathToRepo.../tests/testdir/rdir/rrr02.mov
 /...absPathToRepo.../tests/testdir/rdir/rrr02.[001-015].ass z:[1-15]
@@ -6876,12 +6876,10 @@ rdir/rrr01.mov
 rdir/rrr02.[001-015].ass z:[1-15]
 rdir/rrr02.mov
 rdir/rrr03.[100-115].fur z:[100-115]
-symdir/aaa/aaa.[001-013].exr m:[12]
-symdir/aaa/aaa_aaa/aaa_aaa.[001-010].exr
-symdir/bbb/bbb_bbb/bbb_bbb.[001-010].exr
-symdir/aaa/aaa_bbb/aaa_bbb.[001-010].exr
-symdir/bbb/bbb.[001-010].exr
-symdir/bbb/bbb_aaa/bbb_aaa.[001-010].exr
+symdirA/aaa/aaa.[001-013].exr m:[12]
+symdirA/aaa/aaa_aaa/aaa_aaa.[001-010].exr
+symdirA/aaa/aaa_bbb/aaa_bbb.[001-010].exr
+symdirA/bbb/bbb.[001-010].exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -6889,6 +6887,8 @@ xxx.[000-016].exr m:[1-15x2]
 xxx.mov
 yyy.[0123].tif
 yyy.mov
+symdirA/bbb/bbb_aaa/bbb_aaa.[001-010].exr
+symdirA/bbb/bbb_bbb/bbb_bbb.[001-010].exr
 ndir/nnn_v01.[0005-0015].jpg
 ndir/nnn_v02.[0005-0015].jpg
 ndir/nnn_v03.[0005-0015].jpg
@@ -8040,7 +8040,7 @@ rrr01.[090-105].bgeo.sc
 rrr02.[001-015].ass
 rrr03.[100-115].fur
 
------ Test 196 -+- dir: testdir/symdir -+- ls -C * -----
+----- Test 196 -+- dir: testdir/symdirA -+- ls -C * -----
 foo.00.txt  foobar.00.txt
 
 aaa:
@@ -8057,7 +8057,7 @@ aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_aaa  foo.01.txt
 aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr  aaa_bbb  foobar.01.txt
 aaa.003.exr  aaa.006.exr  aaa.009.exr  aaa.013.exr  aaa_ccc
 
------ Test 197 -+- dir: testdir/symdir -+- lsseq -C * -----
+----- Test 197 -+- dir: testdir/symdirA -+- lsseq -C * -----
 foo.00.txt  foobar.00.txt
 
 aaa:
@@ -8072,7 +8072,7 @@ ccc:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
 aaa.[001-013].exr m:[12]
 
------ Test 198 -+- dir: testdir/symdir -+- ls -C -R -----
+----- Test 198 -+- dir: testdir/symdirA -+- ls -C -R -----
 .:
 aaa  bbb  ccc  foo.00.txt  foobar.00.txt
 
@@ -8102,7 +8102,7 @@ bbb_bbb.001.exr  bbb_bbb.004.exr  bbb_bbb.007.exr  bbb_bbb.010.exr  foobar.06.tx
 bbb_bbb.002.exr  bbb_bbb.005.exr  bbb_bbb.008.exr  bbb_bbb_ccc
 bbb_bbb.003.exr  bbb_bbb.006.exr  bbb_bbb.009.exr  foo.06.txt
 
------ Test 199 -+- dir: testdir/symdir -+- lsseq -C -R -----
+----- Test 199 -+- dir: testdir/symdirA -+- lsseq -C -R -----
 .:
 aaa  bbb  ccc  foo.00.txt  foobar.00.txt
 
@@ -8130,7 +8130,7 @@ bbb_aaa.[001-010].exr
 bbb_bbb_ccc  foo.06.txt  foobar.06.txt
 bbb_bbb.[001-010].exr
 
------ Test 200 -+- dir: testdir/symdir -+- ls -C -R * -----
+----- Test 200 -+- dir: testdir/symdirA -+- ls -C -R * -----
 foo.00.txt  foobar.00.txt
 
 aaa:
@@ -8172,7 +8172,7 @@ ccc/aaa_bbb:
 aaa_bbb.001.exr  aaa_bbb.003.exr  aaa_bbb.005.exr  aaa_bbb.007.exr  aaa_bbb.009.exr  foo.03.txt
 aaa_bbb.002.exr  aaa_bbb.004.exr  aaa_bbb.006.exr  aaa_bbb.008.exr  aaa_bbb.010.exr  foobar.03.txt
 
------ Test 201 -+- dir: testdir/symdir -+- lsseq -C -R * -----
+----- Test 201 -+- dir: testdir/symdirA -+- lsseq -C -R * -----
 foo.00.txt  foobar.00.txt
 
 aaa:
@@ -8211,7 +8211,7 @@ ccc/aaa_bbb:
 foo.03.txt  foobar.03.txt
 aaa_bbb.[001-010].exr
 
------ Test 202 -+- dir: testdir/symdir -+- ls -C -R -F -----
+----- Test 202 -+- dir: testdir/symdirA -+- ls -C -R -F -----
 .:
 aaa/  bbb/  ccc@  foo.00.txt  foobar.00.txt@
 
@@ -8243,7 +8243,7 @@ bbb_bbb.001.exr@  bbb_bbb.004.exr@  bbb_bbb.007.exr@  bbb_bbb.010.exr@  foobar.0
 bbb_bbb.002.exr@  bbb_bbb.005.exr@  bbb_bbb.008.exr@  bbb_bbb_ccc@
 bbb_bbb.003.exr@  bbb_bbb.006.exr@  bbb_bbb.009.exr@  foo.06.txt
 
------ Test 203 -+- dir: testdir/symdir -+- lsseq -C -R -F -----
+----- Test 203 -+- dir: testdir/symdirA -+- lsseq -C -R -F -----
 .:
 aaa/  bbb/  ccc@  foo.00.txt  foobar.00.txt@
 
@@ -8271,7 +8271,7 @@ bbb_aaa.[001-010].exr
 bbb_bbb_ccc@  foo.06.txt  foobar.06.txt@
 bbb_bbb.[001-010].exr
 
------ Test 204 -+- dir: testdir/symdir -+- ls -C -R -L -----
+----- Test 204 -+- dir: testdir/symdirA -+- ls -C -R -L -----
 .:
 aaa  bbb  ccc  foo.00.txt  foobar.00.txt
 
@@ -8356,7 +8356,7 @@ aaa_bbb.002.exr  aaa_bbb.004.exr  aaa_bbb.006.exr  aaa_bbb.008.exr  aaa_bbb.010.
 aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.exr  foo.02.txt
 aaa_aaa.002.exr  aaa_aaa.004.exr  aaa_aaa.006.exr  aaa_aaa.008.exr  aaa_aaa.010.exr  foobar.02.txt
 
------ Test 205 -+- dir: testdir/symdir -+- lsseq -C -R -L -----
+----- Test 205 -+- dir: testdir/symdirA -+- lsseq -C -R -L -----
 .:
 aaa  bbb  ccc  foo.00.txt  foobar.00.txt
 
@@ -8436,21 +8436,21 @@ aaa_bbb.[001-010].exr
 foo.02.txt  foobar.02.txt
 aaa_aaa.[001-010].exr
 
------ Test 206 -+- dir: testdir/symdir -+- ls -C aaa/aaa_ccc -----
+----- Test 206 -+- dir: testdir/symdirA -+- ls -C aaa/aaa_ccc -----
 aaa_aaa.001.exr  aaa_aaa.003.exr  aaa_aaa.005.exr  aaa_aaa.007.exr  aaa_aaa.009.exr  foo.02.txt
 aaa_aaa.002.exr  aaa_aaa.004.exr  aaa_aaa.006.exr  aaa_aaa.008.exr  aaa_aaa.010.exr  foobar.02.txt
 
------ Test 207 -+- dir: testdir/symdir -+- lsseq -C aaa/aaa_ccc -----
+----- Test 207 -+- dir: testdir/symdirA -+- lsseq -C aaa/aaa_ccc -----
 foo.02.txt  foobar.02.txt
 aaa_aaa.[001-010].exr
 
------ Test 208 -+- dir: testdir/symdir -+- ls -C -F aaa/aaa_ccc -----
+----- Test 208 -+- dir: testdir/symdirA -+- ls -C -F aaa/aaa_ccc -----
 aaa/aaa_ccc@
 
------ Test 209 -+- dir: testdir/symdir -+- lsseq -C -F aaa/aaa_ccc -----
+----- Test 209 -+- dir: testdir/symdirA -+- lsseq -C -F aaa/aaa_ccc -----
 aaa/aaa_ccc@
 
------ Test 210 -+- dir: testdir/symdir -+- ls -C -R aaa -----
+----- Test 210 -+- dir: testdir/symdirA -+- ls -C -R aaa -----
 aaa:
 aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr  aaa_aaa  foo.01.txt
 aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr  aaa_bbb  foobar.01.txt
@@ -8464,7 +8464,7 @@ aaa/aaa_bbb:
 aaa_bbb.001.exr  aaa_bbb.003.exr  aaa_bbb.005.exr  aaa_bbb.007.exr  aaa_bbb.009.exr  foo.03.txt
 aaa_bbb.002.exr  aaa_bbb.004.exr  aaa_bbb.006.exr  aaa_bbb.008.exr  aaa_bbb.010.exr  foobar.03.txt
 
------ Test 211 -+- dir: testdir/symdir -+- lsseq -C -R aaa -----
+----- Test 211 -+- dir: testdir/symdirA -+- lsseq -C -R aaa -----
 aaa:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
 aaa.[001-013].exr m:[12]
@@ -8477,7 +8477,7 @@ aaa/aaa_bbb:
 foo.03.txt  foobar.03.txt
 aaa_bbb.[001-010].exr
 
------ Test 212 -+- dir: testdir/symdir -+- ls -C -R -F aaa -----
+----- Test 212 -+- dir: testdir/symdirA -+- ls -C -R -F aaa -----
 aaa:
 aaa.001.exr  aaa.004.exr  aaa.007.exr  aaa.010.exr   aaa_aaa/  foo.01.txt
 aaa.002.exr  aaa.005.exr  aaa.008.exr  aaa.011.exr*  aaa_bbb/  foobar.01.txt@
@@ -8491,7 +8491,7 @@ aaa/aaa_bbb:
 aaa_bbb.001.exr  aaa_bbb.003.exr  aaa_bbb.005.exr  aaa_bbb.007.exr  aaa_bbb.009.exr  foo.03.txt
 aaa_bbb.002.exr  aaa_bbb.004.exr  aaa_bbb.006.exr  aaa_bbb.008.exr  aaa_bbb.010.exr  foobar.03.txt@
 
------ Test 213 -+- dir: testdir/symdir -+- lsseq -C -R -F aaa -----
+----- Test 213 -+- dir: testdir/symdirA -+- lsseq -C -R -F aaa -----
 aaa:
 aaa_aaa/  aaa_bbb/  aaa_ccc@  foo.01.txt  foobar.01.txt@
 aaa.[001-013].exr m:[12]
@@ -8504,10 +8504,10 @@ aaa/aaa_bbb:
 foo.03.txt  foobar.03.txt@
 aaa_bbb.[001-010].exr
 
------ Test 214 -+- dir: testdir/symdir -+- echo For ls vs. lsseq comparisons see /...absPathToRepo.../tests/testdir/symdir/foo.00.txt -----
-For ls vs. lsseq comparisons see /...absPathToRepo.../tests/testdir/symdir/foo.00.txt
+----- Test 214 -+- dir: testdir/symdirA -+- echo For ls vs. lsseq comparisons see /...absPathToRepo.../tests/testdir/symdirA/foo.00.txt -----
+For ls vs. lsseq comparisons see /...absPathToRepo.../tests/testdir/symdirA/foo.00.txt
 
------ Test 215 -+- dir: testdir/symdir -+- cat foo.00.txt -----
+----- Test 215 -+- dir: testdir/symdirA -+- cat foo.00.txt -----
 ls    -C * > ~/f.1
 lsseq -C * > ~/f.2
 gdiff ~/f.[12]
@@ -8545,19 +8545,19 @@ lsseq -C -R -F aaa > ~/f.2
 gdiff ~/f.[12]
 
 
------ Test 216 -+- dir: testdir/symdir -+- ls /...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr -----
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
+----- Test 216 -+- dir: testdir/symdirA -+- ls /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr -----
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr
 
------ Test 217 -+- dir: testdir/symdir -+- lsseq /...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr -----
-/...absPathToRepo.../tests/testdir/symdir/bbb/bbb_aaa/bbb_aaa.[001].exr
+----- Test 217 -+- dir: testdir/symdirA -+- lsseq /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr -----
+/...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.[001].exr
 
------ Test 218 -+- dir: testdir/symdir/bbb -+- lsseq -C -P ../aaa/ -----
+----- Test 218 -+- dir: testdir/symdirA/bbb -+- lsseq -C -P ../aaa/ -----
 ../aaa/aaa.[001-013].exr m:[12]
 
------ Test 219 -+- dir: testdir/symdir/bbb -+- lsseq -C -p ../aaa/ -----
-/...absPathToRepo.../tests/testdir/symdir/bbb/../aaa/aaa.[001-013].exr m:[12]
+----- Test 219 -+- dir: testdir/symdirA/bbb -+- lsseq -C -p ../aaa/ -----
+/...absPathToRepo.../tests/testdir/symdirA/bbb/../aaa/aaa.[001-013].exr m:[12]
 
------ Test 220 -+- dir: testdir/symdir -+- lsseq -C --no-dereference * -----
+----- Test 220 -+- dir: testdir/symdirA -+- lsseq -C --no-dereference * -----
 ccc  foo.00.txt  foobar.00.txt
 
 aaa:
@@ -8568,7 +8568,7 @@ bbb:
 bbb_aaa  bbb_bbb  bbb_ccc  foo.04.txt  foobar.04.txt
 bbb.[001-010].exr
 
------ Test 221 -+- dir: testdir/symdir -+- lsseq -C --no-dereference -R -----
+----- Test 221 -+- dir: testdir/symdirA -+- lsseq -C --no-dereference -R -----
 .:
 aaa  bbb  ccc  foo.00.txt  foobar.00.txt
 
@@ -8596,7 +8596,7 @@ bbb_aaa.[001-010].exr
 bbb_bbb_ccc  foo.06.txt  foobar.06.txt
 bbb_bbb.[001-010].exr
 
------ Test 222 -+- dir: testdir/symdir -+- lsseq -C --no-dereference --dereference-command-line * -----
+----- Test 222 -+- dir: testdir/symdirA -+- lsseq -C --no-dereference --dereference-command-line * -----
 foo.00.txt  foobar.00.txt
 
 aaa:
@@ -8611,7 +8611,7 @@ ccc:
 aaa_aaa  aaa_bbb  aaa_ccc  foo.01.txt  foobar.01.txt
 aaa.[001-013].exr m:[12]
 
------ Test 223 -+- dir: testdir/symdir -+- lsseq -C --dereference-command-line-symlink-to-file * -----
+----- Test 223 -+- dir: testdir/symdirA -+- lsseq -C --dereference-command-line-symlink-to-file * -----
 ccc  foo.00.txt  foobar.00.txt
 
 aaa:
@@ -8622,7 +8622,7 @@ bbb:
 bbb_aaa  bbb_bbb  bbb_ccc  foo.04.txt  foobar.04.txt
 bbb.[001-010].exr
 
------ Test 224 -+- dir: testdir/symdir -+- lsseq -C -R --dereference-command-line-symlink-to-file * -----
+----- Test 224 -+- dir: testdir/symdirA -+- lsseq -C -R --dereference-command-line-symlink-to-file * -----
 ccc  foo.00.txt  foobar.00.txt
 
 aaa:
@@ -8653,12 +8653,12 @@ bbb_bbb.[001-010].exr
 lsseq: warning: cannot access 'xxx.001.exr': No such file.
 --+-- Test 225: lsseq returned non-zero error code: 32  --+--
 
------ Test 226 -+- dir: testdir/symdir/aaa -+- lsseq aaa.001.exr aaa.002.exr aaa.003.exr aaa.004.exr aaa.005.exr aaa.006.exr aaa.007.exr aaa.008.exr aaa.009.exr aaa.010.exr aaa.011.exr aaa.012.exr aaa.013.exr -----
+----- Test 226 -+- dir: testdir/symdirA/aaa -+- lsseq aaa.001.exr aaa.002.exr aaa.003.exr aaa.004.exr aaa.005.exr aaa.006.exr aaa.007.exr aaa.008.exr aaa.009.exr aaa.010.exr aaa.011.exr aaa.012.exr aaa.013.exr -----
 lsseq: warning: cannot access 'aaa.012.exr': No such file.
 aaa.[001-013].exr m:[12]
 --+-- Test 226: lsseq returned non-zero error code: 32  --+--
 
------ Test 227 -+- dir: testdir/symdir -+- lsseq --no-dereference --only-sequences ccc -----
+----- Test 227 -+- dir: testdir/symdirA -+- lsseq --no-dereference --only-sequences ccc -----
 
 ----- Test 228 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.

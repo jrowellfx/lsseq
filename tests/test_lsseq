@@ -555,38 +555,38 @@ testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-movies
 testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-images --global-sort-by-time -r
 testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-caches --global-sort-by-time -r
 testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-movies --global-sort-by-time -r
-testdir/symdir ls    -C *
-testdir/symdir lsseq -C *
-testdir/symdir ls    -C -R
-testdir/symdir lsseq -C -R
-testdir/symdir ls    -C -R *
-testdir/symdir lsseq -C -R *
-testdir/symdir ls    -C -R -F
-testdir/symdir lsseq -C -R -F
-testdir/symdir ls    -C -R -L
-testdir/symdir lsseq -C -R -L
-testdir/symdir ls    -C aaa/aaa_ccc
-testdir/symdir lsseq -C aaa/aaa_ccc
-testdir/symdir ls    -C -F aaa/aaa_ccc
-testdir/symdir lsseq -C -F aaa/aaa_ccc
-testdir/symdir ls    -C -R aaa
-testdir/symdir lsseq -C -R aaa
-testdir/symdir ls    -C -R -F aaa
-testdir/symdir lsseq -C -R -F aaa
-testdir/symdir echo For ls vs. lsseq comparisons see $TEST_DIR/testdir/symdir/foo.00.txt
-testdir/symdir cat foo.00.txt
-testdir/symdir ls    $TEST_DIR/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
-testdir/symdir lsseq $TEST_DIR/testdir/symdir/bbb/bbb_aaa/bbb_aaa.001.exr
-testdir/symdir/bbb lsseq -C -P ../aaa/
-testdir/symdir/bbb lsseq -C -p ../aaa/
-testdir/symdir lsseq -C --no-dereference *
-testdir/symdir lsseq -C --no-dereference -R
-testdir/symdir lsseq -C --no-dereference --dereference-command-line *
-testdir/symdir lsseq -C --dereference-command-line-symlink-to-file *
-testdir/symdir lsseq -C -R --dereference-command-line-symlink-to-file *
+testdir/symdirA ls    -C *
+testdir/symdirA lsseq -C *
+testdir/symdirA ls    -C -R
+testdir/symdirA lsseq -C -R
+testdir/symdirA ls    -C -R *
+testdir/symdirA lsseq -C -R *
+testdir/symdirA ls    -C -R -F
+testdir/symdirA lsseq -C -R -F
+testdir/symdirA ls    -C -R -L
+testdir/symdirA lsseq -C -R -L
+testdir/symdirA ls    -C aaa/aaa_ccc
+testdir/symdirA lsseq -C aaa/aaa_ccc
+testdir/symdirA ls    -C -F aaa/aaa_ccc
+testdir/symdirA lsseq -C -F aaa/aaa_ccc
+testdir/symdirA ls    -C -R aaa
+testdir/symdirA lsseq -C -R aaa
+testdir/symdirA ls    -C -R -F aaa
+testdir/symdirA lsseq -C -R -F aaa
+testdir/symdirA echo For ls vs. lsseq comparisons see $TEST_DIR/testdir/symdirA/foo.00.txt
+testdir/symdirA cat foo.00.txt
+testdir/symdirA ls    $TEST_DIR/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr
+testdir/symdirA lsseq $TEST_DIR/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr
+testdir/symdirA/bbb lsseq -C -P ../aaa/
+testdir/symdirA/bbb lsseq -C -p ../aaa/
+testdir/symdirA lsseq -C --no-dereference *
+testdir/symdirA lsseq -C --no-dereference -R
+testdir/symdirA lsseq -C --no-dereference --dereference-command-line *
+testdir/symdirA lsseq -C --dereference-command-line-symlink-to-file *
+testdir/symdirA lsseq -C -R --dereference-command-line-symlink-to-file *
 testdir        lsseq xxx.001.exr
-testdir/symdir/aaa lsseq aaa.001.exr aaa.002.exr aaa.003.exr aaa.004.exr aaa.005.exr aaa.006.exr aaa.007.exr aaa.008.exr aaa.009.exr aaa.010.exr aaa.011.exr aaa.012.exr aaa.013.exr
-testdir/symdir lsseq --no-dereference --only-sequences ccc # Should return nothing.
+testdir/symdirA/aaa lsseq aaa.001.exr aaa.002.exr aaa.003.exr aaa.004.exr aaa.005.exr aaa.006.exr aaa.007.exr aaa.008.exr aaa.009.exr aaa.010.exr aaa.011.exr aaa.012.exr aaa.013.exr
+testdir/symdirA lsseq --no-dereference --only-sequences ccc # Should return nothing.
 EOFa
 
 cat << EOFb > $tmpTestCmdFileB
