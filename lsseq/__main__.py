@@ -207,9 +207,9 @@ FRAME_MTIME      = 2
 FRAME_PADDING    = 3
 FRAME_ISSYMLINK  = 4
 
-# Array indices for the tuple stored in the movies dictionary.
+# Array indices for the tuple stored in the movie dictionary.
 #
-MOVIE_SIZE       = 0
+MOVIE_MTIME      = 0
 MOVIE_ISSYMLINK  = 1
 
 # Since the following value is stored with the mtime of a frame (or movie)
@@ -1015,7 +1015,6 @@ def stripDotFiles(dirContents, stripIt) :
 
 def deRefDirs(isCmdLineArg) :
     global gDeRefWhichFiles
-    ### JPR_DEBUG print(f"{gDeRefWhichFiles:#06b}")
     if isCmdLineArg :
         if gDeRefWhichFiles & (DEREF_CMD_LINE | DEREF_ALL) :
             return bool(gDeRefWhichFiles & DEREF_DIRS)
@@ -1029,7 +1028,6 @@ def deRefDirs(isCmdLineArg) :
 
 def deRefFiles(isCmdLineArg) :
     global gDeRefWhichFiles
-    ### JPR_DEBUG print(f"{gDeRefWhichFiles:#06b}")
     if isCmdLineArg :
         if gDeRefWhichFiles & (DEREF_CMD_LINE | DEREF_ALL) :
             return bool(gDeRefWhichFiles & DEREF_FILES)
@@ -1122,7 +1120,7 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
     # The 'movieDictionary' has the movie file name as the key, and
     # the data stored is a two-tuple containing
     #
-    #     (fileSize, isSymLink)
+    #     (mtime, isSymLink)
     #
     # In both of the above cases the boolean "isSymLink" is true iff the
     # file is a sym-link. It stores -1 for the file size if the sym-link
@@ -1164,38 +1162,14 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
         else :
 
             fileParts = seqSplit(filename, args)
+            isFileLink = False # Default for logic below.
 
-            # Note: (len(fileParts) == 2) means file is an image or cache.
-            #
             if len(fileParts) == 2 : # Means file is an image or cache.
+
                 newFrameNum = int(fileParts[FRAMENUM])
                 newPaddingSize = len(fileParts[FRAMENUM])
 
-                # Check to see if file exists - might be broken soft link.
-                #
-                #### BUG FOUND : 2026-05-02: 
-                ####     $ ls xxx.001.exr
-                ####     ls: cannot access 'xxx.001.exr': No such file or directory
-                ####     $ lsseq xxx.001.exr
-                ####     lsseq: warning: xxx.001.exr is a broken soft link
-                ####
-                #### Test lsseq on existing sequence that is missing a frame, but
-                #### explicitly list all of them on the command line.
-                #### The missing frame should get reported in the missing frame list,
-                #### as well as get reported here with a warning. Unless it's either
-                #### the first or last frame in which case it will not be noted as missing.
-                # 
-                # if not os.path.exists(filename) :
-                #     newFrameSize = 0
-                #     newFrameMTime = FILE_BROKENLINK
-                # else :
-                #     realFilename = os.path.realpath(filename)
-                #     newFrameSize = os.path.getsize(realFilename)
-                #     newFrameMTime = os.path.getmtime(realFilename)
-                #
-                # Old code ^^^^ prior to v4.3.0
-
-                # Strict test for file existence regardless of if a broken sym-link.
+                # Strict test for file-existence regardless of if a broken sym-link.
                 #
                 if os.path.lexists(filename) :
 
@@ -1204,10 +1178,28 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                     if not os.path.exists(filename) :
                         newFrameSize = 0
                         newFrameMTime = FILE_BROKENLINK
+                        isFileLink = True
+
                     else :
                         realFilename = os.path.realpath(filename)
+                        isFileLink = os.path.islink(filename)
+
+                        # Note: the size of a frame is only useful for
+                        # checking for "badFrames" so not helpful to
+                        # store the size of a link. Always store real-size.
+                        #
                         newFrameSize = os.path.getsize(realFilename)
-                        newFrameMTime = os.path.getmtime(realFilename)
+
+                        # However: storing the mtime of links may be helpful
+                        # when not-dereferencing files for use in time
+                        # comparisons, be they local or global. That is,
+                        # it might be helpful to know when a linked-sequence
+                        # was made compared to other sequences.
+                        #
+                        if isFileLink and not deRefFiles(isCmdLineArg):
+                            newFrameMTime = os.path.getmtime(filename)
+                        else :
+                            newFrameMTime = os.path.getmtime(realFilename)
 
                 else : # File does not exist. Print warning and skip to next file.
                     if not args.silent :
@@ -1224,32 +1216,51 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                 if fileParts[SEQKEY] in cacheDictionary :
                     # tack on new frame number.
                     cacheDictionary[fileParts[SEQKEY]].append(
-                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize, False))
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize, isFileLink))
                 else :
                     # initialiaze dictionary entry.
                     cacheDictionary[fileParts[SEQKEY]] = [
-                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize, False)]
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize, isFileLink)]
 
             elif len(fileParts) == 2 and not isCache(fileParts[SEQKEY]) and (gListWhichFiles & LIST_IMGS) :
                 if fileParts[SEQKEY] in imageDictionary :
                     # tack on new frame number.
                     imageDictionary[fileParts[SEQKEY]].append(
-                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize, False))
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize, isFileLink))
                 else :
                     # initialiaze dictionary entry.
                     imageDictionary[fileParts[SEQKEY]] = [
-                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize, False)]
+                        (newFrameNum, newFrameSize, newFrameMTime, newPaddingSize, isFileLink)]
 
             elif isMovie(filename) and (gListWhichFiles & LIST_MOVS):
-                # Check to see if file exists - might be broken soft link.
-                #
-                #### JPR BUG - same as discovered above for image/cache seqs
-                #
-                if not os.path.exists(filename) :
-                    movieDictionary[filename] = (FILE_BROKENLINK, False) # JPR flesh out logic !! TBD
-                else :
-                    realFilename = os.path.realpath(filename)
-                    movieDictionary[filename] = (os.path.getmtime(realFilename), False)
+                
+                # Same logic as images and caches above.
+                # See comments above if need be.
+                # 
+                if os.path.lexists(filename) : # Strict
+                    if not os.path.exists(filename) : # Only True if broken link
+                        movieMTime = FILE_BROKENLINK
+                        isFileLink = True
+                    else :
+                        realFilename = os.path.realpath(filename)
+                        isFileLink = os.path.islink(filename)
+
+                        if isFileLink and not deRefFiles(isCmdLineArg):
+                            movieMTime = os.path.getmtime(filename)
+                        else :
+                            movieMTime = os.path.getmtime(realFilename)
+
+                    movieDictionary[filename] = (movieMTime, isFileLink)
+
+                else : # File does not exist. Print warning and skip to next file.
+                    if not args.silent :
+                        sys.stdout.flush()
+                        sys.stderr.flush()
+                        print(PROG_NAME, ": warning: cannot access '", filename,
+                            "': No such file.", sep='', file=sys.stderr)
+                        sys.stderr.flush()
+                    gExitStatus = gExitStatus | EXIT_LSSEQ_NOSUCHFILE_WARNING
+                    continue
 
             # filename is neither part of an image sequence, NOR a movie file
             # NOR a cache, (or the user has specified to not treat those as
@@ -1391,7 +1402,7 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
         for k in seqKeys :
 
             if isMovie(k) :
-                timeList.append((k, int(movieDictionary[k][MOVIE_SIZE])))
+                timeList.append((k, int(movieDictionary[k][MOVIE_MTIME])))
 
             elif isCache(k) :
                 validTimes = []
@@ -2052,8 +2063,6 @@ def main() :
         elif listOpts == ARG_LIST_NO_DEREF_FILE:
             gDeRefWhichFiles = (gListWhichFiles & (0b1111 ^ DEREF_FILES))
 
-    ### JPR_DEBUG: print("in main 1:", f"{gDeRefWhichFiles:#06b}")
-
     # Do not want to follow symbolic links if --classify/-F or
     # --directory/-d invoked on the command line.
     # Note the use of these options TRUMPS any of the prior options
@@ -2061,8 +2070,6 @@ def main() :
     #
     if args.classify or not args.listDirContents :
         gDeRefWhichFiles = DEREF_NONE
-
-    ### JPR_DEBUG: print("in main 2:", f"{gDeRefWhichFiles:#06b}")
 
     if args.prependPath == PATH_REL or args.prependPath == PATH_ABS :
         gListWhichFiles = (gListWhichFiles & LIST_NOT_OTHER)
@@ -2168,7 +2175,6 @@ def main() :
             if args.prependPath == PATH_ABS :
                 passedPath = os.getcwd() + "/"
 
-            ### JPR_DEBUG: print("in main 3:", f"{gDeRefWhichFiles:#06b}")
             # Note: We're passing "False" to the parameter isCmdLineArg
             # because we don't want listSeqDir() to interpret the
             # list of files a coming from the command line.
