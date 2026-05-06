@@ -924,6 +924,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
             if args.extremes :
                 fileComponents[1] = formatStr % minFrame
             print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
+            #
             if minFrame != maxFrame and args.extremes :
                 print()
                 if fileComponents[0][0] != '/' :
