@@ -26,7 +26,7 @@ for ((i=0; i<len; i++)); do
         echo cd $symFB
     done
     echo cd ${top[$i]}_dir
-    echo ln -s ${v} latest
+    echo ln -s ${top[$i]}_${v} latest
     echo cd $symFB
 done
 
