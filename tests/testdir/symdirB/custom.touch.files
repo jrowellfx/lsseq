@@ -1,0 +1,109 @@
+#!/bin/bash
+export TZ=GMT
+touch -h -a -m -t 202602141200 a_dir/a_v01/aaa_v01.098.exr
+touch -h -a -m -t 202602141201 a_dir/a_v01/aaa_v01.099.exr
+touch -h -a -m -t 202602141202 a_dir/a_v01/aaa_v01.100.exr
+touch -h -a -m -t 202602141203 a_dir/a_v01/aaa_v01.101.exr
+touch -h -a -m -t 202602141204 a_dir/a_v01/aaa_v01.102.exr
+
+touch -h -a -m -t 202602141206 b_dir/b_v01/bbb_v01.098.exr
+touch -h -a -m -t 202602141207 b_dir/b_v01/bbb_v01.099.exr
+touch -h -a -m -t 202602141208 b_dir/b_v01/bbb_v01.100.exr
+touch -h -a -m -t 202602141209 b_dir/b_v01/bbb_v01.101.exr
+touch -h -a -m -t 202602141210 b_dir/b_v01/bbb_v01.102.exr
+
+touch -h -a -m -t 202602141212 c_dir/c_v01/ccc_v01.098.exr
+touch -h -a -m -t 202602141213 c_dir/c_v01/ccc_v01.099.exr
+touch -h -a -m -t 202602141214 c_dir/c_v01/ccc_v01.100.exr
+touch -h -a -m -t 202602141215 c_dir/c_v01/ccc_v01.101.exr
+touch -h -a -m -t 202602141216 c_dir/c_v01/ccc_v01.102.exr
+
+touch -h -a -m -t 202602141218 a_dir/a_v02/aaa_v02.098.exr
+touch -h -a -m -t 202602141219 a_dir/a_v02/aaa_v02.099.exr
+touch -h -a -m -t 202602141220 a_dir/a_v02/aaa_v02.100.exr
+touch -h -a -m -t 202602141221 a_dir/a_v02/aaa_v02.101.exr
+touch -h -a -m -t 202602141222 a_dir/a_v02/aaa_v02.102.exr
+
+touch -h -a -m -t 202602141224 a_dir/a_v03/aaa_v03.098.exr
+touch -h -a -m -t 202602141225 a_dir/a_v03/aaa_v03.099.exr
+touch -h -a -m -t 202602141226 a_dir/a_v03/aaa_v03.100.exr
+touch -h -a -m -t 202602141227 a_dir/a_v03/aaa_v03.101.exr
+touch -h -a -m -t 202602141228 a_dir/a_v03/aaa_v03.102.exr
+
+touch -h -a -m -t 202602141230 b_dir/b_v02/bbb_v02.098.exr
+touch -h -a -m -t 202602141231 b_dir/b_v02/bbb_v02.099.exr
+touch -h -a -m -t 202602141232 b_dir/b_v02/bbb_v02.100.exr
+touch -h -a -m -t 202602141233 b_dir/b_v02/bbb_v02.101.exr
+touch -h -a -m -t 202602141234 b_dir/b_v02/bbb_v02.102.exr
+
+touch -h -a -m -t 202602141236 c_dir/c_v02/ccc_v02.098.exr
+touch -h -a -m -t 202602141237 c_dir/c_v02/ccc_v02.099.exr
+touch -h -a -m -t 202602141238 c_dir/c_v02/ccc_v02.100.exr
+touch -h -a -m -t 202602141239 c_dir/c_v02/ccc_v02.101.exr
+touch -h -a -m -t 202602141240 c_dir/c_v02/ccc_v02.102.exr
+
+touch -h -a -m -t 202602141242 b_dir/b_v03/bbb_v03.098.exr
+touch -h -a -m -t 202602141243 b_dir/b_v03/bbb_v03.099.exr
+touch -h -a -m -t 202602141244 b_dir/b_v03/bbb_v03.100.exr
+touch -h -a -m -t 202602141245 b_dir/b_v03/bbb_v03.101.exr
+touch -h -a -m -t 202602141246 b_dir/b_v03/bbb_v03.102.exr
+
+touch -h -a -m -t 202602141248 c_dir/c_v03/ccc_v03.098.exr
+touch -h -a -m -t 202602141249 c_dir/c_v03/ccc_v03.099.exr
+touch -h -a -m -t 202602141250 c_dir/c_v03/ccc_v03.100.exr
+touch -h -a -m -t 202602141251 c_dir/c_v03/ccc_v03.101.exr
+touch -h -a -m -t 202602141252 c_dir/c_v03/ccc_v03.102.exr
+
+touch -h -a -m -t 202602141254 p_dir/p_v01/ppp_v01.098.exr
+touch -h -a -m -t 202602141255 p_dir/p_v01/ppp_v01.099.exr
+touch -h -a -m -t 202602141256 p_dir/p_v01/ppp_v01.100.exr
+touch -h -a -m -t 202602141257 p_dir/p_v01/ppp_v01.101.exr
+touch -h -a -m -t 202602141258 p_dir/p_v01/ppp_v01.102.exr
+
+touch -h -a -m -t 202602141300 p_dir/p_v02/ppp_v02.098.exr
+touch -h -a -m -t 202602141301 p_dir/p_v02/ppp_v02.099.exr
+touch -h -a -m -t 202602141302 p_dir/p_v02/ppp_v02.100.exr
+touch -h -a -m -t 202602141303 p_dir/p_v02/ppp_v02.101.exr
+touch -h -a -m -t 202602141304 p_dir/p_v02/ppp_v02.102.exr
+
+touch -h -a -m -t 202602141306 p_dir/p_v03/ppp_v03.098.exr
+touch -h -a -m -t 202602141307 p_dir/p_v03/ppp_v03.099.exr
+touch -h -a -m -t 202602141308 p_dir/p_v03/ppp_v03.100.exr
+touch -h -a -m -t 202602141309 p_dir/p_v03/ppp_v03.101.exr
+touch -h -a -m -t 202602141310 p_dir/p_v03/ppp_v03.102.exr
+
+touch -h -a -m -t 202602141312 n_dir/n_v01/nnn_v01.098.exr
+touch -h -a -m -t 202602141313 n_dir/n_v01/nnn_v01.099.exr
+touch -h -a -m -t 202602141314 n_dir/n_v01/nnn_v01.100.exr
+touch -h -a -m -t 202602141315 n_dir/n_v01/nnn_v01.101.exr
+touch -h -a -m -t 202602141316 n_dir/n_v01/nnn_v01.102.exr
+
+touch -h -a -m -t 202602141318 n_dir/n_v02/nnn_v02.098.exr
+touch -h -a -m -t 202602141319 n_dir/n_v02/nnn_v02.099.exr
+touch -h -a -m -t 202602141320 n_dir/n_v02/nnn_v02.100.exr
+touch -h -a -m -t 202602141321 n_dir/n_v02/nnn_v02.101.exr
+touch -h -a -m -t 202602141322 n_dir/n_v02/nnn_v02.102.exr
+
+touch -h -a -m -t 202602141324 n_dir/n_v03/nnn_v03.098.exr
+touch -h -a -m -t 202602141325 n_dir/n_v03/nnn_v03.099.exr
+touch -h -a -m -t 202602141326 n_dir/n_v03/nnn_v03.100.exr
+touch -h -a -m -t 202602141327 n_dir/n_v03/nnn_v03.101.exr
+touch -h -a -m -t 202602141328 n_dir/n_v03/nnn_v03.102.exr
+
+touch -h -a -m -t 202602141330 m_dir/m_v01/mmm_v01.098.exr
+touch -h -a -m -t 202602141331 m_dir/m_v01/mmm_v01.099.exr
+touch -h -a -m -t 202602141332 m_dir/m_v01/mmm_v01.100.exr
+touch -h -a -m -t 202602141333 m_dir/m_v01/mmm_v01.101.exr
+touch -h -a -m -t 202602141334 m_dir/m_v01/mmm_v01.102.exr
+
+touch -h -a -m -t 202602141336 m_dir/m_v02/mmm_v02.098.exr
+touch -h -a -m -t 202602141337 m_dir/m_v02/mmm_v02.099.exr
+touch -h -a -m -t 202602141338 m_dir/m_v02/mmm_v02.100.exr
+touch -h -a -m -t 202602141339 m_dir/m_v02/mmm_v02.101.exr
+touch -h -a -m -t 202602141340 m_dir/m_v02/mmm_v02.102.exr
+
+touch -h -a -m -t 202602141342 m_dir/m_v03/mmm_v03.098.exr
+touch -h -a -m -t 202602141343 m_dir/m_v03/mmm_v03.099.exr
+touch -h -a -m -t 202602141344 m_dir/m_v03/mmm_v03.100.exr
+touch -h -a -m -t 202602141345 m_dir/m_v03/mmm_v03.101.exr
+touch -h -a -m -t 202602141346 m_dir/m_v03/mmm_v03.102.exr

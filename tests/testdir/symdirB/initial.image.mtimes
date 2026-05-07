@@ -1,0 +1,29 @@
+#!/bin/bash
+
+export TZ=GMT # To help guarantee consistent treatment of dates regarless of locale
+
+i=0
+year=2026
+month=2
+day=14
+hour=12
+min=0
+
+echo \#!/bin/bash
+echo export TZ=GMT
+
+while read line
+do
+    echo touch -h -a -m -t $year`printf '%02d' $month``printf '%02d' $day``printf '%02d' $hour``printf '%02d' $min` $line \
+        | sed -e 's/^touch.*[0-9]$//'
+
+    min=$(expr $min + 1)
+    if [ $min -ge 60 ]; then
+        min=0
+        hour=$(expr $hour + 1)
+        if [ $hour -ge 24 ]; then
+            hour=0
+            day=$(expr $day + 1)
+        fi
+    fi
+done

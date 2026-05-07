@@ -184,8 +184,8 @@ testdir:
 adir/                          gdir/  mkAnimFrames.v02.shk         qdir/
 bdir/                          hdir/  mkBlackFrames_HD_10.v01.shk  rdir/
 blackFrames/                   idir/  mkBlackFrames_HD_2.v01.shk   symdirA/
-cdir/                          jdir/  mkTestFrames.v01.nk          www..exr
-ddir/                          kdir/  mkTestFrames.v02.nk
+cdir/                          jdir/  mkTestFrames.v01.nk          symdirB/
+ddir/                          kdir/  mkTestFrames.v02.nk          www..exr
 e01_sh0001_globalFX/           ldir/  mk_hdir_Frames.v01.nk
 edir/                          mdir/  ndir/
 testDirFile.[001-012].exr m:[3]
@@ -527,6 +527,82 @@ bbb_aaa.[001-010].exr
 testdir/symdirA/bbb/bbb_bbb:
 bbb_bbb_ccc@  foo.06.txt  foobar.06.txt@
 bbb_bbb.[001-010].exr
+
+testdir/symdirB:
+a_dir/  c_dir/               file.order.list*       m_dir/     n_dir/  x_dir@  z_dir@
+b_dir/  custom.touch.files*  initial.image.mtimes*  mk.files*  p_dir/  y_dir@
+
+testdir/symdirB/a_dir:
+a_v01/  a_v02/  a_v03/  latest@
+
+testdir/symdirB/a_dir/a_v01:
+aaa_v01.[098-102].exr z:[98-102]
+
+testdir/symdirB/a_dir/a_v02:
+aaa_v02.[098-102].exr z:[98-102]
+
+testdir/symdirB/a_dir/a_v03:
+aaa_v03.[098-102].exr z:[98-102]
+
+testdir/symdirB/b_dir:
+b_v01/  b_v02/  b_v03/  latest@
+
+testdir/symdirB/b_dir/b_v01:
+bbb_v01.[098-102].exr z:[98-102]
+
+testdir/symdirB/b_dir/b_v02:
+bbb_v02.[098-102].exr z:[98-102]
+
+testdir/symdirB/b_dir/b_v03:
+bbb_v03.[098-102].exr z:[98-102]
+
+testdir/symdirB/c_dir:
+c_v01/  c_v02/  c_v03/  latest@
+
+testdir/symdirB/c_dir/c_v01:
+ccc_v01.[098-102].exr z:[98-102]
+
+testdir/symdirB/c_dir/c_v02:
+ccc_v02.[098-102].exr z:[98-102]
+
+testdir/symdirB/c_dir/c_v03:
+ccc_v03.[098-102].exr z:[98-102]
+
+testdir/symdirB/m_dir:
+m_v01/  m_v02/  m_v03/
+
+testdir/symdirB/m_dir/m_v01:
+mmm_v01.[098-102].exr z:[98-102]
+
+testdir/symdirB/m_dir/m_v02:
+mmm_v02.[098-102].exr z:[98-102]
+
+testdir/symdirB/m_dir/m_v03:
+mmm_v03.[098-102].exr z:[98-102]
+
+testdir/symdirB/n_dir:
+n_v01/  n_v02/  n_v03/
+
+testdir/symdirB/n_dir/n_v01:
+nnn_v01.[098-102].exr z:[98-102]
+
+testdir/symdirB/n_dir/n_v02:
+nnn_v02.[098-102].exr z:[98-102]
+
+testdir/symdirB/n_dir/n_v03:
+nnn_v03.[098-102].exr z:[98-102]
+
+testdir/symdirB/p_dir:
+p_v01/  p_v02/  p_v03/
+
+testdir/symdirB/p_dir/p_v01:
+ppp_v01.[098-102].exr z:[98-102]
+
+testdir/symdirB/p_dir/p_v02:
+ppp_v02.[098-102].exr z:[98-102]
+
+testdir/symdirB/p_dir/p_v03:
+ppp_v03.[098-102].exr z:[98-102]
 --+-- Test 4: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 5 -+- dir: . -+- lsseq -lReC --silent testdir -----
@@ -781,6 +857,42 @@ bbb_bbb.[001-010].exr
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.010.exr
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.001.exr
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v01/aaa_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v01/aaa_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v02/aaa_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v02/aaa_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v03/aaa_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v03/aaa_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v01/bbb_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v01/bbb_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v02/bbb_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v02/bbb_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v03/bbb_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v03/bbb_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v01/ccc_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v01/ccc_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v02/ccc_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v02/ccc_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v03/ccc_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v03/ccc_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v01/mmm_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v01/mmm_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v02/mmm_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v02/mmm_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v03/mmm_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v03/mmm_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v01/nnn_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v01/nnn_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v02/nnn_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v02/nnn_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v03/nnn_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v03/nnn_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v01/ppp_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v01/ppp_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v02/ppp_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v02/ppp_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v03/ppp_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v03/ppp_v03.102.exr
 --+-- Test 5: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 6 -+- dir: . -+- lsseq -lReoC --silent testdir -----
@@ -1035,6 +1147,42 @@ bbb_bbb.[001-010].exr
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.010.exr
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.001.exr
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v01/aaa_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v01/aaa_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v02/aaa_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v02/aaa_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v03/aaa_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v03/aaa_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v01/bbb_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v01/bbb_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v02/bbb_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v02/bbb_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v03/bbb_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v03/bbb_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v01/ccc_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v01/ccc_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v02/ccc_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v02/ccc_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v03/ccc_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v03/ccc_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v01/mmm_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v01/mmm_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v02/mmm_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v02/mmm_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v03/mmm_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v03/mmm_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v01/nnn_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v01/nnn_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v02/nnn_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v02/nnn_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v03/nnn_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v03/nnn_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v01/ppp_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v01/ppp_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v02/ppp_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v02/ppp_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v03/ppp_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v03/ppp_v03.102.exr
 --+-- Test 6: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 7 -+- dir: . -+- lsseq -RePC --quiet testdir -----
@@ -1281,6 +1429,42 @@ testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr
 testdir/symdirA/bbb/bbb_aaa/bbb_aaa.010.exr
 testdir/symdirA/bbb/bbb_bbb/bbb_bbb.001.exr
 testdir/symdirA/bbb/bbb_bbb/bbb_bbb.010.exr
+testdir/symdirB/a_dir/a_v01/aaa_v01.098.exr
+testdir/symdirB/a_dir/a_v01/aaa_v01.102.exr
+testdir/symdirB/a_dir/a_v02/aaa_v02.098.exr
+testdir/symdirB/a_dir/a_v02/aaa_v02.102.exr
+testdir/symdirB/a_dir/a_v03/aaa_v03.098.exr
+testdir/symdirB/a_dir/a_v03/aaa_v03.102.exr
+testdir/symdirB/b_dir/b_v01/bbb_v01.098.exr
+testdir/symdirB/b_dir/b_v01/bbb_v01.102.exr
+testdir/symdirB/b_dir/b_v02/bbb_v02.098.exr
+testdir/symdirB/b_dir/b_v02/bbb_v02.102.exr
+testdir/symdirB/b_dir/b_v03/bbb_v03.098.exr
+testdir/symdirB/b_dir/b_v03/bbb_v03.102.exr
+testdir/symdirB/c_dir/c_v01/ccc_v01.098.exr
+testdir/symdirB/c_dir/c_v01/ccc_v01.102.exr
+testdir/symdirB/c_dir/c_v02/ccc_v02.098.exr
+testdir/symdirB/c_dir/c_v02/ccc_v02.102.exr
+testdir/symdirB/c_dir/c_v03/ccc_v03.098.exr
+testdir/symdirB/c_dir/c_v03/ccc_v03.102.exr
+testdir/symdirB/m_dir/m_v01/mmm_v01.098.exr
+testdir/symdirB/m_dir/m_v01/mmm_v01.102.exr
+testdir/symdirB/m_dir/m_v02/mmm_v02.098.exr
+testdir/symdirB/m_dir/m_v02/mmm_v02.102.exr
+testdir/symdirB/m_dir/m_v03/mmm_v03.098.exr
+testdir/symdirB/m_dir/m_v03/mmm_v03.102.exr
+testdir/symdirB/n_dir/n_v01/nnn_v01.098.exr
+testdir/symdirB/n_dir/n_v01/nnn_v01.102.exr
+testdir/symdirB/n_dir/n_v02/nnn_v02.098.exr
+testdir/symdirB/n_dir/n_v02/nnn_v02.102.exr
+testdir/symdirB/n_dir/n_v03/nnn_v03.098.exr
+testdir/symdirB/n_dir/n_v03/nnn_v03.102.exr
+testdir/symdirB/p_dir/p_v01/ppp_v01.098.exr
+testdir/symdirB/p_dir/p_v01/ppp_v01.102.exr
+testdir/symdirB/p_dir/p_v02/ppp_v02.098.exr
+testdir/symdirB/p_dir/p_v02/ppp_v02.102.exr
+testdir/symdirB/p_dir/p_v03/ppp_v03.098.exr
+testdir/symdirB/p_dir/p_v03/ppp_v03.102.exr
 --+-- Test 7: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 8 -+- dir: . -+- lsseq -lRFC testdir -----
@@ -1289,8 +1473,8 @@ testdir:
 adir/                          gdir/  mkAnimFrames.v02.shk         qdir/
 bdir/                          hdir/  mkBlackFrames_HD_10.v01.shk  rdir/
 blackFrames/                   idir/  mkBlackFrames_HD_2.v01.shk   symdirA/
-cdir/                          jdir/  mkTestFrames.v01.nk          www..exr
-ddir/                          kdir/  mkTestFrames.v02.nk
+cdir/                          jdir/  mkTestFrames.v01.nk          symdirB/
+ddir/                          kdir/  mkTestFrames.v02.nk          www..exr
 e01_sh0001_globalFX/           ldir/  mk_hdir_Frames.v01.nk
 edir/                          mdir/  ndir/
 testDirFile.[001-012].exr m:[3]
@@ -1643,6 +1827,82 @@ bbb_aaa.[001-010].exr
 testdir/symdirA/bbb/bbb_bbb:
 bbb_bbb_ccc@  foo.06.txt  foobar.06.txt@
 bbb_bbb.[001-010].exr
+
+testdir/symdirB:
+a_dir/  c_dir/               file.order.list*       m_dir/     n_dir/  x_dir@  z_dir@
+b_dir/  custom.touch.files*  initial.image.mtimes*  mk.files*  p_dir/  y_dir@
+
+testdir/symdirB/a_dir:
+a_v01/  a_v02/  a_v03/  latest@
+
+testdir/symdirB/a_dir/a_v01:
+aaa_v01.[098-102].exr z:[98-102]
+
+testdir/symdirB/a_dir/a_v02:
+aaa_v02.[098-102].exr z:[98-102]
+
+testdir/symdirB/a_dir/a_v03:
+aaa_v03.[098-102].exr z:[98-102]
+
+testdir/symdirB/b_dir:
+b_v01/  b_v02/  b_v03/  latest@
+
+testdir/symdirB/b_dir/b_v01:
+bbb_v01.[098-102].exr z:[98-102]
+
+testdir/symdirB/b_dir/b_v02:
+bbb_v02.[098-102].exr z:[98-102]
+
+testdir/symdirB/b_dir/b_v03:
+bbb_v03.[098-102].exr z:[98-102]
+
+testdir/symdirB/c_dir:
+c_v01/  c_v02/  c_v03/  latest@
+
+testdir/symdirB/c_dir/c_v01:
+ccc_v01.[098-102].exr z:[98-102]
+
+testdir/symdirB/c_dir/c_v02:
+ccc_v02.[098-102].exr z:[98-102]
+
+testdir/symdirB/c_dir/c_v03:
+ccc_v03.[098-102].exr z:[98-102]
+
+testdir/symdirB/m_dir:
+m_v01/  m_v02/  m_v03/
+
+testdir/symdirB/m_dir/m_v01:
+mmm_v01.[098-102].exr z:[98-102]
+
+testdir/symdirB/m_dir/m_v02:
+mmm_v02.[098-102].exr z:[98-102]
+
+testdir/symdirB/m_dir/m_v03:
+mmm_v03.[098-102].exr z:[98-102]
+
+testdir/symdirB/n_dir:
+n_v01/  n_v02/  n_v03/
+
+testdir/symdirB/n_dir/n_v01:
+nnn_v01.[098-102].exr z:[98-102]
+
+testdir/symdirB/n_dir/n_v02:
+nnn_v02.[098-102].exr z:[98-102]
+
+testdir/symdirB/n_dir/n_v03:
+nnn_v03.[098-102].exr z:[98-102]
+
+testdir/symdirB/p_dir:
+p_v01/  p_v02/  p_v03/
+
+testdir/symdirB/p_dir/p_v01:
+ppp_v01.[098-102].exr z:[98-102]
+
+testdir/symdirB/p_dir/p_v02:
+ppp_v02.[098-102].exr z:[98-102]
+
+testdir/symdirB/p_dir/p_v03:
+ppp_v03.[098-102].exr z:[98-102]
 --+-- Test 8: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 9 -+- dir: . -+- lsseq -lReC testdir -----
@@ -1908,6 +2168,42 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.010.exr
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.001.exr
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v01/aaa_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v01/aaa_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v02/aaa_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v02/aaa_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v03/aaa_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v03/aaa_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v01/bbb_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v01/bbb_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v02/bbb_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v02/bbb_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v03/bbb_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v03/bbb_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v01/ccc_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v01/ccc_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v02/ccc_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v02/ccc_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v03/ccc_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v03/ccc_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v01/mmm_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v01/mmm_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v02/mmm_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v02/mmm_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v03/mmm_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v03/mmm_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v01/nnn_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v01/nnn_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v02/nnn_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v02/nnn_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v03/nnn_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v03/nnn_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v01/ppp_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v01/ppp_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v02/ppp_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v02/ppp_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v03/ppp_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v03/ppp_v03.102.exr
 --+-- Test 9: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 10 -+- dir: . -+- lsseq -lReoC testdir -----
@@ -2173,6 +2469,42 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.010.exr
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.001.exr
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.010.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v01/aaa_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v01/aaa_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v02/aaa_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v02/aaa_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v03/aaa_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v03/aaa_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v01/bbb_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v01/bbb_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v02/bbb_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v02/bbb_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v03/bbb_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v03/bbb_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v01/ccc_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v01/ccc_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v02/ccc_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v02/ccc_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v03/ccc_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v03/ccc_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v01/mmm_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v01/mmm_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v02/mmm_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v02/mmm_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v03/mmm_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v03/mmm_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v01/nnn_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v01/nnn_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v02/nnn_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v02/nnn_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v03/nnn_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v03/nnn_v03.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v01/ppp_v01.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v01/ppp_v01.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v02/ppp_v02.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v02/ppp_v02.102.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v03/ppp_v03.098.exr
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v03/ppp_v03.102.exr
 --+-- Test 10: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 11 -+- dir: . -+- lsseq -RePC testdir -----
@@ -2430,6 +2762,42 @@ testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr
 testdir/symdirA/bbb/bbb_aaa/bbb_aaa.010.exr
 testdir/symdirA/bbb/bbb_bbb/bbb_bbb.001.exr
 testdir/symdirA/bbb/bbb_bbb/bbb_bbb.010.exr
+testdir/symdirB/a_dir/a_v01/aaa_v01.098.exr
+testdir/symdirB/a_dir/a_v01/aaa_v01.102.exr
+testdir/symdirB/a_dir/a_v02/aaa_v02.098.exr
+testdir/symdirB/a_dir/a_v02/aaa_v02.102.exr
+testdir/symdirB/a_dir/a_v03/aaa_v03.098.exr
+testdir/symdirB/a_dir/a_v03/aaa_v03.102.exr
+testdir/symdirB/b_dir/b_v01/bbb_v01.098.exr
+testdir/symdirB/b_dir/b_v01/bbb_v01.102.exr
+testdir/symdirB/b_dir/b_v02/bbb_v02.098.exr
+testdir/symdirB/b_dir/b_v02/bbb_v02.102.exr
+testdir/symdirB/b_dir/b_v03/bbb_v03.098.exr
+testdir/symdirB/b_dir/b_v03/bbb_v03.102.exr
+testdir/symdirB/c_dir/c_v01/ccc_v01.098.exr
+testdir/symdirB/c_dir/c_v01/ccc_v01.102.exr
+testdir/symdirB/c_dir/c_v02/ccc_v02.098.exr
+testdir/symdirB/c_dir/c_v02/ccc_v02.102.exr
+testdir/symdirB/c_dir/c_v03/ccc_v03.098.exr
+testdir/symdirB/c_dir/c_v03/ccc_v03.102.exr
+testdir/symdirB/m_dir/m_v01/mmm_v01.098.exr
+testdir/symdirB/m_dir/m_v01/mmm_v01.102.exr
+testdir/symdirB/m_dir/m_v02/mmm_v02.098.exr
+testdir/symdirB/m_dir/m_v02/mmm_v02.102.exr
+testdir/symdirB/m_dir/m_v03/mmm_v03.098.exr
+testdir/symdirB/m_dir/m_v03/mmm_v03.102.exr
+testdir/symdirB/n_dir/n_v01/nnn_v01.098.exr
+testdir/symdirB/n_dir/n_v01/nnn_v01.102.exr
+testdir/symdirB/n_dir/n_v02/nnn_v02.098.exr
+testdir/symdirB/n_dir/n_v02/nnn_v02.102.exr
+testdir/symdirB/n_dir/n_v03/nnn_v03.098.exr
+testdir/symdirB/n_dir/n_v03/nnn_v03.102.exr
+testdir/symdirB/p_dir/p_v01/ppp_v01.098.exr
+testdir/symdirB/p_dir/p_v01/ppp_v01.102.exr
+testdir/symdirB/p_dir/p_v02/ppp_v02.098.exr
+testdir/symdirB/p_dir/p_v02/ppp_v02.102.exr
+testdir/symdirB/p_dir/p_v03/ppp_v03.098.exr
+testdir/symdirB/p_dir/p_v03/ppp_v03.102.exr
 --+-- Test 11: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 12 -+- dir: testdir -+- lsseq -p -----
@@ -2470,6 +2838,7 @@ pdir
 qdir
 rdir
 symdirA
+symdirB
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -2736,6 +3105,21 @@ ccc
 foo.00.txt
 foobar.00.txt
 
+symdirB:
+a_dir
+b_dir
+c_dir
+custom.touch.files
+file.order.list
+initial.image.mtimes
+m_dir
+mk.files
+n_dir
+p_dir
+x_dir
+y_dir
+z_dir
+
 ----- Test 15 -+- dir: testdir -+- lsseq -l * -----
 mkAnimFrames.v01.shk
 mkAnimFrames.v02.shk
@@ -2968,6 +3352,21 @@ bbb
 ccc
 foo.00.txt
 foobar.00.txt
+
+symdirB:
+a_dir
+b_dir
+c_dir
+custom.touch.files
+file.order.list
+initial.image.mtimes
+m_dir
+mk.files
+n_dir
+p_dir
+x_dir
+y_dir
+z_dir
 
 ----- Test 16 -+- dir: testdir/cdir -+- lsseq -----
 aaaa
@@ -3669,6 +4068,7 @@ pdir
 qdir
 rdir
 symdirA
+symdirB
 www..exr
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
@@ -4288,6 +4688,108 @@ bbb_bbb_ccc
 foo.06.txt
 foobar.06.txt
 bbb_bbb.[001-010].exr
+
+/...absPathToRepo.../tests/testdir/symdirB:
+a_dir
+b_dir
+c_dir
+custom.touch.files
+file.order.list
+initial.image.mtimes
+m_dir
+mk.files
+n_dir
+p_dir
+x_dir
+y_dir
+z_dir
+
+/...absPathToRepo.../tests/testdir/symdirB/a_dir:
+a_v01
+a_v02
+a_v03
+latest
+
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v01:
+aaa_v01.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v02:
+aaa_v02.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v03:
+aaa_v03.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/b_dir:
+b_v01
+b_v02
+b_v03
+latest
+
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v01:
+bbb_v01.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v02:
+bbb_v02.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v03:
+bbb_v03.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/c_dir:
+c_v01
+c_v02
+c_v03
+latest
+
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v01:
+ccc_v01.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v02:
+ccc_v02.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v03:
+ccc_v03.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/m_dir:
+m_v01
+m_v02
+m_v03
+
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v01:
+mmm_v01.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v02:
+mmm_v02.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v03:
+mmm_v03.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/n_dir:
+n_v01
+n_v02
+n_v03
+
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v01:
+nnn_v01.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v02:
+nnn_v02.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v03:
+nnn_v03.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/p_dir:
+p_v01
+p_v02
+p_v03
+
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v01:
+ppp_v01.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v02:
+ppp_v02.[098-102].exr z:[98-102]
+
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v03:
+ppp_v03.[098-102].exr z:[98-102]
 
 /...absPathToRepo.../tests/testdir/cdir:
 aaaa
@@ -6290,9 +6792,45 @@ symdirA/aaa/aaa_bbb/aaa_bbb.[001-010].exr
 symdirA/bbb/bbb.[001-010].exr
 symdirA/bbb/bbb_aaa/bbb_aaa.[001-010].exr
 symdirA/bbb/bbb_bbb/bbb_bbb.[001-010].exr
+symdirB/a_dir/a_v01/aaa_v01.[098-102].exr z:[98-102]
+symdirB/a_dir/a_v02/aaa_v02.[098-102].exr z:[98-102]
+symdirB/a_dir/a_v03/aaa_v03.[098-102].exr z:[98-102]
+symdirB/b_dir/b_v01/bbb_v01.[098-102].exr z:[98-102]
+symdirB/b_dir/b_v02/bbb_v02.[098-102].exr z:[98-102]
+symdirB/b_dir/b_v03/bbb_v03.[098-102].exr z:[98-102]
+symdirB/c_dir/c_v01/ccc_v01.[098-102].exr z:[98-102]
+symdirB/c_dir/c_v02/ccc_v02.[098-102].exr z:[98-102]
+symdirB/c_dir/c_v03/ccc_v03.[098-102].exr z:[98-102]
+symdirB/m_dir/m_v01/mmm_v01.[098-102].exr z:[98-102]
+symdirB/m_dir/m_v02/mmm_v02.[098-102].exr z:[98-102]
+symdirB/m_dir/m_v03/mmm_v03.[098-102].exr z:[98-102]
+symdirB/n_dir/n_v01/nnn_v01.[098-102].exr z:[98-102]
+symdirB/n_dir/n_v02/nnn_v02.[098-102].exr z:[98-102]
+symdirB/n_dir/n_v03/nnn_v03.[098-102].exr z:[98-102]
+symdirB/p_dir/p_v01/ppp_v01.[098-102].exr z:[98-102]
+symdirB/p_dir/p_v02/ppp_v02.[098-102].exr z:[98-102]
+symdirB/p_dir/p_v03/ppp_v03.[098-102].exr z:[98-102]
 --+-- Test 140: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 141 -+- dir: testdir -+- lsseq -R -P --only-sequences --global-sort-by-time -----
+symdirB/m_dir/m_v03/mmm_v03.[098-102].exr z:[98-102]
+symdirB/m_dir/m_v02/mmm_v02.[098-102].exr z:[98-102]
+symdirB/m_dir/m_v01/mmm_v01.[098-102].exr z:[98-102]
+symdirB/n_dir/n_v03/nnn_v03.[098-102].exr z:[98-102]
+symdirB/n_dir/n_v02/nnn_v02.[098-102].exr z:[98-102]
+symdirB/n_dir/n_v01/nnn_v01.[098-102].exr z:[98-102]
+symdirB/p_dir/p_v03/ppp_v03.[098-102].exr z:[98-102]
+symdirB/p_dir/p_v02/ppp_v02.[098-102].exr z:[98-102]
+symdirB/p_dir/p_v01/ppp_v01.[098-102].exr z:[98-102]
+symdirB/c_dir/c_v03/ccc_v03.[098-102].exr z:[98-102]
+symdirB/b_dir/b_v03/bbb_v03.[098-102].exr z:[98-102]
+symdirB/c_dir/c_v02/ccc_v02.[098-102].exr z:[98-102]
+symdirB/b_dir/b_v02/bbb_v02.[098-102].exr z:[98-102]
+symdirB/a_dir/a_v03/aaa_v03.[098-102].exr z:[98-102]
+symdirB/a_dir/a_v02/aaa_v02.[098-102].exr z:[98-102]
+symdirB/c_dir/c_v01/ccc_v01.[098-102].exr z:[98-102]
+symdirB/b_dir/b_v01/bbb_v01.[098-102].exr z:[98-102]
+symdirB/a_dir/a_v01/aaa_v01.[098-102].exr z:[98-102]
 qdir/q2Dir/qqq.[002-006].jpg z:[2-6]
 qdir/q3Dir/qqq.[003-007].jpg z:[3-7]
 qdir/q1Dir/qqq.[001-005].jpg z:[1-5]
@@ -6652,9 +7190,45 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb.[001-010].exr
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.[001-010].exr
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_bbb/bbb_bbb.[001-010].exr
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v01/aaa_v01.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v02/aaa_v02.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v03/aaa_v03.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v01/bbb_v01.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v02/bbb_v02.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v03/bbb_v03.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v01/ccc_v01.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v02/ccc_v02.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v03/ccc_v03.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v01/mmm_v01.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v02/mmm_v02.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v03/mmm_v03.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v01/nnn_v01.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v02/nnn_v02.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v03/nnn_v03.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v01/ppp_v01.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v02/ppp_v02.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v03/ppp_v03.[098-102].exr z:[98-102]
 --+-- Test 146: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 147 -+- dir: testdir -+- lsseq -R -p --only-sequences --global-sort-by-time -----
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v03/mmm_v03.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v02/mmm_v02.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/m_dir/m_v01/mmm_v01.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v03/nnn_v03.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v02/nnn_v02.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/n_dir/n_v01/nnn_v01.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v03/ppp_v03.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v02/ppp_v02.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/p_dir/p_v01/ppp_v01.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v03/ccc_v03.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v03/bbb_v03.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v02/ccc_v02.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v02/bbb_v02.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v03/aaa_v03.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v02/aaa_v02.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/c_dir/c_v01/ccc_v01.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/b_dir/b_v01/bbb_v01.[098-102].exr z:[98-102]
+/...absPathToRepo.../tests/testdir/symdirB/a_dir/a_v01/aaa_v01.[098-102].exr z:[98-102]
 /...absPathToRepo.../tests/testdir/qdir/q2Dir/qqq.[002-006].jpg z:[2-6]
 /...absPathToRepo.../tests/testdir/qdir/q3Dir/qqq.[003-007].jpg z:[3-7]
 /...absPathToRepo.../tests/testdir/qdir/q1Dir/qqq.[001-005].jpg z:[1-5]
@@ -6939,6 +7513,24 @@ hdir/v003/hhh03.[0001-0040].jpg
 qdir/q1Dir/qqq.[001-005].jpg z:[1-5]
 qdir/q3Dir/qqq.[003-007].jpg z:[3-7]
 qdir/q2Dir/qqq.[002-006].jpg z:[2-6]
+symdirB/a_dir/a_v01/aaa_v01.[098-102].exr z:[98-102]
+symdirB/b_dir/b_v01/bbb_v01.[098-102].exr z:[98-102]
+symdirB/c_dir/c_v01/ccc_v01.[098-102].exr z:[98-102]
+symdirB/a_dir/a_v02/aaa_v02.[098-102].exr z:[98-102]
+symdirB/a_dir/a_v03/aaa_v03.[098-102].exr z:[98-102]
+symdirB/b_dir/b_v02/bbb_v02.[098-102].exr z:[98-102]
+symdirB/c_dir/c_v02/ccc_v02.[098-102].exr z:[98-102]
+symdirB/b_dir/b_v03/bbb_v03.[098-102].exr z:[98-102]
+symdirB/c_dir/c_v03/ccc_v03.[098-102].exr z:[98-102]
+symdirB/p_dir/p_v01/ppp_v01.[098-102].exr z:[98-102]
+symdirB/p_dir/p_v02/ppp_v02.[098-102].exr z:[98-102]
+symdirB/p_dir/p_v03/ppp_v03.[098-102].exr z:[98-102]
+symdirB/n_dir/n_v01/nnn_v01.[098-102].exr z:[98-102]
+symdirB/n_dir/n_v02/nnn_v02.[098-102].exr z:[98-102]
+symdirB/n_dir/n_v03/nnn_v03.[098-102].exr z:[98-102]
+symdirB/m_dir/m_v01/mmm_v01.[098-102].exr z:[98-102]
+symdirB/m_dir/m_v02/mmm_v02.[098-102].exr z:[98-102]
+symdirB/m_dir/m_v03/mmm_v03.[098-102].exr z:[98-102]
 --+-- Test 148: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 149 -+- dir: testdir/jdir -+- mkdir j00 -----
@@ -8660,31 +9252,71 @@ aaa.[001-013].exr m:[12]
 
 ----- Test 227 -+- dir: testdir/symdirA -+- lsseq --no-dereference --only-sequences ccc -----
 
------ Test 228 -+- dir: . -+- lsseq -i -----
+----- Test 228 -+- dir: testdir/symdirB -+- lsseq -R -P --global-sort-by-time --reverse -----
+a_dir/a_v01/aaa_v01.[098-102].exr z:[98-102]
+b_dir/b_v01/bbb_v01.[098-102].exr z:[98-102]
+c_dir/c_v01/ccc_v01.[098-102].exr z:[98-102]
+a_dir/a_v02/aaa_v02.[098-102].exr z:[98-102]
+a_dir/a_v03/aaa_v03.[098-102].exr z:[98-102]
+b_dir/b_v02/bbb_v02.[098-102].exr z:[98-102]
+c_dir/c_v02/ccc_v02.[098-102].exr z:[98-102]
+b_dir/b_v03/bbb_v03.[098-102].exr z:[98-102]
+c_dir/c_v03/ccc_v03.[098-102].exr z:[98-102]
+p_dir/p_v01/ppp_v01.[098-102].exr z:[98-102]
+p_dir/p_v02/ppp_v02.[098-102].exr z:[98-102]
+p_dir/p_v03/ppp_v03.[098-102].exr z:[98-102]
+n_dir/n_v01/nnn_v01.[098-102].exr z:[98-102]
+n_dir/n_v02/nnn_v02.[098-102].exr z:[98-102]
+n_dir/n_v03/nnn_v03.[098-102].exr z:[98-102]
+m_dir/m_v01/mmm_v01.[098-102].exr z:[98-102]
+m_dir/m_v02/mmm_v02.[098-102].exr z:[98-102]
+m_dir/m_v03/mmm_v03.[098-102].exr z:[98-102]
+
+----- Test 229 -+- dir: testdir/symdirB -+- lsseq -R -P --global-sort-by-time --reverse --dereference-symlink-to-file -----
+m_dir/m_v01/mmm_v01.[098-102].exr z:[98-102]
+a_dir/a_v01/aaa_v01.[098-102].exr z:[98-102]
+n_dir/n_v01/nnn_v01.[098-102].exr z:[98-102]
+b_dir/b_v01/bbb_v01.[098-102].exr z:[98-102]
+p_dir/p_v01/ppp_v01.[098-102].exr z:[98-102]
+c_dir/c_v01/ccc_v01.[098-102].exr z:[98-102]
+m_dir/m_v02/mmm_v02.[098-102].exr z:[98-102]
+a_dir/a_v02/aaa_v02.[098-102].exr z:[98-102]
+m_dir/m_v03/mmm_v03.[098-102].exr z:[98-102]
+a_dir/a_v03/aaa_v03.[098-102].exr z:[98-102]
+n_dir/n_v02/nnn_v02.[098-102].exr z:[98-102]
+b_dir/b_v02/bbb_v02.[098-102].exr z:[98-102]
+p_dir/p_v02/ppp_v02.[098-102].exr z:[98-102]
+c_dir/c_v02/ccc_v02.[098-102].exr z:[98-102]
+n_dir/n_v03/nnn_v03.[098-102].exr z:[98-102]
+b_dir/b_v03/bbb_v03.[098-102].exr z:[98-102]
+p_dir/p_v03/ppp_v03.[098-102].exr z:[98-102]
+c_dir/c_v03/ccc_v03.[098-102].exr z:[98-102]
+
+----- Test 230 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------ Test 229 -+- dir: testdir/gdir -+- lsseq --only-images -----
+----- Test 231 -+- dir: testdir/gdir -+- lsseq --only-images -----
 
------ Test 230 -+- dir: testdir/gdir -+- lsseq --only-movies -----
+----- Test 232 -+- dir: testdir/gdir -+- lsseq --only-movies -----
 xxx01.mov
 xxx02.mov
 
------ Test 231 -+- dir: testdir/gdir -+- lsseq --only-caches -----
+----- Test 233 -+- dir: testdir/gdir -+- lsseq --only-caches -----
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------ Test 232 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
+----- Test 234 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check
 if column-output is correct for the /bin/ls output.
 
------ Test 233 -+- dir: testdir/cdir -+- lsseq / -----
+----- Test 235 -+- dir: testdir/cdir -+- lsseq / -----
 bin
 boot
 dev

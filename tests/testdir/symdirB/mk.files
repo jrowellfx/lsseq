@@ -1,0 +1,35 @@
+#!/bin/bash
+
+top=(a b c)
+symF=(m n p)
+symD=(x y z)
+vers=(v01 v02 v03)
+frames=(098 099 100 101 102)
+
+symFB=`pwd`
+
+len=${#top[@]}
+
+for ((i=0; i<len; i++)); do
+    for v in "${vers[@]}"; do
+        echo mkdir -p ${top[$i]}_dir/${top[$i]}_${v}
+        echo mkdir -p ${symF[$i]}_dir/${symF[$i]}_${v}
+        for f in "${frames[@]}"; do
+            echo touch ${top[$i]}_dir/${top[$i]}_${v}/${top[$i]}${top[$i]}${top[$i]}_${v}.$f.exr
+        done
+        echo cd ${symF[$i]}_dir/${symF[$i]}_${v}
+        for f in "${frames[@]}"; do
+            echo ln -s \
+                ../../${top[$i]}_dir/${top[$i]}_${v}/${top[$i]}${top[$i]}${top[$i]}_${v}.$f.exr \
+                ${symF[$i]}${symF[$i]}${symF[$i]}_${v}.$f.exr
+        done
+        echo cd $symFB
+    done
+    echo cd ${top[$i]}_dir
+    echo ln -s ${v} latest
+    echo cd $symFB
+done
+
+echo ln -s a_dir x_dir
+echo ln -s n_dir y_dir
+echo ln -s c_dir z_dir
