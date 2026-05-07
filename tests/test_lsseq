@@ -589,8 +589,8 @@ testdir/symdirA lsseq -C -R --dereference-command-line-symlink-to-file *
 testdir        lsseq xxx.001.exr
 testdir/symdirA/aaa lsseq aaa.001.exr aaa.002.exr aaa.003.exr aaa.004.exr aaa.005.exr aaa.006.exr aaa.007.exr aaa.008.exr aaa.009.exr aaa.010.exr aaa.011.exr aaa.012.exr aaa.013.exr
 testdir/symdirA lsseq --no-dereference --only-sequences ccc # Should return nothing.
-testdir/symdirB lsseq -R -P --global-sort-by-time --reverse
-testdir/symdirB lsseq -R -P --global-sort-by-time --reverse --dereference-symlink-to-file
+testdir/symdirB lsseq -F -Z -R -P --global-sort-by-time --reverse
+testdir/symdirB lsseq -F -Z -R -P --global-sort-by-time --reverse --dereference-symlink-to-file
 EOFa
 
 cat << EOFb > $tmpTestCmdFileB

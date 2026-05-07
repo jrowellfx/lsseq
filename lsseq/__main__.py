@@ -569,6 +569,12 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
     global gDeRefWhichFiles
 
     fileComponents = splitImageKey(filenameKey)
+    classifyTag = ""
+    seqIsLink = any(t[4] == True for t in frameList)
+    if seqIsLink :
+        seqMixedLink = any(t[4] == False for t in frameList)
+    if seqIsLink and not seqMixedLink and args.classify:
+        classifyTag = "@"
 
     missingFrames = []
     zeroFrames = []
@@ -938,7 +944,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                 fileComponents[KEY_FRAME] = formatStr % minFrame
             print(fileComponents[KEY_NAME],
                 fileComponents[KEY_FRAME], ".",
-                fileComponents[KEY_EXT], sep='', end='')
+                fileComponents[KEY_EXT], classifyTag, sep='', end='')
             #
             if minFrame != maxFrame and args.extremes :
                 print()
@@ -952,7 +958,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                 fileComponents[KEY_FRAME] = formatStr % maxFrame
                 print(fileComponents[KEY_NAME],
                     fileComponents[KEY_FRAME], ".",
-                    fileComponents[KEY_EXT], sep='', end='')
+                    fileComponents[KEY_EXT], classifyTag, sep='', end='')
 
             if args.combineErrorFrames :
                 errFrames = missingFrames + zeroFrames + badFrames + badPadFrames

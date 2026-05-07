@@ -522,11 +522,11 @@ bbb.[001-010].exr
 
 testdir/symdirA/bbb/bbb_aaa:
 foo.05.txt  foobar.05.txt@
-bbb_aaa.[001-010].exr
+bbb_aaa.[001-010].exr@
 
 testdir/symdirA/bbb/bbb_bbb:
 bbb_bbb_ccc@  foo.06.txt  foobar.06.txt@
-bbb_bbb.[001-010].exr
+bbb_bbb.[001-010].exr@
 
 testdir/symdirB:
 a_dir/  c_dir/               file.order.list*       m_dir/     n_dir/  x_dir@  z_dir@
@@ -572,37 +572,37 @@ testdir/symdirB/m_dir:
 m_v01/  m_v02/  m_v03/
 
 testdir/symdirB/m_dir/m_v01:
-mmm_v01.[098-102].exr z:[98-102]
+mmm_v01.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/m_dir/m_v02:
-mmm_v02.[098-102].exr z:[98-102]
+mmm_v02.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/m_dir/m_v03:
-mmm_v03.[098-102].exr z:[98-102]
+mmm_v03.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/n_dir:
 n_v01/  n_v02/  n_v03/
 
 testdir/symdirB/n_dir/n_v01:
-nnn_v01.[098-102].exr z:[98-102]
+nnn_v01.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/n_dir/n_v02:
-nnn_v02.[098-102].exr z:[98-102]
+nnn_v02.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/n_dir/n_v03:
-nnn_v03.[098-102].exr z:[98-102]
+nnn_v03.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/p_dir:
 p_v01/  p_v02/  p_v03/
 
 testdir/symdirB/p_dir/p_v01:
-ppp_v01.[098-102].exr z:[98-102]
+ppp_v01.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/p_dir/p_v02:
-ppp_v02.[098-102].exr z:[98-102]
+ppp_v02.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/p_dir/p_v03:
-ppp_v03.[098-102].exr z:[98-102]
+ppp_v03.[098-102].exr@ z:[98-102]
 --+-- Test 4: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 5 -+- dir: . -+- lsseq -lReC --silent testdir -----
@@ -1822,11 +1822,11 @@ bbb.[001-010].exr
 
 testdir/symdirA/bbb/bbb_aaa:
 foo.05.txt  foobar.05.txt@
-bbb_aaa.[001-010].exr
+bbb_aaa.[001-010].exr@
 
 testdir/symdirA/bbb/bbb_bbb:
 bbb_bbb_ccc@  foo.06.txt  foobar.06.txt@
-bbb_bbb.[001-010].exr
+bbb_bbb.[001-010].exr@
 
 testdir/symdirB:
 a_dir/  c_dir/               file.order.list*       m_dir/     n_dir/  x_dir@  z_dir@
@@ -1872,37 +1872,37 @@ testdir/symdirB/m_dir:
 m_v01/  m_v02/  m_v03/
 
 testdir/symdirB/m_dir/m_v01:
-mmm_v01.[098-102].exr z:[98-102]
+mmm_v01.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/m_dir/m_v02:
-mmm_v02.[098-102].exr z:[98-102]
+mmm_v02.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/m_dir/m_v03:
-mmm_v03.[098-102].exr z:[98-102]
+mmm_v03.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/n_dir:
 n_v01/  n_v02/  n_v03/
 
 testdir/symdirB/n_dir/n_v01:
-nnn_v01.[098-102].exr z:[98-102]
+nnn_v01.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/n_dir/n_v02:
-nnn_v02.[098-102].exr z:[98-102]
+nnn_v02.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/n_dir/n_v03:
-nnn_v03.[098-102].exr z:[98-102]
+nnn_v03.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/p_dir:
 p_v01/  p_v02/  p_v03/
 
 testdir/symdirB/p_dir/p_v01:
-ppp_v01.[098-102].exr z:[98-102]
+ppp_v01.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/p_dir/p_v02:
-ppp_v02.[098-102].exr z:[98-102]
+ppp_v02.[098-102].exr@ z:[98-102]
 
 testdir/symdirB/p_dir/p_v03:
-ppp_v03.[098-102].exr z:[98-102]
+ppp_v03.[098-102].exr@ z:[98-102]
 --+-- Test 8: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 9 -+- dir: . -+- lsseq -lReC testdir -----
@@ -8857,11 +8857,11 @@ bbb.[001-010].exr
 
 ./bbb/bbb_aaa:
 foo.05.txt  foobar.05.txt@
-bbb_aaa.[001-010].exr
+bbb_aaa.[001-010].exr@
 
 ./bbb/bbb_bbb:
 bbb_bbb_ccc@  foo.06.txt  foobar.06.txt@
-bbb_bbb.[001-010].exr
+bbb_bbb.[001-010].exr@
 
 ----- Test 204 -+- dir: testdir/symdirA -+- ls -C -R -L -----
 .:
@@ -9252,45 +9252,45 @@ aaa.[001-013].exr m:[12]
 
 ----- Test 227 -+- dir: testdir/symdirA -+- lsseq --no-dereference --only-sequences ccc -----
 
------ Test 228 -+- dir: testdir/symdirB -+- lsseq -R -P --global-sort-by-time --reverse -----
-a_dir/a_v01/aaa_v01.[098-102].exr z:[98-102]
-b_dir/b_v01/bbb_v01.[098-102].exr z:[98-102]
-c_dir/c_v01/ccc_v01.[098-102].exr z:[98-102]
-a_dir/a_v02/aaa_v02.[098-102].exr z:[98-102]
-a_dir/a_v03/aaa_v03.[098-102].exr z:[98-102]
-b_dir/b_v02/bbb_v02.[098-102].exr z:[98-102]
-c_dir/c_v02/ccc_v02.[098-102].exr z:[98-102]
-b_dir/b_v03/bbb_v03.[098-102].exr z:[98-102]
-c_dir/c_v03/ccc_v03.[098-102].exr z:[98-102]
-p_dir/p_v01/ppp_v01.[098-102].exr z:[98-102]
-p_dir/p_v02/ppp_v02.[098-102].exr z:[98-102]
-p_dir/p_v03/ppp_v03.[098-102].exr z:[98-102]
-n_dir/n_v01/nnn_v01.[098-102].exr z:[98-102]
-n_dir/n_v02/nnn_v02.[098-102].exr z:[98-102]
-n_dir/n_v03/nnn_v03.[098-102].exr z:[98-102]
-m_dir/m_v01/mmm_v01.[098-102].exr z:[98-102]
-m_dir/m_v02/mmm_v02.[098-102].exr z:[98-102]
-m_dir/m_v03/mmm_v03.[098-102].exr z:[98-102]
+----- Test 228 -+- dir: testdir/symdirB -+- lsseq -F -Z -R -P --global-sort-by-time --reverse -----
+a_dir/a_v01/aaa_v01.[098-102].exr
+b_dir/b_v01/bbb_v01.[098-102].exr
+c_dir/c_v01/ccc_v01.[098-102].exr
+a_dir/a_v02/aaa_v02.[098-102].exr
+a_dir/a_v03/aaa_v03.[098-102].exr
+b_dir/b_v02/bbb_v02.[098-102].exr
+c_dir/c_v02/ccc_v02.[098-102].exr
+b_dir/b_v03/bbb_v03.[098-102].exr
+c_dir/c_v03/ccc_v03.[098-102].exr
+p_dir/p_v01/ppp_v01.[098-102].exr@
+p_dir/p_v02/ppp_v02.[098-102].exr@
+p_dir/p_v03/ppp_v03.[098-102].exr@
+n_dir/n_v01/nnn_v01.[098-102].exr@
+n_dir/n_v02/nnn_v02.[098-102].exr@
+n_dir/n_v03/nnn_v03.[098-102].exr@
+m_dir/m_v01/mmm_v01.[098-102].exr@
+m_dir/m_v02/mmm_v02.[098-102].exr@
+m_dir/m_v03/mmm_v03.[098-102].exr@
 
------ Test 229 -+- dir: testdir/symdirB -+- lsseq -R -P --global-sort-by-time --reverse --dereference-symlink-to-file -----
-m_dir/m_v01/mmm_v01.[098-102].exr z:[98-102]
-a_dir/a_v01/aaa_v01.[098-102].exr z:[98-102]
-n_dir/n_v01/nnn_v01.[098-102].exr z:[98-102]
-b_dir/b_v01/bbb_v01.[098-102].exr z:[98-102]
-p_dir/p_v01/ppp_v01.[098-102].exr z:[98-102]
-c_dir/c_v01/ccc_v01.[098-102].exr z:[98-102]
-m_dir/m_v02/mmm_v02.[098-102].exr z:[98-102]
-a_dir/a_v02/aaa_v02.[098-102].exr z:[98-102]
-m_dir/m_v03/mmm_v03.[098-102].exr z:[98-102]
-a_dir/a_v03/aaa_v03.[098-102].exr z:[98-102]
-n_dir/n_v02/nnn_v02.[098-102].exr z:[98-102]
-b_dir/b_v02/bbb_v02.[098-102].exr z:[98-102]
-p_dir/p_v02/ppp_v02.[098-102].exr z:[98-102]
-c_dir/c_v02/ccc_v02.[098-102].exr z:[98-102]
-n_dir/n_v03/nnn_v03.[098-102].exr z:[98-102]
-b_dir/b_v03/bbb_v03.[098-102].exr z:[98-102]
-p_dir/p_v03/ppp_v03.[098-102].exr z:[98-102]
-c_dir/c_v03/ccc_v03.[098-102].exr z:[98-102]
+----- Test 229 -+- dir: testdir/symdirB -+- lsseq -F -Z -R -P --global-sort-by-time --reverse --dereference-symlink-to-file -----
+m_dir/m_v01/mmm_v01.[098-102].exr@
+a_dir/a_v01/aaa_v01.[098-102].exr
+n_dir/n_v01/nnn_v01.[098-102].exr@
+b_dir/b_v01/bbb_v01.[098-102].exr
+p_dir/p_v01/ppp_v01.[098-102].exr@
+c_dir/c_v01/ccc_v01.[098-102].exr
+m_dir/m_v02/mmm_v02.[098-102].exr@
+a_dir/a_v02/aaa_v02.[098-102].exr
+m_dir/m_v03/mmm_v03.[098-102].exr@
+a_dir/a_v03/aaa_v03.[098-102].exr
+n_dir/n_v02/nnn_v02.[098-102].exr@
+b_dir/b_v02/bbb_v02.[098-102].exr
+p_dir/p_v02/ppp_v02.[098-102].exr@
+c_dir/c_v02/ccc_v02.[098-102].exr
+n_dir/n_v03/nnn_v03.[098-102].exr@
+b_dir/b_v03/bbb_v03.[098-102].exr
+p_dir/p_v03/ppp_v03.[098-102].exr@
+c_dir/c_v03/ccc_v03.[098-102].exr
 
 ----- Test 230 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
