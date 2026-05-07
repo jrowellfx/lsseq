@@ -1,0 +1,21 @@
+[
+('aaa..exr', 61552802, './aaa/'),
+('aaa..exr', 61552802, './bbb/bbb_bbb/bbb_bbb_ccc/'),
+('aaa..exr', 61552802, './bbb/bbb_ccc/'),
+('aaa..exr', 61552802, './ccc/'),
+('aaa_aaa..exr', 61552812, './aaa/aaa_aaa/'),
+('aaa_aaa..exr', 61552812, './aaa/aaa_ccc/'),
+('aaa_aaa..exr', 61552812, './bbb/bbb_bbb/bbb_bbb_ccc/aaa_aaa/'),
+('aaa_aaa..exr', 61552812, './bbb/bbb_bbb/bbb_bbb_ccc/aaa_ccc/'),
+('aaa_aaa..exr', 61552812, './bbb/bbb_ccc/aaa_aaa/'),
+('aaa_aaa..exr', 61552812, './bbb/bbb_ccc/aaa_ccc/'),
+('aaa_aaa..exr', 61552812, './ccc/aaa_aaa/'),
+('aaa_aaa..exr', 61552812, './ccc/aaa_ccc/'),
+('aaa_bbb..exr', 61552823, './aaa/aaa_bbb/'),
+('aaa_bbb..exr', 61552823, './bbb/bbb_bbb/bbb_bbb_ccc/aaa_bbb/'),
+('aaa_bbb..exr', 61552823, './bbb/bbb_ccc/aaa_bbb/'),
+('aaa_bbb..exr', 61552823, './ccc/aaa_bbb/'),
+('bbb..exr', 61552835, './bbb/'),
+('bbb_aaa..exr', 1012521614, './bbb/bbb_aaa/'),
+('bbb_bbb..exr', 1012521625, './bbb/bbb_bbb/')
+]

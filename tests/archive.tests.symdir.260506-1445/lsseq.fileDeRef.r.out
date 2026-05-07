@@ -1,0 +1,19 @@
+ccc/aaa.[001-013].exr m:[12]
+bbb/bbb_ccc/aaa.[001-013].exr m:[12]
+bbb/bbb_bbb/bbb_bbb_ccc/aaa.[001-013].exr m:[12]
+aaa/aaa.[001-013].exr m:[12]
+ccc/aaa_ccc/aaa_aaa.[001-010].exr
+ccc/aaa_aaa/aaa_aaa.[001-010].exr
+bbb/bbb_ccc/aaa_ccc/aaa_aaa.[001-010].exr
+bbb/bbb_ccc/aaa_aaa/aaa_aaa.[001-010].exr
+bbb/bbb_bbb/bbb_bbb_ccc/aaa_ccc/aaa_aaa.[001-010].exr
+bbb/bbb_bbb/bbb_bbb_ccc/aaa_aaa/aaa_aaa.[001-010].exr
+bbb/bbb_bbb/bbb_bbb.[001-010].exr
+aaa/aaa_ccc/aaa_aaa.[001-010].exr
+aaa/aaa_aaa/aaa_aaa.[001-010].exr
+ccc/aaa_bbb/aaa_bbb.[001-010].exr
+bbb/bbb_ccc/aaa_bbb/aaa_bbb.[001-010].exr
+bbb/bbb_bbb/bbb_bbb_ccc/aaa_bbb/aaa_bbb.[001-010].exr
+aaa/aaa_bbb/aaa_bbb.[001-010].exr
+bbb/bbb_aaa/bbb_aaa.[001-010].exr
+bbb/bbb.[001-010].exr

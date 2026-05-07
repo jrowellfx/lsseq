@@ -1,0 +1,8 @@
+ls -t -l -H --time-style="+%Y-%m-%d %H:%M:%S" `cat files.list` > ls.H.out
+
+ltr  -F --time-style="+%Y-%m-%d %H:%M:%S" `cat files.list` > ls.notH.r.out
+
+lsseq -R -G -P -r --dereference-symlink-to-dir > lsseq.noFileDeRef.r.out
+
+lsseq -R -G -P --dereference > lsseq.fileDeRef.out
+

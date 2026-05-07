@@ -441,10 +441,14 @@ def isMovie(filename) :
     return len(fileComponents) > 1 \
         and fileComponents[-1].lower() in gMovieExtList
 
+KEY_NAME  = 0
+KEY_FRAME = 1
+KEY_EXT   = 2
+#
 # Split the filename dictionary KEY into (<imagename>, "", <ext>)
 # (empty placeholder for framenum)
 #
-def splitImageName(filenameKey) :
+def splitImageKey(filenameKey) :
     numSep = "."
     fileComponents = splitFileComponents(filenameKey)
     if fileComponents[-2] == '' : # because ".." left a blank.
@@ -461,17 +465,17 @@ def splitImageName(filenameKey) :
 # is a cache sequence (as opposed to an images sequence).
 #
 def isCache(keyName) :
-    splitName = splitImageName(keyName)
+    splitKey = splitImageKey(keyName)
     # use of lower() allows us to ignore case of extensions.
-    return splitName[-1].lower() in gCacheExtList
+    return splitKey[-1].lower() in gCacheExtList
 
 # Reconstruct the imagename with the frame number
 # from the dictionary key..
 #
 def actualImageName(filenameKey, padding, frame) :
-    fileParts = splitImageName(filenameKey)
+    fileParts = splitImageKey(filenameKey)
     formatStr = "{0:0=-" + str(padding) + "d}"
-    return fileParts[0] + formatStr.format(frame) + "." + fileParts[2]
+    return fileParts[KEY_NAME] + formatStr.format(frame) + "." + fileParts[KEY_EXT]
 
 # Given the string "seq" then extract two integers for the start
 # and end frames and return them as a two-tuple.
@@ -547,7 +551,6 @@ def extractStartEnd(seq) :
 
     return (start, end)
 
-
 # Prints an individual sequence based on cmd-line-args.
 # frameList comes in sorted from smallest frame number to largest.
 #
@@ -565,7 +568,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
     global gListWhichFiles
     global gDeRefWhichFiles
 
-    fileComponents = splitImageName(filenameKey)
+    fileComponents = splitImageKey(filenameKey)
 
     missingFrames = []
     zeroFrames = []
@@ -614,14 +617,14 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                 sys.stderr.flush()
                 print(PROG_NAME, ": warning: ",
                     end='', sep='', file=sys.stderr)
-                if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+                if args.prependPath != PATH_NOPREFIX and fileComponents[KEY_NAME][0] != '/' :
                     print("sequence: ", traversedPath, sep='', end='', file=sys.stderr)
-                    print(fileComponents[0][:-1], ", frame ", frameList[i][FRAME_NUM],
+                    print(fileComponents[KEY_NAME][:-1], ", frame ", frameList[i][FRAME_NUM],
                         ", has duplicate entries: ",
                         os.path.basename(actualFilename), " and ", os.path.basename(duplicateFilename),
                         sep='', file=sys.stderr)
                 else :
-                    print("sequence ", fileComponents[0][:-1], ", frame ", frameList[i][FRAME_NUM],
+                    print("sequence ", fileComponents[KEY_NAME][:-1], ", frame ", frameList[i][FRAME_NUM],
                         ", has duplicate entries: ",
                         actualFilename, " and ", duplicateFilename,
                         sep='', file=sys.stderr)
@@ -680,7 +683,7 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                     sys.stderr.flush()
                     print(PROG_NAME, ": warning: ",
                         end='', sep='', file=sys.stderr)
-                    if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+                    if args.prependPath != PATH_NOPREFIX and fileComponents[KEY_NAME][0] != '/' :
                         print(traversedPath, sep='', end='', file=sys.stderr)
                         print(os.path.basename(actualFilename),
                             " is a broken soft link", sep='', file=sys.stderr)
@@ -789,17 +792,19 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
         #
         if args.seqFormat == 'nuke' :
             if minFrame == maxFrame :
-                fileComponents[1] = (formatStr % minFrame)
+                fileComponents[KEY_FRAME] = (formatStr % minFrame)
             else :
-                fileComponents[1] = "%0" + str(padding) + "d"
-            if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+                fileComponents[KEY_FRAME] = "%0" + str(padding) + "d"
+            if args.prependPath != PATH_NOPREFIX and fileComponents[KEY_NAME][0] != '/' :
                 # Strip off any leading "./" from traversedPath. (added v3.0.1)
                 #
                 if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
                     sys.stdout.write(traversedPath[2:])
                 else :
                     sys.stdout.write(traversedPath)
-            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
+            print(fileComponents[KEY_NAME],
+                fileComponents[KEY_FRAME], ".",
+                fileComponents[KEY_EXT], sep='', end='')
             if minFrame == maxFrame :
                 print()
             else :
@@ -823,14 +828,14 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
 
         elif args.seqFormat == 'shake' :
             if minFrame == maxFrame :
-                fileComponents[1] = (formatStr % minFrame)
+                fileComponents[KEY_FRAME] = (formatStr % minFrame)
             else :
                 if padding == 4 :
-                    fileComponents[1] = "#"
+                    fileComponents[KEY_FRAME] = "#"
                 else :
-                    fileComponents[1] = "@"*padding
+                    fileComponents[KEY_FRAME] = "@"*padding
 
-            if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+            if args.prependPath != PATH_NOPREFIX and fileComponents[KEY_NAME][0] != '/' :
                 # Strip off any leading "./" from traversedPath. (added v3.0.1)
                 #
                 if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
@@ -838,7 +843,9 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                 else :
                     sys.stdout.write(traversedPath)
 
-            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
+            print(fileComponents[KEY_NAME],
+                fileComponents[KEY_FRAME], ".",
+                fileComponents[KEY_EXT], sep='', end='')
             if minFrame == maxFrame :
                 print("")
             else :
@@ -846,38 +853,42 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
 
         elif args.seqFormat == 'glob' :
             if minFrame < 0 :
-                fileComponents[1] = "[\-0-9]"
+                fileComponents[KEY_FRAME] = "[\-0-9]"
             else :
-                fileComponents[1] = "[0-9]"
+                fileComponents[KEY_FRAME] = "[0-9]"
             if padding > 1 :
-                fileComponents[1] = fileComponents[1] + "[0-9]"*(padding-1)
+                fileComponents[KEY_FRAME] = fileComponents[KEY_FRAME] + "[0-9]"*(padding-1)
 
-            if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+            if args.prependPath != PATH_NOPREFIX and fileComponents[KEY_NAME][0] != '/' :
                 # Strip off any leading "./" from traversedPath. (added v3.0.1)
                 #
                 if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
                     sys.stdout.write(traversedPath[2:])
                 else :
                     sys.stdout.write(traversedPath)
-            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
+            print(fileComponents[KEY_NAME],
+                fileComponents[KEY_FRAME], ".",
+                fileComponents[KEY_EXT], sep='')
 
         elif args.seqFormat == 'houdini' or args.seqFormat == 'mplay' :
             if minFrame == maxFrame :
-                fileComponents[1] = (formatStr % minFrame)
+                fileComponents[KEY_FRAME] = (formatStr % minFrame)
             else :
-                fileComponents[1] = "$F"
+                fileComponents[KEY_FRAME] = "$F"
                 if args.seqFormat == 'mplay' :
-                    fileComponents[1] = "\$F"
+                    fileComponents[KEY_FRAME] = "\$F"
                 if padding >= 2 :
-                    fileComponents[1] += str(padding)
-            if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+                    fileComponents[KEY_FRAME] += str(padding)
+            if args.prependPath != PATH_NOPREFIX and fileComponents[KEY_NAME][0] != '/' :
                 # Strip off any leading "./" from traversedPath. (added v3.0.1)
                 #
                 if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
                     sys.stdout.write(traversedPath[2:])
                 else :
                     sys.stdout.write(traversedPath)
-            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
+            print(fileComponents[KEY_NAME],
+                fileComponents[KEY_FRAME], ".",
+                fileComponents[KEY_EXT], sep='')
 
         elif args.seqFormat == 'rv' :
             if minFrame == maxFrame :
@@ -887,16 +898,18 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                 if padding == 4 :
                     padStr = '#'
                 frameRange = str(minFrame) + "-" + str(maxFrame) + padStr
-            fileComponents[1] = frameRange
+            fileComponents[KEY_FRAME] = frameRange
 
-            if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+            if args.prependPath != PATH_NOPREFIX and fileComponents[KEY_NAME][0] != '/' :
                 # Strip off any leading "./" from traversedPath. (added v3.0.1)
                 #
                 if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
                     sys.stdout.write(traversedPath[2:])
                 else :
                     sys.stdout.write(traversedPath)
-            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='')
+            print(fileComponents[KEY_NAME],
+                fileComponents[KEY_FRAME], ".",
+                fileComponents[KEY_EXT], sep='')
 
         else : # native
 
@@ -910,9 +923,9 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                     + "-" \
                     + (formatStr % maxFrame) \
                     + "]"
-            fileComponents[1] = frameRange
+            fileComponents[KEY_FRAME] = frameRange
 
-            if args.prependPath != PATH_NOPREFIX and fileComponents[0][0] != '/' :
+            if args.prependPath != PATH_NOPREFIX and fileComponents[KEY_NAME][0] != '/' :
 
                 # Strip off any leading "./" from traversedPath. (added v3.0.1)
                 #
@@ -922,20 +935,24 @@ def printSeq(filenameKey, frameList, args, traversedPath) :
                     sys.stdout.write(traversedPath)
 
             if args.extremes :
-                fileComponents[1] = formatStr % minFrame
-            print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
+                fileComponents[KEY_FRAME] = formatStr % minFrame
+            print(fileComponents[KEY_NAME],
+                fileComponents[KEY_FRAME], ".",
+                fileComponents[KEY_EXT], sep='', end='')
             #
             if minFrame != maxFrame and args.extremes :
                 print()
-                if fileComponents[0][0] != '/' :
+                if fileComponents[KEY_NAME][0] != '/' :
                     # Strip off any leading "./" from traversedPath. (added v3.0.1)
                     #
                     if len(traversedPath) > 1 and traversedPath[0:2] == "./" :
                         sys.stdout.write(traversedPath[2:])
                     else :
                         sys.stdout.write(traversedPath)
-                fileComponents[1] = formatStr % maxFrame
-                print(fileComponents[0], fileComponents[1], ".", fileComponents[2], sep='', end='')
+                fileComponents[KEY_FRAME] = formatStr % maxFrame
+                print(fileComponents[KEY_NAME],
+                    fileComponents[KEY_FRAME], ".",
+                    fileComponents[KEY_EXT], sep='', end='')
 
             if args.combineErrorFrames :
                 errFrames = missingFrames + zeroFrames + badFrames + badPadFrames
@@ -1185,9 +1202,10 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                         realFilename = os.path.realpath(filename)
                         isFileLink = os.path.islink(filename)
 
-                        # Note: the size of a frame is only useful for
-                        # checking for "badFrames" so not helpful to
-                        # store the size of a link. Always store real-size.
+                        # Note: the size of a frame is useful for
+                        # checking for "badFrames" and zero-length frames
+                        # so not helpful to store the size of a link.
+                        # Always store the real-size of the target file.
                         #
                         newFrameSize = os.path.getsize(realFilename)
 
@@ -1197,12 +1215,6 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                         # it might be helpful to know when a linked-sequence
                         # was made compared to other sequences.
                         #
-                        ### JPR DEBUG
-                        ### print("Debug 01: filename: ", filename,
-                        ###     ", isFileLink: ",
-                        ###     bool(isFileLink),
-                        ###     ", not deRefFiles: ",
-                        ###     bool(not deRefFiles(isCmdLineArg)), sep='')
                         if isFileLink and not deRefFiles(isCmdLineArg):
                             newFrameMTime = os.lstat(filename).st_mtime
                         else :
@@ -1479,11 +1491,36 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                     gCacheDictionary[gDictKey] = cacheDictionary[seq[DICTKEY]]
                 else :
                     gImageDictionary[gDictKey] = imageDictionary[seq[DICTKEY]]
-        else :
-            timeList.sort(key=itemgetter(MTIME, DICTKEY)) # Sorts by time, 2nd by key.
-            # Note: ls -t prints newest first; ls -tr is newest last.
-            if not args.reverseListing :
-                timeList.reverse()
+
+        else : # Local sort
+            #
+            # Note:
+            #
+            #   '/bin/ls -t'  prints newest first;
+            #   '/bin/ls -tr' prints newest last.
+            #
+            # Therefor we DO NOT want to reverse the sort order
+            # of python's list.sort() when --reverse is invoked.
+            # Otherwise we DO want to reverse the sort.
+            #
+            # Further note: Since Python's list sort is stable, i.e.,
+            # meaning it preserves the original order of elements with
+            # equal keys, we start sorting with the least significant keys.
+            #
+            # Then the following logic reproduces how /bin/ls sorts entries
+            # with equal times.
+            #
+            # Lastly this careful attention detail will likely ONLY be apparent
+            # when globally sorting a bunch of sym-linked sequences that happen
+            # to point to the same target files and --dereference is invoked.
+            #
+            if args.reverseListing :
+                timeList.sort(key=itemgetter(DICTKEY), reverse=True) # Sort by DICTKEY
+                timeList.sort(key=itemgetter(MTIME), reverse=False) # Last, and mainly, MTIME.
+            else :
+                timeList.sort(key=itemgetter(DICTKEY), reverse=False) # Sort by DICTKEY
+                timeList.sort(key=itemgetter(MTIME), reverse=True) # Last, and mainly, MTIME.
+
             for seq in timeList :
                 if args.cutoffTime != None :
                     if args.cutoffTime[0] == 'before' :
@@ -2070,13 +2107,18 @@ def main() :
         elif listOpts == ARG_LIST_NO_DEREF_FILE:
             gDeRefWhichFiles = (gListWhichFiles & (0b1111 ^ DEREF_FILES))
 
-    # Do not want to follow symbolic links if --classify/-F or
-    # --directory/-d invoked on the command line.
-    # Note the use of these options TRUMPS any of the prior options
-    # for whether or not to follow sym-links.
+    # We do not want to follow symbolic links to directories if
+    # --classify/-F or --directory/-d invoked on the command line.
+    #
+    # Note: --classify may or may not follow symbolic links to 
+    # regular-files depending on --dereference-symlink-to-file et al,
+    # but regardless we WILL show an "@" symbol attached to the seq-listing
+    # to follow the convention of the --classify option.
     #
     if args.classify or not args.listDirContents :
-        gDeRefWhichFiles = DEREF_NONE
+        # Following logic turns off dereferencing directories.
+        #
+        gDeRefWhichFiles = (gDeRefWhichFiles & (DEREF_DIRS ^ 0b1111))
 
     if args.prependPath == PATH_REL or args.prependPath == PATH_ABS :
         gListWhichFiles = (gListWhichFiles & LIST_NOT_OTHER)
@@ -2193,10 +2235,6 @@ def main() :
     # to print the directory name before listing the contents (unless
     # it is a recursive listing).  (/bin/ls behavior.)
     #
-    #
-    # Let the next "else" section of the code handle args.prependPath == PATH_REL or PATH_ABS
-    ### elif len(args.files) == 1 and os.path.isdir(args.files[0]) and args.prependPath == PATH_NOPREFIX :
-    #
     elif len(args.files) == 1 \
             and (  (os.path.isdir(args.files[0]) and not os.path.islink(args.files[0])) \
                 or (os.path.isdir(args.files[0]) and os.path.islink(args.files[0])) and deRefDirs(True))\
@@ -2255,11 +2293,7 @@ def main() :
     # since this option is turned OFF if this is not the case.
     #
     if args.globalSortByTime :
-
-        ### gTimeList.sort(key=itemgetter(MTIME)) # Sorts by time.
-        ### if not args.reverseListing :
-        ###     gTimeList.reverse()
-
+        #
         # Note:
         #
         #   '/bin/ls -t'  prints newest first;
