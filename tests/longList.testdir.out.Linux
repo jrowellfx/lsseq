@@ -2369,73 +2369,85 @@
 1971-12-14 10:00:00 symdirA/aaa/aaa.010.exr
 1971-12-14 10:00:01 symdirA/aaa/aaa.011.exr
 1971-12-14 10:00:02 symdirA/aaa/aaa.013.exr
-1971-12-14 10:00:03 symdirA/aaa/aaa_aaa/aaa_aaa.001.exr
-1971-12-14 10:00:04 symdirA/aaa/aaa_aaa/aaa_aaa.002.exr
-1971-12-14 10:00:05 symdirA/aaa/aaa_aaa/aaa_aaa.003.exr
-1971-12-14 10:00:06 symdirA/aaa/aaa_aaa/aaa_aaa.004.exr
-1971-12-14 10:00:07 symdirA/aaa/aaa_aaa/aaa_aaa.005.exr
-1971-12-14 10:00:08 symdirA/aaa/aaa_aaa/aaa_aaa.006.exr
-1971-12-14 10:00:09 symdirA/aaa/aaa_aaa/aaa_aaa.007.exr
-1971-12-14 10:00:10 symdirA/aaa/aaa_aaa/aaa_aaa.008.exr
-1971-12-14 10:00:11 symdirA/aaa/aaa_aaa/aaa_aaa.009.exr
-1971-12-14 10:00:12 symdirA/aaa/aaa_aaa/aaa_aaa.010.exr
-1971-12-14 10:00:13 symdirA/aaa/aaa_aaa/foo.02.txt
-1971-12-14 10:00:14 symdirA/aaa/aaa_bbb/aaa_bbb.001.exr
-1971-12-14 10:00:15 symdirA/aaa/aaa_bbb/aaa_bbb.002.exr
-1971-12-14 10:00:16 symdirA/aaa/aaa_bbb/aaa_bbb.003.exr
-1971-12-14 10:00:17 symdirA/aaa/aaa_bbb/aaa_bbb.004.exr
-1971-12-14 10:00:18 symdirA/aaa/aaa_bbb/aaa_bbb.005.exr
-1971-12-14 10:00:19 symdirA/aaa/aaa_bbb/aaa_bbb.006.exr
-1971-12-14 10:00:20 symdirA/aaa/aaa_bbb/aaa_bbb.007.exr
-1971-12-14 10:00:21 symdirA/aaa/aaa_bbb/aaa_bbb.008.exr
-1971-12-14 10:00:22 symdirA/aaa/aaa_bbb/aaa_bbb.009.exr
-1971-12-14 10:00:23 symdirA/aaa/aaa_bbb/aaa_bbb.010.exr
-1971-12-14 10:00:24 symdirA/aaa/aaa_bbb/foo.03.txt
-1971-12-14 10:00:25 symdirA/aaa/foo.01.txt
-1971-12-14 10:00:26 symdirA/bbb/bbb.001.exr
-1971-12-14 10:00:27 symdirA/bbb/bbb.002.exr
-1971-12-14 10:00:28 symdirA/bbb/bbb.003.exr
-1971-12-14 10:00:29 symdirA/bbb/bbb.004.exr
-1971-12-14 10:00:30 symdirA/bbb/bbb.005.exr
-1971-12-14 10:00:31 symdirA/bbb/bbb.006.exr
-1971-12-14 10:00:32 symdirA/bbb/bbb.007.exr
-1971-12-14 10:00:33 symdirA/bbb/bbb.008.exr
-1971-12-14 10:00:34 symdirA/bbb/bbb.009.exr
-1971-12-14 10:00:35 symdirA/bbb/bbb.010.exr
-1971-12-14 10:00:36 symdirA/bbb/bbb_aaa/foo.05.txt
-1971-12-14 10:00:37 symdirA/bbb/bbb_bbb/foo.06.txt
-1971-12-14 10:00:38 symdirA/bbb/foo.04.txt
-1971-12-14 10:00:39 symdirA/foo.00.txt
-1971-12-14 10:01:25 symdirB/custom.touch.files
-1971-12-14 10:01:26 symdirB/file.order.list
-1971-12-14 10:01:27 symdirB/initial.image.mtimes
-1971-12-14 10:01:28 symdirB/mk.files
-1971-12-14 10:01:29 testDirFile.001.exr
-1971-12-14 10:01:30 testDirFile.002.exr
-1971-12-14 10:01:31 testDirFile.004.exr
-1971-12-14 10:01:32 testDirFile.005.exr
-1971-12-14 10:01:33 testDirFile.006.exr
-1971-12-14 10:01:34 testDirFile.007.exr
-1971-12-14 10:01:35 testDirFile.008.exr
-1971-12-14 10:01:36 testDirFile.009.exr
-1971-12-14 10:01:37 testDirFile.010.exr
-1971-12-14 10:01:38 testDirFile.011.exr
-1971-12-14 10:01:39 testDirFile.012.exr
-1971-12-14 10:01:40 testDirFile.mov
-1971-12-14 10:01:41 testDirFile.wmv
-1971-12-14 10:01:42 www..exr
-1971-12-14 10:01:43 xxx.000.exr
-1971-12-14 10:01:44 xxx.002.exr
-1971-12-14 10:01:45 xxx.004.exr
-1971-12-14 10:01:46 xxx.006.exr
-1971-12-14 10:01:47 xxx.008.exr
-1971-12-14 10:01:48 xxx.010.exr
-1971-12-14 10:01:49 xxx.012.exr
-1971-12-14 10:01:50 xxx.014.exr
-1971-12-14 10:01:51 xxx.016.exr
-1971-12-14 10:01:52 xxx.mov
-1971-12-14 10:01:53 yyy.0123.tif
-1971-12-14 10:01:54 yyy.mov
+1971-12-14 10:00:03 symdirA/aaa/aaa.mov
+1971-12-14 10:00:04 symdirA/aaa/aaa_aaa/aaa_aaa.001.ass
+1971-12-14 10:00:05 symdirA/aaa/aaa_aaa/aaa_aaa.001.exr
+1971-12-14 10:00:06 symdirA/aaa/aaa_aaa/aaa_aaa.002.ass
+1971-12-14 10:00:07 symdirA/aaa/aaa_aaa/aaa_aaa.002.exr
+1971-12-14 10:00:08 symdirA/aaa/aaa_aaa/aaa_aaa.003.ass
+1971-12-14 10:00:09 symdirA/aaa/aaa_aaa/aaa_aaa.003.exr
+1971-12-14 10:00:10 symdirA/aaa/aaa_aaa/aaa_aaa.004.ass
+1971-12-14 10:00:11 symdirA/aaa/aaa_aaa/aaa_aaa.004.exr
+1971-12-14 10:00:12 symdirA/aaa/aaa_aaa/aaa_aaa.005.ass
+1971-12-14 10:00:13 symdirA/aaa/aaa_aaa/aaa_aaa.005.exr
+1971-12-14 10:00:14 symdirA/aaa/aaa_aaa/aaa_aaa.006.ass
+1971-12-14 10:00:15 symdirA/aaa/aaa_aaa/aaa_aaa.006.exr
+1971-12-14 10:00:16 symdirA/aaa/aaa_aaa/aaa_aaa.007.ass
+1971-12-14 10:00:17 symdirA/aaa/aaa_aaa/aaa_aaa.007.exr
+1971-12-14 10:00:18 symdirA/aaa/aaa_aaa/aaa_aaa.008.ass
+1971-12-14 10:00:19 symdirA/aaa/aaa_aaa/aaa_aaa.008.exr
+1971-12-14 10:00:20 symdirA/aaa/aaa_aaa/aaa_aaa.009.ass
+1971-12-14 10:00:21 symdirA/aaa/aaa_aaa/aaa_aaa.009.exr
+1971-12-14 10:00:22 symdirA/aaa/aaa_aaa/aaa_aaa.010.ass
+1971-12-14 10:00:23 symdirA/aaa/aaa_aaa/aaa_aaa.010.exr
+1971-12-14 10:00:24 symdirA/aaa/aaa_aaa/foo.02.txt
+1971-12-14 10:00:25 symdirA/aaa/aaa_bbb/aaa_bbb.001.exr
+1971-12-14 10:00:26 symdirA/aaa/aaa_bbb/aaa_bbb.002.exr
+1971-12-14 10:00:27 symdirA/aaa/aaa_bbb/aaa_bbb.003.exr
+1971-12-14 10:00:28 symdirA/aaa/aaa_bbb/aaa_bbb.004.exr
+1971-12-14 10:00:29 symdirA/aaa/aaa_bbb/aaa_bbb.005.exr
+1971-12-14 10:00:30 symdirA/aaa/aaa_bbb/aaa_bbb.006.exr
+1971-12-14 10:00:31 symdirA/aaa/aaa_bbb/aaa_bbb.007.exr
+1971-12-14 10:00:32 symdirA/aaa/aaa_bbb/aaa_bbb.008.exr
+1971-12-14 10:00:33 symdirA/aaa/aaa_bbb/aaa_bbb.009.exr
+1971-12-14 10:00:34 symdirA/aaa/aaa_bbb/aaa_bbb.010.exr
+1971-12-14 10:00:35 symdirA/aaa/aaa_bbb/foo.03.txt
+1971-12-14 10:00:36 symdirA/aaa/foo.01.txt
+1971-12-14 10:00:37 symdirA/bbb/bbb.001.exr
+1971-12-14 10:00:38 symdirA/bbb/bbb.002.exr
+1971-12-14 10:00:39 symdirA/bbb/bbb.003.exr
+1971-12-14 10:00:40 symdirA/bbb/bbb.004.exr
+1971-12-14 10:00:41 symdirA/bbb/bbb.005.exr
+1971-12-14 10:00:42 symdirA/bbb/bbb.006.exr
+1971-12-14 10:00:43 symdirA/bbb/bbb.007.exr
+1971-12-14 10:00:44 symdirA/bbb/bbb.008.exr
+1971-12-14 10:00:45 symdirA/bbb/bbb.009.exr
+1971-12-14 10:00:46 symdirA/bbb/bbb.010.exr
+1971-12-14 10:00:47 symdirA/bbb/bbb_aaa/foo.05.txt
+1971-12-14 10:00:48 symdirA/bbb/bbb_bbb/foo.06.txt
+1971-12-14 10:00:49 symdirA/bbb/foo.04.txt
+1971-12-14 10:00:50 symdirA/ddd.mov
+1971-12-14 10:00:51 symdirA/foo.00.txt
+1971-12-14 10:01:37 symdirB/custom.touch.files
+1971-12-14 10:01:38 symdirB/file.order.list
+1971-12-14 10:01:39 symdirB/initial.image.mtimes
+1971-12-14 10:01:40 symdirB/mk.files
+1971-12-14 10:01:41 testDirFile.001.exr
+1971-12-14 10:01:42 testDirFile.002.exr
+1971-12-14 10:01:43 testDirFile.004.exr
+1971-12-14 10:01:44 testDirFile.005.exr
+1971-12-14 10:01:45 testDirFile.006.exr
+1971-12-14 10:01:46 testDirFile.007.exr
+1971-12-14 10:01:47 testDirFile.008.exr
+1971-12-14 10:01:48 testDirFile.009.exr
+1971-12-14 10:01:49 testDirFile.010.exr
+1971-12-14 10:01:50 testDirFile.011.exr
+1971-12-14 10:01:51 testDirFile.012.exr
+1971-12-14 10:01:52 testDirFile.mov
+1971-12-14 10:01:53 testDirFile.wmv
+1971-12-14 10:01:54 www..exr
+1971-12-14 10:01:55 xxx.000.exr
+1971-12-14 10:01:56 xxx.002.exr
+1971-12-14 10:01:57 xxx.004.exr
+1971-12-14 10:01:58 xxx.006.exr
+1971-12-14 10:01:59 xxx.008.exr
+1971-12-14 10:02:00 xxx.010.exr
+1971-12-14 10:02:01 xxx.012.exr
+1971-12-14 10:02:02 xxx.014.exr
+1971-12-14 10:02:03 xxx.016.exr
+1971-12-14 10:02:04 xxx.mov
+1971-12-14 10:02:05 yyy.0123.tif
+1971-12-14 10:02:06 yyy.mov
 1971-12-14 12:00:00 idir
 1971-12-14 12:00:00 idir/v002
 1971-12-14 12:00:00 jdir/j03/j04.005.jpg -> missing.jpg
@@ -2521,43 +2533,55 @@
 1987-06-15 12:01:39 symdirB/p_dir/p_v01
 1987-06-15 12:01:40 symdirB/p_dir/p_v02
 1987-06-15 12:01:41 symdirB/p_dir/p_v03
-2002-02-01 00:00:01 symdirA/aaa/aaa_aaa/foobar.02.txt -> foo.02.txt
-2002-02-01 00:00:02 symdirA/aaa/aaa_bbb/foobar.03.txt -> foo.03.txt
-2002-02-01 00:00:03 symdirA/aaa/aaa_ccc -> aaa_aaa
-2002-02-01 00:00:04 symdirA/aaa/foobar.01.txt -> foo.01.txt
-2002-02-01 00:00:05 symdirA/bbb/bbb_aaa/bbb_aaa.001.exr -> ../bbb.001.exr
-2002-02-01 00:00:06 symdirA/bbb/bbb_aaa/bbb_aaa.002.exr -> ../bbb.002.exr
-2002-02-01 00:00:07 symdirA/bbb/bbb_aaa/bbb_aaa.003.exr -> ../bbb.003.exr
-2002-02-01 00:00:08 symdirA/bbb/bbb_aaa/bbb_aaa.004.exr -> ../bbb.004.exr
-2002-02-01 00:00:09 symdirA/bbb/bbb_aaa/bbb_aaa.005.exr -> ../bbb.005.exr
-2002-02-01 00:00:10 symdirA/bbb/bbb_aaa/bbb_aaa.006.exr -> ../bbb.006.exr
-2002-02-01 00:00:11 symdirA/bbb/bbb_aaa/bbb_aaa.007.exr -> ../bbb.007.exr
-2002-02-01 00:00:12 symdirA/bbb/bbb_aaa/bbb_aaa.008.exr -> ../bbb.008.exr
-2002-02-01 00:00:13 symdirA/bbb/bbb_aaa/bbb_aaa.009.exr -> ../bbb.009.exr
-2002-02-01 00:00:14 symdirA/bbb/bbb_aaa/bbb_aaa.010.exr -> ../bbb.010.exr
-2002-02-01 00:00:15 symdirA/bbb/bbb_aaa/foobar.05.txt -> foo.05.txt
-2002-02-01 00:00:16 symdirA/bbb/bbb_bbb/bbb_bbb.001.exr -> ../../aaa/aaa_aaa/aaa_aaa.001.exr
-2002-02-01 00:00:17 symdirA/bbb/bbb_bbb/bbb_bbb.002.exr -> ../../aaa/aaa_aaa/aaa_aaa.002.exr
-2002-02-01 00:00:18 symdirA/bbb/bbb_bbb/bbb_bbb.003.exr -> ../../aaa/aaa_aaa/aaa_aaa.003.exr
-2002-02-01 00:00:19 symdirA/bbb/bbb_bbb/bbb_bbb.004.exr -> ../../aaa/aaa_aaa/aaa_aaa.004.exr
-2002-02-01 00:00:20 symdirA/bbb/bbb_bbb/bbb_bbb.005.exr -> ../../aaa/aaa_aaa/aaa_aaa.005.exr
-2002-02-01 00:00:21 symdirA/bbb/bbb_bbb/bbb_bbb.006.exr -> ../../aaa/aaa_aaa/aaa_aaa.006.exr
-2002-02-01 00:00:22 symdirA/bbb/bbb_bbb/bbb_bbb.007.exr -> ../../aaa/aaa_aaa/aaa_aaa.007.exr
-2002-02-01 00:00:23 symdirA/bbb/bbb_bbb/bbb_bbb.008.exr -> ../../aaa/aaa_aaa/aaa_aaa.008.exr
-2002-02-01 00:00:24 symdirA/bbb/bbb_bbb/bbb_bbb.009.exr -> ../../aaa/aaa_aaa/aaa_aaa.009.exr
-2002-02-01 00:00:25 symdirA/bbb/bbb_bbb/bbb_bbb.010.exr -> ../../aaa/aaa_aaa/aaa_aaa.010.exr
-2002-02-01 00:00:26 symdirA/bbb/bbb_bbb/bbb_bbb_ccc -> ../../aaa
-2002-02-01 00:00:27 symdirA/bbb/bbb_bbb/foobar.06.txt -> ../../foo.00.txt
-2002-02-01 00:00:28 symdirA/bbb/bbb_ccc -> ../aaa
-2002-02-01 00:00:29 symdirA/bbb/foobar.04.txt -> foo.04.txt
-2002-02-01 00:00:30 symdirA/ccc -> aaa
-2002-02-01 00:00:31 symdirA/foobar.00.txt -> foo.00.txt
-2002-02-01 00:00:32 symdirB/a_dir/latest -> a_v03
-2002-02-01 00:00:33 symdirB/b_dir/latest -> b_v03
-2002-02-01 00:00:34 symdirB/c_dir/latest -> c_v03
-2002-02-01 00:01:20 symdirB/x_dir -> a_dir
-2002-02-01 00:01:21 symdirB/y_dir -> n_dir
-2002-02-01 00:01:22 symdirB/z_dir -> c_dir
+2002-02-01 00:00:01 symdirA/aaa/aaa.sym.mov -> aaa.mov
+2002-02-01 00:00:02 symdirA/aaa/aaa_aaa/aaa_sym.001.ass -> aaa_aaa.001.ass
+2002-02-01 00:00:03 symdirA/aaa/aaa_aaa/aaa_sym.002.ass -> aaa_aaa.002.ass
+2002-02-01 00:00:04 symdirA/aaa/aaa_aaa/aaa_sym.003.ass -> aaa_aaa.003.ass
+2002-02-01 00:00:05 symdirA/aaa/aaa_aaa/aaa_sym.004.ass -> aaa_aaa.004.ass
+2002-02-01 00:00:06 symdirA/aaa/aaa_aaa/aaa_sym.005.ass -> aaa_aaa.005.ass
+2002-02-01 00:00:07 symdirA/aaa/aaa_aaa/aaa_sym.006.ass -> aaa_aaa.006.ass
+2002-02-01 00:00:08 symdirA/aaa/aaa_aaa/aaa_sym.007.ass -> aaa_aaa.007.ass
+2002-02-01 00:00:09 symdirA/aaa/aaa_aaa/aaa_sym.008.ass -> aaa_aaa.008.ass
+2002-02-01 00:00:10 symdirA/aaa/aaa_aaa/aaa_sym.009.ass -> aaa_aaa.009.ass
+2002-02-01 00:00:11 symdirA/aaa/aaa_aaa/aaa_sym.010.ass -> aaa_aaa.010.ass
+2002-02-01 00:00:12 symdirA/aaa/aaa_aaa/foobar.02.txt -> foo.02.txt
+2002-02-01 00:00:13 symdirA/aaa/aaa_bbb/foobar.03.txt -> foo.03.txt
+2002-02-01 00:00:14 symdirA/aaa/aaa_ccc -> aaa_aaa
+2002-02-01 00:00:15 symdirA/aaa/foobar.01.txt -> foo.01.txt
+2002-02-01 00:00:16 symdirA/bbb/bbb_aaa/bbb_aaa.001.exr -> ../bbb.001.exr
+2002-02-01 00:00:17 symdirA/bbb/bbb_aaa/bbb_aaa.002.exr -> ../bbb.002.exr
+2002-02-01 00:00:18 symdirA/bbb/bbb_aaa/bbb_aaa.003.exr -> ../bbb.003.exr
+2002-02-01 00:00:19 symdirA/bbb/bbb_aaa/bbb_aaa.004.exr -> ../bbb.004.exr
+2002-02-01 00:00:20 symdirA/bbb/bbb_aaa/bbb_aaa.005.exr -> ../bbb.005.exr
+2002-02-01 00:00:21 symdirA/bbb/bbb_aaa/bbb_aaa.006.exr -> ../bbb.006.exr
+2002-02-01 00:00:22 symdirA/bbb/bbb_aaa/bbb_aaa.007.exr -> ../bbb.007.exr
+2002-02-01 00:00:23 symdirA/bbb/bbb_aaa/bbb_aaa.008.exr -> ../bbb.008.exr
+2002-02-01 00:00:24 symdirA/bbb/bbb_aaa/bbb_aaa.009.exr -> ../bbb.009.exr
+2002-02-01 00:00:25 symdirA/bbb/bbb_aaa/bbb_aaa.010.exr -> ../bbb.010.exr
+2002-02-01 00:00:26 symdirA/bbb/bbb_aaa/foobar.05.txt -> foo.05.txt
+2002-02-01 00:00:27 symdirA/bbb/bbb_bbb/bbb_bbb.001.exr -> ../../aaa/aaa_aaa/aaa_aaa.001.exr
+2002-02-01 00:00:28 symdirA/bbb/bbb_bbb/bbb_bbb.002.exr -> ../../aaa/aaa_aaa/aaa_aaa.002.exr
+2002-02-01 00:00:29 symdirA/bbb/bbb_bbb/bbb_bbb.003.exr -> ../../aaa/aaa_aaa/aaa_aaa.003.exr
+2002-02-01 00:00:30 symdirA/bbb/bbb_bbb/bbb_bbb.004.exr -> ../../aaa/aaa_aaa/aaa_aaa.004.exr
+2002-02-01 00:00:31 symdirA/bbb/bbb_bbb/bbb_bbb.005.exr -> ../../aaa/aaa_aaa/aaa_aaa.005.exr
+2002-02-01 00:00:32 symdirA/bbb/bbb_bbb/bbb_bbb.006.exr -> ../../aaa/aaa_aaa/aaa_aaa.006.exr
+2002-02-01 00:00:33 symdirA/bbb/bbb_bbb/bbb_bbb.007.exr -> ../../aaa/aaa_aaa/aaa_aaa.007.exr
+2002-02-01 00:00:34 symdirA/bbb/bbb_bbb/bbb_bbb.008.exr -> ../../aaa/aaa_aaa/aaa_aaa.008.exr
+2002-02-01 00:00:35 symdirA/bbb/bbb_bbb/bbb_bbb.009.exr -> ../../aaa/aaa_aaa/aaa_aaa.009.exr
+2002-02-01 00:00:36 symdirA/bbb/bbb_bbb/bbb_bbb.010.exr -> ../../aaa/aaa_aaa/aaa_aaa.010.exr
+2002-02-01 00:00:37 symdirA/bbb/bbb_bbb/bbb_bbb_ccc -> ../../aaa
+2002-02-01 00:00:38 symdirA/bbb/bbb_bbb/foobar.06.txt -> ../../foo.00.txt
+2002-02-01 00:00:39 symdirA/bbb/bbb_ccc -> ../aaa
+2002-02-01 00:00:40 symdirA/bbb/foobar.04.txt -> foo.04.txt
+2002-02-01 00:00:41 symdirA/ccc -> aaa
+2002-02-01 00:00:42 symdirA/ddd.sym.mov -> ddd.mov
+2002-02-01 00:00:43 symdirA/foobar.00.txt -> foo.00.txt
+2002-02-01 00:00:44 symdirB/a_dir/latest -> a_v03
+2002-02-01 00:00:45 symdirB/b_dir/latest -> b_v03
+2002-02-01 00:00:46 symdirB/c_dir/latest -> c_v03
+2002-02-01 00:01:32 symdirB/x_dir -> a_dir
+2002-02-01 00:01:33 symdirB/y_dir -> n_dir
+2002-02-01 00:01:34 symdirB/z_dir -> c_dir
 2010-05-16 08:28:00 pdir/p02_dir/p02_median5_v03.08.jpg
 2010-05-16 09:28:00 pdir/p02_dir/p02_median5_v01.08.jpg
 2010-05-16 10:28:00 pdir/p02_dir/p02_median5_v02.08.jpg

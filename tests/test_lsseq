@@ -393,7 +393,7 @@ testdir/cdir lsseq -i
 testdir/cdir lsseq -M
 testdir/cdir lsseq -o
 testdir/cdir lsseq -p *
-testdir/cdir lsseq -P *
+testdir/cdir lsseq -P -F *
 testdir/cdir lsseq -r
 testdir/cdir lsseq -t
 testdir/cdir lsseq -t --time oldest
@@ -410,7 +410,7 @@ testdir/cdir lsseq -1CRbx
 testdir/cdir lsseq -R -P -p -P -f rv -f glob -f native -C -b
 testdir/idir lsseq
 testdir/idir lsseq -R
-testdir/idir lsseq -P *
+testdir/idir lsseq -P -F *
 testdir/idir lsseq -p *
 testdir/hdir lsseq -t -r -P foo/*/* v001/* v002/* v003/*
 testdir/hdir lsseq --only-show before 20150701-1821 -t -r -P foo/*/* v001/* v002/* v003/*
@@ -586,7 +586,9 @@ testdir/symdirA lsseq -C --no-dereference -R
 testdir/symdirA lsseq -C --no-dereference --dereference-command-line *
 testdir/symdirA lsseq -C --dereference-command-line-symlink-to-file *
 testdir/symdirA lsseq -C -R --dereference-command-line-symlink-to-file *
-testdir        lsseq xxx.001.exr
+testdir/symdirA lsseq -C -R -Z -F -P
+testdir/symdirA lsseq -C -R -Z -F -P -G
+testdir         lsseq xxx.001.exr
 testdir/symdirA/aaa lsseq aaa.001.exr aaa.002.exr aaa.003.exr aaa.004.exr aaa.005.exr aaa.006.exr aaa.007.exr aaa.008.exr aaa.009.exr aaa.010.exr aaa.011.exr aaa.012.exr aaa.013.exr
 testdir/symdirA lsseq --no-dereference --only-sequences ccc # Should return nothing.
 testdir/symdirB lsseq -F -Z -R -P --global-sort-by-time --reverse

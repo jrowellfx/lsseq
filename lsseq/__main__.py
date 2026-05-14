@@ -1543,7 +1543,11 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                             sys.stdout.write(traversedPath[2:])
                         else :
                             sys.stdout.write(traversedPath)
-                    print(seq[DICTKEY])
+                    classifyTag = ""
+                    movIsLink = movieDictionary[seq[DICTKEY]][MOVIE_ISSYMLINK]
+                    if movIsLink and args.classify:
+                        classifyTag = "@"
+                    print(seq[DICTKEY], classifyTag, sep='')
                     somethingWasPrinted = True
                 elif isCache(seq[DICTKEY]) :
                     cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
@@ -1573,7 +1577,11 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                         sys.stdout.write(traversedPath[2:])
                     else :
                         sys.stdout.write(traversedPath)
-                print(seq[DICTKEY])
+                classifyTag = ""
+                movIsLink = movieDictionary[seq[DICTKEY]][MOVIE_ISSYMLINK]
+                if movIsLink and args.classify:
+                    classifyTag = "@"
+                print(seq[DICTKEY], classifyTag, sep='')
                 somethingWasPrinted = True
             elif isCache(seq[DICTKEY]) :
                 cacheDictionary[seq[DICTKEY]].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
@@ -1596,7 +1604,11 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                         sys.stdout.write(traversedPath[2:])
                     else :
                         sys.stdout.write(traversedPath)
-                print(k)
+                classifyTag = ""
+                movIsLink = movieDictionary[k][MOVIE_ISSYMLINK]
+                if movIsLink and args.classify:
+                    classifyTag = "@"
+                print(k, classifyTag, sep='')
                 somethingWasPrinted = True
 
             elif isCache(k) :
@@ -1974,7 +1986,9 @@ def main() :
     group.add_argument("--classify", "-F", action="store_true",
         dest="classify", default=False,
         help="append indicator (one of */=>@|) to entries, and \
-            do not follow symbolic links. (see LS(1))")
+            do not follow symbolic links to directories. (see LS(1) \
+            for the meanings of the symbols.) Note: the '@' will also be \
+            appended to any sequences made up of symbolic links.")
 
     p.add_argument("files", metavar="FILE", nargs="*",
         help="file names")
@@ -2350,7 +2364,11 @@ def main() :
                         sys.stdout.write(traversedPath)
                 else :
                     sys.stdout.write(traversedPath)
-                print(seq[DICTKEY])
+                classifyTag = ""
+                movIsLink = gMovieDictionary[gDictKey][MOVIE_ISSYMLINK]
+                if movIsLink and args.classify:
+                    classifyTag = "@"
+                print(seq[DICTKEY], classifyTag, sep='')
 
             elif isCache(seq[DICTKEY]) :
                 gCacheDictionary[gDictKey].sort(key=itemgetter(FRAME_NUM, FRAME_PADDING))
