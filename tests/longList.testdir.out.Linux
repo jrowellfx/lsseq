@@ -2552,9 +2552,9 @@
 2002-02-01 00:00:29 symdirA/bbb/foobar.04.txt -> foo.04.txt
 2002-02-01 00:00:30 symdirA/ccc -> aaa
 2002-02-01 00:00:31 symdirA/foobar.00.txt -> foo.00.txt
-2002-02-01 00:00:32 symdirB/a_dir/latest -> v03
-2002-02-01 00:00:33 symdirB/b_dir/latest -> v03
-2002-02-01 00:00:34 symdirB/c_dir/latest -> v03
+2002-02-01 00:00:32 symdirB/a_dir/latest -> a_v03
+2002-02-01 00:00:33 symdirB/b_dir/latest -> b_v03
+2002-02-01 00:00:34 symdirB/c_dir/latest -> c_v03
 2002-02-01 00:01:20 symdirB/x_dir -> a_dir
 2002-02-01 00:01:21 symdirB/y_dir -> n_dir
 2002-02-01 00:01:22 symdirB/z_dir -> c_dir

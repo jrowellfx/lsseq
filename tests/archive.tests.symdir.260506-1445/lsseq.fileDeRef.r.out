@@ -1,19 +1,32 @@
-ccc/aaa.[001-013].exr m:[12]
-bbb/bbb_ccc/aaa.[001-013].exr m:[12]
-bbb/bbb_bbb/bbb_bbb_ccc/aaa.[001-013].exr m:[12]
-aaa/aaa.[001-013].exr m:[12]
-ccc/aaa_ccc/aaa_aaa.[001-010].exr
-ccc/aaa_aaa/aaa_aaa.[001-010].exr
-bbb/bbb_ccc/aaa_ccc/aaa_aaa.[001-010].exr
-bbb/bbb_ccc/aaa_aaa/aaa_aaa.[001-010].exr
-bbb/bbb_bbb/bbb_bbb_ccc/aaa_ccc/aaa_aaa.[001-010].exr
-bbb/bbb_bbb/bbb_bbb_ccc/aaa_aaa/aaa_aaa.[001-010].exr
-bbb/bbb_bbb/bbb_bbb.[001-010].exr
-aaa/aaa_ccc/aaa_aaa.[001-010].exr
-aaa/aaa_aaa/aaa_aaa.[001-010].exr
-ccc/aaa_bbb/aaa_bbb.[001-010].exr
-bbb/bbb_ccc/aaa_bbb/aaa_bbb.[001-010].exr
-bbb/bbb_bbb/bbb_bbb_ccc/aaa_bbb/aaa_bbb.[001-010].exr
-aaa/aaa_bbb/aaa_bbb.[001-010].exr
-bbb/bbb_aaa/bbb_aaa.[001-010].exr
-bbb/bbb.[001-010].exr
+x_dir/a_v01/aaa_v01.[098-102].exr
+m_dir/m_v01/mmm_v01.[098-102].exr
+a_dir/a_v01/aaa_v01.[098-102].exr
+y_dir/n_v01/nnn_v01.[098-102].exr
+n_dir/n_v01/nnn_v01.[098-102].exr
+b_dir/b_v01/bbb_v01.[098-102].exr
+z_dir/c_v01/ccc_v01.[098-102].exr
+p_dir/p_v01/ppp_v01.[098-102].exr
+c_dir/c_v01/ccc_v01.[098-102].exr
+x_dir/a_v02/aaa_v02.[098-102].exr
+m_dir/m_v02/mmm_v02.[098-102].exr
+a_dir/a_v02/aaa_v02.[098-102].exr
+x_dir/latest/aaa_v03.[098-102].exr
+x_dir/a_v03/aaa_v03.[098-102].exr
+m_dir/m_v03/mmm_v03.[098-102].exr
+a_dir/latest/aaa_v03.[098-102].exr
+a_dir/a_v03/aaa_v03.[098-102].exr
+y_dir/n_v02/nnn_v02.[098-102].exr
+n_dir/n_v02/nnn_v02.[098-102].exr
+b_dir/b_v02/bbb_v02.[098-102].exr
+z_dir/c_v02/ccc_v02.[098-102].exr
+p_dir/p_v02/ppp_v02.[098-102].exr
+c_dir/c_v02/ccc_v02.[098-102].exr
+y_dir/n_v03/nnn_v03.[098-102].exr
+n_dir/n_v03/nnn_v03.[098-102].exr
+b_dir/latest/bbb_v03.[098-102].exr
+b_dir/b_v03/bbb_v03.[098-102].exr
+z_dir/latest/ccc_v03.[098-102].exr
+z_dir/c_v03/ccc_v03.[098-102].exr
+p_dir/p_v03/ppp_v03.[098-102].exr
+c_dir/latest/ccc_v03.[098-102].exr
+c_dir/c_v03/ccc_v03.[098-102].exr
