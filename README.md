@@ -65,6 +65,8 @@ however it can print sequences in a variety of formats useful for `nuke`,
 ```
     python3 -m pip install lsseq --upgrade
 ```
+If installing locally, it's probably best to install in a virtual-environment
+or [`venv`](https://docs.python.org/3/library/venv.html). 
 
 There is additional installation-information in an
 [addendum](https://github.com/jrowellfx/lsseq#addendum---more-on-installing-command-line-tools)
@@ -238,7 +240,7 @@ extend `lsseq's` capability.
     bbb/bbx.[0097-0103].tif
     bbb/bby.[0197-0203].tif
 
-    5$ lsseq --prepend-path-abs --skip-missing --format rv *
+    5$ lsseq --prepend-path-abs --format rv *
     /user/jrowellfx/test/ccc.0101.exr
     /user/jrowellfx/test/aaa/aaa.97-103@@@.tif
     /user/jrowellfx/test/bbb/bbx.97-103#.tif
@@ -289,12 +291,13 @@ the following EXIT codes will be combined bitwise to return
 possibly more than one different warning and/or error.
 
 ```
-EXIT_NO_ERROR               = 0 # Clean exit.
-EXIT_LS_ERROR               = 1 # A call to 'ls' returned an error code.
-EXIT_ARGPARSE_ERROR         = 2 # A bad option was passed to lsseq. Exit lsseq.
-EXIT_LSSEQ_SOFTLINK_WARNING = 4 # warning - broken softlink found
-EXIT_LSSEQ_PADDING_WARNING  = 8 # warning - two images with same name, same frame-num, but diff padding
-EXIT_CD_PERMISSION_WARNING  = 16 # warning - recursive descent blocked - no execute permission on dir
+EXIT_NO_ERROR                 =  0 # Clean exit.
+EXIT_LS_WARNING               =  1 # A call to 'ls' returned an error or another internal issue
+EXIT_ARGPARSE_ERROR           =  2 # The default code that argparse exits with if bad option.
+EXIT_LSSEQ_SOFTLINK_WARNING   =  4 # warning - broken softlink
+EXIT_LSSEQ_PADDING_WARNING    =  8 # warning - two images with same name, same frame-num, diff padding
+EXIT_CD_PERMISSION_WARNING    = 16 # warning - recursive descent blocked - no execute permission on dir
+EXIT_LSSEQ_NOSUCHFILE_WARNING = 32 # A non-existent sequence-file was listed on the command line.
 ```
 
 ## `lsseq --help`
@@ -501,7 +504,10 @@ LS(1) control for non-sequences:
   --directory, -d       list directory entries instead of contents, and do not
                         follow symbolic links (see LS(1))
   --classify, -F        append indicator (one of */=>@|) to entries, and do
-                        not follow symbolic links. (see LS(1))
+                        not follow symbolic links to directories. (see LS(1)
+                        for the meanings of the symbols.) Note: the '@' will
+                        also be appended to any sequences made up of symbolic
+                        links.
 ```
 
 ## Addendum - more on installing command-line tools
@@ -602,7 +608,8 @@ the transition quite painless. Especially if you make use
 of [`runsed`](https://github.com/jrowellfx/vfxTdUtils) which if you haven't used it before,
 now is the time, it's extremely helpful.
 
-There are two files provided at the root-level of the repo, namely:
+There are two files provided at the root-level of the repo in
+the directory [`updateLongOpts`](https://github.com/jrowellfx/lsseq/tree/master/updateLongOpts), namely:
 `sed.script.jrowellfx.doubleDashToKebab` and `sed.script.lsseq.v3tov4`.
 
 The first one can be used to fix the long-option names for ALL the 
@@ -617,14 +624,13 @@ on your system.
 ```
 $ cd ~/bin
 $ ls
-myScriptThatUsesLsseq
+myScriptThatUsesLsseq  sed.script.jrowellfx.doubleDashToKebab
 $ cat myScriptThatUsesLsseq
 #!/bin/bash
 
 lsseq --globalSortByTime --recursive --prependPathAbs /Volumes/myProjectFiles
 
-$ mv ~/Downloads/sed.script.jrowellfx.doubleDashToKebab sed.script
-$ runsed myScriptThatUsesLsseq
+$ runsed -f sed.script.jrowellfx.doubleDashToKebab myScriptThatUsesLsseq
 $ ./.runsed.diff.runsed
 + /usr/bin/diff ./.myScriptThatUsesLsseq.runsed myScriptThatUsesLsseq
 3c3
