@@ -4,7 +4,7 @@
 Darwin
 
 ----- Test 2 -+- dir: . -+- lsseq --version -----
-4.3.0
+4.3.1
 
 ----- Test 3 -+- dir: . -+- lsseq --help -----
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
@@ -7679,17 +7679,10 @@ symdirB/m_dir/m_v03/mmm_v03.[098-102].exr z:[98-102]
 badperm
 
 ./badperm:
-lsseq: warning: can not descend into /...absPathToRepo.../tests/testdir/jdir/j00/badperm: permission denied, exectute bit not set.
+lsseq: warning: can not descend into ./badperm: permission denied.
 --+-- Test 153: lsseq returned non-zero error code: 16  --+--
 
------ Test 154 -+- dir: testdir/jdir/j00 -+- lsseq --recursive --silent -----
-.:
-badperm
-
-./badperm:
---+-- Test 154: lsseq returned non-zero error code: 16  --+--
-
------ Test 155 -+- dir: testdir/jdir -+- lsseq -R -----
+----- Test 154 -+- dir: testdir/jdir -+- lsseq -R -----
 .:
 beauty
 j00
@@ -7713,7 +7706,7 @@ filename.[0007-1002].jpg m:[14-96,104-999], z:[7-13,97-103,1000-1002], p:[9-10,9
 badperm
 
 ./j00/badperm:
-lsseq: warning: can not descend into /...absPathToRepo.../tests/testdir/jdir/j00/badperm: permission denied, exectute bit not set.
+lsseq: warning: can not descend into ./j00/badperm: permission denied.
 
 ./j01:
 lsseq: warning: sequence j, frame 130, has duplicate entries: j.0130.jpg and j.00130.jpg
@@ -7735,20 +7728,37 @@ lsseq: warning: sequence j03, frame 5, has duplicate entries: j03.5.jpg and j03.
 j03.[001-009].jpg z:[1-9], p:[5]
 lsseq: warning: j04.005.jpg is a broken soft link
 j04.[-10-010].jpg z:[-10-10], p:[-7,1,10]
---+-- Test 155: lsseq returned non-zero error code: 28  --+--
+--+-- Test 154: lsseq returned non-zero error code: 28  --+--
 
------ Test 156 -+- dir: testdir/jdir/j00 -+- chmod 755 badperm -----
+----- Test 155 -+- dir: testdir/jdir/j00 -+- chmod 000 badperm -----
 
------ Test 157 -+- dir: testdir/jdir/j00 -+- lsseq -R -----
+----- Test 156 -+- dir: testdir/jdir/j00 -+- lsseq -R -----
+.:
+badperm
+
+./badperm:
+lsseq: warning: can not descend into ./badperm: permission denied.
+--+-- Test 156: lsseq returned non-zero error code: 16  --+--
+
+----- Test 157 -+- dir: testdir/jdir/j00 -+- lsseq --recursive --silent -----
+.:
+badperm
+
+./badperm:
+--+-- Test 157: lsseq returned non-zero error code: 16  --+--
+
+----- Test 158 -+- dir: testdir/jdir/j00 -+- chmod 755 badperm -----
+
+----- Test 159 -+- dir: testdir/jdir/j00 -+- lsseq -R -----
 .:
 badperm
 
 ./badperm:
 jjj.txt
 
------ Test 158 -+- dir: testdir/jdir -+- rm -rf j00 -----
+----- Test 160 -+- dir: testdir/jdir -+- rm -rf j00 -----
 
------ Test 159 -+- dir: testdir/bdir -+- lsseq --no-error-lists b_subdir 'b_subdir withSpace' -----
+----- Test 161 -+- dir: testdir/bdir -+- lsseq --no-error-lists b_subdir 'b_subdir withSpace' -----
 b_subdir:
 b b.01.[001-030].exr
 bbb.02.[008-095].tif
@@ -7758,7 +7768,7 @@ b b.01.[001-030].exr
 bbb.01.[001-120].exr
 bbb.02.[001-120].tif
 
------ Test 160 -+- dir: testdir -+- lsseq --quiet --recursive --prepend-path-rel ?dir -----
+----- Test 162 -+- dir: testdir -+- lsseq --quiet --recursive --prepend-path-rel ?dir -----
 adir/aaa.[001-120].exr z:[12,49]
 adir/lrtm01_beauty02.[001-120].exr z:[11]
 bdir/b b.01.[001-030].exr z:[1-30]
@@ -7880,9 +7890,9 @@ rdir/rSub02/rrr01.mov
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr02.mov
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
---+-- Test 160: lsseq returned non-zero error code: 12  --+--
+--+-- Test 162: lsseq returned non-zero error code: 12  --+--
 
------ Test 161 -+- dir: testdir -+- lsseq --quiet --recursive --prepend-path-rel --split-sequence ?dir -----
+----- Test 163 -+- dir: testdir -+- lsseq --quiet --recursive --prepend-path-rel --split-sequence ?dir -----
 adir/aaa.[001-120].exr z:[12,49]
 adir/lrtm01_beauty02.[001-120].exr z:[11]
 bdir/b b.01.[001-030].exr z:[1-30]
@@ -8023,47 +8033,47 @@ rdir/rSub02/rrr01.mov
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr02.mov
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
---+-- Test 161: lsseq returned non-zero error code: 12  --+--
+--+-- Test 163: lsseq returned non-zero error code: 12  --+--
 
------ Test 162 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse -----
+----- Test 164 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse -----
 ccc01.[001-120].exr
 ccc03.[80-140].tga
 ccc02.[001-120].exr
 
------ Test 163 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse --only-show since 20100615-1400 -----
+----- Test 165 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse --only-show since 20100615-1400 -----
 ccc03.[80-140].tga
 ccc02.[001-120].exr
 
------ Test 164 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse --recursive -----
+----- Test 166 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse --recursive -----
 ccc01.[001-120].exr
 ccc03.[80-140].tga
 ccc02.[001-120].exr
 c_subDir/ccc01.[001-120].exr
 
------ Test 165 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse --recursive --only-show since 20100615-1400 -----
+----- Test 167 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse --recursive --only-show since 20100615-1400 -----
 ccc03.[80-140].tga
 ccc02.[001-120].exr
 
------ Test 166 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse -----
+----- Test 168 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse -----
 ccc01.[001-120].exr
 ccc03.[80-140].tga
 ccc02.[001-120].exr
 
------ Test 167 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --only-show since 20100615-1400 -----
+----- Test 169 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --only-show since 20100615-1400 -----
 ccc03.[80-140].tga
 ccc02.[001-120].exr
 
------ Test 168 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --recursive -----
+----- Test 170 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --recursive -----
 c_subDir/ccc01.[001-120].exr
 ccc01.[001-120].exr
 ccc03.[80-140].tga
 ccc02.[001-120].exr
 
------ Test 169 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --recursive --only-show since 20100615-1400 -----
+----- Test 171 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --global-sort-by-time --time median --reverse --recursive --only-show since 20100615-1400 -----
 ccc03.[80-140].tga
 ccc02.[001-120].exr
 
------ Test 170 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive -----
+----- Test 172 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive -----
 .:
 r0.v01.txt      r0.v02.txt      r0.v03.txt      rSub01          rSub02
 r1.[001-015].jpg
@@ -8097,7 +8107,7 @@ rrr02.[001-015].ass
 rrr02.mov
 rrr03.[100-115].fur
 
------ Test 171 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences -----
+----- Test 173 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences -----
 .:
 r1.[001-015].jpg
 r2.[101-115].jpg
@@ -8128,7 +8138,7 @@ rrr02.[001-015].ass
 rrr02.mov
 rrr03.[100-115].fur
 
------ Test 172 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --list-all-files -----
+----- Test 174 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --list-all-files -----
 .:
 r0.v01.txt      r0.v02.txt      r0.v03.txt      rSub01          rSub02
 r1.[001-015].jpg
@@ -8162,7 +8172,7 @@ rrr02.[001-015].ass
 rrr02.mov
 rrr03.[100-115].fur
 
------ Test 173 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-images -----
+----- Test 175 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-images -----
 .:
 r1.[001-015].jpg
 r2.[101-115].jpg
@@ -8175,7 +8185,7 @@ r2.[101-115].jpg
 r1.[001-015].jpg
 r2.[101-115].jpg
 
------ Test 174 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images -----
+----- Test 176 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images -----
 .:
 r0.v01.txt      r1.004.jpg      r1.010.jpg      r2.101.jpg      r2.107.jpg      r2.113.jpg
 r0.v02.txt      r1.005.jpg      r1.011.jpg      r2.102.jpg      r2.108.jpg      r2.114.jpg
@@ -8218,7 +8228,7 @@ rrr02.[001-015].ass
 rrr02.mov
 rrr03.[100-115].fur
 
------ Test 175 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-images -----
+----- Test 177 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-images -----
 .:
 rrr01.[001-015].ass
 rrr01.[090-105].bgeo.sc
@@ -8243,7 +8253,7 @@ rrr02.[001-015].ass
 rrr02.mov
 rrr03.[100-115].fur
 
------ Test 176 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-caches -----
+----- Test 178 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-caches -----
 .:
 rrr01.[001-015].ass
 rrr01.[090-105].bgeo.sc
@@ -8262,7 +8272,7 @@ rrr01.[090-105].bgeo.sc
 rrr02.[001-015].ass
 rrr03.[100-115].fur
 
------ Test 177 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-caches -----
+----- Test 179 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-caches -----
 .:
 r0.v01.txt              rrr01.014.ass           rrr01.105.bgeo.sc       rrr03.101.fur
 r0.v02.txt              rrr01.015.ass           rrr02.001.ass           rrr03.102.fur
@@ -8332,7 +8342,7 @@ r2.[101-115].jpg
 rrr01.mov
 rrr02.mov
 
------ Test 178 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-caches -----
+----- Test 180 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-caches -----
 .:
 r1.[001-015].jpg
 r2.[101-115].jpg
@@ -8351,7 +8361,7 @@ r2.[101-115].jpg
 rrr01.mov
 rrr02.mov
 
------ Test 179 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-movies -----
+----- Test 181 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-movies -----
 .:
 rrr01.mov
 rrr02.mov
@@ -8364,7 +8374,7 @@ rrr02.mov
 rrr01.mov
 rrr02.mov
 
------ Test 180 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-movies -----
+----- Test 182 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-movies -----
 .:
 r0.v01.txt      r0.v03.txt      rSub02          rrr02.mov
 r0.v02.txt      rSub01          rrr01.mov
@@ -8394,7 +8404,7 @@ rrr01.[090-105].bgeo.sc
 rrr02.[001-015].ass
 rrr03.[100-115].fur
 
------ Test 181 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-movies -----
+----- Test 183 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-movies -----
 .:
 r1.[001-015].jpg
 r2.[101-115].jpg
@@ -8419,7 +8429,7 @@ rrr01.[090-105].bgeo.sc
 rrr02.[001-015].ass
 rrr03.[100-115].fur
 
------ Test 182 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images --not-caches -----
+----- Test 184 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images --not-caches -----
 .:
 r0.v01.txt              r2.107.jpg              rrr01.015.ass           rrr02.008.ass
 r0.v02.txt              r2.108.jpg              rrr01.090.bgeo.sc       rrr02.009.ass
@@ -8504,7 +8514,7 @@ r2.109.jpg              rrr01.014.ass           rrr02.007.ass           rrr03.11
 rrr01.mov
 rrr02.mov
 
------ Test 183 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-images --not-caches -----
+----- Test 185 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-images --not-caches -----
 .:
 rrr01.mov
 rrr02.mov
@@ -8517,7 +8527,7 @@ rrr02.mov
 rrr01.mov
 rrr02.mov
 
------ Test 184 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images --not-movies -----
+----- Test 186 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images --not-movies -----
 .:
 r0.v01.txt      r1.005.jpg      r1.012.jpg      r2.104.jpg      r2.111.jpg      rrr01.mov
 r0.v02.txt      r1.006.jpg      r1.013.jpg      r2.105.jpg      r2.112.jpg      rrr02.mov
@@ -8556,7 +8566,7 @@ rrr01.[090-105].bgeo.sc
 rrr02.[001-015].ass
 rrr03.[100-115].fur
 
------ Test 185 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-images --not-movies -----
+----- Test 187 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-images --not-movies -----
 .:
 rrr01.[001-015].ass
 rrr01.[090-105].bgeo.sc
@@ -8575,7 +8585,7 @@ rrr01.[090-105].bgeo.sc
 rrr02.[001-015].ass
 rrr03.[100-115].fur
 
------ Test 186 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-caches --not-movies -----
+----- Test 188 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-caches --not-movies -----
 .:
 r0.v01.txt              rrr01.014.ass           rrr01.105.bgeo.sc       rrr02.mov
 r0.v02.txt              rrr01.015.ass           rrr01.mov               rrr03.100.fur
@@ -8639,7 +8649,7 @@ rrr01.013.ass           rrr01.104.bgeo.sc       rrr02.015.ass           rrr03.11
 r1.[001-015].jpg
 r2.[101-115].jpg
 
------ Test 187 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-caches --not-movies -----
+----- Test 189 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-caches --not-movies -----
 .:
 r1.[001-015].jpg
 r2.[101-115].jpg
@@ -8652,7 +8662,7 @@ r2.[101-115].jpg
 r1.[001-015].jpg
 r2.[101-115].jpg
 
------ Test 188 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images --not-caches --not-movies -----
+----- Test 190 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --not-images --not-caches --not-movies -----
 .:
 r0.v01.txt              r2.108.jpg              rrr01.091.bgeo.sc       rrr02.010.ass
 r0.v02.txt              r2.109.jpg              rrr01.092.bgeo.sc       rrr02.011.ass
@@ -8734,13 +8744,13 @@ r2.108.jpg              rrr01.014.ass           rrr02.007.ass           rrr03.11
 r2.109.jpg              rrr01.015.ass           rrr02.008.ass
 r2.110.jpg              rrr01.090.bgeo.sc       rrr02.009.ass
 
------ Test 189 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-images --not-caches --not-movies -----
+----- Test 191 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists --recursive --only-sequences --not-images --not-caches --not-movies -----
 .:
 ./rSub01:
 
 ./rSub02:
 
------ Test 190 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-images -----
+----- Test 192 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-images -----
 rrr01.[001-015].ass
 rrr01.[090-105].bgeo.sc
 rrr01.mov
@@ -8760,7 +8770,7 @@ rSub02/rrr02.[001-015].ass
 rSub02/rrr02.mov
 rSub02/rrr03.[100-115].fur
 
------ Test 191 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-caches -----
+----- Test 193 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-caches -----
 r1.[001-015].jpg
 r2.[101-115].jpg
 rrr01.mov
@@ -8774,7 +8784,7 @@ rSub02/r2.[101-115].jpg
 rSub02/rrr01.mov
 rSub02/rrr02.mov
 
------ Test 192 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-movies -----
+----- Test 194 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-movies -----
 r1.[001-015].jpg
 r2.[101-115].jpg
 rrr01.[001-015].ass
@@ -8794,7 +8804,7 @@ rSub02/rrr01.[090-105].bgeo.sc
 rSub02/rrr02.[001-015].ass
 rSub02/rrr03.[100-115].fur
 
------ Test 193 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-images --global-sort-by-time -r -----
+----- Test 195 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-images --global-sort-by-time -r -----
 rSub01/rrr01.[001-015].ass
 rSub01/rrr01.[090-105].bgeo.sc
 rSub01/rrr01.mov
@@ -8814,7 +8824,7 @@ rrr02.[001-015].ass
 rrr02.mov
 rrr03.[100-115].fur
 
------ Test 194 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-caches --global-sort-by-time -r -----
+----- Test 196 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-caches --global-sort-by-time -r -----
 r1.[001-015].jpg
 r2.[101-115].jpg
 rSub01/r1.[001-015].jpg
@@ -8828,7 +8838,7 @@ rSub02/rrr02.mov
 rrr01.mov
 rrr02.mov
 
------ Test 195 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-movies --global-sort-by-time -r -----
+----- Test 197 -+- dir: testdir/rdir -+- lsseq -C --no-error-lists -R --prepend-path-rel --not-movies --global-sort-by-time -r -----
 r1.[001-015].jpg
 r2.[101-115].jpg
 rSub01/r1.[001-015].jpg
@@ -8848,7 +8858,7 @@ rrr01.[090-105].bgeo.sc
 rrr02.[001-015].ass
 rrr03.[100-115].fur
 
------ Test 196 -+- dir: testdir/symdirA -+- ls -C * -----
+----- Test 198 -+- dir: testdir/symdirA -+- ls -C * -----
 ddd.mov         ddd.sym.mov     foo.00.txt      foobar.00.txt
 
 aaa:
@@ -8868,7 +8878,7 @@ aaa.002.exr     aaa.006.exr     aaa.010.exr     aaa.sym.mov     foo.01.txt
 aaa.003.exr     aaa.007.exr     aaa.011.exr     aaa_aaa         foobar.01.txt
 aaa.004.exr     aaa.008.exr     aaa.013.exr     aaa_bbb
 
------ Test 197 -+- dir: testdir/symdirA -+- lsseq -C * -----
+----- Test 199 -+- dir: testdir/symdirA -+- lsseq -C * -----
 foo.00.txt      foobar.00.txt
 ddd.mov
 ddd.sym.mov
@@ -8889,7 +8899,7 @@ aaa.[001-013].exr m:[12]
 aaa.mov
 aaa.sym.mov
 
------ Test 198 -+- dir: testdir/symdirA -+- ls -C -R -----
+----- Test 200 -+- dir: testdir/symdirA -+- ls -C -R -----
 aaa             ccc             ddd.sym.mov     foobar.00.txt
 bbb             ddd.mov         foo.00.txt
 
@@ -8925,7 +8935,7 @@ bbb_bbb.001.exr bbb_bbb.004.exr bbb_bbb.007.exr bbb_bbb.010.exr foobar.06.txt
 bbb_bbb.002.exr bbb_bbb.005.exr bbb_bbb.008.exr bbb_bbb_ccc
 bbb_bbb.003.exr bbb_bbb.006.exr bbb_bbb.009.exr foo.06.txt
 
------ Test 199 -+- dir: testdir/symdirA -+- lsseq -C -R -----
+----- Test 201 -+- dir: testdir/symdirA -+- lsseq -C -R -----
 .:
 aaa             bbb             ccc             foo.00.txt      foobar.00.txt
 ddd.mov
@@ -8959,7 +8969,7 @@ bbb_aaa.[001-010].exr
 bbb_bbb_ccc     foo.06.txt      foobar.06.txt
 bbb_bbb.[001-010].exr
 
------ Test 200 -+- dir: testdir/symdirA -+- ls -C -R * -----
+----- Test 202 -+- dir: testdir/symdirA -+- ls -C -R * -----
 ddd.mov         ddd.sym.mov     foo.00.txt      foobar.00.txt
 
 aaa:
@@ -9012,7 +9022,7 @@ ccc/aaa_bbb:
 aaa_bbb.001.exr aaa_bbb.003.exr aaa_bbb.005.exr aaa_bbb.007.exr aaa_bbb.009.exr foo.03.txt
 aaa_bbb.002.exr aaa_bbb.004.exr aaa_bbb.006.exr aaa_bbb.008.exr aaa_bbb.010.exr foobar.03.txt
 
------ Test 201 -+- dir: testdir/symdirA -+- lsseq -C -R * -----
+----- Test 203 -+- dir: testdir/symdirA -+- lsseq -C -R * -----
 foo.00.txt      foobar.00.txt
 ddd.mov
 ddd.sym.mov
@@ -9061,7 +9071,7 @@ ccc/aaa_bbb:
 foo.03.txt      foobar.03.txt
 aaa_bbb.[001-010].exr
 
------ Test 202 -+- dir: testdir/symdirA -+- ls -C -R -F -----
+----- Test 204 -+- dir: testdir/symdirA -+- ls -C -R -F -----
 aaa/            ccc@            ddd.sym.mov@    foobar.00.txt@
 bbb/            ddd.mov         foo.00.txt
 
@@ -9102,7 +9112,7 @@ bbb_bbb.002.exr@        bbb_bbb.006.exr@        bbb_bbb.010.exr@
 bbb_bbb.003.exr@        bbb_bbb.007.exr@        bbb_bbb_ccc@
 bbb_bbb.004.exr@        bbb_bbb.008.exr@        foo.06.txt
 
------ Test 203 -+- dir: testdir/symdirA -+- lsseq -C -R -F -----
+----- Test 205 -+- dir: testdir/symdirA -+- lsseq -C -R -F -----
 .:
 aaa/            bbb/            ccc@            foo.00.txt      foobar.00.txt@
 ddd.mov
@@ -9136,7 +9146,7 @@ bbb_aaa.[001-010].exr@
 bbb_bbb_ccc@    foo.06.txt      foobar.06.txt@
 bbb_bbb.[001-010].exr@
 
------ Test 204 -+- dir: testdir/symdirA -+- ls -C -R -L -----
+----- Test 206 -+- dir: testdir/symdirA -+- ls -C -R -L -----
 aaa             ccc             ddd.sym.mov     foobar.00.txt
 bbb             ddd.mov         foo.00.txt
 
@@ -9258,7 +9268,7 @@ aaa_aaa.002.exr aaa_aaa.005.exr aaa_aaa.008.exr aaa_sym.002.ass aaa_sym.008.ass
 aaa_aaa.003.ass aaa_aaa.006.ass aaa_aaa.009.ass aaa_sym.003.ass aaa_sym.009.ass
 aaa_aaa.003.exr aaa_aaa.006.exr aaa_aaa.009.exr aaa_sym.004.ass aaa_sym.010.ass
 
------ Test 205 -+- dir: testdir/symdirA -+- lsseq -C -R -L -----
+----- Test 207 -+- dir: testdir/symdirA -+- lsseq -C -R -L -----
 .:
 aaa             bbb             ccc             foo.00.txt      foobar.00.txt
 ddd.mov
@@ -9364,7 +9374,7 @@ aaa_aaa.[001-010].ass
 aaa_aaa.[001-010].exr
 aaa_sym.[001-010].ass
 
------ Test 206 -+- dir: testdir/symdirA -+- ls -C aaa/aaa_ccc -----
+----- Test 208 -+- dir: testdir/symdirA -+- ls -C aaa/aaa_ccc -----
 aaa_aaa.001.ass aaa_aaa.004.ass aaa_aaa.007.ass aaa_aaa.010.ass aaa_sym.005.ass foo.02.txt
 aaa_aaa.001.exr aaa_aaa.004.exr aaa_aaa.007.exr aaa_aaa.010.exr aaa_sym.006.ass foobar.02.txt
 aaa_aaa.002.ass aaa_aaa.005.ass aaa_aaa.008.ass aaa_sym.001.ass aaa_sym.007.ass
@@ -9372,19 +9382,19 @@ aaa_aaa.002.exr aaa_aaa.005.exr aaa_aaa.008.exr aaa_sym.002.ass aaa_sym.008.ass
 aaa_aaa.003.ass aaa_aaa.006.ass aaa_aaa.009.ass aaa_sym.003.ass aaa_sym.009.ass
 aaa_aaa.003.exr aaa_aaa.006.exr aaa_aaa.009.exr aaa_sym.004.ass aaa_sym.010.ass
 
------ Test 207 -+- dir: testdir/symdirA -+- lsseq -C aaa/aaa_ccc -----
+----- Test 209 -+- dir: testdir/symdirA -+- lsseq -C aaa/aaa_ccc -----
 foo.02.txt      foobar.02.txt
 aaa_aaa.[001-010].ass
 aaa_aaa.[001-010].exr
 aaa_sym.[001-010].ass
 
------ Test 208 -+- dir: testdir/symdirA -+- ls -C -F aaa/aaa_ccc -----
+----- Test 210 -+- dir: testdir/symdirA -+- ls -C -F aaa/aaa_ccc -----
 aaa/aaa_ccc@
 
------ Test 209 -+- dir: testdir/symdirA -+- lsseq -C -F aaa/aaa_ccc -----
+----- Test 211 -+- dir: testdir/symdirA -+- lsseq -C -F aaa/aaa_ccc -----
 aaa/aaa_ccc@
 
------ Test 210 -+- dir: testdir/symdirA -+- ls -C -R aaa -----
+----- Test 212 -+- dir: testdir/symdirA -+- ls -C -R aaa -----
 aaa.001.exr     aaa.005.exr     aaa.009.exr     aaa.mov         aaa_ccc
 aaa.002.exr     aaa.006.exr     aaa.010.exr     aaa.sym.mov     foo.01.txt
 aaa.003.exr     aaa.007.exr     aaa.011.exr     aaa_aaa         foobar.01.txt
@@ -9402,7 +9412,7 @@ aaa/aaa_bbb:
 aaa_bbb.001.exr aaa_bbb.003.exr aaa_bbb.005.exr aaa_bbb.007.exr aaa_bbb.009.exr foo.03.txt
 aaa_bbb.002.exr aaa_bbb.004.exr aaa_bbb.006.exr aaa_bbb.008.exr aaa_bbb.010.exr foobar.03.txt
 
------ Test 211 -+- dir: testdir/symdirA -+- lsseq -C -R aaa -----
+----- Test 213 -+- dir: testdir/symdirA -+- lsseq -C -R aaa -----
 aaa:
 aaa_aaa         aaa_bbb         aaa_ccc         foo.01.txt      foobar.01.txt
 aaa.[001-013].exr m:[12]
@@ -9419,7 +9429,7 @@ aaa/aaa_bbb:
 foo.03.txt      foobar.03.txt
 aaa_bbb.[001-010].exr
 
------ Test 212 -+- dir: testdir/symdirA -+- ls -C -R -F aaa -----
+----- Test 214 -+- dir: testdir/symdirA -+- ls -C -R -F aaa -----
 aaa.001.exr     aaa.005.exr     aaa.009.exr     aaa.mov         aaa_ccc@
 aaa.002.exr     aaa.006.exr     aaa.010.exr     aaa.sym.mov@    foo.01.txt
 aaa.003.exr     aaa.007.exr     aaa.011.exr     aaa_aaa/        foobar.01.txt@
@@ -9440,7 +9450,7 @@ aaa_bbb.001.exr         aaa_bbb.004.exr         aaa_bbb.007.exr         aaa_bbb.
 aaa_bbb.002.exr         aaa_bbb.005.exr         aaa_bbb.008.exr         foo.03.txt
 aaa_bbb.003.exr         aaa_bbb.006.exr         aaa_bbb.009.exr         foobar.03.txt@
 
------ Test 213 -+- dir: testdir/symdirA -+- lsseq -C -R -F aaa -----
+----- Test 215 -+- dir: testdir/symdirA -+- lsseq -C -R -F aaa -----
 aaa:
 aaa_aaa/        aaa_bbb/        aaa_ccc@        foo.01.txt      foobar.01.txt@
 aaa.[001-013].exr m:[12]
@@ -9457,10 +9467,10 @@ aaa/aaa_bbb:
 foo.03.txt      foobar.03.txt@
 aaa_bbb.[001-010].exr
 
------ Test 214 -+- dir: testdir/symdirA -+- echo For ls vs. lsseq comparisons see /...absPathToRepo.../tests/testdir/symdirA/foo.00.txt -----
+----- Test 216 -+- dir: testdir/symdirA -+- echo For ls vs. lsseq comparisons see /...absPathToRepo.../tests/testdir/symdirA/foo.00.txt -----
 For ls vs. lsseq comparisons see /...absPathToRepo.../tests/testdir/symdirA/foo.00.txt
 
------ Test 215 -+- dir: testdir/symdirA -+- cat foo.00.txt -----
+----- Test 217 -+- dir: testdir/symdirA -+- cat foo.00.txt -----
 ls    -C * > ~/f.1
 lsseq -C * > ~/f.2
 gdiff ~/f.[12]
@@ -9498,23 +9508,23 @@ lsseq -C -R -F aaa > ~/f.2
 gdiff ~/f.[12]
 
 
------ Test 216 -+- dir: testdir/symdirA -+- ls /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr -----
+----- Test 218 -+- dir: testdir/symdirA -+- ls /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr -----
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr
 
------ Test 217 -+- dir: testdir/symdirA -+- lsseq /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr -----
+----- Test 219 -+- dir: testdir/symdirA -+- lsseq /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.001.exr -----
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.[001].exr
 
------ Test 218 -+- dir: testdir/symdirA/bbb -+- lsseq -C -P ../aaa/ -----
+----- Test 220 -+- dir: testdir/symdirA/bbb -+- lsseq -C -P ../aaa/ -----
 ../aaa/aaa.[001-013].exr m:[12]
 ../aaa/aaa.mov
 ../aaa/aaa.sym.mov
 
------ Test 219 -+- dir: testdir/symdirA/bbb -+- lsseq -C -p ../aaa/ -----
+----- Test 221 -+- dir: testdir/symdirA/bbb -+- lsseq -C -p ../aaa/ -----
 /...absPathToRepo.../tests/testdir/symdirA/bbb/../aaa/aaa.[001-013].exr m:[12]
 /...absPathToRepo.../tests/testdir/symdirA/bbb/../aaa/aaa.mov
 /...absPathToRepo.../tests/testdir/symdirA/bbb/../aaa/aaa.sym.mov
 
------ Test 220 -+- dir: testdir/symdirA -+- lsseq -C --no-dereference * -----
+----- Test 222 -+- dir: testdir/symdirA -+- lsseq -C --no-dereference * -----
 ccc             foo.00.txt      foobar.00.txt
 ddd.mov
 ddd.sym.mov
@@ -9529,7 +9539,7 @@ bbb:
 bbb_aaa         bbb_bbb         bbb_ccc         foo.04.txt      foobar.04.txt
 bbb.[001-010].exr
 
------ Test 221 -+- dir: testdir/symdirA -+- lsseq -C --no-dereference -R -----
+----- Test 223 -+- dir: testdir/symdirA -+- lsseq -C --no-dereference -R -----
 .:
 aaa             bbb             ccc             foo.00.txt      foobar.00.txt
 ddd.mov
@@ -9563,7 +9573,7 @@ bbb_aaa.[001-010].exr
 bbb_bbb_ccc     foo.06.txt      foobar.06.txt
 bbb_bbb.[001-010].exr
 
------ Test 222 -+- dir: testdir/symdirA -+- lsseq -C --no-dereference --dereference-command-line * -----
+----- Test 224 -+- dir: testdir/symdirA -+- lsseq -C --no-dereference --dereference-command-line * -----
 foo.00.txt      foobar.00.txt
 ddd.mov
 ddd.sym.mov
@@ -9584,7 +9594,7 @@ aaa.[001-013].exr m:[12]
 aaa.mov
 aaa.sym.mov
 
------ Test 223 -+- dir: testdir/symdirA -+- lsseq -C --dereference-command-line-symlink-to-file * -----
+----- Test 225 -+- dir: testdir/symdirA -+- lsseq -C --dereference-command-line-symlink-to-file * -----
 ccc             foo.00.txt      foobar.00.txt
 ddd.mov
 ddd.sym.mov
@@ -9599,7 +9609,7 @@ bbb:
 bbb_aaa         bbb_bbb         bbb_ccc         foo.04.txt      foobar.04.txt
 bbb.[001-010].exr
 
------ Test 224 -+- dir: testdir/symdirA -+- lsseq -C -R --dereference-command-line-symlink-to-file * -----
+----- Test 226 -+- dir: testdir/symdirA -+- lsseq -C -R --dereference-command-line-symlink-to-file * -----
 ccc             foo.00.txt      foobar.00.txt
 ddd.mov
 ddd.sym.mov
@@ -9632,7 +9642,7 @@ bbb/bbb_bbb:
 bbb_bbb_ccc     foo.06.txt      foobar.06.txt
 bbb_bbb.[001-010].exr
 
------ Test 225 -+- dir: testdir/symdirA -+- lsseq -C -R -Z -F -P -----
+----- Test 227 -+- dir: testdir/symdirA -+- lsseq -C -R -Z -F -P -----
 ddd.mov
 ddd.sym.mov@
 aaa/aaa.[001-013].exr m:[12]
@@ -9646,7 +9656,7 @@ bbb/bbb.[001-010].exr
 bbb/bbb_aaa/bbb_aaa.[001-010].exr@
 bbb/bbb_bbb/bbb_bbb.[001-010].exr@
 
------ Test 226 -+- dir: testdir/symdirA -+- lsseq -C -R -Z -F -P -G -----
+----- Test 228 -+- dir: testdir/symdirA -+- lsseq -C -R -Z -F -P -G -----
 ddd.sym.mov@
 bbb/bbb_bbb/bbb_bbb.[001-010].exr@
 bbb/bbb_aaa/bbb_aaa.[001-010].exr@
@@ -9660,18 +9670,18 @@ aaa/aaa_aaa/aaa_aaa.[001-010].ass
 aaa/aaa.mov
 aaa/aaa.[001-013].exr m:[12]
 
------ Test 227 -+- dir: testdir -+- lsseq xxx.001.exr -----
+----- Test 229 -+- dir: testdir -+- lsseq xxx.001.exr -----
 lsseq: warning: cannot access 'xxx.001.exr': No such file.
---+-- Test 227: lsseq returned non-zero error code: 32  --+--
+--+-- Test 229: lsseq returned non-zero error code: 32  --+--
 
------ Test 228 -+- dir: testdir/symdirA/aaa -+- lsseq aaa.001.exr aaa.002.exr aaa.003.exr aaa.004.exr aaa.005.exr aaa.006.exr aaa.007.exr aaa.008.exr aaa.009.exr aaa.010.exr aaa.011.exr aaa.012.exr aaa.013.exr -----
+----- Test 230 -+- dir: testdir/symdirA/aaa -+- lsseq aaa.001.exr aaa.002.exr aaa.003.exr aaa.004.exr aaa.005.exr aaa.006.exr aaa.007.exr aaa.008.exr aaa.009.exr aaa.010.exr aaa.011.exr aaa.012.exr aaa.013.exr -----
 lsseq: warning: cannot access 'aaa.012.exr': No such file.
 aaa.[001-013].exr m:[12]
---+-- Test 228: lsseq returned non-zero error code: 32  --+--
+--+-- Test 230: lsseq returned non-zero error code: 32  --+--
 
------ Test 229 -+- dir: testdir/symdirA -+- lsseq --no-dereference --only-sequences ccc -----
+----- Test 231 -+- dir: testdir/symdirA -+- lsseq --no-dereference --only-sequences ccc -----
 
------ Test 230 -+- dir: testdir/symdirB -+- lsseq -F -Z -R -P --global-sort-by-time --reverse -----
+----- Test 232 -+- dir: testdir/symdirB -+- lsseq -F -Z -R -P --global-sort-by-time --reverse -----
 a_dir/a_v01/aaa_v01.[098-102].exr
 b_dir/b_v01/bbb_v01.[098-102].exr
 c_dir/c_v01/ccc_v01.[098-102].exr
@@ -9691,7 +9701,7 @@ m_dir/m_v01/mmm_v01.[098-102].exr@
 m_dir/m_v02/mmm_v02.[098-102].exr@
 m_dir/m_v03/mmm_v03.[098-102].exr@
 
------ Test 231 -+- dir: testdir/symdirB -+- lsseq -F -Z -R -P --global-sort-by-time --reverse --dereference-symlink-to-file -----
+----- Test 233 -+- dir: testdir/symdirB -+- lsseq -F -Z -R -P --global-sort-by-time --reverse --dereference-symlink-to-file -----
 m_dir/m_v01/mmm_v01.[098-102].exr@
 a_dir/a_v01/aaa_v01.[098-102].exr
 n_dir/n_v01/nnn_v01.[098-102].exr@
@@ -9711,31 +9721,31 @@ b_dir/b_v03/bbb_v03.[098-102].exr
 p_dir/p_v03/ppp_v03.[098-102].exr@
 c_dir/c_v03/ccc_v03.[098-102].exr
 
------ Test 232 -+- dir: . -+- lsseq -i -----
+----- Test 234 -+- dir: . -+- lsseq -i -----
 lsseq: Modify the following environment variables to extend the supported file types.
        NOTE: lsseq also recognizes the following extensions when uppercase.
   export LSSEQ_IMAGE_EXTENSION=exr:jpg
   export LSSEQ_MOV_EXTENSION=mov
   export LSSEQ_CACHE_EXTENSION=ass:fur
 
------ Test 233 -+- dir: testdir/gdir -+- lsseq --only-images -----
+----- Test 235 -+- dir: testdir/gdir -+- lsseq --only-images -----
 
------ Test 234 -+- dir: testdir/gdir -+- lsseq --only-movies -----
+----- Test 236 -+- dir: testdir/gdir -+- lsseq --only-movies -----
 xxx01.mov
 xxx02.mov
 
------ Test 235 -+- dir: testdir/gdir -+- lsseq --only-caches -----
+----- Test 237 -+- dir: testdir/gdir -+- lsseq --only-caches -----
 ccc01.[001-120].ass m:[3]
 ccc02.[001-120].ass m:[51,119]
 ccc03.[80-140].fur
 
------ Test 236 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
+----- Test 238 -+- dir: . -+- echo -e \\nThere is no way to test lsseq output to stdio if isatty is \\nTrue so PLEASE manually run lsseq -R once on testdir to check \\nif column-output is correct for the /bin/ls output. -----
 
 There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check
 if column-output is correct for the /bin/ls output.
 
------ Test 237 -+- dir: testdir/cdir -+- lsseq / -----
+----- Test 239 -+- dir: testdir/cdir -+- lsseq / -----
 Applications
 Library
 System
