@@ -69,7 +69,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "4.3.0"     # Semantic Versioning 2.0.0
+VERSION = "4.3.1"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -351,7 +351,7 @@ def readByteShortForm(numBytes) :
         multiplier = 1<<30
         numBytes = numBytes[:-1]
 
-    try :
+    try:
         b = float(numBytes)
         if b <= 0 :
             return 512
@@ -1644,6 +1644,23 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
             else :
                 passedPath = traversedPath + d + "/"
 
+            # JPR - first check if we have permission for directory 'd'.
+            #
+            can_read = os.access(d, os.Sanitize_Flags if hasattr(os, 'Sanitize_Flags') else os.R_OK)
+            can_execute = os.access(d, os.X_OK)  # Required to enter/traverse a directory
+            if not (can_read and can_execute) :
+                if not args.silent :
+                    sys.stdout.flush()
+                    sys.stderr.flush()
+                    if passedPath[-1] == "/" :
+                        passedPath = passedPath[:-1]
+                    print(PROG_NAME, ": warning: can not descend into ",
+                        passedPath, ": permission denied.",
+                        sep='', file=sys.stderr)
+                    sys.stderr.flush()
+                gExitStatus = gExitStatus | EXIT_CD_PERMISSION_WARNING
+                continue
+            #
             listSeqDir(stripDotFiles(os.listdir(d), args.ignoreDotFiles),
                 d, False, args, passedPath)
 

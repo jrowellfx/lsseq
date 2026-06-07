@@ -515,8 +515,10 @@ testdir/jdir/j00 mkdir badperm
 testdir/jdir/j00 touch badperm/jjj.txt
 testdir/jdir/j00 chmod 644 badperm
 testdir/jdir/j00 lsseq -R
-testdir/jdir/j00 lsseq --recursive --silent
 testdir/jdir lsseq -R
+testdir/jdir/j00 chmod 000 badperm
+testdir/jdir/j00 lsseq -R
+testdir/jdir/j00 lsseq --recursive --silent
 testdir/jdir/j00 chmod 755 badperm
 testdir/jdir/j00 lsseq -R
 testdir/jdir rm -rf j00
