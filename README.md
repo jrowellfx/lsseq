@@ -651,8 +651,6 @@ $ cat myScriptThatUsesLsseq
 #!/bin/bash
 
 lsseq --globalSortByTime --recursive --prependPathAbs /Volumes/myProjectFiles
-
-
 ```
 
 ## Contact
