@@ -69,7 +69,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "4.3.1"     # Semantic Versioning 2.0.0
+VERSION = "5.0.0"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -1804,7 +1804,7 @@ def main() :
     group.add_argument("--skip-bad-padding", action="store_false",
         dest="showBadPadding",
         help="do not show list of badly padded frames." )
-    group.add_argument("--combine-lists", "-c", action="store_true",
+    group.add_argument("--combine-lists", action="store_true",
         dest="combineErrorFrames", default=False,
         help="combine the lists of zero, missing and bad frames into one list. \
         Reported as 'e:[<list>]'")
