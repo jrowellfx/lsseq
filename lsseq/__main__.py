@@ -1646,7 +1646,7 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
 
             # JPR - first check if we have permission for directory 'd'.
             #
-            can_read = os.access(d, os.Sanitize_Flags if hasattr(os, 'Sanitize_Flags') else os.R_OK)
+            can_read = os.access(d, os.R_OK)
             can_execute = os.access(d, os.X_OK)  # Required to enter/traverse a directory
             if not (can_read and can_execute) :
                 if not args.silent :
@@ -1753,7 +1753,7 @@ def main() :
         times are calculated. In other words, sorting by time might not produce the results \
         you would expect when splitting sequences with this option.")
     group.add_argument("--no-split-sequence", action="store_false",
-        dest="showZero",
+        dest="splitSeq",
         help="consider frames with the same name as all being part of the \
         same sequence. [default]" )
     group.add_argument("--strict-num-separator", "-s", action="store_true",
