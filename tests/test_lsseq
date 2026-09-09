@@ -381,7 +381,7 @@ testdir/cdir lsseq
 testdir/cdir lsseq .
 testdir/cdir lsseq *
 testdir/cdir lsseq -d *
-testdir/cdir lsseq -c
+testdir/cdir lsseq --combine-lists
 testdir/cdir lsseq -e -R
 testdir/cdir lsseq -e -R -P
 testdir/cdir lsseq -fnative

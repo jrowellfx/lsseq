@@ -4,7 +4,7 @@
 Linux
 
 ----- Test 2 -+- dir: . -+- lsseq --version -----
-4.3.1
+5.0.0
 
 ----- Test 3 -+- dir: . -+- lsseq --help -----
 usage: lsseq [-h | --help] [OPTION]... [FILE]...
@@ -74,7 +74,7 @@ display of error frames:
                         shouldn't be, or isn't padded but it should be. Reported as 'p:[<list>]'
                         [default]
   --skip-bad-padding    do not show list of badly padded frames.
-  --combine-lists, -c   combine the lists of zero, missing and bad frames into one list. Reported
+  --combine-lists       combine the lists of zero, missing and bad frames into one list. Reported
                         as 'e:[<list>]'
   --no-combine-lists    don't combine the error lists [default].
   --no-error-lists, -n  Skip printing ALL error lists. Note: Setting --show-bad-padding (for
@@ -3567,7 +3567,7 @@ ccc01.[001-120].exr m:[3], z:[52-55]
 ccc02.[001-120].exr m:[51,119]
 ccc03.[80-140].tga
 
------ Test 20 -+- dir: testdir/cdir -+- lsseq -c -----
+----- Test 20 -+- dir: testdir/cdir -+- lsseq --combine-lists -----
 aaaa
 bbbb
 c_subDir
