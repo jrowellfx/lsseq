@@ -56,7 +56,7 @@ $ lsseq
 .PP
 For example, given a directory containing
 .IR aaa.097.tif " through " aaa.103.tif
-with frame 099 missing, plus two unrelated files:
+with frame 99 missing, plus two unrelated files:
 .PP
 .RS
 .nf
@@ -208,10 +208,7 @@ Do not treat image files as sequences; they are listed
 individually as regular files instead. If
 .B \-\-only\-sequences
 is also given, image files are omitted from the listing
-altogether, since that option suppresses the regular-file output
-that
-.B \-\-not\-images
-would otherwise fall back to.
+altogether, since that option suppresses regular-file output.
 .TP
 .B \-\-only\-movies
 List strictly movie sequences (no images or caches).
@@ -221,10 +218,7 @@ Do not treat movie files as sequences; they are listed
 individually as regular files instead. If
 .B \-\-only\-sequences
 is also given, movie files are omitted from the listing
-altogether, since that option suppresses the regular-file output
-that
-.B \-\-not\-movies
-would otherwise fall back to.
+altogether, since that option suppresses regular-file output.
 .TP
 .B \-\-only\-caches
 List strictly cache sequences (no images or movies).
@@ -234,10 +228,7 @@ Do not treat cache files as sequences; they are listed
 individually as regular files instead. If
 .B \-\-only\-sequences
 is also given, cache files are omitted from the listing
-altogether, since that option suppresses the regular-file output
-that
-.B \-\-not\-caches
-would otherwise fall back to.
+altogether, since that option suppresses regular-file output.
 .SS Sequence display-modifiers
 .TP
 .BI \-\-format " FORMAT" ", " \-f " FORMAT"
@@ -333,24 +324,25 @@ zero if omitted. Which frame is used for the comparison is governed
 by
 .BR \-\-time ,
 and which underlying timestamp is compared is governed by
-.BR \-\-which\-time / \-\-ctime / \-\-atime
+.BR \-\-which\-time / \-\-mtime / \-\-ctime / \-\-atime
 below.
 .SS Timestamp selection
 These options control which underlying file timestamp is used for
 every time comparison in
 .B lsseq
 \(em that is, for
-.B \-\-sort\-by\-time
+.BR \-\-sort\-by\-time ,
+.BR \-\-only\-show ,
 and
-.BR \-\-only\-show .
-They mirror the
+.BR \-\-global\-sort\-by\-time .
+They mirror
+.BR ls (1) \|'s
+use of
 .B \-c
 and
 .B \-u
-flags of
-.BR ls (1).
-When more than one of these options is given, the last one on the
-command line wins, exactly as with
+flags. When more than one of these options is given, the last one
+on the command line wins, exactly as with
 .BR ls (1).
 .TP
 .BI \-\-which\-time " TIMESTAMP"
@@ -362,7 +354,17 @@ is one of
 .BR ctime
 (last change of file status information), or
 .BR atime
-(last access time).
+(last access time). Equivalent short forms:
+.BR \-\-mtime ,
+.BR \-\-ctime / \-c ,
+and
+.BR \-\-atime / \-u .
+.TP
+.B \-\-mtime
+Use mtime (last modification time) for time comparisons. Equivalent
+to
+.BR "\-\-which\-time mtime" .
+(Default.)
 .TP
 .BR \-\-ctime ", " \-c
 Use ctime instead of mtime. Equivalent to
@@ -551,7 +553,7 @@ As of
 .BR 4.0.0 ,
 all long options were renamed from camelCase to kebab-case (for
 example,
-.B \-\-globalSortByTime
+.B \%\-\-globalSortByTime
 became
 .BR \-\-global\-sort\-by\-time ),
 a breaking change reflected in the major version bump.
