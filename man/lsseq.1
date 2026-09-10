@@ -1,0 +1,605 @@
+.TH LSSEQ 1 "2026" "lsseq 5.1.0" "User Commands"
+.SH NAME
+lsseq \- list directory contents, condensing image, cache, and movie sequences into single entries
+.SH SYNOPSIS
+.B lsseq
+[\fB\-h\fR | \fB\-\-help\fR]
+[\fIOPTION\fR]...
+[\fIFILE\fR]...
+.SH DESCRIPTION
+.B lsseq
+lists directory contents much like
+.BR ls (1),
+except that it condenses image, cache, and movie sequences into a
+single compact entry each, rather than listing every frame
+individually.
+.PP
+Filenames that are part of a sequence are assumed to be of the form:
+.PP
+.RS
+.I descriptiveName\fR.\fIframeNum\fR.\fIimgExtension
+.RE
+.PP
+where
+.I imgExtension
+is drawn from a built-in list of recognized image, cache, and movie
+file extensions (see
+.B \-\-img\-ext
+below), or from a colon-separated list supplied via the
+.B LSSEQ_IMAGE_EXTENSION ,
+.B LSSEQ_MOV_EXTENSION ,
+or
+.B LSSEQ_CACHE_EXTENSION
+environment variables.
+.B lsseq
+also accepts an underscore in place of the dot separating
+.I descriptiveName
+from
+.I frameNum
+when
+.B \-\-loose\-num\-separator
+is given.
+.PP
+.B lsseq
+first lists all non-sequence files exactly as
+.BR ls (1)
+would (minus anything that is part of a sequence), then lists all
+detected sequences in condensed form:
+.PP
+.RS
+.nf
+$ lsseq
+[output of /bin/ls minus image/cache/movie sequences]
+[list of condensed sequences]
+.fi
+.RE
+.PP
+For example, given a directory containing
+.IR aaa.097.tif " through " aaa.103.tif
+with frame 099 missing, plus two unrelated files:
+.PP
+.RS
+.nf
+$ ls
+aaa.097.tif  aaa.100.tif  aaa.102.tif  bar.pdf
+aaa.098.tif  aaa.101.tif  aaa.103.tif  foo.txt
+$ lsseq
+bar.pdf  foo.txt
+aaa.[097\-103].tif m:[99]
+.fi
+.RE
+.PP
+The
+.B m:[99]
+annotation reports that frame 99 is missing from the sequence. See
+.B DISPLAY OF ERROR FRAMES
+below for the other annotations
+.B lsseq
+can report (zero-length frames, undersized/bad frames, and badly
+padded frame numbers).
+.SH OPTIONS
+.SS Miscellaneous options
+.TP
+.BR \-\-help ", " \-h
+Show the help message and exit.
+.TP
+.B \-\-version
+Show the program's version number and exit.
+.TP
+.BR \-\-silent ", " \-\-quiet
+Suppress error and warning messages.
+.TP
+.B \-\-
+End of options; all subsequent arguments are treated as positional
+file names, even if they begin with a dash.
+.SS Sequence interpretation
+.TP
+.B \-\-split\-sequence
+Print sequences with missing frames as if they were multiple,
+separate sequences sharing the same name but with different frame
+ranges. This affects only how a sequence is printed, not how
+sequence times are calculated; sorting by time may not behave as
+expected when combined with this option.
+.TP
+.B \-\-no\-split\-sequence
+Consider all frames sharing the same name as one sequence.
+(Default.)
+.TP
+.BR \-\-strict\-num\-separator ", " \-s
+Strictly require
+.RB \(aq . \(aq
+(dot) as the separator between
+.I descriptiveName
+and
+.IR frameNum .
+(Default.)
+.TP
+.BR \-\-loose\-num\-separator ", " \-l
+Additionally allow
+.RB \(aq _ \(aq
+(underscore) as the separator between
+.I descriptiveName
+and
+.IR frameNum .
+.SS Display of error frames
+.TP
+.BR \-\-show\-missing ", " \-m
+Show the list of missing frames as
+.BR m:[ <list> ] .
+(Default.)
+.TP
+.BR \-\-skip\-missing ", " \-M
+Do not show the list of missing frames.
+.TP
+.BR \-\-show\-zero ", " \-z
+Show the list of zero-length frames as
+.BR z:[ <list> ] .
+(Default.)
+.TP
+.BR \-\-skip\-zero ", " \-Z
+Do not show the list of zero-length frames.
+.TP
+.BR \-\-show\-bad\-frames ", " \-b
+Show frames smaller than the minimum good-frame size (see
+.BR \-\-good\-frame\-min\-size )
+as
+.BR b:[ <list> ] .
+.TP
+.BR \-\-skip\-bad\-frames ", " \-B
+Do not show the list of potentially bad (undersized) frames.
+(Default.)
+.TP
+.BI \-\-good\-frame\-min\-size " BYTES"
+Any frame smaller than
+.I BYTES
+is considered a bad frame. Accepts short forms such as
+.B 1K
+(1024) or
+.BR 1.5K .
+Default: 512.
+.TP
+.B \-\-show\-bad\-padding
+Report frame numbers whose padding is inconsistent with the rest of
+the sequence, as
+.BR p:[ <list> ] .
+(Default.)
+.TP
+.B \-\-skip\-bad\-padding
+Do not show the list of badly padded frames.
+.TP
+.B \-\-combine\-lists
+Combine the missing, zero, bad, and bad-padding lists into a single
+list, reported as
+.BR e:[ <list> ] .
+.TP
+.B \-\-no\-combine\-lists
+Do not combine the error lists. (Default.)
+.TP
+.BR \-\-no\-error\-lists ", " \-n
+Suppress all of the error-frame lists above in one go. If a more
+specific option such as
+.B \-\-show\-bad\-padding
+appears
+.I after
+this one on the command line, that list is shown after all; option
+processing is left to right, as with all argparse-style tools.
+.SS Sequence-category filters
+.TP
+.BR \-\-img\-ext ", " \-i
+Print the built-in lists of recognized image, movie, and cache file
+extensions (and the corresponding environment variables to override
+them), then exit.
+.TP
+.B \-\-list\-all\-files
+List all sequences plus regular
+.BR ls (1)
+output. (Default.)
+.TP
+.BR \-\-only\-sequences ", " \-o
+Omit regular
+.BR ls (1)
+output; list only sequences.
+.TP
+.BR \-\-only\-images ", " \-O
+List strictly image sequences (no movies or caches).
+.TP
+.B \-\-not\-images
+Do not treat image files as sequences; they are listed
+individually as regular files instead. If
+.B \-\-only\-sequences
+is also given, image files are omitted from the listing
+altogether, since that option suppresses the regular-file output
+that
+.B \-\-not\-images
+would otherwise fall back to.
+.TP
+.B \-\-only\-movies
+List strictly movie sequences (no images or caches).
+.TP
+.B \-\-not\-movies
+Do not treat movie files as sequences; they are listed
+individually as regular files instead. If
+.B \-\-only\-sequences
+is also given, movie files are omitted from the listing
+altogether, since that option suppresses the regular-file output
+that
+.B \-\-not\-movies
+would otherwise fall back to.
+.TP
+.B \-\-only\-caches
+List strictly cache sequences (no images or movies).
+.TP
+.B \-\-not\-caches
+Do not treat cache files as sequences; they are listed
+individually as regular files instead. If
+.B \-\-only\-sequences
+is also given, cache files are omitted from the listing
+altogether, since that option suppresses the regular-file output
+that
+.B \-\-not\-caches
+would otherwise fall back to.
+.SS Sequence display-modifiers
+.TP
+.BI \-\-format " FORMAT" ", " \-f " FORMAT"
+List sequences in an alternate
+.IR FORMAT .
+Choices are
+.BR native
+(default),
+.BR nuke ,
+.BR rv ,
+.BR shake ,
+.BR glob ,
+.BR mplay ,
+and
+.BR houdini .
+.B glob
+only produces correct results when frame numbers are zero-padded.
+The error-frame annotations described above are only printed with
+.B native
+format.
+.TP
+.BR \-\-prepend\-path\-abs ", " \-p
+Prepend the absolute path to each sequence name. Implies
+.B \-\-only\-sequences
+and suppresses directory-name headers.
+.TP
+.BR \-\-prepend\-path\-rel ", " \-P
+Prepend the relative path to each sequence name. Implies
+.B \-\-only\-sequences
+and suppresses directory-name headers.
+.TP
+.BR \-\-extremes ", " \-e
+List only the first and last frame of each image or cache sequence,
+one per line. Implies
+.B \-\-prepend\-path\-abs
+(unless
+.B \-\-prepend\-path\-rel
+is explicitly given), plus
+.B \-\-only\-sequences
+and
+.BR \-\-not\-movies .
+.SS Sequence sorting and display
+.TP
+.BR \-\-recursive ", " \-R
+List subdirectories recursively.
+.TP
+.BR \-\-reverse ", " \-r
+Reverse sort order.
+.TP
+.BR \-\-sort\-by\-time ", " \-t
+Sort by timestamp rather than by name. By default, sequences are
+compared using the newest frame in each sequence; see
+.B \-\-time
+to change which frame is used for the comparison, and
+.B \-\-which\-time / \-\-ctime / \-\-atime
+below to compare using ctime or atime instead of mtime.
+.TP
+.BI \-\-time " FRAME_AGE"
+Which frame within each sequence to use when comparing sequences by
+time.
+.I FRAME_AGE
+is one of
+.BR oldest ,
+.BR median ,
+or
+.BR newest
+(default).
+.TP
+.BR \-\-global\-sort\-by\-time ", " \-G
+When combined with
+.B \-\-prepend\-path\-abs
+or
+.BR \-\-prepend\-path\-rel ,
+sort
+.I all
+sequences by time across every directory visited, rather than only
+within each directory. Ignored otherwise. This is a capability
+.BR ls (1)
+does not offer.
+.TP
+.BI \-\-only\-show " TENSE " [CC]YYMMDD[\-hh[mm[ss]]]
+List only sequences whose comparison timestamp falls before or
+since the given time.
+.I TENSE
+is
+.B before
+or
+.BR since .
+The century
+.RI ( CC )
+defaults to the current century; hour, minute, and second default to
+zero if omitted. Which frame is used for the comparison is governed
+by
+.BR \-\-time ,
+and which underlying timestamp is compared is governed by
+.BR \-\-which\-time / \-\-ctime / \-\-atime
+below.
+.SS Timestamp selection
+These options control which underlying file timestamp is used for
+every time comparison in
+.B lsseq
+\(em that is, for
+.B \-\-sort\-by\-time
+and
+.BR \-\-only\-show .
+They mirror the
+.B \-c
+and
+.B \-u
+flags of
+.BR ls (1).
+When more than one of these options is given, the last one on the
+command line wins, exactly as with
+.BR ls (1).
+.TP
+.BI \-\-which\-time " TIMESTAMP"
+Select which timestamp to use.
+.I TIMESTAMP
+is one of
+.BR mtime
+(last modification time, default),
+.BR ctime
+(last change of file status information), or
+.BR atime
+(last access time).
+.TP
+.BR \-\-ctime ", " \-c
+Use ctime instead of mtime. Equivalent to
+.BR "\-\-which\-time ctime" .
+.TP
+.BR \-\-atime ", " \-u
+Use atime instead of mtime. Equivalent to
+.BR "\-\-which\-time atime" .
+.SS Symbolic-link handling
+Regardless of the options below,
+.B lsseq
+always prints the name of a symbolic link itself, never the file it
+points to.
+.TP
+.BR \-\-dereference\-command\-line ", " \-H
+Only follow symbolic links to files and directories named directly
+on the command line. (Default.)
+.TP
+.BR \-\-dereference ", " \-L
+Follow all symbolic links, to files and directories alike.
+.TP
+.B \-\-no\-dereference
+Do not follow any symbolic links.
+.TP
+.B \-\-dereference\-command\-line\-symlink\-to\-dir
+Only follow command-line symbolic links that point to directories.
+.TP
+.B \-\-dereference\-symlink\-to\-dir
+Follow all symbolic links that point to directories.
+.TP
+.B \-\-no\-dereference\-dir
+Do not follow symbolic links to directories.
+.TP
+.B \-\-dereference\-command\-line\-symlink\-to\-file
+Only follow command-line symbolic links that point to regular
+files.
+.TP
+.B \-\-dereference\-symlink\-to\-file
+Follow all symbolic links that point to regular files.
+.TP
+.B \-\-no\-dereference\-file
+Do not follow symbolic links to regular files.
+.SS LS(1) control for non-sequences
+.TP
+.BR \-\-single ", " \-1
+List one non-sequence entry per line (see
+.BR ls (1)).
+.TP
+.BR \-\-all ", " \-a
+Do not ignore entries starting with
+.RB \(aq . \(aq
+(see
+.BR ls (1) \|'s
+.BR \-\-almost\-all ).
+.TP
+.BR \-\-by\-columns ", " \-C
+List non-sequence entries by columns (see
+.BR ls (1)).
+.TP
+.BR \-\-by\-rows ", " \-x
+List non-sequence entries by rows instead of columns (see
+.BR ls (1)).
+.TP
+.BR \-\-directory ", " \-d
+List directory entries themselves, not their contents, and do not
+follow symbolic links (see
+.BR ls (1)).
+.TP
+.BR \-\-classify ", " \-F
+Append an indicator
+.RB ( * / = > @ | )
+to entries, and do not follow symbolic links to directories (see
+.BR ls (1)
+for the meaning of each symbol). A sequence made up entirely of
+symbolic links is also marked with
+.BR @ .
+.SH ENVIRONMENT
+.TP
+.B LSSEQ_IMAGE_EXTENSION
+Colon-separated list of image file extensions to recognize, in
+place of the built-in default list (see
+.BR \-\-img\-ext ).
+.TP
+.B LSSEQ_MOV_EXTENSION
+Colon-separated list of movie file extensions to recognize, in
+place of the built-in default list.
+.TP
+.B LSSEQ_CACHE_EXTENSION
+Colon-separated list of cache file extensions to recognize, in
+place of the built-in default list.
+.TP
+.BR OIC_IMAGE_EXTENSION ", " OIC_MOV_EXTENSION ", " OIC_CACHE_EXTENSION
+Deprecated aliases for the three variables above, kept for backward
+compatibility with older configurations and being phased out in
+favor of the
+.B LSSEQ_*
+names.
+.SH EXIT STATUS
+Exit codes are combined bitwise, so a single run can report more
+than one condition at once.
+.TP
+.B 0
+No error.
+.TP
+.B 1
+A call to
+.BR ls (1)
+reported an error, or another internal issue occurred while
+listing.
+.TP
+.B 2
+Bad command-line argument (the standard argparse error code).
+.TP
+.B 4
+Warning: a broken symbolic link was encountered.
+.TP
+.B 8
+Warning: two frames in a sequence share the same frame number but
+differ in padding.
+.TP
+.B 16
+Warning: recursive descent into a directory was blocked because the
+execute bit was not set.
+.TP
+.B 32
+Warning: a file named explicitly on the command line does not
+exist.
+.SH EXAMPLES
+.TP
+List the current directory, condensing sequences:
+.RS
+.nf
+$ lsseq
+.fi
+.RE
+.TP
+Print a sequence in a format suitable for piping to another tool:
+.RS
+.nf
+$ lsseq \-\-format rv
+bbb.97\-103@@@.jpg
+$ rv `lsseq \-f rv`
+.fi
+.RE
+.TP
+List only sequences, with absolute paths, suitable for scripting:
+.RS
+.nf
+$ lsseq \-\-prepend\-path\-abs \-\-format rv *
+.fi
+.RE
+.TP
+Sort sequences by time across every directory visited:
+.RS
+.nf
+$ lsseq \-\-global\-sort\-by\-time \-\-recursive \-\-prepend\-path\-abs /projects
+.fi
+.RE
+.TP
+Sort by last-access time instead of modification time (added in 5.1.0):
+.RS
+.nf
+$ lsseq \-\-sort\-by\-time \-\-atime
+.fi
+.RE
+.TP
+List only sequences whose status changed on or after a given date,
+comparing ctime instead of mtime:
+.RS
+.nf
+$ lsseq \-\-ctime \-\-only\-show since 260101
+.fi
+.RE
+.TP
+Hide the missing- and zero-length-frame annotations:
+.RS
+.nf
+$ lsseq \-\-skip\-missing \-\-skip\-zero
+.fi
+.RE
+.SH HISTORY
+.B lsseq
+follows Semantic Versioning 2.0.0.
+.PP
+As of
+.BR 4.0.0 ,
+all long options were renamed from camelCase to kebab-case (for
+example,
+.B \-\-globalSortByTime
+became
+.BR \-\-global\-sort\-by\-time ),
+a breaking change reflected in the major version bump.
+.PP
+As of
+.BR 5.0.0 ,
+the
+.B \-c
+short form of
+.B \-\-combine\-lists
+was removed, another breaking change, freeing
+.B \-c
+for reuse.
+.PP
+As of
+.BR 5.1.0 ,
+.B \-c
+was reintroduced as shorthand for the new
+.B \-\-ctime
+option, alongside
+.B \-u
+for
+.BR \-\-atime ,
+and the new
+.B \-\-which\-time
+option, adding the ability to sort and filter sequences by ctime or
+atime in addition to the default mtime, mirroring
+.BR ls (1) \|'s
+own
+.B \-c
+and
+.B \-u
+flags. This was an additive, backward-compatible change.
+.SH SEE ALSO
+.BR ls (1).
+.PP
+Related command-line utilities by the same author:
+.BR renumseq ,
+.BR expandseq ,
+.BR condenseseq ,
+and
+.BR fixseqpadding ,
+available at
+.BR https://github.com/jrowellfx .
+.SH AUTHOR
+James Philip Rowell, Alpha Eleven Incorporated
+.RI ( https://www.alpha\-eleven.com ).
+.SH BUGS
+Report bugs, suggestions, or praise to the address listed on the
+project's GitHub page:
+.BR https://github.com/jrowellfx/lsseq .

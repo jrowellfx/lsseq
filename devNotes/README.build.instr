@@ -67,6 +67,7 @@ source setUpToTest.sourceMe
     for BOTH Darwin (MacOS) and Linux.
 
 # Update the version number in README.md appendix example
+# Update the "help" output from lsseq if changed.
 
 # If on Linux, then PUSH up to github, and pull down to macos and test before building
 # and uploading to pypi

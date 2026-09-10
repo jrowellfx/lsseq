@@ -69,7 +69,7 @@ import seqLister
 # MINOR version for added functionality in a backwards compatible manner
 # PATCH version for backwards compatible bug fixes
 #
-VERSION = "5.0.0"     # Semantic Versioning 2.0.0
+VERSION = "5.1.0"     # Semantic Versioning 2.0.0
 
 PROG_NAME = "lsseq"
 
@@ -550,6 +550,27 @@ def extractStartEnd(seq) :
     end = int(endStr) * negEnd
 
     return (start, end)
+
+# Return the appropriate timestamp (mtime, ctime or atime) for a file,
+# according to args.whichTime (see --which-time, --ctime/-c, --atime/-u).
+# This is used uniformly everywhere a file/frame timestamp is captured,
+# so that both --sort-by-time and --only-show operate consistently on
+# whichever timestamp the user has selected. (Added v5.1.0)
+#
+# pathForStat  - path to stat(). Should be the *real* (dereferenced)
+#                path when we want the target file's time, or the
+#                original (possibly symlink) path when useLstat is True.
+# useLstat     - if True, use os.lstat() on pathForStat (i.e. the time
+#                of the link itself) instead of os.stat() (the target).
+#
+def getFileTimeField(pathForStat, args, useLstat=False) :
+    statResult = os.lstat(pathForStat) if useLstat else os.stat(pathForStat)
+    if args.whichTime == 'ctime' :
+        return statResult.st_ctime
+    elif args.whichTime == 'atime' :
+        return statResult.st_atime
+    else : # 'mtime', the default.
+        return statResult.st_mtime
 
 # Prints an individual sequence based on cmd-line-args.
 # frameList comes in sorted from smallest frame number to largest.
@@ -1222,9 +1243,9 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                         # was made compared to other sequences.
                         #
                         if isFileLink and not deRefFiles(isCmdLineArg):
-                            newFrameMTime = os.lstat(filename).st_mtime
+                            newFrameMTime = getFileTimeField(filename, args, useLstat=True)
                         else :
-                            newFrameMTime = os.path.getmtime(realFilename)
+                            newFrameMTime = getFileTimeField(realFilename, args, useLstat=False)
 
                 else : # File does not exist. Print warning and skip to next file.
                     if not args.silent :
@@ -1271,9 +1292,9 @@ def listSeqDir(dirContents, path, isCmdLineArg, args, traversedPath) :
                         isFileLink = os.path.islink(filename)
 
                         if isFileLink and not deRefFiles(isCmdLineArg):
-                            movieMTime = os.lstat(filename).st_mtime
+                            movieMTime = getFileTimeField(filename, args, useLstat=True)
                         else :
-                            movieMTime = os.path.getmtime(realFilename)
+                            movieMTime = getFileTimeField(realFilename, args, useLstat=False)
 
                     movieDictionary[filename] = (movieMTime, isFileLink)
 
@@ -1837,25 +1858,34 @@ def main() :
         help="strictly list only image sequences (i.e., no movies or caches).")
     group.add_argument("--not-images", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_NOT_IMGS,
-        help="omit image files from being considered as sequences. \
-        Image files will be listed with regular /bin/ls output unless \
-        --only-sequences has been specified on the command line.")
+        help="omit image files from being considered as sequences; \
+        they are listed individually as regular files instead. If \
+        --only-sequences is also given, image files are omitted from \
+        the listing altogether, since that option suppresses the \
+        regular-file output that --not-images would otherwise fall \
+        back to.")
     group.add_argument("--only-movies", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_ONLYMOVS,
         help="strictly list only movies (i.e., no images or caches).")
     group.add_argument("--not-movies", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_NOT_MOVS,
-        help="omit movies from being considered as sequences. \
-        movie files will be listed with regular /bin/ls output unless \
-        --only-sequences has been specified on the command line.")
+        help="omit movies from being considered as sequences; \
+        they are listed individually as regular files instead. If \
+        --only-sequences is also given, movie files are omitted from \
+        the listing altogether, since that option suppresses the \
+        regular-file output that --not-movies would otherwise fall \
+        back to.")
     group.add_argument("--only-caches", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_ONLYCACHES,
         help="strictly list only cache sequences (i.e., no images or movies).")
     group.add_argument("--not-caches", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_NOT_CACHES,
-        help="omit caches from being considered as sequences. \
-        cache files will be listed with regular /bin/ls output unless \
-        --only-sequences has been specified on the command line.")
+        help="omit caches from being considered as sequences; \
+        they are listed individually as regular files instead. If \
+        --only-sequences is also given, cache files are omitted from \
+        the listing altogether, since that option suppresses the \
+        regular-file output that --not-caches would otherwise fall \
+        back to.")
 
     group = p.add_argument_group('sequence display-modifiers')
     group.add_argument("--format", "-f", action="store", type=str,
@@ -1900,7 +1930,9 @@ def main() :
         dest="sortByMTime", default=False,
         help="sort by modification time, the default comparison \
         time is between the most recently modified (newest) frames \
-        in each sequence. (see --time) (see LS(1))")
+        in each sequence. (see --time) (see LS(1)) (see also \
+        --which-time/--ctime/--atime to compare by ctime or atime \
+        instead of mtime)")
     group.add_argument("--time", action="store", type=str,
         dest="timeCompare",
         help="which frame in the sequence to use to compare times \
@@ -1922,8 +1954,34 @@ def main() :
         specifies which frame to use for the cutoff comparison. \
         The optional CC (century) defaults to the current century. \
         The optional '-hh' (hours), 'mm' (minutes) or 'ss' (seconds) \
-        default to zero if not specified.",
+        default to zero if not specified. Uses whichever timestamp is \
+        selected via --which-time/--ctime/--atime (mtime by default).",
         metavar=("TENSE", "[CC]YYMMDD[-hh[mm[ss]]]"))
+
+    whichTimeHelpMsg = "Control which underlying file timestamp is used for" + '\n' + \
+        "all time comparisons in lsseq, namely --sort-by-time and" + '\n' + \
+        "--only-show. Mirrors /bin/ls's -c and -u flags. The last" + '\n' + \
+        "one of --which-time/--ctime/--atime given on the command" + '\n' + \
+        "line wins, just as with /bin/ls."
+    group = p.add_argument_group('timestamp selection', whichTimeHelpMsg)
+    group.add_argument("--which-time", action="store", type=str,
+        dest="whichTime",
+        choices=("mtime", "ctime", "atime"),
+        metavar="TIMESTAMP",
+        default="mtime",
+        help="which timestamp to use for time comparisons: 'mtime' \
+        (last modification time, default), 'ctime' (last change of \
+        file status information), or 'atime' (last access time). \
+        Equivalent short forms: --ctime/-c and --atime/-u.")
+    group.add_argument("--ctime", "-c", action="store_const",
+        dest="whichTime", const="ctime",
+        help="use ctime (last change of file status information) \
+        for time comparisons instead of mtime. Equivalent to \
+        --which-time ctime. (see LS(1))")
+    group.add_argument("--atime", "-u", action="store_const",
+        dest="whichTime", const="atime",
+        help="use atime (last access time) for time comparisons \
+        instead of mtime. Equivalent to --which-time atime. (see LS(1))")
 
     symLinkHelpMsg = "Control for whether or not to follow symbolic links to" + '\n' + \
         "the final target of files and/or directories. Regardless," + '\n' + \
