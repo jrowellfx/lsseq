@@ -1861,9 +1861,8 @@ def main() :
         help="omit image files from being considered as sequences; \
         they are listed individually as regular files instead. If \
         --only-sequences is also given, image files are omitted from \
-        the listing altogether, since that option suppresses the \
-        regular-file output that --not-images would otherwise fall \
-        back to.")
+        the listing altogether, since that option suppresses \
+        regular-file output.")
     group.add_argument("--only-movies", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_ONLYMOVS,
         help="strictly list only movies (i.e., no images or caches).")
@@ -1872,9 +1871,8 @@ def main() :
         help="omit movies from being considered as sequences; \
         they are listed individually as regular files instead. If \
         --only-sequences is also given, movie files are omitted from \
-        the listing altogether, since that option suppresses the \
-        regular-file output that --not-movies would otherwise fall \
-        back to.")
+        the listing altogether, since that option suppresses \
+        regular-file output.")
     group.add_argument("--only-caches", action="append_const",
         dest="listWhichFiles", const=ARG_LIST_ONLYCACHES,
         help="strictly list only cache sequences (i.e., no images or movies).")
@@ -1883,9 +1881,8 @@ def main() :
         help="omit caches from being considered as sequences; \
         they are listed individually as regular files instead. If \
         --only-sequences is also given, cache files are omitted from \
-        the listing altogether, since that option suppresses the \
-        regular-file output that --not-caches would otherwise fall \
-        back to.")
+        the listing altogether, since that option suppresses \
+        regular-file output.")
 
     group = p.add_argument_group('sequence display-modifiers')
     group.add_argument("--format", "-f", action="store", type=str,
@@ -1955,24 +1952,30 @@ def main() :
         The optional CC (century) defaults to the current century. \
         The optional '-hh' (hours), 'mm' (minutes) or 'ss' (seconds) \
         default to zero if not specified. Uses whichever timestamp is \
-        selected via --which-time/--ctime/--atime (mtime by default).",
+        selected via --which-time/--mtime/--ctime/--atime (mtime by default).",
         metavar=("TENSE", "[CC]YYMMDD[-hh[mm[ss]]]"))
 
-    whichTimeHelpMsg = "Control which underlying file timestamp is used for" + '\n' + \
-        "all time comparisons in lsseq, namely --sort-by-time and" + '\n' + \
-        "--only-show. Mirrors /bin/ls's -c and -u flags. The last" + '\n' + \
-        "one of --which-time/--ctime/--atime given on the command" + '\n' + \
-        "line wins, just as with /bin/ls."
+    whichTimeHelpMsg = "Control which underlying file timestamp is used for all time" + '\n' + \
+        "comparisons in lsseq, namely --sort-by-time, --only-show and" + '\n' + \
+        "--global-sort-by-time. Mirrors /bin/ls's use of -c and -u flags." + '\n' + \
+        "The last one of --which-time/--mtime/--ctime/--atime given on the" + '\n' + \
+        "command line wins, just as with /bin/ls."
     group = p.add_argument_group('timestamp selection', whichTimeHelpMsg)
     group.add_argument("--which-time", action="store", type=str,
         dest="whichTime",
         choices=("mtime", "ctime", "atime"),
         metavar="TIMESTAMP",
         default="mtime",
-        help="which timestamp to use for time comparisons: 'mtime' \
-        (last modification time, default), 'ctime' (last change of \
-        file status information), or 'atime' (last access time). \
-        Equivalent short forms: --ctime/-c and --atime/-u.")
+        help="which timestamp to use for time comparisons. \
+        The choices are 'mtime' [default], 'ctime' or 'atime'. \
+        'mtime' uses the last modification time. \
+        'ctime' uses the last change of file status information. \
+        'atime' uses the last access time. (see LS(1))\
+        Equivalent short forms: --mtime, --ctime/-c and --atime/-u.")
+    group.add_argument("--mtime", action="store_const",
+        dest="whichTime", const="mtime",
+        help="use mtime (last modification time) for time comparisons.\
+        Equivalent to --which-time mtime. [default]")
     group.add_argument("--ctime", "-c", action="store_const",
         dest="whichTime", const="ctime",
         help="use ctime (last change of file status information) \

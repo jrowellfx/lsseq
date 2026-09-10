@@ -89,20 +89,17 @@ sequence-category filters:
   --not-images          omit image files from being considered as sequences; they are listed
                         individually as regular files instead. If --only-sequences is also given,
                         image files are omitted from the listing altogether, since that option
-                        suppresses the regular-file output that --not-images would otherwise fall
-                        back to.
+                        suppresses regular-file output.
   --only-movies         strictly list only movies (i.e., no images or caches).
   --not-movies          omit movies from being considered as sequences; they are listed
                         individually as regular files instead. If --only-sequences is also given,
                         movie files are omitted from the listing altogether, since that option
-                        suppresses the regular-file output that --not-movies would otherwise fall
-                        back to.
+                        suppresses regular-file output.
   --only-caches         strictly list only cache sequences (i.e., no images or movies).
   --not-caches          omit caches from being considered as sequences; they are listed
                         individually as regular files instead. If --only-sequences is also given,
                         cache files are omitted from the listing altogether, since that option
-                        suppresses the regular-file output that --not-caches would otherwise fall
-                        back to.
+                        suppresses regular-file output.
 
 sequence display-modifiers:
   --format FORMAT, -f FORMAT
@@ -146,20 +143,23 @@ sequence sorting and display:
                         optional CC (century) defaults to the current century. The optional '-hh'
                         (hours), 'mm' (minutes) or 'ss' (seconds) default to zero if not
                         specified. Uses whichever timestamp is selected via --which-
-                        time/--ctime/--atime (mtime by default).
+                        time/--mtime/--ctime/--atime (mtime by default).
 
 timestamp selection:
-  Control which underlying file timestamp is used for
-  all time comparisons in lsseq, namely --sort-by-time and
-  --only-show. Mirrors /bin/ls's -c and -u flags. The last
-  one of --which-time/--ctime/--atime given on the command
-  line wins, just as with /bin/ls.
+  Control which underlying file timestamp is used for all time
+  comparisons in lsseq, namely --sort-by-time, --only-show and
+  --global-sort-by-time. Mirrors /bin/ls's use of -c and -u flags.
+  The last one of --which-time/--mtime/--ctime/--atime given on the
+  command line wins, just as with /bin/ls.
 
   --which-time TIMESTAMP
-                        which timestamp to use for time comparisons: 'mtime' (last modification
-                        time, default), 'ctime' (last change of file status information), or
-                        'atime' (last access time). Equivalent short forms: --ctime/-c and
-                        --atime/-u.
+                        which timestamp to use for time comparisons. The choices are 'mtime'
+                        [default], 'ctime' or 'atime'. 'mtime' uses the last modification time.
+                        'ctime' uses the last change of file status information. 'atime' uses the
+                        last access time. (see LS(1)) Equivalent short forms: --mtime, --ctime/-c
+                        and --atime/-u.
+  --mtime               use mtime (last modification time) for time comparisons. Equivalent to
+                        --which-time mtime. [default]
   --ctime, -c           use ctime (last change of file status information) for time comparisons
                         instead of mtime. Equivalent to --which-time ctime. (see LS(1))
   --atime, -u           use atime (last access time) for time comparisons instead of mtime.
