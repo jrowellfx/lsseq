@@ -379,7 +379,7 @@ display of error frames:
                         number is padded but shouldn't be, or isn't padded but
                         it should be. Reported as 'p:[<list>]' [default]
   --skip-bad-padding    do not show list of badly padded frames.
-  --combine-lists, -c   combine the lists of zero, missing and bad frames into
+  --combine-lists       combine the lists of zero, missing and bad frames into
                         one list. Reported as 'e:[<list>]'
   --no-combine-lists    don't combine the error lists [default].
   --no-error-lists, -n  Skip printing ALL error lists. Note: Setting --show-
@@ -395,21 +395,24 @@ sequence-category filters:
   --only-sequences, -o  omit any regular /bin/ls output, only list sequences.
   --only-images, -O     strictly list only image sequences (i.e., no movies or
                         caches).
-  --not-images          omit image files from being considered as sequences.
-                        Image files will be listed with regular /bin/ls output
-                        unless --only-sequences has been specified on the
-                        command line.
+  --not-images          omit image files from being considered as sequences;
+                        they are listed individually as regular files instead.
+                        If --only-sequences is also given, image files are
+                        omitted from the listing altogether, since that option
+                        suppresses regular-file output.
   --only-movies         strictly list only movies (i.e., no images or caches).
-  --not-movies          omit movies from being considered as sequences. movie
-                        files will be listed with regular /bin/ls output
-                        unless --only-sequences has been specified on the
-                        command line.
+  --not-movies          omit movies from being considered as sequences; they
+                        are listed individually as regular files instead. If
+                        --only-sequences is also given, movie files are
+                        omitted from the listing altogether, since that option
+                        suppresses regular-file output.
   --only-caches         strictly list only cache sequences (i.e., no images or
                         movies).
-  --not-caches          omit caches from being considered as sequences. cache
-                        files will be listed with regular /bin/ls output
-                        unless --only-sequences has been specified on the
-                        command line.
+  --not-caches          omit caches from being considered as sequences; they
+                        are listed individually as regular files instead. If
+                        --only-sequences is also given, cache files are
+                        omitted from the listing altogether, since that option
+                        suppresses regular-file output.
 
 sequence display-modifiers:
   --format FORMAT, -f FORMAT
@@ -441,7 +444,9 @@ sequence sorting and display:
   --reverse, -r         reverse order while sorting.
   --sort-by-time, -t    sort by modification time, the default comparison time
                         is between the most recently modified (newest) frames
-                        in each sequence. (see --time) (see LS(1))
+                        in each sequence. (see --time) (see LS(1)) (see also
+                        --which-time/--ctime/--atime to compare by ctime or
+                        atime instead of mtime)
   --time FRAME_AGE      which frame in the sequence to use to compare times
                         between sequences when sorting by time. The possible
                         values for 'FRAME_AGE' are 'oldest', 'median' and
@@ -461,7 +466,33 @@ sequence sorting and display:
                         comparison. The optional CC (century) defaults to the
                         current century. The optional '-hh' (hours), 'mm'
                         (minutes) or 'ss' (seconds) default to zero if not
-                        specified.
+                        specified. Uses whichever timestamp is selected via
+                        --which-time/--mtime/--ctime/--atime (mtime by
+                        default).
+
+timestamp selection:
+  Control which underlying file timestamp is used for all time
+  comparisons in lsseq, namely --sort-by-time, --only-show and
+  --global-sort-by-time. Mirrors /bin/ls's use of -c and -u flags.
+  The last one of --which-time/--mtime/--ctime/--atime given on the
+  command line wins, just as with /bin/ls.
+
+  --which-time TIMESTAMP
+                        which timestamp to use for time comparisons. The
+                        choices are 'mtime' [default], 'ctime' or 'atime'.
+                        'mtime' uses the last modification time. 'ctime' uses
+                        the last change of file status information. 'atime'
+                        uses the last access time. (see LS(1)) Equivalent
+                        short forms: --mtime, --ctime/-c and --atime/-u.
+  --mtime               use mtime (last modification time) for time
+                        comparisons. Equivalent to --which-time mtime.
+                        [default]
+  --ctime, -c           use ctime (last change of file status information) for
+                        time comparisons instead of mtime. Equivalent to
+                        --which-time ctime. (see LS(1))
+  --atime, -u           use atime (last access time) for time comparisons
+                        instead of mtime. Equivalent to --which-time atime.
+                        (see LS(1))
 
 symbolic-link handling:
   Control for whether or not to follow symbolic links to
