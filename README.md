@@ -1,8 +1,12 @@
 # About lsseq
 
-`lsseq` is a `Unix/Linux/MacOS` command-line utility
-that lists directory contents like `/bin/ls` with the
-difference that `lsseq` condenses image and cache sequences to one entry each.
+[![PyPI version](https://img.shields.io/pypi/v/lsseq.svg)](https://pypi.org/project/lsseq/)
+
+`lsseq` is a `Unix/Linux/MacOS` command-line utility that lists directory
+contents like `/bin/ls`, except that image and cache sequences are condensed
+into a single compact entry each and listed separately from `lsseq`'s
+regular, `/bin/ls`-style output. Movie files, already single files, are
+included in that same sequence listing.
 
 Filenames that are part of sequences are assumed to be of the form:
 
@@ -23,7 +27,33 @@ list of image sequences as such:
     [list of images sequences]
 ```
 
-#### Example:
+## Table of Contents
+
+- [Installing lsseq](#installing-lsseq)
+  - [Testing installation](#testing-installation)
+- [Deeper dive on lsseq capabilities](#deeper-dive-on-lsseq-capabilities)
+  - [lsseq reports useful information in a nice compact form](#lsseq-reports-useful-information-in-a-nice-compact-form)
+  - [lsseq is a natural partner to /bin/ls](#lsseq-is-a-natural-partner-to-binls)
+  - [Natural extension of lsseq beyond /bin/ls](#natural-extension-of-lsseq-beyond-binls)
+  - [Sorting by modification times](#sorting-by-modification-times)
+  - [Error codes returned by `lsseq`](#error-codes-returned-by-lsseq)
+- [Common options](#common-options)
+- [Addendum - more on installing command-line tools and man pages](#addendum---more-on-installing-command-line-tools-and-man-pages)
+  - [Installing the command-line tools](#installing-the-command-line-tools)
+    - [Helpful hint: Upgraded the system-wide default version of python3?](#helpful-hint-upgraded-the-system-wide-default-version-of-python3)
+  - [Installing the lsseq(1) man page](#installing-the-lsseq1-man-page)
+    - [Customizing the man page install location](#customizing-the-man-page-install-location)
+    - [Troubleshooting: `man lsseq` says "No manual entry"](#troubleshooting-man-lsseq-says-no-manual-entry)
+- [Changelog](#changelog)
+  - [v5.1.0 - timestamp selection (minor, backward compatible)](#v510---timestamp-selection-minor-backward-compatible)
+  - [v5.0.0 - removed `-c` short option from `--combine-lists` (MAJOR, breaking)](#v500---removed--c-short-option-from---combine-lists-major-breaking)
+  - [v4.0.0 - long options renamed to kebab-case (MAJOR, breaking)](#v400---long-options-renamed-to-kebab-case-major-breaking)
+    - [Example `sed.script` usage](#example-sedscript-usage)
+- [Contact](#contact)
+
+Continuing the description of `lsseq`:
+
+**Example:**
 
 ```
     $ ls
@@ -43,7 +73,7 @@ plus a sequence of tif files named
 however it can print sequences in a variety of formats useful for `nuke`,
 `houdini` or `rv` as well as a `glob` pattern for use in the shell.
 
-#### Example:
+**Example:**
 
 ```
     $ ls
@@ -69,10 +99,11 @@ If installing locally, it's probably best to install in a virtual-environment
 or [`venv`](https://docs.python.org/3/library/venv.html). 
 
 There is additional installation-information in an
-[addendum](https://github.com/jrowellfx/lsseq#addendum---more-on-installing-command-line-tools)
-below with a helpful technique for installing `lsseq` system-wide.
+[addendum](https://github.com/jrowellfx/lsseq#addendum---more-on-installing-command-line-tools-and-man-pages)
+below with a helpful technique for installing `lsseq` system-wide, and for
+installing the `lsseq(1)` man page.
 
-#### Testing installation
+### Testing installation
 
 To test `lsseq`, `cd` into a directory containing frames from an image
 sequence then `lsseq` the contents of the directory.
@@ -101,22 +132,13 @@ Furthermore, to ensure that updates to `lsseq` don't
 introduce new bugs, the `lsseq` repo contains extensive regression tests that
 are run and passed before every new release.
 
-### Why use lsseq?
-
-Anyone who generates or works with frames of images for film and video needs `lsseq`.
-If not already using `lsseq`, then all major post-production 
-studios have some kind of version of this essential tool.
-However
-[I](https://github.com/jrowellfx) believe that
-`lsseq` is quintessential.
-
-#### lsseq reports useful information in a nice compact form
+### lsseq reports useful information in a nice compact form
 
 Even if you aren't an avid command-line user, having `lsseq` available to you might 
 make you a convert because it reports VERY useful information about sequences
 that are otherwise hard to discover without using `lsseq`.
 
-#### Example:
+**Example:**
 
 ```
     $ ls
@@ -179,7 +201,7 @@ command-line options:
     ccc_v03.[0995-1035].exr
 ```
 
-#### lsseq is a natural partner to /bin/ls
+### lsseq is a natural partner to /bin/ls
 
 `lsseq` is designed to have the flavor of the Unix/Linux/MacOS `ls`
 command as much as possible. The idea is to make it easier on the user when
@@ -228,10 +250,10 @@ output of command #2 to #3). The difference being that `lsseq` first lists all
 non-sequence images in a directory exactly as `ls` would list them (minus the
 sequences) then lists all the sequences in their condensed form.
 
-#### Natural extension of lsseq beyond /bin/ls
+### Natural extension of lsseq beyond /bin/ls
 
 Some useful options have been added, beyond what `/bin/ls` does, that
-extend `lsseq's` capability.
+extend `lsseq`'s capability.
 
 ```
     4$ lsseq --prepend-path-rel *
@@ -252,7 +274,7 @@ note the two options in commands #4 and #5, namely
 `--prepend-path-rel` and `--prepend-path-abs`. These are both useful when creating
 lists of sequences to pipe into other scripts.
 
-#### Sorting by modification times
+### Sorting by modification times
 
 `/bin/ls` allows us to sort directory contents by modification time as well as
 by filename. `lsseq` also duplicates this functionality but adds options to specify
@@ -278,13 +300,19 @@ description snipped from the output of `lsseq --help`:
                          simply ignored.
 ```
 
-Please explore the rest of `lsseq's` capabilities by typing:
+Please explore the rest of `lsseq`'s capabilities by typing:
 
 ```
     $ lsseq --help
 ```
 
-#### Error codes returned by `lsseq`
+or, once installed (see the addendum below), by reading the manual page:
+
+```
+    $ man lsseq
+```
+
+### Error codes returned by `lsseq`
 
 As copied from the source code,
 the following EXIT codes will be combined bitwise to return
@@ -300,253 +328,38 @@ EXIT_CD_PERMISSION_WARNING    = 16 # warning - recursive descent blocked - no ex
 EXIT_LSSEQ_NOSUCHFILE_WARNING = 32 # A non-existent sequence-file was listed on the command line.
 ```
 
-## `lsseq --help`
-A full listing of all the command-line options follows, as displayed when running `lsseq --help`.
+## Common options
 
-```
-usage: lsseq [-h | --help] [OPTION]... [FILE]...
+`lsseq` has a lot of options — the full, authoritative reference is
+`lsseq --help`, or, once installed (see the addendum below), `man lsseq`.
+Rather than duplicate that entire listing here (and risk it drifting out of
+sync as options are added), here are some of the most commonly used options
+to get you started:
 
-List directory contents like /bin/ls (see LS(1)) except condense
-image sequences to one entry each. Filenames that are part of image
-sequences are assumed to be of the form:
+| Option | What it does |
+| --- | --- |
+| `-o`, `--only-sequences` | Omit regular `/bin/ls` output; list only sequences. |
+| `-f FORMAT`, `--format FORMAT` | Print sequences in an alternate format: `nuke`, `rv`, `houdini`, `shake`, `mplay`, or `glob`. |
+| `-p`, `--prepend-path-abs` | Prepend the absolute path to each sequence — handy when piping sequence lists into other scripts. |
+| `-P`, `--prepend-path-rel` | Same, but with a relative path. |
+| `-R`, `--recursive` | List subdirectories recursively. |
+| `-t`, `--sort-by-time` | Sort by timestamp instead of by name. |
+| `--which-time`, `--ctime`, `--atime` | Choose which file timestamp (`mtime`/`ctime`/`atime`) time-based sorting and filtering compares. |
+| `-G`, `--global-sort-by-time` | Sort sequences by time across *all* directories visited, not just within each one — something `/bin/ls` can't do at all. |
+| `--only-show TENSE DATE` | Only list sequences from before or since a given date. |
+| `-M`, `--skip-missing` / `-Z`, `--skip-zero` | Hide the missing-frame / zero-length-frame annotations. |
+| `-l`, `--loose-num-separator` | Also accept `_` (underscore), not just `.` (dot), as the separator before the frame number. |
+| `-F`, `--classify` | Append `ls`-style type indicators (`*`/`/`/`=`/`>`/`@`/`\|`) to entries. |
+| `--split-sequence` | Treat a sequence with gaps as multiple separate sequences instead of one with missing frames. |
 
-    <descriptiveName>.<frameNum>.<imgExtension>
-
-where <imgExtension> is drawn from a default list of image extensions
-(displayed with option --img-ext) or alternatively from the environment
-variable LSSEQ_IMAGE_EXTENSION which should contain a colon separated
-list of image file extensions.
-
-lsseq first lists all non-image-sequence files followed by the
-list of image sequences as such:
-
-    $ lsseq
-    [output of /bin/ls minus image sequences]
-    [list of images sequences]
-
-positional arguments:
-  FILE                  file names
-
-miscellaneous options:
-  --help, -h            show this help message and exit
-  --version             show program's version number and exit
-  --silent, --quiet     suppress error and warning messages.
-  --                    end of options, all subsequent arguments are
-                        positional arguments.
-
-sequence interpretation:
-  --split-sequence      prints sequences with missing frames as separate
-                        sequences as if there are multiple sequences with the
-                        same name, but with different frame ranges. Note: this
-                        option only affects the printing of a sequence, not in
-                        how sequence times are calculated. In other words,
-                        sorting by time might not produce the results you
-                        would expect when splitting sequences with this
-                        option.
-  --no-split-sequence   consider frames with the same name as all being part
-                        of the same sequence. [default]
-  --strict-num-separator, -s
-                        strictly enforce the use of '.' (dot) as a separator
-                        between the descriptiveName and frameNumber when
-                        looking to interpret filenames as image sequences.
-                        i.e., <descriptiveName>.<frameNum>.<imgExtension>
-                        (also see --loose-num-separator) [default]
-  --loose-num-separator, -l
-                        allow the use of '_' (underscore), in addition to '.'
-                        (dot) as a separator between the descriptiveName and
-                        frameNumber when looking to interpret filenames as
-                        image sequences. i.e.,
-                        <descriptiveName>_<frameNum>.<imgExtension> (also see
-                        --strict-num-separator)
-
-display of error frames:
-  --show-missing, -m    show list of missing frames as 'm:[<list>]' [default]
-  --skip-missing, -M    do not show list of missing frames.
-  --show-zero, -z       show list of zero length images as 'z:[<list>]'
-                        [default]
-  --skip-zero, -Z       do not show list of zero length images.
-  --show-bad-frames, -b
-                        lists potentially bad frames based on the minimum size
-                        of a good frame (see --good-frame-min-size). Reported
-                        as 'b:[<list>]'
-  --skip-bad-frames, -B
-                        do not show list of potentially bad frames. [default]
-  --good-frame-min-size BYTES
-                        any frame size less than BYTES is a bad frame. Short
-                        forms for byte sizes are accepted as in '1K' (i.e.,
-                        1024) or '1.5K' for example. [default: 512]
-  --show-bad-padding    report badly padded frame numbers which occurs when a
-                        number is padded but shouldn't be, or isn't padded but
-                        it should be. Reported as 'p:[<list>]' [default]
-  --skip-bad-padding    do not show list of badly padded frames.
-  --combine-lists       combine the lists of zero, missing and bad frames into
-                        one list. Reported as 'e:[<list>]'
-  --no-combine-lists    don't combine the error lists [default].
-  --no-error-lists, -n  Skip printing ALL error lists. Note: Setting --show-
-                        bad-padding (for example) AFTER this option on the
-                        command line has the effect of ONLY showing the bad-
-                        padding error list
-
-sequence-category filters:
-  --img-ext, -i         print list of image, cache and movie file extensions
-                        and exit.
-  --list-all-files      list all sequences plus regular /bin/ls output.
-                        [default]
-  --only-sequences, -o  omit any regular /bin/ls output, only list sequences.
-  --only-images, -O     strictly list only image sequences (i.e., no movies or
-                        caches).
-  --not-images          omit image files from being considered as sequences;
-                        they are listed individually as regular files instead.
-                        If --only-sequences is also given, image files are
-                        omitted from the listing altogether, since that option
-                        suppresses regular-file output.
-  --only-movies         strictly list only movies (i.e., no images or caches).
-  --not-movies          omit movies from being considered as sequences; they
-                        are listed individually as regular files instead. If
-                        --only-sequences is also given, movie files are
-                        omitted from the listing altogether, since that option
-                        suppresses regular-file output.
-  --only-caches         strictly list only cache sequences (i.e., no images or
-                        movies).
-  --not-caches          omit caches from being considered as sequences; they
-                        are listed individually as regular files instead. If
-                        --only-sequences is also given, cache files are
-                        omitted from the listing altogether, since that option
-                        suppresses regular-file output.
-
-sequence display-modifiers:
-  --format FORMAT, -f FORMAT
-                        list image sequences in various formats. The choices
-                        are 'native' (default), 'nuke', 'rv', 'shake', 'glob',
-                        'mplay', and 'houdini'. Note that glob prints correct
-                        results only if the frame numbers are padded. Further
-                        note that reporting of missing/zero/bad/etc. frames
-                        (e.g. --show-missing) only happens with 'native'
-                        format.
-  --prepend-path-abs, -p
-                        prepend the absolute path name to the image name. This
-                        option implies the option --only-sequences and also
-                        suppresses printing directory name headers when
-                        listing directory contents.
-  --prepend-path-rel, -P
-                        prepend the relative path name to the image name. This
-                        option implies the option --only-sequences and will
-                        also suppress printing directory name headers when
-                        listing directory contents.
-  --extremes, -e        only list the first and last frame of an image or
-                        cache-sequence on a separate line each. This option
-                        implies --prepend-path-abs (unless --prepend-path-rel
-                        is explicitly specified) as well as --only-sequences
-                        and --not-movies.
-
-sequence sorting and display:
-  --recursive, -R       list subdirectories recursively.
-  --reverse, -r         reverse order while sorting.
-  --sort-by-time, -t    sort by modification time, the default comparison time
-                        is between the most recently modified (newest) frames
-                        in each sequence. (see --time) (see LS(1)) (see also
-                        --which-time/--ctime/--atime to compare by ctime or
-                        atime instead of mtime)
-  --time FRAME_AGE      which frame in the sequence to use to compare times
-                        between sequences when sorting by time. The possible
-                        values for 'FRAME_AGE' are 'oldest', 'median' and
-                        'newest'. [default: 'newest']
-  --global-sort-by-time, -G
-                        when using either --prepend-path-abs or --prepend-
-                        path-rel then this option will sort ALL sequences by
-                        time compared to each other, as opposed to only
-                        sorting sequences by time within their common
-                        directory. If the above conditions are NOT met, then
-                        this option is simply ignored.
-  --only-show TENSE [CC]YYMMDD[-hh[mm[ss]]]
-                        where TENSE is either 'before' or 'since'; only list
-                        sequences up to (and including) or after (and
-                        including) the time specified. The --time argument
-                        specifies which frame to use for the cutoff
-                        comparison. The optional CC (century) defaults to the
-                        current century. The optional '-hh' (hours), 'mm'
-                        (minutes) or 'ss' (seconds) default to zero if not
-                        specified. Uses whichever timestamp is selected via
-                        --which-time/--mtime/--ctime/--atime (mtime by
-                        default).
-
-timestamp selection:
-  Control which underlying file timestamp is used for all time
-  comparisons in lsseq, namely --sort-by-time, --only-show and
-  --global-sort-by-time. Mirrors /bin/ls's use of -c and -u flags.
-  The last one of --which-time/--mtime/--ctime/--atime given on the
-  command line wins, just as with /bin/ls.
-
-  --which-time TIMESTAMP
-                        which timestamp to use for time comparisons. The
-                        choices are 'mtime' [default], 'ctime' or 'atime'.
-                        'mtime' uses the last modification time. 'ctime' uses
-                        the last change of file status information. 'atime'
-                        uses the last access time. (see LS(1)) Equivalent
-                        short forms: --mtime, --ctime/-c and --atime/-u.
-  --mtime               use mtime (last modification time) for time
-                        comparisons. Equivalent to --which-time mtime.
-                        [default]
-  --ctime, -c           use ctime (last change of file status information) for
-                        time comparisons instead of mtime. Equivalent to
-                        --which-time ctime. (see LS(1))
-  --atime, -u           use atime (last access time) for time comparisons
-                        instead of mtime. Equivalent to --which-time atime.
-                        (see LS(1))
-
-symbolic-link handling:
-  Control for whether or not to follow symbolic links to
-  the final target of files and/or directories. Regardless,
-  lsseq shall always write the name of the link itself and
-  not the file referenced by the link.
-
-  --dereference-command-line, -H
-                        only follow symbolic links of files and directories
-                        listed on the command line. [default]
-  --dereference, -L     follow all symbolic links to the final target of files
-                        and directories.
-  --no-dereference      do not follow any symbolic links.
-  --dereference-command-line-symlink-to-dir
-                        only follow each command line symbolic link that
-                        points to a directory, (i.e. do not follow links to
-                        files).
-  --dereference-symlink-to-dir
-                        only follow all symbolic links that point to
-                        directories, (i.e. do not follow links to files).
-  --no-dereference-dir  do not follow any symbolic links to directories.
-  --dereference-command-line-symlink-to-file
-                        only follow each command line symbolic link that
-                        points to a regular file, (i.e. do not follow links to
-                        directories).
-  --dereference-symlink-to-file
-                        only follow all symbolic links that point to regular
-                        files, (i.e. do not follow links to directories).
-  --no-dereference-file
-                        do not follow any symbolic links to regular files.
-
-LS(1) control for non-sequences:
-  --single, -1          list one non-sequence entry per line (see LS(1))
-  --all, -a             do not ignore entries starting with '.' while omitting
-                        implied '.' and '..' directories (see LS(1) --almost-
-                        all)
-  --by-columns, -C      list non-sequence entries by columns (see LS(1))
-  --by-rows, -x         list non-sequence entries by lines instead of by
-                        columns (see LS(1))
-  --directory, -d       list directory entries instead of contents, and do not
-                        follow symbolic links (see LS(1))
-  --classify, -F        append indicator (one of */=>@|) to entries, and do
-                        not follow symbolic links to directories. (see LS(1)
-                        for the meanings of the symbols.) Note: the '@' will
-                        also be appended to any sequences made up of symbolic
-                        links.
-```
-
-## Addendum - more on installing command-line tools
+## Addendum - more on installing command-line tools and man pages
 
 Here's the process that I've followed to install `lsseq`, as well as my other
 python-based command-line
 tools (i.e., [`renumseq`](https://github.com/jrowellfx/renumSeq), [`expandseq`](https://github.com/jrowellfx/expandseq), [`condenseseq`](https://github.com/jrowellfx/expandseq) and [`fixSeqPadding`](https://github.com/jrowellfx/fixSeqPadding))
 so that they are accessible to all users. This works on both MacOS and Linux.
+
+### Installing the command-line tools
 
 ```
     $ su -
@@ -584,7 +397,7 @@ Note that updates are easy now too. Say there's an update to lsseq that you want
 
 Just kidding about the version number, maybe in the year 2159? Will Unix still be a thing!?
 
-### Helpful hint: Upgraded the system-wide default version of python3?
+#### Helpful hint: Upgraded the system-wide default version of python3?
 
 Say you had installed `lsseq` as described above, while the default `python3` was linked to `python3.6`.
 Then suppose the system default `python3` was then linked to a higher version of python
@@ -601,19 +414,105 @@ This is an easy problem to fix. Delete (or move to a backup location)
 the entire directory `/usr/local/venv` and redo the steps above
 to install lsseq, renumseq, expandseq etc. from scratch.
 
-# Important: latest MAJOR point release of `lsseq`.
+### Installing the lsseq(1) man page
+
+`pip` has no mechanism for installing man pages, so `lsseq`'s man page
+(`man/lsseq.1` in this repo) is installed separately, via a small `Makefile`
+provided at the root of the repo. This is a one-time step independent of
+however you installed the `lsseq` command itself (via `pip`, the venv setup
+above, or otherwise) — it just needs to be run once per machine, and again
+whenever the man page itself is updated.
+
+```
+    $ git clone https://github.com/jrowellfx/lsseq.git
+    $ cd lsseq
+    $ sudo make install
+    $ man lsseq
+```
+
+`sudo` (or being root, as in the venv setup above) is only needed because the
+default install location, `/usr/local/share/man/man1`, is a system directory.
+That location is on the default `MANPATH` on both MacOS and most Linux
+distributions, so no further configuration is normally required.
+
+To remove it again:
+
+```
+    $ sudo make uninstall
+```
+
+#### Customizing the man page install location
+
+A few variables can be overridden on the `make` command line for less
+typical setups:
+
+```
+    # Install under a different prefix, e.g. if you keep tools in /usr:
+    $ sudo make install PREFIX=/usr
+
+    # Install to a user-writable location, no sudo required, provided
+    # that location's man directory is already on your MANPATH:
+    $ make install PREFIX=$HOME/.local
+
+    # Install a gzip-compressed man page instead (some distros prefer this;
+    # `man` reads either form transparently):
+    $ sudo make install-compressed
+
+    # Stage the install into a temporary root, e.g. when building a
+    # package, keeping PREFIX as the eventual install location:
+    $ make install DESTDIR=/tmp/pkgroot PREFIX=/usr/local
+```
+
+Run `make` with no target for a summary of these options.
+
+#### Troubleshooting: `man lsseq` says "No manual entry"
+
+This almost always means the install location isn't on your `MANPATH`, or
+your system's man-page cache is stale. Try:
+
+```
+    $ manpath
+```
+
+to see the directories `man` actually searches, and confirm the install
+location (`/usr/local/share/man/man1` by default) is among them. On Linux,
+refreshing the cache with `sudo mandb` after installing usually resolves it;
+MacOS does not require this step.
+
+## Changelog
 
 `lsseq` and all the utilities provided by jrowellfx github repos
 use "[`Semantic Versioning 2.0.0`](https://semver.org/)" in numbering releases.
-The latest release of `lsseq` upped the `MAJOR` release number
-from `v3.x.x` to `v4.x.x`.
+This section documents notable and breaking changes, most recent first.
 
-While the functionality and output of `lsseq` has not changed, all the so called
-"long options" have been renamed to adhere to `POSIX` standard naming
+### v5.1.0 - timestamp selection (minor, backward compatible)
+
+Added `--which-time`, `--mtime`, `--ctime`, and `--atime` options, controlling
+which underlying file timestamp is used for `--sort-by-time`,
+`--global-sort-by-time`, and `--only-show` — mirroring `/bin/ls`'s own `-c`
+and `-u` flags. By default `lsseq` continues to use `mtime`, exactly as
+before, so this change is fully backward compatible.
+
+The `-c` short option, freed up in `v5.0.0` below, is reintroduced here as
+shorthand for `--ctime`; `-u` is added as shorthand for `--atime`.
+
+### v5.0.0 - removed `-c` short option from `--combine-lists` (MAJOR, breaking)
+
+The `-c` short form of `--combine-lists` was removed; the long form
+`--combine-lists` itself is unaffected and unchanged. This was a
+deliberately breaking change, made specifically to free up `-c` for reuse —
+see `v5.1.0` above.
+
+If you have scripts using `lsseq -c`, replace it with `lsseq --combine-lists`.
+
+### v4.0.0 - long options renamed to kebab-case (MAJOR, breaking)
+
+While the functionality and output of `lsseq` did not change, all the
+so-called "long options" were renamed to adhere to `POSIX` standard naming
 conventions.
 
 That is, prior to `v4.0.0` of `lsseq` all the long-option names used a "camel case"
-naming convention but as of `v4.0.0` all long-option names have been
+naming convention but as of `v4.0.0` all long-option names were
 changed to so-called "kebab case".
 
 For example:
@@ -622,19 +521,19 @@ For example:
 --globalSortByTime
 ```
 
-has been changed to
+was changed to
 
 ```
 --global-sort-by-time
 ```
 
-In the event that you have written any scripts that make use of `lsseq` or
-any other of `jrowellfx`'s utils provided [here](https://github.com/jrowellfx) 
-you will need to edit your scripts to be able to update to the lastest versions
-of the utilities.
+If you have written any scripts that make use of `lsseq` or
+any other of `jrowellfx`'s utils provided [here](https://github.com/jrowellfx),
+and haven't updated them since, you will need to edit your scripts to be
+able to update to current versions of the utilities.
 
-In this case, in order to assist in switching to the
-current `MAJOR` point release some `sed` scripts have been provided that should make
+To assist in switching to the
+`v4.0.0` naming, some `sed` scripts were provided that should make
 the transition quite painless. Especially if you make use
 of [`runsed`](https://github.com/jrowellfx/vfxTdUtils) which if you haven't used it before,
 now is the time, it's extremely helpful.
@@ -644,10 +543,10 @@ the directory [`updateLongOpts`](https://github.com/jrowellfx/lsseq/tree/master/
 `sed.script.jrowellfx.doubleDashToKebab` and `sed.script.lsseq.v3tov4`.
 
 The first one can be used to fix the long-option names for ALL the 
-`MAJOR` point release updates to the long-options in any of `jrowellfx`'s utilities.
+`v4.0.0`-era updates to the long-options in any of `jrowellfx`'s utilities.
 The second one contains only changes needed for the updates to `lsseq`.
 
-## Example `sed.script` usage.
+#### Example `sed.script` usage
 
 Download one or both of the sed scripts named above. Make sure you have `runsed` installed
 on your system.
