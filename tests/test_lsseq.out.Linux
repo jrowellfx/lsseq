@@ -206,14 +206,13 @@ LS(1) control for non-sequences:
 
 ----- Test 4 -+- dir: . -+- lsseq -lRFC --quiet testdir -----
 testdir:
-20592_chevrolet_cruze_reveal/  fdir/  mkAnimFrames.v01.shk         pdir/
-adir/                          gdir/  mkAnimFrames.v02.shk         qdir/
-bdir/                          hdir/  mkBlackFrames_HD_10.v01.shk  rdir/
-blackFrames/                   idir/  mkBlackFrames_HD_2.v01.shk   symdirA/
-cdir/                          jdir/  mkTestFrames.v01.nk          symdirB/
-ddir/                          kdir/  mkTestFrames.v02.nk          www..exr
-e01_sh0001_globalFX/           ldir/  mk_hdir_Frames.v01.nk
-edir/                          mdir/  ndir/
+20592_chevrolet_cruze_reveal/  edir/  ldir/                        mkTestFrames.v02.nk    symdirA/
+adir/                          fdir/  mdir/                        mk_hdir_Frames.v01.nk  symdirB/
+bdir/                          gdir/  mkAnimFrames.v01.shk         ndir/                  www..exr
+blackFrames/                   hdir/  mkAnimFrames.v02.shk         pdir/
+cdir/                          idir/  mkBlackFrames_HD_10.v01.shk  qdir/
+ddir/                          jdir/  mkBlackFrames_HD_2.v01.shk   rdir/
+e01_sh0001_globalFX/           kdir/  mkTestFrames.v01.nk          sdir/
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -526,6 +525,11 @@ rrr01.mov
 rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
+
+testdir/sdir:
+sssA.[099-101].jpg z:[99-101]
+sssB.[099-101].jpg z:[99-101]
+sssC.[099-101].jpg z:[99-101]
 
 testdir/symdirA:
 aaa/  bbb/  ccc@  foo.00.txt  foobar.00.txt@
@@ -877,6 +881,12 @@ ppp_v03.[098-102].exr@ z:[98-102]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.015.ass
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
+/...absPathToRepo.../tests/testdir/sdir/sssA.099.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssA.101.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssB.099.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssB.101.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssC.099.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssC.101.jpg
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.001.exr
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.013.exr
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.001.ass
@@ -1171,6 +1181,12 @@ ppp_v03.[098-102].exr@ z:[98-102]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.015.ass
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
+/...absPathToRepo.../tests/testdir/sdir/sssA.099.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssA.101.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssB.099.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssB.101.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssC.099.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssC.101.jpg
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.001.exr
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.013.exr
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.001.ass
@@ -1457,6 +1473,12 @@ testdir/rdir/rSub02/rrr02.001.ass
 testdir/rdir/rSub02/rrr02.015.ass
 testdir/rdir/rSub02/rrr03.100.fur
 testdir/rdir/rSub02/rrr03.115.fur
+testdir/sdir/sssA.099.jpg
+testdir/sdir/sssA.101.jpg
+testdir/sdir/sssB.099.jpg
+testdir/sdir/sssB.101.jpg
+testdir/sdir/sssC.099.jpg
+testdir/sdir/sssC.101.jpg
 testdir/symdirA/aaa/aaa.001.exr
 testdir/symdirA/aaa/aaa.013.exr
 testdir/symdirA/aaa/aaa_aaa/aaa_aaa.001.ass
@@ -1513,14 +1535,13 @@ testdir/symdirB/p_dir/p_v03/ppp_v03.102.exr
 
 ----- Test 8 -+- dir: . -+- lsseq -lRFC testdir -----
 testdir:
-20592_chevrolet_cruze_reveal/  fdir/  mkAnimFrames.v01.shk         pdir/
-adir/                          gdir/  mkAnimFrames.v02.shk         qdir/
-bdir/                          hdir/  mkBlackFrames_HD_10.v01.shk  rdir/
-blackFrames/                   idir/  mkBlackFrames_HD_2.v01.shk   symdirA/
-cdir/                          jdir/  mkTestFrames.v01.nk          symdirB/
-ddir/                          kdir/  mkTestFrames.v02.nk          www..exr
-e01_sh0001_globalFX/           ldir/  mk_hdir_Frames.v01.nk
-edir/                          mdir/  ndir/
+20592_chevrolet_cruze_reveal/  edir/  ldir/                        mkTestFrames.v02.nk    symdirA/
+adir/                          fdir/  mdir/                        mk_hdir_Frames.v01.nk  symdirB/
+bdir/                          gdir/  mkAnimFrames.v01.shk         ndir/                  www..exr
+blackFrames/                   hdir/  mkAnimFrames.v02.shk         pdir/
+cdir/                          idir/  mkBlackFrames_HD_10.v01.shk  qdir/
+ddir/                          jdir/  mkBlackFrames_HD_2.v01.shk   rdir/
+e01_sh0001_globalFX/           kdir/  mkTestFrames.v01.nk          sdir/
 testDirFile.[001-012].exr m:[3]
 testDirFile.mov
 testDirFile.wmv
@@ -1844,6 +1865,11 @@ rrr01.mov
 rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
+
+testdir/sdir:
+sssA.[099-101].jpg z:[99-101]
+sssB.[099-101].jpg z:[99-101]
+sssC.[099-101].jpg z:[99-101]
 
 testdir/symdirA:
 aaa/  bbb/  ccc@  foo.00.txt  foobar.00.txt@
@@ -2206,6 +2232,12 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.015.ass
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
+/...absPathToRepo.../tests/testdir/sdir/sssA.099.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssA.101.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssB.099.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssB.101.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssC.099.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssC.101.jpg
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.001.exr
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.013.exr
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.001.ass
@@ -2511,6 +2543,12 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.015.ass
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.100.fur
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.115.fur
+/...absPathToRepo.../tests/testdir/sdir/sssA.099.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssA.101.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssB.099.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssB.101.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssC.099.jpg
+/...absPathToRepo.../tests/testdir/sdir/sssC.101.jpg
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.001.exr
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.013.exr
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_aaa.001.ass
@@ -2808,6 +2846,12 @@ testdir/rdir/rSub02/rrr02.001.ass
 testdir/rdir/rSub02/rrr02.015.ass
 testdir/rdir/rSub02/rrr03.100.fur
 testdir/rdir/rSub02/rrr03.115.fur
+testdir/sdir/sssA.099.jpg
+testdir/sdir/sssA.101.jpg
+testdir/sdir/sssB.099.jpg
+testdir/sdir/sssB.101.jpg
+testdir/sdir/sssC.099.jpg
+testdir/sdir/sssC.101.jpg
 testdir/symdirA/aaa/aaa.001.exr
 testdir/symdirA/aaa/aaa.013.exr
 testdir/symdirA/aaa/aaa_aaa/aaa_aaa.001.ass
@@ -2899,6 +2943,7 @@ ndir
 pdir
 qdir
 rdir
+sdir
 symdirA
 symdirB
 www..exr
@@ -3160,6 +3205,11 @@ rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
 
+sdir:
+sssA.[099-101].jpg z:[99-101]
+sssB.[099-101].jpg z:[99-101]
+sssC.[099-101].jpg z:[99-101]
+
 symdirA:
 aaa
 bbb
@@ -3409,6 +3459,11 @@ rrr01.mov
 rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
+
+sdir:
+sssA.[099-101].jpg z:[99-101]
+sssB.[099-101].jpg z:[99-101]
+sssC.[099-101].jpg z:[99-101]
 
 symdirA:
 aaa
@@ -4133,6 +4188,7 @@ ndir
 pdir
 qdir
 rdir
+sdir
 symdirA
 symdirB
 www..exr
@@ -4710,6 +4766,11 @@ rrr01.mov
 rrr02.[001-015].ass z:[1-15]
 rrr02.mov
 rrr03.[100-115].fur z:[100-115]
+
+/...absPathToRepo.../tests/testdir/sdir:
+sssA.[099-101].jpg z:[99-101]
+sssB.[099-101].jpg z:[99-101]
+sssC.[099-101].jpg z:[99-101]
 
 /...absPathToRepo.../tests/testdir/symdirA:
 aaa
@@ -6870,6 +6931,9 @@ rdir/rSub02/rrr01.mov
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr02.mov
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
+sdir/sssA.[099-101].jpg z:[99-101]
+sdir/sssB.[099-101].jpg z:[99-101]
+sdir/sssC.[099-101].jpg z:[99-101]
 symdirA/ddd.mov
 symdirA/ddd.sym.mov
 symdirA/aaa/aaa.[001-013].exr m:[12]
@@ -6976,6 +7040,9 @@ symdirA/bbb/bbb_bbb/bbb_bbb.[001-010].exr
 symdirA/bbb/bbb_aaa/bbb_aaa.[001-010].exr
 symdirA/aaa/aaa_aaa/aaa_sym.[001-010].ass
 symdirA/aaa/aaa.sym.mov
+sdir/sssA.[099-101].jpg z:[99-101]
+sdir/sssB.[099-101].jpg z:[99-101]
+sdir/sssC.[099-101].jpg z:[99-101]
 yyy.mov
 yyy.[0123].tif
 xxx.mov
@@ -7292,6 +7359,9 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr02.mov
 /...absPathToRepo.../tests/testdir/rdir/rSub02/rrr03.[100-115].fur z:[100-115]
+/...absPathToRepo.../tests/testdir/sdir/sssA.[099-101].jpg z:[99-101]
+/...absPathToRepo.../tests/testdir/sdir/sssB.[099-101].jpg z:[99-101]
+/...absPathToRepo.../tests/testdir/sdir/sssC.[099-101].jpg z:[99-101]
 /...absPathToRepo.../tests/testdir/symdirA/ddd.mov
 /...absPathToRepo.../tests/testdir/symdirA/ddd.sym.mov
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.[001-013].exr m:[12]
@@ -7398,6 +7468,9 @@ lsseq: warning: /...absPathToRepo.../tests/testdir/jdir/j03/j04.005.jpg is a bro
 /...absPathToRepo.../tests/testdir/symdirA/bbb/bbb_aaa/bbb_aaa.[001-010].exr
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa_aaa/aaa_sym.[001-010].ass
 /...absPathToRepo.../tests/testdir/symdirA/aaa/aaa.sym.mov
+/...absPathToRepo.../tests/testdir/sdir/sssA.[099-101].jpg z:[99-101]
+/...absPathToRepo.../tests/testdir/sdir/sssB.[099-101].jpg z:[99-101]
+/...absPathToRepo.../tests/testdir/sdir/sssC.[099-101].jpg z:[99-101]
 /...absPathToRepo.../tests/testdir/yyy.mov
 /...absPathToRepo.../tests/testdir/yyy.[0123].tif
 /...absPathToRepo.../tests/testdir/xxx.mov
@@ -7584,6 +7657,9 @@ xxx.[000-016].exr m:[1-15x2]
 xxx.mov
 yyy.[0123].tif
 yyy.mov
+sdir/sssC.[099-101].jpg z:[99-101]
+sdir/sssB.[099-101].jpg z:[99-101]
+sdir/sssA.[099-101].jpg z:[99-101]
 symdirA/aaa/aaa.sym.mov
 symdirA/aaa/aaa_aaa/aaa_sym.[001-010].ass
 symdirA/bbb/bbb_aaa/bbb_aaa.[001-010].exr
@@ -7883,6 +7959,9 @@ rdir/rSub02/rrr01.mov
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr02.mov
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
+sdir/sssA.[099-101].jpg z:[99-101]
+sdir/sssB.[099-101].jpg z:[99-101]
+sdir/sssC.[099-101].jpg z:[99-101]
 --+-- Test 162: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 163 -+- dir: testdir -+- lsseq --quiet --recursive --prepend-path-rel --split-sequence ?dir -----
@@ -8026,6 +8105,9 @@ rdir/rSub02/rrr01.mov
 rdir/rSub02/rrr02.[001-015].ass z:[1-15]
 rdir/rSub02/rrr02.mov
 rdir/rSub02/rrr03.[100-115].fur z:[100-115]
+sdir/sssA.[099-101].jpg z:[99-101]
+sdir/sssB.[099-101].jpg z:[99-101]
+sdir/sssC.[099-101].jpg z:[99-101]
 --+-- Test 163: lsseq returned non-zero error code: 12  --+--
 
 ----- Test 164 -+- dir: testdir/cdir -+- lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse -----
@@ -9658,3 +9740,68 @@ sys
 tmp
 usr
 var
+
+----- Test 240 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse -----
+sssC.[099-101].jpg
+sssB.[099-101].jpg
+sssA.[099-101].jpg
+
+----- Test 241 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --time oldest -----
+sssA.[099-101].jpg
+sssB.[099-101].jpg
+sssC.[099-101].jpg
+
+----- Test 242 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --time median -----
+sssB.[099-101].jpg
+sssA.[099-101].jpg
+sssC.[099-101].jpg
+
+----- Test 243 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --time newest -----
+sssC.[099-101].jpg
+sssB.[099-101].jpg
+sssA.[099-101].jpg
+
+----- Test 244 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --mtime --time oldest -----
+sssA.[099-101].jpg
+sssB.[099-101].jpg
+sssC.[099-101].jpg
+
+----- Test 245 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --mtime --time median -----
+sssB.[099-101].jpg
+sssA.[099-101].jpg
+sssC.[099-101].jpg
+
+----- Test 246 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --mtime --time newest -----
+sssC.[099-101].jpg
+sssB.[099-101].jpg
+sssA.[099-101].jpg
+
+----- Test 247 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --atime --time oldest -----
+sssC.[099-101].jpg
+sssB.[099-101].jpg
+sssA.[099-101].jpg
+
+----- Test 248 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --atime --time median -----
+sssA.[099-101].jpg
+sssB.[099-101].jpg
+sssC.[099-101].jpg
+
+----- Test 249 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --atime --time newest -----
+sssB.[099-101].jpg
+sssA.[099-101].jpg
+sssC.[099-101].jpg
+
+----- Test 250 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --ctime --time oldest -----
+sssB.[099-101].jpg
+sssA.[099-101].jpg
+sssC.[099-101].jpg
+
+----- Test 251 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --ctime --time median -----
+sssC.[099-101].jpg
+sssB.[099-101].jpg
+sssA.[099-101].jpg
+
+----- Test 252 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --ctime --time newest -----
+sssA.[099-101].jpg
+sssB.[099-101].jpg
+sssC.[099-101].jpg
