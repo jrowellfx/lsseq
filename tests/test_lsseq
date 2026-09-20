@@ -362,25 +362,37 @@ fi
 # Note: use single quotes (') around args with spaces in the name
 #
 cat << EOFa > $tmpTestCmdFileA
-# Basic sanity checks: confirm the test harness itself is wired up
-# correctly and lsseq's own top-level options work before testing any
-# actual sequence-handling logic.
-. uname
-. lsseq --version
-. lsseq --help
-# testdir also contains two directories with no dedicated tests of their
-# own -- they're only ever exercised incidentally, by being swept up in
-# whole-testdir recursive listings like the ones below:
+. uname               # Record platform this test is run on.
+. lsseq --version     # Make sure the version number is correctly set
+. lsseq --help        # Record --help to track changes across versions.
+#
+# The top level testdir contains some sequences and non-image test files
+# of its own.
+# 
+# testdir also contains some directories with no dedicated tests of their
+# own (unlike the ?dir directories) -- they're only ever exercised
+# incidentally, by being swept up in whole-testdir recursive listings.
+#
+# A quick description of three oddball subdirectories in testdir follows:
+#
+#   blackFrames - A directory made in 2012 to help test minimal valid
+#     frameSizes, or --bad-frames, way back in lsseq.v1/v2 days.
+#     Those features never got fully fleshed out, or were ditched
+#     as being too complex and not particulary helpful in later releases.
+#     However the test subdirectory and its contents stuck around since 2012.
+#
 #   20592_chevrolet_cruze_reveal - a real production directory structure
 #     from an actual job, added long ago to catch and regression-test a
 #     specific bug (the exact issue isn't recorded here -- check git log
 #     on this fixture if you ever need the details)
+#
 #   e01_sh0001_globalFX - nested directories containing no sequences at
 #     all -- effectively empty apart from hidden .nothing placeholder
 #     files (needed so git tracks otherwise-empty directories). Added
 #     long ago to catch and regression-test a specific bug involving
 #     directories with no real content; the exact bug isn't recorded
 #     here either -- check git log/blame on this fixture if you need it
+#
 . lsseq -lRFC --quiet testdir
 . lsseq -lReC --silent testdir
 . lsseq -lReoC --silent testdir
@@ -393,11 +405,13 @@ testdir lsseq -p
 testdir lsseq
 testdir lsseq *
 testdir lsseq -l *
+#
 # cdir is the general-purpose testbed: single-letter-repeated filenames
 # (aaaa..zzzz) for sort-order checks alongside real sequences, mixed
 # .exr/.tga extensions and padding, non-image 'shake' files, and a
 # subdirectory (c_subDir) for recursion. Drives most of the --format,
 # --sort-by-time, --only-show and --split-sequence testing below.
+#
 testdir/cdir lsseq
 testdir/cdir lsseq .
 testdir/cdir lsseq *
@@ -429,28 +443,36 @@ testdir/cdir lsseq -1RbC
 testdir/cdir lsseq -Rbx
 testdir/cdir lsseq -1CRbx
 testdir/cdir lsseq -R -P -p -P -f rv -f glob -f native -C -b
+#
 # idir: v001 is a clean, evenly-padded sequence; v002 has inconsistent
 # padding across frames (see the 'p:' warnings) and a broken symlink
 # standing in for a missing/deleted frame.
+#
 testdir/idir lsseq
 testdir/idir lsseq -R
 testdir/idir lsseq -P -F *
 testdir/idir lsseq -p *
+#
 # hdir: identical hhh01/02/03 sequences duplicated across foo/v001-v003
 # and v001-v003, built to exercise recursive --sort-by-time and
 # --only-show date cutoffs at scale.
+#
 testdir/hdir lsseq -t -r -P foo/*/* v001/* v002/* v003/*
 testdir/hdir lsseq --only-show before 20150701-1821 -t -r -P foo/*/* v001/* v002/* v003/*
 testdir/hdir lsseq --only-show before   150701-1821 --time oldest -t -r -P foo/*/* v001/* v002/* v003/*
+#
 # jdir: the everything-at-once stress test -- missing, zero-length, AND
 # badly-padded frames in the same sequences (j04 adds negative frame
 # numbers into that same mix), plus a permission-denied subdirectory
 # and a broken symlink.
+#
 testdir/jdir lsseq --show-bad-padding --skip-missing --skip-zero --skip-bad-frames -R
 testdir/jdir/beauty/v001 lsseq --show-bad-padding --skip-missing --skip-zero --skip-bad-frames -R
+#
 # ndir: nnn_v01-v05 -- five overlapping but distinct timestamp windows,
 # purpose-built so --time oldest/median/newest each pick a different
 # sequence as the winner.
+#
 testdir/ndir ls $LS_FULL_TIME -o
 testdir/ndir lsseq
 testdir/ndir lsseq --only-show before 20100615-12 --time oldest
@@ -472,8 +494,10 @@ testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-
 testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median pdir cdir ndir
 testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest pdir cdir ndir
 testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest pdir cdir ndir
+#
 # pdir: seven parallel 'median' sequences nested several directories
 # deep, for testing --global-sort-by-time across a real directory tree.
+#
 testdir/pdir ls -R $LS_FULL_TIME -o -t -r
 testdir/pdir lsseq --no-error-lists --recursive -t -r --time median
 testdir/pdir lsseq --global-sort-by-time --no-error-lists --recursive -t -r --time median
@@ -487,8 +511,10 @@ testdir/pdir ls -R $LS_FULL_TIME -t -o
 testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median pdir
 testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest pdir
 testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time newest pdir
+#
 # qdir: the same oldest/median/newest idea as ndir, but as three sibling
 # directories (q1Dir/q2Dir/q3Dir) instead of five sequences in one dir.
+#
 testdir/qdir ls -R $LS_FULL_TIME -t -o
 testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time median qdir
 testdir lsseq --global-sort-by-time --no-error-lists --recursive --prepend-path-rel -t --time oldest qdir
@@ -524,9 +550,11 @@ testdir/idir/v002 lsseq --silent iii03.* foobar
 testdir/idir/v002 lsseq --silent iii*.* foobar
 testdir/pdir lsseq --recursive --prepend-path-rel
 testdir/pdir lsseq --recursive --prepend-path-rel *
+#
 # rdir: every --only-*/--not-* image/movie/cache combination, plus every
 # --format variant. rSub01/rSub02 duplicate the same fixtures one level
 # deeper to also exercise --recursive.
+#
 testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive
 testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive --only-images
 testdir/rdir lsseq --prepend-path-rel --no-error-lists --recursive --only-movies
@@ -563,9 +591,12 @@ testdir/jdir/j00 lsseq --recursive --silent
 testdir/jdir/j00 chmod 755 badperm
 testdir/jdir/j00 lsseq -R
 testdir/jdir rm -rf j00
+#
 # bdir: spaces embedded in both directory names and filenames -- confirms
 # lsseq (and this harness's own arg-handling) copes with them correctly.
+#
 testdir/bdir lsseq --no-error-lists b_subdir 'b_subdir withSpace' 
+#
 # Sweep the remaining single-purpose fixtures together via the '?dir'
 # glob, mainly to exercise --split-sequence across all of them at once:
 #   adir - leading-dash/minus-sign filenames (could be misread as flags)
@@ -582,6 +613,7 @@ testdir/bdir lsseq --no-error-lists b_subdir 'b_subdir withSpace'
 #          intended as one sequence, seeing it split in two is the tell
 #          that alerts them to their own naming mistake
 #   mdir - newer image formats: avif, heic, heif
+#
 testdir lsseq --quiet --recursive --prepend-path-rel ?dir
 testdir lsseq --quiet --recursive --prepend-path-rel --split-sequence ?dir
 testdir/cdir lsseq --prepend-path-rel --no-error-lists --only-sequences --sort-by-time --time median --reverse
@@ -618,6 +650,7 @@ testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-movies
 testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-images --global-sort-by-time -r
 testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-caches --global-sort-by-time -r
 testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-movies --global-sort-by-time -r
+#
 # Start testing new v4.3.0 features to handle sym-linked files as does /bin/ls
 #
 # symdirA: a single real tree (aaa/bbb) plus one-hop symlinks to it
@@ -630,6 +663,7 @@ testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-movies --glob
 # included to confirm that --dereference-symlink-to-file follows
 # symlinks to files but does NOT follow symlinks to directories
 # (see the final test in this block).
+#
 testdir/symdirA ls    -C *
 testdir/symdirA lsseq -C *
 testdir/symdirA ls    -C -R
