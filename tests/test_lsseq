@@ -559,6 +559,7 @@ testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-movies
 testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-images --global-sort-by-time -r
 testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-caches --global-sort-by-time -r
 testdir/rdir lsseq -C --no-error-lists -R --prepend-path-rel --not-movies --global-sort-by-time -r
+# Start testing new v4.3.0 features to handle sym-linked files as does /bin/ls
 testdir/symdirA ls    -C *
 testdir/symdirA lsseq -C *
 testdir/symdirA ls    -C -R
@@ -606,6 +607,9 @@ testdir/gdir lsseq --only-caches
 testdir/cdir lsseq /
 EOFb
 
+# Count the number of tests by stripping out all comments,
+# then ONLY count the number of NON-space-filled lines.
+#
 export NUM_TESTS_A=`sed -e 's/#.*//' $tmpTestCmdFileA | grep -c '[^[:space:]]'`
 export NUM_TESTS_B=`sed -e 's/#.*//' $tmpTestCmdFileB | grep -c '[^[:space:]]'`
 export NUM_TESTS=$(( NUM_TESTS_A + NUM_TESTS_B ))
@@ -625,11 +629,13 @@ while true; do
 
     set -f # Turn off globbing
     declare -a cmdLine=(`cat $tmpLine`)
-    set +f # Turn globbing back on
     if [ ${#cmdLine[@]} -eq 0 ]; then
         # Blank line, or a line that was ENTIRELY a comment: skip it,
         # but don't count it as a test or advance the displayed test
-        # number -- just move on to the next physical line.
+        # number -- just move on to the next physical line. Note:
+        # deliberately NOT calling 'set +f' here -- globbing must stay
+        # off going into the next iteration's cmdLine assignment anyway,
+        # exactly as it is at the top of every iteration.
         lineNum=$((lineNum + 1))
         continue;
     fi
@@ -710,11 +716,13 @@ while true; do
 
     set -f # Turn off globbing
     declare -a cmdLine=(`cat $tmpLine`)
-    set +f # Turn globbing back on
     if [ ${#cmdLine[@]} -eq 0 ]; then
         # Blank line, or a line that was ENTIRELY a comment: skip it,
         # but don't count it as a test or advance the displayed test
-        # number -- just move on to the next physical line.
+        # number -- just move on to the next physical line. Note:
+        # deliberately NOT calling 'set +f' here -- globbing must stay
+        # off going into the next iteration's cmdLine assignment anyway,
+        # exactly as it is at the top of every iteration.
         j=$((j + 1))
         continue;
     fi
