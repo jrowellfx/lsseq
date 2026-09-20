@@ -41,6 +41,7 @@
 tmpArgs=/tmp/tmpARGS_LSSEQ.$$
 tmpTestCmdFileA=/tmp/tmpTESTCMDFILEA_LSSEQ.$$
 tmpTestCmdFileB=/tmp/tmpTESTCMDFILEB_LSSEQ.$$
+tmpTestCmdFileC=/tmp/tmpTESTCMDFILEC_LSSEQ.$$
 tmpFile=/tmp/tmpFILE_LSSEQ.$$
 tmpTouchFile=/tmp/tmpTOUCHFILE_LSSEQ.$$
 tmpLine=/tmp/tmpLINE_LSSEQ.$$
@@ -49,6 +50,7 @@ cleanupExit() {
     /bin/rm $tmpArgs > /dev/null 2>&1
     /bin/rm $tmpTestCmdFileA > /dev/null 2>&1
     /bin/rm $tmpTestCmdFileB > /dev/null 2>&1
+    /bin/rm $tmpTestCmdFileC > /dev/null 2>&1
     /bin/rm $tmpFile > /dev/null 2>&1
     /bin/rm $tmpTouchFile > /dev/null 2>&1
     /bin/rm $tmpLine > /dev/null 2>&1
@@ -93,7 +95,7 @@ TIMESTAMP_TEST_DIR=no
 RECORD_TIMESTAMPS=no
 
 #
-# Parse options.  Stop when you get to the file list.
+# Parse options.
 #
 shopt -s extglob
 while :
@@ -279,6 +281,77 @@ cd $TEST_DIR/testdir/symdirB
 source custom.touch.files
 cd $TEST_DIR
 
+# testdir/sdir is a small, purpose-built fixture for testing
+# --which-time/--mtime/--ctime/--atime (added in v5.1.0). Unlike the
+# custom.touch.* fixtures above, these files' ctime can't be recorded
+# once and checked into git -- ctime is always just "whenever this
+# script last touched the file" -- so the whole fixture, files
+# included, is built completely fresh, from scratch, every single
+# time this script runs.
+#
+# baseTime is HAL 9000's activation date and time, as reported in
+# 2001: A Space Odyssey ("I became operational at the H.A.L. plant in
+# Urbana, Illinois, on the 12th of January, 1992").
+#
+baseTime=199201121330
+if [ `uname` = Darwin ]; then
+    baseEpoch=$(date -j -f "%Y%m%d%H%M" "$baseTime" +%s)
+else
+    baseEpoch=$(date -d "${baseTime:0:4}-${baseTime:4:2}-${baseTime:6:2} ${baseTime:8:2}:${baseTime:10:2}:00" +%s)
+fi
+# touchOffset FLAG FILE OFFSET -- touch FILE's mtime (-m) or atime (-a)
+# to baseTime + OFFSET seconds. Also creates FILE if it doesn't
+# already exist, exactly like a plain 'touch' would.
+#
+touchOffset() {
+    local flag=$1
+    local file=$2
+    local offset=$3
+    local epochDate=$((baseEpoch + offset))
+    local touchDate
+    if [ `uname` = Darwin ]; then
+        touchDate=$(date -r $epochDate '+%Y%m%d%H%M.%S')
+    else
+        touchDate=$(date --date="@$epochDate" '+%Y%m%d%H%M.%S')
+    fi
+    touch $flag -t $touchDate $file
+}
+cd $TEST_DIR/testdir/sdir
+# 1) mtime for each file, per the offsets worked out on paper.
+#
+touchOffset -m sssA.099.jpg  0
+touchOffset -m sssA.100.jpg 11
+touchOffset -m sssA.101.jpg 22
+touchOffset -m sssB.099.jpg  1
+touchOffset -m sssB.100.jpg 10
+touchOffset -m sssB.101.jpg 21
+touchOffset -m sssC.099.jpg  2
+touchOffset -m sssC.100.jpg 12
+touchOffset -m sssC.101.jpg 20
+# 2) atime for each file, applied in this specific order with real
+#    'sleep 1' calls between each -- since ctime can't be set
+#    directly by any tool, this relative EXECUTION order is what
+#    determines ctime order, as a side effect of touch's own
+#    metadata-change timestamp.
+#
+touchOffset -a sssB.099.jpg 101
+sleep 1
+touchOffset -a sssA.099.jpg 102
+sleep 1
+touchOffset -a sssC.099.jpg 100
+sleep 1
+touchOffset -a sssC.100.jpg 112
+sleep 1
+touchOffset -a sssB.100.jpg 111
+sleep 1
+touchOffset -a sssA.100.jpg 110
+sleep 1
+touchOffset -a sssA.101.jpg 121
+sleep 1
+touchOffset -a sssB.101.jpg 120
+sleep 1
+touchOffset -a sssC.101.jpg 122
+cd $TEST_DIR
 # Plus create some other 'bad' files to test edge cases.
 
 if [ `uname` = Darwin ]; then
@@ -711,12 +784,41 @@ testdir/gdir lsseq --only-caches
 testdir/cdir lsseq /
 EOFb
 
+# testdir/sdir: nine files (sssA/B/C x frames 099/100/101), timestamped
+# fresh on every run (see the setup code above, right after the other
+# custom-timestamp fixtures). Deliberately built so that mtime, atime,
+# and ctime each impose a genuinely DIFFERENT oldest/median/newest
+# ordering across sssA/sssB/sssC -- so if --which-time/--atime/--ctime
+# ever silently fell back to sorting by mtime, the wrong order would
+# be immediately, visibly obvious rather than easy to miss:
+#
+#           oldest   median   newest
+#   mtime:  A,B,C    B,A,C    C,B,A
+#   atime:  C,B,A    A,B,C    B,A,C
+#   ctime:  B,A,C    C,B,A    A,B,C
+#
+cat << EOFc > $tmpTestCmdFileC
+testdir/sdir lsseq -t
+testdir/sdir lsseq -t --time oldest
+testdir/sdir lsseq -t --time median
+testdir/sdir lsseq -t --time newest
+testdir/sdir lsseq -t --mtime --time oldest
+testdir/sdir lsseq -t --mtime --time median
+testdir/sdir lsseq -t --mtime --time newest
+testdir/sdir lsseq -t --atime --time oldest
+testdir/sdir lsseq -t --atime --time median
+testdir/sdir lsseq -t --atime --time newest
+testdir/sdir lsseq -t --ctime --time oldest
+testdir/sdir lsseq -t --ctime --time median
+testdir/sdir lsseq -t --ctime --time newest
+EOFc
 # Count the number of tests by stripping out all comments,
 # then ONLY count the number of NON-space-filled lines.
 #
 export NUM_TESTS_A=`sed -e 's/#.*//' $tmpTestCmdFileA | grep -c '[^[:space:]]'`
 export NUM_TESTS_B=`sed -e 's/#.*//' $tmpTestCmdFileB | grep -c '[^[:space:]]'`
-export NUM_TESTS=$(( NUM_TESTS_A + NUM_TESTS_B ))
+export NUM_TESTS_C=`sed -e 's/#.*//' $tmpTestCmdFileC | grep -c '[^[:space:]]'`
+export NUM_TESTS=$(( NUM_TESTS_A + NUM_TESTS_B + NUM_TESTS_C ))
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME
 
@@ -882,6 +984,85 @@ while true; do
     fi
     i=$((i + 1))
     j=$((j + 1))
+done
+# 
+# Allow lsseq to go back to default behavior in terms of image/cache/mov extensions.
+#
+unset LSSEQ_IMAGE_EXTENSION
+unset LSSEQ_MOV_EXTENSION
+unset LSSEQ_CACHE_EXTENSION
+
+# Continue tests once more, on the testdir/sdir mtime/atime/ctime
+# fixture. Same logic as the prior two while-loops -- yes, this is a
+# third near-identical copy of the loop body; if this pattern grows a
+# fourth time it's probably worth factoring the loop body out into a
+# function that takes the temp-file/counter-variable as arguments.
+#
+NUM_LINES_C=`wc -l < $tmpTestCmdFileC`
+
+k=1
+while true; do
+    if [ $k -gt $NUM_LINES_C ]; then
+        break;
+    fi
+    sed -n -e "$k p" $tmpTestCmdFileC | sed -e 's/#.*//' > $tmpLine
+    set -f # Turn off globbing
+    declare -a cmdLine=(`cat $tmpLine`)
+    if [ ${#cmdLine[@]} -eq 0 ]; then
+        # Blank line, or a line that was ENTIRELY a comment: skip it,
+        # but don't count it as a test or advance the displayed test
+        # number -- just move on to the next physical line. Note:
+        # deliberately NOT calling 'set +f' here -- globbing must stay
+        # off going into the next iteration's cmdLine assignment anyway,
+        # exactly as it is at the top of every iteration.
+        k=$((k + 1))
+        continue;
+    fi
+    workingDir=${cmdLine[0]}
+    cmd=${cmdLine[1]}
+    displayArgs=(${cmdLine[@]:2})
+    set +f # Turn globbing back on
+    cd $TEST_DIR/$workingDir
+    # Strip out the first two words from $tmpLine to get the test args.
+    #
+    # \s  Matches a space character.  This is equivalent to `[[:space:]]'.
+    # \S  Matches a non-space character.  This is equivalent to `[^[:space:]]'.
+    #
+    # sed -E 's/^\S*\s*\S*\s*//' < $tmpLine > $tmpArgs # -E for extended regular expressions
+    #
+    sed -E 's/^[^[:space:]]+[[:space:]]+[^[:space:]]+[[:space:]]*//' < $tmpLine > $tmpArgs # -E for extended regular expressions
+    declare -a testArgs="($(< "$tmpArgs"))"
+    echo "" >> $TEST_DIR/$TEST_OUT_FILENAME
+    echo --- Test $i of $NUM_TESTS ---
+    set -f
+    echo ----- Test $i -+- dir: $workingDir -+- $cmd ${displayArgs[@]} ----- >> $TEST_DIR/$TEST_OUT_FILENAME
+    set +f
+    # Rewrite $tmpArgs with one arg per line.
+    #
+    cat /dev/null > $tmpArgs
+    NUM_ELEMENTS=${#testArgs[@]}
+    for (( elemIndex=0;elemIndex<$NUM_ELEMENTS;elemIndex++ )); do
+        printf '%s\n' "${testArgs[${elemIndex}]}" >> $tmpArgs
+    done
+    # On Linux, use 'mapfile' to allow us to pass args with spaces in the names
+    # to the test $cmd being run. Otherwise, on MacOS with only bash v3.x
+    # (and no 'mapfile' command) use older technique.
+    #
+    if [ `uname` = Darwin ]; then
+        MAPFILE=()
+        while IFS= read -r line; do
+            MAPFILE+=("$line")
+        done < "$tmpArgs"
+    else
+        mapfile -t < "$tmpArgs"
+    fi
+    $cmd "${MAPFILE[@]}" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+    retVal=$?
+    if [ $retVal -ne 0 ]; then
+        echo "--+-- Test $i: $cmd returned non-zero error code: $retVal  --+--" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
+    fi
+    i=$((i + 1))
+    k=$((k + 1))
 done
 
 sed -e "1,$ s-$TEST_DIR-/...absPathToRepo.../tests-g" < $TEST_DIR/$TEST_OUT_FILENAME | \
