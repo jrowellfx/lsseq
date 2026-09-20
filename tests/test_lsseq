@@ -606,20 +606,32 @@ testdir/gdir lsseq --only-caches
 testdir/cdir lsseq /
 EOFb
 
-export NUM_TESTS_A=`wc -l < $tmpTestCmdFileA`
-export NUM_TESTS_B=`wc -l < $tmpTestCmdFileB`
+export NUM_TESTS_A=`sed -e 's/#.*//' $tmpTestCmdFileA | grep -c '[^[:space:]]'`
+export NUM_TESTS_B=`sed -e 's/#.*//' $tmpTestCmdFileB | grep -c '[^[:space:]]'`
 export NUM_TESTS=$(( NUM_TESTS_A + NUM_TESTS_B ))
 
 echo ------ Begin Tests ------ > $TEST_DIR/$TEST_OUT_FILENAME
 
+NUM_LINES_A=`wc -l < $tmpTestCmdFileA`
+
 i=1
+lineNum=1
 while true; do
-    sed -n -e "$i p" $tmpTestCmdFileA | sed -e 's/#.*//' > $tmpLine
+    if [ $lineNum -gt $NUM_LINES_A ]; then
+        break;
+    fi
+
+    sed -n -e "$lineNum p" $tmpTestCmdFileA | sed -e 's/#.*//' > $tmpLine
 
     set -f # Turn off globbing
     declare -a cmdLine=(`cat $tmpLine`)
+    set +f # Turn globbing back on
     if [ ${#cmdLine[@]} -eq 0 ]; then
-        break;
+        # Blank line, or a line that was ENTIRELY a comment: skip it,
+        # but don't count it as a test or advance the displayed test
+        # number -- just move on to the next physical line.
+        lineNum=$((lineNum + 1))
+        continue;
     fi
 
     # Note: Does not properly handle case when "workingDir" has spaces in the name.
@@ -676,6 +688,7 @@ while true; do
         echo "--+-- Test $i: $cmd returned non-zero error code: $retVal  --+--" >> $TEST_DIR/$TEST_OUT_FILENAME 2>&1
     fi
     i=$((i + 1))
+    lineNum=$((lineNum + 1))
 done
 
 export LSSEQ_IMAGE_EXTENSION=jpg:exr
@@ -685,14 +698,25 @@ export LSSEQ_CACHE_EXTENSION=ass:fur
 # Continue tests, but with altered env-vars above.
 # Same logic as prior while-loop.
 #
+NUM_LINES_B=`wc -l < $tmpTestCmdFileB`
+
 j=1
 while true; do
+    if [ $j -gt $NUM_LINES_B ]; then
+        break;
+    fi
+
     sed -n -e "$j p" $tmpTestCmdFileB | sed -e 's/#.*//' > $tmpLine
 
     set -f # Turn off globbing
     declare -a cmdLine=(`cat $tmpLine`)
+    set +f # Turn globbing back on
     if [ ${#cmdLine[@]} -eq 0 ]; then
-        break;
+        # Blank line, or a line that was ENTIRELY a comment: skip it,
+        # but don't count it as a test or advance the displayed test
+        # number -- just move on to the next physical line.
+        j=$((j + 1))
+        continue;
     fi
 
     workingDir=${cmdLine[0]}
