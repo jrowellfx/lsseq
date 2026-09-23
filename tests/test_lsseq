@@ -413,32 +413,55 @@ touchOffset -m sssC.101.jpg 20
 #    determines ctime order, as a side effect of touch's own
 #    metadata-change timestamp.
 #
+#    NOTE: touch -a alone reliably bumps ctime on Linux, but not
+#          on macOS/APFS — chmod is used here specifically because
+#          POSIX guarantees it updates ctime on every platform,
+#          regardless of that difference
+#
 echo -n .
 touchOffset -a sssB.099.jpg 101
+chmod 600 sssB.099.jpg
+chmod 644 sssB.099.jpg
 sleep 1
 echo -n .
 touchOffset -a sssA.099.jpg 102
+chmod 600 sssA.099.jpg
+chmod 644 sssA.099.jpg
 sleep 1
 echo -n .
 touchOffset -a sssC.099.jpg 100
+chmod 600 sssC.099.jpg
+chmod 644 sssC.099.jpg
 sleep 1
 echo -n .
 touchOffset -a sssC.100.jpg 112
+chmod 600 sssC.099.jpg
+chmod 644 sssC.099.jpg
 sleep 1
 echo -n .
 touchOffset -a sssB.100.jpg 111
+chmod 600 sssB.100.jpg
+chmod 644 sssB.100.jpg
 sleep 1
 echo -n .
 touchOffset -a sssA.100.jpg 110
+chmod 600 sssA.100.jpg
+chmod 644 sssA.100.jpg
 sleep 1
 echo -n .
 touchOffset -a sssA.101.jpg 121
+chmod 600 sssA.101.jpg
+chmod 644 sssA.101.jpg
 sleep 1
 echo -n .
 touchOffset -a sssB.101.jpg 120
+chmod 600 sssB.101.jpg
+chmod 644 sssB.101.jpg
 sleep 1
 echo -n .
 touchOffset -a sssC.101.jpg 122
+chmod 600 sssC.101.jpg
+chmod 644 sssC.101.jpg
 echo
 cd $TEST_DIR
 
