@@ -832,7 +832,6 @@ testdir/gdir lsseq --only-images
 testdir/gdir lsseq --only-movies
 testdir/gdir lsseq --only-caches
 . echo -e \\\\nThere is no way to test lsseq output to stdio if isatty is \\\\nTrue so PLEASE manually run lsseq -R once on testdir to check \\\\nif column-output is correct for the /bin/ls output.
-testdir/cdir lsseq /
 EOFb
 
 # testdir/sdir: nine files (sssA/B/C x frames 099/100/101), timestamped
@@ -1035,6 +1034,22 @@ while true; do
     i=$((i + 1))
     j=$((j + 1))
 done
+
+# Regression test for the "lsseq /" crash (root's trailing-slash strip
+# didn't check for a one-character path -- fixed 2026-04-30, commit
+# 4f83710). The actual directory listing of "/" obviously differs on
+# every machine, so this can't be part of the diffed golden-master
+# output the way a normal test is -- it's a pure sanity check instead:
+# does lsseq exit cleanly when given the filesystem root as an
+# argument? Nothing gets written here on success, so the golden
+# master stays identical across every machine; if this bug ever
+# regresses, a FAILED line will show up as a real, meaningful diff.
+#
+lsseq / > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    echo "--+-- 'lsseq /' sanity check: FAILED (non-zero exit) --+--" >> $TEST_DIR/$TEST_OUT_FILENAME
+fi
+
 # 
 # Allow lsseq to go back to default behavior in terms of image/cache/mov extensions.
 #

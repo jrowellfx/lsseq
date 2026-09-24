@@ -9718,90 +9718,67 @@ There is no way to test lsseq output to stdio if isatty is
 True so PLEASE manually run lsseq -R once on testdir to check
 if column-output is correct for the /bin/ls output.
 
------ Test 239 -+- dir: testdir/cdir -+- lsseq / -----
-bin
-boot
-dev
-eno
-etc
-home
-lib
-lib64
-media
-mnt
-opt
-proc
-root
-run
-sbin
-snap
-srv
-sys
-tmp
-usr
-var
-
------ Test 240 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse -----
+----- Test 239 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse -----
 sssC.[099-101].jpg
 sssB.[099-101].jpg
 sssA.[099-101].jpg
 
------ Test 241 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --time oldest -----
+----- Test 240 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --time oldest -----
 sssA.[099-101].jpg
 sssB.[099-101].jpg
 sssC.[099-101].jpg
 
------ Test 242 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --time median -----
+----- Test 241 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --time median -----
 sssB.[099-101].jpg
 sssA.[099-101].jpg
 sssC.[099-101].jpg
 
------ Test 243 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --time newest -----
+----- Test 242 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --time newest -----
 sssC.[099-101].jpg
 sssB.[099-101].jpg
 sssA.[099-101].jpg
 
------ Test 244 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --mtime --time oldest -----
+----- Test 243 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --mtime --time oldest -----
 sssA.[099-101].jpg
 sssB.[099-101].jpg
 sssC.[099-101].jpg
 
------ Test 245 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --mtime --time median -----
+----- Test 244 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --mtime --time median -----
 sssB.[099-101].jpg
 sssA.[099-101].jpg
 sssC.[099-101].jpg
 
------ Test 246 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --mtime --time newest -----
+----- Test 245 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --mtime --time newest -----
 sssC.[099-101].jpg
 sssB.[099-101].jpg
 sssA.[099-101].jpg
 
------ Test 247 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --atime --time oldest -----
+----- Test 246 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --atime --time oldest -----
 sssC.[099-101].jpg
 sssB.[099-101].jpg
 sssA.[099-101].jpg
 
------ Test 248 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --atime --time median -----
+----- Test 247 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --atime --time median -----
 sssA.[099-101].jpg
 sssB.[099-101].jpg
 sssC.[099-101].jpg
 
------ Test 249 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --atime --time newest -----
+----- Test 248 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --atime --time newest -----
 sssB.[099-101].jpg
 sssA.[099-101].jpg
 sssC.[099-101].jpg
 
------ Test 250 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --ctime --time oldest -----
+----- Test 249 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --ctime --time oldest -----
 sssB.[099-101].jpg
 sssA.[099-101].jpg
 sssC.[099-101].jpg
 
------ Test 251 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --ctime --time median -----
+----- Test 250 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --ctime --time median -----
 sssC.[099-101].jpg
 sssB.[099-101].jpg
 sssA.[099-101].jpg
 
------ Test 252 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --ctime --time newest -----
+----- Test 251 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --ctime --time newest -----
 sssA.[099-101].jpg
 sssB.[099-101].jpg
 sssC.[099-101].jpg
