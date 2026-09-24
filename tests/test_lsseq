@@ -419,49 +419,49 @@ touchOffset -m sssC.101.jpg 20
 #          regardless of that difference
 #
 echo -n .
-touchOffset -a sssB.099.jpg 101
 chmod 600 sssB.099.jpg
 chmod 644 sssB.099.jpg
+touchOffset -a sssB.099.jpg 101
 sleep 1
 echo -n .
-touchOffset -a sssA.099.jpg 102
 chmod 600 sssA.099.jpg
 chmod 644 sssA.099.jpg
+touchOffset -a sssA.099.jpg 102
 sleep 1
 echo -n .
+chmod 600 sssC.099.jpg
+chmod 644 sssC.099.jpg
 touchOffset -a sssC.099.jpg 100
-chmod 600 sssC.099.jpg
-chmod 644 sssC.099.jpg
 sleep 1
 echo -n .
+chmod 600 sssC.099.jpg
+chmod 644 sssC.099.jpg
 touchOffset -a sssC.100.jpg 112
-chmod 600 sssC.099.jpg
-chmod 644 sssC.099.jpg
 sleep 1
 echo -n .
-touchOffset -a sssB.100.jpg 111
 chmod 600 sssB.100.jpg
 chmod 644 sssB.100.jpg
+touchOffset -a sssB.100.jpg 111
 sleep 1
 echo -n .
-touchOffset -a sssA.100.jpg 110
 chmod 600 sssA.100.jpg
 chmod 644 sssA.100.jpg
+touchOffset -a sssA.100.jpg 110
 sleep 1
 echo -n .
-touchOffset -a sssA.101.jpg 121
 chmod 600 sssA.101.jpg
 chmod 644 sssA.101.jpg
+touchOffset -a sssA.101.jpg 121
 sleep 1
 echo -n .
-touchOffset -a sssB.101.jpg 120
 chmod 600 sssB.101.jpg
 chmod 644 sssB.101.jpg
+touchOffset -a sssB.101.jpg 120
 sleep 1
 echo -n .
-touchOffset -a sssC.101.jpg 122
 chmod 600 sssC.101.jpg
 chmod 644 sssC.101.jpg
+touchOffset -a sssC.101.jpg 122
 echo
 cd $TEST_DIR
 
