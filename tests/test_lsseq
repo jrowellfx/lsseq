@@ -434,8 +434,8 @@ chmod 644 sssC.099.jpg
 touchOffset -a sssC.099.jpg 100
 sleep 1
 echo -n .
-chmod 600 sssC.099.jpg
-chmod 644 sssC.099.jpg
+chmod 600 sssC.100.jpg
+chmod 644 sssC.100.jpg
 touchOffset -a sssC.100.jpg 112
 sleep 1
 echo -n .

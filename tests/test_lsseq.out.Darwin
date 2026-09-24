@@ -9926,9 +9926,9 @@ sssA.[099-101].jpg
 sssC.[099-101].jpg
 
 ----- Test 250 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --ctime --time oldest -----
-sssC.[099-101].jpg
 sssB.[099-101].jpg
 sssA.[099-101].jpg
+sssC.[099-101].jpg
 
 ----- Test 251 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --ctime --time median -----
 sssC.[099-101].jpg
@@ -9936,6 +9936,6 @@ sssB.[099-101].jpg
 sssA.[099-101].jpg
 
 ----- Test 252 -+- dir: testdir/sdir -+- lsseq --skip-zero --sort-by-time --reverse --ctime --time newest -----
-sssC.[099-101].jpg
-sssB.[099-101].jpg
 sssA.[099-101].jpg
+sssB.[099-101].jpg
+sssC.[099-101].jpg
